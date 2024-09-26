@@ -21,11 +21,3 @@ signupLoginLink.forEach(link => {
     });
 });
 
-
-const loginBtn = document.querySelector('.login-btn');
-const headerSection = document.querySelector('.header-section');
-
-// Toggle fixed position on header when the login button is clicked
-loginBtn.addEventListener('click', () => {
-    headerSection.classList.toggle('fixed-header');
-});

@@ -93,6 +93,12 @@ body {
     background-size: cover;
 }
 
+.create-post .form-details {
+    padding: 0 20px;
+    background: url("images/Create_post.jpg");
+    background-position: center;
+    background-size: cover;
+}
 .form-box .form-content {
     width: 100%;
     padding: 35px;
@@ -105,13 +111,15 @@ body {
 
 form .input-field {
     position: relative;
-    height: 50px;
     width: 100%;
-    margin-top: 20px;
+    display: flex;
+    flex-direction: column; /* This makes sure that each label and input are stacked vertically */
 }
 
-.input-field input {
-    height: 100%;
+.input-field input, 
+.input-field select, 
+.input-field input[type="file"] {
+    height: 40px; /* You can adjust the height as needed */
     width: 100%;
     background: none;
     outline: none;
@@ -121,29 +129,30 @@ form .input-field {
     border-radius: 3px;
 }
 
-.input-field input:focus {
+.input-field input:focus, 
+.input-field select:focus, 
+.input-field input[type="file"]:focus {
     border: 1px solid #6f2b95;
 }
 
 .input-field label {
-    position: absolute;
-    top: 50%;
-    left: 15px;
-    transform: translateY(-50%);
-    color: #6f2b95 ;
+    position: relative;
+    margin-bottom: 5px;
+    color: #6f2b95;
+    font-size: 0.85rem; /* Slightly smaller font for label */
     pointer-events: none;
     transition: 0.2s ease;
 }
 
-.input-field input:is(:focus, :valid) {
-    padding: 16px 15px 0;
+
+.input-field input[type="file"] {
+    padding: 5px; /* Add padding for file input */
 }
 
-.input-field input:is(:focus, :valid)~label {
-    transform: translateY(-120%);
-    color: #6f2b95;
-    font-size: 0.75rem;
+input[type="checkbox"] {
+    margin-right: 10px;
 }
+
 
 .form-box a {
     color: #6f2b95;
@@ -244,3 +253,27 @@ form button:hover {
     box-shadow: 0 0 5px rgba(115, 11, 159, 0.5); /* Add shadow on focus */
 }
 
+button.create-btn{
+    background-color: #6f2b95;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s
+}
+.form-popup .hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.form-popup .visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+    transition: opacity 0.3s ease;
+}

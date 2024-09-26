@@ -353,12 +353,14 @@
 </c:if>
 
                 <div class="input-field">
+                                        <label>Email</label>
+
                     <input type="text" required name="email">
-                    <label>Email</label>
                 </div>
                 <div class="input-field">
+                                        <label>Password</label>
+
                     <input type="password" required name="password">
-                    <label>Password</label>
                 </div>
                 <a href="#" class="forgot-pass-link">Forgot password?</a>
                 <button type="submit">Log In</button>
@@ -378,28 +380,34 @@
             <h2>SIGNUP</h2>
             <form action="SignUpController" method="post">
                  <div class="input-field">
-                    <input type="text" required name="name">
-                    <label>Enter your name</label>
+                                         <label>Enter your name</label>
+
+                    <input type="text" required name="Name">
                 </div>
                 <div class="input-field">
-                    <input type="text" required name="email">
-                    <label>Enter your email</label>
+                                        <label>Enter your email</label>
+
+                    <input type="text" required name="Email">
                 </div>
                  <div class="input-field">
-                    <input type="number" required name="phone">
-                    <label>Phone number</label>
+                                         <label>Phone number</label>
+
+                    <input type="number" required name="Phone">
                 </div>
                  <div class="input-field">
-    <input type="date" required name="dob">
-    <label>Date of birth</label>
+                         <label>Date of birth</label>
+
+    <input type="date" required name="Dob">
 </div>
                  <div class="input-field">
-                    <input type="text" required name="address">
-                    <label>Address</label>
+                                         <label>Address</label>
+
+                    <input type="text" required name="Address">
                 </div>
                 <div class="input-field">
-                    <input type="password" required name="password">
-                    <label>Create password</label>
+                                        <label>Password</label>
+
+                    <input type="password" required name="Password">
                 </div>
                 <div class="policy-text">
                     <input type="checkbox" id="policy">

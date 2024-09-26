@@ -8,6 +8,10 @@
         <servlet-name>SignUpController</servlet-name>
         <servlet-class>Controller.SignUpController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddGameController</servlet-name>
+        <servlet-class>Controller.AddGameController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>SignUpController</servlet-name>
         <url-pattern>/SignUpController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddGameController</servlet-name>
+        <url-pattern>/AddGameController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

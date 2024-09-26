@@ -29,6 +29,7 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
     <link rel="stylesheet" href="Login/style.css">
+
     <script src="Login/script.js" defer></script>
 
     <!--[if lt IE 9]>
@@ -75,7 +76,9 @@
                             <div class="account-dropdown">
                                 <ul>
                                     
-                                    <li><a href="#">Account Info</a></li>
+                                    <li><a href="user-profile.jsp">Account Info</a></li>
+                                    
+
                                 </ul>
                             </div>
                         </div>
@@ -179,6 +182,11 @@
                         <li><a href="#">Shooters</a></li>
                         <li><a href="#">Strategy</a></li>
                         <li><a href="#">Online</a></li>
+                      <div class="user-panel">
+						<button class="create-btn">Add Game Post</button>
+					</div>
+
+
                     </ul>
                     <!-- Blog item -->
                     <div class="blog-item">
@@ -378,48 +386,54 @@
     <!-- Login Popup -->
     <div class="blur-bg-overlay"></div>
     <div class="form-popup">
-        <span class="close-btn material-symbols-rounded">close</span>
-        <div class="form-box login">
+    <span class="close-btn material-symbols-rounded" style="top:50px">close</span>
+     <div class="form-box create-post">
             <div class="form-details">
-                <h2>Welcome Back</h2>
-                <p>Please log in using your personal information to stay connected with us.</p>
+                <h2>Create Post Game</h2>
+                <p>To develop our community, upload news about game that you know</p>
             </div>
             <div class="form-content">
-                <h2>LOGIN</h2>
-                <form action="#">
+                <h2 style="margin-bottom: 6px">Create post</h2>
+                <form action="AddGameController" method="post" enctype="multipart/form-data">
                     <div class="input-field">
-                        <input type="text" required>
-                        <label>Email</label>
+                                            <label>Title</label>
+                        <input type="text" required name="Title">
+                    </div>
+                        <div class="input-field">
+                                                        <label>Game Play</label>
+                            <input type="text" required name="Gameplay">
+                        </div>
+                     <div class="input-field">
+                                                 <label>Description</label>
+
+                        <input type="text" required name="Description">
+                    </div>
+                     <div class="input-field">
+                                                 <label>Date Release</label>
+
+                        <input type="date" required name="DateRelease">
                     </div>
                     <div class="input-field">
-                        <input type="password" required>
-                        <label>Password</label>
+            <label for="exampleFormControlSelect1">Status</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="Status" required="required">
+              <option>Pre-Release</option>
+              <option>Released</option>
+            </select>
+          </div>
+                      <div class="input-field">
+                                                  <label>Author</label>
+
+                        <input type="text" required name="Author">
                     </div>
-                    <a href="#" class="forgot-pass-link">Forgot password?</a>
-                    <button type="submit">Log In</button>
-                </form>
-                <div class="bottom-link">
-                    Don't have an account?
-                    <a href="#" id="signup-link">Signup</a>
-                </div>
-            </div>
-        </div>
-        <div class="form-box signup">
-            <div class="form-details">
-                <h2>Create Account</h2>
-                <p>To become a part of our community, please sign up using your personal information.</p>
-            </div>
-            <div class="form-content">
-                <h2>SIGNUP</h2>
-                <form action="#">
-                    <div class="input-field">
-                        <input type="text" required>
-                        <label>Enter your email</label>
+                      <div class="input-field">
+                                                  <label>Genre</label>
+
+                        <input type="text" required name="Genre">
                     </div>
                     <div class="input-field">
-                        <input type="password" required>
-                        <label>Create password</label>
-                    </div>
+            <label class="mr-2">Picture Of Game:</label>
+            <input type="file" name="file">
+          </div>
                     <div class="policy-text">
                         <input type="checkbox" id="policy">
                         <label for="policy">
@@ -427,12 +441,9 @@
                             <a href="#" class="option">Terms & Conditions</a>
                         </label>
                     </div>
-                    <button type="submit">Sign Up</button>
+                    <button type="submit">Send</button>
                 </form>
-                <div class="bottom-link">
-                    Already have an account?
-                    <a href="#" id="login-link">Login</a>
-                </div>
+            
             </div>
         </div>
     </div>
@@ -446,6 +457,28 @@
     <script src="js/jquery.sticky-sidebar.min.js"></script>
     <script src="js/jquery.magnific-popup.min.js"></script>
     <script src="js/main.js"></script>
+    <script>
+        
+const formPopup = document.querySelector(".form-popup");
+const hidePopupBtn = formPopup.querySelector(".close-btn");
+const showAddPostBtn = document.querySelector(".create-btn"); // Select the "Create Post" button
+
+// Show "Create Post" form
+showAddPostBtn.addEventListener("click", () => {
+    document.body.classList.toggle("show-popup");
+    // Optionally, show the 'create_post' form section
+    formPopup.classList.add("show-create-post"); // Add a specific class to show the create post form
+});
+// Hide login popup
+hidePopupBtn.addEventListener("click", () => {
+    document.body.classList.remove("show-popup");
+});
+
+
+
+
+
+    </script>
 
 </body>
 

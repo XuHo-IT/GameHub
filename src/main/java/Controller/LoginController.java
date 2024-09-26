@@ -46,6 +46,7 @@ public class LoginController extends HttpServlet {
     Document user = collection.find(query).first();
 
     if (user != null && user.getString("Password").equals(password)) {
+        request.getSession().setAttribute("adminId", user.getObjectId("_id").toString());
         response.sendRedirect("admin-after-login.jsp");
     } else {
         request.setAttribute("errorMessage", "Invalid email or password");

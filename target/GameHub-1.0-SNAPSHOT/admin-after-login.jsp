@@ -6,7 +6,7 @@
 <html lang="zxx">
 
     <head>
-        <title>EndGam - Gaming Magazine Template</title>
+        <title>EndGame - Gaming Magazine Template</title>
         <meta charset="UTF-8">
         <meta name="description" content="EndGam Gaming Magazine Template">
         <meta name="keywords" content="endGam,gGaming, magazine, html">
@@ -364,7 +364,7 @@
                     <a href="#"><i class="fa fa-twitter"></i></a>
                     <a href="#"><i class="fa fa-dribbble"></i></a>
                     <a href="#"><i class="fa fa-behance"></i></a>
-                </div>
+                            </div>
                 <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
             </div>
         </footer>

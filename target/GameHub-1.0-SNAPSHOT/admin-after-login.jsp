@@ -66,7 +66,7 @@
                 </div>
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
-                    <a href="home.html" class="site-logo">
+                    <a href="admin-after-login.jsp" class="site-logo">
                         <img src="./img/logo.png" alt="">
                     </a>
                     <nav class="top-nav-area w-100">
@@ -92,12 +92,12 @@
 
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
-                            <li><a href="index.jsp">Home</a></li>
+                            <li><a href="admin-after-login.jsp">Home</a></li>
                             <li><a href="games.jsp">Games</a></li>
                             <li>
                                 <a class="li-fix" href="blog.jsp">News</a>
                                 <ul class="sub-menu">
-                                    <li><a href="game-single.jsp">Top rating</a></li>
+                                    <li><a href="top-ratin-all.jsp">Top rating</a></li>
                                     <li><a href="top-wishlist.jsp">Top wishlist</a></li>
                                 </ul>
                             </li>
@@ -348,15 +348,15 @@
                 <div class="footer-right-pic">
                     <img src="img/footer-right-pic.png" alt="">
                 </div>
-                <a href="#" class="footer-logo">
+                <a href="admin-after-login.jsp" class="footer-logo">
                     <img src="./img/logo.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
-                    <li><a href="">Home</a></li>
-                    <li><a href="">Games</a></li>
-                    <li><a href="">Reviews</a></li>
-                    <li><a href="">News</a></li>
-                    <li><a href="">Contact</a></li>
+                    <li><a href="admin-after-login.jsp">Home</a></li>
+                    <li><a href="games.jsp">Games</a></li>
+                    <li><a href="forum.jsp">Forum</a></li>
+                    <li><a href="blog.jsp">News</a></li>
+                    <li><a href="contact.jsp">Contact</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
                     <a href="#"><i class="fa fa-pinterest"></i></a>

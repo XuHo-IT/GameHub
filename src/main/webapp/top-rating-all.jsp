@@ -73,7 +73,7 @@
 							<a class="li-fix" href="blog.jsp">News</a>
 						
 							<ul class="sub-menu">
-								<li><a href="review.jsp">Top rating</a></li>
+								<li><a href="top-rating-all.jsp">Top rating</a></li>
 								<li><a href="top-wishlist.jsp">Top wishlist</a></li>
 							</ul>
 						</li>
@@ -92,7 +92,7 @@
 		<div class="page-info">
 			<h2>Reviews</h2>
 			<div class="site-breadcrumb">
-				<a href="">Home</a>  /
+				<a href="index.js">Home</a>  /
 				<span>Reviews</span>
 			</div>
 		</div>
@@ -263,15 +263,15 @@
 			<div class="footer-right-pic">
 				<img src="img/footer-right-pic.png" alt="">
 			</div>
-			<a href="#" class="footer-logo">
-				<img src="./img/logo.png" alt="">
-			</a>
-			<ul class="main-menu footer-menu">
-				<li><a href="">Home</a></li>
-				<li><a href="">Games</a></li>
-				<li><a href="">Reviews</a></li>
-				<li><a href="">News</a></li>
-				<li><a href="">Contact</a></li>
+			<a href="index.jsp" class="footer-logo">
+                                <img src="./img/logo.png" alt="">
+                        </a>
+                        <ul class="main-menu footer-menu">
+                                <li><a href="index.jsp">Home</a></li>
+                                <li><a href="games.jsp">Games</a></li>
+                                <li><a href="forum.jsp">Forum</a></li>
+                                <li><a href="blog.jsp">News</a></li>
+                                <li><a href="contact.jsp">Contact</a></li>
 			</ul>
 			<div class="footer-social d-flex justify-content-center">
 				<a href="#"><i class="fa fa-pinterest"></i></a>

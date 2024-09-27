@@ -65,7 +65,7 @@
                 </div>
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
-                    <a href="home.html" class="site-logo">
+                    <a href="index.jsp" class="site-logo">
                         <img src="./img/logo.png" alt="">
                     </a>
                     <nav class="top-nav-area w-100">
@@ -81,7 +81,7 @@
                                 <a class="li-fix" href="blog.jsp">News</a>
 
                                 <ul class="sub-menu">
-                                    <li><a href="review.jsp">Top rating</a></li>
+                                    <li><a href="top-rating-all.jsp">Top rating</a></li>
                                     <li><a href="top-wishlist.jsp">Top wishlist</a></li>
                                 </ul>
                             </li>
@@ -346,15 +346,15 @@
                 <div class="footer-right-pic">
                     <img src="img/spider-removebg-preview.png" alt="">
                 </div>
-                <a href="#" class="footer-logo">
+                <a href="index.jsp" class="footer-logo">
                     <img src="./img/logo.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
-                    <li><a href="">Home</a></li>
-                    <li><a href="">Games</a></li>
-                    <li><a href="">Reviews</a></li>
-                    <li><a href="">News</a></li>
-                    <li><a href="">Contact</a></li>
+                    <li><a href="index.jsp">Home</a></li>
+                    <li><a href="games.jsp">Games</a></li>
+                    <li><a href="forum.jsp">Forum</a></li>
+                    <li><a href="blog.jsp">News</a></li>
+                    <li><a href="contact.jsp">Contact</a></li>
                 </ul>
 
                 <div class="footer-social d-flex justify-content-center">

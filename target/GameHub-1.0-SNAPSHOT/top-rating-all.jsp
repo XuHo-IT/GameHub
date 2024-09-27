@@ -57,7 +57,7 @@
 			</div>
 			<div class="header-bar-warp d-flex">
 				<!-- site logo -->
-				<a href="home.html" class="site-logo">
+				<a href="index.jsp" class="site-logo">
 					<img src="./img/logo.png" alt="">
 				</a>
 				<nav class="top-nav-area w-100">

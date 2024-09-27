@@ -1,7 +1,8 @@
 com\mycompany\gamehub\JakartaRestConfiguration.class
-mogodb\MongoConnect.class
 Controller\SignUpController.class
 com\mycompany\gamehub\resources\JakartaEE8Resource.class
+Controller\ReadGameController.class
 Controller\AddGameController.class
+Model\GamePost.class
 Controller\LoginController.class
 Model\SuperAdmin.class

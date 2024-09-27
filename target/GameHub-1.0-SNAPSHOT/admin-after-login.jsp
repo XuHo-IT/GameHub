@@ -91,7 +91,7 @@
                         <li>
                             <a class="li-fix" href="blog.jsp">News</a>
                             <ul class="sub-menu">
-                                <li><a href="game-single.jsp">Top rating</a></li>
+                                <li><a href="top-rating-all.jsp">Top rating</a></li>
                                 <li><a href="top-wishlist.jsp">Top wishlist</a></li>
                             </ul>
                         </li>

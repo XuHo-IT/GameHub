@@ -61,7 +61,7 @@
             </div>
             <div class="header-bar-warp d-flex">
                 <!-- site logo -->
-                <a href="home.html" class="site-logo">
+                <a href="admin-after-login.jsp" class="site-logo">
                     <img src="./img/logo.png" alt="">
                 </a>
                 <nav class="top-nav-area w-100">
@@ -86,7 +86,7 @@
 
                     <!-- Menu -->
                     <ul class="main-menu primary-menu">
-                        <li><a href="index.jsp">Home</a></li>
+                        <li><a href="admin-after-login.jsp">Home</a></li>
                         <li><a href="games.jsp">Games</a></li>
                         <li>
                             <a class="li-fix" href="blog.jsp">News</a>

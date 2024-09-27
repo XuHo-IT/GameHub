@@ -18,8 +18,9 @@ public class SuperAdmin {
     private String phone;
     private String address;
     private String passWord;
+    private String photoUrl;
 
-    public SuperAdmin(int adminId, String name, Date dob, String email, String phone, String address, String passWord) {
+    public SuperAdmin(int adminId, String name, Date dob, String email, String phone, String address, String passWord, String photoUrl) {
         this.adminId = adminId;
         this.name = name;
         this.dob = dob;
@@ -27,7 +28,18 @@ public class SuperAdmin {
         this.phone = phone;
         this.address = address;
         this.passWord = passWord;
+        this.photoUrl = photoUrl;
     }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
+
+  
 
     public String getPassWord() {
         return passWord;

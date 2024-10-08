@@ -41,7 +41,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
     String address = request.getParameter("Address");
     String password = request.getParameter("Password");
     String photoUrl = request.getParameter("PhotoUrl");
-    String role = request.getParameter("Role");
+    String role = "0";
     
     // Convert the dateOfBirth string to a Date object (you can use SimpleDateFormat)
     Date dob = null;
@@ -79,7 +79,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
     request.getSession().setAttribute("adminId", adminId.toHexString());
 
     // Redirect to admin-after-login.jsp
-    response.sendRedirect("admin-after-login.jsp");
+    response.sendRedirect("ReadGameHomeMemberController");
 }
     @Override
     public void destroy() {

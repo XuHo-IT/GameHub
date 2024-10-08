@@ -1,9 +1,14 @@
+Model\Genre.class
 Controller\ReadGameHomeController.class
 com\mycompany\gamehub\JakartaRestConfiguration.class
 Controller\SignUpController.class
 com\mycompany\gamehub\resources\JakartaEE8Resource.class
-Controller\ReadGameController.class
+Controller\AddGenreController.class
 Controller\AddGameController.class
+Controller\ReadGameHomeController.class
+Controller\ReadGenreController.class
+com\mycompany\gamehub\JakartaRestConfiguration.class
+Controller\ReadGameHomeMemberController.class
 Controller\ReadGameListController.class
 Model\GamePost.class
 Controller\LoginController.class

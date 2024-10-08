@@ -413,7 +413,12 @@
                         </div>
                         <div class="input-field">
                             <label>Genre</label>
-                            <input type="text" required name="Genre">
+                            <select name="Genre" required>
+                                <option value="">Select Genre</option>
+                                <c:forEach var="genre" items="${genres}">
+                                    <option value="${genre.genreId}">${genre.getgenre()}</option>
+                                </c:forEach>
+                            </select>
                         </div>
                         <div class="input-field">
                             <label class="mr-2">Picture Of Game:</label>
@@ -432,38 +437,35 @@
                         <a href="#" id="upload-photo-link">Upload Photo</a>
                     </div>
                 </div>
-            </div>
-             <!-- Right column: Rating fields -->
-                    <div>
-                        <div class="input-field">
-                            <label>Price Rating</label>
-                            <input type="number" step="0.1" min="0" max="5" required name="PriceRating" placeholder="0.0 to 5.0">
-                        </div>
-                        <div class="input-field">
-                            <label>Graphic Rating</label>
-                            <input type="number" step="0.1" min="0" max="5" required name="GraphicRating" placeholder="0.0 to 5.0">
-                        </div>
-                        <div class="input-field">
-                            <label>Difficulty Rating</label>
-                            <input type="number" step="0.1" min="0" max="5" required name="DifficultyRating" placeholder="0.0 to 5.0">
-                        </div>
-                        <div class="input-field">
-                            <label>Gameplay Rating</label>
-                            <input type="number" step="0.1" min="0" max="5" required name="GameplayRating" placeholder="0.0 to 5.0">
-                        </div>
+                <div class="right-position">
+                    <div class="input-field">
+                        <label>Price Rating</label>
+                        <input type="number" step="0.1" min="0" max="5" required name="PriceRating" placeholder="0.0 to 5.0">
+                    </div>
+                    <div class="input-field">
+                        <label>Graphic Rating</label>
+                        <input type="number" step="0.1" min="0" max="5" required name="GraphicRating" placeholder="0.0 to 5.0">
+                    </div>
+                    <div class="input-field">
+                        <label>Difficulty Rating</label>
+                        <input type="number" step="0.1" min="0" max="5" required name="DifficultyRating" placeholder="0.0 to 5.0">
+                    </div>
+                    <div class="input-field">
+                        <label>Gameplay Rating</label>
+                        <input type="number" step="0.1" min="0" max="5" required name="GameplayRating" placeholder="0.0 to 5.0">
                     </div>
                 </div>
+            </div>
+
             <div class="form-box upload-photo">
                 <div class="form-details">
-                    <h2>Upload Photo</h2>
-                    <p>To develop our community, upload news about games that you know</p>
                 </div>
                 <div class="form-content">
-                    <h2 style="margin-bottom: 6px">Upload Photo</h2>
-                    <form action="#" method="post" enctype="multipart/form-data">
+                    <h2 style="margin-bottom: 6px">Upload Genre</h2>
+                    <form action="AddGenreController" method="post">
                         <div class="input-field">
-                            <label class="mr-2">Photo to Upload:</label>
-                            <input type="file" name="file">
+                            <label class="mr-2">Genre Of Game:</label>
+                            <input type="text" required name="genre1">
                         </div>
                         <button type="submit">Send</button>
                     </form>
@@ -538,7 +540,32 @@
             .form-popup .create-post {
                 display: flex;
             }
-
+            form button {
+                width: 100%;
+                color: #fff;
+                border: none;
+                outline: none;
+                padding: 10px 0;
+                font-size: 1rem;
+                font-weight: 500;
+                border-radius: 3px;
+                cursor: pointer;
+                margin: 25px 0;
+                background: #6f2b95;
+                transition: 0.2s ease;
+                margin-top: 0px;
+                margin-bottom: 5px;
+            }
+            .right-position {
+                padding-top: 81px;
+                padding-right: 10px;
+            }
+            .upload-photo .form-details {
+                padding: 0 20px;
+                background: url("img/mortal-combat.jpg");
+                background-position: center;
+                background-size: cover;
+            }
         </style>
     </body>
 </html>

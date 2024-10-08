@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.GamePost;
+import Model.Genre;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -17,7 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 @MultipartConfig
 public class AddGameController extends HttpServlet {
@@ -28,12 +31,7 @@ public class AddGameController extends HttpServlet {
     public void init() throws ServletException {
         mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
     }
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-    // Handle the GET request (for example, redirecting to a form page)
-        response.sendRedirect("admin-after-login.jsp"); // or any page you want to show
-    }
+   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -104,7 +102,7 @@ public class AddGameController extends HttpServlet {
         collection.insertOne(postGame);
 
         // Redirect to the admin page after successful insertion
-        response.sendRedirect("AddGameController");
+        response.sendRedirect("ReadGameHomeAdminController");
     }
           // Cach 2: su dung anh duoi dang binary
 //     @Override

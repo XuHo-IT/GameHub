@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="org.bson.Document" %>
 <html lang="zxx">
 
     <head>
@@ -190,50 +193,31 @@
                             <li><a href="#">Strategy</a></li>
                             <li><a href="#">Online</a></li>
                         </ul>
+                       
                         <!-- Blog item -->
-                        <div class="blog-item">
-                            <div class="blog-thumb">
-                                <img src="./img/blog/1.jpg" alt="">
-                            </div>
-                            <div class="blog-text text-box text-white">
-                                <div class="top-meta">11.11.18 / in <a href="">Games</a></div>
-                                <h3>The best online game is out now!</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eius-mod tempor
-                                    incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.
-                                    Lorem ipsum dolor sit amet, consecte-tur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.....</p>
-                                <a href="#" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
-                            </div>
-                        </div>
-                        <!-- Blog item -->
-                        <div class="blog-item">
-                            <div class="blog-thumb">
-                                <img src="./img/blog/2.jpg" alt="">
-                            </div>
-                            <div class="blog-text text-box text-white">
-                                <div class="top-meta">11.11.18 / in <a href="">Games</a></div>
-                                <h3>The best online game is out now!</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eius-mod tempor
-                                    incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.
-                                    Lorem ipsum dolor sit amet, consecte-tur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.....</p>
-                                <a href="#" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
-                            </div>
-                        </div>
-                        <!-- Blog item -->
-                        <div class="blog-item">
-                            <div class="blog-thumb">
-                                <img src="./img/blog/3.jpg" alt="">
-                            </div>
-                            <div class="blog-text text-box text-white">
-                                <div class="top-meta">11.11.18 / in <a href="">Games</a></div>
-                                <h3>The best online game is out now!</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eius-mod tempor
-                                    incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.
-                                    Lorem ipsum dolor sit amet, consecte-tur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.....</p>
-                                <a href="#" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
-                            </div>
+                      <div class="blog-container">
+                            <c:forEach var="post" items="${posts}">
+                                <div class="blog-item">
+                                    <!-- Display the post title -->
+
+                                    <div class="blog-thumb">
+                                        <!-- Display the image (if available), or a default image if missing -->
+                                        <img src="data:image/png;base64,${post.fileData}" alt="Game Image" />
+                                    </div>
+
+                                    <div class="blog-text text-box text-white">
+                                        <!-- Display the release date and genre -->
+                                        <div class="top-meta">${post.dateRelease != null ? post.dateRelease : 'Unknown Date'} / <a href="#">${post.genre != null ? post.genre : 'Unknown Genre'}</a></div>
+                                        <h3>${post.title != null ? post.title : 'Untitled'}</h3>
+
+                                        <!-- Display the description -->
+                                        <p>${post.description != null ? post.description : 'No description available'}</p>
+
+                                        <!-- Read more link -->
+                                        <a href="game-single.jsp?id=${post.postID}" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
+                                    </div>
+                                </div>
+                            </c:forEach>
                         </div>
                     </div>
                     <div class="col-xl-3 col-lg-4 col-md-5 sidebar">

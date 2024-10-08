@@ -66,9 +66,12 @@
                 </div>
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
-                    <a href="admin-after-login.jsp" class="site-logo">
-                        <img src="./img/logo.png" alt="">
-                    </a>
+                    <div class="logo-fix">
+                        <a href="admin-after-login.jsp" class="site-logo">
+                            <img src="./img/logo1.png" alt="" class="logo1">
+                            <img src="./img/logo2.png" alt="" class="logo2">
+                        </a>
+                    </div>
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
                             <!-- Bi?u t??ng gi? hàng -->
@@ -93,11 +96,10 @@
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
                             <li><a href="admin-after-login.jsp">Home</a></li>
-                            <li><a href="games.jsp">Games</a></li>
-                            <li>
-                                <a class="li-fix" href="blog.jsp">News</a>
+                            <li><a href="games.jsp">Games</a>
+
                                 <ul class="sub-menu">
-                                    <li><a href="top-ratin-all.jsp">Top rating</a></li>
+                                    <li><a href="top-rating-all.jsp">Top rating</a></li>
                                     <li><a href="top-wishlist.jsp">Top wishlist</a></li>
                                 </ul>
                             </li>

@@ -433,7 +433,26 @@
                     </div>
                 </div>
             </div>
-
+             <!-- Right column: Rating fields -->
+                    <div>
+                        <div class="input-field">
+                            <label>Price Rating</label>
+                            <input type="number" step="0.1" min="0" max="5" required name="PriceRating" placeholder="0.0 to 5.0">
+                        </div>
+                        <div class="input-field">
+                            <label>Graphic Rating</label>
+                            <input type="number" step="0.1" min="0" max="5" required name="GraphicRating" placeholder="0.0 to 5.0">
+                        </div>
+                        <div class="input-field">
+                            <label>Difficulty Rating</label>
+                            <input type="number" step="0.1" min="0" max="5" required name="DifficultyRating" placeholder="0.0 to 5.0">
+                        </div>
+                        <div class="input-field">
+                            <label>Gameplay Rating</label>
+                            <input type="number" step="0.1" min="0" max="5" required name="GameplayRating" placeholder="0.0 to 5.0">
+                        </div>
+                    </div>
+                </div>
             <div class="form-box upload-photo">
                 <div class="form-details">
                     <h2>Upload Photo</h2>

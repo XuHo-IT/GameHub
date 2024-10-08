@@ -490,8 +490,23 @@ ol {
 	box-shadow: 0 0 9px 3px rgba(226, 30, 228, 0.24);
 }
 
-.site-logo {
-	float: left;
+img.logo1 {
+    padding-left: 20px;
+    /* align-items: center; */
+    width: 85%;
+}
+
+.logo-fix {
+    width: 123px;
+    margin-top: -40px;
+}
+
+.site-logo img {
+    margin-right: 5px; /* Khoảng cách giữa các ảnh, tùy chỉnh theo ý bạn */
+}
+
+.logo1 img{
+	max-width: 10px;
 }
 
 .user-panel {

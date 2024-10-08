@@ -65,9 +65,12 @@
                 </div>
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
-                    <a href="index.jsp" class="site-logo">
-                        <img src="./img/logo.png" alt="">
-                    </a>
+                    <div class="logo-fix">
+                        <a href="index.jsp" class="site-logo">
+                            <img src="./img/logo1.png" alt="" class="logo1">
+                            <img src="./img/logo2.png" alt="" class="logo2">
+                        </a>
+                    </div>
                     <nav class="top-nav-area w-100">
                         <div class="user-panel">
                             <button class="login-btn">LOG IN</button>
@@ -76,9 +79,7 @@
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
                             <li><a href="index.jsp">Home</a></li>
-                            <li><a href="games.jsp">Games</a></li>
-                            <li>
-                                <a class="li-fix" href="blog.jsp">News</a>
+                            <li><a href="games.jsp">Games</a>
 
                                 <ul class="sub-menu">
                                     <li><a href="top-rating-all.jsp">Top rating</a></li>

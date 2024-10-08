@@ -68,13 +68,13 @@
                     </div>
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
-                            <!-- Bi?u t??ng gi? hàng -->
+                            <!-- Bi?u t??ng gi? hï¿½ng -->
                             <div class="cart-icon">
                                 <a href="shopping-cart.jsp">
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                 </a>
                             </div>
-                            <!-- Bi?u t??ng tài kho?n -->
+                            <!-- Bi?u t??ng tï¿½i kho?n -->
                             <div class="account-container">
                                 <div class="account-icon">
                                     <i class="fa fa-user-circle" aria-hidden="true"></i>
@@ -91,21 +91,22 @@
                             </div>
                         </div>
 
-                        <!-- Menu -->
-                        <ul class="main-menu primary-menu">
-                            <li><a href="after-login.jsp">Home</a></li>
-                            <li><a href="games.jsp">Games</a>
-
-                                <ul class="sub-menu">
-                                    <li><a href="top-rating-all.jsp">Top rating</a></li>
-                                    <li><a href="top-wishlist.jsp">Top wishlist</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="contact.jsp">Contact</a></li>
-                            <li><a href="forum.jsp">Community</a></li>
-                        </ul>
-                    </nav>
-                </div>
+                    <!-- Menu -->
+                    <ul class="main-menu primary-menu">
+                        <li><a href="ReadGameHomeController">Home</a></li>
+                        <li><a href="games.jsp">Games</a></li>
+                        <li>
+                            <a class="li-fix" href="blog.html">News</a>
+                            <ul class="sub-menu">
+                                <li><a href="review.jsp">Top rating</a></li>
+                                <li><a href="top-wishlist.jsp">Top wishlist</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact.jsp">Contact</a></li>
+                        <li><a href="forum.jsp">Community</a></li>
+                    </ul>
+                </nav>
+            </div>
 
             </div>
         </header>

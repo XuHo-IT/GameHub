@@ -21,6 +21,10 @@
         <servlet-class>Controller.ReadGameHomeController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ReadGameListController</servlet-name>
+        <servlet-class>Controller.ReadGameListController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ShowAllGameController</servlet-name>
         <servlet-class>Controller.ShowAllGameController</servlet-class>
     </servlet>
@@ -56,6 +60,10 @@
         <welcome-file>ReadGameHomeController</welcome-file>
         <!-- Change to your welcome file -->
     </welcome-file-list>
+    <servlet-mapping>
+        <servlet-name>ReadGameListController</servlet-name>
+        <url-pattern>/ReadGameListController</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ShowAllGameController</servlet-name>
         <url-pattern>/ShowAllGameController</url-pattern>

@@ -1,26 +1,24 @@
 package Controller;
 
 import Model.GamePost;
-import com.mongodb.client.FindIterable;
+import Model.Genre;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
+import org.bson.Document;
+import org.bson.types.Binary;
+import com.mongodb.client.FindIterable;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.bson.Document;
-import org.bson.types.Binary;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
 
-/**
- *
- * @author OS
- */
 public class ReadGameHomeAdminController extends HttpServlet {
 
     private MongoClient mongoClient;
@@ -29,65 +27,68 @@ public class ReadGameHomeAdminController extends HttpServlet {
     public void init() throws ServletException {
         mongoClient = MongoClients.create("mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
     }
-    
+
     @Override
-protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-    try {
-        MongoDatabase database = mongoClient.getDatabase("GameHub");
-        MongoCollection<Document> collection = database.getCollection("postGame");
-        List<GamePost> postList = new ArrayList<>();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            MongoDatabase database = mongoClient.getDatabase("GameHub");
 
-        // Retrieve all posts from the database
-        FindIterable<Document> posts = collection.find();
+            // Fetch genres from MongoDB
+            MongoCollection<Document> genreCollection = database.getCollection("Genre");
+            List<Document> genreDocuments = genreCollection.find().into(new ArrayList<>());
+            List<Genre> genres = new ArrayList<>();
 
-        // Map each document to a GamePost object
-        for (Document post : posts) {
-            // Check if FileData is stored as Binary or String
-            Object fileData = post.get("FileData");
-            String fileDataBase64;
-
-            if (fileData instanceof Binary) {
-                // If it's Binary, convert to Base64
-                Binary fileDataBinary = (Binary) fileData;
-                fileDataBase64 = Base64.getEncoder().encodeToString(fileDataBinary.getData());
-            } else if (fileData instanceof String) {
-                // If it's a String (possibly already Base64), just use it directly
-                fileDataBase64 = (String) fileData;
-            } else {
-                fileDataBase64 = null; 
+            for (Document doc : genreDocuments) {
+                Genre genre = new Genre();
+                genre.setGenreId(doc.getObjectId("_id").toString());
+                genre.setGenre(doc.getString("Genre"));
+                genres.add(genre);
             }
+            request.setAttribute("genres", genres);
 
-            GamePost gamePost = new GamePost(
-                    post.getObjectId("_id").toString(), // postID
-                    post.getString("Title"),
-                    post.getString("GamePlay"),
-                    post.getString("Description"),
-                    post.getString("DateRelease"),
-                    post.getString("Author"),
-                    post.getString("Genre"),
-                    post.getString("AdminId"),
-                    post.getString("FileName"),
-                    fileDataBase64 // Convert Binary to Base64 String or use as is
-            );
-            postList.add(gamePost);
-            System.out.println(post.toJson()); 
+            // Fetch game posts from MongoDB
+            MongoCollection<Document> postCollection = database.getCollection("postGame");
+            List<GamePost> postList = new ArrayList<>();
+            FindIterable<Document> posts = postCollection.find();
+
+            for (Document post : posts) {
+                Object fileData = post.get("FileData");
+                String fileDataBase64;
+
+                if (fileData instanceof Binary) {
+                    Binary fileDataBinary = (Binary) fileData;
+                    fileDataBase64 = Base64.getEncoder().encodeToString(fileDataBinary.getData());
+                } else if (fileData instanceof String) {
+                    fileDataBase64 = (String) fileData;
+                } else {
+                    fileDataBase64 = null;
+                }
+
+                GamePost gamePost = new GamePost(
+                        post.getObjectId("_id").toString(), 
+                        post.getString("Title"),
+                        post.getString("GamePlay"),
+                        post.getString("Description"),
+                        post.getString("DateRelease"),
+                        post.getString("Author"),
+                        post.getString("Genre"),
+                        post.getString("AdminId"),
+                        post.getString("FileName"),
+                        fileDataBase64
+                );
+                postList.add(gamePost);
+            }
+            request.setAttribute("posts", postList);
+
+            // Forward to the JSP page with both genres and posts
+            request.getRequestDispatcher("admin-after-login.jsp").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "Error retrieving data.");
+            request.getRequestDispatcher("error-page.jsp").forward(request, response);
         }
-
-        if (postList.isEmpty()) {
-            System.out.println("No posts found in the database.");
-        }
-
-        request.setAttribute("posts", postList);
-        // Forward the request to the JSP page
-        request.getRequestDispatcher("admin-after-login.jsp").forward(request, response);
-    } catch (Exception e) {
-        e.printStackTrace(); // Log the exception
-        request.setAttribute("errorMessage", "Error retrieving game posts.");
-        request.getRequestDispatcher("error-page.jsp").forward(request, response);
     }
-}
-
 
     @Override
     public void destroy() {

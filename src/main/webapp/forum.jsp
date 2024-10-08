@@ -64,8 +64,9 @@
 			</div>
 			<div class="header-bar-warp d-flex">
 				<!-- site logo -->
-				<a href="index.jsp" class="site-logo">
-					<img src="./img/logo.png" alt="">
+				<a href="ReadGameHomeController" class="site-logo">
+					<img src="./img/logo1.png" alt="">
+                                        <img src="./img/logo2.png" alt="">
 				</a>
 				<nav class="top-nav-area w-100">
 					<div class="user-panel">
@@ -75,10 +76,7 @@
 					<!-- Menu -->
 					<ul class="main-menu primary-menu">
 						<li><a href="ReadGameHomeController">Home</a></li>
-						<li><a href="games.jsp">Games</a></li>
-						<li>
-							<a class="li-fix" href="blog.jsp">News</a>
-						
+						<li><a href="ReadGameListController">Games</a>						
 							<ul class="sub-menu">
 								<li><a href="top-rating-all.jsp">Top rating</a></li>
 								<li><a href="top-wishlist.jsp">Top wishlist</a></li>
@@ -199,14 +197,14 @@
 			<div class="footer-right-pic">
 				<img src="img/footer-right-pic.png" alt="">
 			</div>
-			<a href="#" class="footer-logo">
-				<img src="./img/logo.png" alt="">
+			<a href="ReadGameHomeController" class="footer-logo">
+				<img src="./img/logo1.png" alt="">
+                                <img src="./img/logo2.png" alt="">
 			</a>
 			<ul class="main-menu footer-menu">
-				<li><a href="">Home</a></li>
-				<li><a href="">Games</a></li>
+				<li><a href="ReadGameHomeController">Home</a></li>
+				<li><a href="ReadGameLisstController">Games</a></li>
 				<li><a href="">Reviews</a></li>
-				<li><a href="">News</a></li>
 				<li><a href="">Contact</a></li>
 			</ul>
 			<div class="footer-social d-flex justify-content-center">

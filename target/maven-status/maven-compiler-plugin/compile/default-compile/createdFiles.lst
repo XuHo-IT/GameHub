@@ -1,10 +1,10 @@
 Controller\ReadGameHomeController.class
 com\mycompany\gamehub\JakartaRestConfiguration.class
-Controller\ShowAllGameController.class
 Controller\SignUpController.class
 com\mycompany\gamehub\resources\JakartaEE8Resource.class
 Controller\ReadGameController.class
 Controller\AddGameController.class
+Controller\ReadGameListController.class
 Model\GamePost.class
 Controller\LoginController.class
 Model\SuperAdmin.class

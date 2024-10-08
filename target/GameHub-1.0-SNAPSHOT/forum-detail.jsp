@@ -64,7 +64,7 @@
 			</div>
 			<div class="header-bar-warp d-flex">
 				<!-- site logo -->
-				<a href="index.jsp" class="site-logo">
+				<a href="ReadGameHomeController" class="site-logo">
 					<img src="./img/logo.png" alt="">
 				</a>
 				<nav class="top-nav-area w-100">
@@ -75,7 +75,7 @@
 					<!-- Menu -->
 					<ul class="main-menu primary-menu">
 						<li><a href="ReadGameHomeController">Home</a></li>
-						<li><a href="games.jsp">Games</a></li>
+						<li><a href="ReadGameListController">Games</a></li>
 						<li>
 							<a class="li-fix" href="blog.jsp">News</a>
 						
@@ -161,7 +161,7 @@
 
         <!--Comment Area-->
         <div class="comment-area hide" id="comment-area">
-            <textarea name="comment" id="" placeholder="comment here ... "></textarea>
+            <textarea> name="comment" id="" placeholder="comment here ... "></textarea>
             <input type="submit" value="submit">
         </div>
 
@@ -193,7 +193,7 @@
         </div>
          <!--Reply Area-->
       <div class="comment-area hide " id="reply-area">
-            <textarea name="reply" id="" placeholder="reply here ... "></textarea>
+          <textarea> name="reply" id="" placeholder="reply here ... "></textarea>
             <input type="submit" value="submit">
         </div>
                       </div>
@@ -213,14 +213,14 @@
 			<div class="footer-right-pic">
 				<img src="img/footer-right-pic.png" alt="">
 			</div>
-			<a href="#" class="footer-logo">
-				<img src="./img/logo.png" alt="">
+			<a href="ReadGameHomeController" class="footer-logo">
+				<img src="./img/logo1.png" alt="">
+                                <img src="./img/logo2.png" alt="">
 			</a>
 			<ul class="main-menu footer-menu">
-				<li><a href="">Home</a></li>
-				<li><a href="">Games</a></li>
+				<li><a href="ReadGameHomeController">Home</a></li>
+				<li><a href="ReadGameListController">Games</a></li>
 				<li><a href="">Reviews</a></li>
-				<li><a href="">News</a></li>
 				<li><a href="">Contact</a></li>
 			</ul>
 			<div class="footer-social d-flex justify-content-center">

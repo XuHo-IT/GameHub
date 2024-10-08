@@ -32,10 +32,6 @@
         <servlet-name>AddGenreController</servlet-name>
         <servlet-class>Controller.AddGenreController</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>ReadGenreController</servlet-name>
-        <servlet-class>Controller.ReadGenreController</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -71,10 +67,6 @@
     <servlet-mapping>
         <servlet-name>AddGenreController</servlet-name>
         <url-pattern>/AddGenreController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ReadGenreController</servlet-name>
-        <url-pattern>/ReadGenreController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

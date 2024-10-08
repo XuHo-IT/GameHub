@@ -416,7 +416,7 @@
                             <select name="Genre" required>
                                 <option value="">Select Genre</option>
                                 <c:forEach var="genre" items="${genres}">
-                                    <option value="${genre.genreId}">${genre.getgenre()}</option>
+                                    <option value="${genre.genreId}">${genre.genre != null ? genre.genre : 'No genre available'}</option>
                                 </c:forEach>
                             </select>
                         </div>

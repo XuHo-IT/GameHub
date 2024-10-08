@@ -16,6 +16,14 @@
         <servlet-name>ReadGameController</servlet-name>
         <servlet-class>Controller.ReadGameController</servlet-class>
     </servlet>
+     <servlet>
+        <servlet-name>ReadGameHomeController</servlet-name>
+        <servlet-class>Controller.ReadGameHomeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowAllGameController</servlet-name>
+        <servlet-class>Controller.ShowAllGameController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -31,6 +39,17 @@
     <servlet-mapping>
         <servlet-name>ReadGameController</servlet-name>
         <url-pattern>/ReadGameController</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>ReadGameHomeController</servlet-name>
+        <url-pattern>/ReadGameHomeController</url-pattern>
+    </servlet-mapping>
+        <welcome-file-list>
+        <welcome-file>ReadGameHomeController</welcome-file> <!-- Change to your welcome file -->
+    </welcome-file-list>
+    <servlet-mapping>
+        <servlet-name>ShowAllGameController</servlet-name>
+        <url-pattern>/ShowAllGameController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -1,4 +1,6 @@
+Controller\ReadGameHomeController.class
 com\mycompany\gamehub\JakartaRestConfiguration.class
+Controller\ShowAllGameController.class
 Controller\SignUpController.class
 com\mycompany\gamehub\resources\JakartaEE8Resource.class
 Controller\ReadGameController.class

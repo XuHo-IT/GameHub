@@ -67,7 +67,7 @@
 					
 					<!-- Menu -->
 					<ul class="main-menu primary-menu">
-						<li><a href="index.jsp">Home</a></li>
+						<li><a href="ReadGameHomeController">Home</a></li>
 						<li><a href="games.jsp">Games</a></li>
 						<li>
 							<a class="li-fix" href="blog.jsp">News</a>

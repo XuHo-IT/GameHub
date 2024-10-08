@@ -9,7 +9,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Favicon -->
 	<link href="img/favicon.ico" rel="shortcut icon" />
-
 	<!-- Google Font -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
 
@@ -31,6 +30,8 @@
 		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
 	<link rel="stylesheet" href="Login/style.css">
 	<script src="Login/script.js" defer></script>
+         <link rel="stylesheet" href="Forum/style.css">
+
 
 	<!--[if lt IE 9]>
 		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -73,7 +74,7 @@
 					
 					<!-- Menu -->
 					<ul class="main-menu primary-menu">
-						<li><a href="index.jsp">Home</a></li>
+						<li><a href="ReadGameHomeController">Home</a></li>
 						<li><a href="games.jsp">Games</a></li>
 						<li>
 							<a class="li-fix" href="blog.jsp">News</a>
@@ -102,69 +103,95 @@
 	
 
 	<!-- Header section end -->
+  <section class="hero-section overflow-hidden">
+        <div class="hero-slider owl-carousel">
+            <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider1.jpg">
+                <div class="container">
+                    <h2>Game on!</h2>
+                    <p>The platform serves as a hub for sharing the latest game news, offering users a space to stay updated on upcoming releases and industry developments.<br> It allows users to view, comment, and engage in discussions about the latest news, fostering an active gaming community. With an intuitive interface, the platform enables easy access to user-generated posts and admin-curated updates.</p>
+                    <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
+                </div>
+            </div>
+            <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider-bg-2.jpg">
+                <div class="container">
+                    <h2>Game on!</h2>
+                    <p>The platform provides a centralized space for discovering and sharing game news, keeping users informed about upcoming titles and events.<br>Users can contribute by posting news, commenting on updates, and participating in forum discussions. The site promotes community interaction around gaming trends and developments.</p>
+                    <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-
-	<!-- Hero section -->
-	<section class="hero-section overflow-hidden">
-		<div class="hero-slider owl-carousel">
-			<div class="hero-item set-bg d-flex align-items-center justify-content-center text-center"
-				data-setbg="img/slider-bg-1.jpg">
-				<div class="content-wrapper ">
-					<div class="left-content">
-						<div class="forum-section col-lg-10">
-						
-							<div class="row">
-                                                            <img class="col-lg-4 col-md-6" href="#" src="img/games/1.jpg"/>
-								<p class="col-lg-4 col-md-6">Describe your forum category. Engage your audience and entice them to continue
-									reading.</p>
-								<div class="forum-stats col-lg-4 col-md-6">
-									<span><i class="fa fa-eye"></i> 34</span>
-									<span><a href="#"><i class="fa fa-comments"></i></a> 5</span>
-								</div>
-							</div>
-						<div class="row">
-                                                            <img class="col-lg-4 col-md-6" src="img/games/2.jpg"/>
-								<p class="col-lg-4 col-md-6">Describe your forum category. Engage your audience and entice them to continue
-									reading.</p>
-								<div class="forum-stats col-lg-4 col-md-6">
-									<span><i class="fa fa-eye"></i> 34</span>
-									<span><a href="#"><i class="fa fa-comments"></i></a> 5</span>
-								</div>
-							</div>
-                                                   
-						</div>
-                                            
-					</div>
-					<div class="right-contentcol-lg-2">
-						<div class="threads-members">
-							<div class="threads">
-								<h4>Threads</h4>
-								<ul>
-									<li>Thread 1</li>
-									<li>Thread 2</li>
-									<li>Thread 3</li>
-								</ul>
-							</div>
-							<div class="members">
-								<h4>Members</h4>
-								<ul>
-									<li>Member 1</li>
-									<li>Member 2</li>
-									<li>Member 3</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+	  <section class="blog-section spad">
+       
+             
+                      <div class="container">
+                          <div class="subforum">
+        
+            <div class="subforum-row">
+                <div class="subforum-icon subforum-column center">
+                    <i class="fa fa-car center"></i>
+                </div>
+                <div class="subforum-description subforum-column">
+                    <h4><a href="forum-detail.jsp">Description Title</a></h4>
+                    <p>Description Content: let's try to be cool, otherwise,w at 'sthe point in libing together with people youdont' live.</p>
+                </div>
+                <div class="subforum-stats subforum-column center">
+                    <span>24 Posts | 12 Topics</span>
+                </div>
+                <div class="subforum-info subforum-column">
+                    <b><a href="">Last post</a></b> by <a href="">JustAUser</a> 
+                    <br>on <small>12 Dec 2020</small>
+                </div>
+            </div>
+            <hr class="subforum-devider">
+            <div class="subforum-row">
+                <div class="subforum-icon subforum-column center">
+                    <i class="fa fa-car center"></i>
+                </div>
+                <div class="subforum-description subforum-column">
+                    <h4><a href="#">Description Title</a></h4>
+                    <p>Description Content: let's try to be cool, otherwise,w at 'sthe point in libing together with people youdont' live.</p>
+                </div>
+                <div class="subforum-stats subforum-column center">
+                    <span>24 Posts | 12 Topics</span>
+                </div>
+                <div class="subforum-info subforum-column">
+                    <b><a href="">Last post</a></b> by <a href="">JustAUser</a> 
+                    <br>on <small>12 Dec 2020</small>
+                </div>
+            </div>
+            <hr class="subforum-devider">
+            <div class="subforum-row">
+                <div class="subforum-icon subforum-column center">
+                    <i class="fa fa-car center"></i>
+                </div>
+                <div class="subforum-description subforum-column">
+                    <h4><a href="Forum/detail.html">Description Title</a></h4>
+                    <p>Description Content: let's try to be cool, otherwise,w at 'sthe point in libing together with people youdont' live.</p>
+                </div>
+                <div class="subforum-stats subforum-column center">
+                    <span>24 Posts | 12 Topics</span>
+                </div>
+                <div class="subforum-info subforum-column">
+                    <b><a href="">Last post</a></b> by <a href="">JustAUser</a> 
+                    <br>on <small>12 Dec 2020</small>
+                </div>
+            </div>
+          
+        </div>
+        <!---->
+                      </div>
+              
+              
+        
+          </section>
 
 
 
 
 	<!-- Footer section -->
-	<footer class="footer-section">
+	<footer class="footer-section" style="margin-top: 0 ; padding: 10px 125px">
 		<div class="container">
 			<div class="footer-left-pic">
 				<img src="img/footer-left-pic.png" alt="">
@@ -266,7 +293,7 @@
 	<script src="js/jquery.sticky-sidebar.min.js"></script>
 	<script src="js/jquery.magnific-popup.min.js"></script>
 	<script src="js/main.js"></script>
-
+ <script src="Forum/main.js"></script>
 </body>
 
 </html>

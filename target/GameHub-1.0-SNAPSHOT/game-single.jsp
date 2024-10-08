@@ -64,9 +64,12 @@
                 </div>
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
-                    <a href="home.html" class="site-logo">
-                        <img src="./img/logo.png" alt="">
-                    </a>
+                    <div class="logo-fix">
+                        <a href="index.jsp" class="site-logo">
+                            <img src="./img/logo1.png" alt="" class="logo1">
+                            <img src="./img/logo2.png" alt="" class="logo2">
+                        </a>
+                    </div>
                     <nav class="top-nav-area w-100">
                         <div class="user-panel">
                             <button class="login-btn">LOG IN</button>
@@ -80,7 +83,7 @@
                                 <a class="li-fix" href="blog.jsp">News</a>
 
                                 <ul class="sub-menu">
-                                    <li><a href="review.jsp">Top rating</a></li>
+                                    <li><a href="top-rating-all.jsp">Top rating</a></li>
                                     <li><a href="top-wishlist.jsp">Top wishlist</a></li>
                                 </ul>
                             </li>

@@ -63,14 +63,17 @@
                 </div>
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
-                    <a href="home.html" class="site-logo">
-                        <img src="./img/logo.png" alt="">
-                    </a>
+                    <div class="logo-fix">
+                        <a href="admin-after-login.jsp" class="site-logo">
+                            <img src="./img/logo1.png" alt="" class="logo1">
+                            <img src="./img/logo2.png" alt="" class="logo2">
+                        </a>
+                    </div>
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
-                            <!-- Bi?u t??ng gi? hàng -->
+                            <!-- Bi?u t??ng gi? hï¿½ng -->
 
-                            <!-- Bi?u t??ng tài kho?n -->
+                            <!-- Bi?u t??ng tï¿½i kho?n -->
                             <div class="account-container">
                                 <div class="account-icon">
                                     <i class="fa fa-user-circle" aria-hidden="true"></i>
@@ -94,7 +97,7 @@
                             <li>
                                 <a class="li-fix" href="blog.jsp">News</a>
                                 <ul class="sub-menu">
-                                    <li><a href="game-single.jsp">Top rating</a></li>
+                                    <li><a href="top-rating-all.jsp">Top rating</a></li>
                                     <li><a href="top-wishlist.jsp">Top wishlist</a></li>
                                 </ul>
                             </li>
@@ -343,15 +346,15 @@
                 <div class="footer-right-pic">
                     <img src="img/footer-right-pic.png" alt="">
                 </div>
-                <a href="#" class="footer-logo">
+                <a href="admin-after-login.jsp" class="footer-logo">
                     <img src="./img/logo.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
-                    <li><a href="">Home</a></li>
-                    <li><a href="">Games</a></li>
-                    <li><a href="">Reviews</a></li>
-                    <li><a href="">News</a></li>
-                    <li><a href="">Contact</a></li>
+                    <li><a href="admin-after-login.jsp">Home</a></li>
+                    <li><a href="games.jsp">Games</a></li>
+                    <li><a href="forum.jsp">Forum</a></li>
+                    <li><a href="blog.jsp">News</a></li>
+                    <li><a href="contact.jsp">Contact</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
                     <a href="#"><i class="fa fa-pinterest"></i></a>

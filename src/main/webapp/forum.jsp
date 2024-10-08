@@ -13,16 +13,16 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
 
 
-	<!-- Stylesheets -->
-	<link rel="stylesheet" href="css/bootstrap.min.css" />
-	<link rel="stylesheet" href="css/font-awesome.min.css" />
-	<link rel="stylesheet" href="css/slicknav.min.css" />
-	<link rel="stylesheet" href="css/owl.carousel.min.css" />
-	<link rel="stylesheet" href="css/magnific-popup.css" />
-	<link rel="stylesheet" href="css/animate.css" />
-	<link rel="stylesheet" href="css/searchbar.css" />
-	<link rel="stylesheet" href="css/forum.css" />
-	<link rel="stylesheet" href="css/header.css" />
+        <!-- Stylesheets -->
+        <link rel="stylesheet" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" href="css/font-awesome.min.css" />
+        <link rel="stylesheet" href="css/slicknav.min.css" />
+        <link rel="stylesheet" href="css/owl.carousel.min.css" />
+        <link rel="stylesheet" href="css/magnific-popup.css" />
+        <link rel="stylesheet" href="css/animate.css" />
+        <link rel="stylesheet" href="css/searchbar.css" />
+        <link rel="stylesheet" href="css/forum.css" />
+        <link rel="stylesheet" href="css/header.css" />
 
 	<!-- Main Stylesheets -->
 	<link rel="stylesheet" href="css/style.css" />
@@ -33,24 +33,24 @@
          <link rel="stylesheet" href="Forum/style.css">
 
 
-	<!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	<![endif]-->
+        <!--[if lt IE 9]>
+                  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
 
-</head>
+    </head>
 
-<body>
-	<!-- Page Preloder -->
-	<div id="preloder">
-		<div class="loader"></div>
-	</div>
+    <body>
+        <!-- Page Preloder -->
+        <div id="preloder">
+            <div class="loader"></div>
+        </div>
 
-	<header class="header-section">
-		<div class="header-warp">
-			<form class="search-form ">
+        <header class="header-section">
+            <div class="header-warp">
+                <form class="search-form ">
 
-				<input type="text"  placeholder="Search..." aria-label="Search">
+                    <input type="text"  placeholder="Search..." aria-label="Search">
 
 				<button type="submit"><i class="fa fa-search"></i> Topic</button>
 			</form>
@@ -222,67 +222,67 @@
 	<!-- Footer section end -->
 
 
-	<!-- Login Popup -->
-	<div class="blur-bg-overlay"></div>
-	<div class="form-popup">
-		<span class="close-btn material-symbols-rounded">close</span>
-		<div class="form-box login">
-			<div class="form-details">
-				<h2>Welcome Back</h2>
-				<p>Please log in using your personal information to stay connected with us.</p>
-			</div>
-			<div class="form-content">
-				<h2>LOGIN</h2>
-				<form action="#">
-					<div class="input-field">
-						<input type="text" required>
-						<label>Email</label>
-					</div>
-					<div class="input-field">
-						<input type="password" required>
-						<label>Password</label>
-					</div>
-					<a href="#" class="forgot-pass-link">Forgot password?</a>
-					<button type="submit">Log In</button>
-				</form>
-				<div class="bottom-link">
-					Don't have an account?
-					<a href="#" id="signup-link">Signup</a>
-				</div>
-			</div>
-		</div>
-		<div class="form-box signup">
-			<div class="form-details">
-				<h2>Create Account</h2>
-				<p>To become a part of our community, please sign up using your personal information.</p>
-			</div>
-			<div class="form-content">
-				<h2>SIGNUP</h2>
-				<form action="#">
-					<div class="input-field">
-						<input type="text" required>
-						<label>Enter your email</label>
-					</div>
-					<div class="input-field">
-						<input type="password" required>
-						<label>Create password</label>
-					</div>
-					<div class="policy-text">
-						<input type="checkbox" id="policy">
-						<label for="policy">
-							I agree the
-							<a href="#" class="option">Terms & Conditions</a>
-						</label>
-					</div>
-					<button type="submit">Sign Up</button>
-				</form>
-				<div class="bottom-link">
-					Already have an account?
-					<a href="#" id="login-link">Login</a>
-				</div>
-			</div>
-		</div>
-	</div>
+        <!-- Login Popup -->
+        <div class="blur-bg-overlay"></div>
+        <div class="form-popup">
+            <span class="close-btn material-symbols-rounded">close</span>
+            <div class="form-box login">
+                <div class="form-details">
+                    <h2>Welcome Back</h2>
+                    <p>Please log in using your personal information to stay connected with us.</p>
+                </div>
+                <div class="form-content">
+                    <h2>LOGIN</h2>
+                    <form action="#">
+                        <div class="input-field">
+                            <input type="text" required>
+                            <label>Email</label>
+                        </div>
+                        <div class="input-field">
+                            <input type="password" required>
+                            <label>Password</label>
+                        </div>
+                        <a href="#" class="forgot-pass-link">Forgot password?</a>
+                        <button type="submit">Log In</button>
+                    </form>
+                    <div class="bottom-link">
+                        Don't have an account?
+                        <a href="#" id="signup-link">Signup</a>
+                    </div>
+                </div>
+            </div>
+            <div class="form-box signup">
+                <div class="form-details">
+                    <h2>Create Account</h2>
+                    <p>To become a part of our community, please sign up using your personal information.</p>
+                </div>
+                <div class="form-content">
+                    <h2>SIGNUP</h2>
+                    <form action="#">
+                        <div class="input-field">
+                            <input type="text" required>
+                            <label>Enter your email</label>
+                        </div>
+                        <div class="input-field">
+                            <input type="password" required>
+                            <label>Create password</label>
+                        </div>
+                        <div class="policy-text">
+                            <input type="checkbox" id="policy">
+                            <label for="policy">
+                                I agree the
+                                <a href="#" class="option">Terms & Conditions</a>
+                            </label>
+                        </div>
+                        <button type="submit">Sign Up</button>
+                    </form>
+                    <div class="bottom-link">
+                        Already have an account?
+                        <a href="#" id="login-link">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 	<!--====== Javascripts & Jquery ======-->

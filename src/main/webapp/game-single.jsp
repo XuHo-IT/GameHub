@@ -65,7 +65,7 @@
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
                     <div class="logo-fix">
-                        <a href="ReadGameHomeController" class="site-logo">
+                        <a href="index.jsp" class="site-logo">
                             <img src="./img/logo1.png" alt="" class="logo1">
                             <img src="./img/logo2.png" alt="" class="logo2">
                         </a>
@@ -78,7 +78,9 @@
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeController">Home</a></li>
-                            <li><a href="ReadGameListController">Games</a>
+                            <li><a href="games.jsp">Games</a></li>
+                            <li>
+                                <a class="li-fix" href="blog.jsp">News</a>
 
                                 <ul class="sub-menu">
                                     <li><a href="top-rating-all.jsp">Top rating</a></li>
@@ -188,7 +190,7 @@
                             <h3 style="color: white">Game Play</h3>
                             <p style="font-size: 20px"><%= gamePlay != null ? gamePlay : "No gamePlay available"%></p>
                         </div>
-                        <div> class="gs-auhtor-genre" ">
+                        <div class="gs-auhtor-genre" ">
                             <div class="left-author">
                                 <h3 style="color: white">Author</h3>
                             <p style="font-size: 20px"><%= author != null ? author : "No Author available"%></p>
@@ -199,14 +201,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
-             
-
-            
-                       
-                  
                 <div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">
                     <div id="stickySidebar">
                         <div class="widget-item">
@@ -217,10 +211,9 @@
                                     <li>Graphic Rating: <strong><%= graphicRating %></strong></li>
                                     <li>Difficulty Rating: <strong><%= difficultyRating %></strong></li>
                                     <li>Gameplay Rating: <strong><%= gameplayRating %></strong></li>
-                                    <li>Average Rating: <strong><%= averageRating %></strong></li>
                                 </ul>
                                 <div class="rating">
-                                    <h5><i>Rating</i><span>4.5</span> / 5</h5>
+                                    <h5><i>Average Rating:</i><span><%= averageRating %></span> / 5</h5>
                                 </div>
                             </div>
                         </div>
@@ -271,16 +264,16 @@
                 <img src="img/footer-left-pic.png" alt="">
             </div>
             <div class="footer-right-pic">
-                <img src="img/footer-right-pic.png" alt="">
+                <img src="img/spider-removebg-preview.png" alt="">
             </div>
-            <a href="ReadGameHomeController" class="footer-logo">
-                <img src="./img/logo1.png" alt="">
-                <img src="./img/logo2.png" alt="">
+            <a href="#" class="footer-logo">
+                <img src="./img/logo.png" alt="">
             </a>
             <ul class="main-menu footer-menu">
-                <li><a href="ReadGameHomeController">Home</a></li>
-                <li><a href="ReadGameListController">Games</a></li>
+                <li><a href="">Home</a></li>
+                <li><a href="">Games</a></li>
                 <li><a href="">Reviews</a></li>
+                <li><a href="">News</a></li>
                 <li><a href="">Contact</a></li>
             </ul>
 

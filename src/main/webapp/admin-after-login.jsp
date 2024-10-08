@@ -37,10 +37,7 @@
         <script src="Login/script.js" defer></script>
 
 
-        <!--[if lt IE 9]>
-                      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-              <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-            <![endif]-->
+
 
     </head>
 
@@ -74,9 +71,9 @@
                     </div>
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
-                            <!-- Bi?u t??ng gi? hàng -->
+                            <!-- Bi?u t??ng gi? hï¿½ng -->
 
-                            <!-- Bi?u t??ng tài kho?n -->
+                            <!-- Bi?u t??ng tï¿½i kho?n -->
                             <div class="account-container">
                                 <div class="account-icon">
                                     <i class="fa fa-user-circle" aria-hidden="true"></i>
@@ -95,9 +92,10 @@
 
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
-                            <li><a href="admin-after-login.jsp">Home</a></li>
-                            <li><a href="games.jsp">Games</a>
-
+                            <li><a href="ReadGameHomeController">Home</a></li>
+                            <li><a href="games.jsp">Games</a></li>
+                            <li>
+                                <a class="li-fix" href="blog.jsp">News</a>
                                 <ul class="sub-menu">
                                     <li><a href="top-rating-all.jsp">Top rating</a></li>
                                     <li><a href="top-wishlist.jsp">Top wishlist</a></li>
@@ -185,15 +183,14 @@
                         <div class="section-title text-white">
                             <h2>Latest News</h2>
                         </div>
-                        <ul class="blog-filter">
-                           
-                            <div class="user-panel">
-                                <button class="create-btn">Add Game Post</button>
-                            </div>
 
 
-                        </ul>
-                        <!-- Blog item -->
+
+
+                        <div class="user-panel">
+                            <button class="create-btn">Add </button>
+                        </div>
+
 
 
                         <!-- Blog item -->
@@ -221,9 +218,8 @@
                                 </div>
                             </c:forEach>
                         </div>
-
-                        <!-- Blog item -->
                     </div>
+
                     <div class="col-xl-3 col-lg-4 col-md-5 sidebar">
                         <div id="stickySidebar">
                             <div class="widget-item">
@@ -366,25 +362,28 @@
                     <a href="#"><i class="fa fa-twitter"></i></a>
                     <a href="#"><i class="fa fa-dribbble"></i></a>
                     <a href="#"><i class="fa fa-behance"></i></a>
-                            </div>
+                </div>
                 <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
             </div>
         </footer>
         <!-- Footer section end -->
 
 
-        <!-- Login Popup -->
+        <!-- Create Post Popup -->
+        <!-- Create Post Popup -->
         <div class="blur-bg-overlay"></div>
-        <div class="form-popup">
+        <div class="form-popup create-post-popup">
             <span class="close-btn material-symbols-rounded" style="top:50px">close</span>
+
             <div class="form-box create-post">
                 <div class="form-details">
                     <h2>Create Post Game</h2>
-                    <p>To develop our community, upload news about game that you know</p>
+                    <p>To develop our community, upload news about games that you know</p>
                 </div>
                 <div class="form-content">
                     <h2 style="margin-bottom: 6px">Create post</h2>
                     <form action="AddGameController" method="post" enctype="multipart/form-data">
+                        <!-- Form fields for creating post -->
                         <div class="input-field">
                             <label>Title</label>
                             <input type="text" required name="Title">
@@ -395,12 +394,10 @@
                         </div>
                         <div class="input-field">
                             <label>Description</label>
-
                             <input type="text" required name="Description">
                         </div>
                         <div class="input-field">
                             <label>Date Release</label>
-
                             <input type="date" required name="DateRelease">
                         </div>
                         <div class="input-field">
@@ -412,12 +409,10 @@
                         </div>
                         <div class="input-field">
                             <label>Author</label>
-
                             <input type="text" required name="Author">
                         </div>
                         <div class="input-field">
                             <label>Genre</label>
-
                             <input type="text" required name="Genre">
                         </div>
                         <div class="input-field">
@@ -426,17 +421,44 @@
                         </div>
                         <div class="policy-text">
                             <input type="checkbox" id="policy">
-                            <label for="policy">
-                                I agree the
+                            <label for="policy">I agree to the
                                 <a href="#" class="option">Terms & Conditions</a>
                             </label>
                         </div>
                         <button type="submit">Send</button>
                     </form>
+                    <div class="bottom-link">
+                        Want to upload a photo instead?
+                        <a href="#" id="upload-photo-link">Upload Photo</a>
+                    </div>
+                </div>
+            </div>
 
+            <div class="form-box upload-photo">
+                <div class="form-details">
+                    <h2>Upload Photo</h2>
+                    <p>To develop our community, upload news about games that you know</p>
+                </div>
+                <div class="form-content">
+                    <h2 style="margin-bottom: 6px">Upload Photo</h2>
+                    <form action="#" method="post" enctype="multipart/form-data">
+                        <div class="input-field">
+                            <label class="mr-2">Photo to Upload:</label>
+                            <input type="file" name="file">
+                        </div>
+                        <button type="submit">Send</button>
+                    </form>
+                    <div class="bottom-link">
+                        Add Post Game
+                        <a href="#" id="create-post-link">Add Post Game</a>
+                    </div>
                 </div>
             </div>
         </div>
+
+
+
+
 
 
         <!--====== Javascripts & Jquery ======-->
@@ -448,24 +470,56 @@
         <script src="js/jquery.magnific-popup.min.js"></script>
         <script src="js/main.js"></script>
         <script>
-
             const formPopup = document.querySelector(".form-popup");
-            const hidePopupBtn = formPopup.querySelector(".close-btn");
-            const showAddPostBtn = document.querySelector(".create-btn"); // Select the "Create Post" button
+            const showPopupBtn = document.querySelector(".create-btn"); // Button to open create post form
+            const hidePopupBtn = formPopup.querySelectorAll(".close-btn"); // Close buttons for both forms
+            const photoOrPost = document.querySelectorAll(".bottom-link a"); // Links to toggle forms
 
-            // Show "Create Post" form
-            showAddPostBtn.addEventListener("click", () => {
-                document.body.classList.toggle("show-popup");
-                // Optionally, show the 'create_post' form section
-                formPopup.classList.add("show-create-post"); // Add a specific class to show the create post form
+// Show create post popup
+            showPopupBtn?.addEventListener("click", () => {
+                document.body.classList.add("show-popup");
             });
-            // Hide login popup
-            hidePopupBtn.addEventListener("click", () => {
-                document.body.classList.remove("show-popup");
+
+// Hide both popups when close button is clicked
+            hidePopupBtn.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    document.body.classList.remove("show-popup");
+                });
+            });
+
+// Switch between create post and upload photo forms
+            photoOrPost.forEach(link => {
+                link.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    if (link.id === 'upload-photo-link') {
+                        formPopup.classList.add("show-upload-photo");
+                    } else {
+                        formPopup.classList.remove("show-upload-photo");
+                    }
+                });
             });
 
         </script>
+        <style>
+            .form-popup .upload-photo,
+            .form-popup .create-post {
+                display: none;
+            }
 
+            /* Show upload-photo form and hide create-post form */
+            .form-popup.show-upload-photo .upload-photo {
+                display: flex;
+            }
+
+            .form-popup.show-upload-photo .create-post {
+                display: none;
+            }
+
+            /* Show create-post form by default */
+            .form-popup .create-post {
+                display: flex;
+            }
+
+        </style>
     </body>
-
 </html>

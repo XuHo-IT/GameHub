@@ -17,24 +17,37 @@
         <servlet-class>Controller.AddGameController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ReadGameController</servlet-name>
-        <servlet-class>Controller.ReadGameController</servlet-class>
+        <servlet-name>ReadGameHomeAdminController</servlet-name>
+        <servlet-class>Controller.ReadGameHomeAdminController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ReadGameHomeController</servlet-name>
         <servlet-class>Controller.ReadGameHomeController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ReadGameListController</servlet-name>
+        <servlet-class>Controller.ReadGameListController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ShowAllGameController</servlet-name>
         <servlet-class>Controller.ShowAllGameController</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
         <servlet-name>SuspendUserController</servlet-name>
         <servlet-class>Controller.SuspendUserController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UnSuspendUserController</servlet-name>
         <servlet-class>Controller.UnSuspendUserController</servlet-class>
+=======
+        <servlet-name>ReadGameHomeMemberController</servlet-name>
+        <servlet-class>Controller.ReadGameHomeMemberController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddGenreController</servlet-name>
+        <servlet-class>Controller.AddGenreController</servlet-class>
+>>>>>>> e803c8c6e04361554cb555263b059c8e4e983ff1
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -49,8 +62,8 @@
         <url-pattern>/AddGameController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ReadGameController</servlet-name>
-        <url-pattern>/ReadGameController</url-pattern>
+        <servlet-name>ReadGameHomeAdminController</servlet-name>
+        <url-pattern>/ReadGameHomeAdminController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ReadGameHomeController</servlet-name>
@@ -61,10 +74,15 @@
         <!-- Change to your welcome file -->
     </welcome-file-list>
     <servlet-mapping>
+        <servlet-name>ReadGameListController</servlet-name>
+        <url-pattern>/ReadGameListController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ShowAllGameController</servlet-name>
         <url-pattern>/ShowAllGameController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
         <servlet-name>SuspendUserController</servlet-name>
         <url-pattern>/SuspendUserController</url-pattern>
     </servlet-mapping>
@@ -75,6 +93,14 @@
     <servlet-mapping>
         <servlet-name>RemoveUserServlet</servlet-name>
         <url-pattern>/RemoveUserServlet</url-pattern>
+=======
+        <servlet-name>ReadGameHomeMemberController</servlet-name>
+        <url-pattern>/ReadGameHomeMemberController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddGenreController</servlet-name>
+        <url-pattern>/AddGenreController</url-pattern>
+>>>>>>> e803c8c6e04361554cb555263b059c8e4e983ff1
     </servlet-mapping>
     <session-config>
         <session-timeout>

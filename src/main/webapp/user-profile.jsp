@@ -175,7 +175,7 @@
             <div class="px-xl-3">
               <button class="btn btn-block btn-secondary">
                 <i class="fa fa-sign-out"></i>
-                <span href = "index.jsp">Logout</span>
+                <span> href = "ReadGameHomeController">Logout</span>
               </button>
             </div>
           </div>

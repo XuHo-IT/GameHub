@@ -72,13 +72,20 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
         request.getSession().setAttribute("adminId", userDoc.getObjectId("_id").toString());
 
         // Redirect to admin-after-login.jsp
-        response.sendRedirect("ReadGameController");
-    } else {
-        // If authentication fails, set an error message
-        request.setAttribute("errorMessage", "Invalid email or password");
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        String role = userDoc.getString("Role");
+            if ("0".equals(role)) {
+                // For role 0 (regular user)
+                response.sendRedirect("ReadGameHomeMemberController");
+            } else if ("1".equals(role)) {
+                // For role 1 (admin)
+                response.sendRedirect("ReadGameHomeAdminController");
+            }
+        } else {
+            // If authentication fails, set an error message
+            request.setAttribute("errorMessage", "Invalid email or password");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
     }
-}
 
 
 

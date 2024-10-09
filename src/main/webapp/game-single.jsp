@@ -201,14 +201,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
-             
-
-            
-                       
-                  
                 <div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">
                     <div id="stickySidebar">
                         <div class="widget-item">
@@ -219,10 +211,9 @@
                                     <li>Graphic Rating: <strong><%= graphicRating %></strong></li>
                                     <li>Difficulty Rating: <strong><%= difficultyRating %></strong></li>
                                     <li>Gameplay Rating: <strong><%= gameplayRating %></strong></li>
-                                    <li>Average Rating: <strong><%= averageRating %></strong></li>
                                 </ul>
                                 <div class="rating">
-                                    <h5><i>Rating</i><span>4.5</span> / 5</h5>
+                                    <h5><i>Average Rating:</i><span><%= averageRating %></span> / 5</h5>
                                 </div>
                             </div>
                         </div>

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package Controller;
 
 import Model.GamePost;
@@ -11,7 +7,6 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -26,9 +21,9 @@ import org.bson.types.Binary;
  *
  * @author OS
  */
-public class ReadGameHomeController extends HttpServlet {
+public class ReadGameHomeMemberController extends HttpServlet {
 
-      private MongoClient mongoClient;
+    private MongoClient mongoClient;
 
     @Override
     public void init() throws ServletException {
@@ -83,29 +78,9 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
             System.out.println("No posts found in the database.");
         }
 
-        // Pagination logic
-        int itemsPerPage = 4;
-        int currentPage = 1;
-        String pageParam = request.getParameter("page");
-
-        if (pageParam != null) {
-            currentPage = Integer.parseInt(pageParam);
-        }
-
-        int totalItems = postList.size();
-        int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
-        
-        int startIndex = (currentPage - 1) * itemsPerPage;
-        int endIndex = Math.min(startIndex + itemsPerPage, totalItems);
-
-        // Sublist for current page
-        List<GamePost> postsForCurrentPage = postList.subList(startIndex, endIndex);
-
-        request.setAttribute("posts", postsForCurrentPage);
-        request.setAttribute("totalPages", totalPages);
-        request.setAttribute("currentPage", currentPage);
-       
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        request.setAttribute("posts", postList);
+        // Forward the request to the JSP page
+        request.getRequestDispatcher("after-login.jsp").forward(request, response);
     } catch (Exception e) {
         e.printStackTrace(); // Log the exception
         request.setAttribute("errorMessage", "Error retrieving game posts.");

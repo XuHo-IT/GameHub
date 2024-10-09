@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -175,7 +176,7 @@
             <div class="px-xl-3">
               <button class="btn btn-block btn-secondary">
                 <i class="fa fa-sign-out"></i>
-                <span> href = "ReadGameHomeController">Logout</span>
+                <a href="ReadGameHomeController"><span>Logout</span></a>
               </button>
             </div>
           </div>

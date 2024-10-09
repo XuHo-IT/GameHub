@@ -156,7 +156,8 @@
                 
                 <style>
                     .more-game-btn{
-                        padding-top: 50px;
+                        margin-top: 50px;
+                        padding-right: 90px;
                         font-size: 30px;
                         text-transform: uppercase;
                         font-weight: 700;
@@ -169,7 +170,7 @@
                         background-image: url("img/icons/more-arrow.png");
                         background-size: 250px;
                         background-repeat: no-repeat;
-                        background-position: right -300% center;
+                        background-position: right -350% center;
                     }
                     
                     .more-game-btn:hover{

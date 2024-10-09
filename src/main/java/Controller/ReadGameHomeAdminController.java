@@ -93,27 +93,15 @@ public class ReadGameHomeAdminController extends HttpServlet {
             
             Collections.reverse(postList);
 
-            // Pagination logic
-            int itemsPerPage = 4;
-            int currentPage = 1;
-            String pageParam = request.getParameter("page");
-
-            if (pageParam != null) {
-                currentPage = Integer.parseInt(pageParam);
+            List<GamePost> postTop4 = new ArrayList<>();
+        
+            int maxPosts = Math.min(4, postList.size());
+            int i;
+            for(i = 0; i < maxPosts; i++){
+                postTop4.add(postList.get(i));
             }
 
-            int totalItems = postList.size();
-            int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
-
-            int startIndex = (currentPage - 1) * itemsPerPage;
-            int endIndex = Math.min(startIndex + itemsPerPage, totalItems);
-
-            // Sublist for current page
-            List<GamePost> postsForCurrentPage = postList.subList(startIndex, endIndex);
-
-            request.setAttribute("posts", postsForCurrentPage);
-            request.setAttribute("totalPages", totalPages);
-            request.setAttribute("currentPage", currentPage);
+            request.setAttribute("posts", postTop4);
 
             // Forward to the JSP page with both genres and posts
             request.getRequestDispatcher("admin-after-login.jsp").forward(request, response);

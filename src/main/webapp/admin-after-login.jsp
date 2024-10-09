@@ -218,7 +218,32 @@
                                 </div>
                             </c:forEach>
                         </div>
+                        <a href="ReadGameListController" class=" more-game-btn"> More Game </a>
                     </div>
+
+                    <style>
+                        .more-game-btn{
+                            padding-top: 50px;
+                            font-size: 30px;
+                            text-transform: uppercase;
+                            font-weight: 700;
+                            font-style: italic;
+                            color: #fff;
+                            display: inline-block;
+                            -webkit-transition: all 0.2s;
+                            -o-transition: all 0.2s;
+                            transition: all 0.2s;
+                            background-image: url("img/icons/double-arrow.png");
+                            background-size: 30px;
+                            background-repeat: no-repeat;
+                            background-position: right 100% center;
+                        }
+
+                        .more-game-btn:hover{
+                            color: #b01ba5;
+                            background-position: right center;
+                        }
+                    </style>
 
                     <div class="col-xl-3 col-lg-4 col-md-5 sidebar">
                         <div id="stickySidebar">

@@ -65,7 +65,7 @@
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
                     <div class="logo-fix">
-                        <a href="index.jsp" class="site-logo">
+                        <a href="ReadGameHomeController" class="site-logo">
                             <img src="./img/logo1.png" alt="" class="logo1">
                             <img src="./img/logo2.png" alt="" class="logo2">
                         </a>
@@ -78,9 +78,7 @@
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeController">Home</a></li>
-                            <li><a href="games.jsp">Games</a></li>
-                            <li>
-                                <a class="li-fix" href="blog.jsp">News</a>
+                            <li><a href="ReadGameListController">Games</a>
 
                                 <ul class="sub-menu">
                                     <li><a href="top-rating-all.jsp">Top rating</a></li>
@@ -190,7 +188,7 @@
                             <h3 style="color: white">Game Play</h3>
                             <p style="font-size: 20px"><%= gamePlay != null ? gamePlay : "No gamePlay available"%></p>
                         </div>
-                        <div class="gs-auhtor-genre" ">
+                        <div class="gs-auhtor-genre">
                             <div class="left-author">
                                 <h3 style="color: white">Author</h3>
                             <p style="font-size: 20px"><%= author != null ? author : "No Author available"%></p>
@@ -266,14 +264,14 @@
             <div class="footer-right-pic">
                 <img src="img/spider-removebg-preview.png" alt="">
             </div>
-            <a href="#" class="footer-logo">
-                <img src="./img/logo.png" alt="">
+            <a href="ReadGameHomeController" class="footer-logo">
+                <img src="./img/logo1.png" alt="">
+                <img src="./img/logo2.png" alt="">
             </a>
             <ul class="main-menu footer-menu">
-                <li><a href="">Home</a></li>
-                <li><a href="">Games</a></li>
+                <li><a href="ReadGameHomeController">Home</a></li>
+                <li><a href="ReadGameListController">Games</a></li>
                 <li><a href="">Reviews</a></li>
-                <li><a href="">News</a></li>
                 <li><a href="">Contact</a></li>
             </ul>
 

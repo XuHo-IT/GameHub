@@ -64,7 +64,7 @@
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
                     <div class="logo-fix">
-                        <a href="home.html" class="site-logo">
+                        <a href="ReadGameHomeController" class="site-logo">
                             <img src="./img/logo1.png" alt="" class="logo1">
                             <img src="./img/logo2.png" alt="" class="logo2">
                         </a>
@@ -76,8 +76,8 @@
 
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
-                            <li><a href="index.jsp">Home</a></li>
-                            <li><a href="games.jsp">Games</a>
+                            <li><a href="ReadGameHomeController">Home</a></li>
+                            <li><a href="ReadGameListController">Games</a>
 
                                 <ul class="sub-menu">
                                     <li><a href="top-rating-all.jsp">Top rating</a></li>
@@ -187,14 +187,14 @@
                 <div class="footer-right-pic">
                     <img src="img/footer-right-pic.png" alt="">
                 </div>
-                <a href="index.jsp" class="footer-logo">
-                    <img src="./img/logo.png" alt="">
+                <a href="ReadGameHomeController" class="footer-logo">
+                    <img src="./img/logo1.png" alt="">
+                    <img src="./img/logo1.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
-                    <li><a href="index.jsp">Home</a></li>
-                    <li><a href="games.jsp">Games</a></li>
+                    <li><a href="ReadGameHomeController">Home</a></li>
+                    <li><a href="ReadGameListController">Games</a></li>
                     <li><a href="forum.jsp">Forum</a></li>
-                    <li><a href="blog.jsp">News</a></li>
                     <li><a href="contact.jsp">Contact</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">

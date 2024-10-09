@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -83,6 +84,8 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
             System.out.println("No posts found in the database.");
         }
 
+        Collections.reverse(postList);
+        
         // Pagination logic
         int itemsPerPage = 4;
         int currentPage = 1;

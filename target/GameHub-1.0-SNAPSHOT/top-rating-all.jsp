@@ -1,4 +1,11 @@
+
 <!DOCTYPE html>
+<%@page import="com.mongodb.client.model.Filters"%>
+<%@page import="org.bson.types.ObjectId"%>
+<%@page import="org.bson.Document"%>
+<%@page import="com.mongodb.client.MongoClients"%>
+<%@page import="com.mongodb.client.MongoCollection"%>
+<%@page import="com.mongodb.client.MongoClient"%>
 <html lang="zxx">
     <head>
         <title>EndGam - Gaming Magazine Template</title>
@@ -99,139 +106,94 @@
             </div>
         </section>
         <!-- Page top end-->
+       <%
+    String title = null;
+    String gamePlay = null;
+    String author = null;
+    String genre = null;
+    String description = null;
+    String dateRelease = null;
+    String fileData = null;
+    double priceRating = 0.0;
+    double graphicRating = 0.0;
+    double difficultyRating = 0.0;
+    double gameplayRating = 0.0;
+    double averageRating = 0.0;
+
+    // Get the post ID from the URL query parameter
+    String postId = request.getParameter("id");
+    System.out.println("Post ID: " + postId);
+
+    if (postId != null && !postId.isEmpty()) {
+        try {
+            // Connect to MongoDB
+            MongoClient mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub"); 
+            MongoCollection<Document> postsCollection = mongoClient.getDatabase("GameHub").getCollection("postGame");
+
+            // Find the post by its ObjectId
+            Document post = postsCollection.find(Filters.eq("_id", new ObjectId(postId))).first();
+
+            // Check if the post exists
+            if (post != null) {
+                gamePlay = post.getString("GamePlay");
+                author = post.getString("Author");
+                genre = post.getString("Genre");
+                title = post.getString("Title");
+                description = post.getString("Description");
+                dateRelease = post.getString("DateRelease");
+                fileData = post.getString("FileData");
+                priceRating = post.getDouble("PriceRating");
+                graphicRating = post.getDouble("GraphicRating");
+                difficultyRating = post.getDouble("DifficultyRating");
+                gameplayRating = post.getDouble("GameplayRating");
+                averageRating = post.getDouble("AverageRating");
+
+                // Log retrieved values
+                System.out.println("Title: " + title);
+                System.out.println("Description: " + description);
+                System.out.println("Date Release: " + dateRelease);
+                System.out.println("File Data: " + fileData);
+            } else {
+                out.println("Post not found.");
+            }
+
+            // Close MongoDB connection
+            mongoClient.close();
+
+        } catch (IllegalArgumentException e) {
+            out.println("Invalid post ID format: " + e.getMessage());
+        } catch (Exception e) {
+            out.println("An error occurred: " + e.getMessage());
+        }
+    } else {
+        out.println("Post ID is missing or empty.");
+    }
+%>
 
 
         <!-- Review section -->
         <section class="review-section">
             <div class="container">
-                <!--			<ul class="game-filter">
-                                                <li><a href="">A</a></li>
-                                                <li><a href="">B</a></li>
-                                                <li><a href="">C</a></li>
-                                                <li><a href="">D</a></li>
-                                                <li><a href="">E</a></li>
-                                                <li><a href="">F</a></li>
-                                                <li><a href="">G</a></li>
-                                                <li><a href="">H</a></li>
-                                                <li><a href="">I</a></li>
-                                                <li><a href="">J</a></li>
-                                                <li><a href="">K</a></li>
-                                                <li><a href="">L</a></li>
-                                                <li><a href="">M</a></li>
-                                                <li><a href="">N</a></li>
-                                                <li><a href="">O</a></li>
-                                                <li><a href="">P</a></li>
-                                                <li><a href="">Q</a></li>
-                                                <li><a href="">R</a></li>
-                                                <li><a href="">S</a></li>
-                                                <li><a href="">T</a></li>
-                                                <li><a href="">U</a></li>
-                                                <li><a href="">V</a></li>
-                                                <li><a href="">W</a></li>
-                                                <li><a href="">X</a></li>
-                                                <li><a href="">Y</a></li>
-                                                <li><a href="">Z</a></li>
-                                        </ul>-->
-                <div class="review-item">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="review-pic">
-                                <img src="img/review/1.jpg" alt="">
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="review-content text-box text-white">
-                                <div class="rating">
-                                    <h5><i>Rating</i><span>4.5</span> / 5</h5>
-                                </div>
-                                <div class="top-meta">11.11.18  /  in <a href="">Games</a></div>
-                                <h3>Final Appocalipse</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.Vivamus volutpat nibh ac sollicitudin imperdiet. Donec scelerisque lorem sodales odio ultricies, nec rhoncus ex lobortis. Vivamus tincidunt sit amet sem id varius. Donec elementum aliquet tortor. Curabitur justo mi, efficitur sed eros aliquealiqua.....</p>
-                                <a href="#" class="read-more">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
-                            </div>
-                        </div>
-                    </div>
+               <div class="review-item">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="review-pic">
+                <img src="data:image/jpeg;base64,<%= fileData != null ? fileData : "" %>" alt="Game Image" />
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="review-content text-box text-white">
+                <div class="rating">
+                    <h5><i>Average Rating:</i><span><%= averageRating %></span> / 5</h5>
                 </div>
-                <div class="review-item">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="review-pic">
-                                <img src="img/review/2.jpg" alt="">
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="review-content text-box text-white">
-                                <div class="rating">
-                                    <h5><i>Rating</i><span>4.5</span> / 5</h5>
-                                </div>
-                                <div class="top-meta">11.11.18  /  in <a href="">Games</a></div>
-                                <h3>Hounted Mansion 3</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.Vivamus volutpat nibh ac sollicitudin imperdiet. Donec scelerisque lorem sodales odio ultricies, nec rhoncus ex lobortis. Vivamus tincidunt sit amet sem id varius. Donec elementum aliquet tortor. Curabitur justo mi, efficitur sed eros aliquealiqua.....</p>
-                                <a href="#" class="read-more">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-item">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="review-pic">
-                                <img src="img/review/3.jpg" alt="">
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="review-content text-box text-white">
-                                <div class="rating">
-                                    <h5><i>Rating</i><span>3.5</span> / 5</h5>
-                                </div>
-                                <div class="top-meta">11.11.18  /  in <a href="">Games</a></div>
-                                <h3>Shooting Stuff</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.Vivamus volutpat nibh ac sollicitudin imperdiet. Donec scelerisque lorem sodales odio ultricies, nec rhoncus ex lobortis. Vivamus tincidunt sit amet sem id varius. Donec elementum aliquet tortor. Curabitur justo mi, efficitur sed eros aliquealiqua.....</p>
-                                <a href="#" class="read-more">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-item">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="review-pic">
-                                <img src="img/review/4.jpg" alt="">
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="review-content text-box text-white">
-                                <div class="rating">
-                                    <h5><i>Rating</i><span>4.5</span> / 5</h5>
-                                </div>
-                                <div class="top-meta">11.11.18  /  in <a href="">Games</a></div>
-                                <h3>Zombie War Nation 1</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.Vivamus volutpat nibh ac sollicitudin imperdiet. Donec scelerisque lorem sodales odio ultricies, nec rhoncus ex lobortis. Vivamus tincidunt sit amet sem id varius. Donec elementum aliquet tortor. Curabitur justo mi, efficitur sed eros aliquealiqua.....</p>
-                                <a href="#" class="read-more">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-item">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="review-pic">
-                                <img src="img/review/5.jpg" alt="">
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="review-content text-box text-white">
-                                <div class="rating">
-                                    <h5><i>Rating</i><span>2.5</span> / 5</h5>
-                                </div>
-                                <div class="top-meta">11.11.18  /  in <a href="">Games</a></div>
-                                <h3>Jams?e Island 3</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.Vivamus volutpat nibh ac sollicitudin imperdiet. Donec scelerisque lorem sodales odio ultricies, nec rhoncus ex lobortis. Vivamus tincidunt sit amet sem id varius. Donec elementum aliquet tortor. Curabitur justo mi, efficitur sed eros aliquealiqua.....</p>
-                                <a href="#" class="read-more">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div class="top-meta"><<%= dateRelease != null ? dateRelease : "Unknown Date"%>  /  in <a href="">Games</a></div>
+                <h3><%= title != null ? title : "Untitled" %></h3>
+                <p><%= description != null ? description : "No description available" %></p>
+                <a href="#" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#"/></a>
+            </div>
+        </div>
+    </div>
+</div> 
                 <div class="site-pagination">
                     <a href="#" class="active">01.</a>
                     <a href="#">02.</a>

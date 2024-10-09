@@ -65,20 +65,43 @@
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
                     <div class="logo-fix">
-                        <a href="index.jsp" class="site-logo">
+                        <a href="after-login.jsp" class="site-logo">
                             <img src="./img/logo1.png" alt="" class="logo1">
                             <img src="./img/logo2.png" alt="" class="logo2">
                         </a>
                     </div>
                     <nav class="top-nav-area w-100">
-                        <div class="user-panel">
-                            <button class="login-btn">LOG IN</button>
+                        <div class="user-panel d-flex">
+                            <!-- Bi?u t??ng gi? h�ng -->
+                            <div class="cart-icon">
+                                <a href="shopping-cart.jsp">
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <!-- Bi?u t??ng t�i kho?n -->
+                            <div class="account-container">
+                                <div class="account-icon">
+                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                </div>
+                                <div class="account-dropdown">
+                                    <ul>
+                                        <li><a href="#">My Favourite</a></li>
+                                        <li><a href="user-profile.jsp">Account Info</a></li>
+
+                                        <li><a href="#">Log out</a></li>
+
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
+
 
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeController">Home</a></li>
-                            <li><a href="ReadGameListController">Games</a>
+                            <li><a href="games.jsp">Games</a></li>
+                            <li>
+                                <a class="li-fix" href="blog.jsp">News</a>
 
                                 <ul class="sub-menu">
                                     <li><a href="top-rating-all.jsp">Top rating</a></li>

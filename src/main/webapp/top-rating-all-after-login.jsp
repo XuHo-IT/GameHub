@@ -1,7 +1,13 @@
+<%@page import="com.mongodb.client.model.Sorts"%>
+<%@page import="com.mongodb.client.MongoCursor"%>
 <!DOCTYPE html>
+<%@ page import="com.mongodb.client.MongoClients, com.mongodb.client.MongoClient, com.mongodb.client.MongoCollection, org.bson.Document, org.bson.types.ObjectId, com.mongodb.client.model.Filters" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="zxx">
     <head>
-        <title>EndGame - Gaming Magazine Template</title>
+        <title>EndGam - Gaming Magazine Template</title>
         <meta charset="UTF-8">
         <meta name="description" content="EndGam Gaming Magazine Template">
         <meta name="keywords" content="endGam,gGaming, magazine, html">
@@ -43,7 +49,10 @@
         <!-- Header section -->
         <header class="header-section">
             <div class="header-warp">
-                
+                <form class="search-form ">
+                    <input type="text"  placeholder="Search..." aria-label="Search">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
                 <div class="header-social d-flex justify-content-end">
                     <p>Follow us:</p>
                     <a href="#"><i class="fa fa-pinterest"></i></a>
@@ -55,20 +64,40 @@
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
                     <div class="logo-fix">
-                        <a href="ReadGameHomeController" class="site-logo">
+                        <a href="home.html" class="site-logo">
                             <img src="./img/logo1.png" alt="" class="logo1">
                             <img src="./img/logo2.png" alt="" class="logo2">
                         </a>
                     </div>
                     <nav class="top-nav-area w-100">
-                        <div class="user-panel">
-                            <button class="login-btn">LOG IN</button>
+                        div class="user-panel d-flex">
+                            <!-- Bi?u t??ng gi? hï¿½ng -->
+                            <div class="cart-icon">
+                                <a href="shopping-cart.jsp">
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <!-- Bi?u t??ng tï¿½i kho?n -->
+                            <div class="account-container">
+                                <div class="account-icon">
+                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                </div>
+                                <div class="account-dropdown">
+                                    <ul>
+                                        <li><a href="#">My Favourite</a></li>
+                                        <li><a href="user-profile.jsp">Account Info</a></li>
+
+                                        <li><a href="#">Log out</a></li>
+
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
-                            <li><a href="ReadGameHomeController">Home</a></li>
-                            <li><a href="ReadGameListController">Games</a>
+                            <li><a href="index.jsp">Home</a></li>
+                            <li><a href="games.jsp">Games</a>
 
                                 <ul class="sub-menu">
                                     <li><a href="top-rating-all.jsp">Top rating</a></li>
@@ -86,52 +115,74 @@
 
 
         <!-- Page top section -->
-        <section class="page-top-section set-bg" data-setbg="img/page-top-bg/4.jpg">
-            <div class="page-info">
-                <h2>Contact</h2>
-                <div class="site-breadcrumb">
-                    <a href="ReadGameHomeController">Home</a>  /
-                    <span>Contact</span>
-                </div>
+    <section class="page-top-section set-bg" data-setbg="img/page-top-bg/2.jpg">
+        <div class="page-info">
+            <h2>Top rating</h2>
+            <div class="site-breadcrumb">
+                <a href="index.js">Home</a>  /
+                <span>Top rating</span>
             </div>
-        </section>
-        <!-- Page top end-->
+        </div>
+    </section>
+    
+    <!-- Review section -->
+    <section class="review-section">
+        <div class="container">
+            <%
+                // Connect to MongoDB
+                MongoClient mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
+                MongoCollection<Document> postsCollection = mongoClient.getDatabase("GameHub").getCollection("postGame");
 
+                // Find all posts and sort by AverageRating in descending order
+                MongoCursor<Document> cursor = postsCollection.find().sort(Sorts.descending("AverageRating")).iterator();
 
-        <!-- Contact page -->
-        <section class="contact-page">
-            <div class="container">
-                <div class="map"><iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14376.077865872314!2d-73.879277264103!3d40.757667781624285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbd!4v1546528920522" style="border:0" allowfullscreen></iframe></div>
+                // Loop through the results
+                while (cursor.hasNext()) {
+                    Document post = cursor.next();
+
+                    String title = post.getString("Title");
+                    String description = post.getString("Description");
+                    String dateRelease = post.getString("DateRelease");
+                    double averageRating = post.getDouble("AverageRating");
+                    String fileData = post.getString("FileData");
+                    String postId = post.getObjectId("_id").toString();
+
+                    // Display each post with the relevant information
+            %>
+            <div class="review-item">
                 <div class="row">
-                    <div class="col-lg-7 order-2 order-lg-1">
-                        <form class="contact-form">
-                            <input type="text" placeholder="Your name">
-                            <input type="text" placeholder="Your e-mail">
-                            <input type="text" placeholder="Subject">
-                            <textarea placeholder="Message"></textarea>
-                            <button class="site-btn">Send message<img src="img/icons/double-arrow.png" alt="#"/></button>
-                        </form>
+                    <div class="col-lg-4">
+                        <div class="review-pic">
+                            <img src="data:image/jpeg;base64,<%= fileData != null ? fileData : ""%>" alt="Game Image">
+                        </div>
                     </div>
-                    <div class="col-lg-5 order-1 order-lg-2 contact-text text-white">
-                        <h3>Howdy! Say hello</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.....</p>
-                        <div class="cont-info">
-                            <div class="ci-icon"><img src="img/icons/location.png" alt=""></div>
-                            <div class="ci-text">Main Str, no 23, New York</div>
-                        </div>
-                        <div class="cont-info">
-                            <div class="ci-icon"><img src="img/icons/phone.png" alt=""></div>
-                            <div class="ci-text">+546 990221 123</div>
-                        </div>
-                        <div class="cont-info">
-                            <div class="ci-icon"><img src="img/icons/mail.png" alt=""></div>
-                            <div class="ci-text">hosting@contact.com</div>
+                    <div class="col-lg-8">
+                        <div class="review-content text-box text-white">
+                            <div class="rating">
+                                <h5><i>Average Rating:</i><span><%= averageRating %></span> / 5</h5>
+                            </div>
+                            <div class="top-meta"><%= dateRelease != null ? dateRelease : "Unknown Release Date" %>  /  in <a href="#">Games</a></div>
+                            <h3><%= title != null ? title : "Untitled" %></h3>
+                            <p><%= description != null ? description : "No description available" %></p>
+                            <a href="game-single.jsp?id=<%= postId %>" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#"></a>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- Contact page end-->
+            <%
+                }
+                // Close MongoDB connection
+                mongoClient.close();
+            %>
+
+            <div class="site-pagination">
+                <a href="#" class="active">01.</a>
+                <a href="#">02.</a>
+                <a href="#">03.</a>
+            </div>
+        </div>
+    </section>
+        <!-- Review section end-->
 
 
         <!-- Newsletter section -->
@@ -140,7 +191,7 @@
                 <h2>Subscribe to our newsletter</h2>
                 <form class="newsletter-form">
                     <input type="text" placeholder="ENTER YOUR E-MAIL">
-                    <button class="site-btn">subscribe <img src="img/icons/double-arrow.png" alt="#"/></button>
+                    <button class="site-btn">subscribe  <img src="img/icons/double-arrow.png" alt="#"/></button>
                 </form>
             </div>
         </section>
@@ -156,14 +207,14 @@
                 <div class="footer-right-pic">
                     <img src="img/footer-right-pic.png" alt="">
                 </div>
-                <a href="ReadGameHomeController" class="footer-logo">
-                    <img src="./img/logo1.png" alt="">
-                    <img src="./img/logo2.png" alt="">
+                <a href="index.jsp" class="footer-logo">
+                    <img src="./img/logo.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
-                    <li><a href="ReadGameHomeController">Home</a></li>
-                    <li><a href="ReadGameListController">Games</a></li>
+                    <li><a href="index.jsp">Home</a></li>
+                    <li><a href="games.jsp">Games</a></li>
                     <li><a href="forum.jsp">Forum</a></li>
+                    <li><a href="blog.jsp">News</a></li>
                     <li><a href="contact.jsp">Contact</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
@@ -240,7 +291,6 @@
                 </div>
             </div>
         </div>
-
         <!--====== Javascripts & Jquery ======-->
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>

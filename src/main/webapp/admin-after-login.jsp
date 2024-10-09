@@ -80,11 +80,10 @@
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
-
                                         <li><a href="user-profile.jsp">Account Info</a></li>
-                                        <li><a href="user-profile.jsp">Log out</a></li>
-
-
+                                        <li>
+                                            <a href="ReadGameHomeAdminController?action=logout" class="dropdown-item">Logout</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -94,8 +93,8 @@
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeController">Home</a></li>
                             <li><a href="ReadGameListController">Games</a></li>
-                            <li>
-                                <a class="li-fix" href="blog.jsp">News</a>
+                            <li><a href="ReadGameListController">Games</a>
+
                                 <ul class="sub-menu">
                                     <li><a href="top-rating-all.jsp">Top rating</a></li>
                                     <li><a href="top-wishlist.jsp">Top wishlist</a></li>
@@ -219,7 +218,33 @@
                                 </div>
                             </c:forEach>
                         </div>
+                        <a href="ReadGameListController" class=" more-game-btn"> More Game </a>
                     </div>
+
+                    <style>
+                        .more-game-btn{
+                            margin-top: 50px;
+                            padding-right: 90px;
+                            font-size: 30px;
+                            text-transform: uppercase;
+                            font-weight: 700;
+                            font-style: italic;
+                            color: #fff;
+                            display: inline-block;
+                            -webkit-transition: all 0.2s;
+                            -o-transition: all 0.2s;
+                            transition: all 0.2s;
+                            background-image: url("img/icons/more-arrow.png");
+                            background-size: 250px;
+                            background-repeat: no-repeat;
+                            background-position: right -350% center;
+                        }
+
+                        .more-game-btn:hover{
+                            color: #b01ba5;
+                            background-position: right center;
+                        }
+                    </style>
 
                     <div class="col-xl-3 col-lg-4 col-md-5 sidebar">
                         <div id="stickySidebar">
@@ -266,15 +291,14 @@
                             </div>
                             <div class="widget-item">
                                 <div class="categories-widget">
-                                    <h4 class="widget-title">categories</h4>
-                                    <ul>
-                                        <li><a href="">Games</a></li>
-                                        <li><a href="">Gaming Tips & Tricks</a></li>
-                                        <li><a href="">Online Games</a></li>
-                                        <li><a href="">Team Games</a></li>
-                                        <li><a href="">Community</a></li>
-                                        <li><a href="">Uncategorized</a></li>
-                                    </ul>
+                                    <h4 class="widget-title">Genre</h4>
+                                    <form action="AddGameController" method="post" enctype="multipart/form-data">   
+                                        <ul>
+                                            <c:forEach var="genre" items="${genres}">
+                                                <li><a href="#">${genre.genre != null ? genre.genre : 'No genre available'}</a></li>
+                                                </c:forEach>     
+                                        </ul>
+                                    </form>
                                 </div>
                             </div>
                             <div class="widget-item">
@@ -434,8 +458,8 @@
                         <button type="submit">Send</button>
                     </form>
                     <div class="bottom-link">
-                        Want to upload a photo instead?
-                        <a href="#" id="upload-photo-link">Upload Photo</a>
+                        Want to upload a genre?
+                        <a href="#" id="upload-photo-link">Upload Genre</a>
                     </div>
                 </div>
                 <div class="right-position">
@@ -471,7 +495,6 @@
                         <button type="submit">Send</button>
                     </form>
                     <div class="bottom-link">
-                        Add Post Game
                         <a href="#" id="create-post-link">Add Post Game</a>
                     </div>
                 </div>

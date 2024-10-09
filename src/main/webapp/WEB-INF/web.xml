@@ -52,6 +52,10 @@
         <servlet-name>AssignAdminController</servlet-name>
         <servlet-class>Controller.AssignAdminController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogOutController</servlet-name>
+        <servlet-class>Controller.LogOutController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -65,52 +69,4 @@
         <url-pattern>/AddGameController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ReadGameHomeAdminController</servlet-name>
-        <url-pattern>/ReadGameHomeAdminController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ReadGameHomeController</servlet-name>
-        <url-pattern>/ReadGameHomeController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ReadGameListController</servlet-name>
-        <url-pattern>/ReadGameListController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ShowAllGameController</servlet-name>
-        <url-pattern>/ShowAllGameController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SuspendUserController</servlet-name>
-        <url-pattern>/SuspendUserController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UnSuspendUserController</servlet-name>
-        <url-pattern>/UnSuspendUserController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>RemoveUserServlet</servlet-name>
-        <url-pattern>/RemoveUserServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ReadGameHomeMemberController</servlet-name>
-        <url-pattern>/ReadGameHomeMemberController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddGenreController</servlet-name>
-        <url-pattern>/AddGenreController</url-pattern>
-    </servlet-mapping>
-    <welcome-file-list>
-        <welcome-file>ReadGameHomeController</welcome-file>
-        <!-- Change to your welcome file -->
-    </welcome-file-list>
-    <servlet-mapping>
-        <servlet-name>AssignAdminController</servlet-name>
-        <url-pattern>/AssignAdminController</url-pattern>
-    </servlet-mapping>
-    <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
-    </session-config>
-</web-app>
+        <

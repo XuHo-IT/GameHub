@@ -48,51 +48,48 @@
         <div class="loader"></div>
     </div>
 
-        <header class="header-section">
-            <div class="header-warp">
-                <form class="search-form ">
-                    <input type="text"  placeholder="Search..." aria-label="Search">
-                    <button type="submit"><i class="fa fa-search"></i></button>
-                </form>
-                <div class="header-social d-flex justify-content-end">
-                    <p>Follow us:</p>
-                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                    <a href="#"><i class="fa fa-behance"></i></a>
-                </div>
-                <div class="header-bar-warp d-flex">
-                    <!-- site logo -->
-                    <div class="logo-fix">
-                        <a href="ReadGameHomeController" class="site-logo">
-                            <img src="./img/logo1.png" alt="" class="logo1">
-                            <img src="./img/logo2.png" alt="" class="logo2">
-                        </a>
-                    </div>
-                    <nav class="top-nav-area w-100">
-                        <div class="user-panel">
-                            <button class="login-btn">LOG IN</button>
-                        </div>
+    <header class="header-section">
+        <div class="header-warp">
 
-                        <!-- Menu -->
-                        <ul class="main-menu primary-menu">
-                            <li><a href="ReadGameHomeController">Home</a></li>
-                            <li><a href="ReadGameListController">Games</a>
-
-                                <ul class="sub-menu">
-                                    <li><a href="top-rating-all.jsp">Top rating</a></li>
-                                    <li><a href="top-wishlist.jsp">Top wishlist</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="contact.jsp">Contact</a></li>
-                            <li><a href="forum.jsp">Community</a></li>
-                        </ul>
-                    </nav>
-                </div>
+            <div class="header-social d-flex justify-content-end">
+                <p>Follow us:</p>
+                <a href="#"><i class="fa fa-pinterest"></i></a>
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-dribbble"></i></a>
+                <a href="#"><i class="fa fa-behance"></i></a>
             </div>
-        </header>
-        <!-- Header section end -->
+            <div class="header-bar-warp d-flex">
+                <!-- site logo -->
+                <div class="logo-fix">
+                    <a href="ReadGameHomeController" class="site-logo">
+                        <img src="./img/logo1.png" alt="" class="logo1">
+                        <img src="./img/logo2.png" alt="" class="logo2">
+                    </a>
+                </div>
+                <nav class="top-nav-area w-100">
+                    <div class="user-panel">
+                        <button class="login-btn">LOG IN</button>
+                    </div>
+
+                    <!-- Menu -->
+                    <ul class="main-menu primary-menu">
+                        <li><a href="ReadGameHomeController">Home</a></li>
+                        <li><a href="ReadGameListController">Games</a>
+
+                            <ul class="sub-menu">
+                                <li><a href="top-rating-all.jsp">Top rating</a></li>
+                                <li><a href="top-wishlist.jsp">Top wishlist</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact.jsp">Contact</a></li>
+                        <li><a href="forum.jsp">Community</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!-- Header section end -->
 
 
     <!-- Hero section -->
@@ -154,20 +151,18 @@
                             </div>
                         </c:forEach>                      
                     </div>
-                    <a href="games.jsp" class=" read-more" style="
+
+                   
+                    <a href="ReadGameListController" class=" read-more" style="
                        padding-top: 20px;
                        font-size: 30px;
                        text-transform: uppercase;
                        font-weight: 700;
                        font-style: italic;
-                       color: #fff;">Read More <img src="img/icons/double-arrow.png" alt="#" />
+                       color: #fff;"> More Games <img src="img/icons/double-arrow.png" alt="#" />
                     </a>
-                    <div class="site-pagination">
-                        <c:forEach var="i" begin="1" end="${totalPages}">
-                            <a href="?page=${i}" class="${i == currentPage ? 'active' : ''}">${i < 10 ? '0' + i : i}</a>
-                        </c:forEach>
-                    </div>
                 </div>
+
 
                 <div class="col-xl-3 col-lg-4 col-md-5 sidebar">
                     <div id="stickySidebar">
@@ -180,17 +175,17 @@
                         <div class="widget-item">
                             <div class="categories-widget">
                                 <h4 class="widget-title">Genre</h4>
-                                <ul>
-                                    <li><a href="">Action</a></li>
-                                    <li><a href="">Action-adventure</a></li>
-                                    <li><a href="">Adventure</a></li>
-                                    <li><a href="">Puzzle</a></li>
-                                    <li><a href="">Role-playing</a></li>
-                                    <li><a href="">Simulation</a></li>
-                                    <li><a href="">Strategy</a></li>
-                                    <li><a href="">Sports</a></li>
-                                    <li><a href="">MMO</a></li>
-                                </ul>
+                                <form action="ReadGameHomeController" method="get">   
+                                    <ul>
+                                        <c:forEach var="genre" items="${genres}">
+                                            <li>
+                                                <a href="ReadGameHomeController?genre=${genre.genreId}">
+                                                    ${genre.genre != null ? genre.genre : 'No genre available'}
+                                                </a>
+                                            </li>
+                                        </c:forEach>     
+                                    </ul>
+                                </form>
                             </div>
                         </div>
                         <div class="widget-item">
@@ -248,36 +243,36 @@
     <!-- Newsletter section end -->
 
 
-        <!-- Footer section -->
-        <footer class="footer-section">
-            <div class="container">
-                <div class="footer-left-pic">
-                    <img src="img/footer-left-pic.png" alt="">
-                </div>
-                <div class="footer-right-pic">
-                    <img src="img/footer-right-pic.png" alt="">
-                </div>
-                <a href="ReadGameHomeController" class="footer-logo">
-                    <img src="./img/logo1.png" alt="">
-                    <img src="./img/logo2.png" alt="">
-                </a>
-                <ul class="main-menu footer-menu">
-                    <li><a href="ReadGameHomeController">Home</a></li>
-                    <li><a href="ReadGameListController">Games</a></li>
-                    <li><a href="forum.jsp">Forum</a></li>
-                    <li><a href="contact.jsp">Contact</a></li>
-                </ul>
-                <div class="footer-social d-flex justify-content-center">
-                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                    <a href="#"><i class="fa fa-behance"></i></a>
-                </div>
-                <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
+    <!-- Footer section -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="footer-left-pic">
+                <img src="img/footer-left-pic.png" alt="">
             </div>
-        </footer>
-        <!-- Footer section end -->
+            <div class="footer-right-pic">
+                <img src="img/footer-right-pic.png" alt="">
+            </div>
+            <a href="ReadGameHomeController" class="footer-logo">
+                <img src="./img/logo1.png" alt="">
+                <img src="./img/logo2.png" alt="">
+            </a>
+            <ul class="main-menu footer-menu">
+                <li><a href="ReadGameHomeController">Home</a></li>
+                <li><a href="ReadGameListController">Games</a></li>
+                <li><a href="forum.jsp">Forum</a></li>
+                <li><a href="contact.jsp">Contact</a></li>
+            </ul>
+            <div class="footer-social d-flex justify-content-center">
+                <a href="#"><i class="fa fa-pinterest"></i></a>
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-dribbble"></i></a>
+                <a href="#"><i class="fa fa-behance"></i></a>
+            </div>
+            <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
+        </div>
+    </footer>
+    <!-- Footer section end -->
 
 
     <!-- Login Popup -->

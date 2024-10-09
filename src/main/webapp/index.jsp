@@ -203,11 +203,12 @@
 
     <!-- Intro section -->
     <section class="intro-video-section set-bg d-flex align-items-end " data-setbg="./img/promo-bg.jpg">
-        <a href="https://www.youtube.com/watch?v=uFsGy5x_fyQ" class="video-play-btn video-popup"><img src="img/icons/solid-right-arrow.png" alt="#"></a>
+        <a href="https://www.youtube.com/watch?v=plUn_L8gAno" class="video-play-btn video-popup"><img src="img/icons/solid-right-arrow.png" alt="#"></a>
         <div class="container">
             <div class="video-text">
                 <h2>Promo video of the game</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                <p>Watch our exciting promotional video showcasing the latest features and gameplay of our highly anticipated game. 
+                    Dive into a thrilling world filled with immersive graphics, intense action, and engaging storylines. </p>
             </div>
         </div>
     </section>

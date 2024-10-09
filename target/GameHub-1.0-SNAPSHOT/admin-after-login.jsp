@@ -93,8 +93,8 @@
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeController">Home</a></li>
                             <li><a href="ReadGameListController">Games</a></li>
-                            <li>
-                                <a class="li-fix" href="blog.jsp">News</a>
+                            <li><a href="ReadGameListController">Games</a>
+
                                 <ul class="sub-menu">
                                     <li><a href="top-rating-all.jsp">Top rating</a></li>
                                     <li><a href="top-wishlist.jsp">Top wishlist</a></li>

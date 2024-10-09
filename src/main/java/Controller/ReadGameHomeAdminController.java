@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.List;
 
 public class ReadGameHomeAdminController extends HttpServlet {
@@ -89,7 +90,30 @@ public class ReadGameHomeAdminController extends HttpServlet {
                 );
                 postList.add(gamePost);
             }
-            request.setAttribute("posts", postList);
+            
+            Collections.reverse(postList);
+
+            // Pagination logic
+            int itemsPerPage = 4;
+            int currentPage = 1;
+            String pageParam = request.getParameter("page");
+
+            if (pageParam != null) {
+                currentPage = Integer.parseInt(pageParam);
+            }
+
+            int totalItems = postList.size();
+            int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
+
+            int startIndex = (currentPage - 1) * itemsPerPage;
+            int endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+
+            // Sublist for current page
+            List<GamePost> postsForCurrentPage = postList.subList(startIndex, endIndex);
+
+            request.setAttribute("posts", postsForCurrentPage);
+            request.setAttribute("totalPages", totalPages);
+            request.setAttribute("currentPage", currentPage);
 
             // Forward to the JSP page with both genres and posts
             request.getRequestDispatcher("admin-after-login.jsp").forward(request, response);

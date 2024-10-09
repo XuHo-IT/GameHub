@@ -119,6 +119,11 @@
             String description = null;
             String dateRelease = null;
             String fileData = null;
+            double priceRating = 0.0;
+            double graphicRating = 0.0;
+            double difficultyRating = 0.0;
+            double gameplayRating = 0.0;
+            double averageRating = 0.0;
 
             // Get the post ID from the URL query parameter
             String postId = request.getParameter("id");
@@ -140,6 +145,11 @@
                 description = post.getString("Description"); // Ensure correct case
                 dateRelease = post.getString("DateRelease"); // Ensure correct case
                 fileData = post.getString("FileData"); // Ensure correct case
+                priceRating = post.getDouble("PriceRating");
+                graphicRating = post.getDouble("GraphicRating");
+                difficultyRating = post.getDouble("DifficultyRating");
+                gameplayRating = post.getDouble("GameplayRating");
+                averageRating = post.getDouble("AverageRating");
 
                 // Log retrieved values
                 System.out.println("Title: " + title);
@@ -191,28 +201,19 @@
                             </div>
                         </div>
                     </div>
-
-
-
-             
-
-            
-                       
-                  
                 <div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">
                     <div id="stickySidebar">
                         <div class="widget-item">
                             <div class="rating-widget">
                                 <h4 class="widget-title">Ratings</h4>
                                 <ul>
-                                    <li>Price<span>3.5/5</span></li>
-                                    <li>Graphics<span>4.5/5</span></li>
-                                    <li>Levels<span>3.5/5</span></li>
-                                    <li>Levels<span>4.5/5</span></li>
-                                    <li>Dificulty<span>4.5/5</span></li>
+                                    <li>Price Rating: <strong><%= priceRating %></strong></li>
+                                    <li>Graphic Rating: <strong><%= graphicRating %></strong></li>
+                                    <li>Difficulty Rating: <strong><%= difficultyRating %></strong></li>
+                                    <li>Gameplay Rating: <strong><%= gameplayRating %></strong></li>
                                 </ul>
                                 <div class="rating">
-                                    <h5><i>Rating</i><span>4.5</span> / 5</h5>
+                                    <h5><i>Average Rating:</i><span><%= averageRating %></span> / 5</h5>
                                 </div>
                             </div>
                         </div>

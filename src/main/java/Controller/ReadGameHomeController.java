@@ -83,7 +83,27 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
             System.out.println("No posts found in the database.");
         }
 
-        request.setAttribute("posts", postList);
+        // Pagination logic
+        int itemsPerPage = 4;
+        int currentPage = 1;
+        String pageParam = request.getParameter("page");
+
+        if (pageParam != null) {
+            currentPage = Integer.parseInt(pageParam);
+        }
+
+        int totalItems = postList.size();
+        int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
+        
+        int startIndex = (currentPage - 1) * itemsPerPage;
+        int endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+
+        // Sublist for current page
+        List<GamePost> postsForCurrentPage = postList.subList(startIndex, endIndex);
+
+        request.setAttribute("posts", postsForCurrentPage);
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("currentPage", currentPage);
        
         request.getRequestDispatcher("index.jsp").forward(request, response);
     } catch (Exception e) {

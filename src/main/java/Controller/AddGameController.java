@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.GamePost;
+import Model.Genre;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -17,7 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 @MultipartConfig
 public class AddGameController extends HttpServlet {
@@ -28,7 +31,7 @@ public class AddGameController extends HttpServlet {
     public void init() throws ServletException {
         mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
     }
-
+   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -40,6 +43,15 @@ public class AddGameController extends HttpServlet {
         String author = request.getParameter("Author");
         String genre = request.getParameter("Genre");
 
+        // Get the ratings
+        double priceRating = Double.parseDouble(request.getParameter("PriceRating"));
+        double graphicRating = Double.parseDouble(request.getParameter("GraphicRating"));
+        double difficultyRating = Double.parseDouble(request.getParameter("DifficultyRating"));
+        double gameplayRating = Double.parseDouble(request.getParameter("GameplayRating"));
+
+        // Calculate the average rating
+        double averageRating = (priceRating + graphicRating + difficultyRating + gameplayRating) / 4;
+
         // Get the admin's ID from the session
         String adminId = (String) request.getSession().getAttribute("adminId");
 
@@ -47,7 +59,7 @@ public class AddGameController extends HttpServlet {
         Part filePart = request.getPart("file");
         String fileName = filePart.getSubmittedFileName();
         InputStream fileContent = filePart.getInputStream();
-        
+
         // Read file data into byte array and convert to Base64
         byte[] fileDataBytes = IOUtils.toByteArray(fileContent);
         String fileDataBase64 = Base64.getEncoder().encodeToString(fileDataBytes); // Convert byte array to Base64 string
@@ -63,7 +75,7 @@ public class AddGameController extends HttpServlet {
                 genre,
                 adminId,
                 fileName,
-                fileDataBase64 // Use the Base64 string here
+                fileDataBase64
         );
 
         // Get MongoDB database and collection
@@ -79,13 +91,18 @@ public class AddGameController extends HttpServlet {
                 .append("Genre", gamePost.getGenre())
                 .append("AdminId", gamePost.getAdminId()) // Add admin ID to the post
                 .append("FileName", gamePost.getFileName())
-                .append("FileData", fileDataBase64); // Save the Base64 string directly
+                .append("FileData", fileDataBase64) // Save the Base64 string directly
+                .append("PriceRating", priceRating)
+                .append("GraphicRating", graphicRating)
+                .append("DifficultyRating", difficultyRating)
+                .append("GameplayRating", gameplayRating)
+                .append("AverageRating", averageRating); // Add the average rating
 
         // Insert the document into the MongoDB collection
         collection.insertOne(postGame);
 
         // Redirect to the admin page after successful insertion
-        response.sendRedirect("AddGameController");
+        response.sendRedirect("ReadGameHomeAdminController");
     }
           // Cach 2: su dung anh duoi dang binary
 //     @Override

@@ -11,7 +11,7 @@ import java.util.Date;
  * @author OS
  */
 public class SuperAdmin {
-    private int adminId;
+    private String adminId;
     private String name;
     private Date dob;
     private String email;
@@ -19,8 +19,10 @@ public class SuperAdmin {
     private String address;
     private String passWord;
     private String photoUrl;
+    private String Role;
+    private String status;
 
-    public SuperAdmin(int adminId, String name, Date dob, String email, String phone, String address, String passWord, String photoUrl) {
+    public SuperAdmin(String adminId, String name, Date dob, String email, String phone, String address, String passWord, String photoUrl, String Role, String status) {
         this.adminId = adminId;
         this.name = name;
         this.dob = dob;
@@ -29,7 +31,28 @@ public class SuperAdmin {
         this.address = address;
         this.passWord = passWord;
         this.photoUrl = photoUrl;
+        this.Role = Role;
+        this.status = status;
     }
+
+    public String getRole() {
+        return Role;
+    }
+
+    public void setRole(String Role) {
+        this.Role = Role;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+
+  
 
     public String getPhotoUrl() {
         return photoUrl;
@@ -49,16 +72,13 @@ public class SuperAdmin {
         this.passWord = passWord;
     }
 
-   
-
-    public int getAdminId() {
+    public String getAdminId() {
         return adminId;
     }
 
-    public void setAdminId(int adminId) {
+    public void setAdminId(String adminId) {
         this.adminId = adminId;
     }
-
     public String getName() {
         return name;
     }

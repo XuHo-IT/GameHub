@@ -32,6 +32,16 @@ public class ReadGameHomeAdminController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            // Check if the logout action is triggered
+            String action = request.getParameter("action");
+            if ("logout".equals(action)) {
+                // Logout functionality: remove current user session
+                request.getSession().removeAttribute("currentUser");
+                request.getSession().setAttribute("succMsg", "Logout Successfully");
+                response.sendRedirect("ReadGameHomeController");
+                return;
+            }
+
             MongoDatabase database = mongoClient.getDatabase("GameHub");
 
             // Fetch genres from MongoDB

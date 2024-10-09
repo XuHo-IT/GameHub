@@ -86,30 +86,31 @@
                                     <ul>
                                         <li><a href="#">My Favourite</a></li>
                                         <li><a href="user-profile.jsp">Account Info</a></li>
-
-                                        <li><a href="#">Log out</a></li>
+                                        <li>
+                                            <a href="ReadGameHomeMemberController?action=logout" class="dropdown-item">Logout</a>
+                                        </li>
 
                                     </ul>
                                 </div>
                             </div>
                         </div>
 
-                    <!-- Menu -->
-                    <ul class="main-menu primary-menu">
-                        <li><a href="ReadGameHomeController">Home</a></li>
-                        <li><a href="ReadGameListController">Games</a></li>
-                        <li>
-                            <a class="li-fix" href="blog.html">News</a>
-                            <ul class="sub-menu">
-                                <li><a href="review.jsp">Top rating</a></li>
-                                <li><a href="top-wishlist.jsp">Top wishlist</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="contact.jsp">Contact</a></li>
-                        <li><a href="forum.jsp">Community</a></li>
-                    </ul>
-                </nav>
-            </div>
+                        <!-- Menu -->
+                        <ul class="main-menu primary-menu">
+                            <li><a href="ReadGameHomeController">Home</a></li>
+                            <li><a href="ReadGameListController">Games</a></li>
+                            <li>
+                                <a class="li-fix" href="blog.html">News</a>
+                                <ul class="sub-menu">
+                                    <li><a href="review.jsp">Top rating</a></li>
+                                    <li><a href="top-wishlist.jsp">Top wishlist</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="contact.jsp">Contact</a></li>
+                            <li><a href="forum.jsp">Community</a></li>
+                        </ul>
+                    </nav>
+                </div>
 
             </div>
         </header>
@@ -193,9 +194,9 @@
                             <li><a href="#">Strategy</a></li>
                             <li><a href="#">Online</a></li>
                         </ul>
-                       
+
                         <!-- Blog item -->
-                      <div class="blog-container">
+                        <div class="blog-container">
                             <c:forEach var="post" items="${posts}">
                                 <div class="blog-item">
                                     <!-- Display the post title -->

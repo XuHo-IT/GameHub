@@ -97,10 +97,10 @@
         <!-- Page top section -->
     <section class="page-top-section set-bg" data-setbg="img/page-top-bg/2.jpg">
         <div class="page-info">
-            <h2>Reviews</h2>
+            <h2>Top rating</h2>
             <div class="site-breadcrumb">
                 <a href="index.js">Home</a>  /
-                <span>Reviews</span>
+                <span>Top rating</span>
             </div>
         </div>
     </section>

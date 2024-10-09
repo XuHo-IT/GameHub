@@ -36,6 +36,10 @@
         <servlet-name>AddGenreController</servlet-name>
         <servlet-class>Controller.AddGenreController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogOutController</servlet-name>
+        <servlet-class>Controller.LogOutController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -75,6 +79,10 @@
     <servlet-mapping>
         <servlet-name>AddGenreController</servlet-name>
         <url-pattern>/AddGenreController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogOutController</servlet-name>
+        <url-pattern>/LogOutController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

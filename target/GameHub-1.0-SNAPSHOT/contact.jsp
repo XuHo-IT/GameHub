@@ -43,10 +43,7 @@
         <!-- Header section -->
         <header class="header-section">
             <div class="header-warp">
-                <form class="search-form ">
-                    <input type="text"  placeholder="Search..." aria-label="Search">
-                    <button type="submit"><i class="fa fa-search"></i></button>
-                </form>
+                
                 <div class="header-social d-flex justify-content-end">
                     <p>Follow us:</p>
                     <a href="#"><i class="fa fa-pinterest"></i></a>

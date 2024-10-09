@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.List;
 
 public class ReadGameHomeAdminController extends HttpServlet {
@@ -32,6 +33,16 @@ public class ReadGameHomeAdminController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            // Check if the logout action is triggered
+            String action = request.getParameter("action");
+            if ("logout".equals(action)) {
+                // Logout functionality: remove current user session
+                request.getSession().removeAttribute("currentUser");
+                request.getSession().setAttribute("succMsg", "Logout Successfully");
+                response.sendRedirect("ReadGameHomeController");
+                return;
+            }
+
             MongoDatabase database = mongoClient.getDatabase("GameHub");
 
             // Fetch genres from MongoDB
@@ -79,7 +90,18 @@ public class ReadGameHomeAdminController extends HttpServlet {
                 );
                 postList.add(gamePost);
             }
-            request.setAttribute("posts", postList);
+            
+            Collections.reverse(postList);
+
+            List<GamePost> postTop4 = new ArrayList<>();
+        
+            int maxPosts = Math.min(4, postList.size());
+            int i;
+            for(i = 0; i < maxPosts; i++){
+                postTop4.add(postList.get(i));
+            }
+
+            request.setAttribute("posts", postTop4);
 
             // Forward to the JSP page with both genres and posts
             request.getRequestDispatcher("admin-after-login.jsp").forward(request, response);

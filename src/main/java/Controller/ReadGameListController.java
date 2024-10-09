@@ -13,6 +13,7 @@ import com.mongodb.client.MongoDatabase;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -76,16 +77,17 @@ public class ReadGameListController extends HttpServlet {
                         fileDataBase64 // Convert Binary to Base64 String or use as is
                 );
                 postList.add(gamePost);
-                System.out.println(post.toJson());
-                
+                System.out.println(post.toJson());   
             }
 
             if (postList.isEmpty()) {
                 System.out.println("No posts found in the database.");
             }
             
+            Collections.reverse(postList);
+            
             // Pagination logic
-        int itemsPerPage = 6;
+        int itemsPerPage = 9;
         int currentPage = 1;
         String pageParam = request.getParameter("page");
 

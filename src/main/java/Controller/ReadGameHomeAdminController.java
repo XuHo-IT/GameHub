@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.List;
 
 public class ReadGameHomeAdminController extends HttpServlet {
@@ -89,7 +90,18 @@ public class ReadGameHomeAdminController extends HttpServlet {
                 );
                 postList.add(gamePost);
             }
-            request.setAttribute("posts", postList);
+            
+            Collections.reverse(postList);
+
+            List<GamePost> postTop4 = new ArrayList<>();
+        
+            int maxPosts = Math.min(4, postList.size());
+            int i;
+            for(i = 0; i < maxPosts; i++){
+                postTop4.add(postList.get(i));
+            }
+
+            request.setAttribute("posts", postTop4);
 
             // Forward to the JSP page with both genres and posts
             request.getRequestDispatcher("admin-after-login.jsp").forward(request, response);

@@ -9,6 +9,7 @@ import com.mongodb.client.MongoDatabase;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -92,7 +93,18 @@ public class ReadGameHomeMemberController extends HttpServlet {
                 System.out.println("No posts found in the database.");
             }
 
-            request.setAttribute("posts", postList);
+            Collections.reverse(postList);
+
+            List<GamePost> postTop4 = new ArrayList<>();
+        
+            int maxPosts = Math.min(4, postList.size());
+            int i;
+            for(i = 0; i < maxPosts; i++){
+                postTop4.add(postList.get(i));
+            }
+
+            request.setAttribute("posts", postTop4);
+        
             // Forward the request to the JSP page
             request.getRequestDispatcher("after-login.jsp").forward(request, response);
         } catch (Exception e) {

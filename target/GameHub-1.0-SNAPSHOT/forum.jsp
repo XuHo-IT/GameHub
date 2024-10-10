@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
     <link rel="stylesheet" href="Login/style.css">
+     <link rel="stylesheet" href="Forum/style.css">
     <script src="Login/script.js" defer></script>
 
     <!--[if lt IE 9]>

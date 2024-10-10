@@ -91,17 +91,16 @@
 
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
-                            <li><a href="ReadGameHomeController">Home</a></li>
-                            <li><a href="ReadGameListController">Games</a></li>
-                            <li><a href="ReadGameListController">Games</a>
+                            <li><a href="ReadGameHomeAdminController">Home</a></li>
+                            <li><a href="ReadGameListAdminController">Games</a>
 
                                 <ul class="sub-menu">
-                                    <li><a href="top-rating-all.jsp">Top rating</a></li>
-                                    <li><a href="top-wishlist.jsp">Top wishlist</a></li>
+                                    <li><a href="top-rating-all-after-login.jsp">Top rating</a></li>
+                                    <li><a href="top-wishlist-all-after-login.jsp">Top wishlist</a></li>
                                 </ul>
                             </li>
-                            <li><a href="contact.jsp">Contact</a></li>
-                            <li><a href="forum.jsp">Community</a></li>
+                            <li><a href="contact-after-login.jsp">Contact</a></li>
+                            <li><a href="forum-after-login.jsp">Community</a></li>
                         </ul>
                     </nav>
                 </div>

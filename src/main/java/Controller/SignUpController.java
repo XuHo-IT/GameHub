@@ -41,15 +41,14 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
     String address = request.getParameter("Address");
     String password = request.getParameter("Password");
     String photoUrl = request.getParameter("PhotoUrl");
-<<<<<<< HEAD
 
-    String role = request.getParameter("Role");
-    role = "0";
+
     
-=======
+    
+
     String role = "0";
     String status = "Active";// Set default role to "0" (regular user)
->>>>>>> cf12f0c969573871216c1c9d389138bf25caf095
+
 
     // Convert the dateOfBirth string to a Date object (you can use SimpleDateFormat)
     Date dob = null;
@@ -89,13 +88,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
             .append("Name", superAdmin.getName())
             .append("PhotoUrl", superAdmin.getPhotoUrl())
             .append("Role", role)
-<<<<<<< HEAD
-            .append("Status", "Active");
-=======
             .append("Status", status);
-
->>>>>>> cf12f0c969573871216c1c9d389138bf25caf095
-
     // Insert the document into the MongoDB collection
     collection.insertOne(user);
 

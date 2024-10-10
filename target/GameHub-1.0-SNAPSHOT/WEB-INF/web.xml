@@ -40,6 +40,14 @@
         <servlet-name>LogOutController</servlet-name>
         <servlet-class>Controller.LogOutController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReadGameListAdminController</servlet-name>
+        <servlet-class>Controller.ReadGameListAdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReadGameListMemberController</servlet-name>
+        <servlet-class>Controller.ReadGameListMemberController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -83,6 +91,14 @@
     <servlet-mapping>
         <servlet-name>LogOutController</servlet-name>
         <url-pattern>/LogOutController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReadGameListAdminController</servlet-name>
+        <url-pattern>/ReadGameListAdminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReadGameListMemberController</servlet-name>
+        <url-pattern>/ReadGameListMemberController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

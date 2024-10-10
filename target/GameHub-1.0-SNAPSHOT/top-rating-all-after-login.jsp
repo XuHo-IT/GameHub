@@ -6,38 +6,39 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="zxx">
-    <head>
-        <title>EndGam - Gaming Magazine Template</title>
+     <head>
+        <title>EndGame - Gaming Magazine Template</title>
         <meta charset="UTF-8">
         <meta name="description" content="EndGam Gaming Magazine Template">
         <meta name="keywords" content="endGam,gGaming, magazine, html">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Favicon -->
-        <link href="img/favicon.ico" rel="shortcut icon"/>
+        <link href="img/favicon.ico" rel="shortcut icon" />
 
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
 
 
         <!-- Stylesheets -->
-        <link rel="stylesheet" href="css/bootstrap.min.css"/>
-        <link rel="stylesheet" href="css/font-awesome.min.css"/>
-        <link rel="stylesheet" href="css/slicknav.min.css"/>
-        <link rel="stylesheet" href="css/owl.carousel.min.css"/>
-        <link rel="stylesheet" href="css/magnific-popup.css"/>
-        <link rel="stylesheet" href="css/animate.css"/>
-        <link rel="stylesheet" href="css/searchbar.css"/>
+        <link rel="stylesheet" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" href="css/font-awesome.min.css" />
+        <link rel="stylesheet" href="css/slicknav.min.css" />
+        <link rel="stylesheet" href="css/owl.carousel.min.css" />
+        <link rel="stylesheet" href="css/magnific-popup.css" />
+        <link rel="stylesheet" href="css/animate.css" />
+        <link rel="stylesheet" href="css/searchbar.css" />
+        <link rel="stylesheet" href="css/account-icon.css" />
 
         <!-- Main Stylesheets -->
-        <link rel="stylesheet" href="css/style.css"/>
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet"
+              href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
         <link rel="stylesheet" href="Login/style.css">
+
         <script src="Login/script.js" defer></script>
 
 
-        <!--[if lt IE 9]>
-                  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
+
 
     </head>
     <body>
@@ -70,7 +71,7 @@
                         </a>
                     </div>
                     <nav class="top-nav-area w-100">
-                        div class="user-panel d-flex">
+                        <div class="user-panel d-flex">
                             <!-- Bi?u t??ng gi? hï¿½ng -->
                             <div class="cart-icon">
                                 <a href="shopping-cart.jsp">
@@ -95,17 +96,18 @@
                         </div>
 
                         <!-- Menu -->
+                        <!-- Menu -->
                         <ul class="main-menu primary-menu">
-                            <li><a href="index.jsp">Home</a></li>
-                            <li><a href="games.jsp">Games</a>
+                            <li><a href="ReadGameHomeController">Home</a></li>
+                            <li><a href="ReadGameListController">Games</a>
 
                                 <ul class="sub-menu">
-                                    <li><a href="top-rating-all.jsp">Top rating</a></li>
-                                    <li><a href="top-wishlist.jsp">Top wishlist</a></li>
+                                    <li><a href="top-rating-all-after-login.jsp">Top rating</a></li>
+                                    <li><a href="top-wishlist-all-after-login.jsp">Top wishlist</a></li>
                                 </ul>
                             </li>
-                            <li><a href="contact.jsp">Contact</a></li>
-                            <li><a href="forum.jsp">Community</a></li>
+                            <li><a href="contact-after-login.jsp">Contact</a></li>
+                            <li><a href="forum-after-login.jsp">Community</a></li>
                         </ul>
                     </nav>
                 </div>

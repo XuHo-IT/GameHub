@@ -64,9 +64,12 @@
 			</div>
 			<div class="header-bar-warp d-flex">
 				<!-- site logo -->
-				<a href="ReadGameHomeController" class="site-logo">
-					<img src="./img/logo.png" alt="">
-				</a>
+				<div class="logo-fix">
+                                    <a href="ReadGameHomeController" class="site-logo">
+                                        <img src="./img/logo1.png" alt="" class="logo1">
+                                        <img src="./img/logo2.png" alt="" class="logo2">
+                                    </a>
+                                </div>
 				<nav class="top-nav-area w-100">
 					<div class="user-panel">
 						<button class="login-btn">LOG IN</button>

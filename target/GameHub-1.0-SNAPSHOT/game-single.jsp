@@ -7,40 +7,46 @@
 <%@page import="com.mongodb.client.MongoClient"%>
 <!DOCTYPE html>
 <html lang="zxx">
-    <head>
-        <title>EndGam - Gaming Magazine Template</title>
-        <meta charset="UTF-8">
-        <meta name="description" content="EndGam Gaming Magazine Template">
-        <meta name="keywords" content="endGam,gGaming, magazine, html">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Favicon -->
-        <link href="img/favicon.ico" rel="shortcut icon"/>
+  <head>
+    <title>EndGam - Gaming Magazine Template</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="EndGam Gaming Magazine Template">
+    <meta name="keywords" content="endGam,gGaming, magazine, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="shortcut icon"/>
 
-        <!-- Google Font -->
-        <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
-
-
-        <!-- Stylesheets -->
-        <link rel="stylesheet" href="css/bootstrap.min.css"/>
-        <link rel="stylesheet" href="css/font-awesome.min.css"/>
-        <link rel="stylesheet" href="css/slicknav.min.css"/>
-        <link rel="stylesheet" href="css/owl.carousel.min.css"/>
-        <link rel="stylesheet" href="css/magnific-popup.css"/>
-        <link rel="stylesheet" href="css/animate.css"/>
-        <link rel="stylesheet" href="css/searchbar.css"/>
-
-        <!-- Main Stylesheets -->
-        <link rel="stylesheet" href="css/style.css"/>
-        <link rel="stylesheet" href="Login/style.css">
-        <script src="Login/script.js" defer></script>
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
 
 
-        <!--[if lt IE 9]>
-                  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="css/slicknav.min.css"/>
+    <link rel="stylesheet" href="css/owl.carousel.min.css"/>
+    <link rel="stylesheet" href="css/magnific-popup.css"/>
+    <link rel="stylesheet" href="css/animate.css"/>
+    <link rel="stylesheet" href="css/searchbar.css"/>
 
-    </head>
+    <!-- Main Stylesheets -->
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
+    <link rel="stylesheet" href="Login/style.css">
+    <script src="Login/script.js" defer></script>
+
+    <!--[if lt IE 9]>
+              <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+
+
+</head>
     <body>
         <!-- Page Preloder -->
         <div id="preloder">
@@ -288,7 +294,7 @@
     <!-- Footer section end -->
 
 
-    <!-- Login Popup -->
+   <!-- Login Popup -->
     <div class="blur-bg-overlay"></div>
     <div class="form-popup">
         <span class="close-btn material-symbols-rounded">close</span>
@@ -299,14 +305,17 @@
             </div>
             <div class="form-content">
                 <h2>LOGIN</h2>
-                <form action="#">
+                <form action="LoginController" method="post">
+                    <c:if test="${not empty errorMessage}">
+                        <div class="error">${errorMessage}</div>
+                    </c:if>
                     <div class="input-field">
-                        <input type="text" required>
                         <label>Email</label>
+                        <input type="text" required name="email">
                     </div>
                     <div class="input-field">
-                        <input type="password" required>
                         <label>Password</label>
+                        <input type="password" required name="password">
                     </div>
                     <a href="#" class="forgot-pass-link">Forgot password?</a>
                     <button type="submit">Log In</button>
@@ -324,14 +333,30 @@
             </div>
             <div class="form-content">
                 <h2>SIGNUP</h2>
-                <form action="#">
+                <form action="SignUpController" method="post">
                     <div class="input-field">
-                        <input type="text" required>
-                        <label>Enter your email</label>
+                        <label>Enter your name</label>
+                        <input type="text" required name="Name">
                     </div>
                     <div class="input-field">
-                        <input type="password" required>
-                        <label>Create password</label>
+                        <label>Enter your email</label>
+                        <input type="text" required name="Email">
+                    </div>
+                    <div class="input-field">
+                        <label>Phone number</label>
+                        <input type="number" required name="Phone">
+                    </div>
+                    <div class="input-field">
+                        <label>Date of birth</label>
+                        <input type="date" required name="Dob">
+                    </div>
+                    <div class="input-field">
+                        <label>Address</label>
+                        <input type="text" required name="Address">
+                    </div>
+                    <div class="input-field">
+                        <label>Password</label>
+                        <input type="password" required name="Password">
                     </div>
                     <div class="policy-text">
                         <input type="checkbox" id="policy">

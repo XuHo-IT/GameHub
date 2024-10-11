@@ -144,7 +144,8 @@
                   </div>
 
                   <form action="PaymentServlet" method="post">
-                      <button type="submit" class="btn btn-dark btn-block btn-lg" style="color:antiquewhite">Buy Now</button>
+                    <a href="vnpay/web/vnpay_pay.jsp" class="btn btn-dark btn-block btn-lg" style="color:antiquewhite; text-decoration: none;">Buy Now</a>
+
                   </form>
 
                 </div>

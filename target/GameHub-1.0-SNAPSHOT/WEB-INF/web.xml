@@ -60,6 +60,10 @@
         <servlet-name>GameReleaseNotificationAdminController</servlet-name>
         <servlet-class>Controller.GameReleaseNotificationAdminController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>WishListServlet</servlet-name>
+        <servlet-class>Controller.WishListServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -123,6 +127,10 @@
     <servlet-mapping>
         <servlet-name>GameReleaseNotificationAdminController</servlet-name>
         <url-pattern>/GameReleaseNotificationAdminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WishListServlet</servlet-name>
+        <url-pattern>/WishListServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

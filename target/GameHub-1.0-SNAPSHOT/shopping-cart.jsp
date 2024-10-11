@@ -121,10 +121,14 @@
                               <label class="form-label" for="form3Examplea2" style="color:antiquewhite">Enter your email</label>
                             </div>
                           </div>
+                        <hr class="my-4">
+                            <div class="d-flex justify-content-between mb-5">
+                              <h5 class="text-uppercase" style="color:antiquewhite">Total price</h5>
+                              <h5 style="color:antiquewhite"></h5>
+                            </div>
                           <div class="button-group">
-                        <button type="button" data-mdb-button-init data-mdb-ripple-init 
-                                class="btn btn-block btn-lg" data-mdb-ripple-color="dark" 
-                                style="background-color:#C20000; color:antiquewhite;">
+                        <button type="button" onclick="location.href='game-single-after-login.jsp?id=<%= request.getParameter("gameId") %>';" 
+                                class="btn btn-block btn-lg" style="background-color:#C20000; color:antiquewhite;">
                             Cancel
                         </button>
                         <button type="button" data-mdb-button-init data-mdb-ripple-init 

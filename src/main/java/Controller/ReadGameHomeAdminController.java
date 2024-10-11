@@ -27,6 +27,8 @@ public class ReadGameHomeAdminController extends HttpServlet {
     @Override
     public void init() throws ServletException {
         mongoClient = MongoClients.create("mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
+                GameReleaseNotificationAdminController.startScheduler(mongoClient);
+
     }
 
     @Override

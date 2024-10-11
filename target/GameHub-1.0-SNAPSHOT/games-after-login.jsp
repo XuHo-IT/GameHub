@@ -4,41 +4,46 @@
 <%@ page import="org.bson.Document" %>
 <!DOCTYPE html>
 <html lang="zxx">
-     <head>
-        <title>EndGame - Gaming Magazine Template</title>
-        <meta charset="UTF-8">
-        <meta name="description" content="EndGam Gaming Magazine Template">
-        <meta name="keywords" content="endGam,gGaming, magazine, html">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Favicon -->
-        <link href="img/favicon.ico" rel="shortcut icon" />
+    <head>
+    <title>EndGam - Gaming Magazine Template</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="EndGam Gaming Magazine Template">
+    <meta name="keywords" content="endGam,gGaming, magazine, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="shortcut icon"/>
 
-        <!-- Google Font -->
-        <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
-
-
-        <!-- Stylesheets -->
-        <link rel="stylesheet" href="css/bootstrap.min.css" />
-        <link rel="stylesheet" href="css/font-awesome.min.css" />
-        <link rel="stylesheet" href="css/slicknav.min.css" />
-        <link rel="stylesheet" href="css/owl.carousel.min.css" />
-        <link rel="stylesheet" href="css/magnific-popup.css" />
-        <link rel="stylesheet" href="css/animate.css" />
-        <link rel="stylesheet" href="css/searchbar.css" />
-        <link rel="stylesheet" href="css/account-icon.css" />
-
-        <!-- Main Stylesheets -->
-        <link rel="stylesheet" href="css/style.css" />
-        <link rel="stylesheet"
-              href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
-        <link rel="stylesheet" href="Login/style.css">
-
-        <script src="Login/script.js" defer></script>
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
 
 
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="css/slicknav.min.css"/>
+    <link rel="stylesheet" href="css/owl.carousel.min.css"/>
+    <link rel="stylesheet" href="css/magnific-popup.css"/>
+    <link rel="stylesheet" href="css/animate.css"/>
+    <link rel="stylesheet" href="css/searchbar.css"/>
+
+    <!-- Main Stylesheets -->
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
+    <link rel="stylesheet" href="Login/style.css">
+    <script src="Login/script.js" defer></script>
+
+    <!--[if lt IE 9]>
+              <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
 
-    </head>
+
+</head>
     <body>
         <!-- Page Preloder -->
         <div id="preloder">

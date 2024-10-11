@@ -153,7 +153,7 @@
                     </div>
                     <a href="ReadGameListController" class=" more-game-btn"> More Game </a>
                 </div>
-                
+
                 <style>
                     .more-game-btn{
                         margin-top: 50px;
@@ -172,7 +172,7 @@
                         background-repeat: no-repeat;
                         background-position: right -350% center;
                     }
-                    
+
                     .more-game-btn:hover{
                         color: #b01ba5;
                         background-position: right center;
@@ -233,32 +233,50 @@
 
     <!-- Featured section -->
     <section class="featured-section">
-        <div class="featured-bg set-bg" data-setbg="img/featured-bg.jpg"></div>
-        <div class="featured-box">
-            <div class="text-box">
-                <div class="top-meta">11.11.18  /  in <a href="">Games</a></div>
-                <h3>The game you?ve been waiting  for is out now</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquamet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vestibulum posuere porttitor justo id pellentesque. Proin id lacus feugiat, posuere erat sit amet, commodo ipsum. Donec pellentesque vestibulum metus...</p>
-                <a href="#" class="read-more">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
-            </div>
-        </div>
+        <c:forEach var="post" items="${posts}" varStatus="status">
+            <c:if test="${status.index == 0}">
+                <!-- Featured background image -->
+                <div class="featured-bg set-bg">
+                    <img src="data:image/png;base64,${post.fileData}" alt="Game Image" style="width: 100%; height: 100%;" />
+                </div>
+
+
+                <!-- Featured content box -->
+                <div class="featured-box">
+                    <div class="text-box">
+                        <!-- Display post date and category dynamically -->
+                        <div class="top-meta">${post.dateRelease} / in <a href="#">${post.genre}</a></div>
+
+                        <h3>Newest game release is coming up!</h3>
+
+                        <!-- Post title -->
+                        <p style="font-size: 40px">${post.title}</p>
+
+                        <!-- Post content (short summary) -->
+                        <p>${post.description}</p>
+
+                        <!-- Read more link -->
+                        <a href="game-single.jsp?id=${post.postID}" class="read-more">Read More  
+                            <img src="img/icons/double-arrow.png" alt="#"/>
+                        </a>
+                    </div>
+                </div>
+            </c:if>
+        </c:forEach>
     </section>
+
     <!-- Featured section end-->
 
 
 
     <!-- Newsletter section -->
-    <section class="newsletter-section">
+    <section class="newsletter-section" style="">
         <div class="container">
-            <h2>Subscribe to our newsletter</h2>
-            <form class="newsletter-form">
-                <input type="text" placeholder="ENTER YOUR E-MAIL">
-                <button class="site-btn">subscribe  <img src="img/icons/double-arrow.png" alt="#"/></button>
-            </form>
+            <h3 class="bottom-title">Thanks for using our website!</h3>
+            <img src="img/Dawn.gif" alt="Game Image" style="width: 100%; height: auto;" />
         </div>
     </section>
     <!-- Newsletter section end -->
-
 
     <!-- Footer section -->
     <footer class="footer-section">
@@ -415,6 +433,14 @@
             });
         });
     </script>
+    <style>
+        h3.bottom-title {
+    color: white;
+    font-size: 35px;
+    font-family: 'Material Symbols Rounded';
+    padding: 0 0px 30px 0;
+}
+    </style>
 
 </body>
 </html>

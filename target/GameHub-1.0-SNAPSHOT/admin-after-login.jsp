@@ -178,25 +178,14 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xl-9 col-lg-8 col-md-7">
-                        <div class="section-title text-white">
-                            <h2>Latest News</h2>
-                        </div>
-
-
-
-
                         <div class="user-panel">
-                            <button class="create-btn">Add </button>
+                            <button class="create-btn">Add</button>
                         </div>
-
-
-
                         <!-- Blog item -->
                         <div class="blog-container">
                             <c:forEach var="post" items="${posts}">
                                 <div class="blog-item">
                                     <!-- Display the post title -->
-
                                     <div class="blog-thumb">
                                         <!-- Display the image (if available), or a default image if missing -->
                                         <img src="data:image/png;base64,${post.fileData}" alt="Game Image" />
@@ -204,20 +193,34 @@
 
                                     <div class="blog-text text-box text-white">
                                         <!-- Display the release date and genre -->
-                                        <div class="top-meta">${post.dateRelease != null ? post.dateRelease : 'Unknown Date'} / <a href="#">${post.genre != null ? post.genre : 'Unknown Genre'}</a></div>
+                                        <div class="top-meta">${post.dateRelease != null ? post.dateRelease : 'Unknown Date'} / 
+                                            <a href="#">${post.genre != null ? post.genre : 'Unknown Genre'}</a></div>
                                         <h3>${post.title != null ? post.title : 'Untitled'}</h3>
 
                                         <!-- Display the description -->
                                         <p>${post.description != null ? post.description : 'No description available'}</p>
 
                                         <!-- Read more link -->
-                                        <a href="game-single.jsp?id=${post.postID}" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
+                                                                                <a href="game-single-after-login-member.jsp?id=${post.postID}" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
+
+                                        <!-- Edit and Delete Buttons -->
+                                        <div class="action-buttons">
+                                            <a href="game-single-after-login.jsp?id=${post.postID}&postId=${post.postID}" class="btn btn-warning">Edit</a>
+                                   
+
+                                            <form action="EditPostController" method="post">
+                                                <input type="hidden" name="postId" value="${post.postID}">
+                                                <button type="submit" name="action" value="delete" class="btn-danger">Delete</button>
+                                            </form>
+                                        </div>
+
                                     </div>
                                 </div>
                             </c:forEach>
                         </div>
-                        <a href="ReadGameListController" class=" more-game-btn"> More Game </a>
+                        <a href="ReadGameListController" class="more-game-btn">More Game</a>
                     </div>
+
 
                     <style>
                         .more-game-btn{
@@ -439,7 +442,7 @@
                             <select name="Genre" required>
                                 <option value="">Select Genre</option>
                                 <c:forEach var="genre" items="${genres}">
-                                    <option value="${genre.genreId}">${genre.genre != null ? genre.genre : 'No genre available'}</option>
+                                    <option value="${genre.genre}">${genre.genre != null ? genre.genre : 'No genre available'}</option>
                                 </c:forEach>
                             </select>
                         </div>

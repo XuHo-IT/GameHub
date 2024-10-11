@@ -48,6 +48,18 @@
         <servlet-name>ReadGameListMemberController</servlet-name>
         <servlet-class>Controller.ReadGameListMemberController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditPostController</servlet-name>
+        <servlet-class>Controller.EditPostController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddGameMemberController</servlet-name>
+        <servlet-class>Controller.AddGameMemberController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GameReleaseNotificationAdminController</servlet-name>
+        <servlet-class>Controller.GameReleaseNotificationAdminController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -99,6 +111,18 @@
     <servlet-mapping>
         <servlet-name>ReadGameListMemberController</servlet-name>
         <url-pattern>/ReadGameListMemberController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditPostController</servlet-name>
+        <url-pattern>/EditPostController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddGameMemberController</servlet-name>
+        <url-pattern>/AddGameMemberController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GameReleaseNotificationAdminController</servlet-name>
+        <url-pattern>/GameReleaseNotificationAdminController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

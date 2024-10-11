@@ -185,8 +185,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xl-9 col-lg-8 col-md-7">
-                        
-
+                         <div class="user-panel">
+                            <button class="create-btn">Add </button>
+                        </div>
                         <!-- Blog item -->
                         <div class="blog-container">
                             <c:forEach var="post" items="${posts}">
@@ -207,7 +208,7 @@
                                         <p>${post.description != null ? post.description : 'No description available'}</p>
 
                                         <!-- Read more link -->
-                                        <a href="game-single-after-login.jsp?id=${post.postID}" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
+                                        <a href="game-single-after-login-member.jsp?id=${post.postID}" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
                                     </div>
                                 </div>
                             </c:forEach>
@@ -356,69 +357,106 @@
         </footer>
         <!-- Footer section end -->
 
-
-        <!-- Login Popup -->
         <div class="blur-bg-overlay"></div>
-        <div class="form-popup">
-            <span class="close-btn material-symbols-rounded">close</span>
-            <div class="form-box login">
+        <div class="form-popup create-post-popup">
+            <span class="close-btn material-symbols-rounded" style="top:50px">close</span>
+
+            <div class="form-box create-post">
                 <div class="form-details">
-                    <h2>Welcome Back</h2>
-                    <p>Please log in using your personal information to stay connected with us.</p>
+                    <h2>Create Post Game</h2>
+                    <p>To develop our community, upload news about games that you know</p>
                 </div>
                 <div class="form-content">
-                    <h2>LOGIN</h2>
-                    <form action="#">
+                    <h2 style="margin-bottom: 6px">Create post</h2>
+                    <form action="AddGameMemberController" method="post" enctype="multipart/form-data">
+                        <!-- Form fields for creating post -->
                         <div class="input-field">
-                            <input type="text" required>
-                            <label>Email</label>
+                            <label>Title</label>
+                            <input type="text" required name="Title">
                         </div>
                         <div class="input-field">
-                            <input type="password" required>
-                            <label>Password</label>
-                        </div>
-                        <a href="#" class="forgot-pass-link">Forgot password?</a>
-                        <button type="submit">Log In</button>
-                    </form>
-                    <div class="bottom-link">
-                        Don't have an account?
-                        <a href="#" id="signup-link">Signup</a>
-                    </div>
-                </div>
-            </div>
-            <div class="form-box signup">
-                <div class="form-details">
-                    <h2>Create Account</h2>
-                    <p>To become a part of our community, please sign up using your personal information.</p>
-                </div>
-                <div class="form-content">
-                    <h2>SIGNUP</h2>
-                    <form action="#">
-                        <div class="input-field">
-                            <input type="text" required>
-                            <label>Enter your email</label>
+                            <label>Game Play</label>
+                            <input type="text" required name="Gameplay">
                         </div>
                         <div class="input-field">
-                            <input type="password" required>
-                            <label>Create password</label>
+                            <label>Description</label>
+                            <input type="text" required name="Description">
+                        </div>
+                        <div class="input-field">
+                            <label>Date Release</label>
+                            <input type="date" required name="DateRelease">
+                        </div>
+                        <div class="input-field">
+                            <label for="exampleFormControlSelect1">Status</label>
+                            <select class="form-control" id="exampleFormControlSelect1" name="Status" required="required">
+                                <option>Pre-Release</option>
+                                <option>Released</option>
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <label>Author</label>
+                            <input type="text" required name="Author">
+                        </div>
+                        <div class="input-field">
+                            <label>Genre</label>
+                            <select name="Genre" required>
+                                <option value="">Select Genre</option>
+                                <c:forEach var="genre" items="${genres}">
+                                    <option value="${genre.genreId}">${genre.genre != null ? genre.genre : 'No genre available'}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <label class="mr-2">Picture Of Game:</label>
+                            <input type="file" name="file">
                         </div>
                         <div class="policy-text">
                             <input type="checkbox" id="policy">
-                            <label for="policy">
-                                I agree the
+                            <label for="policy">I agree to the
                                 <a href="#" class="option">Terms & Conditions</a>
                             </label>
                         </div>
-                        <button type="submit">Sign Up</button>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+                <div class="right-position">
+                    <div class="input-field">
+                        <label>Price Rating</label>
+                        <input type="number" step="0.1" min="0" max="5" required name="PriceRating" placeholder="0.0 to 5.0">
+                    </div>
+                    <div class="input-field">
+                        <label>Graphic Rating</label>
+                        <input type="number" step="0.1" min="0" max="5" required name="GraphicRating" placeholder="0.0 to 5.0">
+                    </div>
+                    <div class="input-field">
+                        <label>Difficulty Rating</label>
+                        <input type="number" step="0.1" min="0" max="5" required name="DifficultyRating" placeholder="0.0 to 5.0">
+                    </div>
+                    <div class="input-field">
+                        <label>Gameplay Rating</label>
+                        <input type="number" step="0.1" min="0" max="5" required name="GameplayRating" placeholder="0.0 to 5.0">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-box upload-photo">
+                <div class="form-details">
+                </div>
+                <div class="form-content">
+                    <h2 style="margin-bottom: 6px">Upload Genre</h2>
+                    <form action="AddGenreController" method="post">
+                        <div class="input-field">
+                            <label class="mr-2">Genre Of Game:</label>
+                            <input type="text" required name="genre1">
+                        </div>
+                        <button type="submit">Send</button>
                     </form>
                     <div class="bottom-link">
-                        Already have an account?
-                        <a href="#" id="login-link">Login</a>
+                        <a href="#" id="create-post-link">Add Post Game</a>
                     </div>
                 </div>
             </div>
         </div>
-
 
         <!--====== Javascripts & Jquery ======-->
         <script src="js/jquery-3.2.1.min.js"></script>
@@ -428,7 +466,83 @@
         <script src="js/jquery.sticky-sidebar.min.js"></script>
         <script src="js/jquery.magnific-popup.min.js"></script>
         <script src="js/main.js"></script>
+<script>
+            const formPopup = document.querySelector(".form-popup");
+            const showPopupBtn = document.querySelector(".create-btn"); // Button to open create post form
+            const hidePopupBtn = formPopup.querySelectorAll(".close-btn"); // Close buttons for both forms
+            const photoOrPost = document.querySelectorAll(".bottom-link a"); // Links to toggle forms
 
+// Show create post popup
+            showPopupBtn?.addEventListener("click", () => {
+                document.body.classList.add("show-popup");
+            });
+
+// Hide both popups when close button is clicked
+            hidePopupBtn.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    document.body.classList.remove("show-popup");
+                });
+            });
+
+// Switch between create post and upload photo forms
+            photoOrPost.forEach(link => {
+                link.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    if (link.id === 'upload-photo-link') {
+                        formPopup.classList.add("show-upload-photo");
+                    } else {
+                        formPopup.classList.remove("show-upload-photo");
+                    }
+                });
+            });
+
+        </script>
+        <style>
+            .form-popup .upload-photo,
+            .form-popup .create-post {
+                display: none;
+            }
+
+            /* Show upload-photo form and hide create-post form */
+            .form-popup.show-upload-photo .upload-photo {
+                display: flex;
+            }
+
+            .form-popup.show-upload-photo .create-post {
+                display: none;
+            }
+
+            /* Show create-post form by default */
+            .form-popup .create-post {
+                display: flex;
+            }
+            form button {
+                width: 100%;
+                color: #fff;
+                border: none;
+                outline: none;
+                padding: 10px 0;
+                font-size: 1rem;
+                font-weight: 500;
+                border-radius: 3px;
+                cursor: pointer;
+                margin: 25px 0;
+                background: #6f2b95;
+                transition: 0.2s ease;
+                margin-top: 0px;
+                margin-bottom: 5px;
+            }
+            .right-position {
+                padding-top: 81px;
+                padding-right: 10px;
+            }
+            .upload-photo .form-details {
+                padding: 0 20px;
+                background: url("img/mortal-combat.jpg");
+                background-position: center;
+                background-size: cover;
+            }
+        </style>
     </body>
 
 </html>

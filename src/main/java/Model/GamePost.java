@@ -33,6 +33,9 @@ public class GamePost {
         this.fileData = fileData;
     }
 
+    public GamePost() {
+    }
+
     public String getPostID() {
         return postID;
     }

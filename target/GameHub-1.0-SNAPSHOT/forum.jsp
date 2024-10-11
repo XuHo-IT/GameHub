@@ -61,10 +61,12 @@
 			</div>
 			<div class="header-bar-warp d-flex">
 				<!-- site logo -->
-				<a href="ReadGameHomeController" class="site-logo">
-					<img src="./img/logo1.png" alt="">
-                                        <img src="./img/logo2.png" alt="">
-				</a>
+				<div class="logo-fix">
+                                    <a href="ReadGameHomeController" class="site-logo">
+                                        <img src="./img/logo1.png" alt="" class="logo1">
+                                        <img src="./img/logo2.png" alt="" class="logo2">
+                                    </a>
+                                </div>
 				<nav class="top-nav-area w-100">
 					<div class="user-panel">
 						<button class="login-btn">LOG IN</button>
@@ -86,104 +88,78 @@
 			</div>
 		</div>
 		<div class="button-top-forum" >
-			<div class="left-buttons">
+			<div class="left-button-forum">
 				<button class="forum-button" >All Posts</button>
 				<button class="forum-button">My Posts</button>
 			</div>
-			<div class="right-button">
+			<div class="right-button-forum">
 				<button class="forum-button">Create New Post</button>
 			</div>
 		</div>
-	</header>
-	
+	</header>	
 
 	<!-- Header section end -->
-  <section class="hero-section overflow-hidden">
-        <div class="hero-slider owl-carousel">
-            <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider1.jpg">
-                <div class="container">
-                    <h2>Game on!</h2>
-                    <p>The platform serves as a hub for sharing the latest game news, offering users a space to stay updated on upcoming releases and industry developments.<br> It allows users to view, comment, and engage in discussions about the latest news, fostering an active gaming community. With an intuitive interface, the platform enables easy access to user-generated posts and admin-curated updates.</p>
-                    <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
-                </div>
-            </div>
-            <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider-bg-2.jpg">
-                <div class="container">
-                    <h2>Game on!</h2>
-                    <p>The platform provides a centralized space for discovering and sharing game news, keeping users informed about upcoming titles and events.<br>Users can contribute by posting news, commenting on updates, and participating in forum discussions. The site promotes community interaction around gaming trends and developments.</p>
-                    <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
-                </div>
-            </div>
-        </div>
-    </section>
 
-	  <section class="blog-section spad">
-       
-             
-                      <div class="container">
-                          <div class="subforum">
+            <section class="blog-section spad"> 
+                <div class="container">
+                    <div class="subforum">
         
-            <div class="subforum-row">
-                <div class="subforum-icon subforum-column center">
-                    <i class="fa fa-car center"></i>
-                </div>
-                <div class="subforum-description subforum-column">
-                    <h4><a href="forum-detail.jsp">Description Title</a></h4>
-                    <p>Description Content: let's try to be cool, otherwise,w at 'sthe point in libing together with people youdont' live.</p>
-                </div>
-                <div class="subforum-stats subforum-column center">
-                    <span>24 Posts | 12 Topics</span>
-                </div>
-                <div class="subforum-info subforum-column">
-                    <b><a href="">Last post</a></b> by <a href="">JustAUser</a> 
-                    <br>on <small>12 Dec 2020</small>
-                </div>
+                        <div class="subforum-row">
+                            <div class="subforum-icon subforum-column center">
+                                <img src="./img/logo1.png" alt="">
+                            </div>
+                            <div class="subforum-description subforum-column">
+                                <h4><a href="forum-detail.jsp">Description Title</a></h4>
+                                <p>Description Content: let's try to be cool, otherwise,w at 'sthe point in libing together with people youdont' live.</p>
+                            </div>
+                            <div class="subforum-stats subforum-column center">
+                                <span>12 <img src="./img/icons/chat-icon.png" alt=""> </span>
+                            </div>
+                            <div class="subforum-info subforum-column">
+                                <b><a href="">Last post</a></b> by <a href="">JustAUser</a> 
+                                <br>on <small>12 Dec 2020</small>
+                            </div>
+                        </div>
+                        <hr class="subforum-devider">  
+                        
+                        <div class="subforum-row">
+                            <div class="subforum-icon subforum-column center">
+                                <img src="./img/logo1.png" alt="">
+                            </div>
+                            <div class="subforum-description subforum-column">
+                                <h4><a href="forum-detail.jsp">Description Title</a></h4>
+                                <p>Description Content: let's try to be cool, otherwise,w at 'sthe point in libing together with people youdont' live.</p>
+                            </div>
+                            <div class="subforum-stats subforum-column center">
+                                <span>12 <img src="./img/icons/chat-icon.png" alt=""> </span>
+                            </div>
+                            <div class="subforum-info subforum-column">
+                                <b><a href="">Last post</a></b> by <a href="">JustAUser</a> 
+                                <br>on <small>12 Dec 2020</small>
+                            </div>
+                        </div>
+                        <hr class="subforum-devider">
+                        
+                        <div class="subforum-row">
+                            <div class="subforum-icon subforum-column center">
+                                <img src="./img/logo1.png" alt="">
+                            </div>
+                            <div class="subforum-description subforum-column">
+                                <h4><a href="forum-detail.jsp">Description Title</a></h4>
+                                <p>Description Content: let's try to be cool, otherwise,w at 'sthe point in libing together with people youdont' live.</p>
+                            </div>
+                            <div class="subforum-stats subforum-column center">
+                                <span>12 <img src="./img/icons/chat-icon.png" alt=""> </span>
+                            </div>
+                            <div class="subforum-info subforum-column">
+                                <b><a href="">Last post</a></b> by <a href="">JustAUser</a> 
+                                <br>on <small>12 Dec 2020</small>
+                            </div>
+                        </div>
+                        <hr class="subforum-devider">
+                    </div>
             </div>
-            <hr class="subforum-devider">
-            <div class="subforum-row">
-                <div class="subforum-icon subforum-column center">
-                    <i class="fa fa-car center"></i>
-                </div>
-                <div class="subforum-description subforum-column">
-                    <h4><a href="#">Description Title</a></h4>
-                    <p>Description Content: let's try to be cool, otherwise,w at 'sthe point in libing together with people youdont' live.</p>
-                </div>
-                <div class="subforum-stats subforum-column center">
-                    <span>24 Posts | 12 Topics</span>
-                </div>
-                <div class="subforum-info subforum-column">
-                    <b><a href="">Last post</a></b> by <a href="">JustAUser</a> 
-                    <br>on <small>12 Dec 2020</small>
-                </div>
-            </div>
-            <hr class="subforum-devider">
-            <div class="subforum-row">
-                <div class="subforum-icon subforum-column center">
-                    <i class="fa fa-car center"></i>
-                </div>
-                <div class="subforum-description subforum-column">
-                    <h4><a href="Forum/detail.html">Description Title</a></h4>
-                    <p>Description Content: let's try to be cool, otherwise,w at 'sthe point in libing together with people youdont' live.</p>
-                </div>
-                <div class="subforum-stats subforum-column center">
-                    <span>24 Posts | 12 Topics</span>
-                </div>
-                <div class="subforum-info subforum-column">
-                    <b><a href="">Last post</a></b> by <a href="">JustAUser</a> 
-                    <br>on <small>12 Dec 2020</small>
-                </div>
-            </div>
-          
-        </div>
-        <!---->
-                      </div>
-              
-              
-        
           </section>
-
-
-
 
 	<!-- Footer section -->
 	<footer class="footer-section" style="margin-top: 0 ; padding: 10px 125px">

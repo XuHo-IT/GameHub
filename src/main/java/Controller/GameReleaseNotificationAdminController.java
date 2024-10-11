@@ -1,3 +1,4 @@
+package Controller;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
@@ -15,7 +16,7 @@ import java.util.TimerTask;
 public class GameReleaseNotificationAdminController extends TimerTask {
 
     private MongoClient mongoClient;
-    private final String adminEmail = "ngotranxuanhoa09062004@gmail.com"; // Change this to admin's email
+    private final String adminEmail = "tungntde180205@fpt.edu.vn"; // Change this to admin's email
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public GameReleaseNotificationAdminController(MongoClient mongoClient) {
@@ -36,14 +37,24 @@ public class GameReleaseNotificationAdminController extends TimerTask {
             while (cursor.hasNext()) {
                 Document gamePost = cursor.next();
                 String gameTitle = gamePost.getString("Title");
-                sendEmailNotification(gameTitle, adminEmail);
+                  String postId = gamePost.getObjectId("_id").toString();
+                               
+
+                sendEmailNotification(gameTitle,postId, adminEmail);
             }
         }
     }
 
-    private void sendEmailNotification(String gameTitle, String adminEmail) {
+    private void sendEmailNotification(String gameTitle,String postId, String adminEmail) {
         String subject = "Game Release Notification";
-        String body = "The game '" + gameTitle + "' is releasing today!";
+      
+      
+   String gameLink = "http://localhost:8080/Web_Trading_Game/game-single-after-login.jsp?id=" + postId+"&postId="+postId;
+String body = 
+             "The game '" + gameTitle + "' is releasing today!"
+            + "Link to the game to upload link: " + gameLink ;
+          
+
 
         // Set up email properties
         Properties properties = new Properties();
@@ -52,8 +63,8 @@ public class GameReleaseNotificationAdminController extends TimerTask {
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "587");
 
-        String fromEmail = "your-email@gmail.com"; // Change to your email
-        String emailPassword = "your-email-password"; // Change to your email password
+        String fromEmail = "ngotranxuanhoa09062004@gmail.com"; // Change to your email
+        String emailPassword = "lkai bcsp rtna hrcn"; // Change to your email password
 
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
@@ -85,3 +96,4 @@ public class GameReleaseNotificationAdminController extends TimerTask {
         timer.scheduleAtFixedRate(new GameReleaseNotificationAdminController(mongoClient), 0, 24 * 60 * 60 * 1000);
     }
 }
+

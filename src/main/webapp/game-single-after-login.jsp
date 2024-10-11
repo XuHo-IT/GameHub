@@ -195,9 +195,6 @@
             <div class="container">
                 <div class="game-single-preview">
                     <img src="data:image/jpeg;base64,<%= fileData != null ? fileData : ""%>" alt="Game Image" />
-                    <div class="wishlist-btns">
-                        <button class="wishlist-btn" style="background-color:#6f2b95">Add to wishlist</button>
-                    </div>
                 </div>
                     
                 <div class="row">

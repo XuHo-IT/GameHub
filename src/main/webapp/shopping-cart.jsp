@@ -1,3 +1,9 @@
+<%@page import="com.mongodb.client.model.Filters"%>
+<%@page import="org.bson.types.ObjectId"%>
+<%@page import="com.mongodb.client.MongoClients"%>
+<%@page import="org.bson.Document"%>
+<%@page import="com.mongodb.client.MongoCollection"%>
+<%@page import="com.mongodb.client.MongoClient"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +12,60 @@
     <link rel="stylesheet" href="css/background.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+
 <section class="h-100 h-custom" style="background-color: #6f2b95 ;">
+     <%
+            String title = null;
+            String gamePlay = null;
+            String author = null;
+            String genre = null;
+            String description = null;
+            String dateRelease = null;
+            String fileData = null;
+            double priceRating = 0.0;
+            double graphicRating = 0.0;
+            double difficultyRating = 0.0;
+            double gameplayRating = 0.0;
+            double averageRating = 0.0;
+
+            // Get the post ID from the URL query parameter
+            String postId = request.getParameter("id");
+            System.out.println("Post ID: " + postId);
+
+            // Connect to MongoDB
+            MongoClient mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub"); // Your connection string
+            MongoCollection<Document> postsCollection = mongoClient.getDatabase("GameHub").getCollection("postGame");
+
+            // Find the post by its ObjectId
+            Document post = postsCollection.find(Filters.eq("_id", new ObjectId(postId))).first();
+
+            // Check if the post exists
+            if (post != null) {
+                gamePlay = post.getString("GamePlay");
+                author = post.getString("Author");
+                genre = post.getString("Genre");
+                title = post.getString("Title"); // Ensure correct case
+                description = post.getString("Description"); // Ensure correct case
+                dateRelease = post.getString("DateRelease"); // Ensure correct case
+                fileData = post.getString("FileData"); // Ensure correct case
+                priceRating = post.getDouble("PriceRating");
+                graphicRating = post.getDouble("GraphicRating");
+                difficultyRating = post.getDouble("DifficultyRating");
+                gameplayRating = post.getDouble("GameplayRating");
+                averageRating = post.getDouble("AverageRating");
+
+                // Log retrieved values
+                System.out.println("Title: " + title);
+                System.out.println("Description: " + description);
+                System.out.println("Date Release: " + dateRelease);
+                System.out.println("File Data: " + fileData);
+            } else {
+                out.println("Post not found.");
+            }
+
+            // Close MongoDB connection
+            mongoClient.close();
+        %>
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-12">
@@ -17,115 +76,35 @@
                 <div class="p-5">
                   <div class="d-flex justify-content-between align-items-center mb-5">
                     <h1 class="fw-bold mb-0" style="color:antiquewhite">Shopping Cart</h1>
-                    <h6 class="mb-0 text-muted" style="color:antiquewhite">3 items</h6>
+                    --<h6 class="mb-0 text-muted" style="color:antiquewhite"></h6>
                   </div>
                   <hr class="my-4">
 
+                 
                   <div class="row mb-4 d-flex justify-content-between align-items-center">
                     <div class="col-md-2 col-lg-2 col-xl-2">
-                      <img
-                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img5.webp"
-                        class="img-fluid rounded-3" alt="Cotton T-shirt">
+                     <img src="data:image/png;base64,<%= fileData %>" class="same-size" alt="Game Image" />
+
                     </div>
                     <div class="col-md-3 col-lg-3 col-xl-3">
-                      <h6 class="text-muted" style="color:antiquewhite">Shirt</h6>
-                      <h6 class="mb-0" style="color:antiquewhite">Cotton T-shirt</h6>
+                      <h6 class="text-muted" style="color:antiquewhite"><%= genre%></h6>
+                      <h6 class="mb-0" style="color:antiquewhite"><%= title %></h6>
                     </div>
                     <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                      <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
-                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                        <i class="fas fa-minus"></i>
-                      </button>
-
-                      <input id="form1" min="0" name="quantity" value="1" type="number"
-                        class="form-control form-control-sm" />
-
-                      <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
-                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                        <i class="fas fa-plus"></i>
-                      </button>
+                      <input id="form1" min="1" name="quantity" value="1" type="number" class="form-control form-control-sm" />
                     </div>
                     <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                      <h6 class="mb-0" style="color:antiquewhite">? 44.00</h6>
+                      <h6 class="mb-0" style="color:antiquewhite">$<%= description %></h6>
                     </div>
                     <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                       <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
                     </div>
                   </div>
-
                   <hr class="my-4">
-
-                  <div class="row mb-4 d-flex justify-content-between align-items-center">
-                    <div class="col-md-2 col-lg-2 col-xl-2">
-                      <img
-                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img6.webp"
-                        class="img-fluid rounded-3" alt="Cotton T-shirt">
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-xl-3">
-                      <h6 class="text-muted" style="color:antiquewhite">Shirt</h6>
-                      <h6 class="mb-0" style="color:antiquewhite">Cotton T-shirt</h6>
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                      <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
-                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                        <i class="fas fa-minus"></i>
-                      </button>
-
-                      <input id="form1" min="0" name="quantity" value="1" type="number"
-                        class="form-control form-control-sm" />
-
-                      <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
-                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                        <i class="fas fa-plus"></i>
-                      </button>
-                    </div>
-                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                      <h6 class="mb-0" style="color:antiquewhite">? 44.00</h6>
-                    </div>
-                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                      <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
-                    </div>
-                  </div>
-
-                  <hr class="my-4">
-
-                  <div class="row mb-4 d-flex justify-content-between align-items-center">
-                    <div class="col-md-2 col-lg-2 col-xl-2">
-                      <img
-                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img7.webp"
-                        class="img-fluid rounded-3" alt="Cotton T-shirt">
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-xl-3">
-                      <h6 class="text-muted" style="color:antiquewhite">Shirt</h6>
-                      <h6 class="mb-0" style="color:antiquewhite">Cotton T-shirt</h6>
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                      <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
-                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                        <i class="fas fa-minus"></i>
-                      </button>
-
-                      <input id="form1" min="0" name="quantity" value="1" type="number"
-                        class="form-control form-control-sm" />
-
-                      <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
-                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                        <i class="fas fa-plus"></i>
-                      </button>
-                    </div>
-                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                      <h6 class="mb-0" style="color:antiquewhite">? 44.00</h6>
-                    </div>
-                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                      <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
-                    </div>
-                  </div>
-
-                  <hr class="my-4">
+                 
 
                   <div class="pt-5">
-                    <h6 class="mb-0"><a href="index.html" class="text-body" style="color:antiquewhite"><i
-                          class="fas fa-long-arrow-alt-left me-2" style="color:antiquewhite"></i>Back to shop</a></h6>
+                    <h6 class="mb-0"><a href="index.html" class="text-body" style="color:antiquewhite"><i class="fas fa-long-arrow-alt-left me-2" style="color:antiquewhite"></i>Back to shop</a></h6>
                   </div>
                 </div>
               </div>
@@ -135,18 +114,16 @@
                   <hr class="my-4">
 
                   <div class="d-flex justify-content-between mb-4">
-                    <h5 class="text-uppercase" style="color:antiquewhite">items 3</h5>
-                    <h5 style="color:antiquewhite">? 132.00</h5>
+                    <h5 class="text-uppercase" style="color:antiquewhite">items </h5>
+                    <h5 style="color:antiquewhite"></h5>
                   </div>
 
                   <h5 class="text-uppercase mb-3" style="color:antiquewhite">Shipping</h5>
 
                   <div class="mb-4 pb-2">
-                    <select data-mdb-select-init>
-                      <option value="1" style="color:antiquewhite">Standard-Delivery- ?5.00</option>
-                      <option value="2" style="color:antiquewhite">Two</option>
-                      <option value="3" style="color:antiquewhite">Three</option>
-                      <option value="4" style="color:antiquewhite">Four</option>
+                    <select data-mdb-select-init class="form-control">
+                      <option value="1" style="color:black">Standard Delivery - $5.00</option>
+                      <option value="2" style="color:black">Express Delivery - $15.00</option>
                     </select>
                   </div>
 
@@ -163,11 +140,12 @@
 
                   <div class="d-flex justify-content-between mb-5">
                     <h5 class="text-uppercase" style="color:antiquewhite">Total price</h5>
-                    <h5 style="color:antiquewhite">? 137.00</h5>
+                    <h5 style="color:antiquewhite"></h5>
                   </div>
 
-                  <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-block btn-lg"
-                    data-mdb-ripple-color="dark" style="color:antiquewhite">Register</button>
+                  <form action="PaymentServlet" method="post">
+                      <button type="submit" class="btn btn-dark btn-block btn-lg" style="color:antiquewhite">Buy Now</button>
+                  </form>
 
                 </div>
               </div>

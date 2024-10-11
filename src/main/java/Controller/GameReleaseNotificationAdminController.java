@@ -16,7 +16,7 @@ import java.util.TimerTask;
 public class GameReleaseNotificationAdminController extends TimerTask {
 
     private MongoClient mongoClient;
-    private final String adminEmail = "tungntde180205@fpt.edu.vn"; // Change this to admin's email
+    private final String adminEmail = "ngotranxunhoa09062004@gmail.com"; // Change this to admin's email
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public GameReleaseNotificationAdminController(MongoClient mongoClient) {

@@ -191,6 +191,12 @@
                     <!-- Add to Wishlist button -->
                     <a href="shopping-cart.jsp?id=<%= postId != null ? postId : "Untitled"%>">Add to wishlist <img src="img/icons/double-arrow.png"></a>
 
+                    <div class="wishlist-btns">
+                        <button id="wishlist-btn" class="wishlist-btn" style="background-color:#6f2b95" 
+                                onclick="addToWishlist(this)">
+                            Add to wishlist
+                        </button>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-xl-9 col-lg-8 col-md-7 game-single-content">
@@ -309,6 +315,83 @@
         <!-- Footer section end -->
 
 
+    <!-- Login Popup -->
+    <div class="blur-bg-overlay"></div>
+    <div class="form-popup">
+        <span class="close-btn material-symbols-rounded">close</span>
+        <div class="form-box login">
+            <div class="form-details">
+                <h2>Welcome Back</h2>
+                <p>Please log in using your personal information to stay connected with us.</p>
+            </div>
+            <div class="form-content">
+                <h2>LOGIN</h2>
+                <form action="#">
+                    <div class="input-field">
+                        <input type="text" required>
+                        <label>Email</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="password" required>
+                        <label>Password</label>
+                    </div>
+                    <a href="#" class="forgot-pass-link">Forgot password?</a>
+                    <button type="submit">Log In</button>
+                </form>
+                <div class="bottom-link">
+                    Don't have an account?
+                    <a href="#" id="signup-link">Signup</a>
+                </div>
+            </div>
+        </div>
+        <div class="form-box signup">
+            <div class="form-details">
+                <h2>Create Account</h2>
+                <p>To become a part of our community, please sign up using your personal information.</p>
+            </div>
+            <div class="form-content">
+                <h2>SIGNUP</h2>
+                <form action="#">
+                    <div class="input-field">
+                        <input type="text" required>
+                        <label>Enter your email</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="password" required>
+                        <label>Create password</label>
+                    </div>
+                    <div class="policy-text">
+                        <input type="checkbox" id="policy">
+                        <label for="policy">
+                            I agree the
+                            <a href="#" class="option">Terms & Conditions</a>
+                        </label>
+                    </div>
+                    <button type="submit">Sign Up</button>
+                </form>
+                <div class="bottom-link">
+                    Already have an account? 
+                    <a href="#" id="login-link">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function addToWishlist(button) {
+            button.style.backgroundColor = '#D9D9D9';  
+            button.style.color = '#C20000';           
+            button.style.fontWeight = 'bold';    
+            button.innerHTML = 'Added to wishlist';
+        }
+    </script>
+    <!--====== Javascripts & Jquery ======-->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.slicknav.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.sticky-sidebar.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/main.js"></script>
         <!-- Login Popup -->
         <div class="blur-bg-overlay"></div>
         <div class="form-popup">

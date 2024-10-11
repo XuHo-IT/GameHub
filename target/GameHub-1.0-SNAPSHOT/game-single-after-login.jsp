@@ -191,8 +191,10 @@
                 <div class="game-single-preview">
                     <img src="data:image/jpeg;base64,<%= fileData != null ? fileData : ""%>" alt="Game Image" />
                     <div class="wishlist-btns">
-                        
-                        <button class="wishlist-btn" style="background-color:#6f2b95">Add to wishlist</button>
+                        <button id="wishlist-btn" class="wishlist-btn" style="background-color:#6f2b95" 
+                                onclick="addToWishlist(this)">
+                            Add to wishlist
+                        </button>
                     </div>
                 </div>
                 <div class="row">
@@ -373,7 +375,14 @@
             </div>
         </div>
     </div>
-
+    <script>
+        function addToWishlist(button) {
+            button.style.backgroundColor = '#D9D9D9';  
+            button.style.color = '#C20000';        
+            button.style.fontWeight = 'bold';     
+            button.innerHTML = 'Added to wishlist';   
+        }
+    </script>
     <!--====== Javascripts & Jquery ======-->
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

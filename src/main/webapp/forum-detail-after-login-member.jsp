@@ -191,6 +191,30 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="body">
+                                        <div class="authors">
+                                            <div class="username"><a href="">Username</a></div>
+                                            <img src="./img/Arc Raiders.jpg" alt="">
+                                        </div>
+                                        <div class="content">
+                                            <p style="color: lightblue">Không, Hoà là t</p>
+                                            <div class="comment">
+                                                <button onclick="showReply('reply-area-1')">Reply</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="body">
+                                        <div class="authors">
+                                            <div class="username"><a href="">Username</a></div>
+                                            <img src="./img/Arc Raiders.jpg" alt="">
+                                        </div>
+                                        <div class="content">
+                                            <p style="color: lightblue">Không, Hoà là t</p>
+                                            <div class="comment">
+                                                <button onclick="showReply('reply-area-1')">Reply</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <!-- Show/Hide Button -->

@@ -29,6 +29,7 @@
         <link rel="stylesheet"
               href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
         <link rel="stylesheet" href="Login/style.css">
+        <link rel="stylesheet" href="Forum/style.css">
         <script src="Login/script.js" defer></script>
 
         <!--[if lt IE 9]>
@@ -55,19 +56,21 @@
                 </div>
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
-                    <a href="ReadGameHomeController" class="site-logo">
-                        <img src="./img/logo1.png" alt="">
-                        <img src="./img/logo2.png" alt="">
-                    </a>
+                    <div class="logo-fix">
+                        <a href="ReadGameHomeController" class="site-logo">
+                            <img src="./img/logo1.png" alt="" class="logo1">
+                            <img src="./img/logo2.png" alt="" class="logo2">
+                        </a>
+                    </div>
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
-                            <!-- Bi?u t??ng gi? h�ng -->
+                            <!-- Bi?u t??ng gi? hï¿½ng -->
                             <div class="cart-icon">
                                 <a href="shopping-cart.jsp">
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                 </a>
                             </div>
-                            <!-- Bi?u t??ng t�i kho?n -->
+                            <!-- Bi?u t??ng tï¿½i kho?n -->
                             <div class="account-container">
                                 <div class="account-icon">
                                     <i class="fa fa-user-circle" aria-hidden="true"></i>
@@ -121,7 +124,7 @@
                             <img src="./img/logo1.png" alt="">
                         </div>
                         <div class="subforum-description subforum-column">
-                            <h4><a href="forum-detail-after-login.jsp">Description Title</a></h4>
+                            <h4><a href="forum-detail-after-login-member.jsp">Description Title</a></h4>
                             <p>Description Content: let's try to be cool, otherwise,w at 'sthe point in libing together with people youdont' live.</p>
                         </div>
                         <div class="subforum-stats subforum-column center">
@@ -139,7 +142,7 @@
                             <img src="./img/logo1.png" alt="">
                         </div>
                         <div class="subforum-description subforum-column">
-                            <h4><a href="forum-detail.jsp">Description Title</a></h4>
+                            <h4><a href="forum-detail-after-login-member.jsp">Description Title</a></h4>
                             <p>Description Content: let's try to be cool, otherwise,w at 'sthe point in libing together with people youdont' live.</p>
                         </div>
                         <div class="subforum-stats subforum-column center">
@@ -157,7 +160,7 @@
                             <img src="./img/logo1.png" alt="">
                         </div>
                         <div class="subforum-description subforum-column">
-                            <h4><a href="forum-detail.jsp">Description Title</a></h4>
+                            <h4><a href="forum-detail-after-login-member.jsp">Description Title</a></h4>
                             <p>Description Content: let's try to be cool, otherwise,w at 'sthe point in libing together with people youdont' live.</p>
                         </div>
                         <div class="subforum-stats subforum-column center">
@@ -174,7 +177,7 @@
                             <img src="./img/logo1.png" alt="">
                         </div>
                         <div class="subforum-description subforum-column">
-                            <h4><a href="forum-detail.jsp">Description Title</a></h4>
+                            <h4><a href="forum-detail-after-login-member.jsp">Description Title</a></h4>
                             <p>Description Content: let's try to be cool, otherwise,w at 'sthe point in libing together with people youdont' live.</p>
                         </div>
                         <div class="subforum-stats subforum-column center">
@@ -192,7 +195,7 @@
                             <img src="./img/logo1.png" alt="">
                         </div>
                         <div class="subforum-description subforum-column">
-                            <h4><a href="forum-detail.jsp">Description Title</a></h4>
+                            <h4><a href="forum-detail-after-login-member.jsp">Description Title</a></h4>
                             <p>Description Content: let's try to be cool, otherwise,w at 'sthe point in libing together with people youdont' live.</p>
                         </div>
                         <div class="subforum-stats subforum-column center">
@@ -210,7 +213,7 @@
                             <img src="./img/logo1.png" alt="">
                         </div>
                         <div class="subforum-description subforum-column">
-                            <h4><a href="forum-detail.jsp">Description Title</a></h4>
+                            <h4><a href="forum-detail-after-login-member.jsp">Description Title</a></h4>
                             <p>Description Content: let's try to be cool, otherwise,w at 'sthe point in libing together with people youdont' live.</p>
                         </div>
                         <div class="subforum-stats subforum-column center">

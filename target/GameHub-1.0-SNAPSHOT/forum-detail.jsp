@@ -126,22 +126,25 @@
                     </div>
                 </div>
 
+                <!--Another Comment With replies-->
                 <div class="comments-container">
-                    <div class="comment">
+                    
+                    <!<!-- Comment 1 -->
+                    <div class="comments" id="1">
                         <div class="body">
                             <div class="authors">
                                 <div class="username"><a href="">Username</a></div>
                                 <img src="./img/Arc Raiders.jpg" alt="">
                             </div>
                             <div class="content">
-                                <p style="color: lightblue">Hoà là t</p>
+                                <p style="color: lightblue">Hoà là t</p>                             
                             </div>
                         </div>
 
-                        <!--Rely comment-->
+                        <!--Reply comment area-->
                         <div class="rely-container">
                             <div class="reply">
-                                <!-- Reply đầu tiên sẽ luôn hiển thị -->
+                                <!-- First reply always visible -->
                                 <div class="body">
                                     <div class="authors">
                                         <div class="username"><a href="">Username</a></div>
@@ -152,7 +155,71 @@
                                     </div>
                                 </div>
 
-                                <!-- Các reply khác sẽ ẩn đi lúc đầu -->
+                                <!-- Hidden replies -->
+                                <div class="hidden-replies" style="display: none;">
+                                    <div class="body">
+                                        <div class="authors">
+                                            <div class="username"><a href="">Username</a></div>
+                                            <img src="./img/Arc Raiders.jpg" alt="">
+                                        </div>
+                                        <div class="content">
+                                            <p style="color: lightblue">Không, Hoà là t</p>
+                                        </div>
+                                    </div>
+                                    <div class="body">
+                                        <div class="authors">
+                                            <div class="username"><a href="">Username</a></div>
+                                            <img src="./img/Arc Raiders.jpg" alt="">
+                                        </div>
+                                        <div class="content">
+                                            <p style="color: lightblue">Không, Hoà là t</p>
+                                        </div>
+                                    </div>
+                                    <div class="body">
+                                        <div class="authors">
+                                            <div class="username"><a href="">Username</a></div>
+                                            <img src="./img/Arc Raiders.jpg" alt="">
+                                        </div>
+                                        <div class="content">
+                                            <p style="color: lightblue">Không, Hoà là t</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Show/Hide Button -->
+                                <button class="toggle-replies">Show more</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!<!-- Comment 2 -->
+                    <div class="comments" id="2">
+                        <div class="body">
+                            <div class="authors">
+                                <div class="username"><a href="">Username</a></div>
+                                <img src="./img/Arc Raiders.jpg" alt="">
+                            </div>
+                            <div class="content">
+                                <p style="color: lightblue">Hoà là t</p>
+                            </div>
+                        </div>
+
+                        <!--Reply comment area-->
+                        <div class="rely-container">
+                            <div class="reply">
+                                <!-- First reply always visible -->
+                                <div class="body">
+                                    <div class="authors">
+                                        <div class="username"><a href="">Username</a></div>
+                                        <img src="./img/Arc Raiders.jpg" alt="">
+                                    </div>
+                                    <div class="content">
+                                        <p style="color: lightblue">Không, Hoà là t</p>
+                                    </div>
+                                </div>
+
+                                <!-- Hidden replies -->
                                 <div class="hidden-replies" style="display: none;">
                                     <div class="body">
                                         <div class="authors">
@@ -165,14 +232,61 @@
                                     </div>
                                 </div>
 
-                                <!-- Nút Show/Hide -->
+                                <!-- Show/Hide Button -->
                                 <button class="toggle-replies">Show more</button>
+
                             </div>
                         </div>
                     </div>
+                    
+                    <!<!-- Comment 3 -->
+                    <div class="comments" id="3">
+                        <div class="body">
+                            <div class="authors">
+                                <div class="username"><a href="">Username</a></div>
+                                <img src="./img/Arc Raiders.jpg" alt="">
+                            </div>
+                            <div class="content">
+                                <p style="color: lightblue">Hoà là t</p>
+                            </div>
+                        </div>
+
+                        <!--Reply comment area-->
+                        <div class="rely-container">
+                            <div class="reply">
+                                <!-- First reply always visible -->
+                                <div class="body">
+                                    <div class="authors">
+                                        <div class="username"><a href="">Username</a></div>
+                                        <img src="./img/Arc Raiders.jpg" alt="">
+                                    </div>
+                                    <div class="content">
+                                        <p style="color: lightblue">Không, Hoà là t</p>
+                                    </div>
+                                </div>
+
+                                <!-- Hidden replies -->
+                                <div class="hidden-replies" style="display: none;">
+                                    <div class="body">
+                                        <div class="authors">
+                                            <div class="username"><a href="">Username</a></div>
+                                            <img src="./img/Arc Raiders.jpg" alt="">
+                                        </div>
+                                        <div class="content">
+                                            <p style="color: lightblue">Không, Hoà là t</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Show/Hide Button -->
+                                <button class="toggle-replies">Show more</button>
+
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
-        </div>
     </section>
 
 

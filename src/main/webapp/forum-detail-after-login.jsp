@@ -191,6 +191,30 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="body">
+                                        <div class="authors">
+                                            <div class="username"><a href="">Username</a></div>
+                                            <img src="./img/Arc Raiders.jpg" alt="">
+                                        </div>
+                                        <div class="content">
+                                            <p style="color: lightblue">Không, Hoà là t</p>
+                                            <div class="comment">
+                                                <button onclick="showReply('reply-area-1')">Reply</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="body">
+                                        <div class="authors">
+                                            <div class="username"><a href="">Username</a></div>
+                                            <img src="./img/Arc Raiders.jpg" alt="">
+                                        </div>
+                                        <div class="content">
+                                            <p style="color: lightblue">Không, Hoà là t</p>
+                                            <div class="comment">
+                                                <button onclick="showReply('reply-area-1')">Reply</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <!-- Show/Hide Button -->
@@ -437,37 +461,37 @@
         <script src="js/jquery.magnific-popup.min.js"></script>
         <script src="js/main.js"></script>
         <script>
-                                                    function showComment() {
-                                                        var commentArea = document.getElementById("comment-area");
-                                                        commentArea.classList.toggle("hide");
-                                                    }
+            function showComment() {
+                var commentArea = document.getElementById("comment-area");
+                commentArea.classList.toggle("hide");
+            }
 
-                                                    function showReply(areaId) {
-                                                        var replyArea = document.getElementById(areaId);
-                                                        replyArea.classList.toggle("hide");
-                                                    }
+            function showReply(areaId) {
+                var replyArea = document.getElementById(areaId);
+                replyArea.classList.toggle("hide");
+            }
 
-                                                    function toggleArea(areaId) {
-                                                        var area = document.getElementById(areaId);
-                                                        area.classList.toggle("hide");
-                                                    }
+            function toggleArea(areaId) {
+                var area = document.getElementById(areaId);
+                area.classList.toggle("hide");
+            }
 
-                                                    document.addEventListener('DOMContentLoaded', function () {
-                                                        const toggleButtons = document.querySelectorAll('.toggle-replies');
+            document.addEventListener('DOMContentLoaded', function () {
+                const toggleButtons = document.querySelectorAll('.toggle-replies');
 
-                                                        toggleButtons.forEach(button => {
-                                                            button.addEventListener('click', function () {
-                                                                const hiddenReplies = this.previousElementSibling;
-                                                                if (hiddenReplies.style.display === 'none') {
-                                                                    hiddenReplies.style.display = 'block';
-                                                                    this.textContent = 'Hide';
-                                                                } else {
-                                                                    hiddenReplies.style.display = 'none';
-                                                                    this.textContent = 'Show more';
-                                                                }
-                                                            });
-                                                        });
-                                                    });
+                toggleButtons.forEach(button => {
+                    button.addEventListener('click', function () {
+                        const hiddenReplies = this.previousElementSibling;
+                        if (hiddenReplies.style.display === 'none') {
+                            hiddenReplies.style.display = 'block';
+                            this.textContent = 'Hide';
+                        } else {
+                            hiddenReplies.style.display = 'none';
+                            this.textContent = 'Show more';
+                        }
+                    });
+                });
+            });
         </script>
     </body>
 

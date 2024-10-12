@@ -1,4 +1,5 @@
 package Controller;
+
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
@@ -12,19 +13,29 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
+import javax.servlet.http.HttpSession;
 
 public class GameReleaseNotificationAdminController extends TimerTask {
 
     private MongoClient mongoClient;
-    private final String adminEmail = "ngotranxunhoa09062004@gmail.com"; // Change this to admin's email
+    private HttpSession session;
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-    public GameReleaseNotificationAdminController(MongoClient mongoClient) {
+    public GameReleaseNotificationAdminController(MongoClient mongoClient, HttpSession session) {
         this.mongoClient = mongoClient;
+        this.session = session;
     }
 
     @Override
     public void run() {
+        String adminEmail = (String) session.getAttribute("adminEmail");
+
+        if (adminEmail == null) {
+            System.out.println("Admin email not found in session.");
+            return; // Exit the method if adminEmail is null
+        }
+
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("postGame");
 
@@ -37,24 +48,20 @@ public class GameReleaseNotificationAdminController extends TimerTask {
             while (cursor.hasNext()) {
                 Document gamePost = cursor.next();
                 String gameTitle = gamePost.getString("Title");
-                  String postId = gamePost.getObjectId("_id").toString();
-                               
+                String postId = gamePost.getObjectId("_id").toString();
 
-                sendEmailNotification(gameTitle,postId, adminEmail);
+                sendEmailNotification(gameTitle, postId, adminEmail);
             }
         }
     }
 
-    private void sendEmailNotification(String gameTitle,String postId, String adminEmail) {
+    private void sendEmailNotification(String gameTitle, String postId, String adminEmail) {
         String subject = "Game Release Notification";
-      
-      
-   String gameLink = "http://localhost:8080/Web_Trading_Game/game-single-after-login.jsp?id=" + postId+"&postId="+postId;
-String body = 
-             "The game '" + gameTitle + "' is releasing today!"
-            + "Link to the game to upload link: " + gameLink ;
-          
 
+        String gameLink = "http://localhost:8080/Web_Trading_Game/game-single-after-login.jsp?id=" + postId + "&postId=" + postId;
+        String body
+                = "The game '" + gameTitle + "' is releasing today!"
+                + "Link to the game to upload link: " + gameLink;
 
         // Set up email properties
         Properties properties = new Properties();
@@ -90,10 +97,9 @@ String body =
     }
 
     // Start the scheduled task
-    public static void startScheduler(MongoClient mongoClient) {
+   public static void startScheduler(MongoClient mongoClient, HttpSession session) {
         Timer timer = new Timer();
-        // Schedule the task to run once a day
-        timer.scheduleAtFixedRate(new GameReleaseNotificationAdminController(mongoClient), 0, 24 * 60 * 60 * 1000);
+        // Schedule the task to run once a day (every 24 hours)
+        timer.scheduleAtFixedRate(new GameReleaseNotificationAdminController(mongoClient, session), 0, TimeUnit.DAYS.toMillis(1));
     }
 }
-

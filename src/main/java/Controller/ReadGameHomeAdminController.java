@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 
 public class ReadGameHomeAdminController extends HttpServlet {
 
@@ -27,14 +28,16 @@ public class ReadGameHomeAdminController extends HttpServlet {
     @Override
     public void init() throws ServletException {
         mongoClient = MongoClients.create("mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-                GameReleaseNotificationAdminController.startScheduler(mongoClient);
-
+              
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+              HttpSession session = request.getSession();
+        // Start the scheduler with the mongoClient and HttpSession
+        GameReleaseNotificationAdminController.startScheduler(mongoClient, session);
             // Check if the logout action is triggered
             String action = request.getParameter("action");
             if ("logout".equals(action)) {

@@ -53,16 +53,20 @@
         <servlet-class>Controller.EditPostController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddGameMemberController</servlet-name>
-        <servlet-class>Controller.AddGameMemberController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>GameReleaseNotificationAdminController</servlet-name>
         <servlet-class>Controller.GameReleaseNotificationAdminController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>WishListServlet</servlet-name>
         <servlet-class>Controller.WishListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReadGameUploadOfMemberController</servlet-name>
+        <servlet-class>Controller.ReadGameUploadByMemberController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddGameByMemberController</servlet-name>
+        <servlet-class>Controller.AddGameByMemberController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -121,16 +125,20 @@
         <url-pattern>/EditPostController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddGameMemberController</servlet-name>
-        <url-pattern>/AddGameMemberController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>GameReleaseNotificationAdminController</servlet-name>
         <url-pattern>/GameReleaseNotificationAdminController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>WishListServlet</servlet-name>
         <url-pattern>/WishListServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReadGameUploadOfMemberController</servlet-name>
+        <url-pattern>/ReadGameUploadOfMemberController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddGameByMemberController</servlet-name>
+        <url-pattern>/AddGameByMemberController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

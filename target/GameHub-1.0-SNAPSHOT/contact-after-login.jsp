@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zxx">
-         <head>
+    <head>
         <title>EndGame - Gaming Magazine Template</title>
         <meta charset="UTF-8">
         <meta name="description" content="EndGam Gaming Magazine Template">
@@ -44,7 +44,7 @@
         <!-- Header section -->
         <header class="header-section">
             <div class="header-warp">
-                
+
                 <div class="header-social d-flex justify-content-end">
                     <p>Follow us:</p>
                     <a href="#"><i class="fa fa-pinterest"></i></a>
@@ -62,7 +62,7 @@
                         </a>
                     </div>
                     <nav class="top-nav-area w-100">
-                          <div class="user-panel d-flex">
+                        <div class="user-panel d-flex">
                             <!-- Bi?u t??ng gi? h�ng -->
                             <div class="cart-icon">
                                 <a href="shopping-cart.jsp">
@@ -98,6 +98,7 @@
                                 </ul>
                             </li>
                             <li><a href="contact-after-login.jsp">Contact</a></li>
+                            <li><a href="chart/index-chart.jsp">Manage</a></li>
                             <li><a href="forum-after-login.jsp">Community</a></li>
                         </ul>
                     </nav>

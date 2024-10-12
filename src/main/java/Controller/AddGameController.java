@@ -39,6 +39,7 @@ public class AddGameController extends HttpServlet {
         String dateRelease = request.getParameter("DateRelease");
         String author = request.getParameter("Author");
         String genre = request.getParameter("Genre");
+        String price="";
 
         // Parse ratings
         double priceRating = parseDoubleSafe(request.getParameter("PriceRating"));
@@ -56,7 +57,11 @@ public class AddGameController extends HttpServlet {
         InputStream fileContent = filePart.getInputStream();
         byte[] fileDataBytes = IOUtils.toByteArray(fileContent);
         String fileDataBase64 = Base64.getEncoder().encodeToString(fileDataBytes);
-
+        
+        Part linkGame = null;
+        
+        
+        
         // Create a GamePost object
         GamePost gamePost = new GamePost(
                 null, title, gamePlay, description, dateRelease, author, genre,
@@ -79,7 +84,9 @@ public class AddGameController extends HttpServlet {
                 .append("GraphicRating", graphicRating)
                 .append("DifficultyRating", difficultyRating)
                 .append("GameplayRating", gameplayRating)
-                .append("AverageRating", averageRating);
+                .append("AverageRating", averageRating)
+                .append("Link of the game", linkGame)
+                .append("Price", price);
 
         collection.insertOne(postGame);
 

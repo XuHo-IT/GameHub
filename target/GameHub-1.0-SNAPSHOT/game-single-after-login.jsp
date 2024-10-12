@@ -114,6 +114,7 @@
                                 </ul>
                             </li>
                             <li><a href="contact-after-login-admin.jsp">Contact</a></li>
+                            <li><a href="chart/index-chart.jsp">Manage</a></li>
                             <li><a href="forum-after-login-admin.jsp">Community</a></li>
                         </ul>
                     </nav>
@@ -202,139 +203,145 @@
                         </button>
                     </div>
                 </div>
-                    
+
                 <div class="row">
                     <div class="col-xl-9 col-lg-8 col-md-7 game-single-content">
                         <!-- Button to submit the form -->
                         <form action="EditPostController" method="POST">
-                        <div class="gs-meta">
-                            <h3 style="color: white">Release Date</h3>
-                            <input type="date" name="dateRelease" style="font-size: 20px; height: 50px" value="<%= dateRelease != null ? dateRelease : "Unknown Date"%>" class="form-control">
-                        </div>
-
-                        <h2 class="gs-title">
-                             <h3 style="color: white">Title/h3>
-                            <input type="text" name="title" style="font-size: 20px; height: 50px" value="<%= title != null ? title : "Untitled"%>" class="form-control">
-                        </h2>
-
-                        <div class="gs-description">
-                            <h3 style="color: white">Description</h3>
-                            <textarea name="description" style="font-size: 20px; height: 400px" class="form-control"><%= description != null ? description : "No description available"%></textarea>
-                        </div>
-
-                        <div class="gs-gameplay">
-                            <h3 style="color: white">Game Play</h3>
-                            <textarea name="gamePlay" style="font-size: 20px; height: 50px" class="form-control"><%= gamePlay != null ? gamePlay : "No gamePlay available"%></textarea>
-                        </div>
-
-                        <div class="gs-auhtor-genre">
-                            <div class="left-author">
-                                <h3 style="color: white">Author</h3>
-                                <input type="text" name="author" style="font-size: 20px; height: 50px" value="<%= author != null ? author : "No Author available"%>" class="form-control">
+                            <div class="gs-meta">
+                                <h3 style="color: white">Release Date</h3>
+                                <input type="date" name="dateRelease" style="font-size: 20px; height: 50px" value="<%= dateRelease != null ? dateRelease : "Unknown Date"%>" class="form-control">
                             </div>
 
-                            <div class="right-genre">
-                                <h3 style="color: white">Genre</h3>
-                                <input type="text" name="genre" style="font-size: 20px; height: 50px" value="<%= genre != null ? genre : "No genre available"%>" class="form-control">
-                            </div>
-                        </div>
+                            <h2 class="gs-title">
+                                <h3 style="color: white">Title/h3>
+                                    <input type="text" name="title" style="font-size: 20px; height: 50px" value="<%= title != null ? title : "Untitled"%>" class="form-control">
+                                    </h2>
 
-                        
-                            <input type="hidden" name="postId" value="<%= postId%>">
-                            <button class="edit-btn" type="submit" name="action" value="edit" style="background-color:#4CAF50;">Edit</button>
-                        </form>
-                    </div>
-
-
-                    <div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">
-                        <div id="stickySidebar">
-                            <div class="widget-item">
-                                <div class="rating-widget">
-                                    <h4 class="widget-title">Ratings</h4>
-                                    <ul>
-                                        <li>Price Rating: <strong><%= priceRating%></strong></li>
-                                        <li>Graphic Rating: <strong><%= graphicRating%></strong></li>
-                                        <li>Difficulty Rating: <strong><%= difficultyRating%></strong></li>
-                                        <li>Gameplay Rating: <strong><%= gameplayRating%></strong></li>
-                                    </ul>
-                                    <div class="rating">
-                                        <h5><i>Average Rating:</i><span><%= averageRating%></span> / 5</h5>
+                                    <div class="gs-description">
+                                        <h3 style="color: white">Description</h3>
+                                        <textarea name="description" style="font-size: 20px; height: 400px" class="form-control"><%= description != null ? description : "No description available"%></textarea>
                                     </div>
-                                </div>
-                            </div>
 
-                            <div class="widget-item">
-                                <div class="testimonials-widget">
-                                    <h4 class="widget-title">Testimonials</h4>
-                                    <div class="testim-text">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                        <h6><span>James Smith,</span>Gamer</h6>
+                                    <div class="gs-gameplay">
+                                        <h3 style="color: white">Game Play</h3>
+                                        <textarea name="gamePlay" style="font-size: 20px; height: 50px" class="form-control"><%= gamePlay != null ? gamePlay : "No gamePlay available"%></textarea>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Games end-->
+                                    <div class="gs-auhtor-genre">
+                                        <div class="left-author">
+                                            <h3 style="color: white">Author</h3>
+                                            <input type="text" name="author" style="font-size: 20px; height: 50px" value="<%= author != null ? author : "No Author available"%>" class="form-control">
+                                        </div>
 
-        <section class="game-author-section">
-            <div class="container">
-                <div class="game-author-pic set-bg" data-setbg="img/author.jpg"></div>
-                <div class="game-author-info">
-                    <h4>Written by: Michael Williams</h4>
-                    <p>Vivamus volutpat nibh ac sollicitudin imperdiet. Donec scelerisque lorem sodales odio ultricies, nec rhoncus ex lobortis. Vivamus tincid-unt sit amet sem id varius. Donec elementum aliquet tortor. Curabitur justo mi, efficitur sed eros alique.</p>
-                </div>
-            </div>
-        </section>
+                                        <div class="gs-game-link">
+                                            <h3 style="color: white">Game Link</h3>
+                                            <input type="url" name="gameLink" style="font-size: 20px; height: 50px" placeholder="https://example.com" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="gs-gameplay">
+                                        <h3 style="color: white">Link of the game</h3>
+                                        <textarea name="gamePlay" style="font-size: 20px; height: 50px" class="form-control"><%= gamePlay != null ? gamePlay : "No gamePlay available"%></textarea>
+                                    </div> <div class="gs-gameplay">
+                                        <h3 style="color: white">Price</h3>
+                                        <textarea name="gamePlay" style="font-size: 20px; height: 50px" class="form-control"><%= gamePlay != null ? gamePlay : "No gamePlay available"%></textarea>
+                                    </div>
 
-
-        <!-- Newsletter section -->
-        <section class="newsletter-section">
-            <div class="container">
-                <h2>Subscribe to our newsletter</h2>
-                <form class="newsletter-form">
-                    <input type="text" placeholder="ENTER YOUR E-MAIL">
-                    <button class="site-btn">subscribe  <img src="img/icons/double-arrow.png" alt="#"/></button>
-                </form>
-            </div>
-        </section>
-        <!-- Newsletter section end -->
+                                    <input type="hidden" name="postId" value="<%= postId%>">
+                                    <button class="edit-btn" type="submit" name="action" value="edit" style="background-color:#4CAF50;">Edit</button>
+                                    </form>
+                                    </div>
 
 
-        <!-- Footer section -->
-        <footer class="footer-section">
-            <div class="container">
-                <div class="footer-left-pic">
-                    <img src="img/footer-left-pic.png" alt="">
-                </div>
-                <div class="footer-right-pic">
-                    <img src="img/spider-removebg-preview.png" alt="">
-                </div>
-                <a href="#" class="footer-logo">
-                    <img src="./img/logo.png" alt="">
-                </a>
-                <ul class="main-menu footer-menu">
-                    <li><a href="">Home</a></li>
-                    <li><a href="">Games</a></li>
-                    <li><a href="">Reviews</a></li>
-                    <li><a href="">News</a></li>
-                    <li><a href="">Contact</a></li>
-                </ul>
+                                    <div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">
+                                        <div id="stickySidebar">
+                                            <div class="widget-item">
+                                                <div class="rating-widget">
+                                                    <h4 class="widget-title">Ratings</h4>
+                                                    <ul>
+                                                        <li>Price Rating: <strong><%= priceRating%></strong></li>
+                                                        <li>Graphic Rating: <strong><%= graphicRating%></strong></li>
+                                                        <li>Difficulty Rating: <strong><%= difficultyRating%></strong></li>
+                                                        <li>Gameplay Rating: <strong><%= gameplayRating%></strong></li>
+                                                    </ul>
+                                                    <div class="rating">
+                                                        <h5><i>Average Rating:</i><span><%= averageRating%></span> / 5</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                <div class="footer-social d-flex justify-content-center">
-                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                    <a href="#"><i class="fa fa-behance"></i></a>
-                </div>
-                <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
-            </div>
-        </footer>
-        <!-- Footer section end -->
+                                            <div class="widget-item">
+                                                <div class="testimonials-widget">
+                                                    <h4 class="widget-title">Testimonials</h4>
+                                                    <div class="testim-text">
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                                        <h6><span>James Smith,</span>Gamer</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </section>
+
+                                    <!-- Games end-->
+
+                                    <section class="game-author-section">
+                                        <div class="container">
+                                            <div class="game-author-pic set-bg" data-setbg="img/author.jpg"></div>
+                                            <div class="game-author-info">
+                                                <h4>Written by: Michael Williams</h4>
+                                                <p>Vivamus volutpat nibh ac sollicitudin imperdiet. Donec scelerisque lorem sodales odio ultricies, nec rhoncus ex lobortis. Vivamus tincid-unt sit amet sem id varius. Donec elementum aliquet tortor. Curabitur justo mi, efficitur sed eros alique.</p>
+                                            </div>
+                                        </div>
+                                    </section>
+
+
+                                    <!-- Newsletter section -->
+                                    <section class="newsletter-section">
+                                        <div class="container">
+                                            <h2>Subscribe to our newsletter</h2>
+                                            <form class="newsletter-form">
+                                                <input type="text" placeholder="ENTER YOUR E-MAIL">
+                                                <button class="site-btn">subscribe  <img src="img/icons/double-arrow.png" alt="#"/></button>
+                                            </form>
+                                        </div>
+                                    </section>
+                                    <!-- Newsletter section end -->
+
+
+                                    <!-- Footer section -->
+                                    <footer class="footer-section">
+                                        <div class="container">
+                                            <div class="footer-left-pic">
+                                                <img src="img/footer-left-pic.png" alt="">
+                                            </div>
+                                            <div class="footer-right-pic">
+                                                <img src="img/spider-removebg-preview.png" alt="">
+                                            </div>
+                                            <a href="#" class="footer-logo">
+                                                <img src="./img/logo.png" alt="">
+                                            </a>
+                                            <ul class="main-menu footer-menu">
+                                                <li><a href="">Home</a></li>
+                                                <li><a href="">Games</a></li>
+                                                <li><a href="">Reviews</a></li>
+                                                <li><a href="">News</a></li>
+                                                <li><a href="">Contact</a></li>
+                                            </ul>
+
+                                            <div class="footer-social d-flex justify-content-center">
+                                                <a href="#"><i class="fa fa-pinterest"></i></a>
+                                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                                <a href="#"><i class="fa fa-dribbble"></i></a>
+                                                <a href="#"><i class="fa fa-behance"></i></a>
+                                            </div>
+                                            <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
+                                        </div>
+                                    </footer>
+                                    <!-- Footer section end -->
 
 
     <!-- Login Popup -->
@@ -415,5 +422,5 @@
     <script src="js/jquery.magnific-popup.min.js"></script>
     <script src="js/main.js"></script>
 
-    </body>
-</html>
+                                    </body>
+                                    </html>

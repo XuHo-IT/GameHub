@@ -1,4 +1,3 @@
-
 <%@page import="com.mongodb.client.model.Filters"%>
 <%@page import="org.bson.types.ObjectId"%>
 <%@page import="org.bson.Document"%>
@@ -189,12 +188,16 @@
                 <div class="game-single-preview">
                     <img src="data:image/jpeg;base64,<%= fileData != null ? fileData : ""%>" alt="Game Image" />
                     <!-- Add to Wishlist button -->
-                    
                     <div class="wishlist-btns">
-                        <button id="wishlist-btn" class="wishlist-btn" style="background-color:#6f2b95" 
-                                onclick="addToWishlist(this)">
-                            Add to wishlist
-                        </button>
+                        <form id="wishlistForm" action="shopping-cart.jsp" method="POST">
+                            <input type="hidden" name="postId" value="<%= postId %>" />
+                            <input type="hidden" name="title" value="<%= title %>" />
+                            <input type="hidden" name="fileData" value="<%= fileData %>" />
+                            <input type="hidden" name="dateRelease" value="<%= dateRelease %>" />
+                            <input type="hidden" name="author" value="<%= author %>" />
+                            <button type="submit">Add to Wishlist</button>
+                        </form>
+
                     </div>
                 </div>
                 <div class="row">

@@ -1,60 +1,37 @@
 package Controller;
+
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Properties;
-import java.util.Timer;
-import java.util.TimerTask;
 
-public class GameReleaseNotificationAdminController extends TimerTask {
+public class GameReleaseNotificationAdminController {
+
+    static void startScheduler(MongoClient mongoClient) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
     private MongoClient mongoClient;
-    private final String adminEmail = "ngotranxunhoa09062004@gmail.com"; // Change this to admin's email
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private final String adminEmail = "gamehubtalk@gmail.com"; // Admin email
 
     public GameReleaseNotificationAdminController(MongoClient mongoClient) {
         this.mongoClient = mongoClient;
     }
 
-    @Override
-    public void run() {
-        MongoDatabase database = mongoClient.getDatabase("GameHub");
-        MongoCollection<Document> collection = database.getCollection("postGame");
-
-        // Get the current date as a string
-        String today = dateFormat.format(new Date());
-
-        // Query for games that are released today
-        Document query = new Document("DateRelease", today);
-        try (MongoCursor<Document> cursor = collection.find(query).iterator()) {
-            while (cursor.hasNext()) {
-                Document gamePost = cursor.next();
-                String gameTitle = gamePost.getString("Title");
-                  String postId = gamePost.getObjectId("_id").toString();
-                               
-
-                sendEmailNotification(gameTitle,postId, adminEmail);
-            }
-        }
-    }
-
-    private void sendEmailNotification(String gameTitle,String postId, String adminEmail) {
-        String subject = "Game Release Notification";
-      
-      
-   String gameLink = "http://localhost:8080/Web_Trading_Game/game-single-after-login.jsp?id=" + postId+"&postId="+postId;
-String body = 
-             "The game '" + gameTitle + "' is releasing today!"
-            + "Link to the game to upload link: " + gameLink ;
-          
-
+    // Function to send the confirmation email after a game is added to wishlist
+    public void sendWishlistConfirmationEmail(String userEmail, String gameTitle, String postId) {
+        String subject = "Game Wishlist Confirmation";
+        
+        // Link to the game after adding to the wishlist
+        String gameLink = "http://localhost:8080/Web_Trading_Game/game-single-after-login.jsp?id=" + postId + "&postId=" + postId;
+        
+        // Email body content
+        String body = "You have successfully added the game '" + gameTitle + "' to your wishlist.\n"
+                + "Click here to view the game: " + gameLink;
 
         // Set up email properties
         Properties properties = new Properties();
@@ -63,8 +40,8 @@ String body =
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "587");
 
-        String fromEmail = "ngotranxuanhoa09062004@gmail.com"; // Change to your email
-        String emailPassword = "lkai bcsp rtna hrcn"; // Change to your email password
+        String fromEmail = "ngotranxuanhoa09062004@gmail.com"; // Sender email
+        String emailPassword = "lkai bcsp rtna hrcn"; // Sender email password
 
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
@@ -77,23 +54,15 @@ String body =
             // Compose the email
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(fromEmail));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(adminEmail));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(userEmail));
             message.setSubject(subject);
             message.setText(body);
 
             // Send the email
             Transport.send(message);
-            System.out.println("Email sent successfully to: " + adminEmail);
+            System.out.println("Email sent successfully to: " + userEmail);
         } catch (MessagingException e) {
             e.printStackTrace();
         }
     }
-
-    // Start the scheduled task
-    public static void startScheduler(MongoClient mongoClient) {
-        Timer timer = new Timer();
-        // Schedule the task to run once a day
-        timer.scheduleAtFixedRate(new GameReleaseNotificationAdminController(mongoClient), 0, 24 * 60 * 60 * 1000);
-    }
 }
-

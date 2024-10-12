@@ -64,6 +64,10 @@
         <servlet-name>WishListServlet</servlet-name>
         <servlet-class>Controller.WishListServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddToWishlistController</servlet-name>
+        <servlet-class>Controller.AddToWishlistController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -131,6 +135,10 @@
     <servlet-mapping>
         <servlet-name>WishListServlet</servlet-name>
         <url-pattern>/WishListServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddToWishlistController</servlet-name>
+        <url-pattern>/AddToWishlistController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

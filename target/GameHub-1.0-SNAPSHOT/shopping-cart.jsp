@@ -45,93 +45,60 @@
                       <div class="col-lg-8">
                         <div class="p-5">
                           <div class="d-flex justify-content-between align-items-center mb-5">
-                            <h1 class="fw-bold mb-0" style="color:antiquewhite">Wishlist</h1>
-                            <h6 class="mb-0 text-muted" style="color:antiquewhite">3 items</h6>
+                            <h1 class="fw-bold mb-0" style="color:antiquewhite">Wishlist Item</h1>
                           </div>
                           <hr class="my-4">
 
                           <div class="row mb-4 d-flex justify-content-between align-items-center">
-                            <div class="col-md-2 col-lg-2 col-xl-2">
-                              <img
-                                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img5.webp"
-                                class="img-fluid rounded-3" alt="Cotton T-shirt">
-                            </div>
-                            <div class="col-md-3 col-lg-3 col-xl-3">
-                              <h6 class="text-muted" style="color:antiquewhite">Shirt</h6>
-                              <h6 class="mb-0" style="color:antiquewhite">Cotton T-shirt</h6>
-                            </div>
-                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
-                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                    <img src="./img/pngegg_1.png" alt="Icon" style="width: 20px; height: 20px;">
-                                </button>
-                            </div>
-                          </div>
-                          <div class="row mb-4 d-flex justify-content-between align-items-center">
-                            <div class="col-md-2 col-lg-2 col-xl-2">
-                              <img
-                                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img6.webp"
-                                class="img-fluid rounded-3" alt="Cotton T-shirt">
-                            </div>
-                            <div class="col-md-3 col-lg-3 col-xl-3">
-                              <h6 class="text-muted" style="color:antiquewhite">Shirt</h6>
-                              <h6 class="mb-0" style="color:antiquewhite">Cotton T-shirt</h6>
-                            </div>
-                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
-                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                    <img src="./img/pngegg_1.png" alt="Icon" style="width: 20px; height: 20px;">
-                                </button>
-                            </div>
-                          </div>
-                          <div class="row mb-4 d-flex justify-content-between align-items-center">
-                            <div class="col-md-2 col-lg-2 col-xl-2">
-                              <img
-                                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img7.webp"
-                                class="img-fluid rounded-3" alt="Cotton T-shirt">
-                            </div>
-                            <div class="col-md-3 col-lg-3 col-xl-3">
-                              <h6 class="text-muted" style="color:antiquewhite">Shirt</h6>
-                              <h6 class="mb-0" style="color:antiquewhite">Cotton T-shirt</h6>
-                            </div>
-                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
-                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                    <img src="./img/pngegg_1.png" alt="Icon" style="width: 20px; height: 20px;">
-                                </button>
-                              </button>
-                            </div>
-                          </div>
-                          <div class="pt-5">
-                            <h6 class="mb-0"><a href="index.html" class="text-body" style="color:antiquewhite"><i
-                                  class="fas fa-long-arrow-alt-left me-2" style="color:antiquewhite"></i>Back to shop</a></h6>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-lg-4 bg-body-tertiary">
-                        <div class="p-5">
-                          <h3 class="fw-bold mb-5 mt-2 pt-1" style="color:antiquewhite">Summary</h3>
-                          <hr class="my-4">
-                          <div class="d-flex justify-content-between mb-4"> 
-                          </div>
-                          <h5 class="text-uppercase mb-3" style="color:antiquewhite">Get notification</h5>
-                          <div class="mb-5">
-                            <div data-mdb-input-init class="form-outline">
-                              <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
-                              <label class="form-label" for="form3Examplea2" style="color:antiquewhite">Enter your email</label>
-                            </div>
-                          </div>
-                          <div class="button-group">
-                        <button type="button" data-mdb-button-init data-mdb-ripple-init 
-                                class="btn btn-block btn-lg" data-mdb-ripple-color="dark" 
-                                style="background-color:#C20000; color:antiquewhite;">
-                            Cancel
-                        </button>
-                        <button type="button" data-mdb-button-init data-mdb-ripple-init 
-                                class="btn btn-dark btn-block btn-lg" data-mdb-ripple-color="dark" 
-                                style="color:antiquewhite;">
-                            Send
-                        </button>
+                            
+                              <% 
+                                    String postId = request.getParameter("postId");
+                                    String title = request.getParameter("title");
+                                    String fileData = request.getParameter("fileData");
+                                    String dateRelease = request.getParameter("dateRelease");
+                                    String author = request.getParameter("author");
+                     
+                            // Check if the data exists
+                            if (postId != null && title != null && author != null && fileData != null) {
+                        %>
+                                <div class="wishlist-item">
+                                    <img src="data:image/jpeg;base64,<%= fileData %>" alt="Game Image" />
+                                    <p>Title: <%= title %></p>
+                                    <p>Author: <%= author %></p>
+                                </div>
+                        <%
+                            } else {
+                                out.println("No game data found.");
+                            }
+                        %>
+
+                        <!-- Email form and send button -->
+                        <form id="wishlistForm" action="AddToWishlistController" method="post">
+                            <input type="hidden" name="postId" value="<%= postId %>" />
+                            <input type="hidden" name="title" value="<%= title %>" />
+                            <input type="hidden" name="fileData" value="<%= fileData %>" />
+                            <input type="hidden" name="dateRelease" value="<%= dateRelease %>" />
+                            <input type="hidden" name="author" value="<%= author %>" />
+
+                            <label for="userEmail">Enter your email:</label>
+                            <input type="email" name="userEmail" required />
+
+                            <button type="submit">Send</button>
+                        </form>
+                        <form action="game-single.jsp?id=<%= postId %>" method="GET">
+                            <button type="submit">Cancel</button>
+                        </form>
+
+                        <script>
+                            function validateEmail() {
+                                var email = document.getElementById('emailField').value;
+                                if (email === '') {
+                                    alert("Please enter your email before submitting.");
+                                    return false;
+                                }
+                                return true;
+                            }
+                        </script>
                             </div>
                         </div>
                       </div>

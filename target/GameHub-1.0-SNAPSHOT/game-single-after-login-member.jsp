@@ -189,8 +189,7 @@
                 <div class="game-single-preview">
                     <img src="data:image/jpeg;base64,<%= fileData != null ? fileData : ""%>" alt="Game Image" />
                     <!-- Add to Wishlist button -->
-                    <a href="shopping-cart.jsp?id=<%= postId != null ? postId : "Untitled"%>">Add to wishlist <img src="img/icons/double-arrow.png"></a>
-
+                    
                     <div class="wishlist-btns">
                         <button id="wishlist-btn" class="wishlist-btn" style="background-color:#6f2b95" 
                                 onclick="addToWishlist(this)">

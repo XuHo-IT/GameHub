@@ -68,6 +68,10 @@
         <servlet-name>AddGameByMemberController</servlet-name>
         <servlet-class>Controller.AddGameByMemberController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddToWishlistController</servlet-name>
+        <servlet-class>Controller.AddToWishlistController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -139,6 +143,10 @@
     <servlet-mapping>
         <servlet-name>AddGameByMemberController</servlet-name>
         <url-pattern>/AddGameByMemberController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddToWishlistController</servlet-name>
+        <url-pattern>/AddToWishlistController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

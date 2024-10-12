@@ -5,6 +5,8 @@
 package Controller;
 
 import Model.SuperAdmin;
+import Model.UserModel;
+import mogodb.MongoConectUser;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
@@ -70,9 +72,13 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 
         // Set the adminId in the session
         request.getSession().setAttribute("adminId", userDoc.getObjectId("_id").toString());
-
+        String id = userDoc.getObjectId("_id").toString();
         // Redirect to admin-after-login.jsp
-        response.sendRedirect("ReadGameController");
+        UserModel currentUser = new UserModel();
+        MongoConectUser mgcn = new MongoConectUser();
+        currentUser = mgcn.getUserById("id");
+        if(currentUser.getStatus().equals("Suspend")) response.sendRedirect("user-profile.jsp?id=" + id);
+        else response.sendRedirect("ReadGameController?id=" + id);
     } else {
         // If authentication fails, set an error message
         request.setAttribute("errorMessage", "Invalid email or password");

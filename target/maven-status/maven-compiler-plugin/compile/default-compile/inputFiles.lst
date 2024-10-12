@@ -2,6 +2,7 @@ D:\gamehub\GameHub\src\main\java\Controller\ReadGameHomeController.java
 D:\gamehub\GameHub\src\main\java\Controller\LoginController.java
 D:\gamehub\GameHub\src\main\java\Controller\RemoveUserServlet.java
 D:\gamehub\GameHub\src\main\java\Controller\UnSuspendUserController.java
+D:\gamehub\GameHub\src\main\java\Controller\UploadPhotoController.java
 D:\gamehub\GameHub\src\main\java\Controller\AddGameController.java
 D:\gamehub\GameHub\src\main\java\com\mycompany\gamehub\JakartaRestConfiguration.java
 D:\gamehub\GameHub\src\main\java\Controller\ShowAllGameController.java
@@ -9,6 +10,7 @@ D:\gamehub\GameHub\src\main\java\mogodb\MongoConectUser.java
 D:\gamehub\GameHub\src\main\java\Controller\ReadGameController.java
 D:\gamehub\GameHub\src\main\java\com\mycompany\gamehub\resources\JakartaEE8Resource.java
 D:\gamehub\GameHub\src\main\java\mogodb\MongoConnect.java
+D:\gamehub\GameHub\src\main\java\Controller\ChangePasswordController.java
 D:\gamehub\GameHub\src\main\java\Controller\EditUserServlet.java
 D:\gamehub\GameHub\src\main\java\Model\UserModel.java
 D:\gamehub\GameHub\src\main\java\Model\SuperAdmin.java

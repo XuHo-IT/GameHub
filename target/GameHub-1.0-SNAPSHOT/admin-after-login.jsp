@@ -80,9 +80,9 @@
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
-
-                                        <li><a href="user-profile.jsp">Account Info</a></li>
-                                        <li><a href="user-profile.jsp">Log out</a></li>
+                                        
+                                        <li><a href="user-profile.jsp?id=<%= request.getSession().getAttribute("adminId") %>">Account Info</a></li>
+                                        <li><a href="index.jsp">Log out</a></li>
 
 
                                     </ul>

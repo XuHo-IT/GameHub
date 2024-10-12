@@ -33,6 +33,7 @@ public class ReadGameController extends HttpServlet {
     @Override
 protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
+    String id = request.getParameter("id");
     try {
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("postGame");
@@ -80,7 +81,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
 
         request.setAttribute("posts", postList);
         // Forward the request to the JSP page
-        request.getRequestDispatcher("admin-after-login.jsp").forward(request, response);
+        request.getRequestDispatcher("admin-after-login.jsp?id=" + id).forward(request, response);
     } catch (Exception e) {
         e.printStackTrace(); // Log the exception
         request.setAttribute("errorMessage", "Error retrieving game posts.");

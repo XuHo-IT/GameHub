@@ -36,6 +36,14 @@
         <servlet-name>UnSuspendUserController</servlet-name>
         <servlet-class>Controller.UnSuspendUserController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ChangePasswordController</servlet-name>
+        <servlet-class>Controller.ChangePasswordController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadPhotoController</servlet-name>
+        <servlet-class>Controller.UploadPhotoController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -75,6 +83,14 @@
     <servlet-mapping>
         <servlet-name>RemoveUserServlet</servlet-name>
         <url-pattern>/RemoveUserServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePasswordController</servlet-name>
+        <url-pattern>/ChangePasswordController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadPhotoController</servlet-name>
+        <url-pattern>/UploadPhotoController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

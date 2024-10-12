@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package Controller;
 
 import Model.SuperAdmin;
@@ -22,10 +18,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author OS
- */
 public class LoginController extends HttpServlet {
 
     private MongoClient mongoClient;
@@ -70,8 +62,9 @@ public class LoginController extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("currentUser", superAdmin);
 
-                // Set the adminId in the session
-                request.getSession().setAttribute("adminId", userDoc.getObjectId("_id").toString());
+                // Set the adminId and adminEmail in the session
+                session.setAttribute("adminId", userDoc.getObjectId("_id").toString());
+                session.setAttribute("adminEmail", userDoc.getString("Email")); // Insert adminEmail in session
 
                 // Redirect based on the user's role
                 String role = userDoc.getString("Role");

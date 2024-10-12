@@ -18,15 +18,9 @@
             </a>
           </li>
           <li>
-            <a href="">
-              <span class="icon">
-                <ion-icon name="home-outline"></ion-icon>
-              </span>
-              <span class="title">Dashboard</span>
-            </a>
           </li>
           <li>
-            <a href="">
+            <a href="censor.jsp">
               <span class="icon">
                 <ion-icon name="people-outline"></ion-icon>
               </span>
@@ -34,7 +28,7 @@
             </a>
           </li>
           <li>
-            <a href="">
+            <a href="index-chart.jsp">
               <span class="icon">
                 <ion-icon name="chatbubbles-outline"></ion-icon>
               </span>
@@ -299,5 +293,16 @@
     <!-- <script src="js/chart.umd.js"></script> -->
     <script src="js/chart.min.js"></script>
     <script src="js/main.js"></script>
+    <style>
+        .details {
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 30px;
+  /* margin-top: 10px; */
+}
+    </style>
   </body>
 </html>

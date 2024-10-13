@@ -61,7 +61,7 @@
         <servlet-class>Controller.WishListServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ReadGameUploadOfMemberController</servlet-name>
+        <servlet-name>ReadGameUploadByMemberController</servlet-name>
         <servlet-class>Controller.ReadGameUploadByMemberController</servlet-class>
     </servlet>
     <servlet>
@@ -71,6 +71,14 @@
     <servlet>
         <servlet-name>AddToWishlistController</servlet-name>
         <servlet-class>Controller.AddToWishlistController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GameReleaseNotificationMemberController</servlet-name>
+        <servlet-class>Controller.GameReleaseNotificationMemberController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ConfirmPostController</servlet-name>
+        <servlet-class>Controller.ConfirmPostController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -137,8 +145,8 @@
         <url-pattern>/WishListServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ReadGameUploadOfMemberController</servlet-name>
-        <url-pattern>/ReadGameUploadOfMemberController</url-pattern>
+        <servlet-name>ReadGameUploadByMemberController</servlet-name>
+        <url-pattern>/ReadGameUploadByMemberController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddGameByMemberController</servlet-name>
@@ -147,6 +155,14 @@
     <servlet-mapping>
         <servlet-name>AddToWishlistController</servlet-name>
         <url-pattern>/AddToWishlistController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GameReleaseNotificationMemberController</servlet-name>
+        <url-pattern>/GameReleaseNotificationMemberController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConfirmPostController</servlet-name>
+        <url-pattern>/ConfirmPostController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

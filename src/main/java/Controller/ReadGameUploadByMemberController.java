@@ -102,15 +102,15 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
         
         Collections.reverse(postList);
         
-      
+        System.out.println(postList);
 
         request.setAttribute("postsMember", postList);
 
-        request.getRequestDispatcher("censor.jsp").forward(request, response);
+        request.getRequestDispatcher("chart/censor.jsp").forward(request, response);
     } catch (Exception e) {
         e.printStackTrace();
         request.setAttribute("errorMessage", "Error retrieving game posts.");
-        request.getRequestDispatcher("error-page.jsp").forward(request, response);
+        request.getRequestDispatcher("ReadGameHomeAdminController").forward(request, response);
     }
 }
 

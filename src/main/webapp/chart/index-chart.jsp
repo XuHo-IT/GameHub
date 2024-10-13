@@ -20,7 +20,7 @@
           <li>
           </li>
           <li>
-            <a href="censor.jsp">
+            <a href="../ReadGameUploadByMemberController">
               <span class="icon">
                 <ion-icon name="people-outline"></ion-icon>
               </span>

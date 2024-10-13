@@ -24,9 +24,9 @@ body {
   position: fixed;
   width: 300px;
   height: 100%;
-  background: var(--blue);
+  background: #6f2b95;
   /* Test: border-left: 10px solid #f00; */
-  border-left: 10px solid var(--blue);
+  border-left: 10px solid #6f2b95;
   transition: 0.5s;
   overflow: hidden;
 }
@@ -64,7 +64,7 @@ body {
 }
 .navigation ul li:hover a,
 .navigation ul li.hovered a {
-  color: var(--blue);
+  color: #6f2b95;
 }
 .navigation ul li .icon {
   position: relative;
@@ -214,7 +214,7 @@ body {
   position: relative;
   font-weight: 500;
   font-size: 2.5em;
-  color: var(--blue);
+  color: #6f2b95;
 }
 .cardBox .card .cardName {
   color: var(--black2);
@@ -226,7 +226,7 @@ body {
   color: var(--black2);
 }
 .cardBox .card:hover {
-  background: var(--blue);
+  background: #6f2b95;
 }
 .cardBox .card:hover .numbers,
 .cardBox .card:hover .cardName,
@@ -268,12 +268,12 @@ body {
 }
 .cardHeader h2 {
   font-weight: 600;
-  color: var(--blue);
+  color: #6f2b95;
 }
 .btn {
   position: relative;
   padding: 5px 10px;
-  background: var(--blue);
+  background: #6f2b95;
   text-decoration: none;
   color: var(--white);
   border-radius: 6px;
@@ -287,14 +287,14 @@ body {
   font-weight: 600;
 }
 .details .recentOrders table tr {
-  color: var(--black1);
+  color: #6f2b95;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 .details .recentOrders table tr:last-child {
   border-bottom: none;
 }
 .details .recentOrders table tbody tr:hover {
-  background: var(--blue);
+  background: #6f2b95;
   color: var(--white);
 }
 .details .recentOrders table tr td {
@@ -366,7 +366,7 @@ body {
   object-fit: cover;
 }
 .recentCustomers table tr:hover {
-  background: var(--blue);
+  background: #6f2b95;
   color: var(--white);
 }
 .recentCustomers table tr td {

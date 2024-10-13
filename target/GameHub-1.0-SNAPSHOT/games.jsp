@@ -53,9 +53,31 @@
         <!-- Header section -->
         <header class="header-section">
             <div class="header-warp">
-                <form class="search-form ">
-                    <input type="text"  placeholder="Search..." aria-label="Search">
-                    <button type="submit"><i class="fa fa-search"></i></button>
+                <form action="SearchController" method="GET" class="search-form">
+                    <!-- Search Bar -->
+                    <div class="search-bar">
+                        <form action="SearchController" method="get">
+                            <!-- Keyword input for the search bar -->
+                            <input type="text" name="keyword" placeholder="Search by keyword..." aria-label="Search">
+                            <button type="submit">Search</button>
+                        </form>
+                    </div>
+
+                    <!-- Filter Box -->
+                    <div class="filter-box">
+                        <form action="SearchController" method="get">
+                            <!-- Genre Filter -->
+                            <div class="filter-group">
+                                <label for="genre">Genre:</label>
+                                <select id="genre" name="genre">
+                                    <option value="">All Genres</option>
+                                    <!-- Dynamically populate genres from MongoDB -->
+                                    <c:forEach var="genre" items="${genres}">
+                                        <option value="${genre.genre}">${genre.genre}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+
                 </form>
                 <div class="header-social d-flex justify-content-end">
                     <p>Follow us:</p>

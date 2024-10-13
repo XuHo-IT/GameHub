@@ -18,74 +18,86 @@ toggle.onclick = function () {
   main.classList.toggle("active");
 };
 
-// my_chart
-
-var ctx = document.getElementById("myChart").getContext("2d");
-var earning = document.getElementById("earning").getContext("2d");
-
-var myChart = new Chart(ctx, {
-  type: "polarArea",
-  data: {
-    labels: ["Facebook", "Youtube", "Amazon"],
-    datasets: [
-      {
-        label: "Traffic Source",
-        data: [5000, 3000],
-        backgroundColor: [
-          "rgba(255 , 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
+fetch('/Web_Trading_Game/StatisticController')
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    const adminPostsCount = data.adminPostsCount;
+    const memberPostsCount = data.memberPostsCount;
+    console.log(adminPostsCount, memberPostsCount);
+    // Update the polarArea chart with the fetched data
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var myChart = new Chart(ctx, {
+      type: "polarArea",
+      data: {
+        labels: ["AdminPost", "MemberPost"],
+        datasets: [
+          {
+            label: "Post Counts",
+            data: [adminPostsCount, memberPostsCount],
+            backgroundColor: [
+              "rgba(255 , 99, 132, 1)",
+              "rgba(54, 162, 235, 1)",
+            ],
+          },
         ],
       },
-    ],
-  },
-  options: {
-    responsive: true,
-  },
-});
-
-var myChart = new Chart(earning, {
-  type: "bar",
-  data: {
-    labels: [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "Julay",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ],
-    datasets: [
-      {
-        label: "Earning",
-        data: [
-          1200, 2000, 3000, 5400, 1220, 3600, 4800, 4578, 2566, 10545, 4587,
-          9000,
-        ],
-        backgroundColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
-          "rgba(255, 159, 64, 1)",
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
-          "rgba(255, 159, 64, 1)",
-        ],
+      options: {
+        responsive: true,
       },
-    ],
-  },
-  options: {
-    responsive: true,
-  },
-});
+    });
+  })
+  .catch(error => console.error('Error fetching data:', error));
+
+
+// Function to fetch post data from the server
+async function fetchAndUpdateChart() {
+    try {
+        const response = await fetch('/getGamePostStatistics');  // Ensure this URL matches your backend endpoint
+        const data = await response.json();
+
+        // Extract labels (days) and data (admin and member post counts)
+        const labels = data.map(item => item.day);
+        const adminCounts = data.map(item => item.adminCount);
+        const memberCounts = data.map(item => item.memberCount);
+
+        // If myChart already exists, destroy it
+        if (myChart) {
+            myChart.destroy();
+        }
+
+        // Create a new chart instance
+        const ctx = document.getElementById('myChart').getContext('2d');
+        myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels.reverse(),  // Reverse to show oldest day first
+                datasets: [
+                    {
+                        label: 'Admin Posts',
+                        data: adminCounts.reverse(),  // Admin post data
+                        backgroundColor: 'rgba(54, 162, 235, 1)',
+                    },
+                    {
+                        label: 'Member Posts',
+                        data: memberCounts.reverse(),  // Member post data
+                        backgroundColor: 'rgba(255, 99, 132, 1)',
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    } catch (error) {
+        console.error('Error fetching post data:', error);
+    }
+}
+
+// Call the function periodically to update the chart (e.g., every 5 seconds)
+setInterval(fetchAndUpdateChart, 5000);

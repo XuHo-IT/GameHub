@@ -48,51 +48,48 @@
         <div class="loader"></div>
     </div>
 
-        <header class="header-section">
-            <div class="header-warp">
-                <form class="search-form ">
-                    <input type="text"  placeholder="Search..." aria-label="Search">
-                    <button type="submit"><i class="fa fa-search"></i></button>
-                </form>
-                <div class="header-social d-flex justify-content-end">
-                    <p>Follow us:</p>
-                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                    <a href="#"><i class="fa fa-behance"></i></a>
-                </div>
-                <div class="header-bar-warp d-flex">
-                    <!-- site logo -->
-                    <div class="logo-fix">
-                        <a href="index.jsp" class="site-logo">
-                            <img src="./img/logo1.png" alt="" class="logo1">
-                            <img src="./img/logo2.png" alt="" class="logo2">
-                        </a>
-                    </div>
-                    <nav class="top-nav-area w-100">
-                        <div class="user-panel">
-                            <button class="login-btn">LOG IN</button>
-                        </div>
+    <header class="header-section">
+        <div class="header-warp">
 
-                        <!-- Menu -->
-                        <ul class="main-menu primary-menu">
-                            <li><a href="index.jsp">Home</a></li>
-                            <li><a href="${pageContext.request.contextPath}/ShowAllGameController">Games</a>
-
-                                <ul class="sub-menu">
-                                    <li><a href="top-rating-all.jsp">Top rating</a></li>
-                                    <li><a href="top-wishlist.jsp">Top wishlist</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="contact.jsp">Contact</a></li>
-                            <li><a href="forum.jsp">Community</a></li>
-                        </ul>
-                    </nav>
-                </div>
+            <div class="header-social d-flex justify-content-end">
+                <p>Follow us:</p>
+                <a href="#"><i class="fa fa-pinterest"></i></a>
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-dribbble"></i></a>
+                <a href="#"><i class="fa fa-behance"></i></a>
             </div>
-        </header>
-        <!-- Header section end -->
+            <div class="header-bar-warp d-flex">
+                <!-- site logo -->
+                <div class="logo-fix">
+                    <a href="ReadGameHomeController" class="site-logo">
+                        <img src="./img/logo1.png" alt="" class="logo1">
+                        <img src="./img/logo2.png" alt="" class="logo2">
+                    </a>
+                </div>
+                <nav class="top-nav-area w-100">
+                    <div class="user-panel">
+                        <button class="login-btn">LOG IN</button>
+                    </div>
+
+                    <!-- Menu -->
+                    <ul class="main-menu primary-menu">
+                        <li><a href="ReadGameHomeController">Home</a></li>
+                        <li><a href="ReadGameListController">Games</a>
+
+                            <ul class="sub-menu">
+                                <li><a href="top-rating-all.jsp">Top rating</a></li>
+                                <li><a href="top-wishlist.jsp">Top wishlist</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact.jsp">Contact</a></li>
+                        <li><a href="forum.jsp">Community</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!-- Header section end -->
 
 
     <!-- Hero section -->
@@ -154,15 +151,34 @@
                             </div>
                         </c:forEach>                      
                     </div>
-                    <a href="games.jsp" class=" read-more" style="
-                       padding-top: 20px;
-                       font-size: 30px;
-                       text-transform: uppercase;
-                       font-weight: 700;
-                       font-style: italic;
-                       color: #fff;">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
-
+                    <a href="ReadGameListController" class=" more-game-btn"> More Game </a>
                 </div>
+
+                <style>
+                    .more-game-btn{
+                        margin-top: 50px;
+                        padding-right: 90px;
+                        font-size: 30px;
+                        text-transform: uppercase;
+                        font-weight: 700;
+                        font-style: italic;
+                        color: #fff;
+                        display: inline-block;
+                        -webkit-transition: all 0.2s;
+                        -o-transition: all 0.2s;
+                        transition: all 0.2s;
+                        background-image: url("img/icons/more-arrow.png");
+                        background-size: 250px;
+                        background-repeat: no-repeat;
+                        background-position: right -350% center;
+                    }
+
+                    .more-game-btn:hover{
+                        color: #b01ba5;
+                        background-position: right center;
+                    }
+                </style>
+
 
                 <div class="col-xl-3 col-lg-4 col-md-5 sidebar">
                     <div id="stickySidebar">
@@ -175,17 +191,17 @@
                         <div class="widget-item">
                             <div class="categories-widget">
                                 <h4 class="widget-title">Genre</h4>
-                                <ul>
-                                    <li><a href="">Action</a></li>
-                                    <li><a href="">Action-adventure</a></li>
-                                    <li><a href="">Adventure</a></li>
-                                    <li><a href="">Puzzle</a></li>
-                                    <li><a href="">Role-playing</a></li>
-                                    <li><a href="">Simulation</a></li>
-                                    <li><a href="">Strategy</a></li>
-                                    <li><a href="">Sports</a></li>
-                                    <li><a href="">MMO</a></li>
-                                </ul>
+                                <form action="ReadGameHomeController" method="get">   
+                                    <ul>
+                                        <c:forEach var="genre" items="${genres}">
+                                            <li>
+                                                <a href="ReadGameHomeController?genre=${genre.genreId}">
+                                                    ${genre.genre != null ? genre.genre : 'No genre available'}
+                                                </a>
+                                            </li>
+                                        </c:forEach>     
+                                    </ul>
+                                </form>
                             </div>
                         </div>
                         <div class="widget-item">
@@ -203,11 +219,12 @@
 
     <!-- Intro section -->
     <section class="intro-video-section set-bg d-flex align-items-end " data-setbg="./img/promo-bg.jpg">
-        <a href="https://www.youtube.com/watch?v=uFsGy5x_fyQ" class="video-play-btn video-popup"><img src="img/icons/solid-right-arrow.png" alt="#"></a>
+        <a href="https://www.youtube.com/watch?v=plUn_L8gAno" class="video-play-btn video-popup"><img src="img/icons/solid-right-arrow.png" alt="#"></a>
         <div class="container">
             <div class="video-text">
                 <h2>Promo video of the game</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                <p>Watch our exciting promotional video showcasing the latest features and gameplay of our highly anticipated game. 
+                    Dive into a thrilling world filled with immersive graphics, intense action, and engaging storylines. </p>
             </div>
         </div>
     </section>
@@ -216,63 +233,81 @@
 
     <!-- Featured section -->
     <section class="featured-section">
-        <div class="featured-bg set-bg" data-setbg="img/featured-bg.jpg"></div>
-        <div class="featured-box">
-            <div class="text-box">
-                <div class="top-meta">11.11.18  /  in <a href="">Games</a></div>
-                <h3>The game you?ve been waiting  for is out now</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquamet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vestibulum posuere porttitor justo id pellentesque. Proin id lacus feugiat, posuere erat sit amet, commodo ipsum. Donec pellentesque vestibulum metus...</p>
-                <a href="#" class="read-more">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
-            </div>
-        </div>
+        <c:forEach var="post" items="${posts}" varStatus="status">
+            <c:if test="${status.index == 0}">
+                <!-- Featured background image -->
+                <div class="featured-bg set-bg">
+                    <img src="data:image/png;base64,${post.fileData}" alt="Game Image" style="width: 100%; height: 100%;" />
+                </div>
+
+
+                <!-- Featured content box -->
+                <div class="featured-box">
+                    <div class="text-box">
+                        <!-- Display post date and category dynamically -->
+                        <div class="top-meta">${post.dateRelease} / in <a href="#">${post.genre}</a></div>
+
+                        <h3>Newest game release is coming up!</h3>
+
+                        <!-- Post title -->
+                        <p style="font-size: 40px">${post.title}</p>
+
+                        <!-- Post content (short summary) -->
+                        <p>${post.description}</p>
+
+                        <!-- Read more link -->
+                        <a href="game-single.jsp?id=${post.postID}" class="read-more">Read More  
+                            <img src="img/icons/double-arrow.png" alt="#"/>
+                        </a>
+                    </div>
+                </div>
+            </c:if>
+        </c:forEach>
     </section>
+
     <!-- Featured section end-->
 
 
 
     <!-- Newsletter section -->
-    <section class="newsletter-section">
+    <section class="newsletter-section" style="">
         <div class="container">
-            <h2>Subscribe to our newsletter</h2>
-            <form class="newsletter-form">
-                <input type="text" placeholder="ENTER YOUR E-MAIL">
-                <button class="site-btn">subscribe  <img src="img/icons/double-arrow.png" alt="#"/></button>
-            </form>
+            <h3 class="bottom-title">Thanks for using our website!</h3>
+            <img src="img/Dawn.gif" alt="Game Image" style="width: 100%; height: auto;" />
         </div>
     </section>
     <!-- Newsletter section end -->
 
-
-        <!-- Footer section -->
-        <footer class="footer-section">
-            <div class="container">
-                <div class="footer-left-pic">
-                    <img src="img/footer-left-pic.png" alt="">
-                </div>
-                <div class="footer-right-pic">
-                    <img src="img/footer-right-pic.png" alt="">
-                </div>
-                <a href="index.jsp" class="footer-logo">
-                    <img src="./img/logo.png" alt="">
-                </a>
-                <ul class="main-menu footer-menu">
-                    <li><a href="index.jsp">Home</a></li>
-                    <li><a href="games.jsp">Games</a></li>
-                    <li><a href="forum.jsp">Forum</a></li>
-                    <li><a href="blog.jsp">News</a></li>
-                    <li><a href="contact.jsp">Contact</a></li>
-                </ul>
-                <div class="footer-social d-flex justify-content-center">
-                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                    <a href="#"><i class="fa fa-behance"></i></a>
-                </div>
-                <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
+    <!-- Footer section -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="footer-left-pic">
+                <img src="img/footer-left-pic.png" alt="">
             </div>
-        </footer>
-        <!-- Footer section end -->
+            <div class="footer-right-pic">
+                <img src="img/footer-right-pic.png" alt="">
+            </div>
+            <a href="ReadGameHomeController" class="footer-logo">
+                <img src="./img/logo1.png" alt="">
+                <img src="./img/logo2.png" alt="">
+            </a>
+            <ul class="main-menu footer-menu">
+                <li><a href="ReadGameHomeController">Home</a></li>
+                <li><a href="ReadGameListController">Games</a></li>
+                <li><a href="forum.jsp">Forum</a></li>
+                <li><a href="contact.jsp">Contact</a></li>
+            </ul>
+            <div class="footer-social d-flex justify-content-center">
+                <a href="#"><i class="fa fa-pinterest"></i></a>
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-dribbble"></i></a>
+                <a href="#"><i class="fa fa-behance"></i></a>
+            </div>
+            <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
+        </div>
+    </footer>
+    <!-- Footer section end -->
 
 
     <!-- Login Popup -->
@@ -398,6 +433,14 @@
             });
         });
     </script>
+    <style>
+        h3.bottom-title {
+    color: white;
+    font-size: 35px;
+    font-family: 'Material Symbols Rounded';
+    padding: 0 0px 30px 0;
+}
+    </style>
 
 </body>
 </html>

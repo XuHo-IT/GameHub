@@ -84,10 +84,11 @@
                   %>
                 </tbody>
               </table>
+                
+            </div>
                 <div class="pt-4">
                             <h6><a href="admin-after-login.jsp" class="text-body" style="color:antiquewhite"><i class="fas fa-long-arrow-alt-left"></i> Back to home</a></h6>
                         </div>
-            </div>
           </div>
         </div>
       </div>

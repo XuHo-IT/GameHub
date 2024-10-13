@@ -792,10 +792,19 @@ img.logo1 {
 	font-weight: 700;
 	font-style: italic;
 	color: #fff;
+        display: inline-block;
+        text-decoration: none;
+}
+
+.text-box .read-more:hover{
+    color: #b01ba5; 
 }
 
 .text-box .read-more img {
-	margin-left: 13px;
+	width: 15px;
+        margin-left: 5px;
+        margin-bottom: 5px;
+        transition: transform 0.2s;
 }
 
 /* ----------------
@@ -1336,7 +1345,11 @@ img.logo1 {
 	text-transform: uppercase;
 	font-weight: 700;
 	font-style: italic;
-	color: #b01ba5;
+	color: #fff;
+}
+
+.game-item .read-more:hover{
+    color: #b01ba5;
 }
 
 .game-item .read-more img {
@@ -2110,12 +2123,7 @@ img.logo1 {
         margin-top: 40px;
 
 }
-.button-top-forum{
-	/*padding: 15px 0;*/
-	display: flex;
-	/*flex-direction: column;*/
-	color: #3a1854;
-}
+
 .forum-stats{
 	text-decoration: none;
 	

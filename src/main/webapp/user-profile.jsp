@@ -30,7 +30,7 @@
     String address = user.getAddress();
     String status = user.getStatus();
     String role;
-    if (user.getRole().equals("0")) {
+    if (user.getRole().equals("1")) {
         role = "Administrator";
     } else {
         role = "Member";
@@ -62,13 +62,11 @@
                                         <div class="col-12 col-sm-auto mb-3">
                                             <div class="mx-auto" style="width: 140px;">
                                                 <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
-                                                    <%
-                                                    if (profilePicture != null && !profilePicture.isEmpty()) {
-                                                        out.print("<img src='" + profilePicture + "' style='width: 140px; height: 140px; border-radius: 50%;'/>");
-                                                    } else {
-                                                        out.print("<span style='color: rgb(166, 168, 170); font: bold 8pt Arial;'>140x140</span>");
-                                                    }
-                                                    %>
+                                                    <% if (profilePicture != null && !profilePicture.isEmpty()) { %>
+                                                        <img src='<%= profilePicture %>' style='width: 140px; height: 140px; border-radius: 50%;'/>
+                                                    <% } else { %>
+                                                        <span style='color: rgb(166, 168, 170); font: bold 8pt Arial;'>140x140</span>
+                                                    <% } %>
                                                 </div>
                                             </div>
                                         </div>
@@ -81,7 +79,7 @@
                                                         <i class="fa fa-fw fa-camera"></i>
                                                         <span>Change Photo</span>
                                                     </button>
-                                                    <form id="uploadForm" action="UploadPhotoController" method="post" enctype="multipart/form-data">
+                                                    <form id="uploadForm" action="upload-photo" method="post" enctype="multipart/form-data">
                                                         <input type="file" name="photo" id="photoInput" style="display:none;">
                                                         <input type="hidden" name="userId" value="<%= id %>">
                                                     </form>
@@ -130,13 +128,13 @@
 
                                                 <div class="row">
                                                     <div class="col-12 col-sm-6 mb-3">
-    <div class="mb-2" style="color: antiquewhite;">
-        <b>Change Password</b>
-    </div>
-    <button class="btn btn-secondary" onclick="location.href='change-password.jsp'">
-        Change Password
-    </button>
-</div>
+                                                        <div class="mb-2" style="color: antiquewhite;">
+                                                            <b>Change Password</b>
+                                                        </div>
+                                                        <button class="btn btn-secondary" onclick="location.href='change-password.jsp'">
+                                                            Change Password
+                                                        </button>
+                                                    </div>
                                                 </div>
 
                                             </form>
@@ -151,10 +149,10 @@
                         <div class="card mb-3">
                             <div class="card-body">
                                 <div class="px-xl-3">
-                                    <button class="btn btn-block btn-secondary">
-                                        <i class="fa fa-sign-out"></i>
-                                        <span href="index.jsp">Logout</span>
-                                    </button>
+                                    <button class="btn btn-block btn-secondary" onclick="location.href='index.jsp'">
+    <i class="fa fa-sign-out"></i>
+    <span>Logout</span>
+</button>
                                 </div>
                             </div>
                         </div>

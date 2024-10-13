@@ -80,10 +80,11 @@
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
-                                        
-                                        <li><a href="user-profile.jsp?id=<%= request.getSession().getAttribute("adminId") %>">Account Info</a></li>
-                                        <li><a href="index.jsp">Log out</a></li>
 
+                                        <li><a href="user-profile.jsp?id=<%= request.getSession().getAttribute("adminId") %>">Account Info</a></li>
+                                        <li>
+                                            <a href="ReadGameHomeAdminController?action=logout" class="dropdown-item">Logout</a>
+                                        </li>
 
                                     </ul>
                                 </div>
@@ -92,18 +93,20 @@
 
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
-                            <li><a href="ReadGameHomeController">Home</a></li>
-                            <li><a href="games.jsp">Games</a></li>
-                            <li>
-                                <a class="li-fix" href="blog.jsp">News</a>
+                            <li><a href="ReadGameHomeAdminController">Home</a></li>
+                            <li><a href="ReadGameListAdminController">Games</a>
+
                                 <ul class="sub-menu">
-                                    <li><a href="top-rating-all.jsp">Top rating</a></li>
-                                    <li><a href="top-wishlist.jsp">Top wishlist</a></li>
+                                    <li><a href="top-rating-all-after-login.jsp">Top rating</a></li>
+                                    <li><a href="top-wishlist-all-after-login.jsp">Top wishlist</a></li>
                                 </ul>
                             </li>
-                            <li><a href="contact.jsp">Contact</a></li>
-                            <li><a href="forum.jsp">Community</a></li>
+
+                            <li><a href="contact-after-login.jsp">Contact</a></li>
+                            <li><a href="chart/index-chart.jsp">Manage</a></li>
+                            <li><a href="forum-after-login.jsp">Community</a></li>
                             <li><a href="list-user.jsp">User List</a></li>
+
                         </ul>
                     </nav>
                 </div>
@@ -181,25 +184,14 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xl-9 col-lg-8 col-md-7">
-                        <div class="section-title text-white">
-                            <h2>Latest News</h2>
-                        </div>
-
-
-
-
                         <div class="user-panel">
-                            <button class="create-btn">Add </button>
+                            <button class="create-btn">Add</button>
                         </div>
-
-
-
                         <!-- Blog item -->
                         <div class="blog-container">
                             <c:forEach var="post" items="${posts}">
                                 <div class="blog-item">
                                     <!-- Display the post title -->
-
                                     <div class="blog-thumb">
                                         <!-- Display the image (if available), or a default image if missing -->
                                         <img src="data:image/png;base64,${post.fileData}" alt="Game Image" />
@@ -207,19 +199,59 @@
 
                                     <div class="blog-text text-box text-white">
                                         <!-- Display the release date and genre -->
-                                        <div class="top-meta">${post.dateRelease != null ? post.dateRelease : 'Unknown Date'} / <a href="#">${post.genre != null ? post.genre : 'Unknown Genre'}</a></div>
+                                        <div class="top-meta">${post.dateRelease != null ? post.dateRelease : 'Unknown Date'} / 
+                                            <a href="#">${post.genre != null ? post.genre : 'Unknown Genre'}</a></div>
                                         <h3>${post.title != null ? post.title : 'Untitled'}</h3>
 
                                         <!-- Display the description -->
                                         <p>${post.description != null ? post.description : 'No description available'}</p>
 
                                         <!-- Read more link -->
-                                        <a href="game-single.jsp?id=${post.postID}" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
+                                        <a href="game-single-after-login-member.jsp?id=${post.postID}" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
+
+                                        <!-- Edit and Delete Buttons -->
+                                        <div class="action-buttons">
+                                            <a href="game-single-after-login.jsp?id=${post.postID}&postId=${post.postID}" class="btn btn-warning">Edit</a>
+
+
+                                            <form action="EditPostController" method="post">
+                                                <input type="hidden" name="postId" value="${post.postID}">
+                                                <button type="submit" name="action" value="delete" class="btn-danger">Delete</button>
+                                            </form>
+                                        </div>
+
                                     </div>
                                 </div>
                             </c:forEach>
                         </div>
+                        <a href="ReadGameListController" class="more-game-btn">More Game</a>
                     </div>
+
+
+                    <style>
+                        .more-game-btn{
+                            margin-top: 50px;
+                            padding-right: 90px;
+                            font-size: 30px;
+                            text-transform: uppercase;
+                            font-weight: 700;
+                            font-style: italic;
+                            color: #fff;
+                            display: inline-block;
+                            -webkit-transition: all 0.2s;
+                            -o-transition: all 0.2s;
+                            transition: all 0.2s;
+                            background-image: url("img/icons/more-arrow.png");
+                            background-size: 250px;
+                            background-repeat: no-repeat;
+                            background-position: right -350% center;
+                        }
+
+                        .more-game-btn:hover{
+                            color: #b01ba5;
+                            background-position: right center;
+                        }
+                    </style>
 
                     <div class="col-xl-3 col-lg-4 col-md-5 sidebar">
                         <div id="stickySidebar">
@@ -266,15 +298,14 @@
                             </div>
                             <div class="widget-item">
                                 <div class="categories-widget">
-                                    <h4 class="widget-title">categories</h4>
-                                    <ul>
-                                        <li><a href="">Games</a></li>
-                                        <li><a href="">Gaming Tips & Tricks</a></li>
-                                        <li><a href="">Online Games</a></li>
-                                        <li><a href="">Team Games</a></li>
-                                        <li><a href="">Community</a></li>
-                                        <li><a href="">Uncategorized</a></li>
-                                    </ul>
+                                    <h4 class="widget-title">Genre</h4>
+                                    <form action="AddGameController" method="post" enctype="multipart/form-data">   
+                                        <ul>
+                                            <c:forEach var="genre" items="${genres}">
+                                                <li><a href="#">${genre.genre != null ? genre.genre : 'No genre available'}</a></li>
+                                                </c:forEach>     
+                                        </ul>
+                                    </form>
                                 </div>
                             </div>
                             <div class="widget-item">
@@ -347,14 +378,14 @@
                 <div class="footer-right-pic">
                     <img src="img/footer-right-pic.png" alt="">
                 </div>
-                <a href="admin-after-login.jsp" class="footer-logo">
-                    <img src="./img/logo.png" alt="">
+                <a href="ReadGameHomeController" class="footer-logo">
+                    <img src="./img/logo1.png" alt="">
+                    <img src="./img/logo2.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
-                    <li><a href="admin-after-login.jsp">Home</a></li>
-                    <li><a href="games.jsp">Games</a></li>
+                    <li><a href="ReadGameHomeController">Home</a></li>
+                    <li><a href="ReadGameListController">Games</a></li>
                     <li><a href="forum.jsp">Forum</a></li>
-                    <li><a href="blog.jsp">News</a></li>
                     <li><a href="contact.jsp">Contact</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
@@ -414,7 +445,12 @@
                         </div>
                         <div class="input-field">
                             <label>Genre</label>
-                            <input type="text" required name="Genre">
+                            <select name="Genre" required>
+                                <option value="">Select Genre</option>
+                                <c:forEach var="genre" items="${genres}">
+                                    <option value="${genre.genre}">${genre.genre != null ? genre.genre : 'No genre available'}</option>
+                                </c:forEach>
+                            </select>
                         </div>
                         <div class="input-field">
                             <label class="mr-2">Picture Of Game:</label>
@@ -429,47 +465,43 @@
                         <button type="submit">Send</button>
                     </form>
                     <div class="bottom-link">
-                        Want to upload a photo instead?
-                        <a href="#" id="upload-photo-link">Upload Photo</a>
+                        Want to upload a genre?
+                        <a href="#" id="upload-photo-link">Upload Genre</a>
+                    </div>
+                </div>
+                <div class="right-position">
+                    <div class="input-field">
+                        <label>Price Rating</label>
+                        <input type="number" step="0.1" min="0" max="5" required name="PriceRating" placeholder="0.0 to 5.0">
+                    </div>
+                    <div class="input-field">
+                        <label>Graphic Rating</label>
+                        <input type="number" step="0.1" min="0" max="5" required name="GraphicRating" placeholder="0.0 to 5.0">
+                    </div>
+                    <div class="input-field">
+                        <label>Difficulty Rating</label>
+                        <input type="number" step="0.1" min="0" max="5" required name="DifficultyRating" placeholder="0.0 to 5.0">
+                    </div>
+                    <div class="input-field">
+                        <label>Gameplay Rating</label>
+                        <input type="number" step="0.1" min="0" max="5" required name="GameplayRating" placeholder="0.0 to 5.0">
                     </div>
                 </div>
             </div>
-             <!-- Right column: Rating fields -->
-                    <div>
-                        <div class="input-field">
-                            <label>Price Rating</label>
-                            <input type="number" step="0.1" min="0" max="5" required name="PriceRating" placeholder="0.0 to 5.0">
-                        </div>
-                        <div class="input-field">
-                            <label>Graphic Rating</label>
-                            <input type="number" step="0.1" min="0" max="5" required name="GraphicRating" placeholder="0.0 to 5.0">
-                        </div>
-                        <div class="input-field">
-                            <label>Difficulty Rating</label>
-                            <input type="number" step="0.1" min="0" max="5" required name="DifficultyRating" placeholder="0.0 to 5.0">
-                        </div>
-                        <div class="input-field">
-                            <label>Gameplay Rating</label>
-                            <input type="number" step="0.1" min="0" max="5" required name="GameplayRating" placeholder="0.0 to 5.0">
-                        </div>
-                    </div>
-                </div>
+
             <div class="form-box upload-photo">
                 <div class="form-details">
-                    <h2>Upload Photo</h2>
-                    <p>To develop our community, upload news about games that you know</p>
                 </div>
                 <div class="form-content">
-                    <h2 style="margin-bottom: 6px">Upload Photo</h2>
-                    <form action="#" method="post" enctype="multipart/form-data">
+                    <h2 style="margin-bottom: 6px">Upload Genre</h2>
+                    <form action="AddGenreController" method="post">
                         <div class="input-field">
-                            <label class="mr-2">Photo to Upload:</label>
-                            <input type="file" name="file">
+                            <label class="mr-2">Genre Of Game:</label>
+                            <input type="text" required name="genre1">
                         </div>
                         <button type="submit">Send</button>
                     </form>
                     <div class="bottom-link">
-                        Add Post Game
                         <a href="#" id="create-post-link">Add Post Game</a>
                     </div>
                 </div>
@@ -539,7 +571,32 @@
             .form-popup .create-post {
                 display: flex;
             }
-
+            form button {
+                width: 100%;
+                color: #fff;
+                border: none;
+                outline: none;
+                padding: 10px 0;
+                font-size: 1rem;
+                font-weight: 500;
+                border-radius: 3px;
+                cursor: pointer;
+                margin: 25px 0;
+                background: #6f2b95;
+                transition: 0.2s ease;
+                margin-top: 0px;
+                margin-bottom: 5px;
+            }
+            .right-position {
+                padding-top: 81px;
+                padding-right: 10px;
+            }
+            .upload-photo .form-details {
+                padding: 0 20px;
+                background: url("img/mortal-combat.jpg");
+                background-position: center;
+                background-size: cover;
+            }
         </style>
     </body>
 </html>

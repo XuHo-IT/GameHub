@@ -92,7 +92,7 @@ public class AddGameByMemberController extends HttpServlet {
         collection.insertOne(postGame);
 
         // Redirect to the admin page
-        response.sendRedirect("ReadGameHomeAdminController");
+        response.sendRedirect("ReadGameHomeMemberController");
     }
 
     private double parseDoubleSafe(String parameterValue) {

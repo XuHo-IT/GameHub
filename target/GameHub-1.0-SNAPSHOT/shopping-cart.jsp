@@ -35,7 +35,7 @@
         <script src="Login/script.js" defer></script>
     </head>
     <body>
-        <section class="h-100 h-custom" style="background-color: #6f2b95 ;">
+        <section class=" h-custom" style="background-color: #6f2b95 ;">
           <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
               <div class="col-12">
@@ -73,7 +73,7 @@
                         %>
 
                         <!-- Email form and send button -->
-                        <form id="wishlistForm" action="AddToWishlistController" method="post">
+                        <form id="wishlistForm" action="GameReleaseNotificationMemberController" method="post">
                             <input type="hidden" name="postId" value="<%= postId %>" />
                             <input type="hidden" name="title" value="<%= title %>" />
                             <input type="hidden" name="fileData" value="<%= fileData %>" />

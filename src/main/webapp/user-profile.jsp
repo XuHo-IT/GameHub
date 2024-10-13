@@ -150,9 +150,9 @@
                             <div class="card-body">
                                 <div class="px-xl-3">
                                     <button class="btn btn-block btn-secondary" onclick="location.href='index.jsp'">
-    <i class="fa fa-sign-out"></i>
-    <span>Logout</span>
-</button>
+                                        <i class="fa fa-sign-out"></i>
+                                        <span>Logout</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>

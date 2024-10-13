@@ -6,7 +6,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="zxx">
-     <head>
+    <head>
         <title>EndGame - Gaming Magazine Template</title>
         <meta charset="UTF-8">
         <meta name="description" content="EndGam Gaming Magazine Template">
@@ -107,6 +107,7 @@
                                 </ul>
                             </li>
                             <li><a href="contact-after-login.jsp">Contact</a></li>
+                            <li><a href="chart/index-chart.jsp">Manage</a></li>
                             <li><a href="forum-after-login.jsp">Community</a></li>
                         </ul>
                     </nav>
@@ -117,73 +118,73 @@
 
 
         <!-- Page top section -->
-    <section class="page-top-section set-bg" data-setbg="img/page-top-bg/2.jpg">
-        <div class="page-info">
-            <h2>Top rating</h2>
-            <div class="site-breadcrumb">
-                <a href="index.js">Home</a>  /
-                <span>Top rating</span>
+        <section class="page-top-section set-bg" data-setbg="img/page-top-bg/2.jpg">
+            <div class="page-info">
+                <h2>Top rating</h2>
+                <div class="site-breadcrumb">
+                    <a href="index.js">Home</a>  /
+                    <span>Top rating</span>
+                </div>
             </div>
-        </div>
-    </section>
-    
-    <!-- Review section -->
-    <section class="review-section">
-        <div class="container">
-            <%
-                // Connect to MongoDB
-                MongoClient mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-                MongoCollection<Document> postsCollection = mongoClient.getDatabase("GameHub").getCollection("postGame");
+        </section>
 
-                // Find all posts and sort by AverageRating in descending order
-                MongoCursor<Document> cursor = postsCollection.find().sort(Sorts.descending("AverageRating")).iterator();
+        <!-- Review section -->
+        <section class="review-section">
+            <div class="container">
+                <%
+                    // Connect to MongoDB
+                    MongoClient mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
+                    MongoCollection<Document> postsCollection = mongoClient.getDatabase("GameHub").getCollection("postGame");
 
-                // Loop through the results
-                while (cursor.hasNext()) {
-                    Document post = cursor.next();
+                    // Find all posts and sort by AverageRating in descending order
+                    MongoCursor<Document> cursor = postsCollection.find().sort(Sorts.descending("AverageRating")).iterator();
 
-                    String title = post.getString("Title");
-                    String description = post.getString("Description");
-                    String dateRelease = post.getString("DateRelease");
-                    double averageRating = post.getDouble("AverageRating");
-                    String fileData = post.getString("FileData");
-                    String postId = post.getObjectId("_id").toString();
+                    // Loop through the results
+                    while (cursor.hasNext()) {
+                        Document post = cursor.next();
 
-                    // Display each post with the relevant information
-            %>
-            <div class="review-item">
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="review-pic">
-                            <img src="data:image/jpeg;base64,<%= fileData != null ? fileData : ""%>" alt="Game Image">
-                        </div>
-                    </div>
-                    <div class="col-lg-8">
-                        <div class="review-content text-box text-white">
-                            <div class="rating">
-                                <h5><i>Average Rating:</i><span><%= averageRating %></span> / 5</h5>
+                        String title = post.getString("Title");
+                        String description = post.getString("Description");
+                        String dateRelease = post.getString("DateRelease");
+                        double averageRating = post.getDouble("AverageRating");
+                        String fileData = post.getString("FileData");
+                        String postId = post.getObjectId("_id").toString();
+
+                        // Display each post with the relevant information
+%>
+                <div class="review-item">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="review-pic">
+                                <img src="data:image/jpeg;base64,<%= fileData != null ? fileData : ""%>" alt="Game Image">
                             </div>
-                            <div class="top-meta"><%= dateRelease != null ? dateRelease : "Unknown Release Date" %>  /  in <a href="#">Games</a></div>
-                            <h3><%= title != null ? title : "Untitled" %></h3>
-                            <p><%= description != null ? description : "No description available" %></p>
-                            <a href="game-single.jsp?id=<%= postId %>" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#"></a>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="review-content text-box text-white">
+                                <div class="rating">
+                                    <h5><i>Average Rating:</i><span><%= averageRating%></span> / 5</h5>
+                                </div>
+                                <div class="top-meta"><%= dateRelease != null ? dateRelease : "Unknown Release Date"%>  /  in <a href="#">Games</a></div>
+                                <h3><%= title != null ? title : "Untitled"%></h3>
+                                <p><%= description != null ? description : "No description available"%></p>
+                                <a href="game-single.jsp?id=<%= postId%>" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#"></a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <%
-                }
-                // Close MongoDB connection
-                mongoClient.close();
-            %>
+                <%
+                    }
+                    // Close MongoDB connection
+                    mongoClient.close();
+                %>
 
-            <div class="site-pagination">
-                <a href="#" class="active">01.</a>
-                <a href="#">02.</a>
-                <a href="#">03.</a>
+                <div class="site-pagination">
+                    <a href="#" class="active">01.</a>
+                    <a href="#">02.</a>
+                    <a href="#">03.</a>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
         <!-- Review section end-->
 
 

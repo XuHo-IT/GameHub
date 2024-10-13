@@ -2,7 +2,7 @@
 <html lang="zxx">
 
     <head>
-        <title>EndGam - Gaming Magazine Template</title>
+        <title>EndGame - Gaming Magazine Template</title>
         <meta charset="UTF-8">
         <meta name="description" content="EndGam Gaming Magazine Template">
         <meta name="keywords" content="endGam,gGaming, magazine, html">
@@ -96,8 +96,9 @@
                                     <li><a href="top-wishlist-all-after-login-member.jsp">Top wishlist</a></li>
                                 </ul>
                             </li>
-                            <li><a href="contact-after-login-member.jsp">Contact</a></li>
-                            <li><a href="forum-after-login-member.jsp">Community</a></li>
+                            <li><a href="contact-after-login.jsp">Contact</a></li>
+                            <li><a href="chart/index-chart.jsp">Manage</a></li>
+                            <li><a href="forum-after-login.jsp">Community</a></li>
                         </ul>
                     </nav>
                 </div>

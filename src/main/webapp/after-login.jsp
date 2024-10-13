@@ -95,7 +95,7 @@
                             </div>
                         </div>
 
-                     
+
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeMemberController">Home</a></li>
@@ -142,6 +142,7 @@
         </section>
         <!-- Hero section end-->
 
+       
 
         <!-- Intro section -->
         <section class="intro-section">
@@ -185,7 +186,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xl-9 col-lg-8 col-md-7">
-                         <div class="user-panel">
+                        <div class="user-panel">
                             <button class="create-btn">Add </button>
                         </div>
                         <!-- Blog item -->
@@ -240,123 +241,124 @@
                             background-position: right center;
                         }
                     </style>
-                    
+
                     <div class="col-xl-3 col-lg-4 col-md-5 sidebar">
                         <div id="stickySidebar">
                             <div class="widget-item">
                                 <h4 class="widget-title">Trending</h4>
-                                </div>
-                            </div>
-                            <div class="widget-item">
-                                <div class="widget-item">
-                            <div class="categories-widget">
-                                <h4 class="widget-title">Genre</h4>
-                                <form action="ReadGameHomeMemberController" method="get">   
-                                    <ul>
-                                        <c:forEach var="genre" items="${genres}">
-                                            <li>
-                                                <a href="ReadGameHomeMemberController?genre=${genre.genreId}">
-                                                    ${genre.genre != null ? genre.genre : 'No genre available'}
-                                                </a>
-                                            </li>
-                                        </c:forEach>     
-                                    </ul>
-                                </form>
                             </div>
                         </div>
-                            </div>
+                        <div class="widget-item">
                             <div class="widget-item">
-                                <a href="#" class="add">
-                                    <img src="./img/add.jpg" alt="">
-                                </a>
+                                <div class="categories-widget">
+                                    <h4 class="widget-title">Genre</h4>
+                                    <form action="ReadGameHomeMemberController" method="get">   
+                                        <ul>
+                                            <c:forEach var="genre" items="${genres}">
+                                                <li>
+                                                    <a href="ReadGameHomeMemberController?genre=${genre.genreId}">
+                                                        ${genre.genre != null ? genre.genre : 'No genre available'}
+                                                    </a>
+                                                </li>
+                                            </c:forEach>     
+                                        </ul>
+                                    </form>
+                                </div>
                             </div>
+                        </div>
+                        <div class="widget-item">
+                            <a href="#" class="add">
+                                <img src="./img/add.jpg" alt="">
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- Blog section end -->
+        </div>
+    </section>
+    <!-- Blog section end -->
 
 
-        <!-- Intro section -->
-        <section class="intro-video-section set-bg d-flex align-items-end " data-setbg="./img/promo-bg.jpg">
-            <a href="https://www.youtube.com/watch?v=uFsGy5x_fyQ" class="video-play-btn video-popup"><img
-                    src="img/icons/solid-right-arrow.png" alt="#"></a>
-            <div class="container">
-                <div class="video-text">
-                    <h2>Promo video of the game</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-                </div>
+    <!-- Intro section -->
+    <section class="intro-video-section set-bg d-flex align-items-end " data-setbg="./img/promo-bg.jpg">
+        <a href="https://www.youtube.com/watch?v=uFsGy5x_fyQ" class="video-play-btn video-popup"><img
+                src="img/icons/solid-right-arrow.png" alt="#"></a>
+        <div class="container">
+            <div class="video-text">
+                <h2>Promo video of the game</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
             </div>
-        </section>
-        <!-- Intro section end -->
+        </div>
+    </section>
+    <!-- Intro section end -->
 
 
-        <!-- Featured section -->
-        <section class="featured-section">
-            <div class="featured-bg set-bg" data-setbg="img/featured-bg.jpg"></div>
-            <div class="featured-box">
-                <div class="text-box">
-                    <div class="top-meta">11.11.18 / in <a href="">Games</a></div>
-                    <h3>The game you?ve been waiting for is out now</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                        et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Ipsum dolor sit amet, consectetur
-                        adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquamet, consectetur
-                        adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vestibulum
-                        posuere porttitor justo id pellentesque. Proin id lacus feugiat, posuere erat sit amet, commodo
-                        ipsum. Donec pellentesque vestibulum metus...</p>
-                    <a href="#" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
-                </div>
+    <!-- Featured section -->
+    <section class="featured-section">
+        <div class="featured-bg set-bg" data-setbg="img/featured-bg.jpg"></div>
+        <div class="featured-box">
+            <div class="text-box">
+                <div class="top-meta">11.11.18 / in <a href="">Games</a></div>
+                <h3>The game you?ve been waiting for is out now</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Ipsum dolor sit amet, consectetur
+                    adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquamet, consectetur
+                    adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vestibulum
+                    posuere porttitor justo id pellentesque. Proin id lacus feugiat, posuere erat sit amet, commodo
+                    ipsum. Donec pellentesque vestibulum metus...</p>
+                <a href="#" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
             </div>
-        </section>
-        <!-- Featured section end-->
+        </div>
+    </section>
+    <!-- Featured section end-->
 
 
 
-        <!-- Newsletter section -->
-        <section class="newsletter-section">
-            <div class="container">
-                <h2>Subscribe to our newsletter</h2>
-                <form class="newsletter-form">
-                    <input type="text" placeholder="ENTER YOUR E-MAIL">
-                    <button class="site-btn">subscribe <img src="img/icons/double-arrow.png" alt="#" /></button>
-                </form>
+    <!-- Newsletter section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <h2>Subscribe to our newsletter</h2>
+            <form class="newsletter-form">
+                <input type="text" placeholder="ENTER YOUR E-MAIL">
+                <button class="site-btn">subscribe <img src="img/icons/double-arrow.png" alt="#" /></button>
+            </form>
+        </div>
+    </section>
+    <!-- Newsletter section end -->
+
+
+    <!-- Footer section -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="footer-left-pic">
+                <img src="img/footer-left-pic.png" alt="">
             </div>
-        </section>
-        <!-- Newsletter section end -->
-
-
-        <!-- Footer section -->
-        <footer class="footer-section">
-            <div class="container">
-                <div class="footer-left-pic">
-                    <img src="img/footer-left-pic.png" alt="">
-                </div>
-                <div class="footer-right-pic">
-                    <img src="img/footer-right-pic.png" alt="">
-                </div>
-                <a href="after-login.jsp" class="footer-logo">
-                    <img src="./img/logo1.png" alt="">
-                    <img src="./img/logo2.png" alt="">
-                </a>
-                <ul class="main-menu footer-menu">
-                    <li><a href="ReadGameHomeController">Home</a></li>
-                    <li><a href="ReadGameListController">Games</a></li>
-                    <li><a href="forum.jsp">Forum</a></li>
-                    <li><a href="contact.jsp">Contact</a></li>
-                </ul>
-                <div class="footer-social d-flex justify-content-center">
-                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                    <a href="#"><i class="fa fa-behance"></i></a>
-                </div>
-                <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
+            <div class="footer-right-pic">
+                <img src="img/footer-right-pic.png" alt="">
             </div>
-        </footer>
-        <!-- Footer section end -->
+            <a href="after-login.jsp" class="footer-logo">
+                <img src="./img/logo1.png" alt="">
+                <img src="./img/logo2.png" alt="">
+            </a>
+            <ul class="main-menu footer-menu">
+                <li><a href="ReadGameHomeController">Home</a></li>
+                <li><a href="ReadGameListController">Games</a></li>
+                <li><a href="forum.jsp">Forum</a></li>
+                <li><a href="contact.jsp">Contact</a></li>
+            </ul>
+            <div class="footer-social d-flex justify-content-center">
+                <a href="#"><i class="fa fa-pinterest"></i></a>
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-dribbble"></i></a>
+                <a href="#"><i class="fa fa-behance"></i></a>
+            </div>
+            <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
+        </div>
+    </footer>
+    <!-- Footer section end -->
 
+    <!-- Create Post Popup -->
         <div class="blur-bg-overlay"></div>
         <div class="form-popup create-post-popup">
             <span class="close-btn material-symbols-rounded" style="top:50px">close</span>
@@ -368,7 +370,7 @@
                 </div>
                 <div class="form-content">
                     <h2 style="margin-bottom: 6px">Create post</h2>
-                    <form action="AddGameMemberController" method="post" enctype="multipart/form-data">
+                    <form action="AddGameByMemberController" method="post" enctype="multipart/form-data">
                         <!-- Form fields for creating post -->
                         <div class="input-field">
                             <label>Title</label>
@@ -402,7 +404,7 @@
                             <select name="Genre" required>
                                 <option value="">Select Genre</option>
                                 <c:forEach var="genre" items="${genres}">
-                                    <option value="${genre.genreId}">${genre.genre != null ? genre.genre : 'No genre available'}</option>
+                                    <option value="${genre.genre}">${genre.genre != null ? genre.genre : 'No genre available'}</option>
                                 </c:forEach>
                             </select>
                         </div>
@@ -418,6 +420,10 @@
                         </div>
                         <button type="submit">Send</button>
                     </form>
+                    <div class="bottom-link">
+                        Want to upload a genre?
+                        <a href="#" id="upload-photo-link">Upload Genre</a>
+                    </div>
                 </div>
                 <div class="right-position">
                     <div class="input-field">
@@ -439,25 +445,6 @@
                 </div>
             </div>
 
-            <div class="form-box upload-photo">
-                <div class="form-details">
-                </div>
-                <div class="form-content">
-                    <h2 style="margin-bottom: 6px">Upload Genre</h2>
-                    <form action="AddGenreController" method="post">
-                        <div class="input-field">
-                            <label class="mr-2">Genre Of Game:</label>
-                            <input type="text" required name="genre1">
-                        </div>
-                        <button type="submit">Send</button>
-                    </form>
-                    <div class="bottom-link">
-                        <a href="#" id="create-post-link">Add Post Game</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!--====== Javascripts & Jquery ======-->
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
@@ -466,37 +453,41 @@
         <script src="js/jquery.sticky-sidebar.min.js"></script>
         <script src="js/jquery.magnific-popup.min.js"></script>
         <script src="js/main.js"></script>
-<script>
+        <script>
+          
             const formPopup = document.querySelector(".form-popup");
             const showPopupBtn = document.querySelector(".create-btn"); // Button to open create post form
             const hidePopupBtn = formPopup.querySelectorAll(".close-btn"); // Close buttons for both forms
-            const photoOrPost = document.querySelectorAll(".bottom-link a"); // Links to toggle forms
 
-// Show create post popup
+            // Show create post popup
             showPopupBtn?.addEventListener("click", () => {
                 document.body.classList.add("show-popup");
             });
 
-// Hide both popups when close button is clicked
+            // Hide both popups when close button is clicked
             hidePopupBtn.forEach(btn => {
                 btn.addEventListener("click", () => {
                     document.body.classList.remove("show-popup");
                 });
             });
-
-// Switch between create post and upload photo forms
-            photoOrPost.forEach(link => {
-                link.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    if (link.id === 'upload-photo-link') {
-                        formPopup.classList.add("show-upload-photo");
-                    } else {
-                        formPopup.classList.remove("show-upload-photo");
-                    }
-                });
-            });
-
         </script>
+        <script>
+document.getElementById('postForm').addEventListener('submit', function(event) {
+    event.preventDefault();  // Prevent the form from submitting right away
+
+    // Retrieve form data
+    const formData = new FormData(this);
+
+    // Log form data to the console for checking
+    for (const [name, value] of formData.entries()) {
+        console.log(name + ': ' + value);
+    }
+
+    // If needed, you can submit the form after logging the data
+    // this.submit();
+});
+</script>
+
         <style>
             .form-popup .upload-photo,
             .form-popup .create-post {
@@ -543,6 +534,6 @@
                 background-size: cover;
             }
         </style>
-    </body>
+</body>
 
 </html>

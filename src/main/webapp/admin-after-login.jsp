@@ -100,6 +100,7 @@
                                 </ul>
                             </li>
                             <li><a href="contact-after-login.jsp">Contact</a></li>
+                            <li><a href="chart/index-chart.jsp">Manage</a></li>
                             <li><a href="forum-after-login.jsp">Community</a></li>
                         </ul>
                     </nav>
@@ -201,12 +202,12 @@
                                         <p>${post.description != null ? post.description : 'No description available'}</p>
 
                                         <!-- Read more link -->
-                                                                                <a href="game-single-after-login-member.jsp?id=${post.postID}" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
+                                        <a href="game-single-after-login-member.jsp?id=${post.postID}" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
 
                                         <!-- Edit and Delete Buttons -->
                                         <div class="action-buttons">
                                             <a href="game-single-after-login.jsp?id=${post.postID}&postId=${post.postID}" class="btn btn-warning">Edit</a>
-                                   
+
 
                                             <form action="EditPostController" method="post">
                                                 <input type="hidden" name="postId" value="${post.postID}">

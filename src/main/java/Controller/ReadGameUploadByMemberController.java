@@ -88,16 +88,15 @@ public class ReadGameUploadByMemberController extends HttpServlet {
             }
 
             Collections.reverse(postList);
-
             request.setAttribute("postsMember", postList);
             request.setAttribute("posts", postList); // Combine this attribute
 
             // Forward the request to the appropriate JSP page
             String role = request.getParameter("role");
-            if (role.equals("admin")) {
+            if ("1".equals(role)) {
                 request.getRequestDispatcher("admin-after-login.jsp?id=" + id).forward(request, response);
             } else {
-                request.getRequestDispatcher("censor.jsp").forward(request, response);
+                request.getRequestDispatcher("chart/censor.jsp").forward(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,4 +112,5 @@ public class ReadGameUploadByMemberController extends HttpServlet {
         }
     }
 }
+
 

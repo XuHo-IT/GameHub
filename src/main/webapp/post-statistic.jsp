@@ -1,3 +1,10 @@
+<%-- 
+    Document   : post-statistic
+    Created on : Oct 12, 2024, 7:05:30 PM
+    Author     : Admin
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,25 +21,31 @@
           <li>
             <a href="">
               <span class="icon"><ion-icon name="logo-apple"></ion-icon></span>
-              <span class="title">Manage Amin</span>
+              <span class="title">Brand Name</span>
             </a>
           </li>
           <li>
+            <a href="">
+              <span class="icon">
+                <ion-icon name="home-outline"></ion-icon>
+              </span>
+              <span class="title">Dashboard</span>
+            </a>
           </li>
           <li>
-            <a href="../ReadGameUploadByMemberController">
+            <a href="">
               <span class="icon">
                 <ion-icon name="people-outline"></ion-icon>
               </span>
-              <span class="title">Censor Post</span>
+              <span class="title">Customers</span>
             </a>
           </li>
           <li>
-            <a href="index-chart.jsp">
+            <a href="">
               <span class="icon">
                 <ion-icon name="chatbubbles-outline"></ion-icon>
               </span>
-              <span class="title">Statistic</span>
+              <span class="title">Message</span>
             </a>
           </li>
           <li>
@@ -40,10 +53,33 @@
               <span class="icon">
                 <ion-icon name="help-outline"></ion-icon>
               </span>
-              <span class="title">Manage All User</span>
+              <span class="title">Help</span>
             </a>
           </li>
-          
+          <li>
+            <a href="">
+              <span class="icon">
+                <ion-icon name="settings-outline"></ion-icon>
+              </span>
+              <span class="title">Settings</span>
+            </a>
+          </li>
+          <li>
+            <a href="">
+              <span class="icon">
+                <ion-icon name="lock-closed-outline"></ion-icon>
+              </span>
+              <span class="title">Password</span>
+            </a>
+          </li>
+          <li>
+            <a href="">
+              <span class="icon">
+                <ion-icon name="log-out-outline"></ion-icon>
+              </span>
+              <span class="title">Sign Out</span>
+            </a>
+          </li>
         </ul>
       </div>
       <!-- main -->
@@ -293,16 +329,5 @@
     <!-- <script src="js/chart.umd.js"></script> -->
     <script src="js/chart.min.js"></script>
     <script src="js/main.js"></script>
-    <style>
-        .details {
-  position: relative;
-  width: 100%;
-  padding: 20px;
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-gap: 30px;
-  /* margin-top: 10px; */
-}
-    </style>
   </body>
 </html>

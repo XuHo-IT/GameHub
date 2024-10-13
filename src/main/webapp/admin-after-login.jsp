@@ -6,7 +6,7 @@
 <html lang="zxx">
 
     <head>
-        <title>EndGame - Gaming Magazine Template</title>
+        <title>EndGam - Gaming Magazine Template</title>
         <meta charset="UTF-8">
         <meta name="description" content="EndGam Gaming Magazine Template">
         <meta name="keywords" content="endGam,gGaming, magazine, html">
@@ -33,11 +33,12 @@
         <link rel="stylesheet"
               href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
         <link rel="stylesheet" href="Login/style.css">
-
         <script src="Login/script.js" defer></script>
 
-
-
+        <!--[if lt IE 9]>
+                      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+              <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+            <![endif]-->
 
     </head>
 

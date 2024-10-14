@@ -1,0 +1,77 @@
+/* Tạo kiểu cho biểu tượng tài khoản */
+.account-icon {
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+}
+
+/* Dropdown ban đầu sẽ ẩn */
+.account-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #081624;
+    border-radius: 4px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ 
+}
+
+/* Kiểu dáng của các liên kết trong dropdown */
+.account-dropdown ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100px;
+}
+
+.account-dropdown ul li {
+    margin: 10px 0;
+}
+
+.account-dropdown ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* Hiển thị dropdown khi hover vào account-container */
+.account-container:hover .account-dropdown {
+    display: block;
+}
+
+/* Đảm bảo user-panel hiển thị dưới dạng flex để canh giữa các icon */
+.user-panel {
+    display: flex;
+    align-items: center;
+}
+
+/* Biểu tượng tài khoản */
+.account-icon {
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+    padding-left: 15px;
+}
+
+/* Biểu tượng giỏ hàng */
+.cart-icon {
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+    padding-right: 40px;
+}
+
+.cart-icon a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Tạo một bao bọc cho biểu tượng tài khoản và dropdown */
+.account-container {
+    position: relative;
+}

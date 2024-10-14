@@ -15,6 +15,36 @@
         .container {
             min-height: 100vh;
         }
+        .popup {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        .popup-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body data-sbg="img/tnk229NQH3hSUPXLDBKNUA.jpg">
@@ -22,6 +52,10 @@
     String id = request.getParameter("id");
     MongoConectUser mgcn = new MongoConectUser();
     UserModel user = mgcn.getUserById(id);
+    if (user == null) {
+        out.println("User not found.");
+        return; // Ng?ng x? lý n?u không tìm th?y ng??i dùng
+    }
     String name = user.getName();
     String profilePicture = user.getPhotoUrl();  // Assuming this method exists
     String email = user.getEmail();
@@ -103,7 +137,9 @@
                                                             <div class="col">
                                                                 <div class="form-group" style="color: antiquewhite;">
                                                                     <label>Name</label>
-                                                                    <input class="form-control" type="text" name="name" placeholder="<%= name %>" value="<%= name %>">
+                                                                    <div class="form-control" style="background-color: #343a40; color: white;"> <!-- Black background -->
+                                                                        <%= name %>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -111,32 +147,51 @@
                                                             <div class="col">
                                                                 <div class="form-group" style="color: antiquewhite;">
                                                                     <label>Email</label>
-                                                                    <input class="form-control" type="text" placeholder="<%= email %>">
+                                                                    <div class="form-control" style="background-color: #343a40; color: white;"> <!-- Black background -->
+                                                                        <%= email %>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col mb-3">
                                                                 <div class="form-group" style="color: antiquewhite;">
-                                                                    <label>About</label>
-                                                                    <textarea class="form-control" rows="5" placeholder="My Bio"></textarea>
+                                                                    <label>Phone</label>
+                                                                    <div class="form-control" style="background-color: #343a40; color: white;"> <!-- Black background -->
+                                                                        <%= phone %>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col mb-3">
+                                                                <div class="form-group" style="color: antiquewhite;">
+                                                                    <label>Address</label>
+                                                                    <div class="form-control" style="background-color: #343a40; color: white;"> <!-- Black background -->
+                                                                        <%= address %>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 <div class="row">
                                                     <div class="col-12 col-sm-6 mb-3">
-                                                        <div class="mb-2" style="color: antiquewhite;">
-                                                            <b>Change Password</b>
-                                                        </div>
-                                                        <button class="btn btn-secondary" onclick="location.href='change-password.jsp'">
-                                                            Change Password
+                                                        <button class="btn btn-secondary" type="button" onclick="openEditPopup()">
+                                                            Edit Information
                                                         </button>
                                                     </div>
+                                                    <div class="row">
+                                                    <a href="change-password.jsp?id=<%=id%>" class="btn btn-secondary">
+                                                        Change Password
+                                                    </a>
+                                                    </div>
                                                 </div>
-
+                                                <div class="row">
+                                                    <a href="change-password.jsp?id=<%=id%>" class="btn btn-secondary">
+                                                        Change Password
+                                                    </a>
+                                                </div>
                                             </form>
                                         </div>
                                     </div>
@@ -167,7 +222,37 @@
                 </div>
             </div>
         </div>
+
+        <!-- Popup for editing user information -->
+        <div id="editPopup" class="popup">
+            <div class="popup-content">
+                <span class="close" onclick="closeEditPopup()">&times;</span>
+                <h2>Edit User Information</h2>
+                <form action="update-user" method="post">
+                    <input type="hidden" name="userId" value="<%= id %>">
+                    <div class="form-group">
+                        <label for="editName">Name</label>
+                        <input type="text" class="form-control" id="editName" name="name" value="<%= name %>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editEmail">Email</label>
+                        <input type="email" class="form-control" id="editEmail" name="email" value="<%= email %>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editPhone">Phone</label>
+                        <input type="text" class="form-control" id="editPhone" name="phone" value="<%= phone %>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editAddress">Address</label>
+                        <input type="text" class="form-control" id="editAddress" name="address" value="<%= address %>" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+            </div>
+        </div>
+
     </div>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const bodyElement = document.querySelector('body');
@@ -184,7 +269,22 @@
         document.getElementById('photoInput').addEventListener('change', function() {
             document.getElementById('uploadForm').submit();
         });
+
+        function openEditPopup() {
+            document.getElementById("editPopup").style.display = "block";
+        }
+
+        function closeEditPopup() {
+            document.getElementById("editPopup").style.display = "none";
+        }
+
+        // Close the popup when clicking outside of it
+        window.onclick = function(event) {
+            const popup = document.getElementById("editPopup");
+            if (event.target == popup) {
+                popup.style.display = "none";
+            }
+        }
     </script>
 </body>
 </html>
-

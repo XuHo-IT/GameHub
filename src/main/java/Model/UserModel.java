@@ -11,6 +11,7 @@ public class UserModel {
     private String photoUrl;  
     private String status;
     private String role;
+    
     // Getters and Setters
     public String getId() { return this.id; }
     public void setId(String id) { this.id = id; }

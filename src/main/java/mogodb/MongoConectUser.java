@@ -107,10 +107,11 @@ public class MongoConectUser {
                 user.setRole(doc.getString("Role"));
                 return user;
             }
+            else return null;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null; // Return null if user is not found
+        return null;
     }
     public boolean suspendUser(String userId) {
     try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {

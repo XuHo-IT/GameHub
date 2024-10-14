@@ -80,6 +80,14 @@
         <servlet-name>ConfirmPostController</servlet-name>
         <servlet-class>Controller.ConfirmPostController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>VNPayPaymentServlet</servlet-name>
+        <servlet-class>Controller.VNPayPaymentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Config</servlet-name>
+        <servlet-class>Controller.Config</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -163,6 +171,14 @@
     <servlet-mapping>
         <servlet-name>ConfirmPostController</servlet-name>
         <url-pattern>/ConfirmPostController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VNPayPaymentServlet</servlet-name>
+        <url-pattern>/VNPayPaymentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Config</servlet-name>
+        <url-pattern>/Config</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

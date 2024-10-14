@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-/target/
-=======
 
 /target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
 /target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
 target/GameHub-1.0-SNAPSHOT.war
->>>>>>> c02472b3627867b27bd0121a78e0e368aee5a140

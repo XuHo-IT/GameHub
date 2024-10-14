@@ -138,6 +138,8 @@
             String description = null;
             String dateRelease = null;
             String fileData = null;
+            String linkGame = null;
+            String price = null;
             double priceRating = 0.0;
             double graphicRating = 0.0;
             double difficultyRating = 0.0;
@@ -163,7 +165,9 @@
                 title = post.getString("Title"); // Ensure correct case
                 description = post.getString("Description"); // Ensure correct case
                 dateRelease = post.getString("DateRelease"); // Ensure correct case
-                fileData = post.getString("FileData"); // Ensure correct case
+                fileData = post.getString("FileData");
+                linkGame = post.getString("LinkGame");
+                price = post.getString("Price");// Ensure correct case
                 priceRating = post.getDouble("PriceRating");
                 graphicRating = post.getDouble("GraphicRating");
                 difficultyRating = post.getDouble("DifficultyRating");
@@ -195,6 +199,8 @@
                             <input type="hidden" name="fileData" value="<%= fileData%>" />
                             <input type="hidden" name="dateRelease" value="<%= dateRelease%>" />
                             <input type="hidden" name="author" value="<%= author%>" />
+                            <input type="hidden" name="price" value="<%= price%>" />
+                            <input type="hidden" name="linkGame" value="<%= linkGame%>" />
                             <button type="submit">Add to Wishlist</button>
                             <script>
                                 function addToWishlist(button) {
@@ -233,6 +239,14 @@
                             <div class="right-genre">
                                 <h3 style="color: white">Genre</h3>
                                 <p style="font-size: 20px"><%= genre != null ? genre : "No genre available"%></p>
+                            </div>
+                            <div class="right-genre">
+                                <h3 style="color: white">Link of the Game</h3>
+                                <p style="font-size: 20px"><%= linkGame != null ? linkGame : "No link available"%></p>
+                            </div>
+                            <div class="right-genre">
+                                <h3 style="color: white">Price</h3>
+                                <p style="font-size: 20px"><%= price != null ? price : "No price available"%></p>
                             </div>
                         </div>
                     </div>

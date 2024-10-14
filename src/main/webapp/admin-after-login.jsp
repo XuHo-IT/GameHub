@@ -6,7 +6,7 @@
 <html lang="zxx">
 
     <head>
-        <title>EndGame - Gaming Magazine Template</title>
+        <title>EndGam - Gaming Magazine Template</title>
         <meta charset="UTF-8">
         <meta name="description" content="EndGam Gaming Magazine Template">
         <meta name="keywords" content="endGam,gGaming, magazine, html">
@@ -33,11 +33,12 @@
         <link rel="stylesheet"
               href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
         <link rel="stylesheet" href="Login/style.css">
-
         <script src="Login/script.js" defer></script>
 
-
-
+        <!--[if lt IE 9]>
+                      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+              <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+            <![endif]-->
 
     </head>
 
@@ -80,10 +81,12 @@
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
-                                        <li><a href="user-profile.jsp">Account Info</a></li>
+
+                                        <li><a href="user-profile.jsp?id=<%= request.getSession().getAttribute("adminId") %>">Account Info</a></li>
                                         <li>
                                             <a href="ReadGameHomeAdminController?action=logout" class="dropdown-item">Logout</a>
                                         </li>
+
                                     </ul>
                                 </div>
                             </div>
@@ -99,9 +102,12 @@
                                     <li><a href="top-wishlist-all-after-login.jsp">Top wishlist</a></li>
                                 </ul>
                             </li>
+
                             <li><a href="contact-after-login.jsp">Contact</a></li>
                             <li><a href="chart/index-chart.jsp">Manage</a></li>
                             <li><a href="forum-after-login.jsp">Community</a></li>
+                            <li><a href="list-user.jsp">User List</a></li>
+
                         </ul>
                     </nav>
                 </div>

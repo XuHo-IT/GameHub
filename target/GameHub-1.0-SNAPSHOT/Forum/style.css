@@ -33,6 +33,7 @@ h1{
 }
 
 .container .topic-container{
+    margin-top: 50px;
     padding-top: 20px;
     color: white;
 }
@@ -42,7 +43,7 @@ header.header-section {
 }
 
 section.blog-section {
-    margin-top: 100px;
+    /*margin-top: 100px;*/
 }
 
 button.forum-button{
@@ -508,6 +509,8 @@ footer{
     background-color: #131415;
     padding: 10px;
     margin-top: 5px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 .body .authors .username{
@@ -519,13 +522,17 @@ footer{
     max-height: 100px;
 }
 
+
 .comments-container .comments{
-    margin-bottom: 25px;
+    margin-bottom: 50px;
+}
+
+.comments-container .body{
+    border-radius: 10px;
 }
 
 .comments-container .rely-container {
-    padding-left: 40px; /* Thêm khoảng cách sang bên trái để thể hiện phần rely nhỏ hơn */
-    border-left: 5px solid black; /* Tạo viền bên trái để dễ phân biệt */
+    padding-left: 50px; /* Thêm khoảng cách sang bên trái để thể hiện phần rely nhỏ hơn */
 }
 
 .comments-container .hidden-replies {
@@ -542,6 +549,7 @@ footer{
     margin-top: 10px;
     font-family: "Open Sans", sans-serif;
     float: right;
+    border-radius: 5px;
 }
 
 .comments-container .toggle-replies:hover{

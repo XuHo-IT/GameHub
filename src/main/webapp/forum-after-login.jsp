@@ -103,21 +103,37 @@
                     </nav>
                 </div>
             </div>
-            <div class="button-top-forum" >
-                <div class="left-button-forum">
-                    <button class="forum-button" >All Topics</button>
-                    <button class="forum-button">My Topics</button>
-                </div>
-                <div class="right-button-forum">
-                    <button class="cTopic-btn forum-button">Create New Topic</button>
-                </div>
-            </div>
         </header>	
-
         <!-- Header section end -->
 
+        <section class="page-top-section set-bg" data-setbg="img/page-top-bg/4.jpg">
+            <div class="page-info">
+                <h2>Community</h2>
+                <div class="site-breadcrumb">
+                    <a href="ReadGameHomeController">Home</a>  /
+                    <span>Community</span>
+                </div>
+            </div>
+        </section>
+        <!-- Page top end-->
+
         <section class="blog-section spad"> 
-            <div class="container">
+            <div class="container" style="
+                 margin: 20px;
+                 margin-top: -100px;
+                 padding: 20px;">
+                
+                <!-- button -->
+                <div class="button-top-forum" >
+                    <div class="left-button-forum">
+                        <button class="forum-button" >All Topics</button>
+                        <button class="forum-button">My Topics</button>
+                    </div>
+                    <div class="right-button-forum">
+                        <button class="cTopic-btn forum-button">Create New Topic</button>
+                    </div>
+                </div>
+                
                 <div class="subforum">
 
                     <div class="subforum-row">

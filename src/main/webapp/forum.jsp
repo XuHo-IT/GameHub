@@ -86,13 +86,24 @@
                 </div>
             </div>
         </header>	
-
         <!-- Header section end -->
-
+        
+        <!-- Page top section -->
+        <section class="page-top-section set-bg" data-setbg="img/page-top-bg/4.jpg">
+            <div class="page-info">
+                <h2>Community</h2>
+                <div class="site-breadcrumb">
+                    <a href="ReadGameHomeController">Home</a>  /
+                    <span>Community</span>
+                </div>
+            </div>
+        </section>
+        <!-- Page top end-->
+        
         <section class="blog-section spad"> 
             <div class="container" style="
                  margin: 20px;
-                 margin-top: -40px;
+                 margin-top: -100px;
                  padding: 20px;">
                 <div class="subforum">
 

@@ -117,14 +117,12 @@
 
                     <div class="body">
                         <div class="authors">
-                            <div class="username"><a href="">Username</a></div>
-
                             <img src="./img/Arc Raiders.jpg" alt="">
-
+                            <div class="username"><a href="">Username</a></div>
                         </div>
                         <div class="content">
 
-                            <p style="color: lightblue">Who is hoà</p>
+                            <p style="color: lightblue">Who is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoà</p>
 
                             <div class="topic-img">
                                 <img src="./img/Arc Raiders.jpg" alt="">
@@ -137,221 +135,157 @@
                 </div>
 
                 <!--Comment Area-->
-                <div class="comment-area hide" id="comment-area">
-                    <textarea name="comment" id="" placeholder="comment here ... "></textarea>
-                    <input type="submit" value="submit">
-                </div>
+                <form action="CreateCommentController" method="POST">
+                    <div class="comment-area hide" id="comment-area">
+                        <!-- Textarea để nhập comment -->
+                        <textarea name="comment" placeholder="comment here ..." required></textarea>
+
+                        <!-- Các trường ẩn để truyền các giá trị cần thiết -->
+                        <input type="hidden" name="userid" value="userId">
+                        <input type="hidden" name="postid" value="postId">
+                        <input type="hidden" name="dateup" value="<%= new java.util.Date() %>">
+
+                        <!-- Nút submit để gửi form -->
+                        <input type="submit" value="submit">
+                    </div>
+                </form>
 
                 <!--Another Comment With replies-->
                 <div class="comments-container">
-                    
+
                     <!<!-- Comment 1 -->
                     <div class="comments" id="1">
                         <div class="body">
                             <div class="authors">
-                                <div class="username"><a href="">Username</a></div>
                                 <img src="./img/Arc Raiders.jpg" alt="">
+                                <div class="username"><a href="">Username</a></div>
                             </div>
                             <div class="content">
                                 <p style="color: lightblue">Hoà là t</p>
                                 <div class="comment">
-                                    <button onclick="showReply('reply-area-1')">Reply</button>
+                                    <button onclick="showReply('reply-area-1', 'Username')">Reply</button>
                                 </div>
                             </div>
                         </div>
 
                         <!--Reply comment area-->
                         <div class="rely-container">
-                            <div class="reply">
+                            <div class="reply" id="1">
                                 <!-- First reply always visible -->
                                 <div class="body">
                                     <div class="authors">
-                                        <div class="username"><a href="">Username</a></div>
                                         <img src="./img/Arc Raiders.jpg" alt="">
+                                        <div class="username"><a href="">Username1</a></div>
                                     </div>
                                     <div class="content">
                                         <p style="color: lightblue">Không, Hoà là t</p>
                                         <div class="comment">
-                                            <button onclick="showReply('reply-area-1')">Reply</button>
+                                            <button onclick="showReply('reply-area-1-1', 'Username1')">Reply</button>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <!-- Hidden replies -->
-                                <div class="hidden-replies" style="display: none;">
+                            <!-- Hidden replies -->
+                            <div class="hidden-replies" style="display: none;">
+
+                                <div class="reply" id="2">
                                     <div class="body">
                                         <div class="authors">
-                                            <div class="username"><a href="">Username</a></div>
                                             <img src="./img/Arc Raiders.jpg" alt="">
+                                            <div class="username"><a href="">Username2</a></div>
                                         </div>
                                         <div class="content">
                                             <p style="color: lightblue">Không, Hoà là t</p>
                                             <div class="comment">
-                                                <button onclick="showReply('reply-area-1')">Reply</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="body">
-                                        <div class="authors">
-                                            <div class="username"><a href="">Username</a></div>
-                                            <img src="./img/Arc Raiders.jpg" alt="">
-                                        </div>
-                                        <div class="content">
-                                            <p style="color: lightblue">Không, Hoà là t</p>
-                                            <div class="comment">
-                                                <button onclick="showReply('reply-area-1')">Reply</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="body">
-                                        <div class="authors">
-                                            <div class="username"><a href="">Username</a></div>
-                                            <img src="./img/Arc Raiders.jpg" alt="">
-                                        </div>
-                                        <div class="content">
-                                            <p style="color: lightblue">Không, Hoà là t</p>
-                                            <div class="comment">
-                                                <button onclick="showReply('reply-area-1')">Reply</button>
+                                                <button onclick="showReply('reply-area-1-1', 'Username2')">Reply</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Show/Hide Button -->
-                                <button class="toggle-replies">Show more</button>
+                                <div class="reply" id="3">
+                                    <div class="body">
+                                        <div class="authors">
+                                            <img src="./img/Arc Raiders.jpg" alt="">
+                                            <div class="username"><a href="">Username3</a></div>
+                                        </div>
+                                        <div class="content">
+                                            <p style="color: lightblue">Không, Hoà là t</p>
+                                            <div class="comment">
+                                                <button onclick="showReply('reply-area-1-1', 'Username3')">Reply</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                <!-- Reply text area -->
-                                <div class="comment-area hide" id="reply-area-1">
-                                    <textarea name="reply" placeholder="reply here ..."></textarea>
+                                <div class="reply" id="4">
+                                    <div class="body">
+                                        <div class="authors">
+                                            <img src="./img/Arc Raiders.jpg" alt="">
+                                            <div class="username"><a href="">Username4</a></div>
+                                        </div>
+                                        <div class="content">
+                                            <p style="color: lightblue">Không, Hoà là t</p>
+                                            <div class="comment">
+                                                <button onclick="showReply('reply-area-1-1', 'Username4')">Reply</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Show/Hide Button -->
+                            <button class="toggle-replies">Show more</button>
+
+                            <!-- Reply text area -->
+                            <form action="CreateReplyController" method="POST">
+                                <div class="comment-area hide" id="reply-area-1-1">
+                                    <!-- Textarea để nhập reply -->
+                                    <textarea name="replytext" placeholder="reply here ..." required></textarea>
+
+                                    <!-- Các trường ẩn để truyền các giá trị cần thiết -->
+                                    <input type="hidden" name="userid" value="userId">
+                                    <input type="hidden" name="commentid" value="commentId">
+                                    <input type="hidden" name="replyid" value="replyId">
+                                    <input type="hidden" name="dateup" value="<%= new java.util.Date()%>">
+
+                                    <!-- Nút submit để gửi form -->
                                     <input type="submit" value="submit">
                                 </div>
-                            </div>
+                            </form>
+
                         </div>
+
                     </div>
+                    <!-- Reply text area -->
+                    <form action="CreateReplyController" method="POST">
+                        <div class="comment-area hide" id="reply-area-1">
+                            <!-- Textarea để nhập reply -->
+                            <textarea name="replytext" placeholder="reply here ..." required></textarea>
 
-                    <!<!-- Comment 2 -->
-                    <div class="comments" id="2">
-                        <div class="body">
-                            <div class="authors">
-                                <div class="username"><a href="">Username</a></div>
-                                <img src="./img/Arc Raiders.jpg" alt="">
-                            </div>
-                            <div class="content">
-                                <p style="color: lightblue">Hoà là t</p>
-                                <div class="comment">
-                                    <button onclick="showReply('reply-area-2')">Reply</button>
-                                </div>
-                            </div>
+                            <!-- Các trường ẩn để truyền các giá trị cần thiết -->
+                            <input type="hidden" name="userid" value="userId">
+                            <input type="hidden" name="commentid" value="commentId">
+                            <input type="hidden" name="replyid" value="replyId">
+                            <input type="hidden" name="dateup" value="<%= new java.util.Date()%>">
+
+                            <!-- Nút submit để gửi form -->
+                            <input type="submit" value="submit">
                         </div>
+                    </form>
 
-                        <!--Reply comment area-->
-                        <div class="rely-container">
-                            <div class="reply">
-                                <!-- First reply always visible -->
-                                <div class="body">
-                                    <div class="authors">
-                                        <div class="username"><a href="">Username</a></div>
-                                        <img src="./img/Arc Raiders.jpg" alt="">
-                                    </div>
-                                    <div class="content">
-                                        <p style="color: lightblue">Không, Hoà là t</p>
-                                        <div class="comment">
-                                            <button onclick="showReply('reply-area-2')">Reply</button>
-                                        </div>
-                                    </div>
-                                </div>
+                </div>
 
-                                <!-- Hidden replies -->
-                                <div class="hidden-replies" style="display: none;">
-                                    <div class="body">
-                                        <div class="authors">
-                                            <div class="username"><a href="">Username</a></div>
-                                            <img src="./img/Arc Raiders.jpg" alt="">
-                                        </div>
-                                        <div class="content">
-                                            <p style="color: lightblue">Không, Hoà là t</p>
-                                            <div class="comment">
-                                                <button onclick="showReply('reply-area-2')">Reply</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Show/Hide Button -->
-                                <button class="toggle-replies">Show more</button>
-
-                                <!-- Reply text area -->                              
-                                <div class="comment-area hide" id="reply-area-2">
-                                    <textarea name="reply" placeholder="reply here ..."></textarea>
-                                    <input type="submit" value="submit">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!<!-- Comment 3 -->
-                    <div class="comments" id="3">
-                        <div class="body">
-                            <div class="authors">
-                                <div class="username"><a href="">Username</a></div>
-                                <img src="./img/Arc Raiders.jpg" alt="">
-                            </div>
-                            <div class="content">
-                                <p style="color: lightblue">Hoà là t</p>
-                                <div class="comment">
-                                    <button onclick="showReply('reply-area-3')">Reply</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--Reply comment area-->
-                        <div class="rely-container">
-                            <div class="reply">
-                                <!-- First reply always visible -->
-                                <div class="body">
-                                    <div class="authors">
-                                        <div class="username"><a href="">Username</a></div>
-                                        <img src="./img/Arc Raiders.jpg" alt="">
-                                    </div>
-                                    <div class="content">
-                                        <p style="color: lightblue">Không, Hoà là t</p>
-                                        <div class="comment">
-                                            <button onclick="showReply('reply-area-3')">Reply</button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Hidden replies -->
-                                <div class="hidden-replies" style="display: none;">
-                                    <div class="body">
-                                        <div class="authors">
-                                            <div class="username"><a href="">Username</a></div>
-                                            <img src="./img/Arc Raiders.jpg" alt="">
-                                        </div>
-                                        <div class="content">
-                                            <p style="color: lightblue">Không, Hoà là t</p>
-                                            <div class="comment">
-                                                <button onclick="showReply('reply-area-3')">Reply</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Show/Hide Button -->
-                                <button class="toggle-replies">Show more</button>
-
-                                <!-- Reply text area -->
-                                <div class="comment-area hide" id="reply-area-3">
-                                    <textarea name="reply" placeholder="reply here ..."></textarea>
-                                    <input type="submit" value="submit">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
+                <div class="site-pagination">
+                    <a href="#" class="active">01.</a>
+                    <a href="#">02.</a>
+                    <a href="#">03.</a>
                 </div>
 
             </div>
+
         </section>
 
 
@@ -466,9 +400,22 @@
                 commentArea.classList.toggle("hide");
             }
 
-            function showReply(areaId) {
+            function showReply(areaId, username) {
+                // Tìm tất cả các phần comment-area và ẩn chúng
+                const allCommentAreas = document.querySelectorAll('.comment-area');
+                allCommentAreas.forEach(area => {
+                    area.classList.add('hide'); // Ẩn tất cả các comment-area
+                });
+
+                // Hiển thị phần comment-area tương ứng với reply được bấm
                 var replyArea = document.getElementById(areaId);
-                replyArea.classList.toggle("hide");
+                replyArea.classList.toggle("hide"); // Toggle hiển thị phần comment-area được bấm
+
+                // Lấy thẻ textarea trong phần reply hiện tại
+                var textArea = replyArea.querySelector('textarea');
+
+                // Đặt giá trị ban đầu cho textarea là username
+                textArea.value = '@' + username + ' ';
             }
 
             function toggleArea(areaId) {
@@ -482,6 +429,14 @@
                 toggleButtons.forEach(button => {
                     button.addEventListener('click', function () {
                         const hiddenReplies = this.previousElementSibling;
+
+                        // Tìm tất cả các phần comment-area và ẩn chúng
+                        const allCommentAreas = document.querySelectorAll('.comment-area');
+                        allCommentAreas.forEach(area => {
+                            area.classList.add('hide'); // Ẩn tất cả các comment-area
+                        });
+
+                        // Toggle hiển thị phần hidden-replies liên quan
                         if (hiddenReplies.style.display === 'none') {
                             hiddenReplies.style.display = 'block';
                             this.textContent = 'Hide';

@@ -277,3 +277,13 @@ button.create-btn{
     pointer-events: all;
     transition: opacity 0.3s ease;
 }
+#createTopicPopup, #updateTopicPopup {
+    opacity: 0;
+    display: none;
+    transition: opacity 0.3s ease;
+}
+
+#createTopicPopup.show, #updateTopicPopup.show {
+    opacity: 1;
+    display: block;
+}

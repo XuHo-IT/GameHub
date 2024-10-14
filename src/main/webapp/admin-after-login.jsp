@@ -77,10 +77,12 @@
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
-                                        <li><a href="user-profile.jsp">Account Info</a></li>
+
+                                        <li><a href="user-profile.jsp?id=<%= request.getSession().getAttribute("adminId") %>">Account Info</a></li>
                                         <li>
                                             <a href="ReadGameHomeAdminController?action=logout" class="dropdown-item">Logout</a>
                                         </li>
+
                                     </ul>
                                 </div>
                             </div>
@@ -96,9 +98,12 @@
                                     <li><a href="top-wishlist-all-after-login.jsp">Top wishlist</a></li>
                                 </ul>
                             </li>
+
                             <li><a href="contact-after-login.jsp">Contact</a></li>
                             <li><a href="chart/index-chart.jsp">Manage</a></li>
                             <li><a href="forum-after-login.jsp">Community</a></li>
+                            <li><a href="list-user.jsp">User List</a></li>
+
                         </ul>
                     </nav>
                 </div>

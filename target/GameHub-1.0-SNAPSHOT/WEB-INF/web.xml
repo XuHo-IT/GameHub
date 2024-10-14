@@ -9,6 +9,10 @@
         <servlet-class>Controller.SignUpController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>RemoveUserServlet</servlet-name>
+        <servlet-class>Controller.RemoveUserServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AddGameController</servlet-name>
         <servlet-class>Controller.AddGameController</servlet-class>
     </servlet>
@@ -29,8 +33,28 @@
         <servlet-class>Controller.ShowAllGameController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>SuspendUserController</servlet-name>
+        <servlet-class>Controller.SuspendUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UnSuspendUserController</servlet-name>
+        <servlet-class>Controller.UnSuspendUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangePasswordController</servlet-name>
+        <servlet-class>Controller.ChangePasswordController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadPhotoController</servlet-name>
+        <servlet-class>Controller.UploadPhotoController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ReadGameHomeMemberController</servlet-name>
         <servlet-class>Controller.ReadGameHomeMemberController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReadGameUploadOfMemberController</servlet-name>
+        <servlet-class>Controller.ReadGameUploadOfMemberController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddGenreController</servlet-name>
@@ -81,6 +105,18 @@
         <servlet-class>Controller.ConfirmPostController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>CreateTopicController</servlet-name>
+        <servlet-class>Controller.CreateTopicController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddReplyController</servlet-name>
+        <servlet-class>Controller.AddReplyController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddCommentController</servlet-name>
+        <servlet-class>Controller.AddCommentController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>VNPayPaymentServlet</servlet-name>
         <servlet-class>Controller.VNPayPaymentServlet</servlet-class>
     </servlet>
@@ -108,10 +144,6 @@
         <servlet-name>ReadGameHomeController</servlet-name>
         <url-pattern>/ReadGameHomeController</url-pattern>
     </servlet-mapping>
-    <welcome-file-list>
-        <welcome-file>ReadGameHomeController</welcome-file>
-        <!-- Change to your welcome file -->
-    </welcome-file-list>
     <servlet-mapping>
         <servlet-name>ReadGameListController</servlet-name>
         <url-pattern>/ReadGameListController</url-pattern>
@@ -119,6 +151,26 @@
     <servlet-mapping>
         <servlet-name>ShowAllGameController</servlet-name>
         <url-pattern>/ShowAllGameController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SuspendUserController</servlet-name>
+        <url-pattern>/SuspendUserController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UnSuspendUserController</servlet-name>
+        <url-pattern>/UnSuspendUserController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveUserServlet</servlet-name>
+        <url-pattern>/RemoveUserServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePasswordController</servlet-name>
+        <url-pattern>/ChangePasswordController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadPhotoController</servlet-name>
+        <url-pattern>/UploadPhotoController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ReadGameHomeMemberController</servlet-name>
@@ -180,9 +232,19 @@
         <servlet-name>Config</servlet-name>
         <url-pattern>/Config</url-pattern>
     </servlet-mapping>
-    <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
-    </session-config>
+    <servlet-mapping>
+        <servlet-name>CreateTopicController</servlet-name>
+        <url-pattern>/CreateTopicController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddReplyController</servlet-name>
+        <url-pattern>/AddReplyController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCommentController</servlet-name>
+        <url-pattern>/AddCommentController</url-pattern>
+    </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>

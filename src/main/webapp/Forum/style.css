@@ -38,6 +38,14 @@ h1{
     color: white;
 }
 
+.container .topic-container .topic-img{
+    padding-bottom: 10px;
+}
+
+.container .topic-container .topic-img img{
+    height: 500px;
+}
+
 header.header-section {
     margin-bottom: 40px; /* Hoặc sử dụng padding-bottom hoặc margin-top */
 }
@@ -131,6 +139,15 @@ button.forum-button{
     font-size: 50px;
 }
 
+.subforum-icon img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+
 .subforum-devider{
     display: none;   
 }
@@ -141,7 +158,11 @@ button.forum-button{
 }
 
 .subforum .subforum-stats img{
-    width: 50%;
+    width: 30%;
+}
+
+.subforum .subforum-info a{
+    padding-left: 5px;
 }
 
 /* For the smartphones */
@@ -497,11 +518,14 @@ footer{
 }
 
 .authors{
-    flex: 20%;
+    flex: 5%;
+    padding: 5px;
 }
 
 .content{
     flex: 80%;
+    padding: 5px;
+    padding-left: 10px;
 }
 
 .body{
@@ -543,7 +567,7 @@ footer{
 .comments-container .toggle-replies {
     background-color: #131415;
     color: white;
-    border: none;
+    border: 1px solid white;
     padding: 5px 10px;
     cursor: pointer;
     margin-top: 10px;
@@ -601,4 +625,17 @@ footer{
 
 .comment-area input:hover{
     border: solid 1px #000000;
+}
+
+.container .authors img{
+     width: 100px; /* Đặt kích thước chiều rộng của ảnh */
+    height: 100px; /* Đặt kích thước chiều cao của ảnh */
+    border-radius: 50%; /* Bo tròn thành hình tròn */
+    object-fit: cover; /* Đảm bảo ảnh không bị méo, giữ tỷ lệ */
+    display: block; /* Chuyển img thành block để căn giữa dễ dàng hơn */
+    margin: 0 auto;
+}
+
+.container .username {
+    text-align: center; /* Căn giữa nội dung theo chiều ngang */
 }

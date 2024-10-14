@@ -64,27 +64,43 @@ public class MongoConectUser {
     }
 
     // Method to update a user in the database
-    public boolean updateUser(UserModel user) {
-        try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
-            MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
-            MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
-            
-            Document updatedUser = new Document("Email", user.getEmail())
-                    .append("PhoneNumber", user.getPhone())
-                    .append("DateOfBirth", user.getDateOfBirth())
-                    .append("Address", user.getAddress())
-                    .append("Name", user.getName())
-                    .append("Password", user.getPassword())
-                    .append("PhotoUrl", user.getPhotoUrl());
-            
-            // Use ObjectId for the MongoDB _id field
-            long modifiedCount = collection.updateOne(Filters.eq("_id", new ObjectId(user.getId())), new Document("$set", updatedUser)).getModifiedCount();
-            return modifiedCount > 0; // Return true if the user was updated
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false; // Return false if an error occurred
+    public boolean updateUser(String userId, String name, String email, String phone, String address) {
+    try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
+        MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
+        MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
+
+        Document query = new Document("_id", new ObjectId(userId));
+        Document updateFields = new Document();
+
+        if (name != null && !name.isEmpty()) {
+            updateFields.append("Name", name);
         }
+        if (email != null && !email.isEmpty()) {
+            updateFields.append("Email", email);
+        }
+        if (phone != null && !phone.isEmpty()) {
+            updateFields.append("Phone", phone);
+        }
+        if (address != null && !address.isEmpty()) {
+            updateFields.append("Address", address);
+        }
+
+        if (updateFields.isEmpty()) {
+            return false; // No updates provided
+        }
+
+        Document update = new Document("$set", updateFields);
+        if (collection.updateOne(query, update).getModifiedCount() > 0) {
+            return true; // Successfully updated the user
+        }
+        return false; // User not found or not modified
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false; // Return false if an error occurred
     }
+}
+
+
 
     // Method to get a user by ID
     public UserModel getUserById(String userId) {

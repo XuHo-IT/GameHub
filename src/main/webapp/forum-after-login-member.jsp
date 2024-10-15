@@ -1,3 +1,4 @@
+<%@page import="Model.Topic"%>
 <%@page import="com.mongodb.client.model.Filters"%>
 <%@page import="org.bson.types.ObjectId"%>
 <%@page import="com.mongodb.client.MongoClients"%>
@@ -5,6 +6,8 @@
 <%@page import="com.mongodb.client.MongoClient"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page import="org.bson.Document" %>
@@ -75,13 +78,13 @@
                     </div>
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
-                            <!-- Bi?u t??ng gi? hï¿½ng -->
+                            <!-- Bi?u t??ng gi? hÃ¯Â¿Â½ng -->
                             <div class="cart-icon">
                                 <a href="shopping-cart.jsp">
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                 </a>
                             </div>
-                            <!-- Bi?u t??ng tï¿½i kho?n -->
+                            <!-- Bi?u t??ng tÃ¯Â¿Â½i kho?n -->
                             <div class="account-container">
                                 <div class="account-icon">
                                     <i class="fa fa-user-circle" aria-hidden="true"></i>
@@ -163,7 +166,27 @@
                                 </c:choose>
                             </div>
                             <div class="subforum-stats subforum-column center">
-                                <span>12 <img src="./img/icons/chat-icon.png" alt=""> </span>
+                                <%
+                                    // Get the topic object from the pageContext
+                                    Topic topicObj = (Topic) pageContext.getAttribute("topic");
+
+                                    // Kết nối đến cơ sở dữ liệu MongoDB
+                                    MongoClient mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
+
+                                    // Lấy collection comment và reply
+                                    MongoCollection<Document> commentCollection = mongoClient.getDatabase("GameHub").getCollection("comment");
+                                    MongoCollection<Document> replyCollection = mongoClient.getDatabase("GameHub").getCollection("reply");
+
+                                    // Đếm số lượng bình luận cho mỗi chủ đề
+                                    long commentCount = commentCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
+
+                                    // Đếm số lượng trả lời cho mỗi chủ đề
+                                    long replyCount = replyCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
+
+                                    // Tính tổng số lượng bình luận và trả lời cho mỗi chủ đề
+                                    long totalCount = commentCount + replyCount;
+                                %>
+                                <span><%= totalCount%><img src="./img/icons/chat-icon.png" alt=""> </span>
                             </div>
                             <div class="subforum-info subforum-column">
                                 <b>Post by</b> <a href="#">${topic.userName}</a>
@@ -173,7 +196,7 @@
                     </c:forEach>
 
                 </div>
-                <div class="site-pagination">
+                <div class="site-pagination" style="margin-top: 10px">
                     <c:forEach var="i" begin="1" end="${totalPages}">
                         <a href="?page=${i}" class="${i == currentPage ? 'active' : ''}">${i < 10 ? '0' + i : i}</a>
                     </c:forEach>
@@ -211,7 +234,7 @@
             </div>
         </footer>
         <!-- Footer section end -->
-                <!-- Login Popup -->
+        <!-- Login Popup -->
         <!-- Login Popup -->
         <div class="blur-bg-overlay"></div>
         <div class="form-popup">

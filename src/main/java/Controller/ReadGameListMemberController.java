@@ -42,11 +42,8 @@ public class ReadGameListMemberController extends HttpServlet {
         try {
             MongoDatabase database = mongoClient.getDatabase("GameHub");
             MongoCollection<Document> collection = database.getCollection("postGame");
-            
-            List<GamePost> postList = new ArrayList<>();
 
-            // Retrieve all posts from the database
-            FindIterable<Document> posts = collection.find();
+            List<GamePost> postList = new ArrayList<>();
 
             // Fetch genres from MongoDB
             MongoCollection<Document> genreCollection = database.getCollection("Genre");
@@ -55,72 +52,77 @@ public class ReadGameListMemberController extends HttpServlet {
 
             for (Document doc : genreDocuments) {
                 Genre genre = new Genre();
-                genre.setGenreId(doc.getObjectId("_id").toString());
-                genre.setGenre(doc.getString("Genre"));
+                genre.setGenre(doc.getString("Genre"));  // Use the actual genre name, e.g., 'PvsP'
                 genres.add(genre);
             }
             request.setAttribute("genres", genres);
+
+            // Get the selected genre name from the request
+            String selectedGenre = request.getParameter("genre");
+            FindIterable<Document> posts;
+
+            if (selectedGenre != null && !selectedGenre.isEmpty()) {
+                // Filter posts by the selected genre name (not ID)
+                Document genreFilter = new Document("Genre", selectedGenre);
+                posts = collection.find(genreFilter);
+            } else {
+                // Retrieve all posts if no genre is selected
+                posts = collection.find();
+            }
+
             // Map each document to a GamePost object
             for (Document post : posts) {
-                // Check if FileData is stored as Binary or String
                 Object fileData = post.get("FileData");
                 String fileDataBase64;
 
                 if (fileData instanceof Binary) {
-                    // If it's Binary, convert to Base64
                     Binary fileDataBinary = (Binary) fileData;
                     fileDataBase64 = Base64.getEncoder().encodeToString(fileDataBinary.getData());
                 } else if (fileData instanceof String) {
-                    // If it's a String (possibly already Base64), just use it directly
                     fileDataBase64 = (String) fileData;
                 } else {
                     fileDataBase64 = null;
                 }
 
                 GamePost gamePost = new GamePost(
-                        post.getObjectId("_id").toString(), // postID
+                        post.getObjectId("_id").toString(),
                         post.getString("Title"),
                         post.getString("GamePlay"),
                         post.getString("Description"),
                         post.getString("DateRelease"),
                         post.getString("Author"),
-                        post.getString("Genre"),
+                        post.getString("Genre"),  // Store genre name, not ID
                         post.getString("AdminId"),
                         post.getString("FileName"),
-                        fileDataBase64 // Convert Binary to Base64 String or use as is
+                        fileDataBase64
                 );
                 postList.add(gamePost);
-                System.out.println(post.toJson());   
             }
 
-            if (postList.isEmpty()) {
-                System.out.println("No posts found in the database.");
-            }
-            
             Collections.reverse(postList);
-            
+
             // Pagination logic
-        int itemsPerPage = 9;
-        int currentPage = 1;
-        String pageParam = request.getParameter("page");
+            int itemsPerPage = 9;
+            int currentPage = 1;
+            String pageParam = request.getParameter("page");
 
-        if (pageParam != null) {
-            currentPage = Integer.parseInt(pageParam);
-        }
+            if (pageParam != null) {
+                currentPage = Integer.parseInt(pageParam);
+            }
 
-        int totalItems = postList.size();
-        int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
-        
-        int startIndex = (currentPage - 1) * itemsPerPage;
-        int endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+            int totalItems = postList.size();
+            int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
 
-        // Sublist for current page
-        List<GamePost> postsForCurrentPage = postList.subList(startIndex, endIndex);
+            int startIndex = (currentPage - 1) * itemsPerPage;
+            int endIndex = Math.min(startIndex + itemsPerPage, totalItems);
 
-        request.setAttribute("posts", postsForCurrentPage);
-        request.setAttribute("totalPages", totalPages);
-        request.setAttribute("currentPage", currentPage);
-        
+            List<GamePost> postsForCurrentPage = postList.subList(startIndex, endIndex);
+
+            request.setAttribute("posts", postsForCurrentPage);
+            request.setAttribute("totalPages", totalPages);
+            request.setAttribute("currentPage", currentPage);
+            request.setAttribute("selectedGenre", selectedGenre);  // Pass selected genre to JSP
+
             // Forward the request to the JSP page
             request.getRequestDispatcher("games-after-login-member.jsp").forward(request, response);
         } catch (Exception e) {
@@ -137,3 +139,5 @@ public class ReadGameListMemberController extends HttpServlet {
         }
     }
 }
+
+

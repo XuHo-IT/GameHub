@@ -36,7 +36,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="chart/index-chart.jsp">
+                        <a href="index-chart.jsp">
                             <span class="icon">
                                 <ion-icon name="chatbubbles-outline"></ion-icon>
                             </span>
@@ -147,8 +147,8 @@
         ></script>
         <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script> -->
         <!-- <script src="js/chart.umd.js"></script> -->
-        <script src="chart/js/chart.min.js"></script>
-        <script src="chart/js/main.js"></script>
+        <script src="js/chart.min.js"></script>
+        <script src="js/main.js"></script>
         <script>
                     // Function to handle deny button click
                     function denyPost(denyButton) {

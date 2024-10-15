@@ -81,7 +81,7 @@
                                 </ul>
                             </li>
                             <li><a href="contact.jsp">Contact</a></li>
-                            <li><a href="forum.jsp">Community</a></li>
+                            <li><a href="ReadTopicController">Community</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -264,7 +264,7 @@
                 <ul class="main-menu footer-menu">
                     <li><a href="ReadGameHomeController">Home</a></li>
                     <li><a href="ReadGameListController">Games</a></li>
-                    <li><a href="forum.jsp">Forum</a></li>
+                    <li><a href="ReadTopicController">Forum</a></li>
                     <li><a href="contact.jsp">Contact</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">

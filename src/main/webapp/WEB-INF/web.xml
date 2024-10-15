@@ -109,14 +109,11 @@
         <servlet-class>Controller.CreateTopicController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddReplyController</servlet-name>
-        <servlet-class>Controller.AddReplyController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AddCommentController</servlet-name>
         <servlet-class>Controller.AddCommentController</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< Updated upstream
         <servlet-name>VNPayPaymentServlet</servlet-name>
         <servlet-class>Controller.VNPayPaymentServlet</servlet-class>
     </servlet>
@@ -131,6 +128,18 @@
     <servlet>
         <servlet-name>UploadLinkServlet</servlet-name>
         <servlet-class>Controller.UploadLinkServlet</servlet-class>
+=======
+        <servlet-name>ReadTopicController</servlet-name>
+        <servlet-class>Controller.ReadTopicController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReadTopicAdminController</servlet-name>
+        <servlet-class>Controller.ReadTopicAdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReadTopicMemberController</servlet-name>
+        <servlet-class>Controller.ReadTopicMemberController</servlet-class>
+>>>>>>> Stashed changes
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -245,14 +254,11 @@
         <url-pattern>/CreateTopicController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddReplyController</servlet-name>
-        <url-pattern>/AddReplyController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AddCommentController</servlet-name>
         <url-pattern>/AddCommentController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< Updated upstream
         <servlet-name>VNPayReturnServlet</servlet-name>
         <url-pattern>/VNPayReturnServlet</url-pattern>
     </servlet-mapping>
@@ -266,6 +272,19 @@
         <file-size-threshold>5242880</file-size-threshold> <!-- 5 MB -->
     </multipart-config>
 
+=======
+        <servlet-name>ReadTopicController</servlet-name>
+        <url-pattern>/ReadTopicController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReadTopicAdminController</servlet-name>
+        <url-pattern>/ReadTopicAdminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReadTopicMemberController</servlet-name>
+        <url-pattern>/ReadTopicMemberController</url-pattern>
+    </servlet-mapping>
+>>>>>>> Stashed changes
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>

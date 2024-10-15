@@ -1,3 +1,13 @@
+<%@page import="com.mongodb.client.model.Filters"%>
+<%@page import="org.bson.types.ObjectId"%>
+<%@page import="com.mongodb.client.MongoClients"%>
+<%@page import="com.mongodb.client.MongoCollection"%>
+<%@page import="com.mongodb.client.MongoClient"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page import="org.bson.Document" %>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -98,7 +108,7 @@
                             </li>
                             <li><a href="contact-after-login.jsp">Contact</a></li>
                             <li><a href="chart/index-chart.jsp">Manage</a></li>
-                            <li><a href="forum-after-login.jsp">Community</a></li>
+                            <li><a href="ReadTopicAdminController">Community</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -135,118 +145,37 @@
                 </div>
                 
                 <div class="subforum">
+                    <c:forEach var="topic" items="${topics}">
+                        <div class="subforum-row">
+                            <div class="subforum-icon subforum-column center">
+                                <img src="${topic.photoUrl}" alt="User Photo">
+                            </div>
+                            <div class="subforum-description subforum-column">
+                                <h4><a href="forum-detail.jsp">${topic.title}</a></h4>
+                                    <c:choose>
+                                        <c:when test="${fn:length(topic.description) > 100}">
+                                        <p>${fn:substring(topic.description, 0, 120)}...</p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p>${topic.description}</p>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                            <div class="subforum-stats subforum-column center">
+                                <span>12 <img src="./img/icons/chat-icon.png" alt=""> </span>
+                            </div>
+                            <div class="subforum-info subforum-column">
+                                <b>Post by</b> <a href="#">${topic.userName}</a>
+                            </div>
+                        </div>
+                        <hr class="subforum-devider">
+                    </c:forEach>
 
-                    <div class="subforum-row">
-                        <div class="subforum-icon subforum-column center">
-                            <img src="./img/logo1.png" alt="">
-                        </div>
-                        <div class="subforum-description subforum-column">
-                            <h4><a href="forum-detail-after-login.jsp">Description Title</a></h4>
-                            <p>Description Content: let's try to be cool, otherwise,w at 'sthe point in libing together with people youdont' live.</p>
-                        </div>
-                        <div class="subforum-stats subforum-column center">
-                            <span>12 <img src="./img/icons/chat-icon.png" alt=""> </span>
-                        </div>
-                        <div class="subforum-info subforum-column">
-                            <b>Post by</b><a href="">JustAUser</a> 
-                            <br><b>on</b><small>12 Dec 2020</small>
-                        </div>
-                    </div>
-                    <hr class="subforum-devider">  
-
-                    <div class="subforum-row">
-                        <div class="subforum-icon subforum-column center">
-                            <img src="./img/logo1.png" alt="">
-                        </div>
-                        <div class="subforum-description subforum-column">
-                            <h4><a href="forum-detail.jsp">Description Title</a></h4>
-                            <p>Description Content: let's try to be cool, otherwise,w at 'sthe point in libing together with people youdont' live.</p>
-                        </div>
-                        <div class="subforum-stats subforum-column center">
-                            <span>12 <img src="./img/icons/chat-icon.png" alt=""> </span>
-                        </div>
-                        <div class="subforum-info subforum-column">
-                            <b>Post by</b><a href="">JustAUser</a> 
-                            <br><b>on</b><small>12 Dec 2020</small>
-                        </div>
-                    </div>
-                    <hr class="subforum-devider">
-
-                    <div class="subforum-row">
-                        <div class="subforum-icon subforum-column center">
-                            <img src="./img/logo1.png" alt="">
-                        </div>
-                        <div class="subforum-description subforum-column">
-                            <h4><a href="forum-detail.jsp">Description Title</a></h4>
-                            <p>Description Content: let's try to be cool, otherwise,w at 'sthe point in libing together with people youdont' live.</p>
-                        </div>
-                        <div class="subforum-stats subforum-column center">
-                            <span>12 <img src="./img/icons/chat-icon.png" alt=""> </span>
-                        </div>
-                        <div class="subforum-info subforum-column">
-                            <b>Post by</b><a href="">JustAUser</a> 
-                            <br><b>on</b><small>12 Dec 2020</small>
-                        </div>
-                    </div>
-                    <hr class="subforum-devider">
-                    <div class="subforum-row">
-                        <div class="subforum-icon subforum-column center">
-                            <img src="./img/logo1.png" alt="">
-                        </div>
-                        <div class="subforum-description subforum-column">
-                            <h4><a href="forum-detail.jsp">Description Title</a></h4>
-                            <p>Description Content: let's try to be cool, otherwise,w at 'sthe point in libing together with people youdont' live.</p>
-                        </div>
-                        <div class="subforum-stats subforum-column center">
-                            <span>12 <img src="./img/icons/chat-icon.png" alt=""> </span>
-                        </div>
-                        <div class="subforum-info subforum-column">
-                            <b>Post by</b><a href="">JustAUser</a> 
-                            <br><b>on</b><small>12 Dec 2020</small>
-                        </div>
-                    </div>
-                    <hr class="subforum-devider">  
-
-                    <div class="subforum-row">
-                        <div class="subforum-icon subforum-column center">
-                            <img src="./img/logo1.png" alt="">
-                        </div>
-                        <div class="subforum-description subforum-column">
-                            <h4><a href="forum-detail.jsp">Description Title</a></h4>
-                            <p>Description Content: let's try to be cool, otherwise,w at 'sthe point in libing together with people youdont' live.</p>
-                        </div>
-                        <div class="subforum-stats subforum-column center">
-                            <span>12 <img src="./img/icons/chat-icon.png" alt=""> </span>
-                        </div>
-                        <div class="subforum-info subforum-column">
-                            <b>Post by</b><a href="">JustAUser</a> 
-                            <br><b>on</b><small>12 Dec 2020</small>
-                        </div>
-                    </div>
-                    <hr class="subforum-devider">
-
-                    <div class="subforum-row">
-                        <div class="subforum-icon subforum-column center">
-                            <img src="./img/logo1.png" alt="">
-                        </div>
-                        <div class="subforum-description subforum-column">
-                            <h4><a href="forum-detail.jsp">Description Title</a></h4>
-                            <p>Description Content: let's try to be cool, otherwise,w at 'sthe point in libing together with people youdont' live.</p>
-                        </div>
-                        <div class="subforum-stats subforum-column center">
-                            <span>12 <img src="./img/icons/chat-icon.png" alt=""> </span>
-                        </div>
-                        <div class="subforum-info subforum-column">
-                            <b>Post by</b><a href="">JustAUser</a> 
-                            <br><b>on</b><small>12 Dec 2020</small>
-                        </div>
-                    </div>
-                    <hr class="subforum-devider">
                 </div>
                 <div class="site-pagination">
-                    <a href="#" class="active">01.</a>
-                    <a href="#">02.</a>
-                    <a href="#">03.</a>
+                    <c:forEach var="i" begin="1" end="${totalPages}">
+                        <a href="?page=${i}" class="${i == currentPage ? 'active' : ''}">${i < 10 ? '0' + i : i}</a>
+                    </c:forEach>
                 </div>
             </div>
         </section>

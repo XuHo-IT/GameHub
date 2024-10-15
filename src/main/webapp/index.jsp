@@ -83,7 +83,7 @@
                             </ul>
                         </li>
                         <li><a href="contact.jsp">Contact</a></li>
-                        <li><a href="forum.jsp">Community</a></li>
+                        <li><a href="ReadTopicController">Community</a></li>
                     </ul>
                 </nav>
             </div>

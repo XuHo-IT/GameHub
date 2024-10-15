@@ -1,0 +1,33 @@
+.search-form {
+    position: absolute; /* Định vị thanh tìm kiếm tuyệt đối */
+    top: 20%; /* Căn giữa theo chiều dọc */
+    left: 40%; /* Căn giữa theo chiều ngang */
+    transform: translate(-50%, -50%); /* Đẩy thanh tìm kiếm về giữa trang */
+    display: flex;
+    align-items: center;
+    width: 900px; /* Đặt chiều rộng cụ thể cho thanh tìm kiếm */
+}
+
+.search-form input {
+    border: 1px solid #4a4646;
+    padding: 5px;
+    border-radius: 5px 0 0 5px;
+    width: 368%;
+    height: 34px;
+    margin-top: 140px;
+}
+.search-form .place-holder{
+    color:#4a4646;
+}
+.search-form button {
+    border: 1px solid #ccc;
+    background-color: #6f2b95; /* Màu nền của nút */
+    color: white;
+    padding: 0 10px; /* Padding ngang cho nút */
+    border-radius: 0 5px 5px 0; /* Các góc tròn bên phải */
+    cursor: pointer;
+    height: 40px; /* Đặt chiều cao cho nút */
+    display: flex; /* Để căn giữa biểu tượng tìm kiếm */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+}

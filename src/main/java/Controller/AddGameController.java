@@ -85,7 +85,7 @@ public class AddGameController extends HttpServlet {
                 .append("DifficultyRating", difficultyRating)
                 .append("GameplayRating", gameplayRating)
                 .append("AverageRating", averageRating)
-                .append("Link of the game", linkGame)
+                .append("LinkGame", linkGame)
                 .append("Price", price);
 
         collection.insertOne(postGame);

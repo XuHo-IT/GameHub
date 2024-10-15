@@ -81,8 +81,8 @@ public class GameReleaseNotificationMemberController extends HttpServlet {
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "587");
 
-        String fromEmail = "ngotranxuanhoa09062004@gmail.com"; // Change to your email
-        String emailPassword = "lkai bcsp rtna hrcn"; // Change to your email password
+        String fromEmail = "gamehubtalk@gmail.com"; // Change to your email
+        String emailPassword = "vqgf zhra oqfr drlg"; // Change to your email password
 
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override

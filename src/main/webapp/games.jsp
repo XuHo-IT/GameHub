@@ -5,45 +5,45 @@
 <!DOCTYPE html>
 <html lang="zxx">
     <head>
-    <title>EndGam - Gaming Magazine Template</title>
-    <meta charset="UTF-8">
-    <meta name="description" content="EndGam Gaming Magazine Template">
-    <meta name="keywords" content="endGam,gGaming, magazine, html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="shortcut icon"/>
+        <title>EndGam - Gaming Magazine Template</title>
+        <meta charset="UTF-8">
+        <meta name="description" content="EndGam Gaming Magazine Template">
+        <meta name="keywords" content="endGam,gGaming, magazine, html">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Favicon -->
+        <link href="img/favicon.ico" rel="shortcut icon"/>
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
-
-
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="css/slicknav.min.css"/>
-    <link rel="stylesheet" href="css/owl.carousel.min.css"/>
-    <link rel="stylesheet" href="css/magnific-popup.css"/>
-    <link rel="stylesheet" href="css/animate.css"/>
-    <link rel="stylesheet" href="css/searchbar.css"/>
-
-    <!-- Main Stylesheets -->
-    <link rel="stylesheet" href="css/style.css"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
-    <link rel="stylesheet" href="Login/style.css">
-    <script src="Login/script.js" defer></script>
-
-    <!--[if lt IE 9]>
-              <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+        <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
 
 
+        <!-- Stylesheets -->
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="css/slicknav.min.css"/>
+        <link rel="stylesheet" href="css/owl.carousel.min.css"/>
+        <link rel="stylesheet" href="css/magnific-popup.css"/>
+        <link rel="stylesheet" href="css/animate.css"/>
+        <link rel="stylesheet" href="css/searchbar.css"/>
 
-</head>
+        <!-- Main Stylesheets -->
+        <link rel="stylesheet" href="css/style.css"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
+        <link rel="stylesheet" href="Login/style.css">
+        <script src="Login/script.js" defer></script>
+
+        <!--[if lt IE 9]>
+                  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+
+
+    </head>
     <body>
         <!-- Page Preloder -->
         <div id="preloder">
@@ -53,32 +53,30 @@
         <!-- Header section -->
         <header class="header-section">
             <div class="header-warp">
-                <form action="SearchController" method="GET" class="search-form">
+                <form action="SearchController" method="GET" >
                     <!-- Search Bar -->
-                    <div class="search-bar">
-                        <form action="SearchController" method="get">
-                            <!-- Keyword input for the search bar -->
-                            <input type="text" name="keyword" placeholder="Search by keyword..." aria-label="Search">
-                            <button type="submit">Search</button>
-                        </form>
+                    <div class="search-bar row">
+                        <!-- Keyword input for the search bar -->
+                        <input class="col-9" type="text" name="keyword" placeholder="Search by keyword..." aria-label="Search">
+                        <button class="col-3" type="submit">Search</button>
                     </div>
 
                     <!-- Filter Box -->
-                    <div class="filter-box">
-                        <form action="SearchController" method="get">
-                            <!-- Genre Filter -->
-                            <div class="filter-group">
-                                <label for="genre">Genre:</label>
-                                <select id="genre" name="genre">
-                                    <option value="">All Genres</option>
-                                    <!-- Dynamically populate genres from MongoDB -->
-                                    <c:forEach var="genre" items="${genres}">
-                                        <option value="${genre.genre}">${genre.genre}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-
+                    <div class="">
+                        <!-- Genre Filter -->
+                        <div class="">
+                            <label for="genre">Genre:</label>
+                            <select id="genre" name="genre">
+                                <option value="">All Genres</option>
+                                <!-- Dynamically populate genres from MongoDB -->
+                                <c:forEach var="genre" items="${genres}">
+                                    <option value="${genre.genre}">${genre.genre}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
                 </form>
+
                 <div class="header-social d-flex justify-content-end">
                     <p>Follow us:</p>
                     <a href="#"><i class="fa fa-pinterest"></i></a>
@@ -160,21 +158,21 @@
                     <div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">
                         <div id="stickySidebar">
                             <div class="widget-item">
-                            <div class="categories-widget">
-                                <h4 class="widget-title">Genre</h4>
-                                <form action="ReadGameListController" method="get">   
-                                    <ul>
-                                        <c:forEach var="genre" items="${genres}">
-                                            <li>
-                                                <a href="ReadGameHomeController?genre=${genre.genreId}">
-                                                    ${genre.genre != null ? genre.genre : 'No genre available'}
-                                                </a>
-                                            </li>
-                                        </c:forEach>     
-                                    </ul>
-                                </form>
+                                <div class="categories-widget">
+                                    <h4 class="widget-title">Genre</h4>
+                                    <form action="ReadGameListController" method="get">   
+                                        <ul>
+                                            <c:forEach var="genre" items="${genres}">
+                                                <li>
+                                                    <a href="ReadGameHomeController?genre=${genre.genreId}">
+                                                        ${genre.genre != null ? genre.genre : 'No genre available'}
+                                                    </a>
+                                                </li>
+                                            </c:forEach>     
+                                        </ul>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
                             <div class="widget-item">
                                 <img src="img/game-console.jpg" alt="#">
                             </div>
@@ -246,95 +244,95 @@
         <!-- Footer section end -->
 
 
-       <!-- Login Popup -->
-    <div class="blur-bg-overlay"></div>
-    <div class="form-popup">
-        <span class="close-btn material-symbols-rounded">close</span>
-        <div class="form-box login">
-            <div class="form-details">
-                <h2>Welcome Back</h2>
-                <p>Please log in using your personal information to stay connected with us.</p>
+        <!-- Login Popup -->
+        <div class="blur-bg-overlay"></div>
+        <div class="form-popup">
+            <span class="close-btn material-symbols-rounded">close</span>
+            <div class="form-box login">
+                <div class="form-details">
+                    <h2>Welcome Back</h2>
+                    <p>Please log in using your personal information to stay connected with us.</p>
+                </div>
+                <div class="form-content">
+                    <h2>LOGIN</h2>
+                    <form action="LoginController" method="post">
+                        <c:if test="${not empty errorMessage}">
+                            <div class="error">${errorMessage}</div>
+                        </c:if>
+
+                        <div class="input-field">
+                            <label>Email</label>
+
+                            <input type="text" required name="email">
+                        </div>
+                        <div class="input-field">
+                            <label>Password</label>
+
+                            <input type="password" required name="password">
+                        </div>
+                        <a href="#" class="forgot-pass-link">Forgot password?</a>
+                        <button type="submit">Log In</button>
+                    </form>
+                    <div class="bottom-link">
+                        Don't have an account?
+                        <a href="#" id="signup-link">Signup</a>
+                    </div>
+                </div>
             </div>
-            <div class="form-content">
-                <h2>LOGIN</h2>
-                <form action="LoginController" method="post">
-                    <c:if test="${not empty errorMessage}">
-                        <div class="error">${errorMessage}</div>
-                    </c:if>
+            <div class="form-box signup">
+                <div class="form-details">
+                    <h2>Create Account</h2>
+                    <p>To become a part of our community, please sign up using your personal information.</p>
+                </div>
+                <div class="form-content">
+                    <h2>SIGNUP</h2>
+                    <form action="SignUpController" method="post">
+                        <div class="input-field">
+                            <label>Enter your name</label>
 
-                    <div class="input-field">
-                        <label>Email</label>
+                            <input type="text" required name="Name">
+                        </div>
+                        <div class="input-field">
+                            <label>Enter your email</label>
 
-                        <input type="text" required name="email">
+                            <input type="text" required name="Email">
+                        </div>
+                        <div class="input-field">
+                            <label>Phone number</label>
+
+                            <input type="number" required name="Phone">
+                        </div>
+                        <div class="input-field">
+                            <label>Date of birth</label>
+
+                            <input type="date" required name="Dob">
+                        </div>
+                        <div class="input-field">
+                            <label>Address</label>
+
+                            <input type="text" required name="Address">
+                        </div>
+                        <div class="input-field">
+                            <label>Password</label>
+
+                            <input type="password" required name="Password">
+                        </div>
+                        <div class="policy-text">
+                            <input type="checkbox" id="policy">
+                            <label for="policy">
+                                I agree the
+                                <a href="#" class="option">Terms & Conditions</a>
+                            </label>
+                        </div>
+                        <button type="submit">Sign Up</button>
+                    </form>
+                    <div class="bottom-link">
+                        Already have an account? 
+                        <a href="#" id="login-link">Login</a>
                     </div>
-                    <div class="input-field">
-                        <label>Password</label>
-
-                        <input type="password" required name="password">
-                    </div>
-                    <a href="#" class="forgot-pass-link">Forgot password?</a>
-                    <button type="submit">Log In</button>
-                </form>
-                <div class="bottom-link">
-                    Don't have an account?
-                    <a href="#" id="signup-link">Signup</a>
                 </div>
             </div>
         </div>
-        <div class="form-box signup">
-            <div class="form-details">
-                <h2>Create Account</h2>
-                <p>To become a part of our community, please sign up using your personal information.</p>
-            </div>
-            <div class="form-content">
-                <h2>SIGNUP</h2>
-                <form action="SignUpController" method="post">
-                    <div class="input-field">
-                        <label>Enter your name</label>
-
-                        <input type="text" required name="Name">
-                    </div>
-                    <div class="input-field">
-                        <label>Enter your email</label>
-
-                        <input type="text" required name="Email">
-                    </div>
-                    <div class="input-field">
-                        <label>Phone number</label>
-
-                        <input type="number" required name="Phone">
-                    </div>
-                    <div class="input-field">
-                        <label>Date of birth</label>
-
-                        <input type="date" required name="Dob">
-                    </div>
-                    <div class="input-field">
-                        <label>Address</label>
-
-                        <input type="text" required name="Address">
-                    </div>
-                    <div class="input-field">
-                        <label>Password</label>
-
-                        <input type="password" required name="Password">
-                    </div>
-                    <div class="policy-text">
-                        <input type="checkbox" id="policy">
-                        <label for="policy">
-                            I agree the
-                            <a href="#" class="option">Terms & Conditions</a>
-                        </label>
-                    </div>
-                    <button type="submit">Sign Up</button>
-                </form>
-                <div class="bottom-link">
-                    Already have an account? 
-                    <a href="#" id="login-link">Login</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
         <style>
             .same-size {

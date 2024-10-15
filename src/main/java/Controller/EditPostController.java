@@ -48,6 +48,9 @@ public class EditPostController extends HttpServlet {
         String dateRelease = request.getParameter("dateRelease");
         String author = request.getParameter("author");
         String genre = request.getParameter("genre");
+        String linkGame = request.getParameter("Link");
+        String price = request.getParameter("Price");
+
 
         // Update the post document in MongoDB
         Document update = new Document("$set", new Document("Title", title)
@@ -55,7 +58,10 @@ public class EditPostController extends HttpServlet {
                 .append("GamePlay", gamePlay)
                 .append("DateRelease", dateRelease)
                 .append("Author", author)
-                .append("Genre", genre));
+                .append("Genre", genre)
+                .append("LinkGame", linkGame)
+                .append("Price", price));
+
 
         collection.updateOne(new Document("_id", new ObjectId(postId)), update);
 

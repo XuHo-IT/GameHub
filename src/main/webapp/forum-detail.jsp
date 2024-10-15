@@ -109,11 +109,9 @@
                     </div>
 
                     <div class="body">
-                        <div class="authors">
-                            <div class="username"><a href="">Username</a></div>
-
+                        <div class="authors">                          
                             <img src="./img/Arc Raiders.jpg" alt="">
-
+                            <div class="username"><a href="">Username</a></div>
                         </div>
                         <div class="content">
 
@@ -132,10 +130,10 @@
                     <!<!-- Comment 1 -->
                     <div class="comments" id="1">
                         <div class="body">
-                            <div class="authors">
-                                <div class="username"><a href="">Username</a></div>
-                                <img src="./img/Arc Raiders.jpg" alt="">
-                            </div>
+                            <div class="authors">                          
+                            <img src="./img/Arc Raiders.jpg" alt="">
+                            <div class="username"><a href="">Username</a></div>
+                        </div>
                             <div class="content">
                                 <p style="color: lightblue">Hoà là t</p>                             
                             </div>
@@ -146,10 +144,10 @@
                             <div class="reply">
                                 <!-- First reply always visible -->
                                 <div class="body">
-                                    <div class="authors">
-                                        <div class="username"><a href="">Username</a></div>
-                                        <img src="./img/Arc Raiders.jpg" alt="">
-                                    </div>
+                                    <div class="authors">                          
+                            <img src="./img/Arc Raiders.jpg" alt="">
+                            <div class="username"><a href="">Username</a></div>
+                        </div>
                                     <div class="content">
                                         <p style="color: lightblue">Không, Hoà là t</p>
                                     </div>
@@ -158,28 +156,28 @@
                                 <!-- Hidden replies -->
                                 <div class="hidden-replies" style="display: none;">
                                     <div class="body">
-                                        <div class="authors">
-                                            <div class="username"><a href="">Username</a></div>
-                                            <img src="./img/Arc Raiders.jpg" alt="">
-                                        </div>
+                                        <div class="authors">                          
+                            <img src="./img/Arc Raiders.jpg" alt="">
+                            <div class="username"><a href="">Username</a></div>
+                        </div>
                                         <div class="content">
                                             <p style="color: lightblue">Không, Hoà là t</p>
                                         </div>
                                     </div>
                                     <div class="body">
-                                        <div class="authors">
-                                            <div class="username"><a href="">Username</a></div>
-                                            <img src="./img/Arc Raiders.jpg" alt="">
-                                        </div>
+                                        <div class="authors">                          
+                            <img src="./img/Arc Raiders.jpg" alt="">
+                            <div class="username"><a href="">Username</a></div>
+                        </div>
                                         <div class="content">
                                             <p style="color: lightblue">Không, Hoà là t</p>
                                         </div>
                                     </div>
                                     <div class="body">
-                                        <div class="authors">
-                                            <div class="username"><a href="">Username</a></div>
-                                            <img src="./img/Arc Raiders.jpg" alt="">
-                                        </div>
+                                        <div class="authors">                          
+                            <img src="./img/Arc Raiders.jpg" alt="">
+                            <div class="username"><a href="">Username</a></div>
+                        </div>
                                         <div class="content">
                                             <p style="color: lightblue">Không, Hoà là t</p>
                                         </div>
@@ -196,10 +194,10 @@
                     <!<!-- Comment 2 -->
                     <div class="comments" id="2">
                         <div class="body">
-                            <div class="authors">
-                                <div class="username"><a href="">Username</a></div>
-                                <img src="./img/Arc Raiders.jpg" alt="">
-                            </div>
+                            <div class="authors">                          
+                            <img src="./img/Arc Raiders.jpg" alt="">
+                            <div class="username"><a href="">Username</a></div>
+                        </div>
                             <div class="content">
                                 <p style="color: lightblue">Hoà là t</p>
                             </div>
@@ -210,10 +208,10 @@
                             <div class="reply">
                                 <!-- First reply always visible -->
                                 <div class="body">
-                                    <div class="authors">
-                                        <div class="username"><a href="">Username</a></div>
-                                        <img src="./img/Arc Raiders.jpg" alt="">
-                                    </div>
+                                    <div class="authors">                          
+                            <img src="./img/Arc Raiders.jpg" alt="">
+                            <div class="username"><a href="">Username</a></div>
+                        </div>
                                     <div class="content">
                                         <p style="color: lightblue">Không, Hoà là t</p>
                                     </div>
@@ -222,10 +220,10 @@
                                 <!-- Hidden replies -->
                                 <div class="hidden-replies" style="display: none;">
                                     <div class="body">
-                                        <div class="authors">
-                                            <div class="username"><a href="">Username</a></div>
-                                            <img src="./img/Arc Raiders.jpg" alt="">
-                                        </div>
+                                        <div class="authors">                          
+                            <img src="./img/Arc Raiders.jpg" alt="">
+                            <div class="username"><a href="">Username</a></div>
+                        </div>
                                         <div class="content">
                                             <p style="color: lightblue">Không, Hoà là t</p>
                                         </div>
@@ -268,10 +266,10 @@
                                 <!-- Hidden replies -->
                                 <div class="hidden-replies" style="display: none;">
                                     <div class="body">
-                                        <div class="authors">
-                                            <div class="username"><a href="">Username</a></div>
-                                            <img src="./img/Arc Raiders.jpg" alt="">
-                                        </div>
+                                        <<div class="authors">                          
+                            <img src="./img/Arc Raiders.jpg" alt="">
+                            <div class="username"><a href="">Username</a></div>
+                        </div>
                                         <div class="content">
                                             <p style="color: lightblue">Không, Hoà là t</p>
                                         </div>

@@ -1,10 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package Controller;
 
 import Model.SuperAdmin;
+import Model.UserModel;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
@@ -21,11 +18,8 @@ import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
+import mongodb.MongoConectUser;
 
-/**
- *
- * @author OS
- */
 public class LoginController extends HttpServlet {
 
     private MongoClient mongoClient;
@@ -65,22 +59,28 @@ public class LoginController extends HttpServlet {
                         userDoc.getString("Role"),
                         userDoc.getString("Status")
                         );
-
+                String id = userDoc.getObjectId("_id").toString();
+                MongoConectUser mgcn = new MongoConectUser() ;
+                UserModel currentUser = mgcn.getUserById(id);
                 // Set the current user session attribute
                 HttpSession session = request.getSession();
                 session.setAttribute("currentUser", superAdmin);
 
-                // Set the adminId in the session
-                request.getSession().setAttribute("adminId", userDoc.getObjectId("_id").toString());
+                // Set the adminId and adminEmail in the session
+                session.setAttribute("adminId", userDoc.getObjectId("_id").toString());
+                session.setAttribute("adminEmail", userDoc.getString("Email")); // Insert adminEmail in session
 
                 // Redirect based on the user's role
                 String role = userDoc.getString("Role");
+                if(currentUser.getStatus().equals("Suspend")) response.sendRedirect("user-profile.jsp?id=" + id);
+                else {
                 if ("0".equals(role)) {
                     // For role 0 (regular user)
-                    response.sendRedirect("ReadGameHomeMemberController");
-                } else if ("1".equals(role)) {
+                    response.sendRedirect("ReadGameHomeMemberController?id=" + id);
+                } else  {
                     // For role 1 (admin)
-                    response.sendRedirect("ReadGameHomeAdminController");
+                    response.sendRedirect("ReadGameHomeAdminController?id=" + id);
+                }
                 }
 
             } catch (ParseException ex) {
@@ -90,7 +90,7 @@ public class LoginController extends HttpServlet {
         } else {
             // If authentication fails, set an error message
             request.setAttribute("errorMessage", "Invalid email or password");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("ReadGameHomeControlelr").forward(request, response);
         }
     }
 

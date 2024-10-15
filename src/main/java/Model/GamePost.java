@@ -33,6 +33,9 @@ public class GamePost {
         this.fileData = fileData;
     }
 
+    public GamePost() {
+    }
+
     public String getPostID() {
         return postID;
     }
@@ -111,6 +114,11 @@ public class GamePost {
 
     public void setFileData(String fileData) {
         this.fileData = fileData;
+    }
+
+    @Override
+    public String toString() {
+        return "GamePost{" + "postID=" + postID + ", title=" + title + ", gamePlay=" + gamePlay + ", description=" + description + ", dateRelease=" + dateRelease + ", author=" + author + ", genre=" + genre + ", adminId=" + adminId + ", fileName=" + fileName + ", fileData=" + fileData + '}';
     }
     
 }

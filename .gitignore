@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 # Ignore the target directory and specific files in it
 /target/
 # Specific files in the target directory
 /target/GameHub-1.0-SNAPSHOT.war
+=======
+
+>>>>>>> 237930bed13d006631de6d9c654f4cd4e978a50e
 /target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
 /target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+target/GameHub-1.0-SNAPSHOT.war

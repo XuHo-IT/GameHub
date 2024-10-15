@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.GamePost;
+import Model.Genre;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -56,6 +57,18 @@ public class ReadGameHomeMemberController extends HttpServlet {
             // Retrieve all posts from the database
             FindIterable<Document> posts = collection.find();
 
+            // Fetch genres from MongoDB
+        MongoCollection<Document> genreCollection = database.getCollection("Genre");
+        List<Document> genreDocuments = genreCollection.find().into(new ArrayList<>());
+        List<Genre> genres = new ArrayList<>();
+
+        for (Document doc : genreDocuments) {
+            Genre genre = new Genre();
+            genre.setGenreId(doc.getObjectId("_id").toString());
+            genre.setGenre(doc.getString("Genre"));
+            genres.add(genre);
+        }
+        request.setAttribute("genres", genres);
             // Map each document to a GamePost object
             for (Document post : posts) {
                 // Check if FileData is stored as Binary or String

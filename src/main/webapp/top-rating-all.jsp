@@ -91,7 +91,7 @@
                                 </ul>
                             </li>
                             <li><a href="contact.jsp">Contact</a></li>
-                            <li><a href="forum.jsp">Community</a></li>
+                            <li><a href="ReadTopicController">Community</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -199,7 +199,7 @@
                 <ul class="main-menu footer-menu">
                     <li><a href="index.jsp">Home</a></li>
                     <li><a href="games.jsp">Games</a></li>
-                    <li><a href="forum.jsp">Forum</a></li>
+                    <li><a href="ReadTopicController">Forum</a></li>
                     <li><a href="blog.jsp">News</a></li>
                     <li><a href="contact.jsp">Contact</a></li>
                 </ul>

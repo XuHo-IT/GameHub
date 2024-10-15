@@ -20,6 +20,7 @@ public class VNPayPaymentServlet extends HttpServlet {
         String amount = request.getParameter("vnp_Amount");
         String orderId = Config.getRandomNumber(8); // Generate random order ID
         String bankCode = request.getParameter("bankCode");
+        String linkValue = request.getParameter("vnp_Link"); // Get the link value
 
         // Set transaction details
         Map<String, String> vnp_Params = new HashMap<>();
@@ -32,7 +33,13 @@ public class VNPayPaymentServlet extends HttpServlet {
         vnp_Params.put("vnp_OrderInfo", "Payment for order " + orderId);
         vnp_Params.put("vnp_OrderType", orderType);
         vnp_Params.put("vnp_Locale", "vn");
-        vnp_Params.put("vnp_ReturnUrl", Config.getReturnUrl()); // Your return URL
+
+        // Construct the return URL with the linkValue as a query parameter
+        String returnUrl = Config.getReturnUrl();
+        if (linkValue != null && !linkValue.isEmpty()) {
+            returnUrl += "?link=" + URLEncoder.encode(linkValue, StandardCharsets.UTF_8); // Append the linkValue
+        }
+        vnp_Params.put("vnp_ReturnUrl", returnUrl); // Use the modified return URL
         vnp_Params.put("vnp_IpAddr", Config.getIpAddress(request)); // Get client IP address
         vnp_Params.put("vnp_CreateDate", Config.getCurrentDate());
 
@@ -56,9 +63,14 @@ public class VNPayPaymentServlet extends HttpServlet {
                 hashData.append('&'); // Append '&' for hash data
             }
         }
-        // Remove the trailing '&'
-        hashData.setLength(hashData.length() - 1);
-        query.setLength(query.length() - 1);
+
+        // Remove the trailing '&' for hashData and query
+        if (hashData.length() > 0) {
+            hashData.setLength(hashData.length() - 1);
+        }
+        if (query.length() > 0) {
+            query.setLength(query.length() - 1);
+        }
 
         // Step 3: Generate secure hash
         String vnp_SecureHash = Config.hmacSHA512(Config.vnp_HashSecret, hashData.toString());
@@ -76,3 +88,4 @@ public class VNPayPaymentServlet extends HttpServlet {
         doPost(request, response);
     }
 }
+

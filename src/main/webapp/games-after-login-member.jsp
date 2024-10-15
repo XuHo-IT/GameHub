@@ -160,7 +160,7 @@
                                     <ul>
                                         <c:forEach var="genre" items="${genres}">
                                             <li>
-                                                <a href="ReadGameHomeController?genre=${genre.genreId}">
+                                                <a href="ReadGameListMemberController?genre=${genre.genre}">
                                                     ${genre.genre != null ? genre.genre : 'No genre available'}
                                                 </a>
                                             </li>
@@ -173,6 +173,19 @@
                                 <img src="img/game-console.jpg" alt="#">
                             </div>
                         </div>
+                    </div>
+                   <div class="site-pagination">
+                        <c:if test="${currentPage > 1}">
+                            <a href="?genre=${selectedGenre}&page=${currentPage - 1}" class="prev">Previous</a>
+                        </c:if>
+
+                        <c:forEach var="i" begin="1" end="${totalPages}">
+                            <a href="?genre=${selectedGenre}&page=${i}" class="${i == currentPage ? 'active' : ''}">${i}</a>
+                        </c:forEach>
+
+                        <c:if test="${currentPage < totalPages}">
+                            <a href="?genre=${selectedGenre}&page=${currentPage + 1}" class="next">Next</a>
+                        </c:if>
                     </div>
                 </div>
             </div>

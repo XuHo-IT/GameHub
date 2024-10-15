@@ -41,7 +41,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="chart/list-user.jsp">
                             <span class="icon">
                                 <ion-icon name="help-outline"></ion-icon>
                             </span>

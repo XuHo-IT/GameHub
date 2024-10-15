@@ -35,9 +35,9 @@ public class UnSuspendUserController extends HttpServlet {
         boolean isUnsuspended = mgcn.unsuspendUser(userId);
 
         if (isUnsuspended) {
-            response.sendRedirect("list-user.jsp?success=User unsuspended successfully");
+            response.sendRedirect("chart/list-user.jsp?success=User unsuspended successfully");
         } else {
-            response.sendRedirect("list-user.jsp?error=Failed to unsuspend user");
+            response.sendRedirect("chart/list-user.jsp?error=Failed to unsuspend user");
         }
     }
 

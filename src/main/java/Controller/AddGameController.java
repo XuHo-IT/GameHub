@@ -1,22 +1,25 @@
 package Controller;
 
-import Model.GamePost;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import org.apache.commons.io.IOUtils;
-import org.bson.Document;
-import org.bson.types.Binary;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Base64;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Base64;
+
+import org.apache.commons.io.IOUtils;
+import org.bson.Document;
+
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+import Model.GamePost;
 
 @MultipartConfig
 public class AddGameController extends HttpServlet {
@@ -25,7 +28,8 @@ public class AddGameController extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
+        mongoClient = MongoClients.create(
+                "mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
         // Start the daily scheduler to check for game releases
     }
 
@@ -39,7 +43,7 @@ public class AddGameController extends HttpServlet {
         String dateRelease = request.getParameter("DateRelease");
         String author = request.getParameter("Author");
         String genre = request.getParameter("Genre");
-        String price="";
+        String price = "";
 
         // Parse ratings
         double priceRating = parseDoubleSafe(request.getParameter("PriceRating"));
@@ -57,16 +61,13 @@ public class AddGameController extends HttpServlet {
         InputStream fileContent = filePart.getInputStream();
         byte[] fileDataBytes = IOUtils.toByteArray(fileContent);
         String fileDataBase64 = Base64.getEncoder().encodeToString(fileDataBytes);
-        
+
         Part linkGame = null;
-        
-        
-        
+
         // Create a GamePost object
         GamePost gamePost = new GamePost(
                 null, title, gamePlay, description, dateRelease, author, genre,
-                adminId, fileName, fileDataBase64
-        );
+                adminId, fileName, fileDataBase64);
 
         // Insert the game into MongoDB
         MongoDatabase database = mongoClient.getDatabase("GameHub");
@@ -112,4 +113,3 @@ public class AddGameController extends HttpServlet {
         }
     }
 }
-

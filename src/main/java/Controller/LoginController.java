@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
-import mogodb.MongoConectUser;
+import mongodb.MongoConectUser;
 
 public class LoginController extends HttpServlet {
 

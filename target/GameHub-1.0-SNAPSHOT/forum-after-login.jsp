@@ -1,3 +1,16 @@
+<%@page import="Model.Topic"%>
+<%@page import="com.mongodb.client.model.Filters"%>
+<%@page import="org.bson.types.ObjectId"%>
+<%@page import="com.mongodb.client.MongoClients"%>
+<%@page import="com.mongodb.client.MongoCollection"%>
+<%@page import="com.mongodb.client.MongoClient"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page import="org.bson.Document" %>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -64,13 +77,13 @@
                     </div>
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
-                            <!-- Bi?u t??ng gi? hï¿½ng -->
+                            <!-- Bi?u t??ng gi? hÃ¯Â¿Â½ng -->
                             <div class="cart-icon">
                                 <a href="shopping-cart.jsp">
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                 </a>
                             </div>
-                            <!-- Bi?u t??ng tï¿½i kho?n -->
+                            <!-- Bi?u t??ng tÃ¯Â¿Â½i kho?n -->
                             <div class="account-container">
                                 <div class="account-icon">
                                     <i class="fa fa-user-circle" aria-hidden="true"></i>
@@ -98,7 +111,7 @@
                             </li>
                             <li><a href="contact-after-login.jsp">Contact</a></li>
                             <li><a href="chart/index-chart.jsp">Manage</a></li>
-                            <li><a href="forum-after-login.jsp">Community</a></li>
+                            <li><a href="ReadTopicAdminController">Community</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -122,7 +135,7 @@
                  margin: 20px;
                  margin-top: -100px;
                  padding: 20px;">
-                
+
                 <!-- button -->
                 <div class="button-top-forum" >
                     <div class="left-button-forum">
@@ -133,120 +146,59 @@
                         <button class="cTopic-btn forum-button">Create New Topic</button>
                     </div>
                 </div>
-                
+
                 <div class="subforum">
+                    <c:forEach var="topic" items="${topics}">
+                        <div class="subforum-row">
+                            <div class="subforum-icon subforum-column center">
+                                <img src="${topic.photoUrl}" alt="User Photo">
+                            </div>
+                            <div class="subforum-description subforum-column">
+                                <h4><a href="forum-detail.jsp">${topic.title}</a></h4>
+                                    <c:choose>
+                                        <c:when test="${fn:length(topic.description) > 100}">
+                                        <p>${fn:substring(topic.description, 0, 120)}...</p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p>${topic.description}</p>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                            <div class="subforum-stats subforum-column center">
+                                <%
+                                    // Get the topic object from the pageContext
+                                    Topic topicObj = (Topic) pageContext.getAttribute("topic");
 
-                    <div class="subforum-row">
-                        <div class="subforum-icon subforum-column center">
-                            <img src="./img/logo1.png" alt="">
-                        </div>
-                        <div class="subforum-description subforum-column">
-                            <h4><a href="forum-detail-after-login.jsp">Description Title</a></h4>
-                            <p>Description Content: let's try to be cool, otherwise,w at 'sthe point in libing together with people youdont' live.</p>
-                        </div>
-                        <div class="subforum-stats subforum-column center">
-                            <span>12 <img src="./img/icons/chat-icon.png" alt=""> </span>
-                        </div>
-                        <div class="subforum-info subforum-column">
-                            <b>Post by</b><a href="">JustAUser</a> 
-                            <br><b>on</b><small>12 Dec 2020</small>
-                        </div>
-                    </div>
-                    <hr class="subforum-devider">  
+                                    // Kết nối đến cơ sở dữ liệu MongoDB
+                                    MongoClient mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
 
-                    <div class="subforum-row">
-                        <div class="subforum-icon subforum-column center">
-                            <img src="./img/logo1.png" alt="">
-                        </div>
-                        <div class="subforum-description subforum-column">
-                            <h4><a href="forum-detail.jsp">Description Title</a></h4>
-                            <p>Description Content: let's try to be cool, otherwise,w at 'sthe point in libing together with people youdont' live.</p>
-                        </div>
-                        <div class="subforum-stats subforum-column center">
-                            <span>12 <img src="./img/icons/chat-icon.png" alt=""> </span>
-                        </div>
-                        <div class="subforum-info subforum-column">
-                            <b>Post by</b><a href="">JustAUser</a> 
-                            <br><b>on</b><small>12 Dec 2020</small>
-                        </div>
-                    </div>
-                    <hr class="subforum-devider">
+                                    // Lấy collection comment và reply
+                                    MongoCollection<Document> commentCollection = mongoClient.getDatabase("GameHub").getCollection("comment");
+                                    MongoCollection<Document> replyCollection = mongoClient.getDatabase("GameHub").getCollection("reply");
 
-                    <div class="subforum-row">
-                        <div class="subforum-icon subforum-column center">
-                            <img src="./img/logo1.png" alt="">
-                        </div>
-                        <div class="subforum-description subforum-column">
-                            <h4><a href="forum-detail.jsp">Description Title</a></h4>
-                            <p>Description Content: let's try to be cool, otherwise,w at 'sthe point in libing together with people youdont' live.</p>
-                        </div>
-                        <div class="subforum-stats subforum-column center">
-                            <span>12 <img src="./img/icons/chat-icon.png" alt=""> </span>
-                        </div>
-                        <div class="subforum-info subforum-column">
-                            <b>Post by</b><a href="">JustAUser</a> 
-                            <br><b>on</b><small>12 Dec 2020</small>
-                        </div>
-                    </div>
-                    <hr class="subforum-devider">
-                    <div class="subforum-row">
-                        <div class="subforum-icon subforum-column center">
-                            <img src="./img/logo1.png" alt="">
-                        </div>
-                        <div class="subforum-description subforum-column">
-                            <h4><a href="forum-detail.jsp">Description Title</a></h4>
-                            <p>Description Content: let's try to be cool, otherwise,w at 'sthe point in libing together with people youdont' live.</p>
-                        </div>
-                        <div class="subforum-stats subforum-column center">
-                            <span>12 <img src="./img/icons/chat-icon.png" alt=""> </span>
-                        </div>
-                        <div class="subforum-info subforum-column">
-                            <b>Post by</b><a href="">JustAUser</a> 
-                            <br><b>on</b><small>12 Dec 2020</small>
-                        </div>
-                    </div>
-                    <hr class="subforum-devider">  
+                                    // Đếm số lượng bình luận cho mỗi chủ đề
+                                    long commentCount = commentCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
 
-                    <div class="subforum-row">
-                        <div class="subforum-icon subforum-column center">
-                            <img src="./img/logo1.png" alt="">
-                        </div>
-                        <div class="subforum-description subforum-column">
-                            <h4><a href="forum-detail.jsp">Description Title</a></h4>
-                            <p>Description Content: let's try to be cool, otherwise,w at 'sthe point in libing together with people youdont' live.</p>
-                        </div>
-                        <div class="subforum-stats subforum-column center">
-                            <span>12 <img src="./img/icons/chat-icon.png" alt=""> </span>
-                        </div>
-                        <div class="subforum-info subforum-column">
-                            <b>Post by</b><a href="">JustAUser</a> 
-                            <br><b>on</b><small>12 Dec 2020</small>
-                        </div>
-                    </div>
-                    <hr class="subforum-devider">
+                                    // Đếm số lượng trả lời cho mỗi chủ đề
+                                    long replyCount = replyCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
 
-                    <div class="subforum-row">
-                        <div class="subforum-icon subforum-column center">
-                            <img src="./img/logo1.png" alt="">
+                                    // Tính tổng số lượng bình luận và trả lời cho mỗi chủ đề
+                                    long totalCount = commentCount + replyCount;
+                                %>
+                                <span><%= totalCount%><img src="./img/icons/chat-icon.png" alt=""> </span>
+                            </div>
+                            <div class="subforum-info subforum-column">
+                                <b>Post by</b> <a href="#">${topic.userName}</a>
+                            </div>
                         </div>
-                        <div class="subforum-description subforum-column">
-                            <h4><a href="forum-detail.jsp">Description Title</a></h4>
-                            <p>Description Content: let's try to be cool, otherwise,w at 'sthe point in libing together with people youdont' live.</p>
-                        </div>
-                        <div class="subforum-stats subforum-column center">
-                            <span>12 <img src="./img/icons/chat-icon.png" alt=""> </span>
-                        </div>
-                        <div class="subforum-info subforum-column">
-                            <b>Post by</b><a href="">JustAUser</a> 
-                            <br><b>on</b><small>12 Dec 2020</small>
-                        </div>
-                    </div>
-                    <hr class="subforum-devider">
+                        <hr class="subforum-devider">
+                    </c:forEach>
+
                 </div>
-                <div class="site-pagination">
-                    <a href="#" class="active">01.</a>
-                    <a href="#">02.</a>
-                    <a href="#">03.</a>
+                <div class="site-pagination" style="margin-top: 10px">
+                    <c:forEach var="i" begin="1" end="${totalPages}">
+                        <a href="?page=${i}" class="${i == currentPage ? 'active' : ''}">${i < 10 ? '0' + i : i}</a>
+                    </c:forEach>
                 </div>
             </div>
         </section>
@@ -416,7 +368,7 @@
                             <input type="file" name="topicImage" accept="image/*" required>
                         </div>
 
-                        <!-- Nút submit -->
+                        <!-- NÃºt submit -->
                         <button type="submit">Create Topic</button>
                     </form>
                 </div>
@@ -425,23 +377,23 @@
         </div>
 
         <script>
-            // L?y các ph?n t? popup và overlay
+            // L?y cÃ¡c ph?n t? popup vÃ  overlay
             const cTopicPopup = document.querySelector(".ctopic-popup");
             const showCTopicPopupBtn = document.querySelector(".cTopic-btn");
             const hideCTopicPopupBtn = document.querySelector(".closeCT-btn");
             const blurOverlay = document.querySelector(".blur-bgg-overlay");
 
-// Hi?n th? popup khi nh?n nút "Create Topic"
+// Hi?n th? popup khi nh?n nÃºt "Create Topic"
             showCTopicPopupBtn.addEventListener("click", () => {
                 cTopicPopup.classList.add("show-popup");
                 blurOverlay.style.display = "block";
             });
 
-// ?n popup khi nh?n nút ?óng ho?c overlay n?n m?
+// ?n popup khi nh?n nÃºt ?Ã³ng ho?c overlay n?n m?
             hideCTopicPopupBtn.addEventListener("click", hidePopup);
             blurOverlay.addEventListener("click", hidePopup);
 
-// Hàm ?n popup
+// HÃ m ?n popup
             function hidePopup() {
                 cTopicPopup.classList.remove("show-popup");
                 blurOverlay.style.display = "none";

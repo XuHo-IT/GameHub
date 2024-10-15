@@ -1,4 +1,4 @@
-package mogodb;
+package mongodb;
 
 import Model.UserModel;
 import com.mongodb.client.MongoClient;

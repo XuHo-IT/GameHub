@@ -17,7 +17,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import javax.servlet.annotation.WebServlet;
 
+@WebServlet("/SearchController")
 public class SearchController extends HttpServlet {
 
     private MongoClient mongoClient;
@@ -46,16 +48,13 @@ public class SearchController extends HttpServlet {
 
             // Check if the keyword is provided and create the keyword filter
             if (keyword != null && !keyword.trim().isEmpty()) {
-                filters.add(Filters.or(
-                        Filters.regex("Title", ".*" + keyword + ".*", "i"), // Case-insensitive regex search
-                        Filters.regex("Description", ".*" + keyword + ".*", "i")));
+                filters.add(Filters.or(Filters.regex("Title", ".*" + keyword + ".*", "i")));
             }
 
             // Check if a genre is provided and create the genre filter
-//            if (genre != null && !genre.trim().isEmpty() && !genre.equals("All Genres")) {
-//                filters.add(Filters.eq("Genre", genre));
-//            }
-
+            if (genre != null && !genre.trim().isEmpty() && !genre.equals("All Genres")) {
+                filters.add(Filters.eq("Genre", genre));
+            }
             // Create the final filter query
             FindIterable<Document> posts;
 
@@ -111,6 +110,9 @@ public class SearchController extends HttpServlet {
             // Sublist for current page
             List<GamePost> postsForCurrentPage = postList.subList(startIndex, endIndex);
             List<Document> genreList = genreCollection.find().into(new ArrayList<>());
+            
+            for(GamePost post : postList){
+            System.out.println(post);}
 
             // Set attributes for JSP
             request.setAttribute("posts", postsForCurrentPage);
@@ -119,6 +121,7 @@ public class SearchController extends HttpServlet {
             request.setAttribute("keyword", keyword);
             request.setAttribute("genre", genre);
             request.setAttribute("genres", genreList);
+            request.setAttribute("postList", postList);
 
             // Forward to search results JSP
             request.getRequestDispatcher("search-results.jsp").forward(request, response);

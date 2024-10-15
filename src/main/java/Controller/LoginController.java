@@ -90,7 +90,7 @@ public class LoginController extends HttpServlet {
         } else {
             // If authentication fails, set an error message
             request.setAttribute("errorMessage", "Invalid email or password");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("ReadGameHomeControlelr").forward(request, response);
         }
     }
 

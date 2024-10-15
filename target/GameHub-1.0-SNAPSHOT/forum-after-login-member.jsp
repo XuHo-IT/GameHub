@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zxx">
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
     <head>
         <title>EndGam - Gaming Magazine Template</title>
@@ -150,6 +151,8 @@
                         <div class="subforum-info subforum-column">
                             <b>Post by</b><a href="">JustAUser</a> 
                             <br><b>on</b><small>12 Dec 2020</small>
+                            <br><button id="update-topic-button" class="forum-button">Update</button>
+                            <button class="forum-button">Delete</button>
                         </div>
                     </div>
                     <hr class="subforum-devider">  
@@ -168,6 +171,8 @@
                         <div class="subforum-info subforum-column">
                             <b>Post by</b><a href="">JustAUser</a> 
                             <br><b>on</b><small>12 Dec 2020</small>
+                            <br><button id="update-topic-button" class="forum-button">Update</button>
+                            <button class="forum-button">Delete</button>
                         </div>
                     </div>
                     <hr class="subforum-devider">
@@ -186,6 +191,8 @@
                         <div class="subforum-info subforum-column">
                             <b>Post by</b><a href="">JustAUser</a> 
                             <br><b>on</b><small>12 Dec 2020</small>
+                            <br><button id="update-topic-button" class="forum-button">Update</button>
+                            <button class="forum-button">Delete</button>
                         </div>
                     </div>
                     <hr class="subforum-devider">
@@ -203,6 +210,8 @@
                         <div class="subforum-info subforum-column">
                             <b>Post by</b><a href="">JustAUser</a> 
                             <br><b>on</b><small>12 Dec 2020</small>
+                            <br><button id="update-topic-button" class="forum-button">Update</button>
+                            <button class="forum-button">Delete</button>
                         </div>
                     </div>
                     <hr class="subforum-devider">  
@@ -221,6 +230,8 @@
                         <div class="subforum-info subforum-column">
                             <b>Post by</b><a href="">JustAUser</a> 
                             <br><b>on</b><small>12 Dec 2020</small>
+                            <br><button id="update-topic-button" class="forum-button">Update</button>
+                            <button class="forum-button">Delete</button>
                         </div>
                     </div>
                     <hr class="subforum-devider">
@@ -239,6 +250,8 @@
                         <div class="subforum-info subforum-column">
                             <b>Post by</b><a href="">JustAUser</a> 
                             <br><b>on</b><small>12 Dec 2020</small>
+                            <br><button id="update-topic-button" class="forum-button">Update</button>
+                            <button class="forum-button">Delete</button>
                         </div>
                     </div>
                     <hr class="subforum-devider">
@@ -281,9 +294,7 @@
             </div>
         </footer>
         <!-- Footer section end -->
-
-
-        <!-- Login Popup -->
+                <!-- Login Popup -->
         <!-- Login Popup -->
         <div class="blur-bg-overlay"></div>
         <div class="form-popup">
@@ -374,7 +385,6 @@
             </div>
         </div>
 
-
         <!--====== Javascripts & Jquery ======-->
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
@@ -385,69 +395,129 @@
         <script src="js/main.js"></script>
         <script src="Forum/main.js"></script>
 
-        <div class="blur-bgg-overlay"></div>
-        <div class="ctopic-popup">
-            <span class="closeCT-btn material-symbols-rounded">close</span>
+        <!--Popup Overlay -->
+        <div class="blur-bg-overlay" id="createTopicBlurOverlay" style="display: none;"></div>
+        <!--Create Topic Popup -->
+        <div class="form-popup cTopic-btn" id="createTopicPopup">
+            <span class="close-btn material-symbols-rounded" onclick="hideCreateTopicPopup()">close</span>
             <div class="form-box create-topic">
                 <div class="form-details">
                     <h2>Create New Topic</h2>
                     <p>Please enter topic details below to share with the community.</p>
                 </div>
                 <div class="form-content">
-                    <h2>CREATE TOPIC</h2>
+                    <h2 style="margin-bottom: 6px">CREATE TOPIC</h2>
                     <form action="CreateTopicController" method="post" enctype="multipart/form-data">
-                        <c:if test="${not empty errorMessage}">
-                            <div class="error">${errorMessage}</div>
-                        </c:if>
-
                         <div class="input-field">
-                            <input type="text" name="topicTitle" required>
                             <label>Topic Title</label>
+                            <input type="text" name="topicTitle" required>
                         </div>
-
-                        <!-- N?i dung ch? ?? -->
                         <div class="input-field">
-                            <textarea name="topicContent" rows="4" required></textarea>
                             <label>Topic Content</label>
+                            <textarea name="topicContent" rows="4" required></textarea>
                         </div>
-
                         <div class="input-field">
-                            <label for="topicImage">Upload Image</label>
+                            <label>Upload Image</label>
                             <input type="file" name="topicImage" accept="image/*" required>
                         </div>
-
-                        <!-- Nút submit -->
                         <button type="submit">Create Topic</button>
                     </form>
                 </div>
+            </div>
+        </div>
 
+        <!-- Update Topic Popup -->
+        <div class="blur-bg-overlay" style="display:none;" id="updateBlurOverlay"></div>
+        <div class="form-popup update-topic-popup" id="updateTopicPopup" style="display:none;">
+            <span class="close-btn material-symbols-rounded" onclick="closeUpdatePopup()">close</span>
+            <div class="form-box update-topic">
+                <div class="form-details">
+                    <h2>Update Topic</h2>
+                </div>
+                <div class="form-content">
+                    <form id="updateTopicForm">
+                        <div class="input-field">
+                            <label for="updateTopicTitle">Topic Title</label>
+                            <input type="text" id="updateTopicTitle" name="topicTitle" required>
+                        </div>
+                        <div class="input-field">
+                            <label for="updateTopicContent">Topic Content</label>
+                            <textarea id="updateTopicContent" name="topicContent" rows="4" required></textarea>
+                        </div>
+                        <div class="input-field">
+                            <label for="updateTopicImage">Upload Image</label>
+                            <input type="file" id="updateTopicImage" name="topicImage">
+                        </div>
+                        <button type="button" onclick="submitUpdate()">Update Topic</button>
+                        <button type="button" onclick="closeUpdatePopup()">Cancel</button>
+                    </form>
+                </div>
             </div>
         </div>
 
         <script>
-            // L?y các ph?n t? popup và overlay
-            const cTopicPopup = document.querySelector(".ctopic-popup");
-            const showCTopicPopupBtn = document.querySelector(".cTopic-btn");
-            const hideCTopicPopupBtn = document.querySelector(".closeCT-btn");
-            const blurOverlay = document.querySelector(".blur-bgg-overlay");
-
-// Hi?n th? popup khi nh?n nút "Create Topic"
-            showCTopicPopupBtn.addEventListener("click", () => {
-                cTopicPopup.classList.add("show-popup");
-                blurOverlay.style.display = "block";
-            });
-
-// ?n popup khi nh?n nút ?óng ho?c overlay n?n m?
-            hideCTopicPopupBtn.addEventListener("click", hidePopup);
-            blurOverlay.addEventListener("click", hidePopup);
-
-// Hàm ?n popup
-            function hidePopup() {
-                cTopicPopup.classList.remove("show-popup");
-                blurOverlay.style.display = "none";
+            // Show and hide the Create Topic popup
+            function showCreateTopicPopup() {
+                document.getElementById("createTopicPopup").classList.add("show");
+                document.getElementById("createTopicBlurOverlay").style.display = "block";
             }
 
-        </script>
+            function hideCreateTopicPopup() {
+                document.getElementById("createTopicPopup").classList.remove("show");
+                document.getElementById("createTopicBlurOverlay").style.display = "none";
+            }
 
+            // Show and hide the Update popup
+            function openUpdatePopup(topicId, currentTitle, currentContent) {
+                document.getElementById("updateTopicPopup").classList.add("show");
+                document.getElementById("updateBlurOverlay").style.display = "block";
+                document.getElementById("updateTopicTitle").value = currentTitle;
+                document.getElementById("updateTopicContent").value = currentContent;
+                document.getElementById("updateTopicForm").dataset.topicId = topicId;
+            }
+
+            function closeUpdatePopup() {
+                document.getElementById("updateTopicPopup").classList.remove("show");
+                document.getElementById("updateBlurOverlay").style.display = "none";
+            }
+
+            // Function to submit topic updates
+            function submitUpdate() {
+                const topicId = document.getElementById("updateTopicForm").dataset.topicId;
+                const topicTitle = document.getElementById("updateTopicTitle").value;
+                const topicContent = document.getElementById("updateTopicContent").value;
+
+                const formData = new FormData();
+                formData.append("topicId", topicId);
+                formData.append("topicTitle", topicTitle);
+                formData.append("topicContent", topicContent);
+
+                const topicImageFile = document.getElementById("updateTopicImage").files[0];
+                if (topicImageFile) {
+                    formData.append("topicImage", topicImageFile);
+                }
+
+                fetch('/CreateTopicController', {
+                    method: 'PUT',
+                    body: formData
+                })
+                        .then(response => {
+                            if (response.ok) {
+                                alert("Topic updated successfully!");
+                                closeUpdatePopup();
+                                location.reload();
+                            } else {
+                                alert("Failed to update topic. Please try again.");
+                            }
+                        })
+                        .catch(error => console.error("Error updating topic:", error));
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                document.getElementById("create-topic-button").addEventListener("click", showCreateTopicPopup);
+                document.getElementById("update-topic-button").addEventListener("click", function () {
+                });
+            });
+        </script>
     </body>   
 </html>

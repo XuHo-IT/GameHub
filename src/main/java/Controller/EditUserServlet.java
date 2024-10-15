@@ -1,6 +1,6 @@
 package Controller;
 
-import mogodb.MongoConectUser;
+import mongodb.MongoConectUser;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import mongodb.MongoConectUser;
 
 @WebServlet("/EditUserController")
 public class EditUserServlet extends HttpServlet {

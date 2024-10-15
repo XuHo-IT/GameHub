@@ -1,4 +1,12 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="com.mongodb.client.model.Filters"%>
+<%@page import="org.bson.types.ObjectId"%>
+<%@page import="org.bson.Document"%>
+<%@page import="com.mongodb.client.MongoClients"%>
+<%@page import="com.mongodb.client.MongoCollection"%>
+<%@page import="com.mongodb.client.MongoClient"%>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -94,9 +102,71 @@
             </div>
         </header>
 
+        <!<!-- Forum section -->
+        <%
+            String userId = null;
+            String userName = null;
+            String title = null;
+            String content = null;
+            String imageData = null;
+            String photoUrl = null;
+
+            // Get the post ID from the URL query parameter
+            String topicId = request.getParameter("id");
+            System.out.println("Topic ID: " + topicId);
+
+            // Connect to MongoDB
+            MongoClient mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub"); // Your connection string
+            MongoCollection<Document> topicsCollection = mongoClient.getDatabase("GameHub").getCollection("topic");
+
+            // Find the topic by its ObjectId
+            Document topic = topicsCollection.find(Filters.eq("_id", new ObjectId(topicId))).first();
+
+            
+            // Check if the post exists
+            if (topic != null) {
+                title = topic.getString("GamePlay");
+                content = topic.getString("Author");
+                imageData = topic.getString("Genre");
+                userId = topic.getString("userId");
+                
+                MongoCollection<Document> usersCollection = mongoClient.getDatabase("GameHub").getCollection("superadmin");
+
+                // Find the user by its ObjectId
+                Document user = usersCollection.find(Filters.eq("_id", new ObjectId(userId))).first();
+                
+                userName = user.getString("Name");
+                photoUrl = user.getString("PhotoUrl");     
+                
+                MongoCollection<Document> commentsCollection = mongoClient.getDatabase("GameHub").getCollection("comment");
+                
+                // Find the comment by its ObjectId
+                List<Document> commentDocuments = commentsCollection.find(Filters.eq("_id", new ObjectId(topicId))).into(new ArrayList<>());
+                
+                for (Document doc : commentDocuments) {
+                    Comment comment = new Comment();
+                    comment.setCommentId(doc.getObjectId("_id").toString());
+                    comment.setUserId(doc.getString("userId").toString());
+                    
+                    comment.setCommentText(doc.getString("commentText"));
+                    comment.add(comment);
+                }
+
+                // Log retrieved values
+                System.out.println("Title: " + title);
+                System.out.println("Description: " + content);
+                System.out.println("Image ulr: " + imageData);
+                System.out.println("User name: " + userName);
+                System.out.println("Photo ulr: " + photoUrl);
+            } else {
+                out.println("Post not found.");
+            }
+
+            // Close MongoDB connection
+            mongoClient.close();
+        %>
+        
         <section class="blog-section spad">
-
-
             <div class="container" style="
                  margin: 0 auto;
                  margin-top: -30px;

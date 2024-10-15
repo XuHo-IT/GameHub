@@ -1,3 +1,5 @@
+
+<%@page import="java.nio.charset.StandardCharsets"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.util.TreeMap"%>
@@ -127,22 +129,32 @@
                                             String secureHash = Config.getSecureHash(params, secretKey);
                                         %>
 
-                                        <form action="vnpay-payment" method="post">
+                                        <form id="paymentForm" action="vnpay-payment" method="post" onsubmit="setLinkValue()">
                                             <input type="hidden" name="vnp_Version" value="2.1.0">
                                             <input type="hidden" name="vnp_Command" value="pay">
                                             <input type="hidden" name="vnp_TmnCode" value="792CIWPF">
-                                            <input type="hidden" name="vnp_Amount" value="<%= String.valueOf(price != null ? Integer.parseInt(price) * 100 : 0) %>">
+                                            <input type="hidden" name="vnp_Amount" value="<%= String.valueOf(price != null ? Integer.parseInt(price) * 100 : 0)%>">
                                             <input type="hidden" name="vnp_CurrCode" value="VND">
-                                            <input type="hidden" name="vnp_CreateDate" value="<%= new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) %>">
-                                            <input type="hidden" name="vnp_IpAddr" value="<%= request.getRemoteAddr() %>">
+                                            <input type="hidden" name="vnp_CreateDate" value="<%= new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())%>">
+                                            <input type="hidden" name="vnp_IpAddr" value="<%= request.getRemoteAddr()%>">
                                             <input type="hidden" name="vnp_Locale" value="vn">
-                                            <input type="hidden" name="vnp_OrderInfo" value="Payment for game: <%= title %>">
+                                            <input type="hidden" name="vnp_OrderInfo" value="Payment for game: <%= title%>">
                                             <input type="hidden" name="vnp_OrderType" value="game">
                                             <input type="hidden" name="vnp_ReturnUrl" value="https://yourdomain.com/VnPayReturn">
-                                            <input type="hidden" name="vnp_ExpireDate" value="<%= new SimpleDateFormat("yyyyMMddHHmmss").format(new Date(System.currentTimeMillis() + 300000)) %>">
-                                            <input type="hidden" name="vnp_SecureHash" value="<%= secureHash %>">
+                                            <input type="hidden" name="vnp_ExpireDate" value="<%= new SimpleDateFormat("yyyyMMddHHmmss").format(new Date(System.currentTimeMillis() + 300000))%>">
+                                            <input type="hidden" id="vnp_Link" name="vnp_Link" value=""> <!-- Add this hidden input for the link -->
+
                                             <button type="submit" class="btn btn-success" style="margin-top: 10px;">Proceed to Payment</button>
                                         </form>
+
+                                        <script>
+                                            function setLinkValue() {
+                                                // Set the value of the vnp_Link input before form submission
+                                                var linkValue = "<%= link%>"; // Replace with your dynamic link value
+                                                document.getElementById("vnp_Link").value = linkValue;
+                                            }
+                                        </script>
+
                                         <%
                                                 } else {
                                                     out.println("<p style='color:red;'>Post not found.</p>");

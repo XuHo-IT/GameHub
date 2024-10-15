@@ -33,7 +33,11 @@
             String amount = request.getParameter("vnp_Amount");
             String transactionID = request.getParameter("vnp_TransactionNo");
             String responseCode = request.getParameter("vnp_ResponseCode");
+            String postId = request.getParameter("vnp_TxnRef");
 
+            // Get the game link from the request
+            String linkGame = request.getParameter("link"); // Correct parameter name
+          
             // Display values or default message
             String displayOrderInfo = (orderInfo != null) ? orderInfo : "N/A";
             String displayAmount = (amount != null) ? amount : "N/A";
@@ -50,6 +54,7 @@
         <p><strong>Amount Paid:</strong> <%= displayAmount %></p>
         <p><strong>Transaction ID:</strong> <%= displayTransactionID %></p>
         <p><strong>Response Code:</strong> <%= displayResponseCode %></p>
+        <p><strong>Link of the Game:</strong> <a href="<%= linkGame %>" target="_blank">Download Game</a></p>
 
         <a href="http://localhost:8080/Web_Trading_Game/ReadGameHomeController" class="btn btn-primary btn-back">Return to Home</a>
     </div>

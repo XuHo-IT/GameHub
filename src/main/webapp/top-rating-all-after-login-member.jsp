@@ -106,7 +106,7 @@
                                 </ul>
                             </li>
                             <li><a href="contact-after-login-member.jsp">Contact</a></li>
-                            <li><a href="forum-after-login-member.jsp">Community</a></li>
+                            <li><a href="ReadTopicMemberController">Community</a></li>
                         </ul>
                     </nav>
                 </div>

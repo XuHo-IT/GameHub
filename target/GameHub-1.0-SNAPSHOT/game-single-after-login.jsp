@@ -115,7 +115,7 @@
                             </li>
                             <li><a href="contact-after-login-admin.jsp">Contact</a></li>
                             <li><a href="chart/index-chart.jsp">Manage</a></li>
-                            <li><a href="forum-after-login-admin.jsp">Community</a></li>
+                            <li><a href="ReadTopicAdminController.jsp">Community</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -239,6 +239,7 @@
                                             <input type="text" name="author" style="font-size: 20px; height: 50px" value="<%= author != null ? author : "No Author available"%>" class="form-control">
                                         </div>
                                     </div>
+                                        
                                     <div class="gs-gameplay">
                                         <h3 style="color: white">Link of the game</h3>
                                         <textarea name="Link" style="font-size: 20px; height: 50px" class="form-control"><%= linkGame != null ? linkGame : "No linkGame available"%></textarea>

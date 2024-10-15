@@ -98,7 +98,7 @@
                             </li>
                             <li><a href="contact-after-login.jsp">Contact</a></li>
                             <li><a href="chart/index-chart.jsp">Manage</a></li>
-                            <li><a href="forum-after-login.jsp">Community</a></li>
+                            <li><a href="ReadTopicAdminController">Community</a></li>
                         </ul>
                     </nav>
                 </div>

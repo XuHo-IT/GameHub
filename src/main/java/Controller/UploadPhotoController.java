@@ -11,7 +11,7 @@ import Model.UserModel;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import mogodb.MongoConectUser;
+import mongodb.MongoConectUser;
 
 @WebServlet("/upload-photo")
 @MultipartConfig

@@ -36,9 +36,9 @@ public class SuspendUserController extends HttpServlet {
         boolean suspended = mgcn.suspendUser(userId);
 
         if (suspended) {
-            response.sendRedirect("list-user.jsp");
+            response.sendRedirect("chart/list-user.jsp");
         } else {
-            response.sendRedirect("list-user.jsp?error=Could not suspend user");
+            response.sendRedirect("chart/list-user.jsp?error=Could not suspend user");
         }
     }
 }

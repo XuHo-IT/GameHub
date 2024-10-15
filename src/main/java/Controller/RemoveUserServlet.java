@@ -35,9 +35,9 @@ public class RemoveUserServlet extends HttpServlet {
         boolean isDeleted = mongoConectUser.deleteUserById(userId); // Delete user from database
 
         if (isDeleted) {
-            response.sendRedirect("list-user.jsp?message=User deleted successfully."); // Redirect to user list with success message
+            response.sendRedirect("chart/list-user.jsp?message=User deleted successfully."); // Redirect to user list with success message
         } else {
-            response.sendRedirect("list-user.jsp?error=User deletion failed."); // Redirect with error message
+            response.sendRedirect("chart/list-user.jsp?error=User deletion failed."); // Redirect with error message
         }
     }
 

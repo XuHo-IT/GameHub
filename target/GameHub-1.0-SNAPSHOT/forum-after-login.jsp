@@ -1,3 +1,4 @@
+<%@page import="Model.Topic"%>
 <%@page import="com.mongodb.client.model.Filters"%>
 <%@page import="org.bson.types.ObjectId"%>
 <%@page import="com.mongodb.client.MongoClients"%>
@@ -5,6 +6,8 @@
 <%@page import="com.mongodb.client.MongoClient"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page import="org.bson.Document" %>
@@ -74,13 +77,13 @@
                     </div>
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
-                            <!-- Bi?u t??ng gi? hï¿½ng -->
+                            <!-- Bi?u t??ng gi? hÃ¯Â¿Â½ng -->
                             <div class="cart-icon">
                                 <a href="shopping-cart.jsp">
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                 </a>
                             </div>
-                            <!-- Bi?u t??ng tï¿½i kho?n -->
+                            <!-- Bi?u t??ng tÃ¯Â¿Â½i kho?n -->
                             <div class="account-container">
                                 <div class="account-icon">
                                     <i class="fa fa-user-circle" aria-hidden="true"></i>
@@ -132,7 +135,7 @@
                  margin: 20px;
                  margin-top: -100px;
                  padding: 20px;">
-                
+
                 <!-- button -->
                 <div class="button-top-forum" >
                     <div class="left-button-forum">
@@ -143,7 +146,7 @@
                         <button class="cTopic-btn forum-button">Create New Topic</button>
                     </div>
                 </div>
-                
+
                 <div class="subforum">
                     <c:forEach var="topic" items="${topics}">
                         <div class="subforum-row">
@@ -162,7 +165,27 @@
                                 </c:choose>
                             </div>
                             <div class="subforum-stats subforum-column center">
-                                <span>12 <img src="./img/icons/chat-icon.png" alt=""> </span>
+                                <%
+                                    // Get the topic object from the pageContext
+                                    Topic topicObj = (Topic) pageContext.getAttribute("topic");
+
+                                    // Kết nối đến cơ sở dữ liệu MongoDB
+                                    MongoClient mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
+
+                                    // Lấy collection comment và reply
+                                    MongoCollection<Document> commentCollection = mongoClient.getDatabase("GameHub").getCollection("comment");
+                                    MongoCollection<Document> replyCollection = mongoClient.getDatabase("GameHub").getCollection("reply");
+
+                                    // Đếm số lượng bình luận cho mỗi chủ đề
+                                    long commentCount = commentCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
+
+                                    // Đếm số lượng trả lời cho mỗi chủ đề
+                                    long replyCount = replyCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
+
+                                    // Tính tổng số lượng bình luận và trả lời cho mỗi chủ đề
+                                    long totalCount = commentCount + replyCount;
+                                %>
+                                <span><%= totalCount%><img src="./img/icons/chat-icon.png" alt=""> </span>
                             </div>
                             <div class="subforum-info subforum-column">
                                 <b>Post by</b> <a href="#">${topic.userName}</a>
@@ -172,7 +195,7 @@
                     </c:forEach>
 
                 </div>
-                <div class="site-pagination">
+                <div class="site-pagination" style="margin-top: 10px">
                     <c:forEach var="i" begin="1" end="${totalPages}">
                         <a href="?page=${i}" class="${i == currentPage ? 'active' : ''}">${i < 10 ? '0' + i : i}</a>
                     </c:forEach>
@@ -345,7 +368,7 @@
                             <input type="file" name="topicImage" accept="image/*" required>
                         </div>
 
-                        <!-- Nút submit -->
+                        <!-- NÃºt submit -->
                         <button type="submit">Create Topic</button>
                     </form>
                 </div>
@@ -354,23 +377,23 @@
         </div>
 
         <script>
-            // L?y các ph?n t? popup và overlay
+            // L?y cÃ¡c ph?n t? popup vÃ  overlay
             const cTopicPopup = document.querySelector(".ctopic-popup");
             const showCTopicPopupBtn = document.querySelector(".cTopic-btn");
             const hideCTopicPopupBtn = document.querySelector(".closeCT-btn");
             const blurOverlay = document.querySelector(".blur-bgg-overlay");
 
-// Hi?n th? popup khi nh?n nút "Create Topic"
+// Hi?n th? popup khi nh?n nÃºt "Create Topic"
             showCTopicPopupBtn.addEventListener("click", () => {
                 cTopicPopup.classList.add("show-popup");
                 blurOverlay.style.display = "block";
             });
 
-// ?n popup khi nh?n nút ?óng ho?c overlay n?n m?
+// ?n popup khi nh?n nÃºt ?Ã³ng ho?c overlay n?n m?
             hideCTopicPopupBtn.addEventListener("click", hidePopup);
             blurOverlay.addEventListener("click", hidePopup);
 
-// Hàm ?n popup
+// HÃ m ?n popup
             function hidePopup() {
                 cTopicPopup.classList.remove("show-popup");
                 blurOverlay.style.display = "none";

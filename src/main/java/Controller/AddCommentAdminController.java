@@ -21,7 +21,7 @@ import com.mongodb.client.MongoDatabase;
 
 import Model.Comment;
 
-public class AddCommentController extends HttpServlet {
+public class AddCommentAdminController extends HttpServlet {
 
     private MongoClient mongoClient;
 
@@ -47,7 +47,7 @@ public class AddCommentController extends HttpServlet {
         Document comments = new Document("TopicId",topicId).append("UserId", userId).append("Content", comment);
         
         collection.insertOne(comments);
-        response.sendRedirect("forum-detail-after-login-member.jsp?id=" + topicId);
+        response.sendRedirect("forum-detail-after-login.jsp?id=" + topicId);
     }
 
     @Override

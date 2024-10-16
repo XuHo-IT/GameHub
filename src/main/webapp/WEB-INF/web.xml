@@ -164,6 +164,18 @@
         <servlet-name>TopicDeleteController</servlet-name>
         <servlet-class>Controller.TopicDeleteController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteCommentController</servlet-name>
+        <servlet-class>Controller.DeleteCommentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCommentAdminController</servlet-name>
+        <servlet-class>Controller.DeleteCommentAdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddCommentAdminController</servlet-name>
+        <servlet-class>Controller.AddCommentAdminController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -331,6 +343,18 @@
     <servlet-mapping>
         <servlet-name>TopicDeleteController</servlet-name>
         <url-pattern>/TopicDeleteController</url-pattern>
+      </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCommentController</servlet-name>
+        <url-pattern>/DeleteCommentController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCommentAdminController</servlet-name>
+        <url-pattern>/DeleteCommentAdminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCommentAdminController</servlet-name>
+        <url-pattern>/AddCommentAdminController</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>ReadGameHomeController</welcome-file>

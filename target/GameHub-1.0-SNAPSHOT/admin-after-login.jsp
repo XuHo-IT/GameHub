@@ -98,19 +98,12 @@
                                     <li><a href="top-wishlist-all-after-login.jsp">Top wishlist</a></li>
                                 </ul>
                             </li>
-<<<<<<< HEAD
-                            <li><a href="contact.jsp">Contact</a></li>
-                            <li><a href="forum.jsp">Community</a></li>
-                            <li><a href="list-user.jsp">User List</a></li>
-=======
+
 
                             <li><a href="contact-after-login.jsp">Contact</a></li>
                             <li><a href="chart/index-chart.jsp">Manage</a></li>
                             <li><a href="ReadTopicAdminController">Community</a></li>
-                            <li><a href="list-user.jsp">User List</a></li>
 
->>>>>>> 237930bed13d006631de6d9c654f4cd4e978a50e
-                        </ul>
                     </nav>
                 </div>
 

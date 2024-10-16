@@ -61,6 +61,10 @@
         <servlet-class>Controller.AddGenreController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AssignAdminController</servlet-name>
+        <servlet-class>Controller.AssignAdminController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>LogOutController</servlet-name>
         <servlet-class>Controller.LogOutController</servlet-class>
     </servlet>
@@ -109,6 +113,10 @@
         <servlet-class>Controller.CreateTopicController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AddReplyController</servlet-name>
+        <servlet-class>Controller.AddReplyController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AddCommentController</servlet-name>
         <servlet-class>Controller.AddCommentController</servlet-class>
     </servlet>
@@ -141,8 +149,8 @@
         <servlet-class>Controller.ReadTopicMemberController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SearchServlet</servlet-name>
-        <servlet-class>Controller.SearchServlet</servlet-class>
+        <servlet-name>ReadTransactionServlet</servlet-name>
+        <servlet-class>Controller.ReadTransactionServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>TopicCreateController</servlet-name>
@@ -209,8 +217,16 @@
         <url-pattern>/ReadGameHomeMemberController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ReadGameUploadOfMemberController</servlet-name>
+        <url-pattern>/ReadGameUploadOfMemberController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AddGenreController</servlet-name>
         <url-pattern>/AddGenreController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AssignAdminController</servlet-name>
+        <url-pattern>/AssignAdminController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LogOutController</servlet-name>
@@ -257,20 +273,20 @@
         <url-pattern>/ConfirmPostController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>VNPayPaymentServlet</servlet-name>
-        <url-pattern>/VNPayPaymentServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Config</servlet-name>
-        <url-pattern>/Config</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>CreateTopicController</servlet-name>
         <url-pattern>/CreateTopicController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>AddReplyController</servlet-name>
+        <url-pattern>/AddReplyController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AddCommentController</servlet-name>
         <url-pattern>/AddCommentController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VNPayPaymentServlet</servlet-name>
+        <url-pattern>/VNPayPaymentServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>VNPayReturnServlet</servlet-name>
@@ -289,10 +305,6 @@
         <!-- 5 MB -->
     </multipart-config>
     <servlet-mapping>
-        <servlet-name>SearchServlet</servlet-name>
-        <url-pattern>/SearchServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ReadTopicController</servlet-name>
         <url-pattern>/ReadTopicController</url-pattern>
     </servlet-mapping>
@@ -303,6 +315,10 @@
     <servlet-mapping>
         <servlet-name>ReadTopicMemberController</servlet-name>
         <url-pattern>/ReadTopicMemberController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReadTransactionServlet</servlet-name>
+        <url-pattern>/ReadTransactionServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>TopicCreateController</servlet-name>
@@ -333,3 +349,5 @@
         <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
 </web-app>
+
+

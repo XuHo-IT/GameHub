@@ -105,7 +105,7 @@
                                 </ul>
                             </li>
                             <li><a href="contac-after-login.jsp">Contact</a></li>
-                            <li><a href="chart/index-chart.jsp">Manage</a></li>
+                            <li><a href="ReadTransactionServlet">Manage</a></li>
                             <li><a href="ReadTopicAdminController">Community</a></li>
                         </ul>
                     </nav>
@@ -161,7 +161,7 @@
                                         <ul>
                                             <c:forEach var="genre" items="${genres}">
                                                 <li>
-                                                    <a href="ReadGameHomeController?genre=${genre.genreId}">
+                                                    <a href="ReadGameListAdminController?genre=${genre.genre}">
                                                         ${genre.genre != null ? genre.genre : 'No genre available'}
                                                     </a>
                                                 </li>
@@ -175,6 +175,20 @@
                             </div>
                         </div>
                     </div>
+                   <div class="site-pagination">
+                        <c:if test="${currentPage > 1}">
+                            <a href="?genre=${selectedGenre}&page=${currentPage - 1}" class="prev">Previous</a>
+                        </c:if>
+
+                        <c:forEach var="i" begin="1" end="${totalPages}">
+                            <a href="?genre=${selectedGenre}&page=${i}" class="${i == currentPage ? 'active' : ''}">${i}</a>
+                        </c:forEach>
+
+                        <c:if test="${currentPage < totalPages}">
+                            <a href="?genre=${selectedGenre}&page=${currentPage + 1}" class="next">Next</a>
+                        </c:if>
+                    </div>
+
                 </div>
             </div>
         </section>

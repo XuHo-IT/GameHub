@@ -53,7 +53,7 @@
         <!-- Header section -->
         <header class="header-section">
             <div class="header-warp">
-                <form action="SearchServlet" method="GET" >
+                <form action="SearchController" method="GET" >
                     <!-- Search Bar -->
                     <div class="search-bar row">
                         <!-- Keyword input for the search bar -->
@@ -149,11 +149,8 @@
                                 </div>
                             </c:forEach>
                         </div>
-                        <div class="site-pagination">
-                            <c:forEach var="i" begin="1" end="${totalPages}">
-                                <a href="?page=${i}" class="${i == currentPage ? 'active' : ''}">${i < 10 ? '0' + i : i}</a>
-                            </c:forEach>
-                        </div>
+
+
                     </div>
                     <div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">
                         <div id="stickySidebar">
@@ -164,11 +161,11 @@
                                         <ul>
                                             <c:forEach var="genre" items="${genres}">
                                                 <li>
-                                                    <a href="ReadGameHomeController?genre=${genre.genreId}">
+                                                    <a href="ReadGameListController?genre=${genre.genre}">
                                                         ${genre.genre != null ? genre.genre : 'No genre available'}
                                                     </a>
                                                 </li>
-                                            </c:forEach>     
+                                            </c:forEach>
                                         </ul>
                                     </form>
                                 </div>
@@ -178,6 +175,20 @@
                             </div>
                         </div>
                     </div>
+                    <div class="site-pagination">
+                        <c:if test="${currentPage > 1}">
+                            <a href="?genre=${selectedGenre}&page=${currentPage - 1}" class="prev">Previous</a>
+                        </c:if>
+
+                        <c:forEach var="i" begin="1" end="${totalPages}">
+                            <a href="?genre=${selectedGenre}&page=${i}" class="${i == currentPage ? 'active' : ''}">${i}</a>
+                        </c:forEach>
+
+                        <c:if test="${currentPage < totalPages}">
+                            <a href="?genre=${selectedGenre}&page=${currentPage + 1}" class="next">Next</a>
+                        </c:if>
+                    </div>
+
                 </div>
             </div>
         </section>

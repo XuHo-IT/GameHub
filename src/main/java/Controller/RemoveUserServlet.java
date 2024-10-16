@@ -10,7 +10,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import mongodb.MongoConectUser;
+
 
 /**
  *
@@ -35,9 +37,11 @@ public class RemoveUserServlet extends HttpServlet {
         boolean isDeleted = mongoConectUser.deleteUserById(userId); // Delete user from database
 
         if (isDeleted) {
+
             response.sendRedirect("chart/list-user.jsp?message=User deleted successfully."); // Redirect to user list with success message
         } else {
             response.sendRedirect("chart/list-user.jsp?error=User deletion failed."); // Redirect with error message
+
         }
     }
 

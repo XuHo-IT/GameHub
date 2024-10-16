@@ -154,7 +154,7 @@
                                 <img src="${topic.photoUrl}" alt="User Photo">
                             </div>
                             <div class="subforum-description subforum-column">
-                                <h4><a href="forum-detail.jsp">${topic.title}</a></h4>
+                                <h4><a href="forum-detail-after-login.jsp?id=${topic.topicId}">${topic.title}</a></h4>
                                     <c:choose>
                                         <c:when test="${fn:length(topic.description) > 100}">
                                         <p>${fn:substring(topic.description, 0, 120)}...</p>
@@ -180,10 +180,11 @@
                                     long commentCount = commentCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
 
                                     // Đếm số lượng trả lời cho mỗi chủ đề
-                                    long replyCount = replyCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
+//                                    long replyCount = replyCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
 
                                     // Tính tổng số lượng bình luận và trả lời cho mỗi chủ đề
-                                    long totalCount = commentCount + replyCount;
+//                                    long totalCount = commentCount + replyCount;
+                                    long totalCount = commentCount;
                                 %>
                                 <span><%= totalCount%><img src="./img/icons/chat-icon.png" alt=""> </span>
                             </div>

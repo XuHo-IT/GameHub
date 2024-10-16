@@ -1,3 +1,13 @@
+<%@page import="com.mongodb.client.MongoClients"%>
+<%@page import="com.mongodb.client.MongoClient"%>
+<%@page import="com.mongodb.client.MongoCollection"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.mongodb.client.model.Filters"%>
+<%@page import="org.bson.types.ObjectId"%>
+<%@page import="org.bson.Document"%>
+<%@page import="Model.Comment"%>
+<%@page import="java.util.Collections"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -87,7 +97,7 @@
                                 </ul>
                             </li>
                             <li><a href="contact.jsp">Contact</a></li>
-                            <li><a href="forum.jsp">Community</a></li>
+                            <li><a href="forum-after-login-member.jsp">Community</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -103,6 +113,90 @@
             </div>
         </header>
 
+        <!--Forum section-->
+        <%
+            String userId = null;
+            String userNameTopic = null;
+            String title = null;
+            String description = null;
+            String imageData = null;
+            String photoUrlUser = null;
+
+            List<Comment> comments = new ArrayList<>();
+
+            // Get the post ID from the URL query parameter
+            String topicId = request.getParameter("id");
+            System.out.println("Topic ID: " + topicId);
+
+            // Connect to MongoDB
+            MongoClient mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub"); // Your connection string
+            MongoCollection<Document> topicsCollection = mongoClient.getDatabase("GameHub").getCollection("topic");
+
+            // Find the topic by its ObjectId
+            Document topic = topicsCollection.find(Filters.eq("_id", new ObjectId(topicId))).first();
+
+            // Check if the post exists
+            if (topic != null) {
+                title = topic.getString("Title");
+                description = topic.getString("Description");
+                imageData = topic.getString("ImageData");
+                userId = topic.getString("UserId");
+
+                MongoCollection<Document> usersCollection = mongoClient.getDatabase("GameHub").getCollection("superadmin");
+
+                // Find the user by its ObjectId
+                Document userTopic = usersCollection.find(Filters.eq("_id", new ObjectId(userId))).first();
+
+                userNameTopic = userTopic.getString("Name");
+                photoUrlUser = userTopic.getString("PhotoUrl");
+
+                MongoCollection<Document> commentsCollection = mongoClient.getDatabase("GameHub").getCollection("comment");
+
+                // Find the comment by its ObjectId
+                List<Document> commentDocuments = commentsCollection
+                        .find(Filters.eq("TopicId", topicId))
+                        .into(new ArrayList<>());
+
+                for (Document doc : commentDocuments) {
+                    Document user = usersCollection.find(Filters.eq("_id", new ObjectId(doc.getString("UserId")))).first();
+                    String photoUrl = (user != null) ? user.getString("PhotoUrl") : "./img/t-rex.png";
+                    String userName = (user != null) ? user.getString("Name") : "Unknown";
+
+                    Comment comment = new Comment();
+                    comment.setCommentId(doc.getObjectId("_id").toString());
+                    comment.setTopicId(doc.getString("TopicId").toString());
+                    comment.setUserId(doc.getString("UserId").toString());
+                    comment.setUserName(userName);
+                    comment.setPhotoUrl(photoUrl);
+                    comment.setContent(doc.getString("Content"));
+
+                    // Log retrieved values
+                    System.out.println("Topic id: " + comment.getTopicId());
+                    System.out.println("User id: " + comment.getUserId());
+                    System.out.println("Comment id: " + comment.getCommentId());
+                    System.out.println("User name: " + userName);
+                    System.out.println("Content: " + comment.getContent());
+                    System.out.println("Photo ulr: " + photoUrl);
+
+                    comments.add(comment);
+                }
+
+                Collections.reverse(comments);
+
+                // Log retrieved values
+                System.out.println("Title: " + title);
+                System.out.println("Description: " + description);
+                System.out.println("Image ulr: " + imageData);
+                System.out.println("User name: " + userNameTopic);
+                System.out.println("Photo ulr: " + photoUrlUser);
+            } else {
+                out.println("Post not found.");
+            }
+
+            // Close MongoDB connection
+            mongoClient.close();
+        %>
+
         <section class="blog-section spad">
             <div class="container" style="
                  margin: 0 auto;
@@ -112,21 +206,22 @@
                     <!--Original thread-->
                     <div class="head">
                         <div class="authors">Author</div>
-                        <div class="content">Title</div>
+                        <div class="content"><%=title%></div>
                     </div>
 
                     <div class="body">
-                        <div class="authors">
-                            <img src="./img/Arc Raiders.jpg" alt="">
-                            <div class="username"><a href="">Username</a></div>
+                        <div class="authors">                          
+                            <img src="<%= (photoUrlUser == null || photoUrlUser.isEmpty()) ? "./img/t-rex.png" : photoUrlUser%>" alt="Photo User">
+                            <div class="username"><a href=""><%=userNameTopic%></a></div>
                         </div>
                         <div class="content">
-
-                            <p style="color: lightblue">Who is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoà</p>
+                            <p style="color: lightblue; white-space: normal; word-wrap: break-word; overflow-wrap: break-word;">
+                                <%= description%>
+                            </p>
 
                             <div class="topic-img">
-                                <img src="./img/Arc Raiders.jpg" alt="">
-                            </div>
+                                <img src="data:image/jpeg;base64,<%= imageData != null ? imageData : ""%>"  alt="">
+                            </div>  
                             <div class="comment">
                                 <button onclick="toggleArea('comment-area')">Comment</button>
                             </div>
@@ -135,15 +230,15 @@
                 </div>
 
                 <!--Comment Area-->
-                <form action="AddCommentController" method="post">
+                <form action="AddCommentController" method="POST">
                     <div class="comment-area hide" id="comment-area">
                         <!-- Textarea để nhập comment -->
                         <textarea name="comment" placeholder="comment here ..." required></textarea>
 
                         <!-- Các trường ẩn để truyền các giá trị cần thiết -->
-                        <input type="hidden" name="userid" value="userId">
-                        <input type="hidden" name="postid" value="postId">
-                        <input type="hidden" name="dateup" value="<%= new java.util.Date() %>">
+                        <input type="hidden" name="userid" value="670fb46bbdffbe71c8ae2316">
+                        <input type="hidden" name="topicid" value="<%=topicId%>">
+                        <input type="hidden" name="dateup" value="<%= new java.util.Date()%>">
 
                         <!-- Nút submit để gửi form -->
                         <input type="submit" value="submit">
@@ -152,143 +247,53 @@
 
                 <!--Another Comment With replies-->
                 <div class="comments-container">
-
-                    <!<!-- Comment 1 -->
-                    <div class="comments" id="1">
-                        <div class="body">
-                            <div class="authors">
-                                <img src="./img/Arc Raiders.jpg" alt="">
-                                <div class="username"><a href="">Username</a></div>
-                            </div>
-                            <div class="content">
-                                <p style="color: lightblue">Hoà là t</p>
-                                <div class="comment">
-                                    <button onclick="showReply('reply-area-1', 'Username')">Reply</button>
+                    <% if (comments != null && !comments.isEmpty()) {
+                            int commentIndex = 0;
+                            for (Comment comment : comments) {%>
+                    <!<!-- Comment-->
+                    <div class="comments" id="<%= comment.getCommentId()%>">
+                        <div class="comments" id="comment-<%= comment.getCommentId()%>" data-comment-index="<%= commentIndex++%>">
+                            <div class="body">
+                                <div class="authors">
+                                    <img src="<%= (comment.getPhotoUrl() == null || comment.getPhotoUrl().isEmpty()) ? "./img/t-rex.png" : comment.getPhotoUrl()%>" alt="Photo User">
+                                    <div class="username"><a href=""><%= comment.getUserName()%></a></div>
+                                </div>
+                                <div class="content">
+                                    <p style="color: lightblue; white-space: normal; word-wrap: break-word; overflow-wrap: break-word;">
+                                        <%= comment.getContent()%>
+                                    </p>
+                                    <div class="comment">
+                                        <button onclick="showReply('reply-area-<%= comment.getCommentId()%>', '<%=comment.getUserName()%>')">Reply</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- Reply text area -->
+                        <form action="AddCommentController" method="POST">
+                            <div class="comment-area hide" id="reply-area-<%= comment.getCommentId()%>">
+                                <!-- Textarea để nhập reply -->
+                                <textarea name="comment" placeholder="reply here ..." required></textarea>
 
-                        <!--Reply comment area-->
-                        <div class="rely-container">
-                            <div class="reply" id="1">
-                                <!-- First reply always visible -->
-                                <div class="body">
-                                    <div class="authors">
-                                        <img src="./img/Arc Raiders.jpg" alt="">
-                                        <div class="username"><a href="">Username1</a></div>
-                                    </div>
-                                    <div class="content">
-                                        <p style="color: lightblue">Không, Hoà là t</p>
-                                        <div class="comment">
-                                            <button onclick="showReply('reply-area-1-1', 'Username1')">Reply</button>
-                                        </div>
-                                    </div>
-                                </div>
+                                <!-- Các trường ẩn để truyền các giá trị cần thiết -->
+                                <input type="hidden" name="userid" value="670fb46bbdffbe71c8ae2316">
+                                <input type="hidden" name="topicid" value="<%=topicId%>">            
+                                <input type="hidden" name="dateup" value="<%= new java.util.Date()%>">
+
+                                <!-- Nút submit để gửi form -->
+                                <input type="submit" value="submit">
                             </div>
-
-                            <!-- Hidden replies -->
-                            <div class="hidden-replies" style="display: none;">
-
-                                <div class="reply" id="2">
-                                    <div class="body">
-                                        <div class="authors">
-                                            <img src="./img/Arc Raiders.jpg" alt="">
-                                            <div class="username"><a href="">Username2</a></div>
-                                        </div>
-                                        <div class="content">
-                                            <p style="color: lightblue">Không, Hoà là t</p>
-                                            <div class="comment">
-                                                <button onclick="showReply('reply-area-1-1', 'Username2')">Reply</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="reply" id="3">
-                                    <div class="body">
-                                        <div class="authors">
-                                            <img src="./img/Arc Raiders.jpg" alt="">
-                                            <div class="username"><a href="">Username3</a></div>
-                                        </div>
-                                        <div class="content">
-                                            <p style="color: lightblue">Không, Hoà là t</p>
-                                            <div class="comment">
-                                                <button onclick="showReply('reply-area-1-1', 'Username3')">Reply</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="reply" id="4">
-                                    <div class="body">
-                                        <div class="authors">
-                                            <img src="./img/Arc Raiders.jpg" alt="">
-                                            <div class="username"><a href="">Username4</a></div>
-                                        </div>
-                                        <div class="content">
-                                            <p style="color: lightblue">Không, Hoà là t</p>
-                                            <div class="comment">
-                                                <button onclick="showReply('reply-area-1-1', 'Username4')">Reply</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <!-- Show/Hide Button -->
-                            <button class="toggle-replies">Show more</button>
-
-                            <!-- Reply text area -->
-                            <form action="AddReplyController" method="post">
-                                <div class="comment-area hide" id="reply-area-1-1">
-                                    <!-- Textarea để nhập reply -->
-                                    <textarea name="replytext" placeholder="reply here ..." required></textarea>
-
-                                    <!-- Các trường ẩn để truyền các giá trị cần thiết -->
-                                    <input type="hidden" name="userid" value="userId">
-                                    <input type="hidden" name="commentid" value="commentId">
-                                    <input type="hidden" name="replyid" value="replyId">
-                                    <input type="hidden" name="dateup" value="<%= new java.util.Date()%>">
-
-                                    <!-- Nút submit để gửi form -->
-                                    <input type="submit" value="submit">
-                                </div>
-                            </form>
-
-                        </div>
-
+                        </form>
+                        <% }
+                        } else { %>
+                        <p>No comments yet. <a href="ReadGameHomeController">Be the first to comment!</a></p>
+                        <% }%>        
                     </div>
-                    <!-- Reply text area -->
-                    <form action="CreateReplyController" method="POST">
-                        <div class="comment-area hide" id="reply-area-1">
-                            <!-- Textarea để nhập reply -->
-                            <textarea name="replytext" placeholder="reply here ..." required></textarea>
 
-                            <!-- Các trường ẩn để truyền các giá trị cần thiết -->
-                            <input type="hidden" name="userid" value="userId">
-                            <input type="hidden" name="commentid" value="commentId">
-                            <input type="hidden" name="replyid" value="replyId">
-                            <input type="hidden" name="dateup" value="<%= new java.util.Date()%>">
-
-                            <!-- Nút submit để gửi form -->
-                            <input type="submit" value="submit">
-                        </div>
-                    </form>
-
-                </div>
-
-                <div class="site-pagination">
-                    <a href="#" class="active">01.</a>
-                    <a href="#">02.</a>
-                    <a href="#">03.</a>
                 </div>
 
             </div>
 
         </section>
-
-
 
 
         <!-- Footer section -->
@@ -395,58 +400,58 @@
         <script src="js/jquery.magnific-popup.min.js"></script>
         <script src="js/main.js"></script>
         <script>
-            function showComment() {
-                var commentArea = document.getElementById("comment-area");
-                commentArea.classList.toggle("hide");
-            }
-
-            function showReply(areaId, username) {
-                // Tìm tất cả các phần comment-area và ẩn chúng
-                const allCommentAreas = document.querySelectorAll('.comment-area');
-                allCommentAreas.forEach(area => {
-                    area.classList.add('hide'); // Ẩn tất cả các comment-area
-                });
-
-                // Hiển thị phần comment-area tương ứng với reply được bấm
-                var replyArea = document.getElementById(areaId);
-                replyArea.classList.toggle("hide"); // Toggle hiển thị phần comment-area được bấm
-
-                // Lấy thẻ textarea trong phần reply hiện tại
-                var textArea = replyArea.querySelector('textarea');
-
-                // Đặt giá trị ban đầu cho textarea là username
-                textArea.value = '@' + username + ' ';
-            }
-
-            function toggleArea(areaId) {
-                var area = document.getElementById(areaId);
-                area.classList.toggle("hide");
-            }
-
-            document.addEventListener('DOMContentLoaded', function () {
-                const toggleButtons = document.querySelectorAll('.toggle-replies');
-
-                toggleButtons.forEach(button => {
-                    button.addEventListener('click', function () {
-                        const hiddenReplies = this.previousElementSibling;
-
-                        // Tìm tất cả các phần comment-area và ẩn chúng
-                        const allCommentAreas = document.querySelectorAll('.comment-area');
-                        allCommentAreas.forEach(area => {
-                            area.classList.add('hide'); // Ẩn tất cả các comment-area
-                        });
-
-                        // Toggle hiển thị phần hidden-replies liên quan
-                        if (hiddenReplies.style.display === 'none') {
-                            hiddenReplies.style.display = 'block';
-                            this.textContent = 'Hide';
-                        } else {
-                            hiddenReplies.style.display = 'none';
-                            this.textContent = 'Show more';
+                        function showComment() {
+                            var commentArea = document.getElementById("comment-area");
+                            commentArea.classList.toggle("hide");
                         }
-                    });
-                });
-            });
+
+                        function showReply(areaId, username) {
+                            // Tìm tất cả các phần comment-area và ẩn chúng
+                            const allCommentAreas = document.querySelectorAll('.comment-area');
+                            allCommentAreas.forEach(area => {
+                                area.classList.add('hide'); // Ẩn tất cả các comment-area
+                            });
+
+                            // Hiển thị phần comment-area tương ứng với reply được bấm
+                            var replyArea = document.getElementById(areaId);
+                            replyArea.classList.toggle("hide"); // Toggle hiển thị phần comment-area được bấm
+
+                            // Lấy thẻ textarea trong phần reply hiện tại
+                            var textArea = replyArea.querySelector('textarea');
+
+                            // Đặt giá trị ban đầu cho textarea là username
+                            textArea.value = '@' + username + ' ';
+                        }
+
+                        function toggleArea(areaId) {
+                            var area = document.getElementById(areaId);
+                            area.classList.toggle("hide");
+                        }
+
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const toggleButtons = document.querySelectorAll('.toggle-replies');
+
+                            toggleButtons.forEach(button => {
+                                button.addEventListener('click', function () {
+                                    const hiddenReplies = this.previousElementSibling;
+
+                                    // Tìm tất cả các phần comment-area và ẩn chúng
+                                    const allCommentAreas = document.querySelectorAll('.comment-area');
+                                    allCommentAreas.forEach(area => {
+                                        area.classList.add('hide'); // Ẩn tất cả các comment-area
+                                    });
+
+                                    // Toggle hiển thị phần hidden-replies liên quan
+                                    if (hiddenReplies.style.display === 'none') {
+                                        hiddenReplies.style.display = 'block';
+                                        this.textContent = 'Hide';
+                                    } else {
+                                        hiddenReplies.style.display = 'none';
+                                        this.textContent = 'Show more';
+                                    }
+                                });
+                            });
+                        });
         </script>
     </body>
 

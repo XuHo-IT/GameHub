@@ -1,4 +1,4 @@
-<%@page import="mogodb.MongoConectUser"%>
+<%@page import="mongodb.MongoConectUser"%>
 <%@page import="Model.UserModel"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>

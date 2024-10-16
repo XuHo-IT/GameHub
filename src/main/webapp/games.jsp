@@ -53,7 +53,7 @@
         <!-- Header section -->
         <header class="header-section">
             <div class="header-warp">
-                <form action="SearchServlet" method="GET" >
+                <form action="SearchController" method="GET" >
                     <!-- Search Bar -->
                     <div class="search-bar row">
                         <!-- Keyword input for the search bar -->

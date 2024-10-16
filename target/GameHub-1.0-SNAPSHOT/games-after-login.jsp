@@ -105,7 +105,7 @@
                                 </ul>
                             </li>
                             <li><a href="contac-after-login.jsp">Contact</a></li>
-                            <li><a href="chart/index-chart.jsp">Manage</a></li>
+                            <li><a href="ReadTransactionServlet">Manage</a></li>
                             <li><a href="ReadTopicAdminController">Community</a></li>
                         </ul>
                     </nav>

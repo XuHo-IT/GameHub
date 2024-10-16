@@ -358,12 +358,13 @@
                             <textarea name="topicContent" rows="4" required></textarea>
                         </div>
                         <div class="input-field">
-                            <label>Upload Image</label>
-                            <input type="file" name="topicImage" accept="image/*" required>
+                            <label>Upload Image (Optional)</label>
+                            <input type="file" name="topicImage" accept="image/*">
                         </div>
                         <button type="submit">Create Topic</button>
                     </form>
                 </div>
+
             </div>
         </div>
 

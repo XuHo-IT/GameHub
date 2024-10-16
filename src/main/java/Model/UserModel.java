@@ -10,7 +10,9 @@ public class UserModel {
     private String password;
     private String photoUrl;  
     private String status;
+
     private String role;
+
     // Getters and Setters
     public String getId() { return this.id; }
     public void setId(String id) { this.id = id; }
@@ -38,8 +40,10 @@ public class UserModel {
     
     public String getStatus() {return this.status;}
     public void setStatus(String status) {this.status = status;}
+
     public String getRole(){return this.role;}
     public void setRole(String role) {this.role = role;}
+
     @Override
 public String toString() {
     return "User{" +

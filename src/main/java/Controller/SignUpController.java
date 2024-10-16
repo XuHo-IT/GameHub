@@ -43,7 +43,6 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
     String photoUrl = request.getParameter("PhotoUrl");
 
 
-
     String role = "0";
     String status = "Active";// Set default role to "0" (regular user)
 
@@ -88,8 +87,6 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
             .append("Role", role)
 
             .append("Status", status);
-
-
 
     // Insert the document into the MongoDB collection
     collection.insertOne(user);

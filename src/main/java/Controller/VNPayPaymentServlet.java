@@ -1,5 +1,11 @@
 package Controller;
 
+import Model.Transaction;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.MongoCollection;
+import org.bson.Document;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -12,6 +18,17 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/vnpay-payment")
 public class VNPayPaymentServlet extends HttpServlet {
+
+    private MongoClient mongoClient;
+    private MongoDatabase database;
+    private MongoCollection<Document> collection;
+
+    @Override
+    public void init() throws ServletException {
+        mongoClient = MongoClients.create("mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
+        database = mongoClient.getDatabase("GameHub");
+        collection = database.getCollection("Transaction");
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -79,6 +96,13 @@ public class VNPayPaymentServlet extends HttpServlet {
         // Step 4: Build the full query URL
         String paymentUrl = Config.vnp_PayUrl + "?" + query.toString() + "&vnp_SecureHash=" + vnp_SecureHash;
 
+        // Store transaction in MongoDB
+        Document transactionDoc = new Document("orderId", orderId)
+                .append("amount", amount)
+                .append("bankCode", bankCode)
+                .append("orderType", orderType)
+                .append("createDate", Config.getCurrentDate());
+        collection.insertOne(transactionDoc); // Insert into MongoDB collection
         // Redirect the user to VNPay payment URL
         response.sendRedirect(paymentUrl);
     }
@@ -87,5 +111,9 @@ public class VNPayPaymentServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
     }
-}
 
+    @Override
+    public void destroy() {
+        mongoClient.close(); // Close the MongoDB client
+    }
+}

@@ -72,22 +72,35 @@
                         </a>
                     </div>
                     <nav class="top-nav-area w-100">
-                        <div class="user-panel">
-                            <button class="login-btn">LOG IN</button>
+                        <div class="user-panel d-flex">
+                            <!-- Bi?u t??ng gi? hï¿½ng -->
+                            <div class="cart-icon">
+                                <a href="shopping-cart.jsp">
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <!-- Bi?u t??ng tï¿½i kho?n -->
+                            <div class="account-container">
+                                <div class="account-icon">
+                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                </div>
+                                <div class="account-dropdown">
+                                    <ul>
+                                        <li><a href="user-profile.jsp">Account Info</a></li>
+                                        <li>
+                                            <a href="LogoutController" class="dropdown-item">Logout</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
-                            <li><a href="ReadGameHomeController">Home</a></li>
-                            <li><a href="ReadGameListController">Games</a>
-
-                                <ul class="sub-menu">
-                                    <li><a href="top-rating-all.jsp">Top rating</a></li>
-                                    <li><a href="top-wishlist.jsp">Top wishlist</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="contact.jsp">Contact</a></li>
-                            <li><a href="forum.jsp">Community</a></li>
+                            <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                            <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                            <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+                            <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -143,7 +156,7 @@
                         <!-- Các trường ẩn để truyền các giá trị cần thiết -->
                         <input type="hidden" name="userid" value="userId">
                         <input type="hidden" name="postid" value="postId">
-                        <input type="hidden" name="dateup" value="<%= new java.util.Date() %>">
+                        <input type="hidden" name="dateup" value="<%= new java.util.Date()%>">
 
                         <!-- Nút submit để gửi form -->
                         <input type="submit" value="submit">
@@ -395,58 +408,58 @@
         <script src="js/jquery.magnific-popup.min.js"></script>
         <script src="js/main.js"></script>
         <script>
-            function showComment() {
-                var commentArea = document.getElementById("comment-area");
-                commentArea.classList.toggle("hide");
-            }
+                                                    function showComment() {
+                                                        var commentArea = document.getElementById("comment-area");
+                                                        commentArea.classList.toggle("hide");
+                                                    }
 
-            function showReply(areaId, username) {
-                // Tìm tất cả các phần comment-area và ẩn chúng
-                const allCommentAreas = document.querySelectorAll('.comment-area');
-                allCommentAreas.forEach(area => {
-                    area.classList.add('hide'); // Ẩn tất cả các comment-area
-                });
+                                                    function showReply(areaId, username) {
+                                                        // Tìm tất cả các phần comment-area và ẩn chúng
+                                                        const allCommentAreas = document.querySelectorAll('.comment-area');
+                                                        allCommentAreas.forEach(area => {
+                                                            area.classList.add('hide'); // Ẩn tất cả các comment-area
+                                                        });
 
-                // Hiển thị phần comment-area tương ứng với reply được bấm
-                var replyArea = document.getElementById(areaId);
-                replyArea.classList.toggle("hide"); // Toggle hiển thị phần comment-area được bấm
+                                                        // Hiển thị phần comment-area tương ứng với reply được bấm
+                                                        var replyArea = document.getElementById(areaId);
+                                                        replyArea.classList.toggle("hide"); // Toggle hiển thị phần comment-area được bấm
 
-                // Lấy thẻ textarea trong phần reply hiện tại
-                var textArea = replyArea.querySelector('textarea');
+                                                        // Lấy thẻ textarea trong phần reply hiện tại
+                                                        var textArea = replyArea.querySelector('textarea');
 
-                // Đặt giá trị ban đầu cho textarea là username
-                textArea.value = '@' + username + ' ';
-            }
+                                                        // Đặt giá trị ban đầu cho textarea là username
+                                                        textArea.value = '@' + username + ' ';
+                                                    }
 
-            function toggleArea(areaId) {
-                var area = document.getElementById(areaId);
-                area.classList.toggle("hide");
-            }
+                                                    function toggleArea(areaId) {
+                                                        var area = document.getElementById(areaId);
+                                                        area.classList.toggle("hide");
+                                                    }
 
-            document.addEventListener('DOMContentLoaded', function () {
-                const toggleButtons = document.querySelectorAll('.toggle-replies');
+                                                    document.addEventListener('DOMContentLoaded', function () {
+                                                        const toggleButtons = document.querySelectorAll('.toggle-replies');
 
-                toggleButtons.forEach(button => {
-                    button.addEventListener('click', function () {
-                        const hiddenReplies = this.previousElementSibling;
+                                                        toggleButtons.forEach(button => {
+                                                            button.addEventListener('click', function () {
+                                                                const hiddenReplies = this.previousElementSibling;
 
-                        // Tìm tất cả các phần comment-area và ẩn chúng
-                        const allCommentAreas = document.querySelectorAll('.comment-area');
-                        allCommentAreas.forEach(area => {
-                            area.classList.add('hide'); // Ẩn tất cả các comment-area
-                        });
+                                                                // Tìm tất cả các phần comment-area và ẩn chúng
+                                                                const allCommentAreas = document.querySelectorAll('.comment-area');
+                                                                allCommentAreas.forEach(area => {
+                                                                    area.classList.add('hide'); // Ẩn tất cả các comment-area
+                                                                });
 
-                        // Toggle hiển thị phần hidden-replies liên quan
-                        if (hiddenReplies.style.display === 'none') {
-                            hiddenReplies.style.display = 'block';
-                            this.textContent = 'Hide';
-                        } else {
-                            hiddenReplies.style.display = 'none';
-                            this.textContent = 'Show more';
-                        }
-                    });
-                });
-            });
+                                                                // Toggle hiển thị phần hidden-replies liên quan
+                                                                if (hiddenReplies.style.display === 'none') {
+                                                                    hiddenReplies.style.display = 'block';
+                                                                    this.textContent = 'Hide';
+                                                                } else {
+                                                                    hiddenReplies.style.display = 'none';
+                                                                    this.textContent = 'Show more';
+                                                                }
+                                                            });
+                                                        });
+                                                    });
         </script>
     </body>
 

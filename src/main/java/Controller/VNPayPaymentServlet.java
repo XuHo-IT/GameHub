@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/vnpay-payment")
 public class VNPayPaymentServlet extends HttpServlet {
@@ -38,6 +39,8 @@ public class VNPayPaymentServlet extends HttpServlet {
         String orderId = Config.getRandomNumber(8); // Generate random order ID
         String bankCode = request.getParameter("bankCode");
         String linkValue = request.getParameter("vnp_Link"); // Get the link value
+        String userId = request.getParameter("user_Id");
+        String userName = request.getParameter("user_Name");
 
         // Set transaction details
         Map<String, String> vnp_Params = new HashMap<>();
@@ -54,8 +57,12 @@ public class VNPayPaymentServlet extends HttpServlet {
         // Construct the return URL with the linkValue as a query parameter
         String returnUrl = Config.getReturnUrl();
         if (linkValue != null && !linkValue.isEmpty()) {
-            returnUrl += "?link=" + URLEncoder.encode(linkValue, StandardCharsets.UTF_8); // Append the linkValue
+            // Start building the return URL with linkValue
+            returnUrl += "?link=" + URLEncoder.encode(linkValue, StandardCharsets.UTF_8); 
+
         }
+        returnUrl += "&adminId=" + URLEncoder.encode(userId, StandardCharsets.UTF_8);
+        
         vnp_Params.put("vnp_ReturnUrl", returnUrl); // Use the modified return URL
         vnp_Params.put("vnp_IpAddr", Config.getIpAddress(request)); // Get client IP address
         vnp_Params.put("vnp_CreateDate", Config.getCurrentDate());
@@ -101,7 +108,10 @@ public class VNPayPaymentServlet extends HttpServlet {
                 .append("amount", amount)
                 .append("bankCode", bankCode)
                 .append("orderType", orderType)
-                .append("createDate", Config.getCurrentDate());
+                .append("createDate", Config.getCurrentDate())
+                .append("userId", userId)
+                .append("userName", userName);
+
         collection.insertOne(transactionDoc); // Insert into MongoDB collection
         // Redirect the user to VNPay payment URL
         response.sendRedirect(paymentUrl);

@@ -19,6 +19,7 @@
         <div class="container">
             <div class="navigation" style="background: #6f2b95; border-left: 10px solid #6f2b95">
                 <ul>
+                    
                     <li>
                         <a href="">
                             <span class="icon"><ion-icon name="logo-apple"></ion-icon></span>
@@ -28,7 +29,7 @@
                     <li>
                     </li>
                     <li>
-                        <a href="../ReadGameUploadByMemberController">
+                        <a href="../ReadGameUploadByMemberController?adminId=<%= request.getSession().getAttribute("adminId")%>">
                             <span class="icon">
                                 <ion-icon name="people-outline"></ion-icon>
                             </span>
@@ -36,7 +37,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="index-chart.jsp">
+                        <a href="../ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">
                             <span class="icon">
                                 <ion-icon name="chatbubbles-outline"></ion-icon>
                             </span>
@@ -44,13 +45,14 @@
                         </a>
                     </li>
                     <li>
-                        <a href="chart/list-user.jsp">
+                        <a href="chart/list-user.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">
                             <span class="icon">
                                 <ion-icon name="help-outline"></ion-icon>
                             </span>
                             <span class="title">Manage All User</span>
                         </a>
                     </li>
+
 
                 </ul>
             </div>

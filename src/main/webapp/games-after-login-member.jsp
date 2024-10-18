@@ -4,7 +4,7 @@
 <%@ page import="org.bson.Document" %>
 <!DOCTYPE html>
 <html lang="zxx">
-     <head>
+    <head>
         <title>EndGam - Gaming Magazine Template</title>
         <meta charset="UTF-8">
         <meta name="description" content="EndGam Gaming Magazine Template">
@@ -84,11 +84,10 @@
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
-                                        <li><a href="#">My Favourite</a></li>
                                         <li><a href="user-profile.jsp">Account Info</a></li>
-
-                                        <li><a href="#">Log out</a></li>
-
+                                        <li>
+                                            <a href="LogoutController" class="dropdown-item">Logout</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -96,16 +95,10 @@
 
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
-                            <li><a href="ReadGameHomeMemberController">Home</a></li>
-                            <li><a href="ReadGameListMemberController">Games</a>
-
-                                <ul class="sub-menu">
-                                    <li><a href="top-rating-all-after-login-member.jsp">Top rating</a></li>
-                                    <li><a href="top-wishlist-after-login-member.jsp">Top wishlist</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="contact-after-login-member.jsp">Contact</a></li>
-                            <li><a href="ReadTopicMemberController">Community</a></li>
+                            <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                            <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                            <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+                            <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -153,28 +146,28 @@
                     </div>
                     <div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">
                         <div id="stickySidebar">
-                           <div class="widget-item">
-                            <div class="categories-widget">
-                                <h4 class="widget-title">Genre</h4>
-                                <form action="ReadGameListMemberController" method="get">   
-                                    <ul>
-                                        <c:forEach var="genre" items="${genres}">
-                                            <li>
-                                                <a href="ReadGameListMemberController?genre=${genre.genre}">
-                                                    ${genre.genre != null ? genre.genre : 'No genre available'}
-                                                </a>
-                                            </li>
-                                        </c:forEach>     
-                                    </ul>
-                                </form>
+                            <div class="widget-item">
+                                <div class="categories-widget">
+                                    <h4 class="widget-title">Genre</h4>
+                                    <form action="ReadGameListMemberController" method="get">   
+                                        <ul>
+                                            <c:forEach var="genre" items="${genres}">
+                                                <li>
+                                                    <a href="ReadGameListMemberController?genre=${genre.genre}">
+                                                        ${genre.genre != null ? genre.genre : 'No genre available'}
+                                                    </a>
+                                                </li>
+                                            </c:forEach>     
+                                        </ul>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
                             <div class="widget-item">
                                 <img src="img/game-console.jpg" alt="#">
                             </div>
                         </div>
                     </div>
-                   <div class="site-pagination">
+                    <div class="site-pagination">
                         <c:if test="${currentPage > 1}">
                             <a href="?genre=${selectedGenre}&page=${currentPage - 1}" class="prev">Previous</a>
                         </c:if>

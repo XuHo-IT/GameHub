@@ -1,27 +1,19 @@
 package Controller;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Base64;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
-
-import org.apache.commons.io.IOUtils;
-import org.bson.Document;
-
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.bson.Document;
+import org.bson.types.ObjectId;
 
-import Model.Comment;
-
-public class AddCommentController extends HttpServlet {
+public class DeleteCommentAdminController extends HttpServlet {
 
     private MongoClient mongoClient;
 
@@ -35,19 +27,18 @@ public class AddCommentController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Retrieve the form parameters
-        String comment = request.getParameter("comment");
-        String userId = request.getParameter("userid");
-        String topicId = request.getParameter("topicid");
-//        String dateUp = request.getParameter("dateup");
+        String commentId = request.getParameter("commentId");
+        String topicId = request.getParameter("topicId");
 
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("comment");
-        
-        Document comments = new Document("TopicId",topicId).append("UserId", userId).append("Content", comment);
-        
-        collection.insertOne(comments);
-        response.sendRedirect("forum-detail-after-login-member.jsp?id=" + topicId);
+
+        // Tạo tiêu chí để tìm và xóa tài liệu
+        Document query = new Document("_id", new ObjectId(commentId));
+
+        // Xóa tài liệu theo commentId
+        collection.deleteOne(query);
+        response.sendRedirect("forum-detail-after-login.jsp?id=" + topicId);
     }
 
     @Override

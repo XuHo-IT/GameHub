@@ -16,6 +16,7 @@
         <div class="container">
             <div class="navigation" style="background: #6f2b95; border-left: 10px solid #6f2b95">
                 <ul>
+                   
                     <li>
                         <a href="">
                             <span class="icon"><ion-icon name="logo-apple"></ion-icon></span>
@@ -25,7 +26,7 @@
                     <li>
                     </li>
                     <li>
-                        <a href="ReadGameUploadByMemberController">
+                        <a href="ReadGameUploadByMemberController?adminId=<%= request.getSession().getAttribute("adminId")%>">
                             <span class="icon">
                                 <ion-icon name="people-outline"></ion-icon>
                             </span>
@@ -33,7 +34,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="chart/index-chart.jsp">
+                        <a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">
                             <span class="icon">
                                 <ion-icon name="chatbubbles-outline"></ion-icon>
                             </span>
@@ -41,13 +42,14 @@
                         </a>
                     </li>
                     <li>
-                        <a href="chart/list-user.jsp">
+                        <a href="chart/list-user.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">
                             <span class="icon">
                                 <ion-icon name="help-outline"></ion-icon>
                             </span>
                             <span class="title">Manage All User</span>
                         </a>
                     </li>
+
 
                 </ul>
             </div>
@@ -70,7 +72,7 @@
                     <div class="recentOrders">
                         <div class="cardHeader">
                             <h2 style="color:#6f2b95">Post Uploaded By Member</h2>
-                          <h2 style="color:#6f2b95">Total Post: ${fn:length(postsMember)}</h2>
+                            <h2 style="color:#6f2b95">Total Post: ${fn:length(postsMember)}</h2>
                         </div>
                         <form action="ConfirmPostController" method="post">
                             <table class="styled-table">
@@ -110,7 +112,7 @@
                     </div>
 
                 </div>
-                <button type="button" class="btn back-btn" style="background: #6f2b95; color: white" onclick="window.location.href = 'ReadGameHomeAdminController'">Back To Home Page</button>
+                <button type="button" class="btn back-btn" style="background: #6f2b95; color: white" onclick="window.location.href = 'ReadGameHomeAdminController?&adminId=<%= request.getSession().getAttribute("adminId")%>'">Back To Home Page</button>
             </div>
         </div>
         <script
@@ -167,7 +169,7 @@
                 margin: 25px 0;
                 font-size: 18px;
                 text-align: left;
-      
+
             }
             .styled-table th, .styled-table td {
                 padding: 12px 15px;
@@ -216,6 +218,6 @@
                 padding: 30px;
                 float: right;
             }
-            </style>
-        </body>
-    </html>
+        </style>
+    </body>
+</html>

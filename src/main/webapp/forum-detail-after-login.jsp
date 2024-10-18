@@ -81,23 +81,33 @@
                             <img src="./img/logo2.png" alt="" class="logo2">
                         </a>
                     </div>
-                    <nav class="top-nav-area w-100">
-                        <div class="user-panel">
-                            <button class="login-btn">LOG IN</button>
+                     <nav class="top-nav-area w-100">
+                        <div class="user-panel d-flex">
+                            <!-- Bi?u t??ng gi? hï¿½ng -->
+
+                            <!-- Bi?u t??ng tï¿½i kho?n -->
+                            <div class="account-container">
+                                <div class="account-icon">
+                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                </div>
+                                <div class="account-dropdown">
+                                    <ul>
+                                        <li><a href="user-profile.jsp?id=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
+                                        <li>
+                                           <a href="LogoutController" class="dropdown-item">Logout</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
-                            <li><a href="ReadGameHomeController">Home</a></li>
-                            <li><a href="ReadGameListController">Games</a>
-
-                                <ul class="sub-menu">
-                                    <li><a href="top-rating-all.jsp">Top rating</a></li>
-                                    <li><a href="top-wishlist.jsp">Top wishlist</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="contact.jsp">Contact</a></li>
-                            <li><a href="forum.jsp">Community</a></li>
+                            <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                            <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                            <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+                            <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
+                            <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -208,7 +218,6 @@
                         <div class="authors">Author</div>
                         <div class="content"><%=title%></div>
                     </div>
-
                     <div class="body">
                         <div class="authors">                          
                             <img src="<%= (photoUrlUser == null || photoUrlUser.isEmpty()) ? "./img/t-rex.png" : photoUrlUser%>" alt="Photo User">
@@ -228,13 +237,11 @@
                         </div>
                     </div>
                 </div>
-
                 <!--Comment Area-->
                 <form action="AddCommentAdminController" method="POST">
                     <div class="comment-area hide" id="comment-area">
                         <!-- Textarea để nhập comment -->
                         <textarea name="comment" placeholder="comment here ..." required></textarea>
-
                         <!-- Các trường ẩn để truyền các giá trị cần thiết -->
                         <input type="hidden" name="userid" value="670fb46bbdffbe71c8ae2316">
                         <input type="hidden" name="topicid" value="<%=topicId%>">
@@ -244,7 +251,6 @@
                         <input type="submit" value="submit">
                     </div>
                 </form>
-
                 <!--Another Comment With replies-->
                 <div class="comments-container">
                     <% if (comments != null && !comments.isEmpty()) {

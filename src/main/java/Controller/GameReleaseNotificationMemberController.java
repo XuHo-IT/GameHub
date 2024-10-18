@@ -33,7 +33,7 @@ public class GameReleaseNotificationMemberController extends HttpServlet {
         // Get parameters from the form
         String userEmail = request.getParameter("userEmail");
         String postId = request.getParameter("postId");
-        String gameTitle = request.getParameter("title");
+        String adminId = request.getParameter("adminId");
 
         if (userEmail == null || userEmail.isEmpty()) {
             response.getWriter().write("Invalid email address");
@@ -54,11 +54,14 @@ public class GameReleaseNotificationMemberController extends HttpServlet {
             while (cursor.hasNext()) {
                 Document gamePost = cursor.next();
                 String postGameTitle = gamePost.getString("Title");
-                String postGameId = gamePost.getObjectId("_id").toString();
+            
+                
 
-                emailSent = sendEmailNotification(postGameTitle, postGameId, userEmail);
+                emailSent = sendEmailNotification(postGameTitle, postId,adminId, userEmail);
             }
         }
+        request.setAttribute(postId, "postId");
+        request.setAttribute(adminId, "adminId");
 
         // Redirect based on whether the email was sent successfully
         if (emailSent) {
@@ -68,9 +71,9 @@ public class GameReleaseNotificationMemberController extends HttpServlet {
         }
     }
 
-    private boolean sendEmailNotification(String gameTitle, String postId, String memberEmail) {
+    private boolean sendEmailNotification(String gameTitle, String postId,String adminId, String memberEmail) {
         String subject = "Game Release Notification";
-        String gameLink = "http://localhost:8080/Web_Trading_Game/cart-buy.jsp?id=" + postId + "&postId=" + postId;
+        String gameLink = "http://localhost:8080/Web_Trading_Game/cart-buy.jsp?id=" + postId + "&adminId=" +adminId ;
         String body = "Dear Member, the game '" + gameTitle + "' is releasing today! " +
                       "Here’s the link to the game: " + gameLink;
 

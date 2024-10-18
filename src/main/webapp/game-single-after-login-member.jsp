@@ -86,11 +86,10 @@
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
-                                        <li><a href="#">My Favourite</a></li>
                                         <li><a href="user-profile.jsp">Account Info</a></li>
-
-                                        <li><a href="#">Log out</a></li>
-
+                                        <li>
+                                            <a href="LogoutController" class="dropdown-item">Logout</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -98,16 +97,10 @@
 
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
-                            <li><a href="ReadGameHomeMemberController">Home</a></li>
-                            <li><a href="ReadGameListMemberController">Games</a>
-
-                                <ul class="sub-menu">
-                                    <li><a href="top-rating-all-after-login-member.jsp">Top rating</a></li>
-                                    <li><a href="top-wishlist-all-after-login-member.jsp">Top wishlist</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="contact-after-login-member.jsp">Contact</a></li>
-                            <li><a href="ReadTopicMemberController">Community</a></li>
+                            <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                            <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                            <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+                            <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -145,6 +138,7 @@
             double difficultyRating = 0.0;
             double gameplayRating = 0.0;
             double averageRating = 0.0;
+            String adminId = request.getParameter("adminId");
 
             // Get the post ID from the URL query parameter
             String postId = request.getParameter("id");
@@ -185,6 +179,7 @@
 
             // Close MongoDB connection
             mongoClient.close();
+
         %>
 
         <section class="games-single-page">
@@ -193,8 +188,9 @@
                     <img src="data:image/jpeg;base64,<%= fileData != null ? fileData : ""%>" alt="Game Image" />
                     <!-- Add to Wishlist button -->
                     <div class="wishlist-btns">
-                        <form id="wishlistForm" action="shopping-cart.jsp" method="POST">
+                        <form id="wishlistForm" action="shopping-cart.jsp?id=<%= postId%>?adminId=<%= adminId%>" method="POST">
                             <input type="hidden" name="postId" value="<%= postId%>" />
+                            <input type="hidden" name="adminId" value="<%= adminId%>" />
                             <input type="hidden" name="title" value="<%= title%>" />
                             <input type="hidden" name="fileData" value="<%= fileData%>" />
                             <input type="hidden" name="dateRelease" value="<%= dateRelease%>" />

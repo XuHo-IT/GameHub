@@ -82,12 +82,35 @@
                         </a>
                     </div>
                     <nav class="top-nav-area w-100">
-                        <div class="user-panel">
-                            <button class="login-btn">LOG IN</button>
+                        <div class="user-panel d-flex">
+                            <!-- Bi?u t??ng gi? hï¿½ng -->
+                            <div class="cart-icon">
+                                <a href="shopping-cart.jsp">
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <!-- Bi?u t??ng tï¿½i kho?n -->
+                            <div class="account-container">
+                                <div class="account-icon">
+                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                </div>
+                                <div class="account-dropdown">
+                                    <ul>
+                                        <li><a href="user-profile.jsp">Account Info</a></li>
+                                        <li>
+                                            <a href="LogoutController" class="dropdown-item">Logout</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
+                            <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                            <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                            <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+                            <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
                             <li><a href="ReadGameHomeController">Home</a></li>
                             <li><a href="ReadGameListController">Games</a>
 

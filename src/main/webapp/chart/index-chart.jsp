@@ -16,6 +16,7 @@
         <div class="container">
             <div class="navigation">
                 <ul>
+
                     <li>
                         <a href="">
                             <span class="icon"><ion-icon name="logo-apple"></ion-icon></span>
@@ -25,7 +26,7 @@
                     <li>
                     </li>
                     <li>
-                        <a href="../ReadGameUploadByMemberController">
+                        <a href="ReadGameUploadByMemberController?adminId=<%= request.getSession().getAttribute("adminId")%>">
                             <span class="icon">
                                 <ion-icon name="people-outline"></ion-icon>
                             </span>
@@ -33,7 +34,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="index-chart.jsp">
+                        <a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">
                             <span class="icon">
                                 <ion-icon name="chatbubbles-outline"></ion-icon>
                             </span>
@@ -41,13 +42,14 @@
                         </a>
                     </li>
                     <li>
-                        <a href="list-user.jsp">
+                        <a href="chart/list-user.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">
                             <span class="icon">
                                 <ion-icon name="help-outline"></ion-icon>
                             </span>
                             <span class="title">Manage All User</span>
                         </a>
                     </li>
+
 
                 </ul>
             </div>
@@ -131,26 +133,28 @@
                                     <td>Amount</td>
                                     <td>Order Type</td>
                                     <td>Date</td>
+                                    <td>User Id</td>
                                 </tr>
                             </thead>
                             <tbody>
-                            <c:choose>
-                                <c:when test="${not empty transactionList}">
-                                    <c:forEach var="transaction" items="${transactionList}">
+                                <c:choose>
+                                    <c:when test="${not empty transactionList}">
+                                        <c:forEach var="transaction" items="${transactionList}">
+                                            <tr>
+                                                <td>${transaction.orderId}</td>
+                                                <td><span class="status delivered">${fn:escapeXml(transaction.amount)}</span></td>
+                                                <td>${transaction.orderType}</td>
+                                                <td>${transaction.formattedCreateDate}</td>
+                                                <td>${transaction.userId}</td>
+                                            </tr>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
                                         <tr>
-                                            <td>${transaction.orderId}</td>
-                                            <td><span class="status delivered">${fn:escapeXml(transaction.amount)}</span></td>
-                                            <td>${transaction.orderType}</td>
-                                            <td>${transaction.formattedCreateDate}</td>
+                                            <td colspan="4">No transactions found.</td>
                                         </tr>
-                                    </c:forEach>
-                                </c:when>
-                                <c:otherwise>
-                                    <tr>
-                                        <td colspan="4">No transactions found.</td>
-                                    </tr>
-                                </c:otherwise>
-                            </c:choose>
+                                    </c:otherwise>
+                                </c:choose>
                             </tbody>
                         </table>
                     </div>

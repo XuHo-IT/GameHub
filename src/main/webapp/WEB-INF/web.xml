@@ -185,6 +185,10 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateCommentController</servlet-name>
+        <servlet-class>Controller.UpdateCommentController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -348,7 +352,7 @@
     <servlet-mapping>
         <servlet-name>TopicDeleteController</servlet-name>
         <url-pattern>/TopicDeleteController</url-pattern>
-      </servlet-mapping>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteCommentController</servlet-name>
         <url-pattern>/DeleteCommentController</url-pattern>
@@ -364,6 +368,10 @@
     <servlet-mapping>
         <servlet-name>SearchController</servlet-name>
         <url-pattern>/SearchController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCommentController</servlet-name>
+        <url-pattern>/UpdateCommentController</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>ReadGameHomeController</welcome-file>

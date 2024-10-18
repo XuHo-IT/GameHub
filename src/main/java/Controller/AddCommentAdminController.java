@@ -44,7 +44,7 @@ public class AddCommentAdminController extends HttpServlet {
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("comment");
         
-        Document comments = new Document("TopicId",topicId).append("UserId", userId).append("Content", comment);
+        Document comments = new Document("TopicId",topicId).append("UserId", userId).append("Content", comment).append("Status", null);
         
         collection.insertOne(comments);
         response.sendRedirect("forum-detail-after-login.jsp?id=" + topicId);

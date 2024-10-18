@@ -285,9 +285,27 @@
                                     <p style="color: lightblue; white-space: normal; word-wrap: break-word; overflow-wrap: break-word;">
                                         <%= comment.getContent()%>
                                     </p>
+                                    <%if (!comment.getUserId().equalsIgnoreCase(request.getSession().getAttribute("adminId").toString())) {%>
                                     <div class="comment">
                                         <button onclick="showReply('reply-area-<%= comment.getCommentId()%>', '<%=comment.getUserName()%>')">Reply</button>
                                     </div>
+                                    <%} else {%>
+                                    <div class="comment">
+                                        <button style="margin-left: 840px; margin-top: 15px;" onclick="deleteComment('<%= comment.getCommentId()%>', '<%=topicId%>')">Delete</button>
+                                    </div>  
+                                    <div class="comment">
+                                        <button class="update-button" onclick="showUpdate('<%= comment.getCommentId()%>', '<%= comment.getContent()%>', '<%= topicId%>', '<%= comment.getContent()%>')" aria-label="Update comment">Update</button>
+                                    </div>
+
+                                    <form action="UpdateCommentController" method="POST">
+                                        <div class="comment-area hide" id="update-area-<%= comment.getCommentId()%>">
+                                            <textarea name="newContent" placeholder="reply here ..." required></textarea>
+                                            <input type="hidden" name="commentid" value="<%= comment.getCommentId()%>">
+                                            <input type="hidden" name="topicid" value="<%= topicId%>">
+                                            <input type="submit" value="Submit">
+                                        </div>
+                                    </form>
+                                    <%}%>
                                 </div>
                             </div>
                         </div>
@@ -298,7 +316,7 @@
                                 <textarea name="comment" placeholder="reply here ..." required></textarea>
 
                                 <!-- Các trường ẩn để truyền các giá trị cần thiết -->
-                                <input type="hidden" name="userid" value="670fb46bbdffbe71c8ae2316">
+                                <input type="hidden" name="userid" value="<%= request.getSession().getAttribute("adminId")%>">
                                 <input type="hidden" name="topicid" value="<%=topicId%>">            
                                 <input type="hidden" name="dateup" value="<%= new java.util.Date()%>">
 
@@ -423,59 +441,126 @@
         <script src="js/jquery.magnific-popup.min.js"></script>
         <script src="js/main.js"></script>
         <script>
-                        function showComment() {
-                            var commentArea = document.getElementById("comment-area");
-                            commentArea.classList.toggle("hide");
-                        }
+        function showComment() {
+            var commentArea = document.getElementById("comment-area");
+            commentArea.classList.toggle("hide");
+        }
 
-                        function showReply(areaId, username) {
-                            // Tìm tất cả các phần comment-area và ẩn chúng
-                            const allCommentAreas = document.querySelectorAll('.comment-area');
-                            allCommentAreas.forEach(area => {
-                                area.classList.add('hide'); // Ẩn tất cả các comment-area
-                            });
+        function showReply(areaId, username) {
+            // Tìm tất cả các phần comment-area và ẩn chúng
+            const allCommentAreas = document.querySelectorAll('.comment-area');
+            allCommentAreas.forEach(area => {
+                area.classList.add('hide'); // Ẩn tất cả các comment-area
+            });
 
-                            // Hiển thị phần comment-area tương ứng với reply được bấm
-                            var replyArea = document.getElementById(areaId);
-                            replyArea.classList.toggle("hide"); // Toggle hiển thị phần comment-area được bấm
+            // Hiển thị phần comment-area tương ứng với reply được bấm
+            var replyArea = document.getElementById(areaId);
+            replyArea.classList.toggle("hide"); // Toggle hiển thị phần comment-area được bấm
 
-                            // Lấy thẻ textarea trong phần reply hiện tại
-                            var textArea = replyArea.querySelector('textarea');
+            // Lấy thẻ textarea trong phần reply hiện tại
+            var textArea = replyArea.querySelector('textarea');
 
-                            // Đặt giá trị ban đầu cho textarea là username
-                            textArea.value = '@' + username + ' ';
-                        }
+            // Đặt giá trị ban đầu cho textarea là username
+            textArea.value = '@' + username + ' ';
+        }
 
-                        function toggleArea(areaId) {
-                            var area = document.getElementById(areaId);
-                            area.classList.toggle("hide");
-                        }
+        function showUpdate(commentId, username, topicId, oldContent) {
+            // Hide all comment areas
+            const allCommentAreas = document.querySelectorAll('.comment-area');
+            allCommentAreas.forEach(area => {
+                area.classList.add('hide');
+            });
 
-                        document.addEventListener('DOMContentLoaded', function () {
-                            const toggleButtons = document.querySelectorAll('.toggle-replies');
+            // Show the corresponding comment area
+            var updateArea = document.getElementById('update-area-' + commentId);
+            updateArea.classList.remove('hide');
 
-                            toggleButtons.forEach(button => {
-                                button.addEventListener('click', function () {
-                                    const hiddenReplies = this.previousElementSibling;
+            // Set the initial value for the textarea
+            var textArea = updateArea.querySelector('textarea');
+            textArea.value = oldContent;
+        }
 
-                                    // Tìm tất cả các phần comment-area và ẩn chúng
-                                    const allCommentAreas = document.querySelectorAll('.comment-area');
-                                    allCommentAreas.forEach(area => {
-                                        area.classList.add('hide'); // Ẩn tất cả các comment-area
-                                    });
+        function toggleArea(areaId) {
+            var area = document.getElementById(areaId);
+            area.classList.toggle("hide");
+        }
 
-                                    // Toggle hiển thị phần hidden-replies liên quan
-                                    if (hiddenReplies.style.display === 'none') {
-                                        hiddenReplies.style.display = 'block';
-                                        this.textContent = 'Hide';
-                                    } else {
-                                        hiddenReplies.style.display = 'none';
-                                        this.textContent = 'Show more';
-                                    }
-                                });
-                            });
-                        });
+        document.addEventListener('DOMContentLoaded', function () {
+            const toggleButtons = document.querySelectorAll('.toggle-replies');
+
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const hiddenReplies = this.previousElementSibling;
+
+                    // Tìm tất cả các phần comment-area và ẩn chúng
+                    const allCommentAreas = document.querySelectorAll('.comment-area');
+                    allCommentAreas.forEach(area => {
+                        area.classList.add('hide'); // Ẩn tất cả các comment-area
+                    });
+
+                    // Toggle hiển thị phần hidden-replies liên quan
+                    if (hiddenReplies.style.display === 'none') {
+                        hiddenReplies.style.display = 'block';
+                        this.textContent = 'Hide';
+                    } else {
+                        hiddenReplies.style.display = 'none';
+                        this.textContent = 'Show more';
+                    }
+                });
+            });
+        });
+        function deleteComment(value1, value2) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = 'DeleteCommentController';  // Đường dẫn tới servlet
+
+            // Tạo các input ẩn để truyền giá trị
+            const input1 = document.createElement('input');
+            input1.type = 'hidden';
+            input1.name = 'commentId';  // Tên của tham số truyền vào servlet
+            input1.value = value1;
+
+            const input2 = document.createElement('input');
+            input2.type = 'hidden';
+            input2.name = 'topicId';
+            input2.value = value2;
+
+            // Thêm input vào form
+            form.appendChild(input1);
+            form.appendChild(input2);
+
+            // Thêm form vào body và submit
+            document.body.appendChild(form);
+            form.submit();
+        }
+
         </script>
+        <style>.modal {
+                display: none;
+                position: fixed;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 1;
+            }
+
+            .modal-content {
+                background-color: white;
+                margin: 15% auto;
+                padding: 20px;
+                width: 80%;
+                border-radius: 10px;
+                text-align: center;
+            }
+
+            .close {
+                float: right;
+                font-size: 24px;
+                cursor: pointer;
+            }
+        </style>
     </body>
 
 </html>

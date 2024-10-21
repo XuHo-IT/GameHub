@@ -3,11 +3,13 @@ package mongodb;
 
 
 import Model.GamePost;
+import Model.Statistics;
 import Model.UserModel;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import static com.mongodb.client.model.Filters.eq;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.Document;
@@ -17,9 +19,11 @@ import org.bson.Document;
 public class MongoConnectStatistic {
     private static final String CONNECTION_STRING = "mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub";
     private static final String DATABASE_NAME = "GameHub";
-    private static final String USER_COLLECTION_NAME = "superadmin";
-    private static final String MEMBER_POST_COLLECTION_NAME = "postGame";
-    private static final String ADMIN_POST_COLLECTION_NAME = "postGameMember";
+    private static final String MEMBER_POST_COLLECTION_NAME = "postGameMember";
+    private static final String ADMIN_POST_COLLECTION_NAME = "postGame";
+    private static final String GAME_POST_COLLECTION = "postGame";
+    private static final String TOPIC_COLLECTION = "topic";
+    private static final String USER_COLLECTION ="superadmin";
     
     public List<GamePost> adminPostList;
     public List<GamePost> memberPostList;
@@ -29,7 +33,7 @@ public class MongoConnectStatistic {
         List<UserModel> userList = new ArrayList<>();
         try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
             MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
-            MongoCollection<Document> collection = database.getCollection(USER_COLLECTION_NAME);
+            MongoCollection<Document> collection = database.getCollection(USER_COLLECTION);
             
             for (Document doc : collection.find()) {
                 UserModel user = new UserModel();
@@ -100,6 +104,22 @@ public class MongoConnectStatistic {
             e.printStackTrace();
         }
         return postList;
+    }
+    
+    public Statistics getStatistics() {
+        MongoClient mongoClient = MongoClients.create(CONNECTION_STRING);
+        MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
+        MongoCollection<Document> userCollection = database.getCollection(USER_COLLECTION);
+ 
+        long gamePostCount = database.getCollection(GAME_POST_COLLECTION).countDocuments();
+        long topicCount = database.getCollection(TOPIC_COLLECTION).countDocuments();
+        long adminCount = userCollection.countDocuments(eq("Role", "1"));
+        long memberCount = userCollection.countDocuments(eq("Role", "0"));
+        long userCount = database.getCollection(USER_COLLECTION).countDocuments();
+
+        mongoClient.close();
+
+        return new Statistics(gamePostCount, topicCount, memberCount, adminCount, userCount);
     }
     
 //    public List<Integer> getPostCountsForPast7Days() {

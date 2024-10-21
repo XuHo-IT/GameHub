@@ -79,7 +79,7 @@
                                     <ul>
                                         <li><a href="user-profile.jsp">Account Info</a></li>
                                          <li>
-                                           <a href="LogoutController" class="dropdown-item">Logout</a>
+                                           <a href="LogOutController" class="dropdown-item">Logout</a>
                                         </li>
                                     </ul>
                                 </div>

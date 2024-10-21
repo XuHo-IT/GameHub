@@ -82,7 +82,7 @@
                                     <ul>                                    
                                         <li><a href="user-profile.jsp">Account Info</a></li>
                                          <li>
-                                           <a href="LogoutController" class="dropdown-item">Logout</a>
+                                           <a href="LogOutController" class="dropdown-item">Logout</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -173,7 +173,7 @@
                 <div class="row">
                     <div class="col-xl-9 col-lg-8 col-md-7">
                         <div class="user-panel">
-                            <button class="create-btn">Add </button>
+                            <button class="create-btn">Add Game Post</button>
                         </div>
                         <!-- Blog item -->
                         <%
@@ -414,24 +414,6 @@
                 <div class="bottom-link">
                     Want to upload a genre?
                     <a href="#" id="upload-photo-link">Upload Genre</a>
-                </div>
-            </div>
-            <div class="right-position">
-                <div class="input-field">
-                    <label>Price Rating</label>
-                    <input type="number" step="0.1" min="0" max="5" required name="PriceRating" placeholder="0.0 to 5.0">
-                </div>
-                <div class="input-field">
-                    <label>Graphic Rating</label>
-                    <input type="number" step="0.1" min="0" max="5" required name="GraphicRating" placeholder="0.0 to 5.0">
-                </div>
-                <div class="input-field">
-                    <label>Difficulty Rating</label>
-                    <input type="number" step="0.1" min="0" max="5" required name="DifficultyRating" placeholder="0.0 to 5.0">
-                </div>
-                <div class="input-field">
-                    <label>Gameplay Rating</label>
-                    <input type="number" step="0.1" min="0" max="5" required name="GameplayRating" placeholder="0.0 to 5.0">
                 </div>
             </div>
         </div>

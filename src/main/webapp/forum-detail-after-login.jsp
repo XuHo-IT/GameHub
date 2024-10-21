@@ -75,7 +75,7 @@
                             <img src="./img/logo2.png" alt="" class="logo2">
                         </a>
                     </div>
-                     <nav class="top-nav-area w-100">
+                    <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
                             <!-- Bi?u t??ng gi? hï¿½ng -->
 
@@ -263,9 +263,11 @@
                                     <p style="color: lightblue; white-space: normal; word-wrap: break-word; overflow-wrap: break-word;">
                                         <%= comment.getContent()%>
                                     </p>
+                                    <%if (!comment.getUserId().equalsIgnoreCase(request.getSession().getAttribute("adminId").toString())) {%>
                                     <div class="comment">
                                         <button onclick="showReply('reply-area-<%= comment.getCommentId()%>', '<%=comment.getUserName()%>')">Reply</button>
                                     </div>
+                                    <%}%>
                                     <div class="comment">
                                         <button style="margin-left: 840px; margin-top: 15px;" onclick="deleteComment('<%= comment.getCommentId()%>', '<%=topicId%>')">Delete</button>
                                     </div>   
@@ -279,7 +281,7 @@
                                 <textarea name="comment" placeholder="reply here ..." required></textarea>
 
                                 <!-- Các trường ẩn để truyền các giá trị cần thiết -->
-                                <input type="hidden" name="userid" value="670fb46bbdffbe71c8ae2316">
+                                <input type="hidden" name="userid" value="<%= request.getSession().getAttribute("adminId")%>">
                                 <input type="hidden" name="topicid" value="<%=topicId%>">            
                                 <input type="hidden" name="dateup" value="<%= new java.util.Date()%>">
 
@@ -432,33 +434,57 @@
         <script src="js/jquery.magnific-popup.min.js"></script>
         <script src="js/main.js"></script>
         <script>
-                        function showComment() {
-                            var commentArea = document.getElementById("comment-area");
-                            commentArea.classList.toggle("hide");
-                        }
+                                            function showComment() {
+                                                var commentArea = document.getElementById("comment-area");
+                                                commentArea.classList.toggle("hide");
+                                            }
 
-                        function showReply(areaId, username) {
-                            // Tìm tất cả các phần comment-area và ẩn chúng
-                            const allCommentAreas = document.querySelectorAll('.comment-area');
-                            allCommentAreas.forEach(area => {
-                                area.classList.add('hide'); // Ẩn tất cả các comment-area
-                            });
+                                            function showReply(areaId, username) {
+                                                // Tìm tất cả các phần comment-area và ẩn chúng
+                                                const allCommentAreas = document.querySelectorAll('.comment-area');
+                                                allCommentAreas.forEach(area => {
+                                                    area.classList.add('hide'); // Ẩn tất cả các comment-area
+                                                });
 
-                            // Hiển thị phần comment-area tương ứng với reply được bấm
-                            var replyArea = document.getElementById(areaId);
-                            replyArea.classList.toggle("hide"); // Toggle hiển thị phần comment-area được bấm
+                                                // Hiển thị phần comment-area tương ứng với reply được bấm
+                                                var replyArea = document.getElementById(areaId);
+                                                replyArea.classList.toggle("hide"); // Toggle hiển thị phần comment-area được bấm
 
-                            // Lấy thẻ textarea trong phần reply hiện tại
-                            var textArea = replyArea.querySelector('textarea');
+                                                // Lấy thẻ textarea trong phần reply hiện tại
+                                                var textArea = replyArea.querySelector('textarea');
 
-                            // Đặt giá trị ban đầu cho textarea là username
-                            textArea.value = '@' + username + ' ';
-                        }
+                                                // Đặt giá trị ban đầu cho textarea là username
+                                                textArea.value = '@' + username + ' ';
+                                            }
 
-                        function toggleArea(areaId) {
-                            var area = document.getElementById(areaId);
-                            area.classList.toggle("hide");
-                        }
+                                            function toggleArea(areaId) {
+                                                var area = document.getElementById(areaId);
+                                                area.classList.toggle("hide");
+                                            }
+                                            function deleteComment(value1, value2) {
+                                                const form = document.createElement('form');
+                                                form.method = 'POST';
+                                                form.action = 'DeleteCommentAdminController';  // Đường dẫn tới servlet
+
+                                                // Tạo các input ẩn để truyền giá trị
+                                                const input1 = document.createElement('input');
+                                                input1.type = 'hidden';
+                                                input1.name = 'commentId';  // Tên của tham số truyền vào servlet
+                                                input1.value = value1;
+
+                                                const input2 = document.createElement('input');
+                                                input2.type = 'hidden';
+                                                input2.name = 'topicId';
+                                                input2.value = value2;
+
+                                                // Thêm input vào form
+                                                form.appendChild(input1);
+                                                form.appendChild(input2);
+
+                                                // Thêm form vào body và submit
+                                                document.body.appendChild(form);
+                                                form.submit();
+                                            }
         </script>
     </body>
 

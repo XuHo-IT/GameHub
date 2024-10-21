@@ -79,7 +79,7 @@
                                     <ul>
                                         <li><a href="user-profile.jsp?id=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
                                         <li>
-                                           <a href="LogOutController" class="dropdown-item">Logout</a>
+                                            <a href="LogOutController" class="dropdown-item">Logout</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -173,7 +173,7 @@
                 <div class="row">
                     <div class="col-xl-9 col-lg-8 col-md-7">
                         <div class="user-panel">
-                            <button class="create-btn">Add</button>
+                            <button class="create-btn">Add Game Post/ Genre</button>
                         </div>
                         <!-- Blog item -->
                         <div class="blog-container">
@@ -204,7 +204,8 @@
 
                                             <form action="EditPostController" method="post">
                                                 <input type="hidden" name="postId" value="${post.postID}">
-                                                <button type="submit" name="action" value="delete" class="btn-danger">Delete</button>
+                                                <button type="submit" name="action" value="delete" class="btn-danger " style="margin-top: 5px;
+                                                        width: 69px;">Delete</button>
                                             </form>
                                         </div>
 
@@ -457,24 +458,7 @@
                         <a href="#" id="upload-photo-link">Upload Genre</a>
                     </div>
                 </div>
-                <div class="right-position">
-                    <div class="input-field">
-                        <label>Price Rating</label>
-                        <input type="number" step="0.1" min="0" max="5" required name="PriceRating" placeholder="0.0 to 5.0">
-                    </div>
-                    <div class="input-field">
-                        <label>Graphic Rating</label>
-                        <input type="number" step="0.1" min="0" max="5" required name="GraphicRating" placeholder="0.0 to 5.0">
-                    </div>
-                    <div class="input-field">
-                        <label>Difficulty Rating</label>
-                        <input type="number" step="0.1" min="0" max="5" required name="DifficultyRating" placeholder="0.0 to 5.0">
-                    </div>
-                    <div class="input-field">
-                        <label>Gameplay Rating</label>
-                        <input type="number" step="0.1" min="0" max="5" required name="GameplayRating" placeholder="0.0 to 5.0">
-                    </div>
-                </div>
+               
             </div>
 
             <div class="form-box upload-photo">

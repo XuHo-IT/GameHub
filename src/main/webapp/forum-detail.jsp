@@ -59,13 +59,7 @@
         </div>
 
         <header class="header-section">
-            <div class="header-warp">
-                <form class="search-form ">
-
-                    <input type="text"  placeholder="Search..." aria-label="Search">
-
-                    <button type="submit"><i class="fa fa-search"></i> Topic</button>
-                </form>
+            <div class="header-warp">             
                 <div class="header-social d-flex justify-content-end">
                     <p>Follow us:</p>
                     <a href="#"><i class="fa fa-pinterest"></i></a>
@@ -280,7 +274,7 @@
 
 
         <!-- Login Popup -->
-        <div class="blur-bg-overlay"></div>
+      <div class="blur-bg-overlay"></div>
         <div class="form-popup">
             <span class="close-btn material-symbols-rounded">close</span>
             <div class="form-box login">
@@ -290,14 +284,20 @@
                 </div>
                 <div class="form-content">
                     <h2>LOGIN</h2>
-                    <form action="#">
+                    <form action="LoginController" method="post">
+                        <c:if test="${not empty errorMessage}">
+                            <div class="error">${errorMessage}</div>
+                        </c:if>
+
                         <div class="input-field">
-                            <input type="text" required>
                             <label>Email</label>
+
+                            <input type="text" required name="email">
                         </div>
                         <div class="input-field">
-                            <input type="password" required>
                             <label>Password</label>
+
+                            <input type="password" required name="password">
                         </div>
                         <a href="#" class="forgot-pass-link">Forgot password?</a>
                         <button type="submit">Log In</button>
@@ -315,14 +315,36 @@
                 </div>
                 <div class="form-content">
                     <h2>SIGNUP</h2>
-                    <form action="#">
+                    <form action="SignUpController" method="post">
                         <div class="input-field">
-                            <input type="text" required>
-                            <label>Enter your email</label>
+                            <label>Enter your name</label>
+
+                            <input type="text" required name="Name">
                         </div>
                         <div class="input-field">
-                            <input type="password" required>
-                            <label>Create password</label>
+                            <label>Enter your email</label>
+
+                            <input type="text" required name="Email">
+                        </div>
+                        <div class="input-field">
+                            <label>Phone number</label>
+
+                            <input type="number" required name="Phone">
+                        </div>
+                        <div class="input-field">
+                            <label>Date of birth</label>
+
+                            <input type="date" required name="Dob">
+                        </div>
+                        <div class="input-field">
+                            <label>Address</label>
+
+                            <input type="text" required name="Address">
+                        </div>
+                        <div class="input-field">
+                            <label>Password</label>
+
+                            <input type="password" required name="Password">
                         </div>
                         <div class="policy-text">
                             <input type="checkbox" id="policy">
@@ -334,7 +356,7 @@
                         <button type="submit">Sign Up</button>
                     </form>
                     <div class="bottom-link">
-                        Already have an account?
+                        Already have an account? 
                         <a href="#" id="login-link">Login</a>
                     </div>
                 </div>

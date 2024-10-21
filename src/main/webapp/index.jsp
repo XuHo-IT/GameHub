@@ -76,11 +76,6 @@
                     <ul class="main-menu primary-menu">
                         <li><a href="ReadGameHomeController">Home</a></li>
                         <li><a href="ReadGameListController">Games</a>
-
-                            <ul class="sub-menu">
-                                <li><a href="top-rating-all.jsp">Top rating</a></li>
-                                <li><a href="top-wishlist.jsp">Top wishlist</a></li>
-                            </ul>
                         </li>
                         <li><a href="contact.jsp">Contact</a></li>
                         <li><a href="ReadTopicController">Community</a></li>
@@ -195,7 +190,7 @@
                                     <ul>
                                         <c:forEach var="genre" items="${genres}">
                                             <li>
-                                                <a href="ReadGameHomeController?genre=${genre.genreId}">
+                                                <a href="ReadGameHomeController?genre=${genre.genre}">
                                                     ${genre.genre != null ? genre.genre : 'No genre available'}
                                                 </a>
                                             </li>
@@ -203,6 +198,19 @@
                                     </ul>
                                 </form>
                             </div>
+                        </div>
+                        <div class="site-pagination">
+                            <c:if test="${currentPage > 1}">
+                                <a href="?genre=${selectedGenre}&page=${currentPage - 1}" class="prev">Previous</a>
+                            </c:if>
+
+                            <c:forEach var="i" begin="1" end="${totalPages}">
+                                <a href="?genre=${selectedGenre}&page=${i}" class="${i == currentPage ? 'active' : ''}">${i}</a>
+                            </c:forEach>
+
+                            <c:if test="${currentPage < totalPages}">
+                                <a href="?genre=${selectedGenre}&page=${currentPage + 1}" class="next">Next</a>
+                            </c:if>
                         </div>
                         <div class="widget-item">
                             <a href="#" class="add">
@@ -236,13 +244,12 @@
         <c:forEach var="post" items="${posts}" varStatus="status">
             <c:if test="${status.index == 0}">
                 <!-- Featured background image -->
-                <div class="featured-bg set-bg">
-                    <img src="data:image/png;base64,${post.fileData}" alt="Game Image" style="width: 100%; height: 100%;" />
+                <div class="featured-bg set-bg col-6 d-flex justify-content-center align-items-center" style="width: calc(50% - 40px); height: 100%;">
+                    <img src="data:image/png;base64,${post.fileData}" alt="Game Image" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
                 </div>
 
-
                 <!-- Featured content box -->
-                <div class="featured-box">
+                <div class="featured-box col-6">
                     <div class="text-box">
                         <!-- Display post date and category dynamically -->
                         <div class="top-meta">${post.dateRelease} / in <a href="#">${post.genre}</a></div>
@@ -435,11 +442,11 @@
     </script>
     <style>
         h3.bottom-title {
-    color: white;
-    font-size: 35px;
-    font-family: 'Material Symbols Rounded';
-    padding: 0 0px 30px 0;
-}
+            color: white;
+            font-size: 35px;
+            font-family: 'Material Symbols Rounded';
+            padding: 0 0px 30px 0;
+        }
     </style>
 
 </body>

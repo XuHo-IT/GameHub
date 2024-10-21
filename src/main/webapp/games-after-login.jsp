@@ -49,17 +49,40 @@
         <!-- Header section -->
         <header class="header-section">
             <div class="header-warp">
-                <form class="search-form ">
-                    <input type="text"  placeholder="Search..." aria-label="Search">
-                    <button type="submit"><i class="fa fa-search"></i></button>
-                </form>
-                <div class="header-social d-flex justify-content-end">
-                    <p>Follow us:</p>
-                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                    <a href="#"><i class="fa fa-behance"></i></a>
+                  <div class="row align-items-center">
+                    <!-- Left side: Search Form (col-7) -->
+                    <div class="col-8">
+                        <form action="SearchController" method="GET">
+                            <!-- Search Bar Row -->
+                            <div class="row" style="align-items: center;">
+                                <!-- Keyword input for the search bar -->
+                                <div class="col-2 d-flex align-items-end">
+                                    <button type="submit" class=" w-100" style="height: 52px;">Search</button>
+                                </div>
+
+                                <div class="col-10" style="text-align: center;padding-top: 33px ">
+                                    <input type="text" name="keyword" class="form-control" placeholder="Search by keyword..." aria-label="Search" style="height: 52px;">
+                                    <label for="genre" class="form-label" style="font-style: italic; font-weight: bold;">Genre:</label>
+                                    <select id="genre" name="genre" class="form-select" style="height: 34px; float: left; border: 2px solid #ccc; font-style: italic; padding: 5px; border-radius: 5px; font-family: 'Arial', sans-serif;">
+                                        <option value="">All Genres</option>
+                                        <!-- Dynamically populate genres from MongoDB -->
+                                        <c:forEach var="genre" items="${genres}">
+                                            <option value="${genre.genre}">${genre.genre}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Right side: Social Media Icons (col-4) -->
+                    <div class="col-4 header-social d-flex align-items-center justify-content-end">
+                        <p class="mb-0">Follow us:</p>
+                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-dribbble"></i></a>
+                        <a href="#"><i class="fa fa-behance"></i></a>
+                    </div>
                 </div>
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
@@ -86,7 +109,7 @@
                                     <ul>
                                         <li><a href="user-profile.jsp">Account Info</a></li>
                                         <li>
-                                            <a href="LogoutController" class="dropdown-item">Logout</a>
+                                            <a href="LogOutController" class="dropdown-item">Logout</a>
                                         </li>
                                     </ul>
                                 </div>

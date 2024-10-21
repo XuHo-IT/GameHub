@@ -208,8 +208,6 @@
         </footer>
         <!-- Footer section end -->
 
-
-        <!-- Login Popup -->
         <!-- Login Popup -->
         <div class="blur-bg-overlay"></div>
         <div class="form-popup">

@@ -16,15 +16,13 @@
         <div class="container">
             <div class="navigation">
                 <ul>
-
                     <li>
                         <a href="">
                             <span class="icon"><ion-icon name="logo-apple"></ion-icon></span>
-                            <span class="title">Manage Amin</span>
+                            <span class="title">Manage Admin</span>
                         </a>
                     </li>
-                    <li>
-                    </li>
+                    <li></li>
                     <li>
                         <a href="ReadGameUploadByMemberController?adminId=<%= request.getSession().getAttribute("adminId")%>">
                             <span class="icon">
@@ -46,14 +44,13 @@
                             <span class="icon">
                                 <ion-icon name="help-outline"></ion-icon>
                             </span>
-                            <span class="title">Manage All User</span>
+                            <span class="title">Manage All Users</span>
                         </a>
                     </li>
-
-
                 </ul>
             </div>
-            <!-- main -->
+
+            <!-- Main Content -->
             <div class="main">
                 <div class="topbar">
                     <div class="toggle">
@@ -71,38 +68,33 @@
                         <img src="imgs/user.jpg" alt="" />
                     </div>
                 </div>
-                <!-- Card -->
+
+                <!-- Card Section -->
                 <div class="cardBox">
                     <div class="card">
                         <div>
-                            <div class="numbers">1,504</div>
-                            <div class="cardName">Daily Views</div>
+                            <div class="numbers1" ">0</div> 
+                            <div class="cardName">Total Posts</div>
                         </div>
                         <div class="iconBx">
                             <ion-icon name="eye-outline"></ion-icon>
                         </div>
                     </div>
-                    <div class="card">
+
+
+                    <div class="card" id="salesCard">
                         <div>
-                            <div class="numbers">80</div>
+                            <div class="numbers">${fn:length(transactionList)}</div>
                             <div class="cardName">Sales</div>
                         </div>
                         <div class="iconBx">
                             <ion-icon name="cart-outline"></ion-icon>
                         </div>
                     </div>
-                    <div class="card">
+
+                    <div class="card" id="earningsCard">
                         <div>
-                            <div class="numbers">284</div>
-                            <div class="cardName">Comments</div>
-                        </div>
-                        <div class="iconBx">
-                            <ion-icon name="chatbubbles-outline"></ion-icon>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div>
-                            <div class="numbers">$7,842</div>
+                            <div class="numbers" id="totalEarningsDisplay">$0</div>
                             <div class="cardName">Earning</div>
                         </div>
                         <div class="iconBx">
@@ -110,7 +102,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Add Charts -->
+
                 <div class="graphBox">
                     <div class="box">
                         <canvas id="myChart"></canvas>
@@ -119,8 +111,9 @@
                         <canvas id="earning"></canvas>
                     </div>
                 </div>
+
                 <div class="details">
-                    <!-- order details list -->
+                    <!-- Order Details List -->
                     <div class="recentOrders">
                         <div class="cardHeader">
                             <h2>Recent Orders</h2>
@@ -133,10 +126,11 @@
                                     <td>Amount</td>
                                     <td>Order Type</td>
                                     <td>Date</td>
-                                    <td>User Id</td>
+                                    <td>User Id</td>         
                                 </tr>
                             </thead>
                             <tbody>
+                                <c:set var="totalEarnings" value="0" />
                                 <c:choose>
                                     <c:when test="${not empty transactionList}">
                                         <c:forEach var="transaction" items="${transactionList}">
@@ -146,7 +140,8 @@
                                                 <td>${transaction.orderType}</td>
                                                 <td>${transaction.formattedCreateDate}</td>
                                                 <td>${transaction.userId}</td>
-                                            </tr>
+                                            </tr>                                     
+                                            <c:set var="totalEarnings" value="${totalEarnings + transaction.amount}" />
                                         </c:forEach>
                                     </c:when>
                                     <c:otherwise>
@@ -157,90 +152,40 @@
                                 </c:choose>
                             </tbody>
                         </table>
+                        <!-- Finalize total earnings -->
+                        <c:set var="totalEarnings" value="${totalEarnings}" />
                     </div>
+
                     <!-- New Customers -->
                     <div class="recentCustomers">
                         <div class="cardHeader">
                             <h2>Recent Customers</h2>
                         </div>
                         <table>
-                            <tr>
-                                <td width="60px">
-                                    <div class="imgBx"><img src="imgs/img1.jpg" alt="" /></div>
-                                </td>
-                                <td>
-                                    <h4>David<br /><span>Italy</span></h4>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="60px">
-                                    <div class="imgBx"><img src="imgs/img2.jpg" alt="" /></div>
-                                </td>
-                                <td>
-                                    <h4>Muhammad<br /><span>India</span></h4>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="60px">
-                                    <div class="imgBx"><img src="imgs/img3.jpg" alt="" /></div>
-                                </td>
-                                <td>
-                                    <h4>Amelia<br /><span>France</span></h4>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="60px">
-                                    <div class="imgBx"><img src="imgs/img4.jpg" alt="" /></div>
-                                </td>
-                                <td>
-                                    <h4>Olivia<br /><span>USA</span></h4>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="60px">
-                                    <div class="imgBx"><img src="imgs/img5.jpg" alt="" /></div>
-                                </td>
-                                <td>
-                                    <h4>Amit<br /><span>Japan</span></h4>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="60px">
-                                    <div class="imgBx"><img src="imgs/img6.jpg" alt="" /></div>
-                                </td>
-                                <td>
-                                    <h4>Ashraf<br /><span>India</span></h4>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="60px">
-                                    <div class="imgBx"><img src="imgs/img7.jpg" alt="" /></div>
-                                </td>
-                                <td>
-                                    <h4>Diana<br /><span>Malaysia</span></h4>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="60px">
-                                    <div class="imgBx"><img src="imgs/img8.jpg" alt="" /></div>
-                                </td>
-                                <td>
-                                    <h4>Amit<br /><span>India</span></h4>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="60px">
-                                    <div class="imgBx"><img src="imgs/img9.jpg" alt="" /></div>
-                                </td>
-                                <td>
-                                    <h4>Amelia<br /><span>China</span></h4>
-                                </td>
-                            </tr>
+                            <!-- Repeat customer list -->
                         </table>
                     </div>
                 </div>
             </div>
         </div>
+
+        <input type="hidden" id="totalEarningsValue" value="${totalEarnings}" />
+
+        <!-- Format the total earnings with commas -->
+        <c:set var="formattedTotalEarnings" value="${fn:replace(fn:substringBefore(fn:escapeXml(totalEarnings), '.'), ',', '')}" />
+        <c:set var="formattedTotalEarnings" value="${fn:replace(formattedTotalEarnings, '0', '')}" /> <!-- Remove unnecessary zeros -->
+
+        <!-- Display the formatted total earnings in the div -->
+        <script>
+            // Get the total earnings value from the hidden input field as a string
+            const totalEarnings = document.getElementById("totalEarningsValue").value;
+            const formattedEarnings = Number(totalEarnings).toLocaleString(); // Format with commas
+
+            // Update the earnings display with the formatted value
+            document.getElementById("totalEarningsDisplay").innerHTML = `VND ${formattedEarnings}`;
+        </script>
+
+
         <script
             type="module"
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
@@ -249,11 +194,22 @@
             nomodule
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
         ></script>
-        <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script> -->
-        <!-- <script src="js/chart.umd.js"></script> -->
         <script src="chart/js/chart.min.js"></script>
         <script src="chart/js/main.js"></script>
+
         <style>
+
+            .numbers1 {
+                position: relative;
+                font-weight: 500;
+                font-size: 2.5em;
+                color: #6f2b95;
+                transition: color 0.3s ease; /* Smooth color transition */
+            }
+            /* Hover effect */
+            .cardBox .card:hover .numbers1 {
+                color: var(--white); /* This will change color to white on hover */
+            }
             .details {
                 position: relative;
                 width: 100%;
@@ -261,7 +217,6 @@
                 display: grid;
                 grid-template-columns: 2fr 1fr;
                 grid-gap: 30px;
-                /* margin-top: 10px; */
             }
         </style>
     </body>

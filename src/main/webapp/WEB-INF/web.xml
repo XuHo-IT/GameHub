@@ -348,7 +348,7 @@
     <servlet-mapping>
         <servlet-name>TopicDeleteController</servlet-name>
         <url-pattern>/TopicDeleteController</url-pattern>
-      </servlet-mapping>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteCommentController</servlet-name>
         <url-pattern>/DeleteCommentController</url-pattern>

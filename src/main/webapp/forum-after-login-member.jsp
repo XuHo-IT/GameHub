@@ -137,7 +137,7 @@
                         <button class="forum-button">My Topics</button>
                     </div>
                     <div class="right-button-forum">
-                        <button class="cTopic-btn forum-button">Create New Topic</button>
+                        <button class="cTopic-btn forum-button" onclick="showCreateTopicPopup()">Create New Topic</button>
                     </div>
                 </div>
 
@@ -184,9 +184,8 @@
                                     // Đếm số lượng bình luận cho mỗi chủ đề
                                     long commentCount = commentCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
 
-                                      // Đếm số lượng trả lời cho mỗi chủ đề
+                                    // Đếm số lượng trả lời cho mỗi chủ đề
 //                                    long replyCount = replyCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
-
                                     // Tính tổng số lượng bình luận và trả lời cho mỗi chủ đề
 //                                    long totalCount = commentCount + replyCount;
                                     long totalCount = commentCount;
@@ -352,7 +351,7 @@
                 </div>
                 <div class="form-content">
                     <h2 style="margin-bottom: 6px">CREATE TOPIC</h2>
-                    <form action="CreateTopicController" method="post" enctype="multipart/form-data">
+                    <form action="TopicCreateController" method="post" enctype="multipart/form-data">
                         <div class="input-field">
                             <label>Topic Title</label>
                             <input type="text" name="topicTitle" required>
@@ -368,7 +367,6 @@
                         <button type="submit">Create Topic</button>
                     </form>
                 </div>
-
             </div>
         </div>
 

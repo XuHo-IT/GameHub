@@ -5,7 +5,6 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.Updates;
 import org.apache.commons.io.IOUtils;
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -20,19 +19,33 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
 import utils.MongoDBConnectionManager1;
+import javax.servlet.http.HttpSession;
 
 @MultipartConfig
 public class TopicUpdateController extends HttpServlet {
 
+  
+
+    // Update Topic
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Retrieve parameters from the form
+        // Check if the user is logged in
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("userId") == null) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("Unauthorized: You must be logged in to update a topic.");
+            return;
+        }
+
+        // Get the logged-in user's ID
+        String userId = (String) session.getAttribute("userId");
+
+        // Retrieve form data
         String topicId = request.getParameter("topicId");
         String topicTitle = request.getParameter("topicTitle");
         String topicContent = request.getParameter("topicContent");
 
-        // Handle file upload if a new image is provided
         Part filePart = request.getPart("topicImage");
         String fileDataBase64 = null;
         if (filePart != null && filePart.getSize() > 0) {
@@ -44,20 +57,41 @@ public class TopicUpdateController extends HttpServlet {
         // Get MongoDB database and collection
         MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
-        MongoCollection<Document> collection = database.getCollection("forumTopics");
+        MongoCollection<Document> collection = database.getCollection("topic");
 
-        // Build update document
+        // Verify that the topic exists and belongs to the logged-in user
+        Document existingTopic = collection.find(Filters.eq("_id", new ObjectId(topicId))).first();
+        if (existingTopic == null) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            response.getWriter().write("Topic not found.");
+            return;
+        }
+
+        if (!existingTopic.getString("UserId").equals(userId)) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            response.getWriter().write("Forbidden: You do not have permission to update this topic.");
+            return;
+        }
+
+        // Prepare fields for updating
         Document updateFields = new Document("Title", topicTitle)
-                .append("Content", topicContent);
+                .append("Description", topicContent); // 'Description' is the assumed field for 'Content'
+
         if (fileDataBase64 != null) {
             updateFields.append("ImageData", fileDataBase64);
         }
 
-        // Update document in MongoDB
+        // Update the topic in the collection
         collection.updateOne(Filters.eq("_id", new ObjectId(topicId)), new Document("$set", updateFields));
 
-        // Respond with success message
+        // Respond with success
         response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().write("Topic updated successfully");
     }
+
+  
 }
+
+
+
+

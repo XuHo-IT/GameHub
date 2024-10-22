@@ -47,6 +47,7 @@ public class AddCommentAdminController extends HttpServlet {
         Document comments = new Document("TopicId",topicId).append("UserId", userId).append("Content", comment).append("Status", null);
         
         collection.insertOne(comments);
+        destroy();
         response.sendRedirect("forum-detail-after-login.jsp?id=" + topicId);
     }
 

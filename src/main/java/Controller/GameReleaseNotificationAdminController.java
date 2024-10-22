@@ -53,6 +53,7 @@ public class GameReleaseNotificationAdminController extends TimerTask {
                 sendEmailNotification(gameTitle, postId, adminEmail);
             }
         }
+        destroy();
     }
 
     private void sendEmailNotification(String gameTitle, String postId, String adminEmail) {
@@ -102,4 +103,9 @@ public class GameReleaseNotificationAdminController extends TimerTask {
         // Schedule the task to run once a day (every 24 hours)
         timer.scheduleAtFixedRate(new GameReleaseNotificationAdminController(mongoClient, session), 0, TimeUnit.DAYS.toMillis(1));
     }
+   public void destroy(){
+       if(mongoClient != null){
+           mongoClient.close();
+       }
+   }
 }

@@ -26,7 +26,7 @@ public class ChangePasswordController extends HttpServlet {
 
         MongoConectUser mgcn = new MongoConectUser();
         boolean isPasswordChanged = mgcn.changePassword(userId, oldPassword, newPassword);
-
+        destroy();
         if (isPasswordChanged) {
             response.getWriter().write("Password changed successfully!");
         } else {

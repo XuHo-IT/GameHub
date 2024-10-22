@@ -54,12 +54,11 @@ public class GameReleaseNotificationMemberController extends HttpServlet {
             while (cursor.hasNext()) {
                 Document gamePost = cursor.next();
                 String postGameTitle = gamePost.getString("Title");
-            
-                
-
+           
                 emailSent = sendEmailNotification(postGameTitle, postId,adminId, userEmail);
             }
         }
+        destroy();
         request.setAttribute(postId, "postId");
         request.setAttribute(adminId, "adminId");
 
@@ -109,6 +108,12 @@ public class GameReleaseNotificationMemberController extends HttpServlet {
         } catch (MessagingException e) {
             e.printStackTrace();
             return false; // Email sending failed
+        }
+    }
+
+    public void destroy() {
+        if (mongoClient != null) {
+            mongoClient.close();
         }
     }
 }

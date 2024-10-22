@@ -30,6 +30,7 @@ public class AddToWishlistController extends HttpServlet {
 //        notificationController.sendWishlistConfirmationEmail(userEmail, gameTitle, postId);
 
         // Redirect to game-single.jsp with the updated wishlist status
+        destroy();
         response.sendRedirect("game-single.jsp?id=" + postId + "&wishlistAdded=true");
     }
 

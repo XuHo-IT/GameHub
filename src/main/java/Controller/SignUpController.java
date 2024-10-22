@@ -125,7 +125,7 @@ public class SignUpController extends HttpServlet {
                 .append("createdAt", new Date())
                 .append("verified", false);  // Set initial status to false
         verifiedEmailCollection.insertOne(verificationDoc);
-
+        destroy();
         // Send verification email
         boolean emailSent = sendEmailVerification(superAdmin.getEmail(), verificationKey);
 

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class ConfirmPostController extends HttpServlet {
+
     private MongoClient mongoClient;
 
     @Override
@@ -42,7 +43,7 @@ public class ConfirmPostController extends HttpServlet {
             // Remove the post from postGameMember collection
             postGameMemberCollection.deleteOne(new Document("_id", new ObjectId(postId)));
         }
-
+        destroy();
         // Redirect back to the member page (or wherever appropriate)
         response.sendRedirect("ReadGameHomeAdminController");
     }

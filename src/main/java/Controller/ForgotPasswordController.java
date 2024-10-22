@@ -52,7 +52,7 @@ public class ForgotPasswordController extends HttpServlet {
                 Document updateDoc = new Document("$set", new Document("resetToken", resetToken)
                         .append("tokenCreationTime", System.currentTimeMillis()));
                 usersCollection.updateOne(new Document("Email", email), updateDoc);
-
+                destroy();
                 // Send the password reset email
                 boolean emailSent = sendPasswordResetEmail(email, resetToken);
 

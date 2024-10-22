@@ -111,7 +111,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
         }
 
         request.setAttribute("posts", postTop4);
-
+        destroy();
         request.getRequestDispatcher("index.jsp").forward(request, response);
     } catch (Exception e) {
         e.printStackTrace();

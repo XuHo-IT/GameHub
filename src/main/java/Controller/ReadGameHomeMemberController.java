@@ -117,7 +117,7 @@ public class ReadGameHomeMemberController extends HttpServlet {
             }
 
             request.setAttribute("posts", postTop4);
-        
+            destroy();
             // Forward the request to the JSP page
             request.getRequestDispatcher("after-login.jsp").forward(request, response);
         } catch (Exception e) {

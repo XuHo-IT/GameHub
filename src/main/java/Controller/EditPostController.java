@@ -64,7 +64,7 @@ public class EditPostController extends HttpServlet {
 
 
         collection.updateOne(new Document("_id", new ObjectId(postId)), update);
-
+        destroy();
         response.sendRedirect("ReadGameHomeAdminController");
     }
 

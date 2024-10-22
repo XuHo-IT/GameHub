@@ -59,7 +59,7 @@ public class AddGenreController extends HttpServlet {
 
         // Insert the document into the MongoDB collection
         collection.insertOne(genre1);
-
+        destroy();
         // Redirect to the admin page after successful insertion
         response.sendRedirect("ReadGameHomeAdminController");
     }

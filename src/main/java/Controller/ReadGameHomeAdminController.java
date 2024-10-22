@@ -137,7 +137,7 @@ public class ReadGameHomeAdminController extends HttpServlet {
 
             // Determine where to redirect based on a parameter
             String view = request.getParameter("view");
-
+            destroy();
             if ("chart".equals(view)) {
                 // If 'chart' view is requested, forward to the chart page
                 request.getRequestDispatcher("chart/index-chart.jsp").forward(request, response);

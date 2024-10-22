@@ -38,6 +38,7 @@ public class DeleteCommentController extends HttpServlet {
 
         // Xóa tài liệu theo commentId
         collection.deleteOne(query);
+        destroy();
         response.sendRedirect("forum-detail-after-login-member.jsp?id=" + topicId);
     }
 

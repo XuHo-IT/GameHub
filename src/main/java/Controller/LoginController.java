@@ -73,6 +73,7 @@ public class LoginController extends HttpServlet {
 
                 // Redirect based on the user's role
                 String role = userDoc.getString("Role");
+                destroy();
                 if (currentUser.getStatus().equals("Suspend")) {
                     response.sendRedirect("user-profile.jsp?id=" + id);
                 } else {
@@ -92,7 +93,7 @@ public class LoginController extends HttpServlet {
         } else {
             // If authentication fails, set an error message
             request.setAttribute("errorMessage", "Invalid email or password");
-            request.getRequestDispatcher("ReadGameHomeControlelr").forward(request, response);
+            request.getRequestDispatcher("ReadGameHomeController").forward(request, response);
         }
     }
 

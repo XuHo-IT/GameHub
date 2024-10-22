@@ -1,3 +1,8 @@
+<%@page import="java.time.Period"%>
+<%@page import="java.time.Duration"%>
+<%@page import="java.time.ZoneId"%>
+<%@page import="java.time.LocalDateTime"%>
+<%@page import="java.util.Date"%>
 <%@page import="com.mongodb.client.MongoClients"%>
 <%@page import="com.mongodb.client.MongoClient"%>
 <%@page import="com.mongodb.client.MongoCollection"%>
@@ -103,18 +108,13 @@
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                             <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
-                            <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
-                            <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
-                            <li><a href="ReadGameHomeController">Home</a></li>
-                            <li><a href="ReadGameListController">Games</a>
-
                                 <ul class="sub-menu">
                                     <li><a href="top-rating-all.jsp">Top rating</a></li>
                                     <li><a href="top-wishlist.jsp">Top wishlist</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="contact.jsp">Contact</a></li>
-                            <li><a href="forum-after-login-member.jsp">Community</a></li>
+                                </ul></li>
+                            <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+                            <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
+                            <li><a href="ReadGameHomeController">Home</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -187,6 +187,13 @@
                     comment.setPhotoUrl(photoUrl);
                     comment.setContent(doc.getString("Content"));
 
+                    if (doc.getString("Status").equals("unedited")) {
+                        comment.setStatus("");
+                    } else {
+                        comment.setStatus("(edited)");
+                    };
+                    comment.setDate(doc.getDate("Date"));
+
                     // Log retrieved values
                     System.out.println("Topic id: " + comment.getTopicId());
                     System.out.println("User id: " + comment.getUserId());
@@ -253,9 +260,8 @@
                         <textarea name="comment" placeholder="comment here ..." required></textarea>
 
                         <!-- Các trường ẩn để truyền các giá trị cần thiết -->
-                        <input type="hidden" name="userid" value="670fb46bbdffbe71c8ae2316">
+                        <input type="hidden" name="userid" value="<%= request.getSession().getAttribute("adminId")%>">
                         <input type="hidden" name="topicid" value="<%=topicId%>">
-                        <input type="hidden" name="dateup" value="<%= new java.util.Date()%>">
 
                         <!-- Nút submit để gửi form -->
                         <input type="submit" value="submit">
@@ -274,6 +280,51 @@
                                 <div class="authors">
                                     <img src="<%= (comment.getPhotoUrl() == null || comment.getPhotoUrl().isEmpty()) ? "./img/t-rex.png" : comment.getPhotoUrl()%>" alt="Photo User">
                                     <div class="username"><a href=""><%= comment.getUserName()%></a></div>
+                                    <div class="date-comment">
+                                        <%// Chuyển Date thành LocalDateTime
+                                            Date pastDate = comment.getDate();
+                                            LocalDateTime pastDateTime = pastDate.toInstant().atZone(ZoneId.of("UTC")).toLocalDateTime();
+
+                                            // Lấy thời gian hiện tại (LocalDateTime)
+                                            LocalDateTime now = LocalDateTime.now();
+
+                                            // Tính khoảng cách thời gian giữa hai thời điểm
+                                            Duration duration = Duration.between(pastDateTime, now);
+                                            Period period = Period.between(pastDateTime.toLocalDate(), now.toLocalDate());
+
+                                            // Điều kiện 1: Nếu nhỏ hơn 1 giờ -> Hiện n phút trước
+                                            if (duration.toMinutes() < 60) {
+                                        %>
+                                        <b><%= duration.toMinutes()%>m ago<%=comment.getStatus()%></b>
+                                        <%
+                                        } // Điều kiện 2: Nếu nhỏ hơn 1 ngày -> Hiện n giờ trước
+                                        else if (duration.toHours() < 24) {
+                                        %>
+                                        <b><%= duration.toHours()%>H ago<%=comment.getStatus()%></b>
+                                        <%
+                                        } // Điều kiện 3: Nếu nhỏ hơn 1 tuần -> Hiện n ngày trước
+                                        else if (duration.toDays() < 7) {
+                                        %>
+                                        <b><%= duration.toDays()%>D ago<%=comment.getStatus()%></b>
+                                        <%
+                                        } // Điều kiện 4: Nếu nhỏ hơn 4 tuần -> Hiện n tuần trước
+                                        else if (duration.toDays() < 28) {
+                                        %>
+                                        <b><%= duration.toDays() / 7%>W ago<%=comment.getStatus()%></b>
+                                        <%
+                                        } // Điều kiện 5: Nếu lớn hơn 4 tuần nhưng nhỏ hơn 1 năm -> Hiện n tháng trước
+                                        else if (period.toTotalMonths() < 12) {
+                                        %>
+                                        <b><%= period.toTotalMonths()%>M ago<%=comment.getStatus()%></b>
+                                        <%
+                                        } // Điều kiện 6: Nếu lớn hơn 1 năm -> Hiện n năm trước
+                                        else {
+                                        %>
+                                        <b><%= period.getYears()%>Y ago<%=comment.getStatus()%></b>
+                                        <%
+                                            }
+                                        %>
+                                    </div>
                                 </div>
                                 <div class="content">
                                     <p style="color: lightblue; white-space: normal; word-wrap: break-word; overflow-wrap: break-word;">
@@ -312,7 +363,6 @@
                                 <!-- Các trường ẩn để truyền các giá trị cần thiết -->
                                 <input type="hidden" name="userid" value="<%= request.getSession().getAttribute("adminId")%>">
                                 <input type="hidden" name="topicid" value="<%=topicId%>">            
-                                <input type="hidden" name="dateup" value="<%= new java.util.Date()%>">
 
                                 <!-- Nút submit để gửi form -->
                                 <input type="submit" value="submit">
@@ -364,7 +414,7 @@
 
 
         <!-- Login Popup -->
-       <div class="blur-bg-overlay"></div>
+        <div class="blur-bg-overlay"></div>
         <div class="form-popup">
             <span class="close-btn material-symbols-rounded">close</span>
             <div class="form-box login">
@@ -462,98 +512,98 @@
         <script src="js/jquery.magnific-popup.min.js"></script>
         <script src="js/main.js"></script>
         <script>
-        function showComment() {
-            var commentArea = document.getElementById("comment-area");
-            commentArea.classList.toggle("hide");
-        }
+                                            function showComment() {
+                                                var commentArea = document.getElementById("comment-area");
+                                                commentArea.classList.toggle("hide");
+                                            }
 
-        function showReply(areaId, username) {
-            // Tìm tất cả các phần comment-area và ẩn chúng
-            const allCommentAreas = document.querySelectorAll('.comment-area');
-            allCommentAreas.forEach(area => {
-                area.classList.add('hide'); // Ẩn tất cả các comment-area
-            });
+                                            function showReply(areaId, username) {
+                                                // Tìm tất cả các phần comment-area và ẩn chúng
+                                                const allCommentAreas = document.querySelectorAll('.comment-area');
+                                                allCommentAreas.forEach(area => {
+                                                    area.classList.add('hide'); // Ẩn tất cả các comment-area
+                                                });
 
-            // Hiển thị phần comment-area tương ứng với reply được bấm
-            var replyArea = document.getElementById(areaId);
-            replyArea.classList.toggle("hide"); // Toggle hiển thị phần comment-area được bấm
+                                                // Hiển thị phần comment-area tương ứng với reply được bấm
+                                                var replyArea = document.getElementById(areaId);
+                                                replyArea.classList.toggle("hide"); // Toggle hiển thị phần comment-area được bấm
 
-            // Lấy thẻ textarea trong phần reply hiện tại
-            var textArea = replyArea.querySelector('textarea');
+                                                // Lấy thẻ textarea trong phần reply hiện tại
+                                                var textArea = replyArea.querySelector('textarea');
 
-            // Đặt giá trị ban đầu cho textarea là username
-            textArea.value = '@' + username + ' ';
-        }
+                                                // Đặt giá trị ban đầu cho textarea là username
+                                                textArea.value = '@' + username + ' ';
+                                            }
 
-        function showUpdate(commentId, username, topicId, oldContent) {
-            // Hide all comment areas
-            const allCommentAreas = document.querySelectorAll('.comment-area');
-            allCommentAreas.forEach(area => {
-                area.classList.add('hide');
-            });
+                                            function showUpdate(commentId, username, topicId, oldContent) {
+                                                // Hide all comment areas
+                                                const allCommentAreas = document.querySelectorAll('.comment-area');
+                                                allCommentAreas.forEach(area => {
+                                                    area.classList.add('hide');
+                                                });
 
-            // Show the corresponding comment area
-            var updateArea = document.getElementById('update-area-' + commentId);
-            updateArea.classList.remove('hide');
+                                                // Show the corresponding comment area
+                                                var updateArea = document.getElementById('update-area-' + commentId);
+                                                updateArea.classList.remove('hide');
 
-            // Set the initial value for the textarea
-            var textArea = updateArea.querySelector('textarea');
-            textArea.value = oldContent;
-        }
+                                                // Set the initial value for the textarea
+                                                var textArea = updateArea.querySelector('textarea');
+                                                textArea.value = oldContent;
+                                            }
 
-        function toggleArea(areaId) {
-            var area = document.getElementById(areaId);
-            area.classList.toggle("hide");
-        }
+                                            function toggleArea(areaId) {
+                                                var area = document.getElementById(areaId);
+                                                area.classList.toggle("hide");
+                                            }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const toggleButtons = document.querySelectorAll('.toggle-replies');
+                                            document.addEventListener('DOMContentLoaded', function () {
+                                                const toggleButtons = document.querySelectorAll('.toggle-replies');
 
-            toggleButtons.forEach(button => {
-                button.addEventListener('click', function () {
-                    const hiddenReplies = this.previousElementSibling;
+                                                toggleButtons.forEach(button => {
+                                                    button.addEventListener('click', function () {
+                                                        const hiddenReplies = this.previousElementSibling;
 
-                    // Tìm tất cả các phần comment-area và ẩn chúng
-                    const allCommentAreas = document.querySelectorAll('.comment-area');
-                    allCommentAreas.forEach(area => {
-                        area.classList.add('hide'); // Ẩn tất cả các comment-area
-                    });
+                                                        // Tìm tất cả các phần comment-area và ẩn chúng
+                                                        const allCommentAreas = document.querySelectorAll('.comment-area');
+                                                        allCommentAreas.forEach(area => {
+                                                            area.classList.add('hide'); // Ẩn tất cả các comment-area
+                                                        });
 
-                    // Toggle hiển thị phần hidden-replies liên quan
-                    if (hiddenReplies.style.display === 'none') {
-                        hiddenReplies.style.display = 'block';
-                        this.textContent = 'Hide';
-                    } else {
-                        hiddenReplies.style.display = 'none';
-                        this.textContent = 'Show more';
-                    }
-                });
-            });
-        });
-        function deleteComment(value1, value2) {
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = 'DeleteCommentController';  // Đường dẫn tới servlet
+                                                        // Toggle hiển thị phần hidden-replies liên quan
+                                                        if (hiddenReplies.style.display === 'none') {
+                                                            hiddenReplies.style.display = 'block';
+                                                            this.textContent = 'Hide';
+                                                        } else {
+                                                            hiddenReplies.style.display = 'none';
+                                                            this.textContent = 'Show more';
+                                                        }
+                                                    });
+                                                });
+                                            });
+                                            function deleteComment(value1, value2) {
+                                                const form = document.createElement('form');
+                                                form.method = 'POST';
+                                                form.action = 'DeleteCommentController';  // Đường dẫn tới servlet
 
-            // Tạo các input ẩn để truyền giá trị
-            const input1 = document.createElement('input');
-            input1.type = 'hidden';
-            input1.name = 'commentId';  // Tên của tham số truyền vào servlet
-            input1.value = value1;
+                                                // Tạo các input ẩn để truyền giá trị
+                                                const input1 = document.createElement('input');
+                                                input1.type = 'hidden';
+                                                input1.name = 'commentId';  // Tên của tham số truyền vào servlet
+                                                input1.value = value1;
 
-            const input2 = document.createElement('input');
-            input2.type = 'hidden';
-            input2.name = 'topicId';
-            input2.value = value2;
+                                                const input2 = document.createElement('input');
+                                                input2.type = 'hidden';
+                                                input2.name = 'topicId';
+                                                input2.value = value2;
 
-            // Thêm input vào form
-            form.appendChild(input1);
-            form.appendChild(input2);
+                                                // Thêm input vào form
+                                                form.appendChild(input1);
+                                                form.appendChild(input2);
 
-            // Thêm form vào body và submit
-            document.body.appendChild(form);
-            form.submit();
-        }
+                                                // Thêm form vào body và submit
+                                                document.body.appendChild(form);
+                                                form.submit();
+                                            }
 
         </script>
         <style>.modal {

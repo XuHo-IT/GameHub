@@ -53,15 +53,6 @@
         <!-- Header section -->
         <header class="header-section">
             <div class="header-warp">
-<<<<<<< HEAD
-                <form action="SearchServlet" method="GET" >
-                    <!-- Search Bar -->
-                    <div class="search-bar row">
-                        <!-- Keyword input for the search bar -->
-                        <input class="col-9" type="text" name="keyword" placeholder="Search by keyword..." aria-label="Search">
-                        <button class="col-3" type="submit">Search</button>
-                    </div>
-=======
                 <div class="row align-items-center">
                     <!-- Left side: Search Form (col-7) -->
                     <div class="col-8">
@@ -72,7 +63,6 @@
                                 <div class="col-2 d-flex align-items-end">
                                     <button type="submit" class=" w-100" style="height: 52px;">Search</button>
                                 </div>
->>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
 
                                 <div class="col-10" style="text-align: center;padding-top: 33px ">
                                     <input type="text" name="keyword" class="form-control" placeholder="Search by keyword..." aria-label="Search" style="height: 52px;">

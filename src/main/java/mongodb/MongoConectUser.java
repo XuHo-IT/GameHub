@@ -254,6 +254,65 @@ public boolean updateUserProfilePicture(String userId, String imagePath) {
         }
         return false; // Old password is incorrect or user not found
     }
+    public boolean generateGoogleAccount(String email, String name) {
+        try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
+            MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
+            MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
 
+            Document user = new Document("Name", name)
+                .append("Email", email)
+                .append("PhoneNumber", "0123456789")
+                .append("DateOfBirth", "01-01-2024")
+                .append("Address", "FPT")
+                .append("Password", "abc123")  // Ideally, you should hash the password
+                .append("PhotoUrl", "img/logo1.png")
+                .append("Role", "0")
+                .append("Status", "Active");
+
+            collection.insertOne(user);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public boolean emailExists(String email) {
+        try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
+            MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
+            MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
+
+            Document found = collection.find(Filters.eq("Email", email)).first();
+            return found != null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }   
+    public UserModel getUserByEmail(String email) {
+        try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
+            MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
+            MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
+
+            Document doc = collection.find(Filters.eq("Email", email)).first();
+            if (doc != null) {
+                UserModel user = new UserModel();
+                user.setId(doc.getObjectId("_id").toString());
+                user.setEmail(doc.getString("Email"));
+                user.setPhone(doc.getString("PhoneNumber"));
+                user.setDateOfBirth(doc.getString("DateOfBirth"));
+                user.setAddress(doc.getString("Address"));
+                user.setName(doc.getString("Name"));
+                user.setPassword(doc.getString("Password"));
+                user.setPhotoUrl(doc.getString("PhotoUrl"));
+                user.setStatus(doc.getString("Status"));
+                return user;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
 

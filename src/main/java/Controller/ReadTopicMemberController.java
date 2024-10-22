@@ -111,7 +111,7 @@ public class ReadTopicMemberController extends HttpServlet {
             request.setAttribute("topics", topicsForCurrentPage);
             request.setAttribute("totalPages", totalPages);
             request.setAttribute("currentPage", currentPage);
-
+            
             request.getRequestDispatcher("forum-after-login-member.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();

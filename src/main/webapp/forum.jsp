@@ -87,11 +87,7 @@
                                                <!-- Menu -->
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeController">Home</a></li>
-                            <li><a href="ReadGameListController">Games</a>						
-                                <ul class="sub-menu">
-                                    <li><a href="top-rating-all.jsp">Top rating</a></li>
-                                </ul>
-                            </li>
+                            <li><a href="ReadGameListController">Games</a></li>
                             <li><a href="ReadTopicController">Forum</a></li>
                             <li><a href="contact.jsp">Contact</a></li>
                             
@@ -105,10 +101,10 @@
         <!-- Page top section -->
         <section class="page-top-section set-bg" data-setbg="img/page-top-bg/4.jpg">
             <div class="page-info">
-                <h2>Community</h2>
+                <h2>Forum</h2>
                 <div class="site-breadcrumb">
                     <a href="ReadGameHomeController">Home</a>  /
-                    <span>Community</span>
+                    <span>Forum</span>
                 </div>
             </div>
         </section>
@@ -169,6 +165,7 @@
                                     // Tính tổng số lượng bình luận và trả lời cho mỗi chủ đề
 //                                    long totalCount = commentCount + replyCount;
                                     long totalCount = commentCount;
+                                    mongoClient.close();
                                 %>
                                 <span style="font-size: 20px"><%= totalCount%><img src="./img/icons/chat-icon.png" alt=""> </span>
                             </div>
@@ -203,9 +200,9 @@
                 </a>
                 <ul class="main-menu footer-menu">
                     <li><a href="ReadGameHomeController">Home</a></li>
-                    <li><a href="ReadGameLisstController">Games</a></li>
-                    <li><a href="">Reviews</a></li>
-                    <li><a href="">Contact</a></li>
+                            <li><a href="ReadGameListController">Games</a></li>
+                            <li><a href="ReadTopicController">Forum</a></li>
+                            <li><a href="contact.jsp">Contact</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
                     <a href="#"><i class="fa fa-pinterest"></i></a>

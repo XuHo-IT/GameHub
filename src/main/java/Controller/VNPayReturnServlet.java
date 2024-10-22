@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.bson.Document;
 import org.bson.types.ObjectId;
+import utils.MongoDBConnectionManager1;
 
 /**
  *
@@ -24,15 +25,16 @@ import org.bson.types.ObjectId;
 
 public class VNPayReturnServlet extends HttpServlet {
 
+   
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String postId = request.getParameter("postId"); // Make sure postId is being set
 
-       
         String paymentStatus = request.getParameter("vnp_ResponseCode");
         
-        if ("00".equals(paymentStatus)) { // Payment success code
-            MongoClient mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
+        if ("00".equals(paymentStatus)) {
+                MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();// Payment success code
             MongoCollection<Document> collection = mongoClient.getDatabase("GameHub").getCollection("postGame");
 
             if (postId != null) {
@@ -60,10 +62,9 @@ public class VNPayReturnServlet extends HttpServlet {
             } else {
                 response.getWriter().write("Invalid postId.");
             }
-
-            mongoClient.close();
         } else {
             response.getWriter().write("Payment failed or canceled.");
         }
     }
+
 }

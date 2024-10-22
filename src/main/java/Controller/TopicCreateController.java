@@ -16,19 +16,14 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
+import utils.MongoDBConnectionManager1;
 import java.util.Date;
 import javax.servlet.http.HttpSession;
 
 @MultipartConfig
 public class TopicCreateController extends HttpServlet {
 
-    private MongoClient mongoClient;
-
-    @Override
-    public void init() throws ServletException {
-        // Connect to MongoDB
-        mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-    }
+  
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -64,7 +59,8 @@ public class TopicCreateController extends HttpServlet {
             }
         }
 
-        // Insert the new topic into the 'topic' collection
+        // Get MongoDB database and collection
+            MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("topic");
 
@@ -82,11 +78,5 @@ public class TopicCreateController extends HttpServlet {
         response.sendRedirect("ReadTopicMemberController");
     }
 
-    @Override
-    public void destroy() {
-        // Close the MongoDB client when the servlet is destroyed
-        if (mongoClient != null) {
-            mongoClient.close();
-        }
-    }
+
 }

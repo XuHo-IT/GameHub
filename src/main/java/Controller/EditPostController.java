@@ -12,16 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+import utils.MongoDBConnectionManager1;
 
 public class EditPostController extends HttpServlet {
-
-    private MongoClient mongoClient;
-
-    @Override
-    public void init() throws ServletException {
-        mongoClient = MongoClients.create("mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -38,6 +31,7 @@ public class EditPostController extends HttpServlet {
 
     private void editPost(HttpServletRequest request, HttpServletResponse response, String postId)
             throws ServletException, IOException {
+        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("postGame");
 
@@ -51,7 +45,6 @@ public class EditPostController extends HttpServlet {
         String linkGame = request.getParameter("Link");
         String price = request.getParameter("Price");
 
-
         // Update the post document in MongoDB
         Document update = new Document("$set", new Document("Title", title)
                 .append("Description", description)
@@ -62,27 +55,18 @@ public class EditPostController extends HttpServlet {
                 .append("LinkGame", linkGame)
                 .append("Price", price));
 
-
         collection.updateOne(new Document("_id", new ObjectId(postId)), update);
-
         response.sendRedirect("ReadGameHomeAdminController");
     }
 
     private void deletePost(HttpServletRequest request, HttpServletResponse response, String postId)
             throws ServletException, IOException {
+            MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("postGame");
 
         // Delete the post document from MongoDB
         collection.deleteOne(new Document("_id", new ObjectId(postId)));
-
         response.sendRedirect("ReadGameHomeAdminController");
-    }
-
-    @Override
-    public void destroy() {
-        if (mongoClient != null) {
-            mongoClient.close();
-        }
     }
 }

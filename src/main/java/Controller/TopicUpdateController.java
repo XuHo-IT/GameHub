@@ -18,20 +18,15 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
+import utils.MongoDBConnectionManager1;
 import javax.servlet.http.HttpSession;
 
 @MultipartConfig
 public class TopicUpdateController extends HttpServlet {
 
-    private MongoClient mongoClient;
+  
 
-    @Override
-    public void init() throws ServletException {
-        mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-        // Initialize MongoDB client
-        mongoClient = MongoClients.create("mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-    }
-
+    // Update Topic
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -59,7 +54,8 @@ public class TopicUpdateController extends HttpServlet {
             fileDataBase64 = Base64.getEncoder().encodeToString(fileDataBytes);
         }
 
-        // Get the 'topic' collection
+        // Get MongoDB database and collection
+        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("topic");
 
@@ -93,10 +89,9 @@ public class TopicUpdateController extends HttpServlet {
         response.getWriter().write("Topic updated successfully");
     }
 
-    @Override
-    public void destroy() {
-        if (mongoClient != null) {
-            mongoClient.close();
-        }
-    }
+  
 }
+
+
+
+

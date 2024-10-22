@@ -17,22 +17,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.UUID;
+import utils.MongoDBConnectionManager1;
 
 public class ForgotPasswordController extends HttpServlet {
 
-    private MongoClient mongoClient;
-
-    @Override
-    public void init() throws ServletException {
-        // Initialize MongoDB client
-        mongoClient = MongoClients.create("mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-    }
-
+   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
 
         // Connect to the database and collection
+            MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> usersCollection = database.getCollection("superadmin");
 
@@ -113,13 +108,6 @@ public class ForgotPasswordController extends HttpServlet {
         } catch (MessagingException e) {
             e.printStackTrace();
             return false;
-        }
-    }
-
-    @Override
-    public void destroy() {
-        if (mongoClient != null) {
-            mongoClient.close();
         }
     }
 }

@@ -13,14 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import utils.MongoDBConnectionManager1;
 
 public class ConfirmPostController extends HttpServlet {
-    private MongoClient mongoClient;
-
-    @Override
-    public void init() throws ServletException {
-        mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -28,6 +23,7 @@ public class ConfirmPostController extends HttpServlet {
         String postId = request.getParameter("postId");
 
         // Get the MongoDB database and collections
+        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> postGameMemberCollection = database.getCollection("postGameMember");
         MongoCollection<Document> postGameCollection = database.getCollection("postGame");
@@ -42,15 +38,7 @@ public class ConfirmPostController extends HttpServlet {
             // Remove the post from postGameMember collection
             postGameMemberCollection.deleteOne(new Document("_id", new ObjectId(postId)));
         }
-
         // Redirect back to the member page (or wherever appropriate)
         response.sendRedirect("ReadGameHomeAdminController");
-    }
-
-    @Override
-    public void destroy() {
-        if (mongoClient != null) {
-            mongoClient.close();
-        }
     }
 }

@@ -14,18 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import javax.servlet.http.HttpSession;
+import utils.MongoDBConnectionManager1;
 
 public class TopicDeleteController extends HttpServlet {
 
-    private MongoClient mongoClient;
+ 
 
-    @Override
-    public void init() throws ServletException {
-        mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-        // Initialize MongoDB client
-        mongoClient = MongoClients.create("mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-    }
-
+    // Delete Topic
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -43,7 +38,8 @@ public class TopicDeleteController extends HttpServlet {
         // Get the topic ID from the request
         String topicId = request.getParameter("topicId");
 
-        // Access the MongoDB database and collection
+        // Get MongoDB database and collection
+            MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("forumTopics");
 
@@ -73,10 +69,5 @@ public class TopicDeleteController extends HttpServlet {
         response.getWriter().write("Topic deleted successfully");
     }
 
-    @Override
-    public void destroy() {
-        if (mongoClient != null) {
-            mongoClient.close();
-        }
-    }
+   
 }

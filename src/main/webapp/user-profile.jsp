@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 
-=======
 <%@ page import="java.util.List, Model.UserModel, mongodb.MongoConectUser" %>
 >>>>>>> 237930bed13d006631de6d9c654f4cd4e978a50e
 <!DOCTYPE html>

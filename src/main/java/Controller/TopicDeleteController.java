@@ -19,19 +19,11 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
+import utils.MongoDBConnectionManager1;
 
 @MultipartConfig
 public class TopicDeleteController extends HttpServlet {
 
-    private MongoClient mongoClient;
-
-    @Override
-    public void init() throws ServletException {
-        // Initialize MongoDB client
-        mongoClient = MongoClients.create("mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-    }
-
-    // Delete Topic
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -39,6 +31,7 @@ public class TopicDeleteController extends HttpServlet {
         String topicId = request.getParameter("topicId");
 
         // Get MongoDB database and collection
+            MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("forumTopics");
 
@@ -48,13 +41,5 @@ public class TopicDeleteController extends HttpServlet {
         // Respond with success message
         response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().write("Topic deleted successfully");
-    }
-
-    @Override
-    public void destroy() {
-        // Close the MongoDB client
-        if (mongoClient != null) {
-            mongoClient.close();
-        }
     }
 }

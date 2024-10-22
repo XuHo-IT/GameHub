@@ -18,15 +18,14 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
+import utils.MongoDBConnectionManager1;
 
 public class GameReleaseNotificationMemberController extends HttpServlet {
 
-    private MongoClient mongoClient;
+  
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-    public GameReleaseNotificationMemberController() {
-        mongoClient = MongoClients.create("mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-    }
+   
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,7 +38,7 @@ public class GameReleaseNotificationMemberController extends HttpServlet {
             response.getWriter().write("Invalid email address");
             return;
         }
-
+           MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient(); 
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("postGame");
 
@@ -105,12 +104,6 @@ public class GameReleaseNotificationMemberController extends HttpServlet {
         } catch (MessagingException e) {
             e.printStackTrace();
             return false; // Email sending failed
-        }
-    }
-     @Override
-    public void destroy() {
-        if (mongoClient != null) {
-            mongoClient.close();
         }
     }
 }

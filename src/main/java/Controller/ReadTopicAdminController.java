@@ -23,22 +23,16 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.bson.types.ObjectId;
+import utils.MongoDBConnectionManager1;
 
 public class ReadTopicAdminController extends HttpServlet {
-
-    private MongoClient mongoClient;
-
-    @Override
-    public void init() throws ServletException {
-        mongoClient = MongoClients.create("mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-
-    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             HttpSession session = request.getSession();
+                MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
             // Start the scheduler with the mongoClient and HttpSession
             GameReleaseNotificationAdminController.startScheduler(mongoClient, session);
             // Check if the logout action is triggered
@@ -121,13 +115,6 @@ public class ReadTopicAdminController extends HttpServlet {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Error retrieving topic.");
             request.getRequestDispatcher("error-page.jsp").forward(request, response);
-        }
-    }
-
-    @Override
-    public void destroy() {
-        if (mongoClient != null) {
-            mongoClient.close();
         }
     }
 }

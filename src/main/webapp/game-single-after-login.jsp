@@ -193,17 +193,7 @@
                 linkGame = post.getString("LinkGame");
                 price = post.getString("Price");
 // Ensure correct case
-                priceRating = post.getDouble("PriceRating");
-                graphicRating = post.getDouble("GraphicRating");
-                difficultyRating = post.getDouble("DifficultyRating");
-                gameplayRating = post.getDouble("GameplayRating");
-                averageRating = post.getDouble("AverageRating");
-
-                // Log retrieved values
-                System.out.println("Title: " + title);
-                System.out.println("Description: " + description);
-                System.out.println("Date Release: " + dateRelease);
-                System.out.println("File Data: " + fileData);
+            
             } else {
                 out.println("Post not found.");
             }

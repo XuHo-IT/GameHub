@@ -372,52 +372,163 @@
             </div>
             <div class="form-content">
                 <h2>SIGNUP</h2>
-                <form action="SignUpController" method="post">
+                <form id="signupForm" action="SignUpController" method="post">
                     <div class="input-field">
                         <label>Enter your name</label>
-
-                        <input type="text" required name="Name">
+                        <input type="text" name="Name" id="name" required>
+                        <div class="error-message" id="nameError"></div>
                     </div>
                     <div class="input-field">
                         <label>Enter your email</label>
-
-                        <input type="text" required name="Email">
+                        <input type="email" name="Email" id="email" required>
+                        <div class="error-message" id="emailError"></div>
                     </div>
                     <div class="input-field">
                         <label>Phone number</label>
-
-                        <input type="number" required name="Phone">
+                        <input type="number" name="Phone" id="phone" required>
+                        <div class="error-message" id="phoneError"></div>
                     </div>
                     <div class="input-field">
                         <label>Date of birth</label>
-
-                        <input type="date" required name="Dob">
+                        <input type="date" name="Dob" id="dob" required>
+                        <div class="error-message" id="dobError"></div>
                     </div>
                     <div class="input-field">
                         <label>Address</label>
-
-                        <input type="text" required name="Address">
+                        <input type="text" name="Address" id="address" required>
+                        <div class="error-message" id="addressError"></div>
                     </div>
                     <div class="input-field">
                         <label>Password</label>
-
-                        <input type="password" required name="Password">
+                        <input type="password" name="Password" id="password" required>
+                        <div class="error-message" id="passwordError"></div>
                     </div>
                     <div class="policy-text">
-                        <input type="checkbox" id="policy">
-                        <label for="policy">
-                            I agree the
+                        <input type="checkbox" id="policy" name="policy">
+                        <label for="policy">I agree to the
                             <a href="#" class="option">Terms & Conditions</a>
                         </label>
+                        <div class="error-message" id="policyError"></div>
                     </div>
                     <button type="submit">Sign Up</button>
                 </form>
                 <div class="bottom-link">
-                    Already have an account? 
-                    <a href="#" id="login-link">Login</a>
+                    Already have an account? <a href="#" id="login-link">Login</a>
                 </div>
             </div>
         </div>
+        <script>
+       document.addEventListener("DOMContentLoaded", function() {
+           // Get all form fields
+           const nameField = document.getElementById('name');
+           const emailField = document.getElementById('email');
+           const phoneField = document.getElementById('phone');
+           const dobField = document.getElementById('dob');
+           const addressField = document.getElementById('address');
+           const passwordField = document.getElementById('password');
+           const policyCheckbox = document.getElementById('policy');
+            
+           // Real-time validation for each field
+           nameField.addEventListener('input', validateName);
+           emailField.addEventListener('input', validateEmail);
+           phoneField.addEventListener('input', validatePhone);
+           dobField.addEventListener('input', validateDOB);
+           addressField.addEventListener('input', validateAddress);
+           passwordField.addEventListener('input', validatePassword);
+           policyCheckbox.addEventListener('change', validatePolicy);
+
+           // Validation functions
+           function validateName() {
+               const name = nameField.value.trim();
+               const nameError = document.getElementById('nameError');
+               if (name.length < 3) {
+                   nameError.textContent = 'Name must be at least 3 characters long.';
+               } else {
+                   nameError.textContent = '';
+               }
+           }
+
+           function validateEmail() {
+               const email = emailField.value.trim();
+               const emailError = document.getElementById('emailError');
+               const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+               if (!emailPattern.test(email)) {
+                   emailError.textContent = 'Please enter a valid email address.';
+               } else {
+                   emailError.textContent = '';
+               }
+           }
+
+           function validatePhone() {
+               const phone = phoneField.value.trim();
+               const phoneError = document.getElementById('phoneError');
+               if (phone.length !== 10 || !/^\d+$/.test(phone)) {
+                   phoneError.textContent = 'Phone number must be 10 digits long.';
+               } else {
+                   phoneError.textContent = '';
+               }
+           }
+
+           function validateDOB() {
+               const dob = dobField.value.trim();
+               const dobError = document.getElementById('dobError');
+               const date = new Date(dob);
+               const today = new Date();
+               const age = today.getFullYear() - date.getFullYear();
+               if (age < 18) {
+                   dobError.textContent = 'You must be at least 18 years old.';
+               } else {
+                   dobError.textContent = '';
+               }
+           }
+
+           function validateAddress() {
+               const address = addressField.value.trim();
+               const addressError = document.getElementById('addressError');
+               if (address.length < 5) {
+                   addressError.textContent = 'Address must be at least 5 characters long.';
+               } else {
+                   addressError.textContent = '';
+               }
+           }
+
+           function validatePassword() {
+               const password = passwordField.value.trim();
+               const passwordError = document.getElementById('passwordError');
+               if (password.length < 6) {
+                   passwordError.textContent = 'Password must be at least 6 characters long.';
+               } else {
+                   passwordError.textContent = '';
+               }
+           }
+
+           function validatePolicy() {
+               const policyError = document.getElementById('policyError');
+               if (!policyCheckbox.checked) {
+                   policyError.textContent = 'You must agree to the terms and conditions.';
+               } else {
+                   policyError.textContent = '';
+               }
+           }
+
+           // Final validation before form submission (if necessary)
+           const signupForm = document.getElementById('signupForm');
+           signupForm.addEventListener('submit', function(event) {
+               validateName();
+               validateEmail();
+               validatePhone();
+               validateDOB();
+               validateAddress();
+               validatePassword();
+               validatePolicy();
+
+               // Prevent form submission if there are errors
+               if (document.querySelectorAll('.error-message:empty').length !== 7) {
+                   event.preventDefault();
+               }
+           });
+       });
+        </script>
     </div>
 
 

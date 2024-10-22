@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class UpdateCommentController extends HttpServlet {
+public class UpdateCommentAdminController extends HttpServlet {
 
     private MongoClient mongoClient;
 
@@ -43,7 +43,7 @@ public class UpdateCommentController extends HttpServlet {
         try {
            collection.updateOne(query, update);
            destroy();
-           response.sendRedirect("forum-detail-after-login-member.jsp?id=" + topicId);
+           response.sendRedirect("forum-detail-after-login.jsp?id=" + topicId);
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.getWriter().write("Error updating comment: " + e.getMessage());

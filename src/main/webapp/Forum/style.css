@@ -178,7 +178,7 @@ button.forum-button{
 }
 
 .subforum .subforum-stats img{
-    width: 30%;
+    width: 25%;
 }
 
 .subforum .subforum-info a{
@@ -598,6 +598,16 @@ footer{
 
 .comments-container .toggle-replies:hover{
     background-color: #4a4646;
+}
+
+.comments-container .date-comment{
+    text-align: center;
+}
+
+.comments-container .date-comment b{
+    font-family: "Courier ", "Courier New", monospace;
+    color: white;
+    font-size: 12px;
 }
 
 .body .content .comment button{

@@ -1,8 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model;
+
+import java.util.Date;
 
 /**
  *
@@ -16,17 +14,21 @@ public class Comment {
     private String userName;
     private String photoUrl;
     private String content;
+    private String status;
+    private Date date;
 
     public Comment() {
     }
 
-    public Comment(String commentId, String topicId, String userId, String userName, String photoUrl, String content) {
+    public Comment(String commentId, String topicId, String userId, String userName, String photoUrl, String content, String status, Date date) {
         this.commentId = commentId;
         this.topicId = topicId;
         this.userId = userId;
         this.userName = userName;
         this.photoUrl = photoUrl;
         this.content = content;
+        this.status = status;
+        this.date = date;
     }
 
     public String getCommentId() {
@@ -75,5 +77,21 @@ public class Comment {
 
     public void setContent(String content) {
         this.content = content;
-    }  
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 }

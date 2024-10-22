@@ -17,21 +17,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import utils.MongoDBConnectionManager1;
 
 @WebServlet("/getGamePostStatistics")
 public class TopicStatisticController extends HttpServlet {
 
-    private MongoClient mongoClient;
-
-    @Override
-    public void init() throws ServletException {
-        // Initialize MongoDB connection
-        mongoClient = MongoClients.create("mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+            MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> adminGamePostCollection = database.getCollection("postGame");         // Admin post collection
         MongoCollection<Document> memberGamePostCollection = database.getCollection("postGameMember");  // Member post collection
@@ -66,13 +61,5 @@ public class TopicStatisticController extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(postStats.toString());
-    }
-
-    @Override
-    public void destroy() {
-        // Clean up the MongoDB connection
-        if (mongoClient != null) {
-            mongoClient.close();
-        }
     }
 }

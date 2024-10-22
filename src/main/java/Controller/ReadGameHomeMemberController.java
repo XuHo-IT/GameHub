@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.bson.Document;
 import org.bson.types.Binary;
+import utils.MongoDBConnectionManager1;
 
 /**
  *
@@ -26,12 +27,7 @@ import org.bson.types.Binary;
  */
 public class ReadGameHomeMemberController extends HttpServlet {
 
-    private MongoClient mongoClient;
-
-    @Override
-    public void init() throws ServletException {
-        mongoClient = MongoClients.create("mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-    }
+   
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -50,6 +46,7 @@ public class ReadGameHomeMemberController extends HttpServlet {
 
         try {
             // If not logout, proceed with fetching game posts
+                MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
             MongoDatabase database = mongoClient.getDatabase("GameHub");
             MongoCollection<Document> collection = database.getCollection("postGame");
             List<GamePost> postList = new ArrayList<>();
@@ -124,13 +121,6 @@ public class ReadGameHomeMemberController extends HttpServlet {
             e.printStackTrace(); // Log the exception
             request.setAttribute("errorMessage", "Error retrieving game posts.");
             request.getRequestDispatcher("error-page.jsp").forward(request, response);
-        }
-    }
-
-    @Override
-    public void destroy() {
-        if (mongoClient != null) {
-            mongoClient.close();
         }
     }
 }

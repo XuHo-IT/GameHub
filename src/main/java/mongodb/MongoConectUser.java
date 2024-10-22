@@ -18,7 +18,7 @@ import static jdk.jfr.internal.consumer.EventLog.update;
 
 
 public class MongoConectUser {
-    private static final String CONNECTION_STRING = "mongodb+srv://han:Abc123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub";
+    private static final String CONNECTION_STRING = "mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub";
     private static final String DATABASE_NAME = "GameHub";
     private static final String COLLECTION_NAME = "superadmin";
 
@@ -187,5 +187,24 @@ public boolean updateUserProfilePicture(String userId, String imagePath) {
         }
         return false; // Old password is incorrect or user not found
     }
+    public boolean assignAdmin(String userId) {
+    try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
+        MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
+        MongoCollection<Document> usersCollection = database.getCollection(COLLECTION_NAME);
 
+        // Use ObjectId for the MongoDB _id field
+        Document query = new Document("_id", new ObjectId(userId));
+        Document update = new Document("$set", new Document("Role", "1"));
+
+        // Update the user's status to "Suspend"
+        if (usersCollection.updateOne(query, update).getModifiedCount() > 0) {
+            return true; // Successfully suspended the user
+        }
+        return false; // User not found or not modified
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false; // Return false if an error occurred
+    }
+
+}
 }

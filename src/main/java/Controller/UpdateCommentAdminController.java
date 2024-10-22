@@ -13,17 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import utils.MongoDBConnectionManager1;
 
 public class UpdateCommentAdminController extends HttpServlet {
 
-    private MongoClient mongoClient;
-
-    @Override
-    public void init() throws ServletException {
-        mongoClient = MongoClients.create(
-                "mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-    }
-
+   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String commentId = request.getParameter("commentid");
@@ -31,6 +25,7 @@ public class UpdateCommentAdminController extends HttpServlet {
         String topicId = request.getParameter("topicid");
 
         // Kết nối MongoDB
+            MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("comment");
 
@@ -50,10 +45,4 @@ public class UpdateCommentAdminController extends HttpServlet {
         }
     }
 
-    @Override
-    public void destroy() {
-        if (mongoClient != null) {
-            mongoClient.close();
-        }
-    }
 }

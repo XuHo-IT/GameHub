@@ -15,18 +15,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.bson.Document;
+import utils.MongoDBConnectionManager1;
 
 /**
  *
  * @author Admin
  */
 public class EditUserServlet extends HttpServlet {
-     private MongoClient mongoClient;
-
-    @Override
-    public void init() throws ServletException {
-        mongoClient = MongoClients.create("mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-    }
+    
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -40,7 +36,7 @@ public class EditUserServlet extends HttpServlet {
 
        
 
-      
+          MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
             MongoDatabase database = mongoClient.getDatabase("GameHub");
             MongoCollection<Document> collection = database.getCollection("superadmin");
 
@@ -56,11 +52,5 @@ public class EditUserServlet extends HttpServlet {
        
         // Redirect to the user list page after editing
         response.sendRedirect("list-user.jsp");
-    }
- @Override
-    public void destroy() {
-        if (mongoClient != null) {
-            mongoClient.close();
-        }
     }
 }

@@ -6,12 +6,48 @@
 <html lang="zxx">
 
     <head>
-        <title>EndGam - Gaming Magazine Template</title>
+        <title>EndGame - Gaming Magazine Template</title>
         <meta charset="UTF-8">
         <meta name="description" content="EndGam Gaming Magazine Template">
         <meta name="keywords" content="endGam,gGaming, magazine, html">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Favicon -->
+         <link href="./img/favicon.png" rel="icon" />
+
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
+            rel="stylesheet"
+            />
+
+        <!-- Bootstrap CSS -->
+    <link
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        rel="stylesheet"
+    />
+        <!-- Icon Font Stylesheet -->
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+            rel="stylesheet"
+            />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+            rel="stylesheet"
+            />
+
+        <!-- Libraries Stylesheet -->
+        <link href="lib/animate/animate.min.css" rel="stylesheet" />
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
+        <link
+            href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css"
+            rel="stylesheet"
+            />
+          <link href="css/cssfpt2.css" rel="stylesheet" />
+
+        <!-- Template Stylesheet -->
+        <link href="css/cssfpt1.css" rel="stylesheet" />
         <link href="img/favicon.ico" rel="shortcut icon" />
 
         <!-- Google Font -->
@@ -68,9 +104,6 @@
                     </div>
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
-                            <!-- Bi?u t??ng gi? h�ng -->
-
-                            <!-- Bi?u t??ng t�i kho?n -->
                             <div class="account-container">
                                 <div class="account-icon">
                                     <i class="fa fa-user-circle" aria-hidden="true"></i>
@@ -90,7 +123,6 @@
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                             <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
-                            <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                             <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
                             <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
                         </ul>
@@ -101,33 +133,37 @@
 
             </div>
         </header>
-        <!-- Header section end -->
-
 
         <!-- Hero section -->
-        <section class="hero-section overflow-hidden">
-            <div class="hero-slider owl-carousel">
-                <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center"
-                     data-setbg="img/slider-bg-1.jpg">
-                    <div class="container">
-                        <h2>Game on!</h2>
-                        <p>Fusce erat dui, venenatis et erat in, vulputate dignissim lacus. Donec vitae tempus dolor,<br>sit
-                            amet elementum lorem. Ut cursus tempor turpis.</p>
-                        <a href="#" class="site-btn">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
-                    </div>
-                </div>
-                <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center"
-                     data-setbg="img/slider-bg-2.jpg">
-                    <div class="container">
-                        <h2>Game on!</h2>
-                        <p>Fusce erat dui, venenatis et erat in, vulputate dignissim lacus. Donec vitae tempus dolor,<br>sit
-                            amet elementum lorem. Ut cursus tempor turpis.</p>
-                        <a href="#" class="site-btn">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
-                    </div>
-                </div>
+      <!-- Hero Section Start -->
+<section class="hero-section overflow-hidden">
+    <div class="hero-slider owl-carousel">
+        <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center"
+             data-setbg="img/slider-bg-1.jpg">
+            <div class="container">
+                <h2>Game on!</h2>
+                <p>Fusce erat dui, venenatis et erat in, vulputate dignissim lacus. Donec vitae tempus dolor,<br>sit
+                    amet elementum lorem. Ut cursus tempor turpis.</p>
+                <a href="#" class="site-btn">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
             </div>
-        </section>
-        <!-- Hero section end-->
+        </div>
+        <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center"
+             data-setbg="img/slider-bg-2.jpg">
+            <div class="container">
+                <h2>Game on!</h2>
+                <p>Fusce erat dui, venenatis et erat in, vulputate dignissim lacus. Donec vitae tempus dolor,<br>sit
+                    amet elementum lorem. Ut cursus tempor turpis.</p>
+                <a href="#" class="site-btn">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Hero Section End -->
+
+<!-- Team Section Start -->
+
+<!-- Team Section End -->
+
 
 
         <!-- Intro section -->
@@ -372,10 +408,10 @@
                     <img src="./img/logo2.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
-                    <li><a href="ReadGameHomeController">Home</a></li>
-                    <li><a href="ReadGameListController">Games</a></li>
-                    <li><a href="forum.jsp">Forum</a></li>
-                    <li><a href="contact.jsp">Contact</a></li>
+                    <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                    <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                    <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
+                    <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
                     <a href="#"><i class="fa fa-pinterest"></i></a>

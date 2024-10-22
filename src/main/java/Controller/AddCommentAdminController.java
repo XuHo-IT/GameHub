@@ -29,7 +29,7 @@ public class AddCommentAdminController extends HttpServlet {
     @Override
     public void init() throws ServletException {
         mongoClient = MongoClients.create(
-                "mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
+                "mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
         // Start the daily scheduler to check for game releases
     }
 
@@ -52,7 +52,6 @@ public class AddCommentAdminController extends HttpServlet {
                 .append("Status", "unedited")
                 .append("Date", currentDateTime);
         collection.insertOne(comments);
-        destroy();
         response.sendRedirect("forum-detail-after-login.jsp?id=" + topicId);
     }
 

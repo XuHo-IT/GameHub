@@ -600,6 +600,16 @@ footer{
     background-color: #4a4646;
 }
 
+.comments-container .date-comment{
+    text-align: center;
+}
+
+.comments-container .date-comment b{
+    font-family: "Courier ", "Courier New", monospace;
+    color: white;
+    font-size: 12px;
+}
+
 .body .content .comment button{
     color: white;
     background-color: #6f2b95;

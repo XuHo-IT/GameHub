@@ -1,5 +1,13 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+<%@page import="java.time.Period"%>
+<%@page import="java.time.Duration"%>
+<%@page import="java.time.ZoneId"%>
+<%@page import="java.time.LocalDateTime"%>
+<%@page import="java.util.Date"%>
+>>>>>>> bfbcb4d2ca845faa79df5c014fc84182eaa34b56
 <%@page import="java.util.Collections"%>
 <%@page import="java.util.Collection"%>
 <%@page import="Model.Comment"%>
@@ -84,162 +92,110 @@
                             <button class="login-btn">LOG IN</button>
                         </div>
 
-                        <!-- Menu -->
+                       <!-- Menu -->
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeController">Home</a></li>
-                            <li><a href="ReadGameListController">Games</a>
-
+                            <li><a href="ReadGameListController">Games</a>						
                                 <ul class="sub-menu">
                                     <li><a href="top-rating-all.jsp">Top rating</a></li>
-                                    <li><a href="top-wishlist.jsp">Top wishlist</a></li>
                                 </ul>
                             </li>
+                            <li><a href="ReadTopicController">Forum</a></li>
                             <li><a href="contact.jsp">Contact</a></li>
-                            <li><a href="ReadTopicController">Community</a></li>
+                            
                         </ul>
                     </nav>
                 </div>
             </div>
         </header>
 
-<<<<<<< HEAD
-        <!<!-- Forum section -->
-        <%
-            String userId = null;
-            String userName = null;
-            String title = null;
-            String content = null;
-            String imageData = null;
-            String photoUrl = null;
-=======
-        <!-- Forum section -->
-        <%
-            String userId = null;
-            String userNameTopic = null;
-            String title = null;
-            String description = null;
-            String imageData = null;
-            String photoUrlUser = null;
+<!-- Forum section -->
+<%
+    String userId = null;
+    String userNameTopic = null;
+    String title = null;
+    String description = null;
+    String imageData = null;
+    String photoUrlUser = null;
+    List<Comment> comments = new ArrayList<>();
 
-            List<Comment> comments = new ArrayList<>();
->>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
+    // Get the post ID from the URL query parameter
+    String topicId = request.getParameter("id");
+    System.out.println("Topic ID: " + topicId);
 
-            // Get the post ID from the URL query parameter
-            String topicId = request.getParameter("id");
-            System.out.println("Topic ID: " + topicId);
+    // Connect to MongoDB
+    MongoClient mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
+    MongoCollection<Document> topicsCollection = mongoClient.getDatabase("GameHub").getCollection("topic");
 
-            // Connect to MongoDB
-            MongoClient mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub"); // Your connection string
-            MongoCollection<Document> topicsCollection = mongoClient.getDatabase("GameHub").getCollection("topic");
+    // Find the topic by its ObjectId
+    Document topic = topicsCollection.find(Filters.eq("_id", new ObjectId(topicId))).first();
 
-            // Find the topic by its ObjectId
-            Document topic = topicsCollection.find(Filters.eq("_id", new ObjectId(topicId))).first();
+    // Check if the post exists
+    if (topic != null) {
+        title = topic.getString("Title");
+        description = topic.getString("Description");
+        imageData = topic.getString("ImageData");
+        userId = topic.getString("UserId");
 
-<<<<<<< HEAD
-            
-            // Check if the post exists
-            if (topic != null) {
-                title = topic.getString("GamePlay");
-                content = topic.getString("Author");
-                imageData = topic.getString("Genre");
-                userId = topic.getString("userId");
-                
-                MongoCollection<Document> usersCollection = mongoClient.getDatabase("GameHub").getCollection("superadmin");
+        MongoCollection<Document> usersCollection = mongoClient.getDatabase("GameHub").getCollection("superadmin");
+        // Find the user by its ObjectId
+        Document userTopic = usersCollection.find(Filters.eq("_id", new ObjectId(userId))).first();
 
-                // Find the user by its ObjectId
-                Document user = usersCollection.find(Filters.eq("_id", new ObjectId(userId))).first();
-                
-                userName = user.getString("Name");
-                photoUrl = user.getString("PhotoUrl");     
-                
-                MongoCollection<Document> commentsCollection = mongoClient.getDatabase("GameHub").getCollection("comment");
-                
-                // Find the comment by its ObjectId
-                List<Document> commentDocuments = commentsCollection.find(Filters.eq("_id", new ObjectId(topicId))).into(new ArrayList<>());
-                
-                for (Document doc : commentDocuments) {
-                    Comment comment = new Comment();
-                    comment.setCommentId(doc.getObjectId("_id").toString());
-                    comment.setUserId(doc.getString("userId").toString());
-                    
-                    comment.setCommentText(doc.getString("commentText"));
-                    comment.add(comment);
-                }
+        userNameTopic = userTopic.getString("Name");
+        photoUrlUser = userTopic.getString("PhotoUrl");
 
-                // Log retrieved values
-                System.out.println("Title: " + title);
-                System.out.println("Description: " + content);
-                System.out.println("Image ulr: " + imageData);
-                System.out.println("User name: " + userName);
-                System.out.println("Photo ulr: " + photoUrl);
-=======
-            // Check if the post exists
-            if (topic != null) {
-                title = topic.getString("Title");
-                description = topic.getString("Description");
-                imageData = topic.getString("ImageData");
-                userId = topic.getString("UserId");
+        MongoCollection<Document> commentsCollection = mongoClient.getDatabase("GameHub").getCollection("comment");
+        // Find the comment by its ObjectId
+        List<Document> commentDocuments = commentsCollection.find(Filters.eq("TopicId", topicId)).into(new ArrayList<>());
 
-                MongoCollection<Document> usersCollection = mongoClient.getDatabase("GameHub").getCollection("superadmin");
+        for (Document doc : commentDocuments) {
+            Document user = usersCollection.find(Filters.eq("_id", new ObjectId(doc.getString("UserId")))).first();
+            String photoUrl = (user != null) ? user.getString("PhotoUrl") : "./img/t-rex.png";
+            String userName = (user != null) ? user.getString("Name") : "Unknown";
 
-                // Find the user by its ObjectId
-                Document userTopic = usersCollection.find(Filters.eq("_id", new ObjectId(userId))).first();
+            Comment comment = new Comment();
+            comment.setCommentId(doc.getObjectId("_id").toString());
+            comment.setTopicId(doc.getString("TopicId").toString());
+            comment.setUserId(doc.getString("UserId").toString());
+            comment.setUserName(userName);
+            comment.setPhotoUrl(photoUrl);
+            comment.setContent(doc.getString("Content"));
 
-                userNameTopic = userTopic.getString("Name");
-                photoUrlUser = userTopic.getString("PhotoUrl");
-
-                MongoCollection<Document> commentsCollection = mongoClient.getDatabase("GameHub").getCollection("comment");
-
-                // Find the comment by its ObjectId
-                List<Document> commentDocuments = commentsCollection
-                        .find(Filters.eq("TopicId", topicId))
-                        .into(new ArrayList<>());
-
-                for (Document doc : commentDocuments) {
-                    Document user = usersCollection.find(Filters.eq("_id", new ObjectId(doc.getString("UserId")))).first();
-                    String photoUrl = (user != null) ? user.getString("PhotoUrl") : "./img/t-rex.png";
-                    String userName = (user != null) ? user.getString("Name") : "Unknown";
-
-                    Comment comment = new Comment();
-                    comment.setCommentId(doc.getObjectId("_id").toString());
-                    comment.setTopicId(doc.getString("TopicId").toString());
-                    comment.setUserId(doc.getString("UserId").toString());
-                    comment.setUserName(userName);
-                    comment.setPhotoUrl(photoUrl);
-                    comment.setContent(doc.getString("Content"));
-
-                    // Log retrieved values
-                    System.out.println("Topic id: " + comment.getTopicId());
-                    System.out.println("User id: " + comment.getUserId());
-                    System.out.println("Comment id: " + comment.getCommentId());
-                    System.out.println("User name: " + userName);
-                    System.out.println("Content: " + comment.getContent());
-                    System.out.println("Photo ulr: " + photoUrl);
-
-                    comments.add(comment);
-                }
-
-                Collections.reverse(comments);
-
-                // Log retrieved values
-                System.out.println("Title: " + title);
-                System.out.println("Description: " + description);
-                System.out.println("Image ulr: " + imageData);
-                System.out.println("User name: " + userNameTopic);
-                System.out.println("Photo ulr: " + photoUrlUser);
->>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
+            if ("unedited".equals(doc.getString("Status"))) {
+                comment.setStatus("");
             } else {
-                out.println("Post not found.");
+                comment.setStatus("(edited)");
             }
+            comment.setDate(doc.getDate("Date"));
 
-            // Close MongoDB connection
-            mongoClient.close();
-        %>
-<<<<<<< HEAD
-        
-=======
+            // Log retrieved values
+            System.out.println("Topic id: " + comment.getTopicId());
+            System.out.println("User id: " + comment.getUserId());
+            System.out.println("Comment id: " + comment.getCommentId());
+            System.out.println("User name: " + userName);
+            System.out.println("Content: " + comment.getContent());
+            System.out.println("Photo url: " + photoUrl);
 
->>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
+            comments.add(comment);
+        }
+
+        Collections.reverse(comments);
+
+        // Log retrieved values
+        System.out.println("Title: " + title);
+        System.out.println("Description: " + description);
+        System.out.println("Image url: " + imageData);
+        System.out.println("User name: " + userNameTopic);
+        System.out.println("Photo url: " + photoUrlUser);
+    } else {
+        out.println("Post not found.");
+    }
+
+    // Close MongoDB connection
+    mongoClient.close();
+%>
+
+
         <section class="blog-section spad">
             <div class="container" style="
                  margin: 0 auto;
@@ -279,6 +235,51 @@
                             <div class="authors">
                                 <img src="<%= (comment.getPhotoUrl() == null || comment.getPhotoUrl().isEmpty()) ? "./img/t-rex.png" : comment.getPhotoUrl()%>" alt="Photo User">
                                 <div class="username"><a href=""><%= comment.getUserName()%></a></div>
+                                <div class="date-comment">
+                                    <%// Chuyển Date thành LocalDateTime
+                                        Date pastDate = comment.getDate();
+                                        LocalDateTime pastDateTime = pastDate.toInstant().atZone(ZoneId.of("UTC")).toLocalDateTime();
+
+                                        // Lấy thời gian hiện tại (LocalDateTime)
+                                        LocalDateTime now = LocalDateTime.now();
+
+                                        // Tính khoảng cách thời gian giữa hai thời điểm
+                                        Duration duration = Duration.between(pastDateTime, now);
+                                        Period period = Period.between(pastDateTime.toLocalDate(), now.toLocalDate());
+
+                                        // Điều kiện 1: Nếu nhỏ hơn 1 giờ -> Hiện n phút trước
+                                        if (duration.toMinutes() < 60) {
+                                    %>
+                                    <b><%= duration.toMinutes()%>m ago<%=comment.getStatus()%></b>
+                                    <%
+                                    } // Điều kiện 2: Nếu nhỏ hơn 1 ngày -> Hiện n giờ trước
+                                    else if (duration.toHours() < 24) {
+                                    %>
+                                    <b><%= duration.toHours()%>H ago<%=comment.getStatus()%></b>
+                                    <%
+                                    } // Điều kiện 3: Nếu nhỏ hơn 1 tuần -> Hiện n ngày trước
+                                    else if (duration.toDays() < 7) {
+                                    %>
+                                    <b><%= duration.toDays()%>D ago<%=comment.getStatus()%></b>
+                                    <%
+                                    } // Điều kiện 4: Nếu nhỏ hơn 4 tuần -> Hiện n tuần trước
+                                    else if (duration.toDays() < 28) {
+                                    %>
+                                    <b><%= duration.toDays() / 7%>W ago<%=comment.getStatus()%></b>
+                                    <%
+                                    } // Điều kiện 5: Nếu lớn hơn 4 tuần nhưng nhỏ hơn 1 năm -> Hiện n tháng trước
+                                    else if (period.toTotalMonths() < 12) {
+                                    %>
+                                    <b><%= period.toTotalMonths()%>M ago<%=comment.getStatus()%></b>
+                                    <%
+                                    } // Điều kiện 6: Nếu lớn hơn 1 năm -> Hiện n năm trước
+                                    else {
+                                    %>
+                                    <b><%= period.getYears()%>Y ago<%=comment.getStatus()%></b>
+                                    <%
+                                        }
+                                    %>
+                                </div>
                             </div>
                             <div class="content">
                                 <p style="color: lightblue; white-space: normal; word-wrap: break-word; overflow-wrap: break-word;">

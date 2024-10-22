@@ -1,7 +1,7 @@
 <<<<<<< HEAD
 
 =======
-<%@ page import="java.util.List, Model.UserModel, mogodb.MongoConectUser" %>
+<%@ page import="java.util.List, Model.UserModel, mongodb.MongoConectUser" %>
 >>>>>>> 237930bed13d006631de6d9c654f4cd4e978a50e
 <!DOCTYPE html>
 <html lang="en">
@@ -83,117 +83,119 @@
         <div class="row flex-lg-nowrap">
             
 
-<<<<<<< HEAD
-      <div class="col-12 col-md-3 mb-3">
-        <div class="card mb-3">
-          <div class="card-body">
+<div class="col-12 col-md-3 mb-3">
+    <div class="card mb-3">
+        <div class="card-body">
             <div class="px-xl-3">
-              <button class="btn btn-block btn-secondary">
-                <i class="fa fa-sign-out"></i>
-                <a href="ReadGameHomeController"><span>Logout</span></a>
-              </button>
-=======
-            <div class="col">
-                <div class="row">
-                    <div class="col mb-3">
-                        <div class="card" style="background-color: #6f2b95;">
-                            <div class="card-body">
-                                <div class="e-profile">
-                                    <div class="row">
-                                        <div class="col-12 col-sm-auto mb-3">
-                                            <div class="mx-auto" style="width: 140px;">
-                                                <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
-                                                    <% if (profilePicture != null && !profilePicture.isEmpty()) { %>
-                                                        <img src='<%= profilePicture %>' style='width: 140px; height: 140px; border-radius: 50%;'/>
-                                                    <% } else { %>
-                                                        <span style='color: rgb(166, 168, 170); font: bold 8pt Arial;'>No Photo</span>
-                                                    <% } %>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
-                                            <div class="text-center text-sm-left mb-2 mb-sm-0">
-                                                <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap"><%= name %></h4>
-                                                <div class="text-muted"><small>Last seen 2 hours ago</small></div>
-                                            </div>
-                                            <div class="text-center text-sm-right">
-                                                <span class="badge badge-secondary"><%= role %></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-content pt-3">
-                                        <div class="tab-pane active">
-                                            <form class="form" novalidate="">
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <div class="form-group">
-                                                            <label>Name</label>
-                                                            <div class="form-control"><%= name %></div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Email</label>
-                                                            <div class="form-control"><%= email %></div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Phone</label>
-                                                            <div class="form-control"><%= phone %></div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Address</label>
-                                                            <div class="form-control"><%= address %></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-3">
-                                                    <div class="col-12 col-sm-6">
-                                                        <button class="btn btn-secondary" type="button" onclick="openEditPopup()">
-                                                            Edit Information
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-12 col-sm-6 text-sm-right">
-                                                        <a href="change-password.jsp?id=<%= id %>" class="btn btn-secondary">
-                                                            Change Password
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-3">
-                                                    <div class="col-12 text-center">
-                                                        <a href="<%=homePage%>?id=<%= id %>" class="btn btn-secondary">
-                                                            Go Back to Home
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <button class="btn btn-block btn-secondary">
+                    <i class="fa fa-sign-out"></i>
+                    <a href="ReadGameHomeController"><span>Logout</span></a>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
-                    <div class="col-12 col-md-3 mb-3">
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <div class="px-xl-3">
-                                    <button class="btn btn-block btn-secondary" onclick="location.href='logout.jsp'">
-                                        <i class="fa fa-sign-out"></i>
-                                        <span>Logout</span>
-                                    </button>
+<div class="col">
+    <div class="row">
+        <div class="col mb-3">
+            <div class="card" style="background-color: #6f2b95;">
+                <div class="card-body">
+                    <div class="e-profile">
+                        <div class="row">
+                            <div class="col-12 col-sm-auto mb-3">
+                                <div class="mx-auto" style="width: 140px;">
+                                    <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
+                                        <% if (profilePicture != null && !profilePicture.isEmpty()) { %>
+                                            <img src='<%= profilePicture %>' style='width: 140px; height: 140px; border-radius: 50%;'/>
+                                        <% } else { %>
+                                            <span style='color: rgb(166, 168, 170); font: bold 8pt Arial;'>No Photo</span>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
+                                <div class="text-center text-sm-left mb-2 mb-sm-0">
+                                    <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap"><%= name %></h4>
+                                    <div class="text-muted"><small>Last seen 2 hours ago</small></div>
+                                </div>
+                                <div class="text-center text-sm-right">
+                                    <span class="badge badge-secondary"><%= role %></span>
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <h6 class="card-title font-weight-bold">Support</h6>
-                                <p class="card-text">Get fast, free help from our friendly assistants.</p>
-                                <button type="button" class="btn btn-primary">Contact Us</button>
+                        <div class="tab-content pt-3">
+                            <div class="tab-pane active">
+                                <form class="form" novalidate="">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label>Name</label>
+                                                <div class="form-control"><%= name %></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Email</label>
+                                                <div class="form-control"><%= email %></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Phone</label>
+                                                <div class="form-control"><%= phone %></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Address</label>
+                                                <div class="form-control"><%= address %></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-12 col-sm-6">
+                                            <button class="btn btn-secondary" type="button" onclick="openEditPopup()">
+                                                Edit Information
+                                            </button>
+                                        </div>
+                                        <div class="col-12 col-sm-6 text-sm-right">
+                                            <a href="change-password.jsp?id=<%= id %>" class="btn btn-secondary">
+                                                Change Password
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-12 text-center">
+                                            <a href="<%=homePage%>?id=<%= id %>" class="btn btn-secondary">
+                                                Go Back to Home
+                                            </a>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
->>>>>>> 237930bed13d006631de6d9c654f4cd4e978a50e
             </div>
         </div>
+
+        <div class="col-12 col-md-3 mb-3">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="px-xl-3">
+                        <button class="btn btn-block btn-secondary" onclick="location.href='logout.jsp'">
+                            <i class="fa fa-sign-out"></i>
+                            <span>Logout</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title font-weight-bold">Support</h6>
+                    <p class="card-text">Get fast, free help from our friendly assistants.</p>
+                    <button type="button" class="btn btn-primary">Contact Us</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
     </div>
 
     <!-- Popup for Editing Information -->

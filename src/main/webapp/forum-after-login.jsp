@@ -100,25 +100,13 @@
                         </div>
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
-<<<<<<< HEAD
-                            <li><a href="ReadGameHomeMemberController">Home</a></li>
-                            <li><a href="ReadGameListMemberController">Games</a>
 
-                                <ul class="sub-menu">
-                                    <li><a href="top-rating-all-after-login-member.jsp">Top rating</a></li>
-                                    <li><a href="top-wishlist-all-after-login-member.jsp">Top wishlist</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="contact-after-login.jsp">Contact</a></li>
-                            <li><a href="chart/index-chart.jsp">Manage</a></li>
-                            <li><a href="ReadTopicAdminController">Community</a></li>
-=======
                             <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                             <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
                             <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                             <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
                             <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
->>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
+
                         </ul>
                     </nav>
                 </div>
@@ -157,59 +145,54 @@
                 <div class="subforum">
                     <c:forEach var="topic" items="${topics}">
                         <div class="subforum-row">
-                            <div class="subforum-icon subforum-column center">
-                                <img src="${topic.photoUrl}" alt="User Photo">
-                            </div>
-                            <div class="subforum-description subforum-column">
-<<<<<<< HEAD
-                                <h4><a href="forum-detail.jsp">${topic.title}</a></h4>
-=======
-                                <h4><a href="forum-detail-after-login.jsp?id=${topic.topicId}">${topic.title}</a></h4>
->>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
-                                    <c:choose>
-                                        <c:when test="${fn:length(topic.description) > 100}">
-                                        <p>${fn:substring(topic.description, 0, 120)}...</p>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <p>${topic.description}</p>
-                                    </c:otherwise>
-                                </c:choose>
-                            </div>
-                            <div class="subforum-stats subforum-column center">
-                                <%
-                                    // Get the topic object from the pageContext
-                                    Topic topicObj = (Topic) pageContext.getAttribute("topic");
+    <div class="subforum-icon subforum-column center">
+        <img src="${topic.photoUrl}" alt="User Photo">
+    </div>
+    <div class="subforum-description subforum-column">
+        <h4>
+            <a href="forum-detail-after-login.jsp?id=${topic.topicId}">
+                <c:choose>
+                    <c:when test="${fn:length(topic.title) >= 60}">
+                        ${fn:substring(topic.title, 0, 60)}...
+                    </c:when>
+                    <c:otherwise>
+                        ${topic.title}
+                    </c:otherwise>
+                </c:choose>
+            </a>
+        </h4>
+        <c:choose>
+            <c:when test="${fn:length(topic.description) >= 120}">
+                <p>${fn:substring(topic.description, 0, 120)}...</p>
+            </c:when>
+            <c:otherwise>
+                <p>${topic.description}</p>
+            </c:otherwise>
+        </c:choose>
+    </div>
+    <div class="subforum-stats subforum-column center">
+        <% 
+            // Get the topic object from the pageContext
+            Topic topicObj = (Topic) pageContext.getAttribute("topic");
+            // Connect to MongoDB
+            MongoClient mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
+            // Get comment and reply collections
+            MongoCollection<Document> commentCollection = mongoClient.getDatabase("GameHub").getCollection("comment");
+            MongoCollection<Document> replyCollection = mongoClient.getDatabase("GameHub").getCollection("reply");
+            // Count comments for each topic
+            long commentCount = commentCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
+            // Count replies for each topic (uncomment if needed)
+            // long replyCount = replyCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
+            // Calculate total number of comments and replies for each topic
+            long totalCount = commentCount; // + replyCount;
+        %>
+        <span><%= totalCount %><img src="./img/icons/chat-icon.png" alt=""></span>
+    </div>
+    <div class="subforum-info subforum-column">
+        <b>Post by</b> <a href="#">${topic.userName}</a>
+    </div>
+</div>
 
-                                    // Kết nối đến cơ sở dữ liệu MongoDB
-                                    MongoClient mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-
-                                    // Lấy collection comment và reply
-                                    MongoCollection<Document> commentCollection = mongoClient.getDatabase("GameHub").getCollection("comment");
-                                    MongoCollection<Document> replyCollection = mongoClient.getDatabase("GameHub").getCollection("reply");
-
-                                    // Đếm số lượng bình luận cho mỗi chủ đề
-                                    long commentCount = commentCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
-
-                                    // Đếm số lượng trả lời cho mỗi chủ đề
-<<<<<<< HEAD
-                                    long replyCount = replyCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
-
-                                    // Tính tổng số lượng bình luận và trả lời cho mỗi chủ đề
-                                    long totalCount = commentCount + replyCount;
-=======
-//                                    long replyCount = replyCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
-
-                                    // Tính tổng số lượng bình luận và trả lời cho mỗi chủ đề
-//                                    long totalCount = commentCount + replyCount;
-                                    long totalCount = commentCount;
->>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
-                                %>
-                                <span><%= totalCount%><img src="./img/icons/chat-icon.png" alt=""> </span>
-                            </div>
-                            <div class="subforum-info subforum-column">
-                                <b>Post by</b> <a href="#">${topic.userName}</a>
-                            </div>
-                        </div>
                         <hr class="subforum-devider">
                     </c:forEach>
 

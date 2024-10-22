@@ -1,4 +1,4 @@
-package Controller;
+                       package Controller;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -38,10 +38,11 @@ public class UpdateCommentController extends HttpServlet {
         Document query = new Document("_id", new ObjectId(commentId));
 
         // Tạo document mới chứa nội dung cập nhật
-        Document update = new Document("$set", new Document("Content", newContent).append("Status", "fixed"));
+        Document update = new Document("$set", new Document("Content", newContent).append("Status", "edited"));
 
         try {
            collection.updateOne(query, update);
+           destroy();
            response.sendRedirect("forum-detail-after-login-member.jsp?id=" + topicId);
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

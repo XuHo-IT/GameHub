@@ -113,6 +113,10 @@
         <servlet-class>Controller.CreateTopicController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AddReplyController</servlet-name>
+        <servlet-class>Controller.AddReplyController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AddCommentController</servlet-name>
         <servlet-class>Controller.AddCommentController</servlet-class>
     </servlet>
@@ -145,8 +149,6 @@
         <servlet-class>Controller.ReadTopicMemberController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SearchServlet</servlet-name>
-        <servlet-class>Controller.SearchServlet</servlet-class>
         <servlet-name>TopicCreateController</servlet-name>
         <servlet-class>Controller.TopicCreateController</servlet-class>
     </servlet>
@@ -312,6 +314,10 @@
         <url-pattern>/CreateTopicController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>AddReplyController</servlet-name>
+        <url-pattern>/AddReplyController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AddCommentController</servlet-name>
         <url-pattern>/AddCommentController</url-pattern>
     </servlet-mapping>
@@ -339,10 +345,6 @@
         <file-size-threshold>5242880</file-size-threshold>
         <!-- 5 MB -->
     </multipart-config>
-    <servlet-mapping>
-        <servlet-name>SearchServlet</servlet-name>
-        <url-pattern>/SearchServlet</url-pattern>
-    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ReadTopicController</servlet-name>
         <url-pattern>/ReadTopicController</url-pattern>

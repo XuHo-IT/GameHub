@@ -35,7 +35,7 @@ public class SignUpController extends HttpServlet {
     @Override
     public void init() throws ServletException {
         // Initialize MongoDB client
-        mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
+        mongoClient = MongoClients.create("mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
     }
 
     @Override

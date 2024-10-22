@@ -31,7 +31,7 @@ public class AddGenreController extends HttpServlet {
     @Override
     public void init() throws ServletException {
         mongoClient = MongoClients.create(
-                "mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
+                "mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
     }
 
     @Override
@@ -59,7 +59,6 @@ public class AddGenreController extends HttpServlet {
 
         // Insert the document into the MongoDB collection
         collection.insertOne(genre1);
-
         // Redirect to the admin page after successful insertion
         response.sendRedirect("ReadGameHomeAdminController");
     }

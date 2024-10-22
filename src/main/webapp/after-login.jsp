@@ -3,14 +3,49 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="org.bson.Document" %>
 <html lang="zxx">
-
     <head>
-        <title>EndGam - Gaming Magazine Template</title>
+        <title>EndGame - Gaming Magazine Template</title>
         <meta charset="UTF-8">
         <meta name="description" content="EndGam Gaming Magazine Template">
         <meta name="keywords" content="endGam,gGaming, magazine, html">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Favicon -->
+        <link href="./img/favicon.png" rel="icon" />
+
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
+            rel="stylesheet"
+            />
+
+        <!-- Bootstrap CSS -->
+        <link
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            rel="stylesheet"
+            />
+        <!-- Icon Font Stylesheet -->
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+            rel="stylesheet"
+            />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+            rel="stylesheet"
+            />
+
+        <!-- Libraries Stylesheet -->
+        <link href="lib/animate/animate.min.css" rel="stylesheet" />
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
+        <link
+            href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css"
+            rel="stylesheet"
+            />
+        <link href="css/cssfpt2.css" rel="stylesheet" />
+
+        <!-- Template Stylesheet -->
+        <link href="css/cssfpt1.css" rel="stylesheet" />
         <link href="img/favicon.ico" rel="shortcut icon" />
 
         <!-- Google Font -->
@@ -40,6 +75,8 @@
             <![endif]-->
 
     </head>
+
+
 
     <body>
         <!-- Page Preloder -->
@@ -77,15 +114,15 @@
                                 <div class="account-dropdown">
                                     <ul>                                    
                                         <li><a href="user-profile.jsp">Account Info</a></li>
-                                         <li>
-                                           <a href="LogOutController" class="dropdown-item">Logout</a>
+                                        <li>
+                                            <a href="LogOutController" class="dropdown-item">Logout</a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                       <!-- Menu -->
-                       <ul class="main-menu primary-menu">
+                        <!-- Menu -->
+                        <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                             <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
                             <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
@@ -126,41 +163,64 @@
 
 
 
-        <!-- Intro section -->
-        <section class="intro-section">
+        <!-- Service Start -->
+        <div class="container-xxl py-5">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="intro-text-box text-box text-white">
-                            <div class="top-meta">11.11.18 / in <a href="">Games</a></div>
-                            <h3>The Newest online game is out now!</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                                labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida....</p>
-                            <a href="#" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
-                        </div>
+                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <h6 class="section-title bg-white text-center text-primary px-3">Services</h6>
+                    <h1 class="mb-5 text-primary">Our Services</h1>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp icon-hover-service" data-wow-delay="0.1s">
+                        <a href="room.jsp" class="nav-item nav-link">
+                            <div class="service-item rounded pt-3">
+                                <div class="p-4">
+                                    <i class="fa fa-3x fa-globe text-primary mb-4"></i>
+                                    <h5>Booking rooms</h5>
+                                    <p>Available.</p>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                    <div class="col-md-4">
-                        <div class="intro-text-box text-box text-white">
-                            <div class="top-meta">11.11.18 / in <a href="">Playstation</a></div>
-                            <h3>Top 5 best games in november</h3>
-                            <p>Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                                et dolore magna aliqua. Quis ipsum labore suspendisse ultrices gravida....</p>
-                            <a href="#" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
-                        </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp icon-hover-service" data-wow-delay="0.3s">
+                        <a href="404.html" class="nav-item nav-link">
+                            <div class="service-item rounded pt-3">
+                                <div class="p-4">
+                                    <i class="fa fa-3x fa-hotel text-primary mb-4"></i>
+                                    <h5>Booking villa</h5>
+                                    <p>Still update</p>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                    <div class="col-md-4">
-                        <div class="intro-text-box text-box text-white">
-                            <div class="top-meta">11.11.18 / in <a href="">Reviews</a></div>
-                            <h3>Get this game at a promo price</h3>
-                            <p>Sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                magna aliqua. Quis ipsum suspendisse ultrices gravida ncididunt ut labore ....</p>
-                            <a href="#" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
-                        </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp icon-hover-service" data-wow-delay="0.5s">
+                        <a href="404.html" class="nav-item nav-link">
+                            <div class="service-item rounded pt-3">
+                                <div class="p-4">
+                                    <i class="fa fa-3x fa-user text-primary mb-4"></i>
+                                    <h5>Travel Guides</h5>
+                                    <p>Still update</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp icon-hover-service" data-wow-delay="0.7s">
+                        <a href="404.html" class="nav-item nav-link">
+                            <div class="service-item rounded pt-3">
+                                <div class="p-4">
+                                    <i class="fa fa-3x fa-cog text-primary mb-4"></i>
+                                    <h5>Other booking</h5>
+                                    <p>Still update</p>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- Intro section end -->
+        </div>
+
+
+        <!-- Service End -->
 
 
         <!-- Blog section -->
@@ -174,7 +234,7 @@
                         <!-- Blog item -->
                         <%
                             String adminId = request.getParameter("id");  // Get AdminId from session
-%>                        
+                        %>                        
                         <div class="blog-container">
                             <c:forEach var="post" items="${posts}">
                                 <div class="blog-item">
@@ -302,15 +362,116 @@
 
 
     <!-- Newsletter section -->
-    <section class="newsletter-section">
+    <div class="container-xxl py-5">
         <div class="container">
-            <h2>Subscribe to our newsletter</h2>
-            <form class="newsletter-form">
-                <input type="text" placeholder="ENTER YOUR E-MAIL">
-                <button class="site-btn">subscribe <img src="img/icons/double-arrow.png" alt="#" /></button>
-            </form>
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Founder & Co-Founder</h6>
+                <h1 class="mb-5">Meet Our Founders</h1>
+            </div>
+            <div class="row g-4">
+                <!-- Team Member 1 -->
+                <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="team-item">
+                        <div class="overflow-hidden">
+                            <img class="img-fluid" src="img/team-1.jpg" alt="" />
+                        </div>
+                        <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
+                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i></a>
+                        </div>
+                        <div class="text-center p-4">
+                            <h5 class="mb-0">Nguyen Thanh Tung</h5>
+                            <small>FE DEVELOPER</small>
+                        </div>
+                    </div>
+                </div>
+                <!-- Team Member 2 -->
+                <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="team-item">
+                        <div class="overflow-hidden">
+                            <img class="img-fluid" src="img/team-2.jpg" alt="" />
+                        </div>
+                        <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
+                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i></a>
+                        </div>
+                        <div class="text-center p-4">
+                            <h5 class="mb-0">Ngo Tran Xuan Hoa</h5>
+                            <small>BE DEVELOPER</small>
+                        </div>
+                    </div>
+                </div>
+                <!-- Team Member 3 -->
+                <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="team-item">
+                        <div class="overflow-hidden">
+                            <img class="img-fluid" src="img/Card.jpg" alt="" />
+                        </div>
+                        <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
+                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i></a>
+                        </div>
+                        <div class="text-center p-4">
+                            <h5 class="mb-0">Nguyen Le Dang Thanh</h5>
+                            <small>Game Developer</small>
+                        </div>
+                    </div>
+                </div>
+                <!-- Team Member 4 -->
+                <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                    <div class="team-item">
+                        <div class="overflow-hidden">
+                            <img class="img-fluid" src="img/team-4.jpg" alt="" />
+                        </div>
+                        <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
+                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i></a>
+                        </div>
+                        <div class="text-center p-4">
+                            <h5 class="mb-0">Tran Nguyen Han</h5>
+                            <small>Designation</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                    <div class="team-item">
+                        <div class="overflow-hidden">
+                            <img class="img-fluid" src="img/team-4.jpg" alt="" />
+                        </div>
+                        <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
+                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i></a>
+                        </div>
+                        <div class="text-center p-4">
+                            <h5 class="mb-0">Nguyen Thanh Tuan</h5>
+                            <small>Designation</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                    <div class="team-item">
+                        <div class="overflow-hidden">
+                            <img class="img-fluid" src="img/team-4.jpg" alt="" />
+                        </div>
+                        <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
+                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
+                                <i class="fab fa-github"></i></a>
+                        </div>
+                        <div class="text-center p-4">
+                            <h5 class="mb-0">Nguyen Hoang Duong</h5>
+                            <small>Designation</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </section>
+    </div>
     <!-- Newsletter section end -->
 
 

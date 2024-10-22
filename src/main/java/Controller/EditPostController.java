@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
 public class EditPostController extends HttpServlet {
 
     private MongoClient mongoClient;
@@ -51,7 +50,6 @@ public class EditPostController extends HttpServlet {
         String linkGame = request.getParameter("Link");
         String price = request.getParameter("Price");
 
-
         // Update the post document in MongoDB
         Document update = new Document("$set", new Document("Title", title)
                 .append("Description", description)
@@ -62,9 +60,7 @@ public class EditPostController extends HttpServlet {
                 .append("LinkGame", linkGame)
                 .append("Price", price));
 
-
         collection.updateOne(new Document("_id", new ObjectId(postId)), update);
-
         response.sendRedirect("ReadGameHomeAdminController");
     }
 
@@ -75,7 +71,6 @@ public class EditPostController extends HttpServlet {
 
         // Delete the post document from MongoDB
         collection.deleteOne(new Document("_id", new ObjectId(postId)));
-
         response.sendRedirect("ReadGameHomeAdminController");
     }
 

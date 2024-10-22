@@ -2,6 +2,9 @@
 <%@page import="java.util.List"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="org.bson.Document" %>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sixtyfour+Convergence&display=swap" rel="stylesheet">
 <head>
     <title>EndGam - Gaming Magazine Template</title>
     <meta charset="UTF-8">
@@ -72,14 +75,18 @@
                         <button class="login-btn">LOG IN</button>
                     </div>
 
-                    <!-- Menu -->
-                    <ul class="main-menu primary-menu">
-                        <li><a href="ReadGameHomeController">Home</a></li>
-                        <li><a href="ReadGameListController">Games</a>
-                        </li>
-                        <li><a href="contact.jsp">Contact</a></li>
-                        <li><a href="ReadTopicController">Community</a></li>
-                    </ul>
+                       <!-- Menu -->
+                        <ul class="main-menu primary-menu">
+                            <li><a href="ReadGameHomeController">Home</a></li>
+                            <li><a href="ReadGameListController">Games</a>						
+                                <ul class="sub-menu">
+                                    <li><a href="top-rating-all.jsp">Top rating</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="ReadTopicController">Forum</a></li>
+                            <li><a href="contact.jsp">Contact</a></li>
+                            
+                        </ul>
                 </nav>
             </div>
         </div>
@@ -97,7 +104,7 @@
                     <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
                 </div>
             </div>
-            <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider-bg-2.jpg">
+            <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider5.jpg">
                 <div class="container">
                     <h2>Game on!</h2>
                     <p>The platform provides a centralized space for discovering and sharing game news, keeping users informed about upcoming titles and events.<br>Users can contribute by posting news, commenting on updates, and participating in forum discussions. The site promotes community interaction around gaming trends and developments.</p>
@@ -226,31 +233,37 @@
 
 
     <!-- Intro section -->
-    <section class="intro-video-section set-bg d-flex align-items-end " data-setbg="./img/promo-bg.jpg">
-        <a href="https://www.youtube.com/watch?v=plUn_L8gAno" class="video-play-btn video-popup"><img src="img/icons/solid-right-arrow.png" alt="#"></a>
-        <div class="container">
-            <div class="video-text">
-                <h2>Promo video of the game</h2>
-                <p>Watch our exciting promotional video showcasing the latest features and gameplay of our highly anticipated game. 
-                    Dive into a thrilling world filled with immersive graphics, intense action, and engaging storylines. </p>
-            </div>
-        </div>
-    </section>
+    <section class="intro-video-section set-bg d-flex align-items-end">
+       <div class="video-container">
+           <!-- Add the video tag to autoplay the video -->
+           <video autoplay muted loop playsinline>
+               <source src="img/video.mp4" type="video/mp4">
+               Your browser does not support the video tag.
+           </video>
+       </div>
+       <div class="container">
+           <div class="video-text">
+               <h2>Promo video of the game</h2>
+               <p>Watch our exciting promotional video showcasing the latest features and gameplay of our highly anticipated game. 
+                   Dive into a thrilling world filled with immersive graphics, intense action, and engaging storylines.</p>
+           </div>
+       </div>
+   </section>
     <!-- Intro section end -->
 
 
     <!-- Featured section -->
-    <section class="featured-section">
+    <section class="featured-section" data-setbg="img/slider4.png">
         <c:forEach var="post" items="${posts}" varStatus="status">
             <c:if test="${status.index == 0}">
                 <!-- Featured background image -->
-                <div class="featured-bg set-bg col-6 d-flex justify-content-center align-items-center" style="width: calc(50% - 40px); height: 100%;">
+                <div class="featured-bg set-bg col-6 d-flex justify-content-center align-items-center" style="width: calc(50% - 40px); height: 100%; ">
                     <img src="data:image/png;base64,${post.fileData}" alt="Game Image" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
                 </div>
 
                 <!-- Featured content box -->
-                <div class="featured-box col-6">
-                    <div class="text-box">
+                <div class="featured-box col-6" >
+                    <div class="text-box" >
                         <!-- Display post date and category dynamically -->
                         <div class="top-meta">${post.dateRelease} / in <a href="#">${post.genre}</a></div>
 
@@ -444,7 +457,7 @@
         h3.bottom-title {
             color: white;
             font-size: 35px;
-            font-family: 'Material Symbols Rounded';
+            font-family: 'Sixtyfour Convergence';
             padding: 0 0px 30px 0;
         }
     </style>

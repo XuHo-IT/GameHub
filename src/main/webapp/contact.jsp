@@ -71,18 +71,17 @@
                             <button class="login-btn">LOG IN</button>
                         </div>
 
-                        <!-- Menu -->
+                       <!-- Menu -->
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeController">Home</a></li>
-                            <li><a href="ReadGameListController">Games</a>
-
+                            <li><a href="ReadGameListController">Games</a>						
                                 <ul class="sub-menu">
                                     <li><a href="top-rating-all.jsp">Top rating</a></li>
-                                    <li><a href="top-wishlist.jsp">Top wishlist</a></li>
                                 </ul>
                             </li>
+                            <li><a href="ReadTopicController">Forum</a></li>
                             <li><a href="contact.jsp">Contact</a></li>
-                            <li><a href="ReadTopicController">Community</a></li>
+                            
                         </ul>
                     </nav>
                 </div>

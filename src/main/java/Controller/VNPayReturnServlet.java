@@ -24,15 +24,21 @@ import org.bson.types.ObjectId;
 
 public class VNPayReturnServlet extends HttpServlet {
 
+    private MongoClient mongoClient;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        mongoClient = MongoClients.create("mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String postId = request.getParameter("postId"); // Make sure postId is being set
 
-       
         String paymentStatus = request.getParameter("vnp_ResponseCode");
         
         if ("00".equals(paymentStatus)) { // Payment success code
-            MongoClient mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
             MongoCollection<Document> collection = mongoClient.getDatabase("GameHub").getCollection("postGame");
 
             if (postId != null) {
@@ -60,10 +66,16 @@ public class VNPayReturnServlet extends HttpServlet {
             } else {
                 response.getWriter().write("Invalid postId.");
             }
-
-            mongoClient.close();
         } else {
             response.getWriter().write("Payment failed or canceled.");
         }
+    }
+
+    @Override
+    public void destroy() {
+        if (mongoClient != null) {
+            mongoClient.close();
+        }
+        super.destroy();
     }
 }

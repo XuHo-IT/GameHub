@@ -25,7 +25,7 @@ public class GameReleaseNotificationMemberController extends HttpServlet {
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public GameReleaseNotificationMemberController() {
-        mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
+        mongoClient = MongoClients.create("mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
     }
 
     @Override
@@ -54,16 +54,12 @@ public class GameReleaseNotificationMemberController extends HttpServlet {
             while (cursor.hasNext()) {
                 Document gamePost = cursor.next();
                 String postGameTitle = gamePost.getString("Title");
-            
-                
-
                 emailSent = sendEmailNotification(postGameTitle, postId,adminId, userEmail);
             }
         }
         request.setAttribute(postId, "postId");
         request.setAttribute(adminId, "adminId");
 
-        // Redirect based on whether the email was sent successfully
         if (emailSent) {
             response.sendRedirect("ReadGameHomeMemberController");
         } else {
@@ -109,6 +105,12 @@ public class GameReleaseNotificationMemberController extends HttpServlet {
         } catch (MessagingException e) {
             e.printStackTrace();
             return false; // Email sending failed
+        }
+    }
+     @Override
+    public void destroy() {
+        if (mongoClient != null) {
+            mongoClient.close();
         }
     }
 }

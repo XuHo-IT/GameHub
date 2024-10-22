@@ -96,7 +96,6 @@ public class VerifyEmailHandler extends HttpServlet {
                 mongoClient.close();
             }
         }
-
         // Redirect to a result page or show the message
         response.sendRedirect("verification-result.jsp");
     }

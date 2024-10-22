@@ -11,7 +11,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import mogodb.MongoConectUser;
+
+import mongodb.MongoConectUser;
+
 
 /**
  *
@@ -35,9 +37,11 @@ public class UnSuspendUserController extends HttpServlet {
         boolean isUnsuspended = mgcn.unsuspendUser(userId);
 
         if (isUnsuspended) {
+
             response.sendRedirect("chart/list-user.jsp?success=User unsuspended successfully");
         } else {
             response.sendRedirect("chart/list-user.jsp?error=Failed to unsuspend user");
+
         }
     }
 

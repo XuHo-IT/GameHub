@@ -77,12 +77,10 @@
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
-
-                                        <li><a href="user-profile.jsp?id=<%= request.getSession().getAttribute("adminId") %>">Account Info</a></li>
+                                        <li><a href="user-profile.jsp?id=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
                                         <li>
-                                            <a href="ReadGameHomeAdminController?action=logout" class="dropdown-item">Logout</a>
+                                            <a href="LogOutController" class="dropdown-item">Logout</a>
                                         </li>
-
                                     </ul>
                                 </div>
                             </div>
@@ -90,21 +88,14 @@
 
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
-                            <li><a href="ReadGameHomeAdminController">Home</a></li>
-                            <li><a href="ReadGameListAdminController">Games</a>
-
-                                <ul class="sub-menu">
-                                    <li><a href="top-rating-all-after-login.jsp">Top rating</a></li>
-                                    <li><a href="top-wishlist-all-after-login.jsp">Top wishlist</a></li>
-                                </ul>
-                            </li>
-
-                            <li><a href="contact-after-login.jsp">Contact</a></li>
-                            <li><a href="chart/index-chart.jsp">Manage</a></li>
-                            <li><a href="ReadTopicAdminController">Community</a></li>
-                            <li><a href="list-user.jsp">User List</a></li>
-
+                            <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                            <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                            <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+                            <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
+                            <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
                         </ul>
+
+
                     </nav>
                 </div>
 
@@ -182,7 +173,7 @@
                 <div class="row">
                     <div class="col-xl-9 col-lg-8 col-md-7">
                         <div class="user-panel">
-                            <button class="create-btn">Add</button>
+                            <button class="create-btn">Add Game Post/ Genre</button>
                         </div>
                         <!-- Blog item -->
                         <div class="blog-container">
@@ -213,7 +204,8 @@
 
                                             <form action="EditPostController" method="post">
                                                 <input type="hidden" name="postId" value="${post.postID}">
-                                                <button type="submit" name="action" value="delete" class="btn-danger">Delete</button>
+                                                <button type="submit" name="action" value="delete" class="btn-danger " style="margin-top: 5px;
+                                                        width: 69px;">Delete</button>
                                             </form>
                                         </div>
 
@@ -466,24 +458,7 @@
                         <a href="#" id="upload-photo-link">Upload Genre</a>
                     </div>
                 </div>
-                <div class="right-position">
-                    <div class="input-field">
-                        <label>Price Rating</label>
-                        <input type="number" step="0.1" min="0" max="5" required name="PriceRating" placeholder="0.0 to 5.0">
-                    </div>
-                    <div class="input-field">
-                        <label>Graphic Rating</label>
-                        <input type="number" step="0.1" min="0" max="5" required name="GraphicRating" placeholder="0.0 to 5.0">
-                    </div>
-                    <div class="input-field">
-                        <label>Difficulty Rating</label>
-                        <input type="number" step="0.1" min="0" max="5" required name="DifficultyRating" placeholder="0.0 to 5.0">
-                    </div>
-                    <div class="input-field">
-                        <label>Gameplay Rating</label>
-                        <input type="number" step="0.1" min="0" max="5" required name="GameplayRating" placeholder="0.0 to 5.0">
-                    </div>
-                </div>
+               
             </div>
 
             <div class="form-box upload-photo">

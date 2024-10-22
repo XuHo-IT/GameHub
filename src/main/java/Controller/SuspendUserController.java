@@ -11,7 +11,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import mogodb.MongoConectUser;
+
+import mongodb.MongoConectUser;
+
 
 /**
  *
@@ -36,9 +38,11 @@ public class SuspendUserController extends HttpServlet {
         boolean suspended = mgcn.suspendUser(userId);
 
         if (suspended) {
+
             response.sendRedirect("chart/list-user.jsp");
         } else {
             response.sendRedirect("chart/list-user.jsp?error=Could not suspend user");
+
         }
     }
 }

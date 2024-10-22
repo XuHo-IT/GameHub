@@ -77,28 +77,21 @@
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
-                                        <li><a href="#">My Favourite</a></li>
                                         <li><a href="user-profile.jsp">Account Info</a></li>
-
-                                        <li><a href="#">Log out</a></li>
-
+                                         <li>
+                                           <a href="LogOutController" class="dropdown-item">Logout</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Menu -->
-                        <ul class="main-menu primary-menu">
-                            <li><a href="ReadGameHomeMemberController">Home</a></li>
-                            <li><a href="ReadGameListMemberController">Games</a>
-
-                                <ul class="sub-menu">
-                                    <li><a href="top-rating-all-after-login-member.jsp">Top rating</a></li>
-                                    <li><a href="top-wishlist-all-after-login-member.jsp">Top wishlist</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="contact-after-login-member.jsp">Contact</a></li>
-                            <li><a href="ReadTopicMemberController">Community</a></li>
+                       <ul class="main-menu primary-menu">
+                            <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                            <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                            <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+                            <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
                         </ul>
                     </nav>
                 </div>

@@ -20,6 +20,7 @@ import org.bson.Document;
 import org.bson.types.Binary;
 
 public class ReadGameUploadByMemberController extends HttpServlet {
+
     private MongoClient mongoClient;
 
     @Override
@@ -31,6 +32,7 @@ public class ReadGameUploadByMemberController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
         try {
+            String userId = request.getParameter("id");
             MongoDatabase database = mongoClient.getDatabase("GameHub");
             MongoCollection<Document> collection = database.getCollection("postGameMember");
             List<GamePost> postList = new ArrayList<>();
@@ -73,16 +75,16 @@ public class ReadGameUploadByMemberController extends HttpServlet {
                     fileDataBase64 = null;
                 }
                 GamePost gamePost = new GamePost(
-                    post.getObjectId("_id").toString(),
-                    post.getString("Title"),
-                    post.getString("GamePlay"),
-                    post.getString("Description"),
-                    post.getString("DateRelease"),
-                    post.getString("Author"),
-                    post.getString("Genre"),
-                    post.getString("AdminId"),
-                    post.getString("FileName"),
-                    fileDataBase64
+                        post.getObjectId("_id").toString(),
+                        post.getString("Title"),
+                        post.getString("GamePlay"),
+                        post.getString("Description"),
+                        post.getString("DateRelease"),
+                        post.getString("Author"),
+                        post.getString("Genre"),
+                        post.getString("AdminId"),
+                        post.getString("FileName"),
+                        fileDataBase64
                 );
                 postList.add(gamePost);
             }
@@ -90,7 +92,7 @@ public class ReadGameUploadByMemberController extends HttpServlet {
             Collections.reverse(postList);
             request.setAttribute("postsMember", postList);
             request.setAttribute("posts", postList); // Combine this attribute
-
+            request.setAttribute("id", userId);
             // Forward the request to the appropriate JSP page
             String role = request.getParameter("role");
             if ("1".equals(role)) {
@@ -112,5 +114,3 @@ public class ReadGameUploadByMemberController extends HttpServlet {
         }
     }
 }
-
-

@@ -15,9 +15,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 
@@ -28,20 +31,19 @@ public class ReadGameHomeAdminController extends HttpServlet {
     @Override
     public void init() throws ServletException {
         mongoClient = MongoClients.create("mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-              
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-              HttpSession session = request.getSession();
-        // Start the scheduler with the mongoClient and HttpSession
-        GameReleaseNotificationAdminController.startScheduler(mongoClient, session);
+            HttpSession session = request.getSession();
+            GameReleaseNotificationAdminController.startScheduler(mongoClient, session);
+
             // Check if the logout action is triggered
+            String userId = request.getParameter("id");
             String action = request.getParameter("action");
             if ("logout".equals(action)) {
-                // Logout functionality: remove current user session
                 request.getSession().removeAttribute("currentUser");
                 request.getSession().setAttribute("succMsg", "Logout Successfully");
                 response.sendRedirect("ReadGameHomeController");
@@ -99,17 +101,50 @@ public class ReadGameHomeAdminController extends HttpServlet {
             Collections.reverse(postList);
 
             List<GamePost> postTop4 = new ArrayList<>();
-        
             int maxPosts = Math.min(4, postList.size());
-            int i;
-            for(i = 0; i < maxPosts; i++){
+            for (int i = 0; i < maxPosts; i++) {
                 postTop4.add(postList.get(i));
             }
-
+            request.setAttribute("id", userId);
             request.setAttribute("posts", postTop4);
 
-            // Forward to the JSP page with both genres and posts
-            request.getRequestDispatcher("admin-after-login.jsp").forward(request, response);
+            // Fetch transactions from MongoDB
+            MongoCollection<Document> transactionCollection = database.getCollection("Transaction");
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+            SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            List<Document> transactions = new ArrayList<>();
+
+            FindIterable<Document> transactionsDocs = transactionCollection.find();
+            for (Document doc : transactionsDocs) {
+                if (doc.containsKey("createDate")) {
+                    String createDateString = doc.getString("createDate");
+                    String formattedDate = "N/A"; // Default value
+                    try {
+                        Date date = inputFormat.parse(createDateString);
+                        formattedDate = outputFormat.format(date);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    doc.append("formattedCreateDate", formattedDate);
+                } else {
+                    doc.append("formattedCreateDate", "No date available");
+                }
+                transactions.add(doc);
+            }
+
+            // Set transactions and posts as request attributes
+            request.setAttribute("transactionList", transactions);
+
+            // Determine where to redirect based on a parameter
+            String view = request.getParameter("view");
+
+            if ("chart".equals(view)) {
+                // If 'chart' view is requested, forward to the chart page
+                request.getRequestDispatcher("chart/index-chart.jsp").forward(request, response);
+            } else {
+                // Default: forward to the admin home page
+                request.getRequestDispatcher("admin-after-login.jsp").forward(request, response);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Error retrieving data.");

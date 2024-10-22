@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
-import mogodb.MongoConectUser;
+import mongodb.MongoConectUser;
 
 public class LoginController extends HttpServlet {
 
@@ -58,9 +58,9 @@ public class LoginController extends HttpServlet {
                         userDoc.getString("PhotoUrl"),
                         userDoc.getString("Role"),
                         userDoc.getString("Status")
-                        );
+                );
                 String id = userDoc.getObjectId("_id").toString();
-                MongoConectUser mgcn = new MongoConectUser() ;
+                MongoConectUser mgcn = new MongoConectUser();
                 UserModel currentUser = mgcn.getUserById(id);
                 // Set the current user session attribute
                 HttpSession session = request.getSession();
@@ -68,19 +68,21 @@ public class LoginController extends HttpServlet {
 
                 // Set the adminId and adminEmail in the session
                 session.setAttribute("adminId", userDoc.getObjectId("_id").toString());
+                session.setAttribute("adminName", userDoc.getString("Name"));
                 session.setAttribute("adminEmail", userDoc.getString("Email")); // Insert adminEmail in session
 
                 // Redirect based on the user's role
                 String role = userDoc.getString("Role");
-                if(currentUser.getStatus().equals("Suspend")) response.sendRedirect("user-profile.jsp?id=" + id);
-                else {
-                if ("0".equals(role)) {
-                    // For role 0 (regular user)
-                    response.sendRedirect("ReadGameHomeMemberController?id=" + id);
-                } else  {
-                    // For role 1 (admin)
-                    response.sendRedirect("ReadGameHomeAdminController?id=" + id);
-                }
+                if (currentUser.getStatus().equals("Suspend")) {
+                    response.sendRedirect("user-profile.jsp?id=" + id);
+                } else {
+                    if ("0".equals(role)) {
+                        // For role 0 (regular user)
+                        response.sendRedirect("ReadGameHomeMemberController?id=" + id);
+                    } else {
+                        // For role 1 (admin)
+                        response.sendRedirect("ReadGameHomeAdminController?id=" + id);
+                    }
                 }
 
             } catch (ParseException ex) {

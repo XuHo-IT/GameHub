@@ -1,4 +1,11 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
+package Controller;
+
 import Model.GamePost;
+import Model.Genre;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -17,6 +24,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import javax.servlet.annotation.WebServlet;
 
 public class SearchController extends HttpServlet {
 
@@ -35,7 +43,17 @@ public class SearchController extends HttpServlet {
             MongoCollection<Document> genreCollection = database.getCollection("Genre");
             MongoCollection<Document> collection = database.getCollection("postGame");
 
-            List<GamePost> postList = new ArrayList<>();
+            List<Genre> genres = new ArrayList<>();
+
+            // Fetch genres from MongoDB only once
+            List<Document> genreDocuments = genreCollection.find().into(new ArrayList<>());
+            for (Document doc : genreDocuments) {
+                Genre genre = new Genre();
+                genre.setGenreId(doc.getObjectId("_id").toString());
+                genre.setGenre(doc.getString("Genre"));
+                genres.add(genre);
+            }
+            request.setAttribute("genres", genres);  // Store genres in request attributes
 
             // Retrieve search parameters
             String keyword = request.getParameter("keyword");
@@ -46,15 +64,13 @@ public class SearchController extends HttpServlet {
 
             // Check if the keyword is provided and create the keyword filter
             if (keyword != null && !keyword.trim().isEmpty()) {
-                filters.add(Filters.or(
-                        Filters.regex("Title", ".*" + keyword + ".*", "i"), // Case-insensitive regex search
-                        Filters.regex("Description", ".*" + keyword + ".*", "i")));
+                filters.add(Filters.or(Filters.regex("Title", ".*" + keyword + ".*", "i")));
             }
 
             // Check if a genre is provided and create the genre filter
-//            if (genre != null && !genre.trim().isEmpty() && !genre.equals("All Genres")) {
-//                filters.add(Filters.eq("Genre", genre));
-//            }
+            if (genre != null && !genre.trim().isEmpty() && !genre.equals("All Genres")) {
+                filters.add(Filters.eq("Genre", genre));
+            }
 
             // Create the final filter query
             FindIterable<Document> posts;
@@ -66,6 +82,7 @@ public class SearchController extends HttpServlet {
             }
 
             // Map each document to GamePost object
+            List<GamePost> postList = new ArrayList<>();
             for (Document post : posts) {
                 Object fileData = post.get("FileData");
                 String fileDataBase64;
@@ -110,7 +127,6 @@ public class SearchController extends HttpServlet {
 
             // Sublist for current page
             List<GamePost> postsForCurrentPage = postList.subList(startIndex, endIndex);
-            List<Document> genreList = genreCollection.find().into(new ArrayList<>());
 
             // Set attributes for JSP
             request.setAttribute("posts", postsForCurrentPage);
@@ -118,7 +134,8 @@ public class SearchController extends HttpServlet {
             request.setAttribute("currentPage", currentPage);
             request.setAttribute("keyword", keyword);
             request.setAttribute("genre", genre);
-            request.setAttribute("genres", genreList);
+            request.setAttribute("genres", genres);  // Pass genres to the JSP
+            request.setAttribute("postList", postList);
 
             // Forward to search results JSP
             request.getRequestDispatcher("search-results.jsp").forward(request, response);

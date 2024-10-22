@@ -90,28 +90,21 @@
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
-                                        <li><a href="#">My Favourite</a></li>
                                         <li><a href="user-profile.jsp">Account Info</a></li>
-
-                                        <li><a href="#">Log out</a></li>
-
+                                        <li>
+                                            <a href="LogOutController" class="dropdown-item">Logout</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
-                            <li><a href="ReadGameHomeMemberController">Home</a></li>
-                            <li><a href="ReadGameListMemberController">Games</a>
-
-                                <ul class="sub-menu">
-                                    <li><a href="top-rating-all-after-login-member.jsp">Top rating</a></li>
-                                    <li><a href="top-wishlist-all-after-login-member.jsp">Top wishlist</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="contact-after-login.jsp">Contact</a></li>
-                            <li><a href="chart/index-chart.jsp">Manage</a></li>
-                            <li><a href="ReadTopicAdminController">Community</a></li>
+                            <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                            <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                            <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+                            <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
+                            <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -154,9 +147,20 @@
                                 <img src="${topic.photoUrl}" alt="User Photo">
                             </div>
                             <div class="subforum-description subforum-column">
-                                <h4><a href="forum-detail.jsp">${topic.title}</a></h4>
-                                    <c:choose>
-                                        <c:when test="${fn:length(topic.description) > 100}">
+                                <h4>
+                                    <a href="forum-detail-after-login.jsp?id=${topic.topicId}">
+                                        <c:choose>
+                                            <c:when test="${fn:length(topic.title) >= 60}">
+                                                ${fn:substring(topic.title, 0, 60)}...
+                                            </c:when>
+                                            <c:otherwise>
+                                                ${topic.title}
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </a>
+                                </h4>
+                                <c:choose>
+                                    <c:when test="${fn:length(topic.description) >= 120}">
                                         <p>${fn:substring(topic.description, 0, 120)}...</p>
                                     </c:when>
                                     <c:otherwise>
@@ -180,10 +184,11 @@
                                     long commentCount = commentCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
 
                                     // Đếm số lượng trả lời cho mỗi chủ đề
-                                    long replyCount = replyCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
+//                                    long replyCount = replyCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
 
                                     // Tính tổng số lượng bình luận và trả lời cho mỗi chủ đề
-                                    long totalCount = commentCount + replyCount;
+//                                    long totalCount = commentCount + replyCount;
+                                    long totalCount = commentCount;
                                 %>
                                 <span><%= totalCount%><img src="./img/icons/chat-icon.png" alt=""> </span>
                             </div>

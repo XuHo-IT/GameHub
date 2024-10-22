@@ -6,14 +6,12 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.client.model.Updates;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.List;
-import static jdk.jfr.internal.consumer.EventLog.update;
 
 
 
@@ -103,8 +101,6 @@ public class MongoConectUser {
                 user.setName(doc.getString("Name"));
                 user.setPassword(doc.getString("Password"));
                 user.setPhotoUrl(doc.getString("PhotoUrl"));
-                user.setStatus(doc.getString("Status"));
-                user.setRole(doc.getString("Role"));
                 return user;
             }
         } catch (Exception e) {
@@ -151,41 +147,24 @@ public boolean unsuspendUser(String userId) {
         return false; // Return false if an error occurred
     }
 }
-public boolean updateUserProfilePicture(String userId, String imagePath) {
-        try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
-            MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
-            MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
+public boolean assignAdmin(String userId) {
+    try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
+        MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
+        MongoCollection<Document> usersCollection = database.getCollection(COLLECTION_NAME);
 
-            Document query = new Document("_id", new ObjectId(userId));
-            Document update = new Document("$set", new Document("PhotoUrl", imagePath));
+        // Use ObjectId for the MongoDB _id field
+        Document query = new Document("_id", new ObjectId(userId));
+        Document update = new Document("$set", new Document("Role", "1"));
 
-            if (collection.updateOne(query, update).getModifiedCount() > 0) {
-                return true; // Successfully updated the profile picture
-            }
-            return false; // User not found or not modified
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false; // Return false if an error occurred
+        // Update the user's status to "Suspend"
+        if (usersCollection.updateOne(query, update).getModifiedCount() > 0) {
+            return true; // Successfully suspended the user
         }
-    }
-    public boolean changePassword(String userId, String oldPassword, String newPassword) {
-        try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
-            MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
-            MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
-
-            Document query = new Document("_id", new ObjectId(userId));
-            Document user = collection.find(query).first();
-
-            if (user != null && user.getString("password").equals(oldPassword)) {
-                Document update = new Document("$set", new Document("password", newPassword));
-                if (collection.updateOne(query, update).getModifiedCount() > 0) {
-                    return true; // Successfully changed password
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false; // Old password is incorrect or user not found
+        return false; // User not found or not modified
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false; // Return false if an error occurred
     }
 
+}
 }

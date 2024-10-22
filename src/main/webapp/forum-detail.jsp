@@ -1,3 +1,11 @@
+<%@page import="java.time.Period"%>
+<%@page import="java.time.Duration"%>
+<%@page import="java.time.ZoneId"%>
+<%@page import="java.time.LocalDateTime"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.util.Collections"%>
+<%@page import="java.util.Collection"%>
+<%@page import="Model.Comment"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -56,13 +64,7 @@
         </div>
 
         <header class="header-section">
-            <div class="header-warp">
-                <form class="search-form ">
-
-                    <input type="text"  placeholder="Search..." aria-label="Search">
-
-                    <button type="submit"><i class="fa fa-search"></i> Topic</button>
-                </form>
+            <div class="header-warp">             
                 <div class="header-social d-flex justify-content-end">
                     <p>Follow us:</p>
                     <a href="#"><i class="fa fa-pinterest"></i></a>
@@ -95,21 +97,23 @@
                                 </ul>
                             </li>
                             <li><a href="contact.jsp">Contact</a></li>
-                            <li><a href="forum.jsp">Community</a></li>
+                            <li><a href="ReadTopicController">Community</a></li>
                         </ul>
                     </nav>
                 </div>
             </div>
         </header>
 
-        <!<!-- Forum section -->
+        <!-- Forum section -->
         <%
             String userId = null;
-            String userName = null;
+            String userNameTopic = null;
             String title = null;
-            String content = null;
+            String description = null;
             String imageData = null;
-            String photoUrl = null;
+            String photoUrlUser = null;
+
+            List<Comment> comments = new ArrayList<>();
 
             // Get the post ID from the URL query parameter
             String topicId = request.getParameter("id");
@@ -122,42 +126,67 @@
             // Find the topic by its ObjectId
             Document topic = topicsCollection.find(Filters.eq("_id", new ObjectId(topicId))).first();
 
-            
             // Check if the post exists
             if (topic != null) {
-                title = topic.getString("GamePlay");
-                content = topic.getString("Author");
-                imageData = topic.getString("Genre");
-                userId = topic.getString("userId");
-                
+                title = topic.getString("Title");
+                description = topic.getString("Description");
+                imageData = topic.getString("ImageData");
+                userId = topic.getString("UserId");
+
                 MongoCollection<Document> usersCollection = mongoClient.getDatabase("GameHub").getCollection("superadmin");
 
                 // Find the user by its ObjectId
-                Document user = usersCollection.find(Filters.eq("_id", new ObjectId(userId))).first();
-                
-                userName = user.getString("Name");
-                photoUrl = user.getString("PhotoUrl");     
-                
+                Document userTopic = usersCollection.find(Filters.eq("_id", new ObjectId(userId))).first();
+
+                userNameTopic = userTopic.getString("Name");
+                photoUrlUser = userTopic.getString("PhotoUrl");
+
                 MongoCollection<Document> commentsCollection = mongoClient.getDatabase("GameHub").getCollection("comment");
-                
+
                 // Find the comment by its ObjectId
-                List<Document> commentDocuments = commentsCollection.find(Filters.eq("_id", new ObjectId(topicId))).into(new ArrayList<>());
-                
+                List<Document> commentDocuments = commentsCollection
+                        .find(Filters.eq("TopicId", topicId))
+                        .into(new ArrayList<>());
+
                 for (Document doc : commentDocuments) {
+                    Document user = usersCollection.find(Filters.eq("_id", new ObjectId(doc.getString("UserId")))).first();
+                    String photoUrl = (user != null) ? user.getString("PhotoUrl") : "./img/t-rex.png";
+                    String userName = (user != null) ? user.getString("Name") : "Unknown";
+
                     Comment comment = new Comment();
                     comment.setCommentId(doc.getObjectId("_id").toString());
-                    comment.setUserId(doc.getString("userId").toString());
+                    comment.setTopicId(doc.getString("TopicId").toString());
+                    comment.setUserId(doc.getString("UserId").toString());
+                    comment.setUserName(userName);
+                    comment.setPhotoUrl(photoUrl);
+                    comment.setContent(doc.getString("Content"));
                     
-                    comment.setCommentText(doc.getString("commentText"));
-                    comment.add(comment);
+                    if (doc.getString("Status").equals("unedited")) {
+                        comment.setStatus("");
+                    } else {
+                        comment.setStatus("(edited)");
+                    };
+                    comment.setDate(doc.getDate("Date"));
+
+                    // Log retrieved values
+                    System.out.println("Topic id: " + comment.getTopicId());
+                    System.out.println("User id: " + comment.getUserId());
+                    System.out.println("Comment id: " + comment.getCommentId());
+                    System.out.println("User name: " + userName);
+                    System.out.println("Content: " + comment.getContent());
+                    System.out.println("Photo ulr: " + photoUrl);
+
+                    comments.add(comment);
                 }
+
+                Collections.reverse(comments);
 
                 // Log retrieved values
                 System.out.println("Title: " + title);
-                System.out.println("Description: " + content);
+                System.out.println("Description: " + description);
                 System.out.println("Image ulr: " + imageData);
-                System.out.println("User name: " + userName);
-                System.out.println("Photo ulr: " + photoUrl);
+                System.out.println("User name: " + userNameTopic);
+                System.out.println("Photo ulr: " + photoUrlUser);
             } else {
                 out.println("Post not found.");
             }
@@ -165,7 +194,7 @@
             // Close MongoDB connection
             mongoClient.close();
         %>
-        
+
         <section class="blog-section spad">
             <div class="container" style="
                  margin: 0 auto;
@@ -175,312 +204,230 @@
                     <!--Original thread-->
                     <div class="head">
                         <div class="authors">Author</div>
-                        <div class="content">Title</div>
+                        <div class="content"><%=title%></div>
                     </div>
 
                     <div class="body">
                         <div class="authors">                          
-                            <img src="./img/Arc Raiders.jpg" alt="">
-                            <div class="username"><a href="">Username</a></div>
+                            <img src="<%= (photoUrlUser == null || photoUrlUser.isEmpty()) ? "./img/t-rex.png" : photoUrlUser%>" alt="Photo User">
+                            <div class="username"><a href=""><%=userNameTopic%></a></div>
                         </div>
                         <div class="content">
-
-                            <p style="color: lightblue">Who is hoà</p>
+                            <p style="color: lightblue; white-space: normal; word-wrap: break-word; overflow-wrap: break-word;">
+                                <%= description%>
+                            </p>
 
                             <div class="topic-img">
-                                <img src="./img/Arc Raiders.jpg" alt="">
+                                <img src="data:image/jpeg;base64,<%= imageData != null ? imageData : ""%>"  alt="">
                             </div>                    
                         </div>
                     </div>
                 </div>
 
-                <!--Another Comment With replies-->
+                <!-- Another Comment With replies -->
                 <div class="comments-container">
-                    
-                    <!<!-- Comment 1 -->
-                    <div class="comments" id="1">
-                        <div class="body">
-                            <div class="authors">                          
-                            <img src="./img/Arc Raiders.jpg" alt="">
-                            <div class="username"><a href="">Username</a></div>
-                        </div>
-                            <div class="content">
-                                <p style="color: lightblue">Hoà là t</p>                             
-                            </div>
-                        </div>
-
-                        <!--Reply comment area-->
-                        <div class="rely-container">
-                            <div class="reply">
-                                <!-- First reply always visible -->
-                                <div class="body">
-                                    <div class="authors">                          
-                            <img src="./img/Arc Raiders.jpg" alt="">
-                            <div class="username"><a href="">Username</a></div>
-                        </div>
-                                    <div class="content">
-                                        <p style="color: lightblue">Không, Hoà là t</p>
-                                    </div>
-                                </div>
-
-                                <!-- Hidden replies -->
-                                <div class="hidden-replies" style="display: none;">
-                                    <div class="body">
-                                        <div class="authors">                          
-                            <img src="./img/Arc Raiders.jpg" alt="">
-                            <div class="username"><a href="">Username</a></div>
-                        </div>
-                                        <div class="content">
-                                            <p style="color: lightblue">Không, Hoà là t</p>
-                                        </div>
-                                    </div>
-                                    <div class="body">
-                                        <div class="authors">                          
-                            <img src="./img/Arc Raiders.jpg" alt="">
-                            <div class="username"><a href="">Username</a></div>
-                        </div>
-                                        <div class="content">
-                                            <p style="color: lightblue">Không, Hoà là t</p>
-                                        </div>
-                                    </div>
-                                    <div class="body">
-                                        <div class="authors">                          
-                            <img src="./img/Arc Raiders.jpg" alt="">
-                            <div class="username"><a href="">Username</a></div>
-                        </div>
-                                        <div class="content">
-                                            <p style="color: lightblue">Không, Hoà là t</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Show/Hide Button -->
-                                <button class="toggle-replies">Show more</button>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!<!-- Comment 2 -->
-                    <div class="comments" id="2">
-                        <div class="body">
-                            <div class="authors">                          
-                            <img src="./img/Arc Raiders.jpg" alt="">
-                            <div class="username"><a href="">Username</a></div>
-                        </div>
-                            <div class="content">
-                                <p style="color: lightblue">Hoà là t</p>
-                            </div>
-                        </div>
-
-                        <!--Reply comment area-->
-                        <div class="rely-container">
-                            <div class="reply">
-                                <!-- First reply always visible -->
-                                <div class="body">
-                                    <div class="authors">                          
-                            <img src="./img/Arc Raiders.jpg" alt="">
-                            <div class="username"><a href="">Username</a></div>
-                        </div>
-                                    <div class="content">
-                                        <p style="color: lightblue">Không, Hoà là t</p>
-                                    </div>
-                                </div>
-
-                                <!-- Hidden replies -->
-                                <div class="hidden-replies" style="display: none;">
-                                    <div class="body">
-                                        <div class="authors">                          
-                            <img src="./img/Arc Raiders.jpg" alt="">
-                            <div class="username"><a href="">Username</a></div>
-                        </div>
-                                        <div class="content">
-                                            <p style="color: lightblue">Không, Hoà là t</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Show/Hide Button -->
-                                <button class="toggle-replies">Show more</button>
-
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!<!-- Comment 3 -->
-                    <div class="comments" id="3">
+                    <% if (comments != null && !comments.isEmpty()) {
+                            int commentIndex = 0;
+                            for (Comment comment : comments) {%>
+                    <div class="comments" id="comment-<%= comment.getCommentId()%>" data-comment-index="<%= commentIndex++%>">
                         <div class="body">
                             <div class="authors">
-                                <div class="username"><a href="">Username</a></div>
-                                <img src="./img/Arc Raiders.jpg" alt="">
+                                <img src="<%= (comment.getPhotoUrl() == null || comment.getPhotoUrl().isEmpty()) ? "./img/t-rex.png" : comment.getPhotoUrl()%>" alt="Photo User">
+                                <div class="username"><a href=""><%= comment.getUserName()%></a></div>
+                                <div class="date-comment">
+                                    <%// Chuyển Date thành LocalDateTime
+                                        Date pastDate = comment.getDate();
+                                        LocalDateTime pastDateTime = pastDate.toInstant().atZone(ZoneId.of("UTC")).toLocalDateTime();
+
+                                        // Lấy thời gian hiện tại (LocalDateTime)
+                                        LocalDateTime now = LocalDateTime.now();
+
+                                        // Tính khoảng cách thời gian giữa hai thời điểm
+                                        Duration duration = Duration.between(pastDateTime, now);
+                                        Period period = Period.between(pastDateTime.toLocalDate(), now.toLocalDate());
+
+                                        // Điều kiện 1: Nếu nhỏ hơn 1 giờ -> Hiện n phút trước
+                                        if (duration.toMinutes() < 60) {
+                                    %>
+                                    <b><%= duration.toMinutes()%>m ago<%=comment.getStatus()%></b>
+                                    <%
+                                    } // Điều kiện 2: Nếu nhỏ hơn 1 ngày -> Hiện n giờ trước
+                                    else if (duration.toHours() < 24) {
+                                    %>
+                                    <b><%= duration.toHours()%>H ago<%=comment.getStatus()%></b>
+                                    <%
+                                    } // Điều kiện 3: Nếu nhỏ hơn 1 tuần -> Hiện n ngày trước
+                                    else if (duration.toDays() < 7) {
+                                    %>
+                                    <b><%= duration.toDays()%>D ago<%=comment.getStatus()%></b>
+                                    <%
+                                    } // Điều kiện 4: Nếu nhỏ hơn 4 tuần -> Hiện n tuần trước
+                                    else if (duration.toDays() < 28) {
+                                    %>
+                                    <b><%= duration.toDays() / 7%>W ago<%=comment.getStatus()%></b>
+                                    <%
+                                    } // Điều kiện 5: Nếu lớn hơn 4 tuần nhưng nhỏ hơn 1 năm -> Hiện n tháng trước
+                                    else if (period.toTotalMonths() < 12) {
+                                    %>
+                                    <b><%= period.toTotalMonths()%>M ago<%=comment.getStatus()%></b>
+                                    <%
+                                    } // Điều kiện 6: Nếu lớn hơn 1 năm -> Hiện n năm trước
+                                    else {
+                                    %>
+                                    <b><%= period.getYears()%>Y ago<%=comment.getStatus()%></b>
+                                    <%
+                                        }
+                                    %>
+                                </div>
                             </div>
                             <div class="content">
-                                <p style="color: lightblue">Hoà là t</p>
-                            </div>
-                        </div>
-
-                        <!--Reply comment area-->
-                        <div class="rely-container">
-                            <div class="reply">
-                                <!-- First reply always visible -->
-                                <div class="body">
-                                    <div class="authors">
-                                        <div class="username"><a href="">Username</a></div>
-                                        <img src="./img/Arc Raiders.jpg" alt="">
-                                    </div>
-                                    <div class="content">
-                                        <p style="color: lightblue">Không, Hoà là t</p>
-                                    </div>
-                                </div>
-
-                                <!-- Hidden replies -->
-                                <div class="hidden-replies" style="display: none;">
-                                    <div class="body">
-                                        <<div class="authors">                          
-                            <img src="./img/Arc Raiders.jpg" alt="">
-                            <div class="username"><a href="">Username</a></div>
-                        </div>
-                                        <div class="content">
-                                            <p style="color: lightblue">Không, Hoà là t</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Show/Hide Button -->
-                                <button class="toggle-replies">Show more</button>
-
+                                <p style="color: lightblue; white-space: normal; word-wrap: break-word; overflow-wrap: break-word;">
+                                    <%= comment.getContent()%>
+                                </p>
                             </div>
                         </div>
                     </div>
-                    
+                    <% }
+                    } else { %>
+                    <p>No comments yet. <a href="ReadGameHomeController">Be the first to comment!</a></p>
+                    <% }%>
                 </div>
             </div>
-    </section>
+        </section>
 
 
 
 
-    <!-- Footer section -->
-    <footer class="footer-section" style="margin-top: 0 ; padding: 10px 125px">
-        <div class="container">
-            <div class="footer-left-pic">
-                <img src="img/footer-left-pic.png" alt="">
+        <!-- Footer section -->
+        <footer class="footer-section" style="margin-top: 0 ; padding: 10px 125px">
+            <div class="container">
+                <div class="footer-left-pic">
+                    <img src="img/footer-left-pic.png" alt="">
+                </div>
+                <div class="footer-right-pic">
+                    <img src="img/footer-right-pic.png" alt="">
+                </div>
+                <a href="ReadGameHomeController" class="footer-logo">
+                    <img src="./img/logo1.png" alt="">
+                    <img src="./img/logo2.png" alt="">
+                </a>
+                <ul class="main-menu footer-menu">
+                    <li><a href="ReadGameHomeController">Home</a></li>
+                    <li><a href="ReadGameListController">Games</a></li>
+                    <li><a href="">Reviews</a></li>
+                    <li><a href="">Contact</a></li>
+                </ul>
+                <div class="footer-social d-flex justify-content-center">
+                    <a href="#"><i class="fa fa-pinterest"></i></a>
+                    <a href="#"><i class="fa fa-facebook"></i></a>
+                    <a href="#"><i class="fa fa-twitter"></i></a>
+                    <a href="#"><i class="fa fa-dribbble"></i></a>
+                    <a href="#"><i class="fa fa-behance"></i></a>
+                </div>
+                <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
             </div>
-            <div class="footer-right-pic">
-                <img src="img/footer-right-pic.png" alt="">
-            </div>
-            <a href="ReadGameHomeController" class="footer-logo">
-                <img src="./img/logo1.png" alt="">
-                <img src="./img/logo2.png" alt="">
-            </a>
-            <ul class="main-menu footer-menu">
-                <li><a href="ReadGameHomeController">Home</a></li>
-                <li><a href="ReadGameListController">Games</a></li>
-                <li><a href="">Reviews</a></li>
-                <li><a href="">Contact</a></li>
-            </ul>
-            <div class="footer-social d-flex justify-content-center">
-                <a href="#"><i class="fa fa-pinterest"></i></a>
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-                <a href="#"><i class="fa fa-dribbble"></i></a>
-                <a href="#"><i class="fa fa-behance"></i></a>
-            </div>
-            <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
-        </div>
-    </footer>
-    <!-- Footer section end -->
+        </footer>
+        <!-- Footer section end -->
 
 
-    <!-- Login Popup -->
-    <div class="blur-bg-overlay"></div>
-    <div class="form-popup">
-        <span class="close-btn material-symbols-rounded">close</span>
-        <div class="form-box login">
-            <div class="form-details">
-                <h2>Welcome Back</h2>
-                <p>Please log in using your personal information to stay connected with us.</p>
-            </div>
-            <div class="form-content">
-                <h2>LOGIN</h2>
-                <form action="#">
-                    <div class="input-field">
-                        <input type="text" required>
-                        <label>Email</label>
+        <!-- Login Popup -->
+      <div class="blur-bg-overlay"></div>
+        <div class="form-popup">
+            <span class="close-btn material-symbols-rounded">close</span>
+            <div class="form-box login">
+                <div class="form-details">
+                    <h2>Welcome Back</h2>
+                    <p>Please log in using your personal information to stay connected with us.</p>
+                </div>
+                <div class="form-content">
+                    <h2>LOGIN</h2>
+                    <form action="LoginController" method="post">
+                        <c:if test="${not empty errorMessage}">
+                            <div class="error">${errorMessage}</div>
+                        </c:if>
+
+                        <div class="input-field">
+                            <label>Email</label>
+
+                            <input type="text" required name="email">
+                        </div>
+                        <div class="input-field">
+                            <label>Password</label>
+
+                            <input type="password" required name="password">
+                        </div>
+                        <a href="#" class="forgot-pass-link">Forgot password?</a>
+                        <button type="submit">Log In</button>
+                    </form>
+                    <div class="bottom-link">
+                        Don't have an account?
+                        <a href="#" id="signup-link">Signup</a>
                     </div>
-                    <div class="input-field">
-                        <input type="password" required>
-                        <label>Password</label>
+                </div>
+            </div>
+            <div class="form-box signup">
+                <div class="form-details">
+                    <h2>Create Account</h2>
+                    <p>To become a part of our community, please sign up using your personal information.</p>
+                </div>
+                <div class="form-content">
+                    <h2>SIGNUP</h2>
+                    <form action="SignUpController" method="post">
+                        <div class="input-field">
+                            <label>Enter your name</label>
+
+                            <input type="text" required name="Name">
+                        </div>
+                        <div class="input-field">
+                            <label>Enter your email</label>
+
+                            <input type="text" required name="Email">
+                        </div>
+                        <div class="input-field">
+                            <label>Phone number</label>
+
+                            <input type="number" required name="Phone">
+                        </div>
+                        <div class="input-field">
+                            <label>Date of birth</label>
+
+                            <input type="date" required name="Dob">
+                        </div>
+                        <div class="input-field">
+                            <label>Address</label>
+
+                            <input type="text" required name="Address">
+                        </div>
+                        <div class="input-field">
+                            <label>Password</label>
+
+                            <input type="password" required name="Password">
+                        </div>
+                        <div class="policy-text">
+                            <input type="checkbox" id="policy">
+                            <label for="policy">
+                                I agree the
+                                <a href="#" class="option">Terms & Conditions</a>
+                            </label>
+                        </div>
+                        <button type="submit">Sign Up</button>
+                    </form>
+                    <div class="bottom-link">
+                        Already have an account? 
+                        <a href="#" id="login-link">Login</a>
                     </div>
-                    <a href="#" class="forgot-pass-link">Forgot password?</a>
-                    <button type="submit">Log In</button>
-                </form>
-                <div class="bottom-link">
-                    Don't have an account?
-                    <a href="#" id="signup-link">Signup</a>
                 </div>
             </div>
         </div>
-        <div class="form-box signup">
-            <div class="form-details">
-                <h2>Create Account</h2>
-                <p>To become a part of our community, please sign up using your personal information.</p>
-            </div>
-            <div class="form-content">
-                <h2>SIGNUP</h2>
-                <form action="#">
-                    <div class="input-field">
-                        <input type="text" required>
-                        <label>Enter your email</label>
-                    </div>
-                    <div class="input-field">
-                        <input type="password" required>
-                        <label>Create password</label>
-                    </div>
-                    <div class="policy-text">
-                        <input type="checkbox" id="policy">
-                        <label for="policy">
-                            I agree the
-                            <a href="#" class="option">Terms & Conditions</a>
-                        </label>
-                    </div>
-                    <button type="submit">Sign Up</button>
-                </form>
-                <div class="bottom-link">
-                    Already have an account?
-                    <a href="#" id="login-link">Login</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const toggleButtons = document.querySelectorAll('.toggle-replies');
-
-            toggleButtons.forEach(button => {
-                button.addEventListener('click', function () {
-                    const hiddenReplies = this.previousElementSibling;
-                    if (hiddenReplies.style.display === 'none') {
-                        hiddenReplies.style.display = 'block';
-                        this.textContent = 'Hide';
-                    } else {
-                        hiddenReplies.style.display = 'none';
-                        this.textContent = 'Show more';
-                    }
-                });
-            });
-        });
-    </script>
-
-    <!--====== Javascripts & Jquery ======-->
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.slicknav.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/jquery.sticky-sidebar.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/main.js"></script>
-</body>
+        <!--====== Javascripts & Jquery ======-->
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.slicknav.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/jquery.sticky-sidebar.min.js"></script>
+        <script src="js/jquery.magnific-popup.min.js"></script>
+        <script src="js/main.js"></script>
+    </body>
 
 </html>

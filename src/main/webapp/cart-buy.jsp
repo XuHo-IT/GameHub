@@ -54,8 +54,8 @@
                                                 try {
                                                     mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
                                                     MongoCollection<Document> collection = mongoClient.getDatabase("GameHub").getCollection("postGame");
-                                                    String postId = request.getParameter("postId");
-
+                                                    String postId = request.getParameter("id");
+                                                    String userId = request.getParameter("adminId");
                                                     if (postId == null || postId.isEmpty() || postId.length() != 24) {
                                                         out.println("<p style='color:red;'>Invalid post ID provided.</p>");
                                                         return;
@@ -142,18 +142,29 @@
                                             <input type="hidden" name="vnp_OrderType" value="game">
                                             <input type="hidden" name="vnp_ReturnUrl" value="https://yourdomain.com/VnPayReturn">
                                             <input type="hidden" name="vnp_ExpireDate" value="<%= new SimpleDateFormat("yyyyMMddHHmmss").format(new Date(System.currentTimeMillis() + 300000))%>">
-                                            <input type="hidden" id="vnp_Link" name="vnp_Link" value=""> <!-- Add this hidden input for the link -->
+
+                                            <!-- Hidden input for the original link value -->
+                                            <input type="hidden" id="vnp_Link" name="vnp_Link" value="<%= link%>"> <!-- Original link value -->
+
+                                            <!-- Hidden input for the user ID -->
+                                            <input type="hidden" id="user_Id" name="user_Id" value="">
+
 
                                             <button type="submit" class="btn btn-success" style="margin-top: 10px;">Proceed to Payment</button>
                                         </form>
 
                                         <script>
                                             function setLinkValue() {
-                                                // Set the value of the vnp_Link input before form submission
-                                                var linkValue = "<%= link%>"; // Replace with your dynamic link value
-                                                document.getElementById("vnp_Link").value = linkValue;
+                                                var originalLinkValue = document.getElementById("vnp_Link").value;
+                                                var userId = "<%= userId%>";
+
+                                                var updatedLinkValue = originalLinkValue + "&UserID=" + userId + "&UserID=";
+
+                                                document.getElementById("vnp_Link").value = updatedLinkValue;
+                                                document.getElementById("user_Id").value = userId;
                                             }
                                         </script>
+
 
                                         <%
                                                 } else {

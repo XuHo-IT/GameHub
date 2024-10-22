@@ -20,6 +20,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
 import Model.Comment;
+import java.time.LocalDateTime;
 
 public class AddCommentAdminController extends HttpServlet {
 
@@ -39,14 +40,19 @@ public class AddCommentAdminController extends HttpServlet {
         String comment = request.getParameter("comment");
         String userId = request.getParameter("userid");
         String topicId = request.getParameter("topicid");
-//        String dateUp = request.getParameter("dateup");
+
+       LocalDateTime currentDateTime = LocalDateTime.now();
 
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("comment");
         
-        Document comments = new Document("TopicId",topicId).append("UserId", userId).append("Content", comment).append("Status", null);
-        
+        Document comments = new Document("TopicId",topicId)
+                .append("UserId", userId)
+                .append("Content", comment)
+                .append("Status", "unedited")
+                .append("Date", currentDateTime);
         collection.insertOne(comments);
+        destroy();
         response.sendRedirect("forum-detail-after-login.jsp?id=" + topicId);
     }
 

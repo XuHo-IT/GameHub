@@ -84,17 +84,17 @@
                             <button class="login-btn">LOG IN</button>
                         </div>
 
-                        <!-- Menu -->
+                                               <!-- Menu -->
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeController">Home</a></li>
                             <li><a href="ReadGameListController">Games</a>						
                                 <ul class="sub-menu">
                                     <li><a href="top-rating-all.jsp">Top rating</a></li>
-                                    <li><a href="top-wishlist.jsp">Top wishlist</a></li>
                                 </ul>
                             </li>
+                            <li><a href="ReadTopicController">Forum</a></li>
                             <li><a href="contact.jsp">Contact</a></li>
-                            <li><a href="ReadTopicController">Community</a></li>
+                            
                         </ul>
                     </nav>
                 </div>
@@ -127,9 +127,20 @@
                                 <img src="${topic.photoUrl}" alt="User Photo">
                             </div>
                             <div class="subforum-description subforum-column">
-                                <h4><a href="forum-detail.jsp?id=${topic.topicId}">${topic.title}</a></h4>
-                                    <c:choose>
-                                        <c:when test="${fn:length(topic.description) > 100}">
+                                <h4>
+                                    <a href="forum-detail.jsp?id=${topic.topicId}">
+                                        <c:choose>
+                                            <c:when test="${fn:length(topic.title) >= 60}">
+                                                ${fn:substring(topic.title, 0, 60)}...
+                                            </c:when>
+                                            <c:otherwise>
+                                                ${topic.title}
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </a>
+                                </h4>
+                                <c:choose>
+                                    <c:when test="${fn:length(topic.description) >= 120}">
                                         <p>${fn:substring(topic.description, 0, 120)}...</p>
                                     </c:when>
                                     <c:otherwise>

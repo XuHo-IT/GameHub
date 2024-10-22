@@ -123,7 +123,6 @@
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                             <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
-                            <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                             <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
                             <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
                         </ul>
@@ -409,10 +408,10 @@
                     <img src="./img/logo2.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
-                    <li><a href="ReadGameHomeController">Home</a></li>
-                    <li><a href="ReadGameListController">Games</a></li>
-                    <li><a href="forum.jsp">Forum</a></li>
-                    <li><a href="contact.jsp">Contact</a></li>
+                    <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                    <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                    <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
+                    <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
                     <a href="#"><i class="fa fa-pinterest"></i></a>

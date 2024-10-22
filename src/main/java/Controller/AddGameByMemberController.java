@@ -45,13 +45,6 @@ public class AddGameByMemberController extends HttpServlet {
         String genre = request.getParameter("Genre");
         String price = "";
 
-        System.out.println(title);
-        // Parse ratings
-        double priceRating = parseDoubleSafe(request.getParameter("PriceRating"));
-        double graphicRating = parseDoubleSafe(request.getParameter("GraphicRating"));
-        double difficultyRating = parseDoubleSafe(request.getParameter("DifficultyRating"));
-        double gameplayRating = parseDoubleSafe(request.getParameter("GameplayRating"));
-        double averageRating = (priceRating + graphicRating + difficultyRating + gameplayRating) / 4;
 
         // Get admin ID
         String adminId = (String) request.getSession().getAttribute("adminId");
@@ -82,11 +75,6 @@ public class AddGameByMemberController extends HttpServlet {
                 .append("AdminId", gamePost.getAdminId())
                 .append("FileName", gamePost.getFileName())
                 .append("FileData", fileDataBase64)
-                .append("PriceRating", priceRating)
-                .append("GraphicRating", graphicRating)
-                .append("DifficultyRating", difficultyRating)
-                .append("GameplayRating", gameplayRating)
-                .append("AverageRating", averageRating)
                 .append("Link of the game", linkGame)
                 .append("Price", price);
 
@@ -96,16 +84,6 @@ public class AddGameByMemberController extends HttpServlet {
         response.sendRedirect("ReadGameHomeMemberController");
     }
 
-    private double parseDoubleSafe(String parameterValue) {
-        if (parameterValue != null && !parameterValue.trim().isEmpty()) {
-            try {
-                return Double.parseDouble(parameterValue);
-            } catch (NumberFormatException e) {
-                System.err.println("Invalid number format: " + parameterValue);
-            }
-        }
-        return 0.0;
-    }
 
     @Override
     public void destroy() {

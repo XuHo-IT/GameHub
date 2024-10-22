@@ -61,6 +61,10 @@
         <servlet-class>Controller.AddGenreController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AssignAdminController</servlet-name>
+        <servlet-class>Controller.AssignAdminController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>LogOutController</servlet-name>
         <servlet-class>Controller.LogOutController</servlet-class>
     </servlet>
@@ -143,6 +147,57 @@
     <servlet>
         <servlet-name>SearchServlet</servlet-name>
         <servlet-class>Controller.SearchServlet</servlet-class>
+        <servlet-name>TopicCreateController</servlet-name>
+        <servlet-class>Controller.TopicCreateController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TopicUpdateController</servlet-name>
+        <servlet-class>Controller.TopicUpdateController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TopicDeleteController</servlet-name>
+        <servlet-class>Controller.TopicDeleteController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCommentController</servlet-name>
+        <servlet-class>Controller.DeleteCommentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCommentAdminController</servlet-name>
+        <servlet-class>Controller.DeleteCommentAdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddCommentAdminController</servlet-name>
+        <servlet-class>Controller.AddCommentAdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchController</servlet-name>
+        <servlet-class>Controller.SearchController</servlet-class>
+        <servlet>
+            <servlet-name>SearchController</servlet-name>
+            <servlet-class>Controller.SearchController</servlet-class>
+        </servlet>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>UpdateCommentController</servlet-name>
+        <servlet-class>Controller.UpdateCommentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VerifyEmailHandler</servlet-name>
+        <servlet-class>Controller.VerifyEmailHandler</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EmailSend</servlet-name>
+        <servlet-class>EmailSend</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EmailExistValidation</servlet-name>
+        <servlet-class>Controller.EmailExistValidation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ForgotPasswordController</servlet-name>
+        <servlet-class>Controller.ForgotPasswordController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -197,8 +252,16 @@
         <url-pattern>/ReadGameHomeMemberController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ReadGameUploadOfMemberController</servlet-name>
+        <url-pattern>/ReadGameUploadOfMemberController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AddGenreController</servlet-name>
         <url-pattern>/AddGenreController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AssignAdminController</servlet-name>
+        <url-pattern>/AssignAdminController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LogOutController</servlet-name>
@@ -245,14 +308,6 @@
         <url-pattern>/ConfirmPostController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>VNPayPaymentServlet</servlet-name>
-        <url-pattern>/VNPayPaymentServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Config</servlet-name>
-        <url-pattern>/Config</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>CreateTopicController</servlet-name>
         <url-pattern>/CreateTopicController</url-pattern>
     </servlet-mapping>
@@ -261,12 +316,20 @@
         <url-pattern>/AddCommentController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>VNPayPaymentServlet</servlet-name>
+        <url-pattern>/VNPayPaymentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>VNPayReturnServlet</servlet-name>
         <url-pattern>/VNPayReturnServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UploadLinkServlet</servlet-name>
         <url-pattern>/UploadLinkServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VerifyEmailHandler</servlet-name>
+        <url-pattern>/VerifyEmailHandler</url-pattern>
     </servlet-mapping>
     <multipart-config>
         <max-file-size>10485760</max-file-size>
@@ -292,7 +355,65 @@
         <servlet-name>ReadTopicMemberController</servlet-name>
         <url-pattern>/ReadTopicMemberController</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TopicCreateController</servlet-name>
+        <url-pattern>/TopicCreateController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TopicUpdateController</servlet-name>
+        <url-pattern>/TopicUpdateController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TopicDeleteController</servlet-name>
+        <url-pattern>/TopicDeleteController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCommentController</servlet-name>
+        <url-pattern>/DeleteCommentController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCommentAdminController</servlet-name>
+        <url-pattern>/DeleteCommentAdminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCommentAdminController</servlet-name>
+        <url-pattern>/AddCommentAdminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchController</servlet-name>
+        <url-pattern>/SearchController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCommentController</servlet-name>
+        <url-pattern>/UpdateCommentController</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>EmailSend</servlet-name>
+        <url-pattern>/EmailSend</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmailExistValidation</servlet-name>
+        <url-pattern>/EmailExistValidation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgotPasswordController</servlet-name>
+        <url-pattern>/ForgotPasswordController</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>ReadGameHomeController</welcome-file>
     </welcome-file-list>
+    <servlet>
+        <servlet-name>Jersey Web Application</servlet-name>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>javax.ws.rs.Application</param-name>
+            <param-value>com.mycompany.gamehub.JakartaRestConfiguration</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Jersey Web Application</servlet-name>
+        <url-pattern>/api/*</url-pattern>
+    </servlet-mapping>
 </web-app>

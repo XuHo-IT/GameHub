@@ -6,6 +6,7 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+
 import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.client.model.Updates;
 import org.bson.Document;
@@ -13,7 +14,9 @@ import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import static jdk.jfr.internal.consumer.EventLog.update;
+
 
 
 
@@ -64,6 +67,7 @@ public class MongoConectUser {
     }
 
     // Method to update a user in the database
+
     public boolean updateUser(String userId, String name, String email, String phone, String address) {
     try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
         MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
@@ -102,6 +106,29 @@ public class MongoConectUser {
 
 
 
+    public boolean updateUser(UserModel user) {
+        try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
+            MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
+            MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
+            
+            Document updatedUser = new Document("Email", user.getEmail())
+                    .append("PhoneNumber", user.getPhone())
+                    .append("DateOfBirth", user.getDateOfBirth())
+                    .append("Address", user.getAddress())
+                    .append("Name", user.getName())
+                    .append("Password", user.getPassword())
+                    .append("PhotoUrl", user.getPhotoUrl());
+            
+            // Use ObjectId for the MongoDB _id field
+            long modifiedCount = collection.updateOne(Filters.eq("_id", new ObjectId(user.getId())), new Document("$set", updatedUser)).getModifiedCount();
+            return modifiedCount > 0; // Return true if the user was updated
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false; // Return false if an error occurred
+        }
+    }
+
+
     // Method to get a user by ID
     public UserModel getUserById(String userId) {
         try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
@@ -123,11 +150,11 @@ public class MongoConectUser {
                 user.setRole(doc.getString("Role"));
                 return user;
             }
-            else return null;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return null; // Return null if user is not found
+
     }
     public boolean suspendUser(String userId) {
     try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
@@ -168,6 +195,29 @@ public boolean unsuspendUser(String userId) {
         return false; // Return false if an error occurred
     }
 }
+
+public boolean assignAdmin(String userId) {
+    try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
+        MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
+        MongoCollection<Document> usersCollection = database.getCollection(COLLECTION_NAME);
+
+        // Use ObjectId for the MongoDB _id field
+        Document query = new Document("_id", new ObjectId(userId));
+        Document update = new Document("$set", new Document("Role", "1"));
+
+        // Update the user's status to "Suspend"
+        if (usersCollection.updateOne(query, update).getModifiedCount() > 0) {
+            return true; // Successfully suspended the user
+        }
+        return false; // User not found or not modified
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false; // Return false if an error occurred
+    }
+
+}
+
+
 public boolean updateUserProfilePicture(String userId, String imagePath) {
         try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
             MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
@@ -206,3 +256,4 @@ public boolean updateUserProfilePicture(String userId, String imagePath) {
     }
 
 }
+

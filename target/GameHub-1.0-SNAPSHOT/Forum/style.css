@@ -46,6 +46,26 @@ h1{
     height: 500px;
 }
 
+@keyframes borderAnimation {
+    0% {
+        border-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet) 2;
+    }
+    50% {
+        border-image: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red) 2;
+    }
+    100% {
+        border-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet) 2;
+    }
+}
+
+.container .topic-container .head,
+.container .topic-container .body {
+    border: 5px solid;
+    border-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet) 2;
+    padding: 10px;
+    animation: borderAnimation 5s linear infinite;
+}
+
 header.header-section {
     margin-bottom: 40px; /* Hoặc sử dụng padding-bottom hoặc margin-top */
 }
@@ -149,7 +169,7 @@ button.forum-button{
 }
 
 .subforum-devider{
-    display: none;   
+    display: none;
 }
 
 .subforum .subforum-stats{
@@ -191,7 +211,7 @@ button.forum-button{
         padding: 5px;
     }
 
-    .left-button-forum, 
+    .left-button-forum,
     .right-button-forum {
         flex-direction: column; /* Stack buttons vertically within sections */
         gap: 5px;
@@ -205,7 +225,7 @@ button.forum-button{
         padding: 8px 15px;
     }
 
-  }
+}
 
 /* For the tablets */
 @media screen and (min-width: 460px) and (max-width: 1024px) {
@@ -230,7 +250,7 @@ button.forum-button{
     h1{
         font-size: 16px;
     }
-    
+
     .button-top-forum {
         justify-content: space-between;
         padding: 10px 20px; /* Adjust padding for tablets */
@@ -241,13 +261,13 @@ button.forum-button{
         font-size: 16px; /* Keep the font size larger for tablets */
     }
 
-  }
+}
 /*   Header Section    */
 
 header{
     margin-inline: 10px;
 }
-  /* Nav Bar styles */
+/* Nav Bar styles */
 .navbar{
     display:flex;
     align-items: center;
@@ -315,11 +335,11 @@ header{
     .navigation{
         max-height: auto;
     }
-    
+
     .close-icon i{
         font-size:30px;
     }
-    
+
     .nav-item a{
         float:left;
         display:inline;
@@ -327,18 +347,18 @@ header{
         font-size: 10px;
         padding: 5px;
     }
-    
-    
+
+
     .bar-icon{
         font-size: 30px;
     }
- 
+
     .brand{
         font-size:20px;
     }
 }
 
-  /* Search Box styles */
+/* Search Box styles */
 .search-box{
     border: solid 1px #52057b;
     margin-top: 20px;
@@ -373,7 +393,7 @@ header{
     .search-box input, .search-box button, .search-box select{
         min-width: 300px;
         margin-top: 5px;
-    }    
+    }
 
 }
 
@@ -532,7 +552,7 @@ footer{
     display: flex;
     background-color: #131415;
     padding: 10px;
-    margin-top: 5px;
+    margin-top: 10px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 }
@@ -548,7 +568,7 @@ footer{
 
 
 .comments-container .comments{
-    margin-bottom: 50px;
+    margin-bottom: 10px;
 }
 
 .comments-container .body{
@@ -593,7 +613,7 @@ footer{
 }
 
 .body .content .comment button:hover{
-    background-color: #4a4646; 
+    background-color: #4a4646;
     box-shadow: 4px 6px black;
 }
 
@@ -620,7 +640,7 @@ footer{
 }
 
 .comment-area input:hover{
-    background-color: #4a4646; 
+    background-color: #4a4646;
 }
 
 .comment-area input:hover{
@@ -628,7 +648,7 @@ footer{
 }
 
 .container .authors img{
-     width: 100px; /* Đặt kích thước chiều rộng của ảnh */
+    width: 100px; /* Đặt kích thước chiều rộng của ảnh */
     height: 100px; /* Đặt kích thước chiều cao của ảnh */
     border-radius: 50%; /* Bo tròn thành hình tròn */
     object-fit: cover; /* Đảm bảo ảnh không bị méo, giữ tỷ lệ */

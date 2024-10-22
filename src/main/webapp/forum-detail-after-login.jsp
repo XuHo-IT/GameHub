@@ -1,3 +1,13 @@
+<%@page import="java.util.Collections"%>
+<%@page import="com.mongodb.client.MongoClients"%>
+<%@page import="Model.Comment"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="com.mongodb.client.model.Filters"%>
+<%@page import="com.mongodb.client.MongoClient"%>
+<%@page import="org.bson.types.ObjectId"%>
+<%@page import="org.bson.Document"%>
+<%@page import="com.mongodb.client.MongoCollection"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -49,12 +59,6 @@
 
         <header class="header-section">
             <div class="header-warp">
-                <form class="search-form ">
-
-                    <input type="text"  placeholder="Search..." aria-label="Search">
-
-                    <button type="submit"><i class="fa fa-search"></i> Topic</button>
-                </form>
                 <div class="header-social d-flex justify-content-end">
                     <p>Follow us:</p>
                     <a href="#"><i class="fa fa-pinterest"></i></a>
@@ -72,22 +76,32 @@
                         </a>
                     </div>
                     <nav class="top-nav-area w-100">
-                        <div class="user-panel">
-                            <button class="login-btn">LOG IN</button>
+                        <div class="user-panel d-flex">
+                            <!-- Bi?u t??ng gi? hï¿½ng -->
+
+                            <!-- Bi?u t??ng tï¿½i kho?n -->
+                            <div class="account-container">
+                                <div class="account-icon">
+                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                </div>
+                                <div class="account-dropdown">
+                                    <ul>
+                                        <li><a href="user-profile.jsp?id=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
+                                        <li>
+                                           <a href="LogOutController" class="dropdown-item">Logout</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
-                            <li><a href="ReadGameHomeController">Home</a></li>
-                            <li><a href="ReadGameListController">Games</a>
-
-                                <ul class="sub-menu">
-                                    <li><a href="top-rating-all.jsp">Top rating</a></li>
-                                    <li><a href="top-wishlist.jsp">Top wishlist</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="contact.jsp">Contact</a></li>
-                            <li><a href="forum.jsp">Community</a></li>
+                            <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                            <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                            <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+                            <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
+                            <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -103,6 +117,90 @@
             </div>
         </header>
 
+
+        <!--Forum section -->
+        <%
+            String userId = null;
+            String userNameTopic = null;
+            String title = null;
+            String description = null;
+            String imageData = null;
+            String photoUrlUser = null;
+
+            List<Comment> comments = new ArrayList<>();
+
+            // Get the post ID from the URL query parameter
+            String topicId = request.getParameter("id");
+            System.out.println("Topic ID: " + topicId);
+
+            // Connect to MongoDB
+            MongoClient mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub"); // Your connection string
+            MongoCollection<Document> topicsCollection = mongoClient.getDatabase("GameHub").getCollection("topic");
+
+            // Find the topic by its ObjectId
+            Document topic = topicsCollection.find(Filters.eq("_id", new ObjectId(topicId))).first();
+
+            // Check if the post exists
+            if (topic != null) {
+                title = topic.getString("Title");
+                description = topic.getString("Description");
+                imageData = topic.getString("ImageData");
+                userId = topic.getString("UserId");
+
+                MongoCollection<Document> usersCollection = mongoClient.getDatabase("GameHub").getCollection("superadmin");
+
+                // Find the user by its ObjectId
+                Document userTopic = usersCollection.find(Filters.eq("_id", new ObjectId(userId))).first();
+
+                userNameTopic = userTopic.getString("Name");
+                photoUrlUser = userTopic.getString("PhotoUrl");
+
+                MongoCollection<Document> commentsCollection = mongoClient.getDatabase("GameHub").getCollection("comment");
+
+                // Find the comment by its ObjectId
+                List<Document> commentDocuments = commentsCollection
+                        .find(Filters.eq("TopicId", topicId))
+                        .into(new ArrayList<>());
+
+                for (Document doc : commentDocuments) {
+                    Document user = usersCollection.find(Filters.eq("_id", new ObjectId(doc.getString("UserId")))).first();
+                    String photoUrl = (user != null) ? user.getString("PhotoUrl") : "./img/t-rex.png";
+                    String userName = (user != null) ? user.getString("Name") : "Unknown";
+
+                    Comment comment = new Comment();
+                    comment.setCommentId(doc.getObjectId("_id").toString());
+                    comment.setTopicId(doc.getString("TopicId").toString());
+                    comment.setUserId(doc.getString("UserId").toString());
+                    comment.setUserName(userName);
+                    comment.setPhotoUrl(photoUrl);
+                    comment.setContent(doc.getString("Content"));
+
+                    // Log retrieved values
+                    System.out.println("Topic id: " + comment.getTopicId());
+                    System.out.println("User id: " + comment.getUserId());
+                    System.out.println("Comment id: " + comment.getCommentId());
+                    System.out.println("User name: " + userName);
+                    System.out.println("Content: " + comment.getContent());
+                    System.out.println("Photo ulr: " + photoUrl);
+
+                    comments.add(comment);
+                }
+
+                Collections.reverse(comments);
+
+                // Log retrieved values
+                System.out.println("Title: " + title);
+                System.out.println("Description: " + description);
+                System.out.println("Image ulr: " + imageData);
+                System.out.println("User name: " + userNameTopic);
+                System.out.println("Photo ulr: " + photoUrlUser);
+            } else {
+                out.println("Post not found.");
+            }
+
+            // Close MongoDB connection
+            mongoClient.close();
+        %>
         <section class="blog-section spad">
             <div class="container" style="
                  margin: 0 auto;
@@ -112,183 +210,96 @@
                     <!--Original thread-->
                     <div class="head">
                         <div class="authors">Author</div>
-                        <div class="content">Title</div>
+                        <div class="content"><%=title%></div>
                     </div>
-
                     <div class="body">
-                        <div class="authors">
-                            <img src="./img/Arc Raiders.jpg" alt="">
-                            <div class="username"><a href="">Username</a></div>
+                        <div class="authors">                          
+                            <img src="<%= (photoUrlUser == null || photoUrlUser.isEmpty()) ? "./img/t-rex.png" : photoUrlUser%>" alt="Photo User">
+                            <div class="username"><a href=""><%=userNameTopic%></a></div>
                         </div>
                         <div class="content">
-
-                            <p style="color: lightblue">Who is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoàWho is hoà</p>
+                            <p style="color: lightblue; white-space: normal; word-wrap: break-word; overflow-wrap: break-word;">
+                                <%= description%>
+                            </p>
 
                             <div class="topic-img">
-                                <img src="./img/Arc Raiders.jpg" alt="">
-                            </div>
+                                <img src="data:image/jpeg;base64,<%= imageData != null ? imageData : ""%>"  alt="">
+                            </div>  
                             <div class="comment">
                                 <button onclick="toggleArea('comment-area')">Comment</button>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <!--Comment Area-->
-                <form action="CreateCommentController" method="POST">
+                <form action="AddCommentAdminController" method="POST">
                     <div class="comment-area hide" id="comment-area">
                         <!-- Textarea để nhập comment -->
                         <textarea name="comment" placeholder="comment here ..." required></textarea>
-
                         <!-- Các trường ẩn để truyền các giá trị cần thiết -->
-                        <input type="hidden" name="userid" value="userId">
-                        <input type="hidden" name="postid" value="postId">
-                        <input type="hidden" name="dateup" value="<%= new java.util.Date() %>">
+                        <input type="hidden" name="userid" value="670fb46bbdffbe71c8ae2316">
+                        <input type="hidden" name="topicid" value="<%=topicId%>">
+                        <input type="hidden" name="dateup" value="<%= new java.util.Date()%>">
 
                         <!-- Nút submit để gửi form -->
                         <input type="submit" value="submit">
                     </div>
                 </form>
-
                 <!--Another Comment With replies-->
                 <div class="comments-container">
+                    <% if (comments != null && !comments.isEmpty()) {
+                            int commentIndex = 0;
+                            for (Comment comment : comments) {%>
+                    <!<!-- Comment-->
+                    <div class="comments" id="<%= comment.getCommentId()%>">
+                        <div class="comments" id="comment-<%= comment.getCommentId()%>" data-comment-index="<%= commentIndex++%>">
+                            <div class="body">
 
-                    <!<!-- Comment 1 -->
-                    <div class="comments" id="1">
-                        <div class="body">
-                            <div class="authors">
-                                <img src="./img/Arc Raiders.jpg" alt="">
-                                <div class="username"><a href="">Username</a></div>
-                            </div>
-                            <div class="content">
-                                <p style="color: lightblue">Hoà là t</p>
-                                <div class="comment">
-                                    <button onclick="showReply('reply-area-1', 'Username')">Reply</button>
+                                <div class="authors">
+                                    <img src="<%= (comment.getPhotoUrl() == null || comment.getPhotoUrl().isEmpty()) ? "./img/t-rex.png" : comment.getPhotoUrl()%>" alt="Photo User">
+                                    <div class="username"><a href=""><%= comment.getUserName()%></a></div>
+                                </div>
+                                <div class="content">
+                                    <p style="color: lightblue; white-space: normal; word-wrap: break-word; overflow-wrap: break-word;">
+                                        <%= comment.getContent()%>
+                                    </p>
+                                    <%if (!comment.getUserId().equalsIgnoreCase(request.getSession().getAttribute("adminId").toString())) {%>
+                                    <div class="comment">
+                                        <button onclick="showReply('reply-area-<%= comment.getCommentId()%>', '<%=comment.getUserName()%>')">Reply</button>
+                                    </div>
+                                    <%}%>
+                                    <div class="comment">
+                                        <button style="margin-left: 840px; margin-top: 15px;" onclick="deleteComment('<%= comment.getCommentId()%>', '<%=topicId%>')">Delete</button>
+                                    </div>   
                                 </div>
                             </div>
                         </div>
+                        <!-- Reply text area -->
+                        <form action="AddCommentAdminController" method="POST">
+                            <div class="comment-area hide" id="reply-area-<%= comment.getCommentId()%>">
+                                <!-- Textarea để nhập reply -->
+                                <textarea name="comment" placeholder="reply here ..." required></textarea>
 
-                        <!--Reply comment area-->
-                        <div class="rely-container">
-                            <div class="reply" id="1">
-                                <!-- First reply always visible -->
-                                <div class="body">
-                                    <div class="authors">
-                                        <img src="./img/Arc Raiders.jpg" alt="">
-                                        <div class="username"><a href="">Username1</a></div>
-                                    </div>
-                                    <div class="content">
-                                        <p style="color: lightblue">Không, Hoà là t</p>
-                                        <div class="comment">
-                                            <button onclick="showReply('reply-area-1-1', 'Username1')">Reply</button>
-                                        </div>
-                                    </div>
-                                </div>
+                                <!-- Các trường ẩn để truyền các giá trị cần thiết -->
+                                <input type="hidden" name="userid" value="<%= request.getSession().getAttribute("adminId")%>">
+                                <input type="hidden" name="topicid" value="<%=topicId%>">            
+                                <input type="hidden" name="dateup" value="<%= new java.util.Date()%>">
+
+                                <!-- Nút submit để gửi form -->
+                                <input type="submit" value="submit">
                             </div>
-
-                            <!-- Hidden replies -->
-                            <div class="hidden-replies" style="display: none;">
-
-                                <div class="reply" id="2">
-                                    <div class="body">
-                                        <div class="authors">
-                                            <img src="./img/Arc Raiders.jpg" alt="">
-                                            <div class="username"><a href="">Username2</a></div>
-                                        </div>
-                                        <div class="content">
-                                            <p style="color: lightblue">Không, Hoà là t</p>
-                                            <div class="comment">
-                                                <button onclick="showReply('reply-area-1-1', 'Username2')">Reply</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="reply" id="3">
-                                    <div class="body">
-                                        <div class="authors">
-                                            <img src="./img/Arc Raiders.jpg" alt="">
-                                            <div class="username"><a href="">Username3</a></div>
-                                        </div>
-                                        <div class="content">
-                                            <p style="color: lightblue">Không, Hoà là t</p>
-                                            <div class="comment">
-                                                <button onclick="showReply('reply-area-1-1', 'Username3')">Reply</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="reply" id="4">
-                                    <div class="body">
-                                        <div class="authors">
-                                            <img src="./img/Arc Raiders.jpg" alt="">
-                                            <div class="username"><a href="">Username4</a></div>
-                                        </div>
-                                        <div class="content">
-                                            <p style="color: lightblue">Không, Hoà là t</p>
-                                            <div class="comment">
-                                                <button onclick="showReply('reply-area-1-1', 'Username4')">Reply</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <!-- Show/Hide Button -->
-                            <button class="toggle-replies">Show more</button>
-
-                            <!-- Reply text area -->
-                            <form action="CreateReplyController" method="POST">
-                                <div class="comment-area hide" id="reply-area-1-1">
-                                    <!-- Textarea để nhập reply -->
-                                    <textarea name="replytext" placeholder="reply here ..." required></textarea>
-
-                                    <!-- Các trường ẩn để truyền các giá trị cần thiết -->
-                                    <input type="hidden" name="userid" value="userId">
-                                    <input type="hidden" name="commentid" value="commentId">
-                                    <input type="hidden" name="replyid" value="replyId">
-                                    <input type="hidden" name="dateup" value="<%= new java.util.Date()%>">
-
-                                    <!-- Nút submit để gửi form -->
-                                    <input type="submit" value="submit">
-                                </div>
-                            </form>
-
-                        </div>
-
+                        </form>
+                        <% }
+                        } else { %>
+                        <p>No comments yet. <a href="ReadGameHomeController">Be the first to comment!</a></p>
+                        <% }%>        
                     </div>
-                    <!-- Reply text area -->
-                    <form action="CreateReplyController" method="POST">
-                        <div class="comment-area hide" id="reply-area-1">
-                            <!-- Textarea để nhập reply -->
-                            <textarea name="replytext" placeholder="reply here ..." required></textarea>
 
-                            <!-- Các trường ẩn để truyền các giá trị cần thiết -->
-                            <input type="hidden" name="userid" value="userId">
-                            <input type="hidden" name="commentid" value="commentId">
-                            <input type="hidden" name="replyid" value="replyId">
-                            <input type="hidden" name="dateup" value="<%= new java.util.Date()%>">
-
-                            <!-- Nút submit để gửi form -->
-                            <input type="submit" value="submit">
-                        </div>
-                    </form>
-
-                </div>
-
-                <div class="site-pagination">
-                    <a href="#" class="active">01.</a>
-                    <a href="#">02.</a>
-                    <a href="#">03.</a>
                 </div>
 
             </div>
 
         </section>
-
-
 
 
         <!-- Footer section -->
@@ -324,7 +335,7 @@
 
 
         <!-- Login Popup -->
-        <div class="blur-bg-overlay"></div>
+      <div class="blur-bg-overlay"></div>
         <div class="form-popup">
             <span class="close-btn material-symbols-rounded">close</span>
             <div class="form-box login">
@@ -334,14 +345,20 @@
                 </div>
                 <div class="form-content">
                     <h2>LOGIN</h2>
-                    <form action="#">
+                    <form action="LoginController" method="post">
+                        <c:if test="${not empty errorMessage}">
+                            <div class="error">${errorMessage}</div>
+                        </c:if>
+
                         <div class="input-field">
-                            <input type="text" required>
                             <label>Email</label>
+
+                            <input type="text" required name="email">
                         </div>
                         <div class="input-field">
-                            <input type="password" required>
                             <label>Password</label>
+
+                            <input type="password" required name="password">
                         </div>
                         <a href="#" class="forgot-pass-link">Forgot password?</a>
                         <button type="submit">Log In</button>
@@ -359,14 +376,36 @@
                 </div>
                 <div class="form-content">
                     <h2>SIGNUP</h2>
-                    <form action="#">
+                    <form action="SignUpController" method="post">
                         <div class="input-field">
-                            <input type="text" required>
-                            <label>Enter your email</label>
+                            <label>Enter your name</label>
+
+                            <input type="text" required name="Name">
                         </div>
                         <div class="input-field">
-                            <input type="password" required>
-                            <label>Create password</label>
+                            <label>Enter your email</label>
+
+                            <input type="text" required name="Email">
+                        </div>
+                        <div class="input-field">
+                            <label>Phone number</label>
+
+                            <input type="number" required name="Phone">
+                        </div>
+                        <div class="input-field">
+                            <label>Date of birth</label>
+
+                            <input type="date" required name="Dob">
+                        </div>
+                        <div class="input-field">
+                            <label>Address</label>
+
+                            <input type="text" required name="Address">
+                        </div>
+                        <div class="input-field">
+                            <label>Password</label>
+
+                            <input type="password" required name="Password">
                         </div>
                         <div class="policy-text">
                             <input type="checkbox" id="policy">
@@ -378,7 +417,7 @@
                         <button type="submit">Sign Up</button>
                     </form>
                     <div class="bottom-link">
-                        Already have an account?
+                        Already have an account? 
                         <a href="#" id="login-link">Login</a>
                     </div>
                 </div>
@@ -395,58 +434,57 @@
         <script src="js/jquery.magnific-popup.min.js"></script>
         <script src="js/main.js"></script>
         <script>
-            function showComment() {
-                var commentArea = document.getElementById("comment-area");
-                commentArea.classList.toggle("hide");
-            }
+                                            function showComment() {
+                                                var commentArea = document.getElementById("comment-area");
+                                                commentArea.classList.toggle("hide");
+                                            }
 
-            function showReply(areaId, username) {
-                // Tìm tất cả các phần comment-area và ẩn chúng
-                const allCommentAreas = document.querySelectorAll('.comment-area');
-                allCommentAreas.forEach(area => {
-                    area.classList.add('hide'); // Ẩn tất cả các comment-area
-                });
+                                            function showReply(areaId, username) {
+                                                // Tìm tất cả các phần comment-area và ẩn chúng
+                                                const allCommentAreas = document.querySelectorAll('.comment-area');
+                                                allCommentAreas.forEach(area => {
+                                                    area.classList.add('hide'); // Ẩn tất cả các comment-area
+                                                });
 
-                // Hiển thị phần comment-area tương ứng với reply được bấm
-                var replyArea = document.getElementById(areaId);
-                replyArea.classList.toggle("hide"); // Toggle hiển thị phần comment-area được bấm
+                                                // Hiển thị phần comment-area tương ứng với reply được bấm
+                                                var replyArea = document.getElementById(areaId);
+                                                replyArea.classList.toggle("hide"); // Toggle hiển thị phần comment-area được bấm
 
-                // Lấy thẻ textarea trong phần reply hiện tại
-                var textArea = replyArea.querySelector('textarea');
+                                                // Lấy thẻ textarea trong phần reply hiện tại
+                                                var textArea = replyArea.querySelector('textarea');
 
-                // Đặt giá trị ban đầu cho textarea là username
-                textArea.value = '@' + username + ' ';
-            }
+                                                // Đặt giá trị ban đầu cho textarea là username
+                                                textArea.value = '@' + username + ' ';
+                                            }
 
-            function toggleArea(areaId) {
-                var area = document.getElementById(areaId);
-                area.classList.toggle("hide");
-            }
+                                            function toggleArea(areaId) {
+                                                var area = document.getElementById(areaId);
+                                                area.classList.toggle("hide");
+                                            }
+                                            function deleteComment(value1, value2) {
+                                                const form = document.createElement('form');
+                                                form.method = 'POST';
+                                                form.action = 'DeleteCommentAdminController';  // Đường dẫn tới servlet
 
-            document.addEventListener('DOMContentLoaded', function () {
-                const toggleButtons = document.querySelectorAll('.toggle-replies');
+                                                // Tạo các input ẩn để truyền giá trị
+                                                const input1 = document.createElement('input');
+                                                input1.type = 'hidden';
+                                                input1.name = 'commentId';  // Tên của tham số truyền vào servlet
+                                                input1.value = value1;
 
-                toggleButtons.forEach(button => {
-                    button.addEventListener('click', function () {
-                        const hiddenReplies = this.previousElementSibling;
+                                                const input2 = document.createElement('input');
+                                                input2.type = 'hidden';
+                                                input2.name = 'topicId';
+                                                input2.value = value2;
 
-                        // Tìm tất cả các phần comment-area và ẩn chúng
-                        const allCommentAreas = document.querySelectorAll('.comment-area');
-                        allCommentAreas.forEach(area => {
-                            area.classList.add('hide'); // Ẩn tất cả các comment-area
-                        });
+                                                // Thêm input vào form
+                                                form.appendChild(input1);
+                                                form.appendChild(input2);
 
-                        // Toggle hiển thị phần hidden-replies liên quan
-                        if (hiddenReplies.style.display === 'none') {
-                            hiddenReplies.style.display = 'block';
-                            this.textContent = 'Hide';
-                        } else {
-                            hiddenReplies.style.display = 'none';
-                            this.textContent = 'Show more';
-                        }
-                    });
-                });
-            });
+                                                // Thêm form vào body và submit
+                                                document.body.appendChild(form);
+                                                form.submit();
+                                            }
         </script>
     </body>
 

@@ -19,15 +19,28 @@ public class GamePostStatisticController extends HttpServlet {
             throws ServletException, IOException {
         MongoConnectStatistic mct = new MongoConnectStatistic();
         mct.getAllGamePost();
-        List<GamePost> adminPostList = mct.adminPostList;
-        List<GamePost> memberPostList = mct.memberPostList;
-        int adminPostCount = adminPostList.size();
-        int memberPostCount = memberPostList.size();
-        String jsonResponse = String.format("{\"adminPostList\": %d, \"memberPostList\": %d}", adminPostCount, memberPostCount);
+
+
+        List<GamePost> adminPostList = mct.adminPostList; // Fetch list of admin posts
+        List<GamePost> memberPostList = mct.memberPostList; // Fetch list of member posts
+
+        int adminPostCount = adminPostList.size(); // Count admin posts
+        int memberPostCount = memberPostList.size(); // Count member posts
+        int totalPostCount = adminPostCount + memberPostCount; // Calculate total posts
+
+        // Construct JSON response to include admin, member, and total posts
+        String jsonResponse = String.format(
+            "{\"adminPostList\": %d, \"memberPostList\": %d, \"totalPostCount\": %d}",
+            adminPostCount, memberPostCount, totalPostCount
+        );
+
 
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         out.print(jsonResponse);
         out.flush();
-   }    
+
+    }
 }
+
+

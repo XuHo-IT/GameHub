@@ -51,7 +51,7 @@ public class ReadTopicController extends HttpServlet {
             String imageDataBase64;
 
             // Lấy thông tin người dùng từ collection "superadmin"
-            Document user = usersCollection.find(Filters.eq("_id", new ObjectId(topicDocument.getString("userId")))).first();
+            Document user = usersCollection.find(Filters.eq("_id", new ObjectId(topicDocument.getString("UserId")))).first();
             String photoUrl = (user != null) ? user.getString("PhotoUrl") : "./img/t-rex.png";
 
             if (imageData instanceof Binary) {
@@ -68,7 +68,7 @@ public class ReadTopicController extends HttpServlet {
 
             Topic topic = new Topic(
                         topicDocument.getObjectId("_id").toString(),
-                        topicDocument.getString("userId"),
+                        topicDocument.getString("UserId"),
                         topicDocument.getString("Title"),
                         topicDocument.getString("Description"),
                         topicDocument.getString("ImageData"),

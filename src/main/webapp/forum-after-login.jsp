@@ -90,17 +90,17 @@
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
-                                        <li><a href="#">My Favourite</a></li>
                                         <li><a href="user-profile.jsp">Account Info</a></li>
-
-                                        <li><a href="#">Log out</a></li>
-
+                                        <li>
+                                            <a href="LogOutController" class="dropdown-item">Logout</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
+<<<<<<< HEAD
                             <li><a href="ReadGameHomeMemberController">Home</a></li>
                             <li><a href="ReadGameListMemberController">Games</a>
 
@@ -112,6 +112,13 @@
                             <li><a href="contact-after-login.jsp">Contact</a></li>
                             <li><a href="chart/index-chart.jsp">Manage</a></li>
                             <li><a href="ReadTopicAdminController">Community</a></li>
+=======
+                            <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                            <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                            <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+                            <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
+                            <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
+>>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
                         </ul>
                     </nav>
                 </div>
@@ -154,7 +161,11 @@
                                 <img src="${topic.photoUrl}" alt="User Photo">
                             </div>
                             <div class="subforum-description subforum-column">
+<<<<<<< HEAD
                                 <h4><a href="forum-detail.jsp">${topic.title}</a></h4>
+=======
+                                <h4><a href="forum-detail-after-login.jsp?id=${topic.topicId}">${topic.title}</a></h4>
+>>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
                                     <c:choose>
                                         <c:when test="${fn:length(topic.description) > 100}">
                                         <p>${fn:substring(topic.description, 0, 120)}...</p>
@@ -180,10 +191,18 @@
                                     long commentCount = commentCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
 
                                     // Đếm số lượng trả lời cho mỗi chủ đề
+<<<<<<< HEAD
                                     long replyCount = replyCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
 
                                     // Tính tổng số lượng bình luận và trả lời cho mỗi chủ đề
                                     long totalCount = commentCount + replyCount;
+=======
+//                                    long replyCount = replyCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
+
+                                    // Tính tổng số lượng bình luận và trả lời cho mỗi chủ đề
+//                                    long totalCount = commentCount + replyCount;
+                                    long totalCount = commentCount;
+>>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
                                 %>
                                 <span><%= totalCount%><img src="./img/icons/chat-icon.png" alt=""> </span>
                             </div>

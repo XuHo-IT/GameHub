@@ -76,19 +76,16 @@
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
-                                        <li><a href="#">My Favourite</a></li>
                                         <li><a href="user-profile.jsp">Account Info</a></li>
-
-                                        <li><a href="#">Log out</a></li>
-
+                                        <li>
+                                            <a href="LogOutController" class="dropdown-item">Logout</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Menu -->
-                        <!-- Menu -->
                         <ul class="main-menu primary-menu">
+<<<<<<< HEAD
                             <li><a href="ReadGameHomeController">Home</a></li>
                             <li><a href="ReadGameListController">Games</a>
 
@@ -100,6 +97,13 @@
                             <li><a href="contact-after-login.jsp">Contact</a></li>
                             <li><a href="chart/index-chart.jsp">Manage</a></li>
                             <li><a href="ReadTopicAdminController">Community</a></li>
+=======
+                            <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                            <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                            <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+                            <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
+                            <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
+>>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
                         </ul>
                     </nav>
                 </div>

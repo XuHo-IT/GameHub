@@ -55,6 +55,7 @@
                                                 String dateRelease = request.getParameter("dateRelease");
                                                 String author = request.getParameter("author");
                                                 String price = request.getParameter("price");
+                                                String adminId = request.getParameter("adminId");
 
                                                 if (postId != null && title != null && author != null && fileData != null) {
                                             %>
@@ -70,7 +71,7 @@
                                                 <div class="col-6">
                                                     <p style="color:white;font-size:28px">Title: <%= title%></p>
                                                     <p style="color:white;font-size:28px">Author: <%= author%></p> 
-                                                    
+
                                                 </div>  
                                             </div>
                                             <%
@@ -93,8 +94,9 @@
                                     <div class="col-lg-4">
                                         <!-- Second image displayed with larger size -->
                                         <img src="img/cart.jpg" alt="Game Image" style="width: 100%; height: auto; padding:10px 7px" />
-                                        <form id="wishlistForm" action="GameReleaseNotificationMemberController" method="post">
+                                        <form id="wishlistForm" action="GameReleaseNotificationMemberController?id=<%= postId%>?adminId=<%= adminId%>"" method="post">
                                             <input type="hidden" name="postId" value="<%= postId%>" />
+                                            <input type="hidden" name="adminId" value="<%= adminId%>" />
                                             <input type="hidden" name="title" value="<%= title%>" />
                                             <input type="hidden" name="fileData" value="<%= fileData%>" />
                                             <input type="hidden" name="dateRelease" value="<%= dateRelease%>" />

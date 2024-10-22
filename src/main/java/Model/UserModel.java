@@ -13,6 +13,7 @@ public class UserModel {
 
     private String role;
 
+
     public UserModel(String id, String email, String phone, String dateOfBirth, String address, String name, String password, String photoUrl, String status, String role) {
         this.id = id;
         this.email = email;
@@ -26,6 +27,7 @@ public class UserModel {
         this.role = role;
     }
     public UserModel(){}
+
 
     // Getters and Setters
     public String getId() { return this.id; }

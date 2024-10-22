@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+
+=======
 <%@ page import="java.util.List, Model.UserModel, mogodb.MongoConectUser" %>
+>>>>>>> 237930bed13d006631de6d9c654f4cd4e978a50e
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,6 +83,16 @@
         <div class="row flex-lg-nowrap">
             
 
+<<<<<<< HEAD
+      <div class="col-12 col-md-3 mb-3">
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="px-xl-3">
+              <button class="btn btn-block btn-secondary">
+                <i class="fa fa-sign-out"></i>
+                <a href="ReadGameHomeController"><span>Logout</span></a>
+              </button>
+=======
             <div class="col">
                 <div class="row">
                     <div class="col mb-3">
@@ -177,6 +191,7 @@
                         </div>
                     </div>
                 </div>
+>>>>>>> 237930bed13d006631de6d9c654f4cd4e978a50e
             </div>
         </div>
     </div>

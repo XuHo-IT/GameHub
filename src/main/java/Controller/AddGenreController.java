@@ -19,6 +19,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
 import Model.Genre;
+import utils.MongoDBConnectionManager1;
 
 /**
  *
@@ -26,13 +27,7 @@ import Model.Genre;
  */
 public class AddGenreController extends HttpServlet {
 
-    private MongoClient mongoClient;
-
-    @Override
-    public void init() throws ServletException {
-        mongoClient = MongoClients.create(
-                "mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-    }
+   
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -50,6 +45,7 @@ public class AddGenreController extends HttpServlet {
                 adminId);
 
         // Get MongoDB database and collection
+        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("Genre");
 
@@ -61,12 +57,5 @@ public class AddGenreController extends HttpServlet {
         collection.insertOne(genre1);
         // Redirect to the admin page after successful insertion
         response.sendRedirect("ReadGameHomeAdminController");
-    }
-
-    @Override
-    public void destroy() {
-        if (mongoClient != null) {
-            mongoClient.close();
-        }
     }
 }

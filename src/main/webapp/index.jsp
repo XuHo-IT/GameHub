@@ -232,28 +232,28 @@
     <!-- Blog section end -->
 
 
-    <!-- Intro section -->
+    <<!-- Intro section -->
     <section class="intro-video-section set-bg d-flex align-items-end">
-       <div class="video-container">
-           <!-- Add the video tag to autoplay the video -->
-           <video autoplay muted loop playsinline>
-               <source src="img/video.mp4" type="video/mp4">
-               Your browser does not support the video tag.
-           </video>
-       </div>
-       <div class="container">
-           <div class="video-text">
-               <h2>Promo video of the game</h2>
-               <p>Watch our exciting promotional video showcasing the latest features and gameplay of our highly anticipated game. 
-                   Dive into a thrilling world filled with immersive graphics, intense action, and engaging storylines.</p>
-           </div>
-       </div>
-   </section>
+        <div class="video-container">
+            <!-- Add the video tag to autoplay the video -->
+            <video autoplay muted loop playsinline>
+                <source src="img/Trailer.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="container">
+            <div class="video-text">
+                <h2>Promo video of the game</h2>
+                <p>Watch our exciting promotional video showcasing the latest features and gameplay of our highly anticipated game. 
+                    Dive into a thrilling world filled with immersive graphics, intense action, and engaging storylines.</p>
+            </div>
+        </div>
+    </section>
     <!-- Intro section end -->
 
 
     <!-- Featured section -->
-    <section class="featured-section" data-setbg="img/slider4.png">
+    <section class="featured-section">
         <c:forEach var="post" items="${posts}" varStatus="status">
             <c:if test="${status.index == 0}">
                 <!-- Featured background image -->

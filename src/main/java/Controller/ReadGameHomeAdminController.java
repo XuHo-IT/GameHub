@@ -23,20 +23,16 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
+import utils.MongoDBConnectionManager1;
 
 public class ReadGameHomeAdminController extends HttpServlet {
 
-    private MongoClient mongoClient;
-
-    @Override
-    public void init() throws ServletException {
-        mongoClient = MongoClients.create("mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+                MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
             HttpSession session = request.getSession();
             GameReleaseNotificationAdminController.startScheduler(mongoClient, session);
 
@@ -149,13 +145,6 @@ public class ReadGameHomeAdminController extends HttpServlet {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Error retrieving data.");
             request.getRequestDispatcher("error-page.jsp").forward(request, response);
-        }
-    }
-
-    @Override
-    public void destroy() {
-        if (mongoClient != null) {
-            mongoClient.close();
         }
     }
 }

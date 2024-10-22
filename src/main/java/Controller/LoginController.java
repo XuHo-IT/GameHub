@@ -19,15 +19,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 import mongodb.MongoConectUser;
+import utils.MongoDBConnectionManager1;
 
 public class LoginController extends HttpServlet {
-
-    private MongoClient mongoClient;
-
-    @Override
-    public void init() throws ServletException {
-        mongoClient = MongoClients.create("mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -36,6 +30,7 @@ public class LoginController extends HttpServlet {
         String password = request.getParameter("password");
 
         // Get the MongoDB database and collection
+        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("superadmin");
 
@@ -93,13 +88,6 @@ public class LoginController extends HttpServlet {
             // If authentication fails, set an error message
             request.setAttribute("errorMessage", "Invalid email or password");
             request.getRequestDispatcher("ReadGameHomeControlelr").forward(request, response);
-        }
-    }
-
-    @Override
-    public void destroy() {
-        if (mongoClient != null) {
-            mongoClient.close();
         }
     }
 }

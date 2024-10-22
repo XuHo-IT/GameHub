@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.bson.Document;
 import org.bson.types.ObjectId;
+import utils.MongoDBConnectionManager1;
 
 /**
  *
@@ -24,13 +25,7 @@ import org.bson.types.ObjectId;
 
 public class VNPayReturnServlet extends HttpServlet {
 
-    private MongoClient mongoClient;
-
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        mongoClient = MongoClients.create("mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-    }
+   
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,7 +33,8 @@ public class VNPayReturnServlet extends HttpServlet {
 
         String paymentStatus = request.getParameter("vnp_ResponseCode");
         
-        if ("00".equals(paymentStatus)) { // Payment success code
+        if ("00".equals(paymentStatus)) {
+                MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();// Payment success code
             MongoCollection<Document> collection = mongoClient.getDatabase("GameHub").getCollection("postGame");
 
             if (postId != null) {
@@ -71,11 +67,4 @@ public class VNPayReturnServlet extends HttpServlet {
         }
     }
 
-    @Override
-    public void destroy() {
-        if (mongoClient != null) {
-            mongoClient.close();
-        }
-        super.destroy();
-    }
 }

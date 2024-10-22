@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.bson.Document;
 import org.bson.types.Binary;
+import utils.MongoDBConnectionManager1;
 
 /**
  *
@@ -29,17 +30,11 @@ import org.bson.types.Binary;
  */
 public class ReadGameListMemberController extends HttpServlet {
 
-    private MongoClient mongoClient;
-
-    @Override
-    public void init() throws ServletException {
-        mongoClient = MongoClients.create("mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-    }
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
             MongoDatabase database = mongoClient.getDatabase("GameHub");
             MongoCollection<Document> collection = database.getCollection("postGame");
 
@@ -91,7 +86,7 @@ public class ReadGameListMemberController extends HttpServlet {
                         post.getString("Description"),
                         post.getString("DateRelease"),
                         post.getString("Author"),
-                        post.getString("Genre"),  // Store genre name, not ID
+                        post.getString("Genre"), // Store genre name, not ID
                         post.getString("AdminId"),
                         post.getString("FileName"),
                         fileDataBase64
@@ -131,13 +126,4 @@ public class ReadGameListMemberController extends HttpServlet {
             request.getRequestDispatcher("error-page.jsp").forward(request, response);
         }
     }
-
-    @Override
-    public void destroy() {
-        if (mongoClient != null) {
-            mongoClient.close();
-        }
-    }
 }
-
-

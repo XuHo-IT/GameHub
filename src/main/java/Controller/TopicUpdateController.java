@@ -19,19 +19,11 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
+import utils.MongoDBConnectionManager1;
 
 @MultipartConfig
 public class TopicUpdateController extends HttpServlet {
 
-    private MongoClient mongoClient;
-
-    @Override
-    public void init() throws ServletException {
-        // Initialize MongoDB client
-        mongoClient = MongoClients.create("mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-    }
-
-    // Update Topic
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -50,6 +42,7 @@ public class TopicUpdateController extends HttpServlet {
         }
 
         // Get MongoDB database and collection
+        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("forumTopics");
 
@@ -67,16 +60,4 @@ public class TopicUpdateController extends HttpServlet {
         response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().write("Topic updated successfully");
     }
-
-    @Override
-    public void destroy() {
-        // Close the MongoDB client
-        if (mongoClient != null) {
-            mongoClient.close();
-        }
-    }
 }
-
-
-
-

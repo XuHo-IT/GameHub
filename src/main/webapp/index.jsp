@@ -359,7 +359,7 @@
             </div>
             <div class="form-content">
                 <h2>SIGNUP</h2>
-                <form id="signupForm" action="SignUpValidation" method="post">
+                <form id="signupForm" action="SignUpController" method="post">
                     <div class="input-field">
                         <label>Enter your name</label>
                         <input type="text" name="Name" id="name" required>

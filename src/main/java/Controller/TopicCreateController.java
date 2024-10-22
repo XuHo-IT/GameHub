@@ -31,7 +31,7 @@ public class TopicCreateController extends HttpServlet {
         // Retrieve parameters from the form
         String topicTitle = request.getParameter("topicTitle");
         String topicContent = request.getParameter("topicContent");
-
+          String adminId = (String) request.getSession().getAttribute("adminId");
         // Handle file upload
         Part filePart = request.getPart("topicImage");
         InputStream fileContent = filePart.getInputStream();
@@ -41,17 +41,18 @@ public class TopicCreateController extends HttpServlet {
         // Get MongoDB database and collection
             MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
-        MongoCollection<Document> collection = database.getCollection("forumTopics");
+        MongoCollection<Document> collection = database.getCollection("topic");
 
         // Create a Document for MongoDB
         Document topicDocument = new Document("Title", topicTitle)
-                .append("Content", topicContent)
-                .append("ImageData", fileDataBase64);
+                .append("Description", topicContent)
+                .append("ImageData", fileDataBase64)
+                .append("UserId", adminId);
 
         // Insert the document into the collection
         collection.insertOne(topicDocument);
 
         // Redirect to the forum page after successful insertion
-        response.sendRedirect("forum.jsp");
+        response.sendRedirect("ReadTopicMemberController?id=" + adminId);
     }
 }

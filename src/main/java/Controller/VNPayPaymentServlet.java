@@ -39,8 +39,10 @@ public class VNPayPaymentServlet extends HttpServlet {
         String orderId = Config.getRandomNumber(8); // Generate random order ID
         String bankCode = request.getParameter("bankCode");
         String linkValue = request.getParameter("vnp_Link"); // Get the link value
+
         String userId = request.getParameter("user_Id");
         String userName = request.getParameter("user_Name");
+
 
         // Set transaction details
         Map<String, String> vnp_Params = new HashMap<>();
@@ -57,7 +59,7 @@ public class VNPayPaymentServlet extends HttpServlet {
         // Construct the return URL with the linkValue as a query parameter
         String returnUrl = Config.getReturnUrl();
         if (linkValue != null && !linkValue.isEmpty()) {
-            // Start building the return URL with linkValue
+           // Start building the return URL with linkValue
             returnUrl += "?link=" + URLEncoder.encode(linkValue, StandardCharsets.UTF_8); 
 
         }
@@ -127,3 +129,4 @@ public class VNPayPaymentServlet extends HttpServlet {
         mongoClient.close(); // Close the MongoDB client
     }
 }
+

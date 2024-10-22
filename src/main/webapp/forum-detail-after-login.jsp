@@ -1,3 +1,8 @@
+<%@page import="java.time.Period"%>
+<%@page import="java.time.Duration"%>
+<%@page import="java.time.ZoneId"%>
+<%@page import="java.time.LocalDateTime"%>
+<%@page import="java.util.Date"%>
 <%@page import="java.util.Collections"%>
 <%@page import="com.mongodb.client.MongoClients"%>
 <%@page import="Model.Comment"%>
@@ -88,7 +93,7 @@
                                     <ul>
                                         <li><a href="user-profile.jsp?id=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
                                         <li>
-                                           <a href="LogOutController" class="dropdown-item">Logout</a>
+                                            <a href="LogOutController" class="dropdown-item">Logout</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -175,6 +180,13 @@
                     comment.setPhotoUrl(photoUrl);
                     comment.setContent(doc.getString("Content"));
 
+                    if (doc.getString("Status").equals("unedited")) {
+                        comment.setStatus("");
+                    } else {
+                        comment.setStatus("(edited)");
+                    };
+                    comment.setDate(doc.getDate("Date"));
+
                     // Log retrieved values
                     System.out.println("Topic id: " + comment.getTopicId());
                     System.out.println("User id: " + comment.getUserId());
@@ -237,9 +249,8 @@
                         <!-- Textarea để nhập comment -->
                         <textarea name="comment" placeholder="comment here ..." required></textarea>
                         <!-- Các trường ẩn để truyền các giá trị cần thiết -->
-                        <input type="hidden" name="userid" value="670fb46bbdffbe71c8ae2316">
+                        <input type="hidden" name="userid" value="<%= request.getSession().getAttribute("adminId")%>">
                         <input type="hidden" name="topicid" value="<%=topicId%>">
-                        <input type="hidden" name="dateup" value="<%= new java.util.Date()%>">
 
                         <!-- Nút submit để gửi form -->
                         <input type="submit" value="submit">
@@ -258,6 +269,51 @@
                                 <div class="authors">
                                     <img src="<%= (comment.getPhotoUrl() == null || comment.getPhotoUrl().isEmpty()) ? "./img/t-rex.png" : comment.getPhotoUrl()%>" alt="Photo User">
                                     <div class="username"><a href=""><%= comment.getUserName()%></a></div>
+                                    <div class="date-comment">
+                                        <%// Chuyển Date thành LocalDateTime
+                                            Date pastDate = comment.getDate();
+                                            LocalDateTime pastDateTime = pastDate.toInstant().atZone(ZoneId.of("UTC")).toLocalDateTime();
+
+                                            // Lấy thời gian hiện tại (LocalDateTime)
+                                            LocalDateTime now = LocalDateTime.now();
+
+                                            // Tính khoảng cách thời gian giữa hai thời điểm
+                                            Duration duration = Duration.between(pastDateTime, now);
+                                            Period period = Period.between(pastDateTime.toLocalDate(), now.toLocalDate());
+
+                                            // Điều kiện 1: Nếu nhỏ hơn 1 giờ -> Hiện n phút trước
+                                            if (duration.toMinutes() < 60) {
+                                        %>
+                                        <b><%= duration.toMinutes()%>m ago<%=comment.getStatus()%></b>
+                                        <%
+                                        } // Điều kiện 2: Nếu nhỏ hơn 1 ngày -> Hiện n giờ trước
+                                        else if (duration.toHours() < 24) {
+                                        %>
+                                        <b><%= duration.toHours()%>H ago<%=comment.getStatus()%></b>
+                                        <%
+                                        } // Điều kiện 3: Nếu nhỏ hơn 1 tuần -> Hiện n ngày trước
+                                        else if (duration.toDays() < 7) {
+                                        %>
+                                        <b><%= duration.toDays()%>D ago<%=comment.getStatus()%></b>
+                                        <%
+                                        } // Điều kiện 4: Nếu nhỏ hơn 4 tuần -> Hiện n tuần trước
+                                        else if (duration.toDays() < 28) {
+                                        %>
+                                        <b><%= duration.toDays() / 7%>W ago<%=comment.getStatus()%></b>
+                                        <%
+                                        } // Điều kiện 5: Nếu lớn hơn 4 tuần nhưng nhỏ hơn 1 năm -> Hiện n tháng trước
+                                        else if (period.toTotalMonths() < 12) {
+                                        %>
+                                        <b><%= period.toTotalMonths()%>M ago<%=comment.getStatus()%></b>
+                                        <%
+                                        } // Điều kiện 6: Nếu lớn hơn 1 năm -> Hiện n năm trước
+                                        else {
+                                        %>
+                                        <b><%= period.getYears()%>Y ago<%=comment.getStatus()%></b>
+                                        <%
+                                            }
+                                        %>
+                                    </div>
                                 </div>
                                 <div class="content">
                                     <p style="color: lightblue; white-space: normal; word-wrap: break-word; overflow-wrap: break-word;">
@@ -267,6 +323,18 @@
                                     <div class="comment">
                                         <button onclick="showReply('reply-area-<%= comment.getCommentId()%>', '<%=comment.getUserName()%>')">Reply</button>
                                     </div>
+                                    <%} else {%>
+                                    <div class="comment">
+                                        <button class="update-button" onclick="showUpdate('<%= comment.getCommentId()%>', '<%= comment.getContent()%>', '<%= topicId%>', '<%= comment.getContent()%>')" aria-label="Update comment">Update</button>
+                                    </div>
+                                    <form action="UpdateCommentAdminController" method="POST">
+                                        <div class="comment-area hide" id="update-area-<%= comment.getCommentId()%>">
+                                            <textarea name="newContent" placeholder="reply here ..." required></textarea>
+                                            <input type="hidden" name="commentid" value="<%= comment.getCommentId()%>">
+                                            <input type="hidden" name="topicid" value="<%= topicId%>">
+                                            <input type="submit" value="Submit">
+                                        </div>
+                                    </form>
                                     <%}%>
                                     <div class="comment">
                                         <button style="margin-left: 840px; margin-top: 15px;" onclick="deleteComment('<%= comment.getCommentId()%>', '<%=topicId%>')">Delete</button>
@@ -283,7 +351,6 @@
                                 <!-- Các trường ẩn để truyền các giá trị cần thiết -->
                                 <input type="hidden" name="userid" value="<%= request.getSession().getAttribute("adminId")%>">
                                 <input type="hidden" name="topicid" value="<%=topicId%>">            
-                                <input type="hidden" name="dateup" value="<%= new java.util.Date()%>">
 
                                 <!-- Nút submit để gửi form -->
                                 <input type="submit" value="submit">
@@ -335,7 +402,7 @@
 
 
         <!-- Login Popup -->
-      <div class="blur-bg-overlay"></div>
+        <div class="blur-bg-overlay"></div>
         <div class="form-popup">
             <span class="close-btn material-symbols-rounded">close</span>
             <div class="form-box login">
@@ -456,6 +523,22 @@
                                                 // Đặt giá trị ban đầu cho textarea là username
                                                 textArea.value = '@' + username + ' ';
                                             }
+                                            
+                                            function showUpdate(commentId, username, topicId, oldContent) {
+                                                // Hide all comment areas
+                                                const allCommentAreas = document.querySelectorAll('.comment-area');
+                                                allCommentAreas.forEach(area => {
+                                                    area.classList.add('hide');
+                                                });
+
+                                                // Show the corresponding comment area
+                                                var updateArea = document.getElementById('update-area-' + commentId);
+                                                updateArea.classList.remove('hide');
+
+                                                // Set the initial value for the textarea
+                                                var textArea = updateArea.querySelector('textarea');
+                                                textArea.value = oldContent;
+                                            }
 
                                             function toggleArea(areaId) {
                                                 var area = document.getElementById(areaId);
@@ -486,6 +569,32 @@
                                                 form.submit();
                                             }
         </script>
+        <style>.modal {
+                display: none;
+                position: fixed;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 1;
+            }
+
+            .modal-content {
+                background-color: white;
+                margin: 15% auto;
+                padding: 20px;
+                width: 80%;
+                border-radius: 10px;
+                text-align: center;
+            }
+
+            .close {
+                float: right;
+                font-size: 24px;
+                cursor: pointer;
+            }
+        </style>
     </body>
 
 </html>

@@ -127,9 +127,20 @@
                                 <img src="${topic.photoUrl}" alt="User Photo">
                             </div>
                             <div class="subforum-description subforum-column">
-                                <h4><a href="forum-detail.jsp?id=${topic.topicId}">${topic.title}</a></h4>
-                                    <c:choose>
-                                        <c:when test="${fn:length(topic.description) > 100}">
+                                <h4>
+                                    <a href="forum-detail.jsp?id=${topic.topicId}">
+                                        <c:choose>
+                                            <c:when test="${fn:length(topic.title) >= 60}">
+                                                ${fn:substring(topic.title, 0, 60)}...
+                                            </c:when>
+                                            <c:otherwise>
+                                                ${topic.title}
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </a>
+                                </h4>
+                                <c:choose>
+                                    <c:when test="${fn:length(topic.description) >= 120}">
                                         <p>${fn:substring(topic.description, 0, 120)}...</p>
                                     </c:when>
                                     <c:otherwise>

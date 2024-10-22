@@ -1,3 +1,8 @@
+<%@page import="java.time.Period"%>
+<%@page import="java.time.Duration"%>
+<%@page import="java.time.ZoneId"%>
+<%@page import="java.time.LocalDateTime"%>
+<%@page import="java.util.Date"%>
 <%@page import="java.util.Collections"%>
 <%@page import="java.util.Collection"%>
 <%@page import="Model.Comment"%>
@@ -155,6 +160,13 @@
                     comment.setUserName(userName);
                     comment.setPhotoUrl(photoUrl);
                     comment.setContent(doc.getString("Content"));
+                    
+                    if (doc.getString("Status").equals("unedited")) {
+                        comment.setStatus("");
+                    } else {
+                        comment.setStatus("(edited)");
+                    };
+                    comment.setDate(doc.getDate("Date"));
 
                     // Log retrieved values
                     System.out.println("Topic id: " + comment.getTopicId());
@@ -222,6 +234,51 @@
                             <div class="authors">
                                 <img src="<%= (comment.getPhotoUrl() == null || comment.getPhotoUrl().isEmpty()) ? "./img/t-rex.png" : comment.getPhotoUrl()%>" alt="Photo User">
                                 <div class="username"><a href=""><%= comment.getUserName()%></a></div>
+                                <div class="date-comment">
+                                    <%// Chuyển Date thành LocalDateTime
+                                        Date pastDate = comment.getDate();
+                                        LocalDateTime pastDateTime = pastDate.toInstant().atZone(ZoneId.of("UTC")).toLocalDateTime();
+
+                                        // Lấy thời gian hiện tại (LocalDateTime)
+                                        LocalDateTime now = LocalDateTime.now();
+
+                                        // Tính khoảng cách thời gian giữa hai thời điểm
+                                        Duration duration = Duration.between(pastDateTime, now);
+                                        Period period = Period.between(pastDateTime.toLocalDate(), now.toLocalDate());
+
+                                        // Điều kiện 1: Nếu nhỏ hơn 1 giờ -> Hiện n phút trước
+                                        if (duration.toMinutes() < 60) {
+                                    %>
+                                    <b><%= duration.toMinutes()%>m ago<%=comment.getStatus()%></b>
+                                    <%
+                                    } // Điều kiện 2: Nếu nhỏ hơn 1 ngày -> Hiện n giờ trước
+                                    else if (duration.toHours() < 24) {
+                                    %>
+                                    <b><%= duration.toHours()%>H ago<%=comment.getStatus()%></b>
+                                    <%
+                                    } // Điều kiện 3: Nếu nhỏ hơn 1 tuần -> Hiện n ngày trước
+                                    else if (duration.toDays() < 7) {
+                                    %>
+                                    <b><%= duration.toDays()%>D ago<%=comment.getStatus()%></b>
+                                    <%
+                                    } // Điều kiện 4: Nếu nhỏ hơn 4 tuần -> Hiện n tuần trước
+                                    else if (duration.toDays() < 28) {
+                                    %>
+                                    <b><%= duration.toDays() / 7%>W ago<%=comment.getStatus()%></b>
+                                    <%
+                                    } // Điều kiện 5: Nếu lớn hơn 4 tuần nhưng nhỏ hơn 1 năm -> Hiện n tháng trước
+                                    else if (period.toTotalMonths() < 12) {
+                                    %>
+                                    <b><%= period.toTotalMonths()%>M ago<%=comment.getStatus()%></b>
+                                    <%
+                                    } // Điều kiện 6: Nếu lớn hơn 1 năm -> Hiện n năm trước
+                                    else {
+                                    %>
+                                    <b><%= period.getYears()%>Y ago<%=comment.getStatus()%></b>
+                                    <%
+                                        }
+                                    %>
+                                </div>
                             </div>
                             <div class="content">
                                 <p style="color: lightblue; white-space: normal; word-wrap: break-word; overflow-wrap: break-word;">

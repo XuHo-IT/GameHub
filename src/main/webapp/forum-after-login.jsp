@@ -144,7 +144,7 @@
                             </div>
                             <div class="subforum-description subforum-column">
                                 <h4>
-                                    <a href="forum-detail-after-login-member.jsp?id=${topic.topicId}">
+                                    <a href="forum-detail-after-login-member.jsp?id=${topic.topicId}&adminId=<%= request.getSession().getAttribute("adminId")%>">
                                         <c:choose>
                                             <c:when test="${fn:length(topic.title) >= 60}">
                                                 ${fn:substring(topic.title, 0, 60)}...
@@ -171,7 +171,7 @@
 
                                     if (topicObj != null) {
                                         // Connect to MongoDB
-                                         MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
+                                        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
 
                                         // Get the comment collection
                                         MongoCollection<Document> commentCollection = mongoClient.getDatabase("GameHub").getCollection("comment");
@@ -180,7 +180,7 @@
                                         long commentCount = commentCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
 
                                         long totalCount = commentCount;
-                                    mongoClient.close();
+                                        mongoClient.close();
                                 %>
                                 <span><%= totalCount%><img src="./img/icons/chat-icon.png" alt=""></span>
                                     <%
@@ -226,6 +226,15 @@
                 </div>
             </div>
         </section>
+        
+        <!-- Newsletter section -->
+        <section class="newsletter-section" style="">
+            <div class="container">
+                <h3 class="bottom-title">Thanks for using our website!</h3>
+                <img src="img/Dawn.gif" alt="Game Image" style="width: 100%; height: auto;" />
+            </div>
+        </section>
+        <!-- Newsletter section end -->
 
         <!-- Footer section -->
         <footer class="footer-section" style="margin-top: 0 ; padding: 10px 125px">
@@ -361,17 +370,17 @@
                 document.body.classList.remove("show-popup");
             }
 
-// Hide Create Popup when clicking outside
+            // Hide Create Popup when clicking outside
             document.querySelector('.create-overlay').addEventListener('click', function () {
                 closeUpdatePopup();
             });
 
-// Hide Update Popup when clicking outside
+            // Hide Update Popup when clicking outside
             document.querySelector('.update-overlay').addEventListener('click', function () {
                 closeUpdatePopup();
             });
 
-// Close button handler for both forms
+            // Close button handler for both forms
             document.querySelectorAll('.close-btn').forEach(btn => {
                 btn.addEventListener('click', function () {
                     closeUpdatePopup();
@@ -410,7 +419,12 @@
                 display: none;
                 opacity:1;
             }
-
+            h3.bottom-title {
+                color: white;
+                font-size: 35px;
+                font-family: 'Sixtyfour Convergence';
+                padding: 0 0px 30px 0;
+            }
         </style>
         <!--====== Javascripts & Jquery ======-->
         <script src="js/jquery-3.2.1.min.js"></script>

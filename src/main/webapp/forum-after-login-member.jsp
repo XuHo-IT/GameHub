@@ -142,7 +142,7 @@
                             </div>
                             <div class="subforum-description subforum-column">
                                 <h4>
-                                    <a href="forum-detail-after-login-member.jsp?id=${topic.topicId}">
+                                    <a href="forum-detail-after-login-member.jsp?id=${topic.topicId}&userId=<%= request.getSession().getAttribute("adminId")%>">
                                         <c:choose>
                                             <c:when test="${fn:length(topic.title) >= 60}">
                                                 ${fn:substring(topic.title, 0, 60)}...

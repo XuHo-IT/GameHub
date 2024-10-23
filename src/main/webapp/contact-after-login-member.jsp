@@ -157,13 +157,10 @@
                     </iframe>
                 </div>                <div class="row">
                     <div class="col-lg-7 order-2 order-lg-1">
-                        <form class="contact-form">
-                            <input type="text" placeholder="Your name">
-                            <input type="text" placeholder="Your e-mail">
-                            <input type="text" placeholder="Subject">
-                            <textarea placeholder="Message"></textarea>
-                            <button class="site-btn">Send message<img src="img/icons/double-arrow.png" alt="#"/></button>
-                        </form>
+                        <video class="contact-video" controls width="100%">
+                            <source src="img/fpt.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
                     <div class="col-lg-5 order-1 order-lg-2 contact-text text-white">
                         <h3>FPT! Say hello</h3>

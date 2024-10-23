@@ -116,13 +116,10 @@
                 <div class="map"><iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14376.077865872314!2d-73.879277264103!3d40.757667781624285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbd!4v1546528920522" style="border:0" allowfullscreen></iframe></div>
                 <div class="row">
                     <div class="col-lg-7 order-2 order-lg-1">
-                        <form class="contact-form">
-                            <input type="text" placeholder="Your name">
-                            <input type="text" placeholder="Your e-mail">
-                            <input type="text" placeholder="Subject">
-                            <textarea placeholder="Message"></textarea>
-                            <button class="site-btn">Send message<img src="img/icons/double-arrow.png" alt="#"/></button>
-                        </form>
+                        <video class="contact-video" controls width="100%">
+                            <source src="img/fpt.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
                     <div class="col-lg-5 order-1 order-lg-2 contact-text text-white">
                         <h3>Howdy! Say hello</h3>

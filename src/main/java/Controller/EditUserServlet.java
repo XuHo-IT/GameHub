@@ -24,15 +24,15 @@ public class EditUserServlet extends HttpServlet {
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
         
-        MongoConectUser mongoConectUser = new MongoConectUser();
-        boolean isUpdated = mongoConectUser.updateUser(userId, name, email, phone, address);
-
-
-        if (isUpdated) {
-            response.sendRedirect("user-profile.jsp?id=" + userId);
-        } else {
-            response.getWriter().println("Failed to update user profile.");
-        }
+//        MongoConectUser mongoConectUser = new MongoConectUser();
+//        boolean isUpdated = mongoConectUser.updateUser(userId, name, email, phone, address);
+//
+//
+//        if (isUpdated) {
+//            response.sendRedirect("user-profile.jsp?id=" + userId);
+//        } else {
+//            response.getWriter().println("Failed to update user profile.");
+//        }
 
     }
 }

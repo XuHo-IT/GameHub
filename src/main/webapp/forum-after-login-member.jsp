@@ -62,11 +62,9 @@
             <div class="header-warp">
                 <div class="header-social d-flex justify-content-end">
                     <p>Follow us:</p>
-                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                    <a href="#"><i class="fa fa-behance"></i></a>
+                    <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
+                    <a href="https://fap.fpt.edu.vn"><i class="fa fa-facebook" style="color: orange"></i></a>
+                    <a href="https://daihoc.fpt.edu.vn/"><i class="fa fa-university"></i></a>
                 </div>
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
@@ -96,7 +94,7 @@
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                             <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
-                            <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
+                            <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                             <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                         </ul>
                     </nav>
@@ -218,15 +216,13 @@
                 <ul class="main-menu footer-menu">
                     <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                     <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
-                    <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
+                    <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                     <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
-                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                    <a href="#"><i class="fa fa-behance"></i></a>
+                    <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
+                    <a href="https://fap.fpt.edu.vn"><i class="fa fa-facebook" style="color: orange"></i></a>
+                    <a href="https://daihoc.fpt.edu.vn/"><i class="fa fa-university"></i></a>
                 </div>
                 <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
             </div>

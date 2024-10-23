@@ -109,8 +109,8 @@
         <servlet-class>Controller.ConfirmPostController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CreateTopicController</servlet-name>
-        <servlet-class>Controller.CreateTopicController</servlet-class>
+        <servlet-name>TopicCreateController</servlet-name>
+        <servlet-class>Controller.TopicCreateController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddReplyController</servlet-name>
@@ -147,10 +147,6 @@
     <servlet>
         <servlet-name>ReadTopicMemberController</servlet-name>
         <servlet-class>Controller.ReadTopicMemberController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>TopicCreateController</servlet-name>
-        <servlet-class>Controller.TopicCreateController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>TopicUpdateController</servlet-name>
@@ -203,6 +199,18 @@
     <servlet>
         <servlet-name>UpdateCommentAdminController</servlet-name>
         <servlet-class>Controller.UpdateCommentAdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TopicCreateAdminController</servlet-name>
+        <servlet-class>Controller.TopicCreateAdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TopicDeleteAdminController</servlet-name>
+        <servlet-class>Controller.TopicDeleteAdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TopicUpdateAdminController</servlet-name>
+        <servlet-class>Controller.TopicUpdateAdminController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -313,8 +321,8 @@
         <url-pattern>/ConfirmPostController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CreateTopicController</servlet-name>
-        <url-pattern>/CreateTopicController</url-pattern>
+        <servlet-name>TopicCreateController</servlet-name>
+        <url-pattern>/TopicCreateController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddReplyController</servlet-name>
@@ -361,10 +369,6 @@
         <url-pattern>/ReadTopicMemberController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>TopicCreateController</servlet-name>
-        <url-pattern>/TopicCreateController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>TopicUpdateController</servlet-name>
         <url-pattern>/TopicUpdateController</url-pattern>
     </servlet-mapping>
@@ -407,6 +411,18 @@
     <servlet-mapping>
         <servlet-name>UpdateCommentAdminController</servlet-name>
         <url-pattern>/UpdateCommentAdminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TopicCreateAdminController</servlet-name>
+        <url-pattern>/TopicCreateAdminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TopicDeleteAdminController</servlet-name>
+        <url-pattern>/TopicDeleteAdminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TopicUpdateAdminController</servlet-name>
+        <url-pattern>/TopicUpdateAdminController</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>ReadGameHomeController</welcome-file>

@@ -67,8 +67,9 @@
                 <div class="header-social d-flex justify-content-end">
                     <p>Follow us:</p>
                     <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
-                    <a href="https://fap.fpt.edu.vn"><i class="fa fa-facebook" style="color: orange"></i></a>
-                    <a href="https://daihoc.fpt.edu.vn/"><i class="fa fa-university"></i></a>
+                    <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
+                    <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
+                    <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
                 </div>
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
@@ -389,8 +390,9 @@
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
                     <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
-                    <a href="https://fap.fpt.edu.vn"><i class="fa fa-facebook" style="color: orange"></i></a>
-                    <a href="https://daihoc.fpt.edu.vn/"><i class="fa fa-university"></i></a>
+                    <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
+                    <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
+                    <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
                 </div>
                 <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
             </div>

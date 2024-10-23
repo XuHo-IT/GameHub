@@ -375,13 +375,13 @@ booking
 
 .team-item .btn {
   background: #ffffff;
-  color: var(--primary);
+  color: #3C1854;
   border-radius: 20px;
   border-bottom: 1px solid var(--primary);
 }
 
 .team-item .btn:hover {
-  background: var(--primary);
+  background: linear-gradient(to right, #d615d5, #5d9ad0);
   color: #ffffff;
 }
 

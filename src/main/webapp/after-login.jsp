@@ -104,7 +104,7 @@
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
                             <!-- Bi?u t??ng gi? h�ng -->
-                           
+
                             <!-- Bi?u t??ng t�i kho?n -->
                             <div class="account-container">
                                 <div class="account-icon">
@@ -124,8 +124,9 @@
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                             <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                            <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                             <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
-                            <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
+
                         </ul>
                     </nav>
                 </div>
@@ -139,16 +140,7 @@
         <section class="hero-section overflow-hidden">
             <div class="hero-slider owl-carousel">
                 <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center"
-                     data-setbg="img/slider-bg-1.jpg">
-                    <div class="container">
-                        <h2>Game on!</h2>
-                        <p>Fusce erat dui, venenatis et erat in, vulputate dignissim lacus. Donec vitae tempus dolor,<br>sit
-                            amet elementum lorem. Ut cursus tempor turpis.</p>
-                        <a href="#" class="site-btn">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
-                    </div>
-                </div>
-                <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center"
-                     data-setbg="img/slider-bg-2.jpg">
+                     data-setbg="img/slider1.jpg">
                     <div class="container">
                         <h2>Game on!</h2>
                         <p>Fusce erat dui, venenatis et erat in, vulputate dignissim lacus. Donec vitae tempus dolor,<br>sit
@@ -157,7 +149,15 @@
                     </div>
                 </div>
             </div>
-        </section>
+            <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider5.jpg">
+                <div class="container">
+                    <h2>Game on!</h2>
+                    <p><strong>The platform provides a centralized space for discovering and sharing game news, keeping users informed about upcoming titles and events.<br>Users can contribute by posting news, commenting on updates, and participating in forum discussions. The site promotes community interaction around gaming trends and developments.</strong></p>
+                    <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
+                </div>
+            </div>
+        </div>
+    </section>
         <!-- Hero section end-->
 
 
@@ -171,45 +171,45 @@
                 </div>
                 <div class="row g-4">
                     <div class="col-lg-3 col-sm-6 wow fadeInUp icon-hover-service" data-wow-delay="0.1s">
-                        <a href="room.jsp" class="nav-item nav-link">
+                        <a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>" class="nav-item nav-link">
                             <div class="service-item rounded pt-3">
                                 <div class="p-4">
-                                    <i class="fa fa-3x fa-globe text-primary mb-4"></i>
-                                    <h5>Booking rooms</h5>
+                                    <i class="fa fa-gamepad fa-3x text-primary mb-4"></i>
+                                    <h5>Game News</h5>
                                     <p>Available.</p>
                                 </div>
                             </div>
                         </a>
                     </div>
                     <div class="col-lg-3 col-sm-6 wow fadeInUp icon-hover-service" data-wow-delay="0.3s">
-                        <a href="404.html" class="nav-item nav-link">
+                        <a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>" class="nav-item nav-link">
                             <div class="service-item rounded pt-3">
                                 <div class="p-4">
-                                    <i class="fa fa-3x fa-hotel text-primary mb-4"></i>
-                                    <h5>Booking villa</h5>
-                                    <p>Still update</p>
+                                    <i class="fa fa-shopping-cart fa-3x text-primary mb-4"></i>
+                                    <h5>Notification & Buy Game</h5>
+                                    <p>Available</p>
                                 </div>
                             </div>
                         </a>
                     </div>
                     <div class="col-lg-3 col-sm-6 wow fadeInUp icon-hover-service" data-wow-delay="0.5s">
-                        <a href="404.html" class="nav-item nav-link">
+                        <a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>" class="nav-item nav-link">
                             <div class="service-item rounded pt-3">
                                 <div class="p-4">
-                                    <i class="fa fa-3x fa-user text-primary mb-4"></i>
-                                    <h5>Travel Guides</h5>
-                                    <p>Still update</p>
+                                    <i class="fa fa-address-book fa-3x text-primary mb-4"></i>
+                                    <h5>Contact With Us</h5>
+                                    <p>Available</p>
                                 </div>
                             </div>
                         </a>
                     </div>
                     <div class="col-lg-3 col-sm-6 wow fadeInUp icon-hover-service" data-wow-delay="0.7s">
-                        <a href="404.html" class="nav-item nav-link">
+                        <a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>" class="nav-item nav-link">
                             <div class="service-item rounded pt-3">
                                 <div class="p-4">
-                                    <i class="fa fa-3x fa-cog text-primary mb-4"></i>
-                                    <h5>Other booking</h5>
-                                    <p>Still update</p>
+                                    <i class="fa fa-users fa-3x text-primary mb-4"></i>
+                                    <h5>Forum</h5>
+                                    <p>Available</p>
                                 </div>
                             </div>
                         </a>
@@ -233,7 +233,7 @@
                         <!-- Blog item -->
                         <%
                             String adminId = request.getParameter("id");  // Get AdminId from session
-                        %>                        
+%>                        
                         <div class="blog-container">
                             <c:forEach var="post" items="${posts}">
                                 <div class="blog-item">
@@ -289,11 +289,7 @@
                     </style>
 
                     <div class="col-xl-3 col-lg-4 col-md-5 sidebar">
-                        <div id="stickySidebar">
-                            <div class="widget-item">
-                                <h4 class="widget-title">Trending</h4>
-                            </div>
-                        </div>
+
                         <div class="widget-item">
                             <div class="widget-item">
                                 <div class="categories-widget">
@@ -326,13 +322,19 @@
 
 
     <!-- Intro section -->
-    <section class="intro-video-section set-bg d-flex align-items-end " data-setbg="./img/promo-bg.jpg">
-        <a href="https://www.youtube.com/watch?v=uFsGy5x_fyQ" class="video-play-btn video-popup"><img
-                src="img/icons/solid-right-arrow.png" alt="#"></a>
+    <section class="intro-video-section set-bg d-flex align-items-end">
+        <div class="video-container">
+            <!-- Add the video tag to autoplay the video -->
+            <video autoplay muted loop playsinline>
+                <source src="img/Trailer.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
         <div class="container">
             <div class="video-text">
                 <h2>Promo video of the game</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                <p>Watch our exciting promotional video showcasing the latest features and gameplay of our highly anticipated game. 
+                    Dive into a thrilling world filled with immersive graphics, intense action, and engaging storylines.</p>
             </div>
         </div>
     </section>
@@ -341,20 +343,35 @@
 
     <!-- Featured section -->
     <section class="featured-section">
-        <div class="featured-bg set-bg" data-setbg="img/featured-bg.jpg"></div>
-        <div class="featured-box">
-            <div class="text-box">
-                <div class="top-meta">11.11.18 / in <a href="">Games</a></div>
-                <h3>The game you?ve been waiting for is out now</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Ipsum dolor sit amet, consectetur
-                    adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquamet, consectetur
-                    adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vestibulum
-                    posuere porttitor justo id pellentesque. Proin id lacus feugiat, posuere erat sit amet, commodo
-                    ipsum. Donec pellentesque vestibulum metus...</p>
-                <a href="#" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
-            </div>
-        </div>
+        <c:forEach var="post" items="${posts}" varStatus="status">
+            <c:if test="${status.index == 0}">
+                <!-- Featured background image -->
+                <div class="featured-bg set-bg col-6 d-flex justify-content-center align-items-center" style="width: calc(50% - 40px); height: 100%; ">
+                    <img src="data:image/png;base64,${post.fileData}" alt="Game Image" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+                </div>
+
+                <!-- Featured content box -->
+                <div class="featured-box col-6" >
+                    <div class="text-box" >
+                        <!-- Display post date and category dynamically -->
+                        <div class="top-meta">${post.dateRelease} / in <a href="#">${post.genre}</a></div>
+
+                        <h3>Newest game release is coming up!</h3>
+
+                        <!-- Post title -->
+                        <p style="font-size: 40px">${post.title}</p>
+
+                        <!-- Post content (short summary) -->
+                        <p>${post.description}</p>
+
+                        <!-- Read more link -->
+                        <a href="game-single.jsp?id=${post.postID}" class="read-more">Read More  
+                            <img src="img/icons/double-arrow.png" alt="#"/>
+                        </a>
+                    </div>
+                </div>
+            </c:if>
+        </c:forEach>
     </section>
     <!-- Featured section end-->
 
@@ -458,7 +475,7 @@
                             <img class="img-fluid" src="img/team-4.jpg" alt="" />
                         </div>
                         <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-square mx-1"  href=""><i class="fab fa-facebook-f"></i></a>
                             <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
                                 <i class="fab fa-github"></i></a>
                         </div>
@@ -488,10 +505,11 @@
                 <img src="./img/logo2.png" alt="">
             </a>
             <ul class="main-menu footer-menu">
-                <li><a href="ReadGameHomeController">Home</a></li>
-                <li><a href="ReadGameListController">Games</a></li>
-                <li><a href="forum.jsp">Forum</a></li>
-                <li><a href="contact.jsp">Contact</a></li>
+                <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+
             </ul>
             <div class="footer-social d-flex justify-content-center">
                     <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
@@ -566,10 +584,6 @@
                     </div>
                     <button type="submit">Send</button>
                 </form>
-                <div class="bottom-link">
-                    Want to upload a genre?
-                    <a href="#" id="upload-photo-link">Upload Genre</a>
-                </div>
             </div>
         </div>
     </div>
@@ -661,6 +675,9 @@
             background: url("img/mortal-combat.jpg");
             background-position: center;
             background-size: cover;
+        }
+        a.btn.btn-square.mx-1 {
+            padding-right: 35px;
         }
     </style>
 </body>

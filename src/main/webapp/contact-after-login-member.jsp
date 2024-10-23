@@ -1,12 +1,48 @@
 <!DOCTYPE html>
 <html lang="zxx">
-     <head>
-        <title>EndGam - Gaming Magazine Template</title>
+    <head>
+        <title>EndGame - Gaming Magazine Template</title>
         <meta charset="UTF-8">
         <meta name="description" content="EndGam Gaming Magazine Template">
         <meta name="keywords" content="endGam,gGaming, magazine, html">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Favicon -->
+        <link href="./img/favicon.png" rel="icon" />
+
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
+            rel="stylesheet"
+            />
+
+        <!-- Bootstrap CSS -->
+        <link
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            rel="stylesheet"
+            />
+        <!-- Icon Font Stylesheet -->
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+            rel="stylesheet"
+            />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+            rel="stylesheet"
+            />
+
+        <!-- Libraries Stylesheet -->
+        <link href="lib/animate/animate.min.css" rel="stylesheet" />
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
+        <link
+            href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css"
+            rel="stylesheet"
+            />
+        <link href="css/cssfpt2.css" rel="stylesheet" />
+
+        <!-- Template Stylesheet -->
+        <link href="css/cssfpt1.css" rel="stylesheet" />
         <link href="img/favicon.ico" rel="shortcut icon" />
 
         <!-- Google Font -->
@@ -45,7 +81,7 @@
         <!-- Header section -->
         <header class="header-section">
             <div class="header-warp">
-                
+
                 <div class="header-social d-flex justify-content-end">
                     <p>Follow us:</p>
                     <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
@@ -62,12 +98,10 @@
                         </a>
                     </div>
                     <nav class="top-nav-area w-100">
-                          <div class="user-panel d-flex">
+                        <div class="user-panel d-flex">
                             <!-- Bi?u t??ng gi? h�ng -->
                             <div class="cart-icon">
-                                <a href="shopping-cart.jsp">
-                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                </a>
+
                             </div>
                             <!-- Bi?u t??ng t�i kho?n -->
                             <div class="account-container">
@@ -77,8 +111,8 @@
                                 <div class="account-dropdown">
                                     <ul>
                                         <li><a href="user-profile.jsp">Account Info</a></li>
-                                         <li>
-                                           <a href="LogOutController" class="dropdown-item">Logout</a>
+                                        <li>
+                                            <a href="LogOutController" class="dropdown-item">Logout</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -86,7 +120,7 @@
                         </div>
 
                         <!-- Menu -->
-                       <ul class="main-menu primary-menu">
+                        <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                             <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
                             <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
@@ -115,8 +149,13 @@
         <!-- Contact page -->
         <section class="contact-page">
             <div class="container">
-                <div class="map"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3835.856069317691!2d108.25831101151101!3d15.968891042050895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3142116949840599%3A0x365b35580f52e8d5!2zxJDhuqFpIGjhu41jIEZQVCDEkMOgIE7hurVuZw!5e0!3m2!1svi!2s!4v1729673804832!5m2!1svi!2s" style="border:0" allowfullscreen></iframe></div>
-                <div class="row">
+                <div class="map">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14376.077865872314!2d108.2583164!3d15.9688859!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbd!4v1546528920522" 
+                        style="border:0" 
+                        allowfullscreen>
+                    </iframe>
+                </div>                <div class="row">
                     <div class="col-lg-7 order-2 order-lg-1">
                         <form class="contact-form">
                             <input type="text" placeholder="Your name">
@@ -127,37 +166,140 @@
                         </form>
                     </div>
                     <div class="col-lg-5 order-1 order-lg-2 contact-text text-white">
-                        <h3>Howdy! Say hello</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.....</p>
+                        <h3>FPT! Say hello</h3>
+                        <p>FPT University Da Nang is located in the scenic coastal city of Da Nang, Vietnam. Established in August 2018, the campus blends modern technical architecture with the natural beauty of the region1
+                            . It offers a vibrant, green environment conducive to learning, working, and living2
+                            . The campus features state-of-the-art facilities, including the Beta Lecture Hall and canteen complexes, designed to support both academic and social activities1
+                            .</p>
                         <div class="cont-info">
                             <div class="ci-icon"><img src="img/icons/location.png" alt=""></div>
-                            <div class="ci-text">Main Str, no 23, New York</div>
+                            <div class="ci-text"> FPT City, Ngu Hanh Son,Da Nang, Viet Nam</div>
                         </div>
                         <div class="cont-info">
                             <div class="ci-icon"><img src="img/icons/phone.png" alt=""></div>
-                            <div class="ci-text">+546 990221 123</div>
+                            <div class="ci-text">02367300999</div>
                         </div>
                         <div class="cont-info">
-                            <div class="ci-icon"><img src="img/icons/mail.png" alt=""></div>
-                            <div class="ci-text">hosting@contact.com</div>
+                            <div class="ci-icon"><a href="https://daihoc.fpt.edu.vn/"><img src="img/icons/mail.png" alt=""></div>
+                                    <div class="ci-text">https://daihoc.fpt.edu.vn/</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </section>
         <!-- Contact page end-->
 
 
-        <!-- Newsletter section -->
-        <section class="newsletter-section">
+        <div class="container-xxl py-5">
             <div class="container">
-                <h2>Subscribe to our newsletter</h2>
-                <form class="newsletter-form">
-                    <input type="text" placeholder="ENTER YOUR E-MAIL">
-                    <button class="site-btn">subscribe <img src="img/icons/double-arrow.png" alt="#"/></button>
-                </form>
+                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <h6 class="section-title bg-white text-center text-primary px-3">Founder & Co-Founder</h6>
+                    <h1 class="mb-5">Meet Our Founders</h1>
+                </div>
+                <div class="row g-4">
+                    <!-- Team Member 1 -->
+                    <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="team-item">
+                            <div class="overflow-hidden">
+                                <img class="img-fluid" src="img/team-1.jpg" alt="" />
+                            </div>
+                            <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
+                                <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
+                                    <i class="fab fa-github"></i></a>
+                            </div>
+                            <div class="text-center p-4">
+                                <h5 class="mb-0">Nguyen Thanh Tung</h5>
+                                <small>FE DEVELOPER</small>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Team Member 2 -->
+                    <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="team-item">
+                            <div class="overflow-hidden">
+                                <img class="img-fluid" src="img/team-2.jpg" alt="" />
+                            </div>
+                            <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
+                                <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
+                                    <i class="fab fa-github"></i></a>
+                            </div>
+                            <div class="text-center p-4">
+                                <h5 class="mb-0">Ngo Tran Xuan Hoa</h5>
+                                <small>BE DEVELOPER</small>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Team Member 3 -->
+                    <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                        <div class="team-item">
+                            <div class="overflow-hidden">
+                                <img class="img-fluid" src="img/Card.jpg" alt="" />
+                            </div>
+                            <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
+                                <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
+                                    <i class="fab fa-github"></i></a>
+                            </div>
+                            <div class="text-center p-4">
+                                <h5 class="mb-0">Nguyen Le Dang Thanh</h5>
+                                <small>Game Developer</small>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Team Member 4 -->
+                    <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                        <div class="team-item">
+                            <div class="overflow-hidden">
+                                <img class="img-fluid" src="img/team-4.jpg" alt="" />
+                            </div>
+                            <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
+                                <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
+                                    <i class="fab fa-github"></i></a>
+                            </div>
+                            <div class="text-center p-4">
+                                <h5 class="mb-0">Tran Nguyen Han</h5>
+                                <small>Designation</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                        <div class="team-item">
+                            <div class="overflow-hidden">
+                                <img class="img-fluid" src="img/team-4.jpg" alt="" />
+                            </div>
+                            <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
+                                <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
+                                    <i class="fab fa-github"></i></a>
+                            </div>
+                            <div class="text-center p-4">
+                                <h5 class="mb-0">Nguyen Thanh Tuan</h5>
+                                <small>Designation</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                        <div class="team-item">
+                            <div class="overflow-hidden">
+                                <img class="img-fluid" src="img/team-4.jpg" alt="" />
+                            </div>
+                            <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
+                                <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
+                                    <i class="fab fa-github"></i></a>
+                            </div>
+                            <div class="text-center p-4">
+                                <h5 class="mb-0">Nguyen Hoang Duong</h5>
+                                <small>Designation</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </section>
+        </div>
         <!-- Newsletter section end -->
 
 
@@ -190,70 +332,11 @@
             </div>
         </footer>
         <!-- Footer section end -->
-
-
-        <!-- Login Popup -->
-        <div class="blur-bg-overlay"></div>
-        <div class="form-popup">
-            <span class="close-btn material-symbols-rounded">close</span>
-            <div class="form-box login">
-                <div class="form-details">
-                    <h2>Welcome Back</h2>
-                    <p>Please log in using your personal information to stay connected with us.</p>
-                </div>
-                <div class="form-content">
-                    <h2>LOGIN</h2>
-                    <form action="#">
-                        <div class="input-field">
-                            <input type="text" required>
-                            <label>Email</label>
-                        </div>
-                        <div class="input-field">
-                            <input type="password" required>
-                            <label>Password</label>
-                        </div>
-                        <a href="#" class="forgot-pass-link">Forgot password?</a>
-                        <button type="submit">Log In</button>
-                    </form>
-                    <div class="bottom-link">
-                        Don't have an account?
-                        <a href="#" id="signup-link">Signup</a>
-                    </div>
-                </div>
-            </div>
-            <div class="form-box signup">
-                <div class="form-details">
-                    <h2>Create Account</h2>
-                    <p>To become a part of our community, please sign up using your personal information.</p>
-                </div>
-                <div class="form-content">
-                    <h2>SIGNUP</h2>
-                    <form action="#">
-                        <div class="input-field">
-                            <input type="text" required>
-                            <label>Enter your email</label>
-                        </div>
-                        <div class="input-field">
-                            <input type="password" required>
-                            <label>Create password</label>
-                        </div>
-                        <div class="policy-text">
-                            <input type="checkbox" id="policy">
-                            <label for="policy">
-                                I agree the
-                                <a href="#" class="option">Terms & Conditions</a>
-                            </label>
-                        </div>
-                        <button type="submit">Sign Up</button>
-                    </form>
-                    <div class="bottom-link">
-                        Already have an account? 
-                        <a href="#" id="login-link">Login</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        <style>
+            a.btn.btn-square.mx-1 {
+                padding-right: 35px;
+            }
+        </style>
         <!--====== Javascripts & Jquery ======-->
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>

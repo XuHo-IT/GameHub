@@ -121,10 +121,10 @@
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                            <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
-                            <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
+                            <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
                             <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
-                            <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+                            <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
+                            
                         </ul>
 
 
@@ -135,14 +135,53 @@
         </header>
 
         <!-- Hero section -->
-        <!-- Hero Section Start -->
-        <section class="hero-section overflow-hidden">
-            <div class="hero-slider owl-carousel">
-                <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider1.jpg">
-                    <div class="container">
-                        <h2>Game on!</h2>
-                        <p>The platform serves as a hub for sharing the latest game news, offering users a space to stay updated on upcoming releases and industry developments.<br> It allows users to view, comment, and engage in discussions about the latest news, fostering an active gaming community. With an intuitive interface, the platform enables easy access to user-generated posts and admin-curated updates.</p>
-                        <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
+      <!-- Hero Section Start -->
+    <section class="hero-section overflow-hidden">
+        <div class="hero-slider owl-carousel">
+            <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider1.jpg">
+                <div class="container">
+                    <h2>Game on!</h2>
+                    <p><strong>The platform serves as a hub for sharing the latest game news, offering users a space to stay updated on upcoming releases and industry developments.<br> It allows users to view, comment, and engage in discussions about the latest news, fostering an active gaming community. With an intuitive interface, the platform enables easy access to user-generated posts and admin-curated updates.</strong></p>
+                    <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
+                </div>
+            </div>
+            <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider5.jpg">
+                <div class="container">
+                    <h2>Game on!</h2>
+                    <p><strong>The platform provides a centralized space for discovering and sharing game news, keeping users informed about upcoming titles and events.<br>Users can contribute by posting news, commenting on updates, and participating in forum discussions. The site promotes community interaction around gaming trends and developments.</strong></p>
+                    <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
+                </div>
+            </div>
+        </div>
+<!-- Hero Section End -->
+
+<!-- Team Section Start -->
+
+<!-- Team Section End -->
+
+
+
+        <!-- Intro section -->
+        <section class="intro-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="intro-text-box text-box text-white">
+                            <div class="top-meta">11.11.18 / in <a href="">Games</a></div>
+                            <h3>The best online game is out now!</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                                labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida....</p>
+                            <a href="#" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="intro-text-box text-box text-white">
+                            <div class="top-meta">11.11.18 / in <a href="">Playstation</a></div>
+                            <h3>Top 5 best games in november</h3>
+                            <p>Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                                et dolore magna aliqua. Quis ipsum labore suspendisse ultrices gravida....</p>
+                            <a href="#" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
+                        </div>
                     </div>
                 </div>
                 <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider5.jpg">
@@ -281,58 +320,56 @@
 
 
         <!-- Intro section -->
-        <section class="intro-video-section set-bg d-flex align-items-end">
-            <div class="video-container">
-                <!-- Add the video tag to autoplay the video -->
-                <video autoplay muted loop playsinline>
-                    <source src="img/Trailer.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+    <section class="intro-video-section set-bg d-flex align-items-end">
+        <div class="video-container">
+            <!-- Add the video tag to autoplay the video -->
+            <video autoplay muted loop playsinline>
+                <source src="img/Trailer.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="container">
+            <div class="video-text">
+                <h2>Promo video of the game</h2>
+                <p>Watch our exciting promotional video showcasing the latest features and gameplay of our highly anticipated game. 
+                    Dive into a thrilling world filled with immersive graphics, intense action, and engaging storylines.</p>
             </div>
-            <div class="container">
-                <div class="video-text">
-                    <h2>Promo video of the game</h2>
-                    <p>Watch our exciting promotional video showcasing the latest features and gameplay of our highly anticipated game. 
-                        Dive into a thrilling world filled with immersive graphics, intense action, and engaging storylines.</p>
-                </div>
-            </div>
-        </section>
+        </div>
         <!-- Intro section end -->
 
 
         <!-- Featured section -->
-        <section class="featured-section">
-            <c:forEach var="post" items="${posts}" varStatus="status">
-                <c:if test="${status.index == 0}">
-                    <!-- Featured background image -->
-                    <div class="featured-bg set-bg col-6 d-flex justify-content-center align-items-center" style="width: calc(50% - 40px); height: 100%; ">
-                        <img src="data:image/png;base64,${post.fileData}" alt="Game Image" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+    <section class="featured-section">
+        <c:forEach var="post" items="${posts}" varStatus="status">
+            <c:if test="${status.index == 0}">
+                <!-- Featured background image -->
+                <div class="featured-bg set-bg col-6 d-flex justify-content-center align-items-center" style="width: calc(50% - 40px); height: 100%; ">
+                    <img src="data:image/png;base64,${post.fileData}" alt="Game Image" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+                </div>
+
+                <!-- Featured content box -->
+                <div class="featured-box col-6" >
+                    <div class="text-box" >
+                        <!-- Display post date and category dynamically -->
+                        <div class="top-meta">${post.dateRelease} / in <a href="#">${post.genre}</a></div>
+
+                        <h3>Newest game release is coming up!</h3>
+
+                        <!-- Post title -->
+                        <p style="font-size: 40px">${post.title}</p>
+
+                        <!-- Post content (short summary) -->
+                        <p>${post.description}</p>
+
+                        <!-- Read more link -->
+                        <a href="game-single.jsp?id=${post.postID}" class="read-more">Read More  
+                            <img src="img/icons/double-arrow.png" alt="#"/>
+                        </a>
                     </div>
-
-                    <!-- Featured content box -->
-                    <div class="featured-box col-6" >
-                        <div class="text-box" >
-                            <!-- Display post date and category dynamically -->
-                            <div class="top-meta">${post.dateRelease} / in <a href="#">${post.genre}</a></div>
-
-                            <h3>Newest game release is coming up!</h3>
-
-                            <!-- Post title -->
-                            <p style="font-size: 40px">${post.title}</p>
-
-                            <!-- Post content (short summary) -->
-                            <p>${post.description}</p>
-
-                            <!-- Read more link -->
-                            <a href="game-single-after-login.jsp?id=${post.postID}" class="read-more">Read More  
-                                <img src="img/icons/double-arrow.png" alt="#"/>
-                            </a>
-                        </div>
-                    </div>
-                </c:if>
-            </c:forEach>
-        </section>
-
+                </div>
+            </c:if>
+        </c:forEach>
+    </section>
         <!-- Featured section end-->
 
 
@@ -361,11 +398,10 @@
                     <img src="./img/logo2.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
-                    <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                    <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
-                    <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
-                    <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
-                    <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+                            <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                            <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                            <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                            <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
                     <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>

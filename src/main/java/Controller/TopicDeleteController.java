@@ -43,6 +43,6 @@ public class TopicDeleteController extends HttpServlet {
         collection.deleteOne(Filters.eq("_id", new ObjectId(topicId)));
 
         // Redirect to the appropriate page after deletion
-        response.sendRedirect("ReadTopicMemberController?userId=" + userId);
+        response.sendRedirect("ReadTopicMemberController?userId" + userId);
     }
 }

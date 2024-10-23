@@ -28,7 +28,6 @@ h1{
 /*           Forums.html                       */
 /* ########################################### */
 .container{
-    margin: 20px;
     padding: 20px;
 }
 
@@ -135,7 +134,7 @@ button.forum-button{
 
 .subforum-row{
     display: grid;
-    grid-template-columns: 15% 75% 10% 20%;
+    grid-template-columns: 10% 67% 8% 15%;
 }
 
 .subforum-column{
@@ -178,7 +177,7 @@ button.forum-button{
 }
 
 .subforum .subforum-stats img{
-    width: 25%;
+    width: 30%;
 }
 
 .subforum .subforum-info a{

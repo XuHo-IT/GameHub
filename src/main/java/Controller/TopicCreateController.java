@@ -32,7 +32,6 @@ public class TopicCreateController extends HttpServlet {
         String topicTitle = request.getParameter("topicTitle");
         String topicContent = request.getParameter("topicContent");
         String adminId = (String) request.getSession().getAttribute("adminId");
-
         // Handle file upload
         Part filePart = request.getPart("topicImage");
 

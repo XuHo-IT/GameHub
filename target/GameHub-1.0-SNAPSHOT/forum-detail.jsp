@@ -324,7 +324,7 @@
                                 </div>
                             </div>
                             <div class="content">
-                                <p style="color: lightblue; white-space: normal; word-wrap: break-word; overflow-wrap: break-word;">
+                                <p style="color: lightblue; word-wrap: break-word; overflow-wrap: break-word;">
                                     <%= comment.getContent()%>
                                 </p>
                             </div>

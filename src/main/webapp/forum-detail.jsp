@@ -67,10 +67,10 @@
             <div class="header-warp">             
                 <div class="header-social d-flex justify-content-end">
                     <p>Follow us:</p>
-                        <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
-                        <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
-                        <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
-                        <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
+                    <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
+                    <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
+                    <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
+                    <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
                 </div>
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
@@ -204,7 +204,7 @@
                     <div class="body">
                         <div class="authors">                          
                             <img src="<%= (photoUrlUser == null || photoUrlUser.isEmpty()) ? "./img/t-rex.png" : photoUrlUser%>" alt="Photo User">
-                            <div class="username"><a href=""><%=userNameTopic%></a></div>
+                            <div class="username"><a href="#"><%=userNameTopic%></a></div>
                         </div>
                         <div class="content">
                             <p style="color: lightblue; white-space: normal; word-wrap: break-word; overflow-wrap: break-word;">
@@ -421,6 +421,13 @@
         <script src="js/jquery.sticky-sidebar.min.js"></script>
         <script src="js/jquery.magnific-popup.min.js"></script>
         <script src="js/main.js"></script>
+        <script>
+            const showLoginFromComment = document.getElementById("show-login-from-comment");
+            // Show login popup when click letter "Be the first to comment!"
+            showLoginFromComment.addEventListener("click", (e) => {
+                document.body.classList.toggle("show-popup");
+            });
+        </script>
     </body>
 
 </html>

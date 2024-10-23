@@ -104,7 +104,7 @@
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
                             <!-- Bi?u t??ng gi? h�ng -->
-                           
+
                             <!-- Bi?u t??ng t�i kho?n -->
                             <div class="account-container">
                                 <div class="account-icon">
@@ -137,13 +137,16 @@
 
 
         <!-- Hero section -->
-    <section class="hero-section overflow-hidden">
-        <div class="hero-slider owl-carousel">
-            <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider1.jpg">
-                <div class="container">
-                    <h2>Game on!</h2>
-                    <p><strong>The platform serves as a hub for sharing the latest game news, offering users a space to stay updated on upcoming releases and industry developments.<br> It allows users to view, comment, and engage in discussions about the latest news, fostering an active gaming community. With an intuitive interface, the platform enables easy access to user-generated posts and admin-curated updates.</strong></p>
-                    <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
+        <section class="hero-section overflow-hidden">
+            <div class="hero-slider owl-carousel">
+                <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center"
+                     data-setbg="img/slider1.jpg">
+                    <div class="container">
+                        <h2>Game on!</h2>
+                        <p>Fusce erat dui, venenatis et erat in, vulputate dignissim lacus. Donec vitae tempus dolor,<br>sit
+                            amet elementum lorem. Ut cursus tempor turpis.</p>
+                        <a href="#" class="site-btn">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
+                    </div>
                 </div>
             </div>
             <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider5.jpg">
@@ -168,45 +171,45 @@
                 </div>
                 <div class="row g-4">
                     <div class="col-lg-3 col-sm-6 wow fadeInUp icon-hover-service" data-wow-delay="0.1s">
-                        <a href="room.jsp" class="nav-item nav-link">
+                        <a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>" class="nav-item nav-link">
                             <div class="service-item rounded pt-3">
                                 <div class="p-4">
-                                    <i class="fa fa-3x fa-globe text-primary mb-4"></i>
-                                    <h5>Booking rooms</h5>
+                                    <i class="fa fa-gamepad fa-3x text-primary mb-4"></i>
+                                    <h5>Game News</h5>
                                     <p>Available.</p>
                                 </div>
                             </div>
                         </a>
                     </div>
                     <div class="col-lg-3 col-sm-6 wow fadeInUp icon-hover-service" data-wow-delay="0.3s">
-                        <a href="404.html" class="nav-item nav-link">
+                        <a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>" class="nav-item nav-link">
                             <div class="service-item rounded pt-3">
                                 <div class="p-4">
-                                    <i class="fa fa-3x fa-hotel text-primary mb-4"></i>
-                                    <h5>Booking villa</h5>
-                                    <p>Still update</p>
+                                    <i class="fa fa-shopping-cart fa-3x text-primary mb-4"></i>
+                                    <h5>Notification & Buy Game</h5>
+                                    <p>Available</p>
                                 </div>
                             </div>
                         </a>
                     </div>
                     <div class="col-lg-3 col-sm-6 wow fadeInUp icon-hover-service" data-wow-delay="0.5s">
-                        <a href="404.html" class="nav-item nav-link">
+                        <a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>" class="nav-item nav-link">
                             <div class="service-item rounded pt-3">
                                 <div class="p-4">
-                                    <i class="fa fa-3x fa-user text-primary mb-4"></i>
-                                    <h5>Travel Guides</h5>
-                                    <p>Still update</p>
+                                    <i class="fa fa-address-book fa-3x text-primary mb-4"></i>
+                                    <h5>Contact With Us</h5>
+                                    <p>Available</p>
                                 </div>
                             </div>
                         </a>
                     </div>
                     <div class="col-lg-3 col-sm-6 wow fadeInUp icon-hover-service" data-wow-delay="0.7s">
-                        <a href="404.html" class="nav-item nav-link">
+                        <a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>" class="nav-item nav-link">
                             <div class="service-item rounded pt-3">
                                 <div class="p-4">
-                                    <i class="fa fa-3x fa-cog text-primary mb-4"></i>
-                                    <h5>Other booking</h5>
-                                    <p>Still update</p>
+                                    <i class="fa fa-users fa-3x text-primary mb-4"></i>
+                                    <h5>Forum</h5>
+                                    <p>Available</p>
                                 </div>
                             </div>
                         </a>
@@ -230,7 +233,7 @@
                         <!-- Blog item -->
                         <%
                             String adminId = request.getParameter("id");  // Get AdminId from session
-                        %>                        
+%>                        
                         <div class="blog-container">
                             <c:forEach var="post" items="${posts}">
                                 <div class="blog-item">
@@ -286,11 +289,7 @@
                     </style>
 
                     <div class="col-xl-3 col-lg-4 col-md-5 sidebar">
-                        <div id="stickySidebar">
-                            <div class="widget-item">
-                                <h4 class="widget-title">Trending</h4>
-                            </div>
-                        </div>
+
                         <div class="widget-item">
                             <div class="widget-item">
                                 <div class="categories-widget">
@@ -476,7 +475,7 @@
                             <img class="img-fluid" src="img/team-4.jpg" alt="" />
                         </div>
                         <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-square mx-1"  href=""><i class="fab fa-facebook-f"></i></a>
                             <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
                                 <i class="fab fa-github"></i></a>
                         </div>
@@ -585,10 +584,6 @@
                     </div>
                     <button type="submit">Send</button>
                 </form>
-                <div class="bottom-link">
-                    Want to upload a genre?
-                    <a href="#" id="upload-photo-link">Upload Genre</a>
-                </div>
             </div>
         </div>
     </div>
@@ -680,6 +675,9 @@
             background: url("img/mortal-combat.jpg");
             background-position: center;
             background-size: cover;
+        }
+        a.btn.btn-square.mx-1 {
+            padding-right: 35px;
         }
     </style>
 </body>

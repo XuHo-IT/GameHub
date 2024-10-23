@@ -1057,7 +1057,7 @@ img.logo1 {
 -----------------------*/
 
 .intro-video-section {
-    height: 500px; /* Adjust the height to make the video smaller */
+    height: 600px; /* Adjust the height to make the video smaller */
     position: relative;
     overflow: hidden;
 }

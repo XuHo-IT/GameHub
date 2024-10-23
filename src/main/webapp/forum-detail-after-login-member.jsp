@@ -1,3 +1,4 @@
+<%@page import="utils.MongoDBConnectionManager1"%>
 <%@page import="java.time.Period"%>
 <%@page import="java.time.Duration"%>
 <%@page import="java.time.ZoneId"%>
@@ -140,7 +141,7 @@
             System.out.println("Topic ID: " + topicId);
 
             // Connect to MongoDB
-            MongoClient mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub"); // Your connection string
+            MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient(); 
             MongoCollection<Document> topicsCollection = mongoClient.getDatabase("GameHub").getCollection("topic");
 
             // Find the topic by its ObjectId
@@ -230,7 +231,7 @@
                     <div class="body">
                         <div class="authors">                          
                             <img src="<%= (photoUrlUser == null || photoUrlUser.isEmpty()) ? "./img/t-rex.png" : photoUrlUser%>" alt="Photo User">
-                            <div class="username"><a href=""><%=userNameTopic%></a></div>
+                            <div class="username"><a href="#"><%=userNameTopic%></a></div>
                         </div>
                         <div class="content">
                             <p style="color: lightblue; white-space: normal; word-wrap: break-word; overflow-wrap: break-word;">
@@ -254,7 +255,7 @@
                         <textarea name="comment" placeholder="comment here ..." required></textarea>
 
                         <!-- Các trường ẩn để truyền các giá trị cần thiết -->
-                        <input type="hidden" name="userid" value="<%= request.getSession().getAttribute("adminId")%>">
+                        <input type="hidden" name="userid" value="<%= request.getSession().getAttribute("userId")%>">
                         <input type="hidden" name="topicid" value="<%=topicId%>">
 
                         <!-- Nút submit để gửi form -->
@@ -324,7 +325,7 @@
                                     <p style="color: lightblue; white-space: normal; word-wrap: break-word; overflow-wrap: break-word;">
                                         <%= comment.getContent()%>
                                     </p>
-                                    <%if (!comment.getUserId().equalsIgnoreCase(request.getSession().getAttribute("adminId").toString())) {%>
+                                    <%if (!comment.getUserId().equals(request.getSession().getAttribute("userId").toString())) {%>
                                     <div class="comment">
                                         <button onclick="showReply('reply-area-<%= comment.getCommentId()%>', '<%=comment.getUserName()%>')">Reply</button>
                                     </div>
@@ -355,7 +356,7 @@
                                 <textarea name="comment" placeholder="reply here ..." required></textarea>
 
                                 <!-- Các trường ẩn để truyền các giá trị cần thiết -->
-                                <input type="hidden" name="userid" value="<%= request.getSession().getAttribute("adminId")%>">
+                                <input type="hidden" name="userid" value="<%= request.getSession().getAttribute("userId")%>">
                                 <input type="hidden" name="topicid" value="<%=topicId%>">            
 
                                 <!-- Nút submit để gửi form -->
@@ -389,10 +390,10 @@
                     <img src="./img/logo2.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
-                    <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                    <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
-                    <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
-                    <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+                    <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("userId")%>">Home</a></li>
+                    <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("userId")%>">Games</a>
+                    <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("userId")%>">Forum</a></li>
+                    <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("userId")%>">Contact</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
                     <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>

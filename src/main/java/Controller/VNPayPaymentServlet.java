@@ -1,21 +1,26 @@
 package Controller;
 
-import Model.Transaction;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.MongoCollection;
-import org.bson.Document;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import org.bson.Document;
+
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
 import utils.MongoDBConnectionManager1;
 
 @WebServlet("/vnpay-payment")
@@ -32,7 +37,8 @@ public class VNPayPaymentServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         // Retrieve required parameters for the payment
         String orderType = request.getParameter("vnp_OrderType");
         String amount = request.getParameter("vnp_Amount");
@@ -58,11 +64,11 @@ public class VNPayPaymentServlet extends HttpServlet {
         String returnUrl = Config.getReturnUrl();
         if (linkValue != null && !linkValue.isEmpty()) {
             // Start building the return URL with linkValue
-            returnUrl += "?link=" + URLEncoder.encode(linkValue, StandardCharsets.UTF_8); 
+            returnUrl += "?link=" + URLEncoder.encode(linkValue, StandardCharsets.UTF_8);
 
         }
         returnUrl += "&adminId=" + URLEncoder.encode(userId, StandardCharsets.UTF_8);
-        
+
         vnp_Params.put("vnp_ReturnUrl", returnUrl); // Use the modified return URL
         vnp_Params.put("vnp_IpAddr", Config.getIpAddress(request)); // Get client IP address
         vnp_Params.put("vnp_CreateDate", Config.getCurrentDate());
@@ -83,7 +89,7 @@ public class VNPayPaymentServlet extends HttpServlet {
             if (fieldValue != null && !fieldValue.isEmpty()) {
                 hashData.append(fieldName).append('=').append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII));
                 query.append(fieldName).append('=').append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII));
-                query.append('&');  // Append '&' for query string
+                query.append('&'); // Append '&' for query string
                 hashData.append('&'); // Append '&' for hash data
             }
         }
@@ -118,7 +124,8 @@ public class VNPayPaymentServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         doPost(request, response);
     }
 }

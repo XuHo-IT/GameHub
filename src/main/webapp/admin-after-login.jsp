@@ -12,7 +12,7 @@
         <meta name="keywords" content="endGam,gGaming, magazine, html">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Favicon -->
-         <link href="./img/favicon.png" rel="icon" />
+        <link href="./img/favicon.png" rel="icon" />
 
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -23,10 +23,10 @@
             />
 
         <!-- Bootstrap CSS -->
-    <link
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        rel="stylesheet"
-    />
+        <link
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            rel="stylesheet"
+            />
         <!-- Icon Font Stylesheet -->
         <link
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
@@ -44,7 +44,7 @@
             href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css"
             rel="stylesheet"
             />
-          <link href="css/cssfpt2.css" rel="stylesheet" />
+        <link href="css/cssfpt2.css" rel="stylesheet" />
 
         <!-- Template Stylesheet -->
         <link href="css/cssfpt1.css" rel="stylesheet" />
@@ -121,9 +121,10 @@
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                            <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                            <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
                             <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
-                            <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
+                            <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                            <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                         </ul>
 
 
@@ -134,73 +135,26 @@
         </header>
 
         <!-- Hero section -->
-      <!-- Hero Section Start -->
-<section class="hero-section overflow-hidden">
-    <div class="hero-slider owl-carousel">
-        <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center"
-             data-setbg="img/slider-bg-1.jpg">
-            <div class="container">
-                <h2>Game on!</h2>
-                <p>Fusce erat dui, venenatis et erat in, vulputate dignissim lacus. Donec vitae tempus dolor,<br>sit
-                    amet elementum lorem. Ut cursus tempor turpis.</p>
-                <a href="#" class="site-btn">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
-            </div>
-        </div>
-        <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center"
-             data-setbg="img/slider-bg-2.jpg">
-            <div class="container">
-                <h2>Game on!</h2>
-                <p>Fusce erat dui, venenatis et erat in, vulputate dignissim lacus. Donec vitae tempus dolor,<br>sit
-                    amet elementum lorem. Ut cursus tempor turpis.</p>
-                <a href="#" class="site-btn">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Hero Section End -->
-
-<!-- Team Section Start -->
-
-<!-- Team Section End -->
-
-
-
-        <!-- Intro section -->
-        <section class="intro-section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="intro-text-box text-box text-white">
-                            <div class="top-meta">11.11.18 / in <a href="">Games</a></div>
-                            <h3>The best online game is out now!</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                                labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida....</p>
-                            <a href="#" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
-                        </div>
+        <!-- Hero Section Start -->
+        <section class="hero-section overflow-hidden">
+            <div class="hero-slider owl-carousel">
+                <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider1.jpg">
+                    <div class="container">
+                        <h2>Game on!</h2>
+                        <p>The platform serves as a hub for sharing the latest game news, offering users a space to stay updated on upcoming releases and industry developments.<br> It allows users to view, comment, and engage in discussions about the latest news, fostering an active gaming community. With an intuitive interface, the platform enables easy access to user-generated posts and admin-curated updates.</p>
+                        <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
                     </div>
-                    <div class="col-md-4">
-                        <div class="intro-text-box text-box text-white">
-                            <div class="top-meta">11.11.18 / in <a href="">Playstation</a></div>
-                            <h3>Top 5 best games in november</h3>
-                            <p>Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                                et dolore magna aliqua. Quis ipsum labore suspendisse ultrices gravida....</p>
-                            <a href="#" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="intro-text-box text-box text-white">
-                            <div class="top-meta">11.11.18 / in <a href="">Reviews</a></div>
-                            <h3>Get this game at a promo price</h3>
-                            <p>Sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                magna aliqua. Quis ipsum suspendisse ultrices gravida ncididunt ut labore ....</p>
-                            <a href="#" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
-                        </div>
+                </div>
+                <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider5.jpg">
+                    <div class="container">
+                        <h2>Game on!</h2>
+                        <p>The platform provides a centralized space for discovering and sharing game news, keeping users informed about upcoming titles and events.<br>Users can contribute by posting news, commenting on updates, and participating in forum discussions. The site promotes community interaction around gaming trends and developments.</p>
+                        <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- Intro section end -->
-
+        <!-- Hero Section End -->
 
         <!-- Blog section -->
         <section class="blog-section spad">
@@ -230,12 +184,11 @@
                                         <p>${post.description != null ? post.description : 'No description available'}</p>
 
                                         <!-- Read more link -->
-                                        <a href="game-single-after-login-member.jsp?id=${post.postID}" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
+                                        <a href="game-single-after-login.jsp?id=${post.postID}" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
 
                                         <!-- Edit and Delete Buttons -->
                                         <div class="action-buttons">
                                             <a href="game-single-after-login.jsp?id=${post.postID}&postId=${post.postID}" class="btn btn-warning">Edit</a>
-
 
                                             <form action="EditPostController" method="post">
                                                 <input type="hidden" name="postId" value="${post.postID}">
@@ -248,7 +201,7 @@
                                 </div>
                             </c:forEach>
                         </div>
-                        <a href="ReadGameListController" class="more-game-btn">More Game</a>
+                        <a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>" class="more-game-btn">More Game</a>
                     </div>
 
 
@@ -280,57 +233,39 @@
                     <div class="col-xl-3 col-lg-4 col-md-5 sidebar">
                         <div id="stickySidebar">
                             <div class="widget-item">
-                                <h4 class="widget-title">Trending</h4>
-                                <div class="trending-widget">
-                                    <div class="tw-item">
-                                        <div class="tw-thumb">
-                                            <img src="./img/blog-widget/1.jpg" alt="#">
-                                        </div>
-                                        <div class="tw-text">
-                                            <div class="tw-meta">11.11.18 / in <a href="">Games</a></div>
-                                            <h5>The best online game is out now!</h5>
-                                        </div>
-                                    </div>
-                                    <div class="tw-item">
-                                        <div class="tw-thumb">
-                                            <img src="./img/blog-widget/2.jpg" alt="#">
-                                        </div>
-                                        <div class="tw-text">
-                                            <div class="tw-meta">11.11.18 / in <a href="">Games</a></div>
-                                            <h5>The best online game is out now!</h5>
-                                        </div>
-                                    </div>
-                                    <div class="tw-item">
-                                        <div class="tw-thumb">
-                                            <img src="./img/blog-widget/3.jpg" alt="#">
-                                        </div>
-                                        <div class="tw-text">
-                                            <div class="tw-meta">11.11.18 / in <a href="">Games</a></div>
-                                            <h5>The best online game is out now!</h5>
-                                        </div>
-                                    </div>
-                                    <div class="tw-item">
-                                        <div class="tw-thumb">
-                                            <img src="./img/blog-widget/4.jpg" alt="#">
-                                        </div>
-                                        <div class="tw-text">
-                                            <div class="tw-meta">11.11.18 / in <a href="">Games</a></div>
-                                            <h5>The best online game is out now!</h5>
-                                        </div>
-                                    </div>
-                                </div>
+                                <a href="#" class="add">
+                                    <img src="./img/Game_Interactive.jpg" alt="">
+                                </a>
                             </div>
+
                             <div class="widget-item">
                                 <div class="categories-widget">
                                     <h4 class="widget-title">Genre</h4>
-                                    <form action="AddGameController" method="post" enctype="multipart/form-data">   
+                                    <form action="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>" method="get">   
                                         <ul>
                                             <c:forEach var="genre" items="${genres}">
-                                                <li><a href="#">${genre.genre != null ? genre.genre : 'No genre available'}</a></li>
-                                                </c:forEach>     
+                                                <li>
+                                                    <a href="ReadGameHomeAdminController?genre=${genre.genre}&adminId=<%= request.getSession().getAttribute("adminId")%>">
+                                                        ${genre.genre != null ? genre.genre : 'No genre available'}
+                                                    </a>
+                                                </li>
+                                            </c:forEach>     
                                         </ul>
                                     </form>
                                 </div>
+                            </div>
+                            <div class="site-pagination">
+                                <c:if test="${currentPage > 1}">
+                                    <a href="?genre=${selectedGenre}&page=${currentPage - 1}" class="prev">Previous</a>
+                                </c:if>
+
+                                <c:forEach var="i" begin="1" end="${totalPages}">
+                                    <a href="?genre=${selectedGenre}&page=${i}" class="${i == currentPage ? 'active' : ''}">${i}</a>
+                                </c:forEach>
+
+                                <c:if test="${currentPage < totalPages}">
+                                    <a href="?genre=${selectedGenre}&page=${currentPage + 1}" class="next">Next</a>
+                                </c:if>
                             </div>
                             <div class="widget-item">
                                 <a href="#" class="add">
@@ -346,13 +281,19 @@
 
 
         <!-- Intro section -->
-        <section class="intro-video-section set-bg d-flex align-items-end " data-setbg="./img/promo-bg.jpg">
-            <a href="https://www.youtube.com/watch?v=uFsGy5x_fyQ" class="video-play-btn video-popup"><img
-                    src="img/icons/solid-right-arrow.png" alt="#"></a>
+        <section class="intro-video-section set-bg d-flex align-items-end">
+            <div class="video-container">
+                <!-- Add the video tag to autoplay the video -->
+                <video autoplay muted loop playsinline>
+                    <source src="img/Trailer.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
             <div class="container">
                 <div class="video-text">
                     <h2>Promo video of the game</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                    <p>Watch our exciting promotional video showcasing the latest features and gameplay of our highly anticipated game. 
+                        Dive into a thrilling world filled with immersive graphics, intense action, and engaging storylines.</p>
                 </div>
             </div>
         </section>
@@ -361,33 +302,46 @@
 
         <!-- Featured section -->
         <section class="featured-section">
-            <div class="featured-bg set-bg" data-setbg="img/featured-bg.jpg"></div>
-            <div class="featured-box">
-                <div class="text-box">
-                    <div class="top-meta">11.11.18 / in <a href="">Games</a></div>
-                    <h3>The game you?ve been waiting for is out now</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                        et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Ipsum dolor sit amet, consectetur
-                        adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquamet, consectetur
-                        adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vestibulum
-                        posuere porttitor justo id pellentesque. Proin id lacus feugiat, posuere erat sit amet, commodo
-                        ipsum. Donec pellentesque vestibulum metus...</p>
-                    <a href="#" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
-                </div>
-            </div>
+            <c:forEach var="post" items="${posts}" varStatus="status">
+                <c:if test="${status.index == 0}">
+                    <!-- Featured background image -->
+                    <div class="featured-bg set-bg col-6 d-flex justify-content-center align-items-center" style="width: calc(50% - 40px); height: 100%; ">
+                        <img src="data:image/png;base64,${post.fileData}" alt="Game Image" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+                    </div>
+
+                    <!-- Featured content box -->
+                    <div class="featured-box col-6" >
+                        <div class="text-box" >
+                            <!-- Display post date and category dynamically -->
+                            <div class="top-meta">${post.dateRelease} / in <a href="#">${post.genre}</a></div>
+
+                            <h3>Newest game release is coming up!</h3>
+
+                            <!-- Post title -->
+                            <p style="font-size: 40px">${post.title}</p>
+
+                            <!-- Post content (short summary) -->
+                            <p>${post.description}</p>
+
+                            <!-- Read more link -->
+                            <a href="game-single-after-login.jsp?id=${post.postID}" class="read-more">Read More  
+                                <img src="img/icons/double-arrow.png" alt="#"/>
+                            </a>
+                        </div>
+                    </div>
+                </c:if>
+            </c:forEach>
         </section>
+
         <!-- Featured section end-->
 
 
 
         <!-- Newsletter section -->
-        <section class="newsletter-section">
+        <section class="newsletter-section" style="">
             <div class="container">
-                <h2>Subscribe to our newsletter</h2>
-                <form class="newsletter-form">
-                    <input type="text" placeholder="ENTER YOUR E-MAIL">
-                    <button class="site-btn">subscribe <img src="img/icons/double-arrow.png" alt="#" /></button>
-                </form>
+                <h3 class="bottom-title">Thanks for using our website!</h3>
+                <img src="img/Dawn.gif" alt="Game Image" style="width: 100%; height: auto;" />
             </div>
         </section>
         <!-- Newsletter section end -->
@@ -402,15 +356,16 @@
                 <div class="footer-right-pic">
                     <img src="img/footer-right-pic.png" alt="">
                 </div>
-                <a href="ReadGameHomeController" class="footer-logo">
+                <a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>" class="footer-logo">
                     <img src="./img/logo1.png" alt="">
                     <img src="./img/logo2.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
                     <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                    <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                    <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
                     <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
-                    <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
+                    <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                    <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
                     <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
@@ -492,7 +447,7 @@
                         <a href="#" id="upload-photo-link">Upload Genre</a>
                     </div>
                 </div>
-               
+
             </div>
 
             <div class="form-box upload-photo">
@@ -602,6 +557,13 @@
                 background: url("img/mortal-combat.jpg");
                 background-position: center;
                 background-size: cover;
+            }
+
+            h3.bottom-title {
+                color: white;
+                font-size: 35px;
+                font-family: 'Sixtyfour Convergence';
+                padding: 0 0px 30px 0;
             }
         </style>
     </body>

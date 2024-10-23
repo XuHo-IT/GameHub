@@ -5,7 +5,6 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
-
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -16,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import utils.MongoDBConnectionManager1;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.UUID;
 
 public class ForgotPasswordController extends HttpServlet {
 
@@ -23,14 +23,13 @@ public class ForgotPasswordController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("emailForgot");
 
-        // Connect to MongoDB
+        // Connect to the database and collection
         MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("superadmin");
 
         // Check if the email exists in the database
         Document user = collection.find(Filters.eq("Email", email)).first();
-
         if (user != null) {
             // Email exists, send the password
             String password = user.getString("Password"); // Ideally, you should retrieve a password reset link instead
@@ -40,7 +39,6 @@ public class ForgotPasswordController extends HttpServlet {
             // Email does not exist
             request.setAttribute("errorMessage", "No account registered with this email address.");
         }
-
         response.sendRedirect("ReadGameHomeController"); // Redirect back to the main page
     }
 

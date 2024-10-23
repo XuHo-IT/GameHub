@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+<%@page import="mogodb.MongoConectUser"%>
+=======
 <%@page import="mongodb.MongoConectUser"%>
+>>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
 <%@page import="Model.UserModel"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -19,7 +23,10 @@
         <div class="container">
             <div class="navigation" style="background: #6f2b95; border-left: 10px solid #6f2b95">
                 <ul>
+<<<<<<< HEAD
+=======
                     
+>>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
                     <li>
                         <a href="">
                             <span class="icon"><ion-icon name="logo-apple"></ion-icon></span>
@@ -29,7 +36,11 @@
                     <li>
                     </li>
                     <li>
+<<<<<<< HEAD
+                        <a href="../ReadGameUploadByMemberController">
+=======
                         <a href="../ReadGameUploadByMemberController?adminId=<%= request.getSession().getAttribute("adminId")%>">
+>>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
                             <span class="icon">
                                 <ion-icon name="people-outline"></ion-icon>
                             </span>
@@ -37,7 +48,11 @@
                         </a>
                     </li>
                     <li>
+<<<<<<< HEAD
+                        <a href="chart/index-chart.jsp">
+=======
                         <a href="../ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">
+>>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
                             <span class="icon">
                                 <ion-icon name="chatbubbles-outline"></ion-icon>
                             </span>
@@ -45,7 +60,11 @@
                         </a>
                     </li>
                     <li>
+<<<<<<< HEAD
+                        <a href="chart/list-user.jsp">
+=======
                         <a href="chart/list-user.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">
+>>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
                             <span class="icon">
                                 <ion-icon name="help-outline"></ion-icon>
                             </span>
@@ -53,7 +72,10 @@
                         </a>
                     </li>
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
                 </ul>
             </div>
             <!-- main -->
@@ -149,8 +171,13 @@
         ></script>
         <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script> -->
         <!-- <script src="js/chart.umd.js"></script> -->
+<<<<<<< HEAD
+        <script src="chart/js/chart.min.js"></script>
+        <script src="chart/js/main.js"></script>
+=======
         <script src="js/chart.min.js"></script>
         <script src="js/main.js"></script>
+>>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
         <script>
                     // Function to handle deny button click
                     function denyPost(denyButton) {

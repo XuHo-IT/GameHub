@@ -42,7 +42,11 @@
                         </a>
                     </li>
                     <li>
+<<<<<<< HEAD
+                        <a href="chart/list-user.jsp">
+=======
                         <a href="chart/list-user.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">
+>>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
                             <span class="icon">
                                 <ion-icon name="help-outline"></ion-icon>
                             </span>

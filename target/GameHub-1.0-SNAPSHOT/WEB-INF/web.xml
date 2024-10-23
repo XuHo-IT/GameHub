@@ -181,10 +181,6 @@
         <servlet-class>Controller.UpdateCommentController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>VerifyEmailHandler</servlet-name>
-        <servlet-class>Controller.VerifyEmailHandler</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>EmailSend</servlet-name>
         <servlet-class>EmailSend</servlet-class>
     </servlet>
@@ -352,10 +348,6 @@
     <servlet-mapping>
         <servlet-name>UploadLinkServlet</servlet-name>
         <url-pattern>/UploadLinkServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>VerifyEmailHandler</servlet-name>
-        <url-pattern>/VerifyEmailHandler</url-pattern>
     </servlet-mapping>
     <multipart-config>
         <max-file-size>10485760</max-file-size>

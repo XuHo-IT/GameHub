@@ -73,11 +73,10 @@
             <div class="header-warp">             
                 <div class="header-social d-flex justify-content-end">
                     <p>Follow us:</p>
-                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                    <a href="#"><i class="fa fa-behance"></i></a>
+                    <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
+                    <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
+                    <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
+                    <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
                 </div>
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
@@ -92,17 +91,13 @@
                             <button class="login-btn">LOG IN</button>
                         </div>
 
-                       <!-- Menu -->
+                        <!-- Menu -->
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeController">Home</a></li>
-                            <li><a href="ReadGameListController">Games</a>						
-                                <ul class="sub-menu">
-                                    <li><a href="top-rating-all.jsp">Top rating</a></li>
-                                </ul>
-                            </li>
+                            <li><a href="ReadGameListController">Games</a></li>
                             <li><a href="ReadTopicController">Forum</a></li>
                             <li><a href="contact.jsp">Contact</a></li>
-                            
+
                         </ul>
                     </nav>
                 </div>
@@ -161,8 +156,55 @@
             comment.setPhotoUrl(photoUrl);
             comment.setContent(doc.getString("Content"));
 
+<<<<<<< HEAD
             if ("unedited".equals(doc.getString("Status"))) {
                 comment.setStatus("");
+=======
+                // Find the comment by its ObjectId
+                List<Document> commentDocuments = commentsCollection
+                        .find(Filters.eq("TopicId", topicId))
+                        .into(new ArrayList<>());
+
+                for (Document doc : commentDocuments) {
+                    Document user = usersCollection.find(Filters.eq("_id", new ObjectId(doc.getString("UserId")))).first();
+                    String photoUrl = (user != null) ? user.getString("PhotoUrl") : "./img/t-rex.png";
+                    String userName = (user != null) ? user.getString("Name") : "Unknown";
+
+                    Comment comment = new Comment();
+                    comment.setCommentId(doc.getObjectId("_id").toString());
+                    comment.setTopicId(doc.getString("TopicId").toString());
+                    comment.setUserId(doc.getString("UserId").toString());
+                    comment.setUserName(userName);
+                    comment.setPhotoUrl(photoUrl);
+                    comment.setContent(doc.getString("Content"));
+
+                    if (doc.getString("Status").equals("unedited")) {
+                        comment.setStatus("");
+                    } else {
+                        comment.setStatus("(edited)");
+                    };
+                    comment.setDate(doc.getDate("Date"));
+
+                    // Log retrieved values
+                    System.out.println("Topic id: " + comment.getTopicId());
+                    System.out.println("User id: " + comment.getUserId());
+                    System.out.println("Comment id: " + comment.getCommentId());
+                    System.out.println("User name: " + userName);
+                    System.out.println("Content: " + comment.getContent());
+                    System.out.println("Photo ulr: " + photoUrl);
+
+                    comments.add(comment);
+                }
+
+                Collections.reverse(comments);
+
+                // Log retrieved values
+                System.out.println("Title: " + title);
+                System.out.println("Description: " + description);
+                System.out.println("Image ulr: " + imageData);
+                System.out.println("User name: " + userNameTopic);
+                System.out.println("Photo ulr: " + photoUrlUser);
+>>>>>>> 4a7e61d314ac293c061966d4e2a08a39b8b0551d
             } else {
                 comment.setStatus("(edited)");
             }
@@ -211,7 +253,7 @@
                     <div class="body">
                         <div class="authors">                          
                             <img src="<%= (photoUrlUser == null || photoUrlUser.isEmpty()) ? "./img/t-rex.png" : photoUrlUser%>" alt="Photo User">
-                            <div class="username"><a href=""><%=userNameTopic%></a></div>
+                            <div class="username"><a href="#"><%=userNameTopic%></a></div>
                         </div>
                         <div class="content">
                             <p style="color: lightblue; white-space: normal; word-wrap: break-word; overflow-wrap: break-word;">
@@ -290,7 +332,7 @@
                     </div>
                     <% }
                     } else { %>
-                    <p>No comments yet. <a href="ReadGameHomeController">Be the first to comment!</a></p>
+                    <p>No comments yet. <a href="#" id="show-login-from-comment">Be the first to comment!</a></p>
                     <% }%>
                 </div>
             </div>
@@ -315,15 +357,14 @@
                 <ul class="main-menu footer-menu">
                     <li><a href="ReadGameHomeController">Home</a></li>
                     <li><a href="ReadGameListController">Games</a></li>
-                    <li><a href="">Reviews</a></li>
-                    <li><a href="">Contact</a></li>
+                    <li><a href="ReadTopicController">Forum</a></li>
+                    <li><a href="contact.jsp">Contact</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
-                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                    <a href="#"><i class="fa fa-behance"></i></a>
+                    <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
+                    <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
+                    <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
+                    <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
                 </div>
                 <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
             </div>
@@ -332,7 +373,7 @@
 
 
         <!-- Login Popup -->
-      <div class="blur-bg-overlay"></div>
+        <div class="blur-bg-overlay"></div>
         <div class="form-popup">
             <span class="close-btn material-symbols-rounded">close</span>
             <div class="form-box login">
@@ -429,6 +470,13 @@
         <script src="js/jquery.sticky-sidebar.min.js"></script>
         <script src="js/jquery.magnific-popup.min.js"></script>
         <script src="js/main.js"></script>
+        <script>
+            const showLoginFromComment = document.getElementById("show-login-from-comment");
+            // Show login popup when click letter "Be the first to comment!"
+            showLoginFromComment.addEventListener("click", (e) => {
+                document.body.classList.toggle("show-popup");
+            });
+        </script>
     </body>
 
 </html>

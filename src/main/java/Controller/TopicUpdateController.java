@@ -1,15 +1,12 @@
 package Controller;
 
 import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.Updates;
 import org.apache.commons.io.IOUtils;
 import org.bson.Document;
 import org.bson.types.ObjectId;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -19,20 +16,47 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
+import javax.servlet.http.HttpSession;
 import utils.MongoDBConnectionManager1;
 
 @MultipartConfig
 public class TopicUpdateController extends HttpServlet {
 
     @Override
-    protected void doPut(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Retrieve parameters from the form
+        String action = request.getParameter("action");
         String topicId = request.getParameter("topicId");
+        if ("update".equals(action)) {
+            updateTopic(request, response, topicId);
+        }
+    }
+
+    private void updateTopic(HttpServletRequest request, HttpServletResponse response, String topicId)
+            throws ServletException, IOException {
+        // Check if the user is logged in
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("adminId") == null) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("Unauthorized: You must be logged in to update a topic.");
+            return;
+        }
+
+        // Validate topicId
+        if (!isValidObjectId(topicId)) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("Invalid topic ID.");
+            return;
+        }
+
+        String userId = (String) session.getAttribute("adminId");
+        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
+        MongoDatabase database = mongoClient.getDatabase("GameHub");
+        MongoCollection<Document> collection = database.getCollection("topic");
+
+        // Retrieve form data
         String topicTitle = request.getParameter("topicTitle");
         String topicContent = request.getParameter("topicContent");
-
-        // Handle file upload if a new image is provided
         Part filePart = request.getPart("topicImage");
         String fileDataBase64 = null;
         if (filePart != null && filePart.getSize() > 0) {
@@ -41,23 +65,17 @@ public class TopicUpdateController extends HttpServlet {
             fileDataBase64 = Base64.getEncoder().encodeToString(fileDataBytes);
         }
 
-        // Get MongoDB database and collection
-        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
-        MongoDatabase database = mongoClient.getDatabase("GameHub");
-        MongoCollection<Document> collection = database.getCollection("forumTopics");
-
-        // Build update document
-        Document updateFields = new Document("Title", topicTitle)
-                .append("Content", topicContent);
+        Document updateFields = new Document("$set", new Document("Title", topicTitle)
+                .append("Description", topicContent));
         if (fileDataBase64 != null) {
-            updateFields.append("ImageData", fileDataBase64);
+            updateFields.get("$set", Document.class).append("ImageData", fileDataBase64);
         }
 
-        // Update document in MongoDB
-        collection.updateOne(Filters.eq("_id", new ObjectId(topicId)), new Document("$set", updateFields));
+        collection.updateOne(Filters.eq("_id", new ObjectId(topicId)), updateFields);
+        response.sendRedirect("ReadTopicMemberController?userId=" + userId);
+    }
 
-        // Respond with success message
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().write("Topic updated successfully");
+    private boolean isValidObjectId(String id) {
+        return id != null && id.length() == 24 && id.matches("[0-9a-fA-F]+");
     }
 }

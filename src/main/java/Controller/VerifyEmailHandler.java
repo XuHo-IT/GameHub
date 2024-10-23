@@ -96,8 +96,11 @@ public class VerifyEmailHandler extends HttpServlet {
                 mongoClient.close();
             }
         }
-        // Redirect to a result page or show the message
-        response.sendRedirect("verification-result.jsp");
+        // Get the verification status from the session
+        boolean isVerified = (boolean) session.getAttribute("isVerified");
+
+        // Redirect to verification-result.jsp with the status as a query parameter
+        response.sendRedirect("verification-result.jsp?verification=" + isVerified);
     }
 
     @Override

@@ -1,3 +1,4 @@
+<%@page import="utils.MongoDBConnectionManager1"%>
 <%@page import="java.time.Period"%>
 <%@page import="java.time.Duration"%>
 <%@page import="java.time.ZoneId"%>
@@ -66,11 +67,10 @@
             <div class="header-warp">
                 <div class="header-social d-flex justify-content-end">
                     <p>Follow us:</p>
-                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                    <a href="#"><i class="fa fa-behance"></i></a>
+                    <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
+                    <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
+                    <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
+                    <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
                 </div>
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
@@ -108,13 +108,8 @@
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                             <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
-                                <ul class="sub-menu">
-                                    <li><a href="top-rating-all.jsp">Top rating</a></li>
-                                    <li><a href="top-wishlist.jsp">Top wishlist</a></li>
-                                </ul></li>
+                            <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                             <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
-                            <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
-                            <li><a href="ReadGameHomeController">Home</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -146,7 +141,7 @@
             System.out.println("Topic ID: " + topicId);
 
             // Connect to MongoDB
-            MongoClient mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub"); // Your connection string
+            MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient(); 
             MongoCollection<Document> topicsCollection = mongoClient.getDatabase("GameHub").getCollection("topic");
 
             // Find the topic by its ObjectId
@@ -236,7 +231,7 @@
                     <div class="body">
                         <div class="authors">                          
                             <img src="<%= (photoUrlUser == null || photoUrlUser.isEmpty()) ? "./img/t-rex.png" : photoUrlUser%>" alt="Photo User">
-                            <div class="username"><a href=""><%=userNameTopic%></a></div>
+                            <div class="username"><a href="#"><%=userNameTopic%></a></div>
                         </div>
                         <div class="content">
                             <p style="color: lightblue; white-space: normal; word-wrap: break-word; overflow-wrap: break-word;">
@@ -260,7 +255,7 @@
                         <textarea name="comment" placeholder="comment here ..." required></textarea>
 
                         <!-- Các trường ẩn để truyền các giá trị cần thiết -->
-                        <input type="hidden" name="userid" value="<%= request.getSession().getAttribute("adminId")%>">
+                        <input type="hidden" name="userid" value="<%= request.getSession().getAttribute("userId")%>">
                         <input type="hidden" name="topicid" value="<%=topicId%>">
 
                         <!-- Nút submit để gửi form -->
@@ -330,7 +325,7 @@
                                     <p style="color: lightblue; white-space: normal; word-wrap: break-word; overflow-wrap: break-word;">
                                         <%= comment.getContent()%>
                                     </p>
-                                    <%if (!comment.getUserId().equalsIgnoreCase(request.getSession().getAttribute("adminId").toString())) {%>
+                                    <%if (!comment.getUserId().equals(request.getSession().getAttribute("userId").toString())) {%>
                                     <div class="comment">
                                         <button onclick="showReply('reply-area-<%= comment.getCommentId()%>', '<%=comment.getUserName()%>')">Reply</button>
                                     </div>
@@ -361,7 +356,7 @@
                                 <textarea name="comment" placeholder="reply here ..." required></textarea>
 
                                 <!-- Các trường ẩn để truyền các giá trị cần thiết -->
-                                <input type="hidden" name="userid" value="<%= request.getSession().getAttribute("adminId")%>">
+                                <input type="hidden" name="userid" value="<%= request.getSession().getAttribute("userId")%>">
                                 <input type="hidden" name="topicid" value="<%=topicId%>">            
 
                                 <!-- Nút submit để gửi form -->
@@ -370,7 +365,7 @@
                         </form>
                         <% }
                         } else { %>
-                        <p>No comments yet. <a href="ReadGameHomeController">Be the first to comment!</a></p>
+                        <p>No comments yet. <a href="#" id="show-comment-area">Be the first to comment!</a></p>
                         <% }%>        
                     </div>
 
@@ -395,17 +390,16 @@
                     <img src="./img/logo2.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
-                    <li><a href="ReadGameHomeController">Home</a></li>
-                    <li><a href="ReadGameListController">Games</a></li>
-                    <li><a href="">Reviews</a></li>
-                    <li><a href="">Contact</a></li>
+                    <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("userId")%>">Home</a></li>
+                    <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("userId")%>">Games</a>
+                    <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("userId")%>">Forum</a></li>
+                    <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("userId")%>">Contact</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
-                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                    <a href="#"><i class="fa fa-behance"></i></a>
+                    <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
+                    <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
+                    <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
+                    <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
                 </div>
                 <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
             </div>
@@ -516,6 +510,13 @@
                                                 var commentArea = document.getElementById("comment-area");
                                                 commentArea.classList.toggle("hide");
                                             }
+
+                                            const showCommentLink = document.getElementById("show-comment-area");
+
+                                            showCommentLink.addEventListener("click", (e) => {
+                                                e.preventDefault();  // Ngăn chặn hành động mặc định của thẻ <a>
+                                                toggleArea('comment-area');  // Gọi hàm toggleArea giống như khi bấm nút "Comment"
+                                            });
 
                                             function showReply(areaId, username) {
                                                 // Tìm tất cả các phần comment-area và ẩn chúng

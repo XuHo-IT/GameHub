@@ -1,21 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package Controller;
 
 import Model.GamePost;
 import Model.Genre;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import org.bson.types.Binary;
 import org.bson.conversions.Bson;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,17 +23,14 @@ import utils.MongoDBConnectionManager1;
 
 public class SearchController extends HttpServlet {
 
-  
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-                MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
+            MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
             MongoDatabase database = mongoClient.getDatabase("GameHub");
             MongoCollection<Document> genreCollection = database.getCollection("Genre");
             MongoCollection<Document> collection = database.getCollection("postGame");
-
             List<Genre> genres = new ArrayList<>();
 
             // Fetch genres from MongoDB only once
@@ -71,7 +62,6 @@ public class SearchController extends HttpServlet {
 
             // Create the final filter query
             FindIterable<Document> posts;
-
             if (filters.isEmpty()) {
                 posts = collection.find(); // Retrieve all posts if no filters
             } else {
@@ -91,7 +81,6 @@ public class SearchController extends HttpServlet {
                 } else {
                     fileDataBase64 = null;
                 }
-
                 GamePost gamePost = new GamePost(
                         post.getObjectId("_id").toString(),
                         post.getString("Title"),
@@ -111,17 +100,13 @@ public class SearchController extends HttpServlet {
             int itemsPerPage = 9;
             int currentPage = 1;
             String pageParam = request.getParameter("page");
-
             if (pageParam != null) {
                 currentPage = Integer.parseInt(pageParam);
             }
-
             int totalItems = postList.size();
             int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
-
             int startIndex = (currentPage - 1) * itemsPerPage;
             int endIndex = Math.min(startIndex + itemsPerPage, totalItems);
-
             // Sublist for current page
             List<GamePost> postsForCurrentPage = postList.subList(startIndex, endIndex);
 
@@ -142,6 +127,4 @@ public class SearchController extends HttpServlet {
             request.getRequestDispatcher("error-page.jsp").forward(request, response);
         }
     }
-
 }
-

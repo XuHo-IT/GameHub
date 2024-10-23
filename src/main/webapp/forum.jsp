@@ -65,11 +65,10 @@
             <div class="header-warp">
                 <div class="header-social d-flex justify-content-end">
                     <p>Follow us:</p>
-                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                    <a href="#"><i class="fa fa-behance"></i></a>
+                        <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
+                        <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
+                        <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
+                        <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
                 </div>
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
@@ -87,11 +86,7 @@
                                                <!-- Menu -->
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeController">Home</a></li>
-                            <li><a href="ReadGameListController">Games</a>						
-                                <ul class="sub-menu">
-                                    <li><a href="top-rating-all.jsp">Top rating</a></li>
-                                </ul>
-                            </li>
+                            <li><a href="ReadGameListController">Games</a></li>
                             <li><a href="ReadTopicController">Forum</a></li>
                             <li><a href="contact.jsp">Contact</a></li>
                             
@@ -105,10 +100,10 @@
         <!-- Page top section -->
         <section class="page-top-section set-bg" data-setbg="img/page-top-bg/4.jpg">
             <div class="page-info">
-                <h2>Community</h2>
+                <h2>Forum</h2>
                 <div class="site-breadcrumb">
                     <a href="ReadGameHomeController">Home</a>  /
-                    <span>Community</span>
+                    <span>Forum</span>
                 </div>
             </div>
         </section>
@@ -133,6 +128,7 @@
                                         ${topic.title}
                                     </c:otherwise>
                                 </c:choose>
+<<<<<<< HEAD
                             </a>
                         </h4>
                         <c:choose>
@@ -165,6 +161,41 @@
                     <div class="subforum-info subforum-column">
                         <b>Post by</b> <a href="#">${topic.userName}</a>
                     </div>
+=======
+                            </div>
+                            <div class="subforum-stats subforum-column center">
+                                <%
+                                    // Get the topic object from the pageContext
+                                    Topic topicObj = (Topic) pageContext.getAttribute("topic");
+
+                                    // Kết nối đến cơ sở dữ liệu MongoDB
+                                    MongoClient mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
+
+                                    // Lấy collection comment và reply
+                                    MongoCollection<Document> commentCollection = mongoClient.getDatabase("GameHub").getCollection("comment");
+                                    MongoCollection<Document> replyCollection = mongoClient.getDatabase("GameHub").getCollection("reply");
+
+                                    // Đếm số lượng bình luận cho mỗi chủ đề
+                                    long commentCount = commentCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
+
+                                    // Đếm số lượng trả lời cho mỗi chủ đề
+//                                    long replyCount = replyCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
+
+                                    // Tính tổng số lượng bình luận và trả lời cho mỗi chủ đề
+//                                    long totalCount = commentCount + replyCount;
+                                    long totalCount = commentCount;
+                                    mongoClient.close();
+                                %>
+                                <span style="font-size: 20px"><%= totalCount%><img src="./img/icons/chat-icon.png" alt=""> </span>
+                            </div>
+                            <div class="subforum-info subforum-column">
+                                <b>Post by</b> <a href="#">${topic.userName}</a>
+                            </div>
+                        </div>
+                        <hr class="subforum-devider">
+                    </c:forEach>
+
+>>>>>>> 4a7e61d314ac293c061966d4e2a08a39b8b0551d
                 </div>
                 <hr class="subforum-devider">
             </c:forEach>
@@ -191,16 +222,15 @@
                 </a>
                 <ul class="main-menu footer-menu">
                     <li><a href="ReadGameHomeController">Home</a></li>
-                    <li><a href="ReadGameLisstController">Games</a></li>
-                    <li><a href="">Reviews</a></li>
-                    <li><a href="">Contact</a></li>
+                            <li><a href="ReadGameListController">Games</a></li>
+                            <li><a href="ReadTopicController">Forum</a></li>
+                            <li><a href="contact.jsp">Contact</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
-                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                    <a href="#"><i class="fa fa-behance"></i></a>
+                    <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
+                    <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
+                    <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
+                    <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
                 </div>
                 <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
             </div>

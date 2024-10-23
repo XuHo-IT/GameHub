@@ -55,12 +55,11 @@
         <div class="header-warp">
 
             <div class="header-social d-flex justify-content-end">
-                <p>Follow us:</p>
-                <a href="#"><i class="fa fa-pinterest"></i></a>
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-                <a href="#"><i class="fa fa-dribbble"></i></a>
-                <a href="#"><i class="fa fa-behance"></i></a>
+                <p><strong>Follow us:</strong></p>
+                <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
+                <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
+                <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
+                <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
             </div>
             <div class="header-bar-warp d-flex">
                 <!-- site logo -->
@@ -75,18 +74,14 @@
                         <button class="login-btn">LOG IN</button>
                     </div>
 
-                       <!-- Menu -->
-                        <ul class="main-menu primary-menu">
-                            <li><a href="ReadGameHomeController">Home</a></li>
-                            <li><a href="ReadGameListController">Games</a>						
-                                <ul class="sub-menu">
-                                    <li><a href="top-rating-all.jsp">Top rating</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="ReadTopicController">Forum</a></li>
-                            <li><a href="contact.jsp">Contact</a></li>
-                            
-                        </ul>
+                    <!-- Menu -->
+                    <ul class="main-menu primary-menu">
+                        <li><a href="ReadGameHomeController">Home</a></li>
+                        <li><a href="ReadGameListController">Games</a></li>
+                        <li><a href="ReadTopicController">Forum</a></li>
+                        <li><a href="contact.jsp">Contact</a></li>
+
+                    </ul>
                 </nav>
             </div>
         </div>
@@ -100,14 +95,14 @@
             <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider1.jpg">
                 <div class="container">
                     <h2>Game on!</h2>
-                    <p>The platform serves as a hub for sharing the latest game news, offering users a space to stay updated on upcoming releases and industry developments.<br> It allows users to view, comment, and engage in discussions about the latest news, fostering an active gaming community. With an intuitive interface, the platform enables easy access to user-generated posts and admin-curated updates.</p>
+                    <p><strong>The platform serves as a hub for sharing the latest game news, offering users a space to stay updated on upcoming releases and industry developments.<br> It allows users to view, comment, and engage in discussions about the latest news, fostering an active gaming community. With an intuitive interface, the platform enables easy access to user-generated posts and admin-curated updates.</strong></p>
                     <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
                 </div>
             </div>
             <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider5.jpg">
                 <div class="container">
                     <h2>Game on!</h2>
-                    <p>The platform provides a centralized space for discovering and sharing game news, keeping users informed about upcoming titles and events.<br>Users can contribute by posting news, commenting on updates, and participating in forum discussions. The site promotes community interaction around gaming trends and developments.</p>
+                    <p><strong>The platform provides a centralized space for discovering and sharing game news, keeping users informed about upcoming titles and events.<br>Users can contribute by posting news, commenting on updates, and participating in forum discussions. The site promotes community interaction around gaming trends and developments.</strong></p>
                     <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
                 </div>
             </div>
@@ -234,26 +229,26 @@
 
     <!-- Intro section -->
     <section class="intro-video-section set-bg d-flex align-items-end">
-       <div class="video-container">
-           <!-- Add the video tag to autoplay the video -->
-           <video autoplay muted loop playsinline>
-               <source src="img/video.mp4" type="video/mp4">
-               Your browser does not support the video tag.
-           </video>
-       </div>
-       <div class="container">
-           <div class="video-text">
-               <h2>Promo video of the game</h2>
-               <p>Watch our exciting promotional video showcasing the latest features and gameplay of our highly anticipated game. 
-                   Dive into a thrilling world filled with immersive graphics, intense action, and engaging storylines.</p>
-           </div>
-       </div>
-   </section>
+        <div class="video-container">
+            <!-- Add the video tag to autoplay the video -->
+            <video autoplay muted loop playsinline>
+                <source src="img/Trailer.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="container">
+            <div class="video-text">
+                <h2>Promo video of the game</h2>
+                <p>Watch our exciting promotional video showcasing the latest features and gameplay of our highly anticipated game. 
+                    Dive into a thrilling world filled with immersive graphics, intense action, and engaging storylines.</p>
+            </div>
+        </div>
+    </section>
     <!-- Intro section end -->
 
 
     <!-- Featured section -->
-    <section class="featured-section" data-setbg="img/slider4.png">
+    <section class="featured-section">
         <c:forEach var="post" items="${posts}" varStatus="status">
             <c:if test="${status.index == 0}">
                 <!-- Featured background image -->
@@ -318,11 +313,10 @@
                 <li><a href="contact.jsp">Contact</a></li>
             </ul>
             <div class="footer-social d-flex justify-content-center">
-                <a href="#"><i class="fa fa-pinterest"></i></a>
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-                <a href="#"><i class="fa fa-dribbble"></i></a>
-                <a href="#"><i class="fa fa-behance"></i></a>
+                <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
+                <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
+                <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
+                <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
             </div>
             <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
         </div>
@@ -330,10 +324,12 @@
     <!-- Footer section end -->
 
 
-    <!-- Login Popup -->
+    <!-- Popup Container -->
     <div class="blur-bg-overlay"></div>
     <div class="form-popup">
         <span class="close-btn material-symbols-rounded">close</span>
+
+        <!-- Login Form -->
         <div class="form-box login">
             <div class="form-details">
                 <h2>Welcome Back</h2>
@@ -348,12 +344,10 @@
 
                     <div class="input-field">
                         <label>Email</label>
-
                         <input type="text" required name="email">
                     </div>
                     <div class="input-field">
                         <label>Password</label>
-
                         <input type="password" required name="password">
                     </div>
                     <a href="#" class="forgot-pass-link">Forgot password?</a>
@@ -371,7 +365,9 @@
                 </div>
             </div>
         </div>
-        <div class="form-box signup">
+
+        <!-- Signup Form -->
+        <div class="form-box signup" style="display: none;">
             <div class="form-details">
                 <h2>Create Account</h2>
                 <p>To become a part of our community, please sign up using your personal information.</p>
@@ -423,120 +419,190 @@
                 </div>
             </div>
         </div>
+
+        <!-- Forgot Password Form -->
+        <div class="form-box forgot-password" style="display: none;">
+            <div class="form-details">
+                <h2>Forgot Password</h2>
+                <p>Please enter your registered email address to reset your password.</p>
+            </div>
+            <div class="form-content">
+                <form id="forgotPasswordForm" action="ForgotPasswordController" method="post">
+                    <div class="input-field">
+                        <label>Enter your email</label>
+                        <input type="email" name="emailForgot" id="forgotEmail" required>
+                        <div class="error-message" id="forgotEmailError"></div>
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
+                <div class="bottom-link">
+                    <a href="#" class="back-to-login">Back to Login</a>
+                </div>
+            </div>
+        </div>
+        </div>
         <script>
-       document.addEventListener("DOMContentLoaded", function() {
-           // Get all form fields
-           const nameField = document.getElementById('name');
-           const emailField = document.getElementById('email');
-           const phoneField = document.getElementById('phone');
-           const dobField = document.getElementById('dob');
-           const addressField = document.getElementById('address');
-           const passwordField = document.getElementById('password');
-           const policyCheckbox = document.getElementById('policy');
-            
-           // Real-time validation for each field
-           nameField.addEventListener('input', validateName);
-           emailField.addEventListener('input', validateEmail);
-           phoneField.addEventListener('input', validatePhone);
-           dobField.addEventListener('input', validateDOB);
-           addressField.addEventListener('input', validateAddress);
-           passwordField.addEventListener('input', validatePassword);
-           policyCheckbox.addEventListener('change', validatePolicy);
+              document.addEventListener("DOMContentLoaded", function () {
+            // Form boxes
+            const loginForm = document.querySelector(".form-box.login");
+            const signupForm = document.querySelector(".form-box.signup");
+            const forgotPasswordForm = document.querySelector(".form-box.forgot-password");
 
-           // Validation functions
-           function validateName() {
-               const name = nameField.value.trim();
-               const nameError = document.getElementById('nameError');
-               if (name.length < 3) {
-                   nameError.textContent = 'Name must be at least 3 characters long.';
-               } else {
-                   nameError.textContent = '';
-               }
-           }
+            // Links
+            const signupLink = document.getElementById("signup-link");
+            const loginLink = document.getElementById("login-link");
+            const forgotPasswordLink = document.querySelector(".forgot-pass-link");
+            const backToLoginLink = document.querySelector(".back-to-login");
+            const hidePopupBtn = document.querySelector(".close-btn");
 
-           function validateEmail() {
-               const email = emailField.value.trim();
-               const emailError = document.getElementById('emailError');
-               const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-               if (!emailPattern.test(email)) {
-                   emailError.textContent = 'Please enter a valid email address.';
-               } else {
-                   emailError.textContent = '';
-               }
-           }
+            // Show signup form
+            signupLink.addEventListener("click", (e) => {
+                e.preventDefault();
+                loginForm.style.display = "none";
+                signupForm.style.display = "flex";
+                forgotPasswordForm.style.display = "none";
+            });
 
-           function validatePhone() {
-               const phone = phoneField.value.trim();
-               const phoneError = document.getElementById('phoneError');
-               if (phone.length !== 10 || !/^\d+$/.test(phone)) {
-                   phoneError.textContent = 'Phone number must be 10 digits long.';
-               } else {
-                   phoneError.textContent = '';
-               }
-           }
+            // Show login form
+            loginLink.addEventListener("click", (e) => {
+                e.preventDefault();
+                signupForm.style.display = "none";
+                loginForm.style.display = "flex";
+                forgotPasswordForm.style.display = "none";
+            });
 
-           function validateDOB() {
-               const dob = dobField.value.trim();
-               const dobError = document.getElementById('dobError');
-               const date = new Date(dob);
-               const today = new Date();
-               const age = today.getFullYear() - date.getFullYear();
-               if (age < 18) {
-                   dobError.textContent = 'You must be at least 18 years old.';
-               } else {
-                   dobError.textContent = '';
-               }
-           }
+            // Show forgot password form
+            forgotPasswordLink.addEventListener("click", (e) => {
+                e.preventDefault();
+                loginForm.style.display = "none";
+                forgotPasswordForm.style.display = "flex";
+                signupForm.style.display = "none";
+            });
 
-           function validateAddress() {
-               const address = addressField.value.trim();
-               const addressError = document.getElementById('addressError');
-               if (address.length < 5) {
-                   addressError.textContent = 'Address must be at least 5 characters long.';
-               } else {
-                   addressError.textContent = '';
-               }
-           }
+            // Back to login from forgot password
+            backToLoginLink.addEventListener("click", (e) => {
+                e.preventDefault();
+                forgotPasswordForm.style.display = "none";
+                loginForm.style.display = "flex";
+                signupForm.style.display = "none";
+            });
 
-           function validatePassword() {
-               const password = passwordField.value.trim();
-               const passwordError = document.getElementById('passwordError');
-               if (password.length < 6) {
-                   passwordError.textContent = 'Password must be at least 6 characters long.';
-               } else {
-                   passwordError.textContent = '';
-               }
-           }
+            // Hide the popup
+            hidePopupBtn.addEventListener("click", () => {
+                document.body.classList.remove("show-popup");
+            });
+        });
+            document.addEventListener("DOMContentLoaded", function () {
+                // Get all form fields
+                const nameField = document.getElementById('name');
+                const emailField = document.getElementById('email');
+                const phoneField = document.getElementById('phone');
+                const dobField = document.getElementById('dob');
+                const addressField = document.getElementById('address');
+                const passwordField = document.getElementById('password');
+                const policyCheckbox = document.getElementById('policy');
 
-           function validatePolicy() {
-               const policyError = document.getElementById('policyError');
-               if (!policyCheckbox.checked) {
-                   policyError.textContent = 'You must agree to the terms and conditions.';
-               } else {
-                   policyError.textContent = '';
-               }
-           }
+                // Real-time validation for each field
+                nameField.addEventListener('input', validateName);
+                emailField.addEventListener('input', validateEmail);
+                phoneField.addEventListener('input', validatePhone);
+                dobField.addEventListener('input', validateDOB);
+                addressField.addEventListener('input', validateAddress);
+                passwordField.addEventListener('input', validatePassword);
+                policyCheckbox.addEventListener('change', validatePolicy);
 
-           // Final validation before form submission (if necessary)
-           const signupForm = document.getElementById('signupForm');
-           signupForm.addEventListener('submit', function(event) {
-               validateName();
-               validateEmail();
-               validatePhone();
-               validateDOB();
-               validateAddress();
-               validatePassword();
-               validatePolicy();
+                // Validation functions
+                function validateName() {
+                    const name = nameField.value.trim();
+                    const nameError = document.getElementById('nameError');
+                    if (name.length < 3) {
+                        nameError.textContent = 'Name must be at least 3 characters long.';
+                    } else {
+                        nameError.textContent = '';
+                    }
+                }
 
-               // Prevent form submission if there are errors
-               if (document.querySelectorAll('.error-message:empty').length !== 7) {
-                   event.preventDefault();
-               }
-           });
-       });
+                function validateEmail() {
+                    const email = emailField.value.trim();
+                    const emailError = document.getElementById('emailError');
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailPattern.test(email)) {
+                        emailError.textContent = 'Please enter a valid email address.';
+                    } else {
+                        emailError.textContent = '';
+                    }
+                }
+
+                function validatePhone() {
+                    const phone = phoneField.value.trim();
+                    const phoneError = document.getElementById('phoneError');
+                    if (phone.length !== 10 || !/^\d+$/.test(phone)) {
+                        phoneError.textContent = 'Phone number must be 10 digits long.';
+                    } else {
+                        phoneError.textContent = '';
+                    }
+                }
+
+                function validateDOB() {
+                    const dob = dobField.value.trim();
+                    const dobError = document.getElementById('dobError');
+                    const date = new Date(dob);
+                    const today = new Date();
+                    const age = today.getFullYear() - date.getFullYear();
+                    if (age < 18) {
+                        dobError.textContent = 'You must be at least 18 years old.';
+                    } else {
+                        dobError.textContent = '';
+                    }
+                }
+
+                function validateAddress() {
+                    const address = addressField.value.trim();
+                    const addressError = document.getElementById('addressError');
+                    if (address.length < 5) {
+                        addressError.textContent = 'Address must be at least 5 characters long.';
+                    } else {
+                        addressError.textContent = '';
+                    }
+                }
+
+                function validatePassword() {
+                    const password = passwordField.value.trim();
+                    const passwordError = document.getElementById('passwordError');
+                    if (password.length < 6) {
+                        passwordError.textContent = 'Password must be at least 6 characters long.';
+                    } else {
+                        passwordError.textContent = '';
+                    }
+                }
+
+                function validatePolicy() {
+                    const policyError = document.getElementById('policyError');
+                    if (!policyCheckbox.checked) {
+                        policyError.textContent = 'You must agree to the terms and conditions.';
+                    } else {
+                        policyError.textContent = '';
+                    }
+                }
+
+                // Final validation before form submission (if necessary)
+                const signupForm = document.getElementById('signupForm');
+                signupForm.addEventListener('submit', function (event) {
+                    validateName();
+                    validateEmail();
+                    validatePhone();
+                    validateDOB();
+                    validateAddress();
+                    validatePassword();
+                    validatePolicy();
+
+                    // Prevent form submission if there are errors
+                    if (document.querySelectorAll('.error-message:empty').length !== 7) {
+                        event.preventDefault();
+                    }
+                });
+            });
         </script>
-    </div>
-
 
     <!--====== Javascripts & Jquery ======-->
     <script src="js/jquery-3.2.1.min.js"></script>
@@ -547,28 +613,28 @@
     <script src="js/jquery.magnific-popup.min.js"></script>
     <script src="js/main.js"></script>
     <script>
-        $(document).ready(function () {
-            $(".carousel").owlCarousel({
-                items: 5, // Number of items to show
-                loop: true, // Infinite looping
-                margin: 10, // Margin between items
-                nav: true, // Show next/prev navigation buttons
-                dots: true, // Show pagination dots
-                autoplay: true, // Auto sliding
-                autoplayTimeout: 3000, // Slide every 3 seconds
-                responsive: {// Responsive settings
-                    0: {
-                        items: 1
-                    },
-                    600: {
-                        items: 3
-                    },
-                    1000: {
-                        items: 5
+            $(document).ready(function () {
+                $(".carousel").owlCarousel({
+                    items: 5, // Number of items to show
+                    loop: true, // Infinite looping
+                    margin: 10, // Margin between items
+                    nav: true, // Show next/prev navigation buttons
+                    dots: true, // Show pagination dots
+                    autoplay: true, // Auto sliding
+                    autoplayTimeout: 3000, // Slide every 3 seconds
+                    responsive: {// Responsive settings
+                        0: {
+                            items: 1
+                        },
+                        600: {
+                            items: 3
+                        },
+                        1000: {
+                            items: 5
+                        }
                     }
-                }
+                });
             });
-        });
     </script>
     <style>
         h3.bottom-title {

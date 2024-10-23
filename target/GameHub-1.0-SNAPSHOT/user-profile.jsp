@@ -66,10 +66,17 @@
         UserModel user = mgcn.getUserById(id);
         if (user == null) {
             out.println("User not found.");
+<<<<<<< HEAD
             return; // Ng?ng x? lý n?u không tìm th?y ng??i dùng
         }
         String name = user.getName();
         String profilePicture = user.getPhotoUrl(); // Gi? s? ph??ng th?c này t?n t?i
+=======
+            return; // Ng?ng x? lÃ½ n?u khÃ´ng tÃ¬m th?y ng??i dÃ¹ng
+        }
+        String name = user.getName();
+        String profilePicture = user.getPhotoUrl(); // Gi? s? ph??ng th?c nÃ y t?n t?i
+>>>>>>> 4a7e61d314ac293c061966d4e2a08a39b8b0551d
         String email = user.getEmail();
         String phone = user.getPhone();
         String address = user.getAddress();

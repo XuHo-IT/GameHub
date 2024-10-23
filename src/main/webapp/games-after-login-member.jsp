@@ -49,7 +49,7 @@
         <!-- Header section -->
         <header class="header-section">
             <div class="header-warp">
-                    <div class="row align-items-center">
+                <div class="row align-items-center">
                     <!-- Left side: Search Form (col-7) -->
                     <div class="col-8">
                         <form action="SearchController" method="GET">
@@ -95,9 +95,6 @@
                         <div class="user-panel d-flex">
                             <!-- Bi?u t??ng gi? h�ng -->
                             <div class="cart-icon">
-                                <a href="shopping-cart.jsp">
-                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                </a>
                             </div>
                             <!-- Bi?u t??ng t�i kho?n -->
                             <div class="account-container">
@@ -131,7 +128,7 @@
 
         <!-- Page top section -->
         <section class="page-top-section set-bg" data-setbg="img/page-top-bg/1.jpg">
-            <div class="page-info">
+            <div class="page-info" style="padding-top: 35px">
                 <h2>Games</h2>
                 <div class="site-breadcrumb">
                     <a href="">Home</a>  /
@@ -227,12 +224,70 @@
         <section class="newsletter-section">
             <div class="container">
                 <h2>Subscribe to our newsletter</h2>
-                <form class="newsletter-form">
-                    <input type="text" placeholder="ENTER YOUR E-MAIL">
-                    <button class="site-btn">subscribe  <img src="img/icons/double-arrow.png" alt="#"/></button>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="text" placeholder="ENTER YOUR E-MAIL" id="emailInput" required>
+                    <button type="submit" class="site-btn">Subscribe <img src="img/icons/double-arrow.png" alt="#"/></button>
                 </form>
             </div>
         </section>
+
+        <!-- Popup Modal -->
+        <div id="popup" class="popup" style="display: none;">
+            <div class="popup-content">
+                <span class="close-btn">&times;</span>
+                <p>Thanks for subscribing to our website!We will notify when we have update</p>
+            </div>
+        </div>
+        <style>
+            .popup {
+                position: fixed;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1000;
+            }
+
+            .popup-content {
+                background-color: white;
+                padding: 20px;
+                border-radius: 5px;
+                text-align: center;
+            }
+
+            .close-btn {
+                cursor: pointer;
+                float: right;
+                font-size: 20px;
+            }
+
+        </style>
+        <script>
+            document.getElementById("newsletterForm").addEventListener("submit", function (event) {
+                event.preventDefault(); // Prevent form submission
+
+                // Show the popup
+                document.getElementById("popup").style.display = "flex";
+            });
+
+// Close the popup when the close button is clicked
+            document.querySelector(".close-btn").addEventListener("click", function () {
+                document.getElementById("popup").style.display = "none";
+            });
+
+// Close the popup when clicking outside of the popup content
+            window.addEventListener("click", function (event) {
+                const popup = document.getElementById("popup");
+                if (event.target === popup) {
+                    popup.style.display = "none";
+                }
+            });
+
+        </script>
         <!-- Newsletter section end -->
 
 

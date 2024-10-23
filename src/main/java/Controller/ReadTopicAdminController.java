@@ -86,7 +86,8 @@ public class ReadTopicAdminController extends HttpServlet {
                         topicDocument.getString("Description"),
                         imageDataBase64,
                         photoUrl,
-                        userName
+                        user.getString("Name"),
+                        topicDocument.getDate("CreatedAt")
                 );
                 topicList.add(topic);
             }

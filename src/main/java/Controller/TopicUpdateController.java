@@ -7,7 +7,6 @@ import com.mongodb.client.model.Filters;
 import org.apache.commons.io.IOUtils;
 import org.bson.Document;
 import org.bson.types.ObjectId;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -28,7 +27,6 @@ public class TopicUpdateController extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         String topicId = request.getParameter("topicId");
-
         if ("update".equals(action)) {
             updateTopic(request, response, topicId);
         }
@@ -52,7 +50,6 @@ public class TopicUpdateController extends HttpServlet {
         }
 
         String userId = (String) session.getAttribute("adminId");
-
         MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("topic");
@@ -62,7 +59,6 @@ public class TopicUpdateController extends HttpServlet {
         String topicContent = request.getParameter("topicContent");
         Part filePart = request.getPart("topicImage");
         String fileDataBase64 = null;
-
         if (filePart != null && filePart.getSize() > 0) {
             InputStream fileContent = filePart.getInputStream();
             byte[] fileDataBytes = IOUtils.toByteArray(fileContent);
@@ -71,18 +67,15 @@ public class TopicUpdateController extends HttpServlet {
 
         Document updateFields = new Document("$set", new Document("Title", topicTitle)
                 .append("Description", topicContent));
-
         if (fileDataBase64 != null) {
             updateFields.get("$set", Document.class).append("ImageData", fileDataBase64);
         }
 
         collection.updateOne(Filters.eq("_id", new ObjectId(topicId)), updateFields);
-
-        response.sendRedirect("ReadTopicMemberController?userId"+userId);
+        response.sendRedirect("ReadTopicMemberController?userId=" + userId);
     }
 
     private boolean isValidObjectId(String id) {
         return id != null && id.length() == 24 && id.matches("[0-9a-fA-F]+");
     }
-
 }

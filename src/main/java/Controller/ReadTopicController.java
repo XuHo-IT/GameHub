@@ -5,24 +5,20 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.bson.Document;
 import org.bson.types.Binary;
 import org.bson.types.ObjectId;
-
+import utils.MongoDBConnectionManager1;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-
 import Model.Topic;
-import utils.MongoDBConnectionManager1;
 
 public class ReadTopicController extends HttpServlet {
 
@@ -39,7 +35,6 @@ public class ReadTopicController extends HttpServlet {
 
             // Find all documents in the collection
             FindIterable<Document> topics = collection.find();
-
             // Map each document to a Topic object
             for (Document topicDocument : topics) {
                 Object imageData = topicDocument.get("ImageData");
@@ -60,9 +55,7 @@ public class ReadTopicController extends HttpServlet {
                     imageDataBase64 = ""; // hoặc gán URL của hình ảnh mặc định
                 }
 
-                String userName = (user != null) ? user.getString("UserName") : "Unknown User"; // Make sure the field
-                                                                                                // exists
-
+                String userName = (user != null) ? user.getString("UserName") : "Unknown User"; // Make sure the field exists
                 Topic topic = new Topic(
                         topicDocument.getObjectId("_id").toString(),
                         topicDocument.getString("UserId"),
@@ -70,33 +63,28 @@ public class ReadTopicController extends HttpServlet {
                         topicDocument.getString("Description"),
                         topicDocument.getString("ImageData"),
                         photoUrl,
-                        user.getString("Name"));
+                        user.getString("Name"),
+                        topicDocument.getDate("CreatedAt"));
                 topicList.add(topic);
             }
 
             Collections.reverse(topicList);
-
             int itemsPerPage = 6;
             int currentPage = 1;
             String pageParam = request.getParameter("page");
-
             if (pageParam != null) {
                 currentPage = Integer.parseInt(pageParam);
             }
-
             int totalItems = topicList.size();
             int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
-
             int startIndex = (currentPage - 1) * itemsPerPage;
             int endIndex = Math.min(startIndex + itemsPerPage, totalItems);
-
             // Sublist for current page
             List<Topic> topicsForCurrentPage = topicList.subList(startIndex, endIndex);
 
             request.setAttribute("topics", topicsForCurrentPage);
             request.setAttribute("totalPages", totalPages);
             request.setAttribute("currentPage", currentPage);
-
             request.getRequestDispatcher("forum.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();

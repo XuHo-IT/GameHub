@@ -31,11 +31,10 @@ public class TopicDeleteAdminController extends HttpServlet {
 
     private void deleteTopic(HttpServletRequest request, HttpServletResponse response, String topicId)
             throws ServletException, IOException {
-        
+
         // Check if the user is logged in
-          HttpSession session = request.getSession(false);
-         String userId = (String) session.getAttribute("adminId");
-       
+        HttpSession session = request.getSession(false);
+        String userId = (String) session.getAttribute("adminId");
 
         // Get MongoDB database and collection
         MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
@@ -46,6 +45,6 @@ public class TopicDeleteAdminController extends HttpServlet {
         collection.deleteOne(Filters.eq("_id", new ObjectId(topicId)));
 
         // Redirect to the appropriate page after deletion
-       response.sendRedirect("ReadTopicAdminController?userId"+userId); 
+        response.sendRedirect("ReadTopicAdminController?userId" + userId);
     }
 }

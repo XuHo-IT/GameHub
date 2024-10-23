@@ -13,6 +13,22 @@ public class UserModel {
 
     private String role;
 
+
+    public UserModel(String id, String email, String phone, String dateOfBirth, String address, String name, String password, String photoUrl, String status, String role) {
+        this.id = id;
+        this.email = email;
+        this.phone = phone;
+        this.dateOfBirth = dateOfBirth;
+        this.address = address;
+        this.name = name;
+        this.password = password;
+        this.photoUrl = photoUrl;
+        this.status = status;
+        this.role = role;
+    }
+    public UserModel(){}
+
+
     // Getters and Setters
     public String getId() { return this.id; }
     public void setId(String id) { this.id = id; }

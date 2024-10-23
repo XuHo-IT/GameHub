@@ -8,24 +8,19 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.bson.Document;
-
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-
 import utils.MongoDBConnectionManager1;
 
 @WebServlet("/vnpay-payment")
 public class VNPayPaymentServlet extends HttpServlet {
-
     private MongoDatabase database;
     private MongoCollection<Document> collection;
 
@@ -65,14 +60,11 @@ public class VNPayPaymentServlet extends HttpServlet {
         if (linkValue != null && !linkValue.isEmpty()) {
             // Start building the return URL with linkValue
             returnUrl += "?link=" + URLEncoder.encode(linkValue, StandardCharsets.UTF_8);
-
         }
         returnUrl += "&adminId=" + URLEncoder.encode(userId, StandardCharsets.UTF_8);
-
         vnp_Params.put("vnp_ReturnUrl", returnUrl); // Use the modified return URL
         vnp_Params.put("vnp_IpAddr", Config.getIpAddress(request)); // Get client IP address
         vnp_Params.put("vnp_CreateDate", Config.getCurrentDate());
-
         if (bankCode != null && !bankCode.isEmpty()) {
             vnp_Params.put("vnp_BankCode", bankCode);
         }
@@ -117,8 +109,8 @@ public class VNPayPaymentServlet extends HttpServlet {
                 .append("createDate", Config.getCurrentDate())
                 .append("userId", userId)
                 .append("userName", userName);
-
         collection.insertOne(transactionDoc); // Insert into MongoDB collection
+
         // Redirect the user to VNPay payment URL
         response.sendRedirect(paymentUrl);
     }

@@ -3,7 +3,6 @@ package Controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -11,33 +10,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-
 import org.apache.commons.io.IOUtils;
 import org.bson.Document;
-
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import java.util.Date;
-
 import utils.MongoDBConnectionManager1;
 
 @MultipartConfig
 public class TopicCreateController extends HttpServlet {
 
-  
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-       
+
         // Get the logged-in user's ID
         String userId = (String) session.getAttribute("adminId");
 
         // Retrieve form inputs
         String topicTitle = request.getParameter("topicTitle");
         String topicContent = request.getParameter("topicContent");
-          String adminId = (String) request.getSession().getAttribute("adminId");
+        String adminId = (String) request.getSession().getAttribute("adminId");
         // Handle file upload
         Part filePart = request.getPart("topicImage");
 
@@ -58,7 +52,7 @@ public class TopicCreateController extends HttpServlet {
         }
 
         // Get MongoDB database and collection
-            MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
+        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("topic");
 
@@ -75,6 +69,4 @@ public class TopicCreateController extends HttpServlet {
         // Redirect to the forum page after successful insertion
         response.sendRedirect("ReadTopicMemberController?userId=" + adminId);
     }
-
-
 }

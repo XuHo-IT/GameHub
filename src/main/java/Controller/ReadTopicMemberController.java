@@ -42,12 +42,10 @@ public class ReadTopicMemberController extends HttpServlet {
             MongoDatabase database = mongoClient.getDatabase("GameHub");
             MongoCollection<Document> collection = database.getCollection("topic");
             List<Topic> topicList = new ArrayList<>();
-
             MongoCollection<Document> usersCollection = mongoClient.getDatabase("GameHub").getCollection("superadmin");
 
             // Find all documents in the collection
             FindIterable<Document> topics = collection.find();
-
             // Map each document to a Topic object
             for (Document topicDocument : topics) {
                 Object imageData = topicDocument.get("ImageData");
@@ -68,7 +66,6 @@ public class ReadTopicMemberController extends HttpServlet {
                 }
 
                 String userName = (user != null) ? user.getString("UserName") : "Unknown User"; // Make sure the field exists
-
                 Topic topic = new Topic(
                         topicDocument.getObjectId("_id").toString(),
                         topicDocument.getString("UserId"),
@@ -76,34 +73,29 @@ public class ReadTopicMemberController extends HttpServlet {
                         topicDocument.getString("Description"),
                         topicDocument.getString("ImageData"),
                         photoUrl,
-                        user.getString("Name")
+                        user.getString("Name"),
+                        topicDocument.getDate("CreatedAt")
                 );
                 topicList.add(topic);
             }
 
             Collections.reverse(topicList);
-
             int itemsPerPage = 6;
             int currentPage = 1;
             String pageParam = request.getParameter("page");
-
             if (pageParam != null) {
                 currentPage = Integer.parseInt(pageParam);
             }
-
             int totalItems = topicList.size();
             int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
-
             int startIndex = (currentPage - 1) * itemsPerPage;
             int endIndex = Math.min(startIndex + itemsPerPage, totalItems);
-
             // Sublist for current page
             List<Topic> topicsForCurrentPage = topicList.subList(startIndex, endIndex);
 
             request.setAttribute("topics", topicsForCurrentPage);
             request.setAttribute("totalPages", totalPages);
             request.setAttribute("currentPage", currentPage);
-
             request.getRequestDispatcher("forum-after-login-member.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();

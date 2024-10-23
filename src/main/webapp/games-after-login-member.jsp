@@ -114,10 +114,23 @@
 
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
+<<<<<<< HEAD
+                            <li><a href="ReadGameHomeMemberController">Home</a></li>
+                            <li><a href="ReadGameListMemberController">Games</a>
+
+                                <ul class="sub-menu">
+                                    <li><a href="top-rating-all-after-login-member.jsp">Top rating</a></li>
+                                    <li><a href="top-wishlist-after-login-member.jsp">Top wishlist</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="contact-after-login-member.jsp">Contact</a></li>
+                            <li><a href="ReadTopicMemberController">Community</a></li>
+=======
                             <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                             <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
                             <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                             <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
+>>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
                         </ul>
                     </nav>
                 </div>

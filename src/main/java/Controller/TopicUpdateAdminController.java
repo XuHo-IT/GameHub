@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
 import utils.MongoDBConnectionManager1;
 
 @MultipartConfig
-public class TopicUpdateController extends HttpServlet {
+public class TopicUpdateAdminController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -78,7 +78,7 @@ public class TopicUpdateController extends HttpServlet {
 
         collection.updateOne(Filters.eq("_id", new ObjectId(topicId)), updateFields);
 
-        response.sendRedirect("ReadTopicMemberController?userId"+userId);
+        response.sendRedirect("ReadTopicAdminController?userId"+userId);
     }
 
     private boolean isValidObjectId(String id) {

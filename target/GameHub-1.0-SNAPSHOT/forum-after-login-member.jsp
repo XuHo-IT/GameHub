@@ -9,6 +9,7 @@
 <%@page import="com.mongodb.client.MongoClient"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
+<%@ page import="Model.Topic" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -101,11 +102,8 @@
                             <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
                             <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                             <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
-<<<<<<< HEAD
                             <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
 
-=======
->>>>>>> 4a7e61d314ac293c061966d4e2a08a39b8b0551d
                         </ul>
                     </nav>
                 </div>
@@ -148,56 +146,7 @@
                     <%MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();%>
                     <c:forEach var="topic" items="${topics}">
                         <div class="subforum-row">
-<<<<<<< HEAD
-    <div class="subforum-icon subforum-column center">
-        <img src="${topic.photoUrl}" alt="User Photo">
-    </div>
-    <div class="subforum-description subforum-column">
-        <h4>
-            <a href="forum-detail-after-login-member.jsp?id=${topic.topicId}">
-                <c:choose>
-                    <c:when test="${fn:length(topic.title) >= 60}">
-                        ${fn:substring(topic.title, 0, 60)}...
-                    </c:when>
-                    <c:otherwise>
-                        ${topic.title}
-                    </c:otherwise>
-                </c:choose>
-            </a>
-        </h4>
-        <c:choose>
-            <c:when test="${fn:length(topic.description) >= 120}">
-                <p>${fn:substring(topic.description, 0, 120)}...</p>
-            </c:when>
-            <c:otherwise>
-                <p>${topic.description}</p>
-            </c:otherwise>
-        </c:choose>
-    </div>
-    <div class="subforum-stats subforum-column center">
-        <% 
-            // Get the topic object from the pageContext
-            Topic topicObj = (Topic) pageContext.getAttribute("topic");
-            // Connect to MongoDB
-            MongoClient mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-            // Get comment and reply collections
-            MongoCollection<Document> commentCollection = mongoClient.getDatabase("GameHub").getCollection("comment");
-            MongoCollection<Document> replyCollection = mongoClient.getDatabase("GameHub").getCollection("reply");
-            // Count comments for each topic
-            long commentCount = commentCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
-            // Count replies for each topic
-            long replyCount = replyCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
-            // Calculate total number of comments and replies for each topic
-            long totalCount = commentCount + replyCount;
-        %>
-        <span><%= totalCount %><img src="./img/icons/chat-icon.png" alt=""></span>
-    </div>
-    <div class="subforum-info subforum-column">
-        <b>Post by</b> <a href="#">${topic.userName}</a>
-    </div>
-</div>
 
-=======
                             <div class="subforum-icon subforum-column center">
                                 <img src="${topic.photoUrl}" alt="User Photo">
                             </div>
@@ -277,7 +226,6 @@
                                 <%}%>
                             </div>
                         </div>
->>>>>>> 4a7e61d314ac293c061966d4e2a08a39b8b0551d
                         <hr class="subforum-devider">
                     </c:forEach>
                     <%mongoClient.close();%> 

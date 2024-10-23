@@ -51,8 +51,18 @@ public class ReadTopicMemberController extends HttpServlet {
                 Object imageData = topicDocument.get("ImageData");
                 String imageDataBase64;
 
-                // Lấy thông tin người dùng từ collection "superadmin"
-                Document user = usersCollection.find(Filters.eq("_id", new ObjectId(topicDocument.getString("UserId")))).first();
+                String userIdStr = topicDocument.getString("UserId");
+
+                // Check if the UserId exists and is a valid ObjectId
+                Document user = null;
+                if (userIdStr != null && ObjectId.isValid(userIdStr)) {
+                    user = usersCollection.find(Filters.eq("_id", new ObjectId(userIdStr))).first();
+                } else {
+                    // Handle the case where UserId is missing or invalid
+                    System.out.println("Invalid or missing UserId for topic: " + topicDocument.getObjectId("_id"));
+                }
+
+                // Assign default photo URL if no user found
                 String photoUrl = (user != null) ? user.getString("PhotoUrl") : "./img/t-rex.png";
 
                 if (imageData instanceof Binary) {
@@ -61,11 +71,11 @@ public class ReadTopicMemberController extends HttpServlet {
                 } else if (imageData instanceof String) {
                     imageDataBase64 = (String) imageData;
                 } else {
-                    // Nếu không có ImageData, sử dụng một hình ảnh mặc định
-                    imageDataBase64 = ""; // hoặc gán URL của hình ảnh mặc định
+                    imageDataBase64 = ""; // Default image or placeholder
                 }
 
-                String userName = (user != null) ? user.getString("UserName") : "Unknown User"; // Make sure the field exists
+                String userName = (user != null) ? user.getString("UserName") : "Unknown User";
+
                 Topic topic = new Topic(
                         topicDocument.getObjectId("_id").toString(),
                         topicDocument.getString("UserId"),
@@ -73,7 +83,7 @@ public class ReadTopicMemberController extends HttpServlet {
                         topicDocument.getString("Description"),
                         topicDocument.getString("ImageData"),
                         photoUrl,
-                        user.getString("Name"),
+                        (user != null) ? user.getString("Name") : "Unknown",
                         topicDocument.getDate("CreatedAt")
                 );
                 topicList.add(topic);

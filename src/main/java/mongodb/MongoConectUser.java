@@ -64,28 +64,27 @@ public class MongoConectUser {
     }
 
     // Method to update a user in the database
-    public boolean updateUser(UserModel user) {
+        public boolean updateUser(String userId, String name, String email, String phone, String address) {
         try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
             MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
             MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
-            
-            Document updatedUser = new Document("Email", user.getEmail())
-                    .append("PhoneNumber", user.getPhone())
-                    .append("DateOfBirth", user.getDateOfBirth())
-                    .append("Address", user.getAddress())
-                    .append("Name", user.getName())
-                    .append("Password", user.getPassword())
-                    .append("PhotoUrl", user.getPhotoUrl());
-            
-            // Use ObjectId for the MongoDB _id field
-            long modifiedCount = collection.updateOne(Filters.eq("_id", new ObjectId(user.getId())), new Document("$set", updatedUser)).getModifiedCount();
-            return modifiedCount > 0; // Return true if the user was updated
+
+            // Create the document to update
+            Document updatedUser = new Document("Name", name)
+                    .append("Email", email)
+                    .append("Phone", phone)
+                    .append("Address", address);
+
+            // Use ObjectId for _id field in MongoDB
+            long modifiedCount = collection.updateOne(Filters.eq("_id", new ObjectId(userId)), 
+                                                      new Document("$set", updatedUser))
+                                                      .getModifiedCount();
+            return modifiedCount > 0; // Return true if user was updated
         } catch (Exception e) {
             e.printStackTrace();
             return false; // Return false if an error occurred
         }
-    }
-
+        }
     // Method to get a user by ID
     public UserModel getUserById(String userId) {
         try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {

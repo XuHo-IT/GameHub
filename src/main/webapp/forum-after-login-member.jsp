@@ -1,3 +1,4 @@
+<%@page import="utils.MongoDBConnectionManager1"%>
 <%@page import="Model.Topic"%>
 <%@page import="com.mongodb.client.model.Filters"%>
 <%@page import="org.bson.types.ObjectId"%>
@@ -175,7 +176,7 @@
 
                                     if (topicObj != null) {
                                         // Connect to MongoDB
-                                        MongoClient mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
+                                         MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
 
                                         // Get the comment collection
                                         MongoCollection<Document> commentCollection = mongoClient.getDatabase("GameHub").getCollection("comment");
@@ -199,26 +200,18 @@
                                     // Check if the logged-in user is the owner of the post
                                     if (loggedInUserId != null && topicObj != null && loggedInUserId.equals(topicObj.getUserId())) {
                                 %>
-                                <div class="right-button-forum">
-                                    <button class=" btn-edit" style="background-color:yellow;color:black;border: none;
-                                            border-radius: 5px;
-                                            padding: 10px 20px;
-                                            font-size: 16px;
-                                            font-weight: bold;
-                                            cursor: pointer;
-                                            transition: background-color 0.3s, transform 0.2s;" 
-                                            onclick="openUpdatePopup('${topic.topicId}', '${fn:escapeXml(topic.title)}', '${fn:escapeXml(topic.description)}')">
-                                        Edit
-                                    </button>
-                                </div>
-
-                                <div class="right-button-forum">
-                                    <button class="create-btn" style="background-color:red;color:black" 
-                                            onclick="confirmDelete('${topic.topicId}')">
-                                        Delete
-                                    </button>
-                                </div>
-
+                                <!-- Button to open the Edit form -->
+                                <button  class="btn-edit" style="background-color:yellow;color:black;border: none;
+                                         border-radius: 5px; padding: 10px 20px; font-size: 16px; font-weight: bold; cursor: pointer;
+                                         transition: background-color 0.3s, transform 0.2s;" 
+                                         onclick="openUpdatePopup('${topic.topicId}', '${fn:escapeXml(topic.title)}', '${fn:escapeXml(topic.description)}')">
+                                    Edit
+                                </button>
+                                <form action="TopicDeleteController" method="post">
+                                    <input type="hidden" name="topicId" value="${topic.topicId}">
+                                    <button type="submit" name="action" value="delete" class="btn-danger " style="margin-top: 5px;
+                                            width: 69px;">Delete</button>
+                                </form>
                                 <%
                                     }
                                 %>
@@ -266,8 +259,9 @@
             </div>
         </footer>
         <!-- Footer section end -->
+
         <!-- Create Post Popup -->
-        <div class="blur-bg-overlay"></div>
+        <div class="blur-bg-overlay create-overlay"></div>
         <div class="form-popup create-post-popup">
             <span class="close-btn material-symbols-rounded" style="top:50px">close</span>
             <div class="form-box create-post">
@@ -276,7 +270,6 @@
                     <p>Please enter topic details below to share with the community</p>
                 </div>
                 <div class="form-content">
-                    <h2 style="margin-bottom: 6px">CREATE TOPIC</h2>
                     <form action="TopicCreateController" method="post" enctype="multipart/form-data">
                         <div class="input-field">
                             <label>Topic Title</label>
@@ -296,8 +289,8 @@
             </div>
         </div>
 
-        <!-- Update Topic Popup -->
-        <div class="blur-bg-overlay"></div>
+        <!-- Update Post Popup -->
+        <div class="blur-bg-overlay update-overlay"></div>
         <div class="form-popup update-topic-popup" id="updateTopicPopup" style="display:none;">
             <span class="close-btn material-symbols-rounded" onclick="closeUpdatePopup()">close</span>
             <div class="form-box update-topic">
@@ -305,7 +298,8 @@
                     <h2>Update Topic</h2>
                 </div>
                 <div class="form-content">
-                    <form id="updateTopicForm" action="" method="post" enctype="multipart/form-data">
+                    <form action="TopicUpdateController" method="post" enctype="multipart/form-data">
+                        <input type="hidden" id="updateTopicId" name="topicId">
                         <div class="input-field">
                             <label for="updateTopicTitle">Topic Title</label>
                             <input type="text" id="updateTopicTitle" name="topicTitle" required>
@@ -318,52 +312,109 @@
                             <label for="updateTopicImage">Upload Image</label>
                             <input type="file" id="updateTopicImage" name="topicImage">
                         </div>
-                        <button type="submit">Update Topic</button>
+                        <button type="submit" name="action" value="update" type="submit">Update Topic</button>
                         <button type="button" onclick="closeUpdatePopup()">Cancel</button>
                     </form>
                 </div>
             </div>
         </div>
 
+
         <script>
 
-            const formPopup = document.querySelector(".form-popup create-post-popup");
-            const showPopupBtn = document.querySelector(".create-btn"); // Button to open create post form
-            const hidePopupBtn = formPopup.querySelectorAll(".close-btn"); // Close buttons for both forms
+            // Show Create Post Popup
+            const showCreatePopupBtn = document.querySelector(".create-btn"); // Button to open create post form
+            if (showCreatePopupBtn) {
+                showCreatePopupBtn.addEventListener("click", () => {
+                    document.querySelector(".create-post-popup").style.display = "block"; // Show the create popup
+                    document.querySelector('.create-overlay').style.display = 'block'; // Show the overlay
+                    document.body.classList.add("show-popup"); // Disable scrolling
+                });
+            }
 
-            // Show create post popup
-            showPopupBtn?.addEventListener("click", () => {
+
+            function openUpdatePopup(topicId, title, description) {
+                const updatePopup = document.getElementById("updateTopicPopup");
+                const titleInput = document.getElementById("updateTopicTitle");
+                const contentTextarea = document.getElementById("updateTopicContent");
+                const topicIdInput = document.getElementById("updateTopicId"); // Get the hidden field
+
+                // Pre-fill the form with topic data
+                titleInput.value = title;
+                contentTextarea.value = description;
+                topicIdInput.value = topicId; // Set the topicId in the hidden field
+
+                // Display the update popup and overlay
+                updatePopup.style.display = "block";
+                document.querySelector('.update-overlay').style.display = 'block'; // Show the overlay
+
+                // Disable scrolling
                 document.body.classList.add("show-popup");
+            }
+
+
+            function closeUpdatePopup() {
+                // Hide both popups
+                document.getElementById("updateTopicPopup").style.display = "none";
+                document.querySelector(".create-post-popup").style.display = "none";
+                document.querySelector('.create-overlay').style.display = 'none'; // Hide the create overlay
+                document.querySelector('.update-overlay').style.display = 'none'; // Hide the update overlay
+
+                // Allow scrolling again
+                document.body.classList.remove("show-popup");
+            }
+
+// Hide Create Popup when clicking outside
+            document.querySelector('.create-overlay').addEventListener('click', function () {
+                closeUpdatePopup();
             });
 
-            // Hide both popups when close button is clicked
-            hidePopupBtn.forEach(btn => {
-                btn.addEventListener("click", () => {
-                    document.body.classList.remove("show-popup");
+// Hide Update Popup when clicking outside
+            document.querySelector('.update-overlay').addEventListener('click', function () {
+                closeUpdatePopup();
+            });
+
+// Close button handler for both forms
+            document.querySelectorAll('.close-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    closeUpdatePopup();
                 });
             });
-
-            const formPopup1 = document.querySelector(".form-popup .update-topic-popup");
-            const showPopupBtn1 = document.querySelector(".edit-btn"); // Button to open create post form
-            const hidePopupBtn1 = formPopup.querySelectorAll(".close-btn"); // Close buttons for both forms
-
-            // Show create post popup
-            showPopupBtn1?.addEventListener("click", () => {
-                document.body.classList.add("show-popup");
-            });
-
-            // Hide both popups when close button is clicked
-            hidePopupBtn1.forEach(btn => {
-                btn.addEventListener("click", () => {
-                    document.body.classList.remove("show-popup");
-                });
-            });
-
-
-        
-
-
         </script>
+        <style>
+            .show-popup {
+                overflow: hidden; /* Disable scrolling when popups are visible */
+            }
+
+            .blur-bg-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: none;
+                z-index: 999;
+            }
+
+            .create-post-popup, .update-topic-popup {
+                display: none; /* Hidden by default */
+                z-index: 1000;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: white;
+                padding: 20px;
+                box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+            }
+
+            .create-overlay, .update-overlay {
+                display: none;
+                opacity:1;
+            }
+
+        </style>
         <!--====== Javascripts & Jquery ======-->
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>

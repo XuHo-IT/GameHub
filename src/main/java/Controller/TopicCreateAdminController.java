@@ -23,7 +23,7 @@ import java.util.Date;
 import utils.MongoDBConnectionManager1;
 
 @MultipartConfig
-public class TopicCreateController extends HttpServlet {
+public class TopicCreateAdminController extends HttpServlet {
 
   
 
@@ -44,7 +44,7 @@ public class TopicCreateController extends HttpServlet {
         // Validate form inputs
         if (topicTitle == null || topicTitle.trim().isEmpty() || topicContent == null || topicContent.trim().isEmpty()) {
             request.setAttribute("errorMessage", "Title and Content are required fields.");
-            request.getRequestDispatcher("forum-after-login-member.jsp").forward(request, response);
+            request.getRequestDispatcher("forum-after-login.jsp").forward(request, response);
             return;
         }
 
@@ -73,7 +73,7 @@ public class TopicCreateController extends HttpServlet {
         collection.insertOne(topicDocument);
 
         // Redirect to the forum page after successful insertion
-        response.sendRedirect("ReadTopicMemberController?userId=" + adminId);
+        response.sendRedirect("ReadTopicAdminController?userId=" + adminId);
     }
 
 

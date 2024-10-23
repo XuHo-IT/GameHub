@@ -1,3 +1,4 @@
+<%@page import="utils.MongoDBConnectionManager1"%>
 <%@page import="Model.Topic"%>
 <%@page import="com.mongodb.client.model.Filters"%>
 <%@page import="org.bson.types.ObjectId"%>
@@ -13,9 +14,10 @@
 <%@ page import="org.bson.Document" %>
 <!DOCTYPE html>
 <html lang="zxx">
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
     <head>
-        <title>EndGame - Gaming Magazine Template</title>
+        <title>EndGam - Gaming Magazine Template</title>
         <meta charset="UTF-8">
         <meta name="description" content="EndGam Gaming Magazine Template">
         <meta name="keywords" content="endGam,gGaming, magazine, html">
@@ -100,16 +102,16 @@
                         </div>
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
-                            <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                            <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
-                            <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
-                            <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
-                            <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
+                            <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                            <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                            <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+                            <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
                         </ul>
                     </nav>
                 </div>
-            </div>
+            </div>     
         </header>	
+
         <!-- Header section end -->
 
         <section class="page-top-section set-bg" data-setbg="img/page-top-bg/4.jpg">
@@ -136,7 +138,7 @@
                         <button class="forum-button">My Topics</button>
                     </div>
                     <div class="right-button-forum">
-                        <button class="cTopic-btn forum-button">Create New Topic</button>
+                        <button class="create-btn">Create New Topic</button>
                     </div>
                 </div>
 
@@ -148,7 +150,7 @@
                             </div>
                             <div class="subforum-description subforum-column">
                                 <h4>
-                                    <a href="forum-detail-after-login.jsp?id=${topic.topicId}">
+                                    <a href="forum-detail-after-login-member.jsp?id=${topic.topicId}">
                                         <c:choose>
                                             <c:when test="${fn:length(topic.title) >= 60}">
                                                 ${fn:substring(topic.title, 0, 60)}...
@@ -170,36 +172,57 @@
                             </div>
                             <div class="subforum-stats subforum-column center">
                                 <%
-                                    // Get the topic object from the pageContext
+                                    // Get the current topic object from JSTL
                                     Topic topicObj = (Topic) pageContext.getAttribute("topic");
 
-                                    // Kết nối đến cơ sở dữ liệu MongoDB
-                                    MongoClient mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
+                                    if (topicObj != null) {
+                                        // Connect to MongoDB
+                                         MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
 
-                                    // Lấy collection comment và reply
-                                    MongoCollection<Document> commentCollection = mongoClient.getDatabase("GameHub").getCollection("comment");
-                                    MongoCollection<Document> replyCollection = mongoClient.getDatabase("GameHub").getCollection("reply");
+                                        // Get the comment collection
+                                        MongoCollection<Document> commentCollection = mongoClient.getDatabase("GameHub").getCollection("comment");
 
-                                    // Đếm số lượng bình luận cho mỗi chủ đề
-                                    long commentCount = commentCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
+                                        // Count the number of comments for the current topic
+                                        long commentCount = commentCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
 
-                                    // Đếm số lượng trả lời cho mỗi chủ đề
-//                                    long replyCount = replyCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
-
-                                    // Tính tổng số lượng bình luận và trả lời cho mỗi chủ đề
-//                                    long totalCount = commentCount + replyCount;
-                                    long totalCount = commentCount;
+                                        long totalCount = commentCount;
                                 %>
-                                <span><%= totalCount%><img src="./img/icons/chat-icon.png" alt=""> </span>
+                                <span><%= totalCount%><img src="./img/icons/chat-icon.png" alt=""></span>
+                                    <%
+                                        }
+                                    %>
                             </div>
                             <div class="subforum-info subforum-column">
                                 <b>Post by</b> <a href="#">${topic.userName}</a>
+                                <%
+                                    // Get the current user ID from the session
+                                    String loggedInUserId = (String) session.getAttribute("adminId");
+
+                                    // Check if the logged-in user is the owner of the post
+                                    if (loggedInUserId != null && topicObj != null && loggedInUserId.equals(topicObj.getUserId())) {
+                                %>
+                                <!-- Button to open the Edit form -->
+                                <button  class="btn-edit" style="background-color:yellow;color:black;border: none;
+                                         border-radius: 5px; padding: 10px 20px; font-size: 16px; font-weight: bold; cursor: pointer;
+                                         transition: background-color 0.3s, transform 0.2s;" 
+                                         onclick="openUpdatePopup('${topic.topicId}', '${fn:escapeXml(topic.title)}', '${fn:escapeXml(topic.description)}')">
+                                    Edit
+                                </button>
+                                <form action="TopicDeleteAdminController" method="post">
+                                    <input type="hidden" name="topicId" value="${topic.topicId}">
+                                    <button type="submit" name="action" value="delete" class="btn-danger " style="margin-top: 5px;
+                                            width: 69px;">Delete</button>
+                                </form>
+                                <%
+                                    }
+                                %>
                             </div>
                         </div>
                         <hr class="subforum-devider">
                     </c:forEach>
-
                 </div>
+
+
                 <div class="site-pagination" style="margin-top: 10px">
                     <c:forEach var="i" begin="1" end="${totalPages}">
                         <a href="?page=${i}" class="${i == currentPage ? 'active' : ''}">${i < 10 ? '0' + i : i}</a>
@@ -239,99 +262,161 @@
         </footer>
         <!-- Footer section end -->
 
-
-        <!-- Login Popup -->
-        <!-- Login Popup -->
-        <div class="blur-bg-overlay"></div>
-        <div class="form-popup">
-            <span class="close-btn material-symbols-rounded">close</span>
-            <div class="form-box login">
+        <!-- Create Post Popup -->
+        <div class="blur-bg-overlay create-overlay"></div>
+        <div class="form-popup create-post-popup">
+            <span class="close-btn material-symbols-rounded" style="top:50px">close</span>
+            <div class="form-box create-post">
                 <div class="form-details">
-                    <h2>Welcome Back</h2>
-                    <p>Please log in using your personal information to stay connected with us.</p>
+                    <h2>Create Topic</h2>
+                    <p>Please enter topic details below to share with the community</p>
                 </div>
                 <div class="form-content">
-                    <h2>LOGIN</h2>
-                    <form action="LoginController" method="post">
-                        <c:if test="${not empty errorMessage}">
-                            <div class="error">${errorMessage}</div>
-                        </c:if>
-
+                    <form action="TopicCreateAdminController" method="post" enctype="multipart/form-data">
                         <div class="input-field">
-                            <label>Email</label>
-
-                            <input type="text" required name="email">
+                            <label>Topic Title</label>
+                            <input type="text" name="topicTitle" required>
                         </div>
                         <div class="input-field">
-                            <label>Password</label>
-
-                            <input type="password" required name="password">
+                            <label>Topic Content</label>
+                            <textarea name="topicContent" rows="4" required></textarea>
                         </div>
-                        <a href="#" class="forgot-pass-link">Forgot password?</a>
-                        <button type="submit">Log In</button>
+                        <div class="input-field">
+                            <label>Upload Image (Optional)</label>
+                            <input type="file" name="topicImage" accept="image/*">
+                        </div>
+                        <button type="submit">Create Topic</button>
                     </form>
-                    <div class="bottom-link">
-                        Don't have an account?
-                        <a href="#" id="signup-link">Signup</a>
-                    </div>
                 </div>
             </div>
-            <div class="form-box signup">
+        </div>
+
+        <!-- Update Post Popup -->
+        <div class="blur-bg-overlay update-overlay"></div>
+        <div class="form-popup update-topic-popup" id="updateTopicPopup" style="display:none;">
+            <span class="close-btn material-symbols-rounded" onclick="closeUpdatePopup()">close</span>
+            <div class="form-box update-topic">
                 <div class="form-details">
-                    <h2>Create Account</h2>
-                    <p>To become a part of our community, please sign up using your personal information.</p>
+                    <h2>Update Topic</h2>
                 </div>
                 <div class="form-content">
-                    <h2>SIGNUP</h2>
-                    <form action="SignUpController" method="post">
+                    <form action="TopicUpdateAdminController" method="post" enctype="multipart/form-data">
+                        <input type="hidden" id="updateTopicId" name="topicId">
                         <div class="input-field">
-                            <label>Enter your name</label>
-
-                            <input type="text" required name="Name">
-                        </div>
-                        <div class="input-field">
-                            <label>Enter your email</label>
-
-                            <input type="text" required name="Email">
+                            <label for="updateTopicTitle">Topic Title</label>
+                            <input type="text" id="updateTopicTitle" name="topicTitle" required>
                         </div>
                         <div class="input-field">
-                            <label>Phone number</label>
-
-                            <input type="number" required name="Phone">
+                            <label for="updateTopicContent">Topic Content</label>
+                            <textarea id="updateTopicContent" name="topicContent" rows="4" required></textarea>
                         </div>
                         <div class="input-field">
-                            <label>Date of birth</label>
-
-                            <input type="date" required name="Dob">
+                            <label for="updateTopicImage">Upload Image</label>
+                            <input type="file" id="updateTopicImage" name="topicImage">
                         </div>
-                        <div class="input-field">
-                            <label>Address</label>
-
-                            <input type="text" required name="Address">
-                        </div>
-                        <div class="input-field">
-                            <label>Password</label>
-
-                            <input type="password" required name="Password">
-                        </div>
-                        <div class="policy-text">
-                            <input type="checkbox" id="policy">
-                            <label for="policy">
-                                I agree the
-                                <a href="#" class="option">Terms & Conditions</a>
-                            </label>
-                        </div>
-                        <button type="submit">Sign Up</button>
+                        <button type="submit" name="action" value="update" type="submit">Update Topic</button>
+                        <button type="button" onclick="closeUpdatePopup()">Cancel</button>
                     </form>
-                    <div class="bottom-link">
-                        Already have an account? 
-                        <a href="#" id="login-link">Login</a>
-                    </div>
                 </div>
             </div>
         </div>
 
 
+        <script>
+
+            // Show Create Post Popup
+            const showCreatePopupBtn = document.querySelector(".create-btn"); // Button to open create post form
+            if (showCreatePopupBtn) {
+                showCreatePopupBtn.addEventListener("click", () => {
+                    document.querySelector(".create-post-popup").style.display = "block"; // Show the create popup
+                    document.querySelector('.create-overlay').style.display = 'block'; // Show the overlay
+                    document.body.classList.add("show-popup"); // Disable scrolling
+                });
+            }
+
+
+            function openUpdatePopup(topicId, title, description) {
+                const updatePopup = document.getElementById("updateTopicPopup");
+                const titleInput = document.getElementById("updateTopicTitle");
+                const contentTextarea = document.getElementById("updateTopicContent");
+                const topicIdInput = document.getElementById("updateTopicId"); // Get the hidden field
+
+                // Pre-fill the form with topic data
+                titleInput.value = title;
+                contentTextarea.value = description;
+                topicIdInput.value = topicId; // Set the topicId in the hidden field
+
+                // Display the update popup and overlay
+                updatePopup.style.display = "block";
+                document.querySelector('.update-overlay').style.display = 'block'; // Show the overlay
+
+                // Disable scrolling
+                document.body.classList.add("show-popup");
+            }
+
+
+            function closeUpdatePopup() {
+                // Hide both popups
+                document.getElementById("updateTopicPopup").style.display = "none";
+                document.querySelector(".create-post-popup").style.display = "none";
+                document.querySelector('.create-overlay').style.display = 'none'; // Hide the create overlay
+                document.querySelector('.update-overlay').style.display = 'none'; // Hide the update overlay
+
+                // Allow scrolling again
+                document.body.classList.remove("show-popup");
+            }
+
+// Hide Create Popup when clicking outside
+            document.querySelector('.create-overlay').addEventListener('click', function () {
+                closeUpdatePopup();
+            });
+
+// Hide Update Popup when clicking outside
+            document.querySelector('.update-overlay').addEventListener('click', function () {
+                closeUpdatePopup();
+            });
+
+// Close button handler for both forms
+            document.querySelectorAll('.close-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    closeUpdatePopup();
+                });
+            });
+        </script>
+        <style>
+            .show-popup {
+                overflow: hidden; /* Disable scrolling when popups are visible */
+            }
+
+            .blur-bg-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: none;
+                z-index: 999;
+            }
+
+            .create-post-popup, .update-topic-popup {
+                display: none; /* Hidden by default */
+                z-index: 1000;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: white;
+                padding: 20px;
+                box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+            }
+
+            .create-overlay, .update-overlay {
+                display: none;
+                opacity:1;
+            }
+
+        </style>
         <!--====== Javascripts & Jquery ======-->
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
@@ -341,70 +426,5 @@
         <script src="js/jquery.magnific-popup.min.js"></script>
         <script src="js/main.js"></script>
         <script src="Forum/main.js"></script>
-
-        <div class="blur-bgg-overlay"></div>
-        <div class="ctopic-popup">
-            <span class="closeCT-btn material-symbols-rounded">close</span>
-            <div class="form-box create-topic">
-                <div class="form-details">
-                    <h2>Create New Topic</h2>
-                    <p>Please enter topic details below to share with the community.</p>
-                </div>
-                <div class="form-content">
-                    <h2>CREATE TOPIC</h2>
-                    <form action="CreateTopicController" method="post" enctype="multipart/form-data">
-                        <c:if test="${not empty errorMessage}">
-                            <div class="error">${errorMessage}</div>
-                        </c:if>
-
-                        <div class="input-field">
-                            <input type="text" name="topicTitle" required>
-                            <label>Topic Title</label>
-                        </div>
-
-                        <!-- N?i dung ch? ?? -->
-                        <div class="input-field">
-                            <textarea name="topicContent" rows="4" required></textarea>
-                            <label>Topic Content</label>
-                        </div>
-
-                        <div class="input-field">
-                            <label for="topicImage">Upload Image</label>
-                            <input type="file" name="topicImage" accept="image/*" required>
-                        </div>
-
-                        <!-- NÃºt submit -->
-                        <button type="submit">Create Topic</button>
-                    </form>
-                </div>
-
-            </div>
-        </div>
-
-        <script>
-            // L?y cÃ¡c ph?n t? popup vÃ  overlay
-            const cTopicPopup = document.querySelector(".ctopic-popup");
-            const showCTopicPopupBtn = document.querySelector(".cTopic-btn");
-            const hideCTopicPopupBtn = document.querySelector(".closeCT-btn");
-            const blurOverlay = document.querySelector(".blur-bgg-overlay");
-
-// Hi?n th? popup khi nh?n nÃºt "Create Topic"
-            showCTopicPopupBtn.addEventListener("click", () => {
-                cTopicPopup.classList.add("show-popup");
-                blurOverlay.style.display = "block";
-            });
-
-// ?n popup khi nh?n nÃºt ?Ã³ng ho?c overlay n?n m?
-            hideCTopicPopupBtn.addEventListener("click", hidePopup);
-            blurOverlay.addEventListener("click", hidePopup);
-
-// HÃ m ?n popup
-            function hidePopup() {
-                cTopicPopup.classList.remove("show-popup");
-                blurOverlay.style.display = "none";
-            }
-
-        </script>
-
     </body>   
 </html>

@@ -15,7 +15,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpSession;
 import utils.MongoDBConnectionManager1;
 
-public class TopicDeleteController extends HttpServlet {
+public class TopicDeleteAdminController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -46,6 +46,6 @@ public class TopicDeleteController extends HttpServlet {
         collection.deleteOne(Filters.eq("_id", new ObjectId(topicId)));
 
         // Redirect to the appropriate page after deletion
-       response.sendRedirect("ReadTopicMemberController?userId"+userId); 
+       response.sendRedirect("ReadTopicAdminController?userId"+userId); 
     }
 }

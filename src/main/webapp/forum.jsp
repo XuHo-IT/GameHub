@@ -122,7 +122,6 @@
                  padding: 20px;
                  max-width: 1500px">
                 <div class="subforum">
-                    <%MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();%>
                     <c:forEach var="topic" items="${topics}">
                         <div class="subforum-row">
                             <div class="subforum-icon subforum-column center">
@@ -154,6 +153,7 @@
                             </div>
                             <div class="subforum-stats subforum-column center">
                                 <%
+                                    MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
                                     // Get the topic object from the pageContext
                                     Topic topicObj = (Topic) pageContext.getAttribute("topic");
 
@@ -167,17 +167,18 @@
                                     Date date = topicObj.getDate();
                                     SimpleDateFormat sdf = new SimpleDateFormat("mm:hh a dd-MM-yyyy");
                                     String formattedDate = sdf.format(date);
+
+                                    mongoClient.close();
                                 %>
                                 <span style="font-size: 20px"><%= commentCount%> <img src="./img/icons/chat-icon.png" alt=""> </span>
                             </div>
                             <div class="subforum-info subforum-column">
                                 <b>Post by</b> <a href="#" style="font-size: 15px">${topic.userName}</a></br>
-                                <b>On</b><a style="font: "Courier ", "Courier New", monospace;"><%=formattedDate%></a>
+                                <b>On</b><a style="font-family: "Courier ", "Courier New", monospace;"><%=formattedDate%></a>
                             </div>
                         </div>
                         <hr class="subforum-devider">
                     </c:forEach>
-                    <%mongoClient.close();%>
                 </div>      
             </div>
             <div class="site-pagination" style="margin-top: 10px; justify-content: center;">

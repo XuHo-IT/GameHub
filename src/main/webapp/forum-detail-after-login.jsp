@@ -230,7 +230,7 @@
                             <div class="username"><a href="#"><%=userNameTopic%></a></div>
                         </div>
                         <div class="content">
-                            <p style="color: lightblue; white-space: normal; word-wrap: break-word; overflow-wrap: break-word;">
+                            <p style="color: lightblue; word-break: break-word; overflow-wrap: anywhere;">
                                 <%= description%>
                             </p>
 
@@ -316,7 +316,7 @@
                                     </div>
                                 </div>
                                 <div class="content">
-                                    <p style="color: lightblue; white-space: normal; word-wrap: break-word; overflow-wrap: break-word;">
+                                    <p style="color: lightblue; word-break: break-word; overflow-wrap: anywhere;">
                                         <%= comment.getContent()%>
                                     </p>
                                     <%if (!comment.getUserId().equals(request.getSession().getAttribute("adminId").toString())) {%>

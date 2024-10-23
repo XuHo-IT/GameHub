@@ -141,7 +141,6 @@
                 </div>
 
                 <div class="subforum">
-                    <%MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();%>
                     <c:forEach var="topic" items="${topics}">
                         <div class="subforum-row">
                             <div class="subforum-icon subforum-column center">
@@ -173,6 +172,7 @@
                             </div>
                             <div class="subforum-stats subforum-column center">
                                 <%
+                                    MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
                                     // Get the current topic object from JSTL
                                     Topic topicObj = (Topic) pageContext.getAttribute("topic");
 
@@ -185,18 +185,19 @@
                                     Date date = topicObj.getDate();
                                     SimpleDateFormat sdf = new SimpleDateFormat("mm:hh a dd-MM-yyyy");
                                     String formattedDate = sdf.format(date);
+
+                                    mongoClient.close();
                                 %>
                                 <span style="font-size: 20px"><%= commentCount%><img src="./img/icons/chat-icon.png" alt=""></span>
                             </div>
                             <div class="subforum-info subforum-column">
                                 <b>Post by</b> <a href="#" style="font-size: 15px">${topic.userName}</a></br>
-                                <b>On</b><a style="font: "Courier ", "Courier New", monospace;"><%=formattedDate%></a>                            
+                                <b>On</b><a style="font-family: "Courier ", "Courier New", monospace;"><%=formattedDate%></a>                            
                                 <%
-                                    // Get the current user ID from the session
-                                    String loggedInUserId = (String) session.getAttribute("adminId");
+                                    String adminId = request.getSession().getAttribute("adminId").toString();
 
                                     // Check if the logged-in user is the owner of the post
-                                    if (loggedInUserId != null && topicObj != null && loggedInUserId.equals(topicObj.getUserId())) {%>
+                                    if (topicObj.getUserId().equals(adminId)) {%>
                                 <!-- Button to open the Edit form -->
                                 <div style="display: flex; align-items: center; gap: 10px;">
                                     <button  class="btn-edit" style="background-color:yellow;
@@ -225,7 +226,6 @@
                         </div>
                         <hr class="subforum-devider">
                     </c:forEach>
-                    <%mongoClient.close();%> 
                 </div>      
             </div>
             <div class="site-pagination" style="margin-top: 10px; justify-content: center;">

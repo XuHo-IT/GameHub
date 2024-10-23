@@ -12,7 +12,7 @@ import com.mongodb.client.MongoClients;
  * @author OS
  */
 public class MongoDBConnectionManager2 {
-     private static final String CONNECTION_STRING = "mongodb+srv://LoliHunter:123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub";
+     private static final String CONNECTION_STRING = "mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub";
     private static MongoClient mongoClient;
 
     static {

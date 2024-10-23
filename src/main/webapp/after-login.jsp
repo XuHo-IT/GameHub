@@ -75,7 +75,8 @@
             <![endif]-->
 
     </head>
-
+<%
+String id = request.getParameter("id");%>
 
 
     <body>
@@ -112,7 +113,7 @@
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>                                    
-                                        <li><a href="user-profile.jsp">Account Info</a></li>
+                                        <li><a href="user-profile.jsp?id=<%=id%>">Account Info</a></li>
                                         <li>
                                             <a href="LogOutController" class="dropdown-item">Logout</a>
                                         </li>
@@ -120,13 +121,13 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Menu -->
+
+
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                             <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
                             <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                             <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
-
                         </ul>
                     </nav>
                 </div>

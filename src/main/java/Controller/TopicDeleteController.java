@@ -6,13 +6,12 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import org.bson.types.ObjectId;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import utils.MongoDBConnectionManager1;
 
 public class TopicDeleteController extends HttpServlet {
@@ -31,7 +30,6 @@ public class TopicDeleteController extends HttpServlet {
 
     private void deleteTopic(HttpServletRequest request, HttpServletResponse response, String topicId)
             throws ServletException, IOException {
-
         // Check if the user is logged in
         HttpSession session = request.getSession(false);
         String userId = (String) session.getAttribute("adminId");

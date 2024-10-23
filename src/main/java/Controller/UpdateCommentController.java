@@ -1,4 +1,4 @@
-                       package Controller;
+package Controller;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -13,16 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import utils.MongoDBConnectionManager1;
 
 public class UpdateCommentController extends HttpServlet {
-
-    private MongoClient mongoClient;
-
-    @Override
-    public void init() throws ServletException {
-        mongoClient = MongoClients.create(
-                "mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,6 +24,7 @@ public class UpdateCommentController extends HttpServlet {
         String topicId = request.getParameter("topicid");
 
         // Kết nối MongoDB
+        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("comment");
 
@@ -41,19 +35,13 @@ public class UpdateCommentController extends HttpServlet {
         Document update = new Document("$set", new Document("Content", newContent).append("Status", "edited"));
 
         try {
-           collection.updateOne(query, update);
-           destroy();
-           response.sendRedirect("forum-detail-after-login-member.jsp?id=" + topicId);
+            collection.updateOne(query, update);
+            destroy();
+            response.sendRedirect("forum-detail-after-login-member.jsp?id=" + topicId);
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.getWriter().write("Error updating comment: " + e.getMessage());
         }
     }
 
-    @Override
-    public void destroy() {
-        if (mongoClient != null) {
-            mongoClient.close();
-        }
-    }
 }

@@ -24,19 +24,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 import java.util.UUID;
+import utils.MongoDBConnectionManager1;
 
 /**
  * Combined SignUpController with email verification functionality
  */
 public class SignUpController extends HttpServlet {
-
-    private MongoClient mongoClient;
-
-    @Override
-    public void init() throws ServletException {
-        // Initialize MongoDB client
-        mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -65,7 +58,7 @@ public class SignUpController extends HttpServlet {
 
         // Create a SuperAdmin object
         SuperAdmin superAdmin = new SuperAdmin(
-                null,  // MongoDB will auto-generate the Admin ID
+                null, // MongoDB will auto-generate the Admin ID
                 name,
                 dob,
                 email,
@@ -78,6 +71,7 @@ public class SignUpController extends HttpServlet {
         );
 
         // Insert user into MongoDB
+        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("superadmin");
 
@@ -87,27 +81,27 @@ public class SignUpController extends HttpServlet {
                 .append("PhoneNumber", superAdmin.getPhone())
                 .append("DateOfBirth", new SimpleDateFormat("yyyy-MM-dd").format(superAdmin.getDob()))
                 .append("Address", superAdmin.getAddress())
-                .append("Password", superAdmin.getPassWord())  // Ideally, you should hash the password
+                .append("Password", superAdmin.getPassWord()) // Ideally, you should hash the password
                 .append("PhotoUrl", superAdmin.getPhotoUrl())
                 .append("Role", superAdmin.getRole())
                 .append("Status", superAdmin.getStatus());
 
-            // Check if the email already exists
-            Document existingUser = collection.find(Filters.eq("email", email)).first();
+        // Check if the email already exists
+        Document existingUser = collection.find(Filters.eq("email", email)).first();
 
-            if (existingUser != null) {
-                // Email already exists, handle duplicate
-                request.setAttribute("errorMessage", "This email is already registered.");
-                request.getRequestDispatcher("index.jsp").forward(request, response);
-            } else {
-                // Email doesn't exist, proceed with registration
-                collection.insertOne(user);
-                // Redirect to success page or perform other actions
-            }
+        if (existingUser != null) {
+            // Email already exists, handle duplicate
+            request.setAttribute("errorMessage", "This email is already registered.");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+        } else {
+            // Email doesn't exist, proceed with registration
+            collection.insertOne(user);
+            // Redirect to success page or perform other actions
+        }
 
         // Get the generated user ID
         ObjectId adminId = user.getObjectId("_id");
-
+        String id = adminId.toString();
         // Store user info in session
         HttpSession session = request.getSession();
         session.setAttribute("currentUser", user);
@@ -130,7 +124,7 @@ public class SignUpController extends HttpServlet {
         boolean emailSent = sendEmailVerification(superAdmin.getEmail(), verificationKey);
 
         if (emailSent) {
-            response.sendRedirect("ReadGameHomeMemberController.java");
+            response.sendRedirect("ReadGameHomeMemberController.java?id=" + id);
         } else {
             response.getWriter().write("Failed to send verification email. Please try again.");
         }
@@ -138,8 +132,8 @@ public class SignUpController extends HttpServlet {
 
     private boolean sendEmailVerification(String memberEmail, String verificationKey) {
         String subject = "GameHub: Email Verification";
-        String body = "Hello, <br/><br/>" +
-            "Please <a href='http://localhost:8080/Game_Trading_Web/VerifyEmailHandler?key=" + verificationKey + "&email=" + memberEmail + "'>click here</a> to verify your email address.";
+        String body = "Hello, <br/><br/>"
+                + "Please <a href='http://localhost:8080/Game_Trading_Web/VerifyEmailHandler?key=" + verificationKey + "&email=" + memberEmail + "'>click here</a> to verify your email address.";
 
         // Set up email properties for Gmail
         Properties properties = new Properties();
@@ -173,13 +167,6 @@ public class SignUpController extends HttpServlet {
         } catch (MessagingException e) {
             e.printStackTrace();
             return false;
-        }
-    }
-
-    @Override
-    public void destroy() {
-        if (mongoClient != null) {
-            mongoClient.close();
         }
     }
 }

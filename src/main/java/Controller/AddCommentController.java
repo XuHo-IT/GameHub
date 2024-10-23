@@ -21,17 +21,9 @@ import com.mongodb.client.MongoDatabase;
 
 import Model.Comment;
 import java.time.LocalDateTime;
+import utils.MongoDBConnectionManager1;
 
 public class AddCommentController extends HttpServlet {
-
-    private MongoClient mongoClient;
-
-    @Override
-    public void init() throws ServletException {
-        mongoClient = MongoClients.create(
-                "mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-        // Start the daily scheduler to check for game releases
-    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -43,23 +35,17 @@ public class AddCommentController extends HttpServlet {
 
         LocalDateTime currentDateTime = LocalDateTime.now();
 
+        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("comment");
-        
-        Document comments = new Document("TopicId",topicId)
+
+        Document comments = new Document("TopicId", topicId)
                 .append("UserId", userId)
                 .append("Content", comment)
                 .append("Status", "unedited")
                 .append("Date", currentDateTime);
         collection.insertOne(comments);
-        destroy();
         response.sendRedirect("forum-detail-after-login-member.jsp?id=" + topicId);
     }
 
-    @Override
-    public void destroy() {
-        if (mongoClient != null) {
-            mongoClient.close();
-        }
-    }
 }

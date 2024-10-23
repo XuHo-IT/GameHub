@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 
-=======
 <%@ page import="java.util.List, Model.UserModel, mongodb.MongoConectUser" %>
 >>>>>>> 237930bed13d006631de6d9c654f4cd4e978a50e
 <!DOCTYPE html>
@@ -203,7 +201,7 @@
         <div class="popup-content">
             <span class="close-btn" onclick="closeEditPopup()">&times;</span>
             <h4>Edit Information</h4>
-            <form id="editForm" action="updateUser.jsp" method="post">
+            <form id="editForm" action="EditUserController" method="post">
                 <input type="hidden" name="id" value="<%= id %>">
                 <div class="form-group">
                     <label>Name</label>

@@ -16,17 +16,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import utils.MongoDBConnectionManager1;
 
 @WebServlet("/vnpay-payment")
 public class VNPayPaymentServlet extends HttpServlet {
 
-    private MongoClient mongoClient;
     private MongoDatabase database;
     private MongoCollection<Document> collection;
 
     @Override
     public void init() throws ServletException {
-        mongoClient = MongoClients.create("mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
+        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         database = mongoClient.getDatabase("GameHub");
         collection = database.getCollection("Transaction");
     }
@@ -122,11 +122,6 @@ public class VNPayPaymentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
-    }
-
-    @Override
-    public void destroy() {
-        mongoClient.close(); // Close the MongoDB client
     }
 }
 

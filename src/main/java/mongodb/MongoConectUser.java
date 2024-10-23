@@ -21,7 +21,7 @@ import static jdk.jfr.internal.consumer.EventLog.update;
 
 
 public class MongoConectUser {
-    private static final String CONNECTION_STRING = "mongodb+srv://han:Abc123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub";
+    private static final String CONNECTION_STRING = "mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub";
     private static final String DATABASE_NAME = "GameHub";
     private static final String COLLECTION_NAME = "superadmin";
 
@@ -42,6 +42,7 @@ public class MongoConectUser {
                 user.setName(doc.getString("Name"));
                 user.setPassword(doc.getString("Password"));
                 user.setPhotoUrl(doc.getString("PhotoUrl"));
+                user.setRole(doc.getString("Role"));
                 user.setStatus(doc.getString("Status"));
                 userList.add(user);
             }
@@ -254,28 +255,36 @@ public boolean updateUserProfilePicture(String userId, String imagePath) {
         }
         return false; // Old password is incorrect or user not found
     }
-    public boolean generateGoogleAccount(String email, String name) {
-        try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
-            MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
-            MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
 
-            Document user = new Document("Name", name)
+public ObjectId createAccount(String name, String email, String phoneNumber, String dateOfBirth,
+                             String address, String password, String photoUrl) {
+    try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
+        MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
+        MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
+        ObjectId userId = new ObjectId();
+        // Create a new Document for the user with an ObjectId
+        Document newUser = new Document("_id", userId)  // Generate a new ObjectId
+                .append("Name", name)
                 .append("Email", email)
-                .append("PhoneNumber", "0123456789")
-                .append("DateOfBirth", "01-01-2024")
-                .append("Address", "FPT")
-                .append("Password", "abc123")  // Ideally, you should hash the password
-                .append("PhotoUrl", "img/logo1.png")
-                .append("Role", "0")
-                .append("Status", "Active");
+                .append("PhoneNumber", phoneNumber)
+                .append("DateOfBirth", dateOfBirth)
+                .append("Address", address)
+                .append("Password", password)
+                .append("PhotoUrl", photoUrl)
+                .append("Role", "0")  // Set role to "0" (default role)
+                .append("Status", "active");  // Set status to "active"
+                
 
-            collection.insertOne(user);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+        // Insert the document into the collection
+        collection.insertOne(newUser);
+        return userId; // Return true if the user was created successfully
+    } catch (Exception e) {
+        e.printStackTrace();
+        return null; // Return false if an error occurred
     }
+}
+
+
     public boolean emailExists(String email) {
         try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
             MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
@@ -315,4 +324,3 @@ public boolean updateUserProfilePicture(String userId, String imagePath) {
         }
     }
 }
-

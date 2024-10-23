@@ -22,15 +22,11 @@ import javax.servlet.http.HttpSession;
 import org.bson.Document;
 import org.bson.types.Binary;
 import org.bson.types.ObjectId;
+import utils.MongoDBConnectionManager1;
 
 public class ReadTopicMemberController extends HttpServlet {
 
-    private MongoClient mongoClient;
-
-    @Override
-    public void init() throws ServletException {
-        mongoClient = MongoClients.create("mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-    }
+  
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -47,6 +43,7 @@ public class ReadTopicMemberController extends HttpServlet {
             return; // Exit from the method
         }
         try {
+                MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
             MongoDatabase database = mongoClient.getDatabase("GameHub");
             MongoCollection<Document> collection = database.getCollection("topic");
             List<Topic> topicList = new ArrayList<>();
@@ -120,10 +117,4 @@ public class ReadTopicMemberController extends HttpServlet {
         }
     }
 
-    @Override
-    public void destroy() {
-        if (mongoClient != null) {
-            mongoClient.close();
-        }
-    }
 }

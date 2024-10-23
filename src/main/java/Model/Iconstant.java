@@ -9,11 +9,11 @@ package Model;
  * @author Admin
  */
 public class Iconstant {
-    public static final String GOOGLE_CLIENT_ID = "1057176700449-80af0i8rm46jtve115vp3jpv88r2mt7b.apps.googleusercontent.com";
+    public static final String GOOGLE_CLIENT_ID = "1057176700449-vfic30arnmput3sb11tug6d2m28o0m29.apps.googleusercontent.com";
 
-    public static final String GOOGLE_CLIENT_SECRET = "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";
+    public static final String GOOGLE_CLIENT_SECRET = "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";
 
-    public static final String GOOGLE_REDIRECT_URI = "http://localhost:8080/Web_Trading_Game/GoogleLoginController";
+    public static final String GOOGLE_REDIRECT_URI = "http://localhost:8080/Web_Trading_Game/GoogleLogin";
 
     public static final String GOOGLE_GRANT_TYPE = "authorization_code";
 

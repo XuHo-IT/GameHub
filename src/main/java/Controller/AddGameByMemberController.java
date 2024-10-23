@@ -20,18 +20,10 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
 import Model.GamePost;
+import utils.MongoDBConnectionManager1;
 
 @MultipartConfig
 public class AddGameByMemberController extends HttpServlet {
-
-    private MongoClient mongoClient;
-
-    @Override
-    public void init() throws ServletException {
-        mongoClient = MongoClients.create(
-                "mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-        // Start the daily scheduler to check for game releases
-    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -44,7 +36,6 @@ public class AddGameByMemberController extends HttpServlet {
         String author = request.getParameter("Author");
         String genre = request.getParameter("Genre");
         String price = "";
-
 
         // Get admin ID
         String adminId = (String) request.getSession().getAttribute("adminId");
@@ -64,6 +55,7 @@ public class AddGameByMemberController extends HttpServlet {
                 adminId, fileName, fileDataBase64);
 
         // Insert the game into MongoDB
+        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("postGameMember");
         Document postGame = new Document("Title", gamePost.getTitle())
@@ -79,16 +71,8 @@ public class AddGameByMemberController extends HttpServlet {
                 .append("Price", price);
 
         collection.insertOne(postGame);
-
-        // Redirect to the admin page
         response.sendRedirect("ReadGameHomeMemberController");
     }
 
-
-    @Override
-    public void destroy() {
-        if (mongoClient != null) {
-            mongoClient.close();
-        }
-    }
+   
 }

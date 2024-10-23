@@ -121,7 +121,23 @@
 
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
+<<<<<<< HEAD
+                            <li><a href="ReadGameHomeAdminController">Home</a></li>
+                            <li><a href="ReadGameListAdminController">Games</a>
 
+                                <ul class="sub-menu">
+                                    <li><a href="top-rating-all-after-login.jsp">Top rating</a></li>
+                                    <li><a href="top-wishlist-all-after-login.jsp">Top wishlist</a></li>
+                                </ul>
+                            </li>
+
+                            <li><a href="contact-after-login.jsp">Contact</a></li>
+                            <li><a href="chart/index-chart.jsp">Manage</a></li>
+
+                            <li><a href="forum-after-login.jsp">Community</a></li>
+                            
+
+=======
                             <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                             <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
                             <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>

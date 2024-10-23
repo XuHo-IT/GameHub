@@ -18,15 +18,14 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
+import utils.MongoDBConnectionManager1;
 
 public class GameReleaseNotificationMemberController extends HttpServlet {
 
-    private MongoClient mongoClient;
+  
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-    public GameReleaseNotificationMemberController() {
-        mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-    }
+   
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,7 +38,7 @@ public class GameReleaseNotificationMemberController extends HttpServlet {
             response.getWriter().write("Invalid email address");
             return;
         }
-
+           MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient(); 
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("postGame");
 
@@ -54,16 +53,12 @@ public class GameReleaseNotificationMemberController extends HttpServlet {
             while (cursor.hasNext()) {
                 Document gamePost = cursor.next();
                 String postGameTitle = gamePost.getString("Title");
-            
-                
-
                 emailSent = sendEmailNotification(postGameTitle, postId,adminId, userEmail);
             }
         }
         request.setAttribute(postId, "postId");
         request.setAttribute(adminId, "adminId");
 
-        // Redirect based on whether the email was sent successfully
         if (emailSent) {
             response.sendRedirect("ReadGameHomeMemberController");
         } else {

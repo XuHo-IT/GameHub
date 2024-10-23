@@ -1,20 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.io.IOException;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.fluent.Form;
+import org.apache.http.util.EntityUtils;
+import org.apache.http.HttpEntity;
+
 /**
- *
- * @author Admin
+ * Handles Google OAuth login
  */
 public class GoogleLoginHandler {
+
+    // Method to retrieve the access token using the authorization code
     public static String getToken(String code) throws ClientProtocolException, IOException {
 
         String response = Request.Post(Iconstant.GOOGLE_LINK_GET_TOKEN)
@@ -48,6 +49,8 @@ public class GoogleLoginHandler {
         return accessToken;
 
     }
+
+    // Method to retrieve user info using the access token
     public static GoogleAccount getUserInfo(final String accessToken) throws ClientProtocolException, IOException {
 
         String link = Iconstant.GOOGLE_LINK_GET_USER_INFO + accessToken;

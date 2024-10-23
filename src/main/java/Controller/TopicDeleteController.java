@@ -1,45 +1,51 @@
 package Controller;
 
 import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.Updates;
-import org.apache.commons.io.IOUtils;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Base64;
+import javax.servlet.http.HttpSession;
 import utils.MongoDBConnectionManager1;
 
-@MultipartConfig
 public class TopicDeleteController extends HttpServlet {
 
     @Override
-    protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Retrieve topic ID from the request
+        // Retrieve the action and topicId from the form submission
+        String action = request.getParameter("action");
         String topicId = request.getParameter("topicId");
 
-        // Get MongoDB database and collection
-            MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
-        MongoDatabase database = mongoClient.getDatabase("GameHub");
-        MongoCollection<Document> collection = database.getCollection("forumTopics");
+        if ("delete".equals(action)) {
+            deleteTopic(request, response, topicId);
+        }
+    }
 
-        // Delete document from MongoDB
+    private void deleteTopic(HttpServletRequest request, HttpServletResponse response, String topicId)
+            throws ServletException, IOException {
+        
+        // Check if the user is logged in
+          HttpSession session = request.getSession(false);
+         String userId = (String) session.getAttribute("adminId");
+       
+
+        // Get MongoDB database and collection
+        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
+        MongoDatabase database = mongoClient.getDatabase("GameHub");
+        MongoCollection<Document> collection = database.getCollection("topic");
+
+        // Delete the topic
         collection.deleteOne(Filters.eq("_id", new ObjectId(topicId)));
 
-        // Respond with success message
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().write("Topic deleted successfully");
+        // Redirect to the appropriate page after deletion
+       response.sendRedirect("ReadTopicMemberController?userId"+userId); 
     }
 }

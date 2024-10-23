@@ -278,7 +278,7 @@ button.create-btn{
     transition: opacity 0.3s ease;
 }
 #createTopicPopup, #updateTopicPopup {
-    opacity: 0;
+    opacity: 1;
     display: none;
     transition: opacity 0.3s ease;
 }

@@ -10,6 +10,10 @@ import Model.Iconstant;
 import Model.UserModel;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -27,6 +31,7 @@ import mongodb.MongoConectUser;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
+import org.bson.Document;
 import org.bson.types.ObjectId;
 /**
  *
@@ -75,13 +80,13 @@ public class GoogleLogin extends HttpServlet {
             String address = "";
             String password = "Abc123";
             String photoUrl = "img/logo1.png";
-            ObjectId userId = mgcn.createAccount(name, email, phoneNumber, dateOfBirth, address, password, photoUrl);
+            ObjectId userId = createAccount(name, email, phoneNumber, dateOfBirth, address, password, photoUrl);
 
         // Check if the account was created successfully
             if (userId != null) {
                 UserModel user = mgcn.getUserById(userId.toString());
                 String location = user.getRole().equals("0") ? "after-login.jsp" : "admin-after-login.jsp";
-                response.sendRedirect(location + "?id=" + id);
+                response.sendRedirect(location + "?id=" + user.getId());
             } else {
                 response.sendRedirect("index.jsp");
             }
@@ -127,6 +132,9 @@ public class GoogleLogin extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+    private static final String CONNECTION_STRING = "mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub";
+    private static final String DATABASE_NAME = "GameHub";
+    private static final String COLLECTION_NAME = "superadmin";
     public static String getToken(String code) throws ClientProtocolException, IOException {
 
         String response = Request.Post(Iconstant.GOOGLE_LINK_GET_TOKEN)
@@ -173,4 +181,31 @@ public class GoogleLogin extends HttpServlet {
         return googlePojo;
 
     }
+    public static ObjectId createAccount(String name, String email, String phoneNumber, String dateOfBirth,
+                             String address, String password, String photoUrl) {
+    try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
+        MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
+        MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
+        ObjectId userId = new ObjectId();
+        // Create a new Document for the user with an ObjectId
+        Document newUser = new Document("_id", userId)  // Generate a new ObjectId
+                .append("Name", name)
+                .append("Email", email)
+                .append("PhoneNumber", phoneNumber)
+                .append("DateOfBirth", dateOfBirth)
+                .append("Address", address)
+                .append("Password", password)
+                .append("PhotoUrl", photoUrl)
+                .append("Role", "0")  // Set role to "0" (default role)
+                .append("Status", "Active");  // Set status to "active"
+                
+
+        // Insert the document into the collection
+        collection.insertOne(newUser);
+        return userId; // Return true if the user was created successfully
+    } catch (Exception e) {
+        e.printStackTrace();
+        return null; // Return false if an error occurred
+    }
+}
 }

@@ -63,11 +63,10 @@
             <div class="header-warp">
                 <div class="header-social d-flex justify-content-end">
                     <p>Follow us:</p>
-                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                    <a href="#"><i class="fa fa-behance"></i></a>
+                    <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
+                    <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
+                    <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
+                    <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
                 </div>
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
@@ -79,12 +78,6 @@
                     </div>
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
-                            <!-- Bi?u t??ng gi? hÃ¯Â¿Â½ng -->
-                            <div class="cart-icon">
-                                <a href="shopping-cart.jsp">
-                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                </a>
-                            </div>
                             <!-- Bi?u t??ng tÃ¯Â¿Â½i kho?n -->
                             <div class="account-container">
                                 <div class="account-icon">
@@ -92,7 +85,7 @@
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
-                                        <li><a href="user-profile.jsp">Account Info</a></li>
+                                        <li><a href="user-profile.jsp?id=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
                                         <li>
                                             <a href="LogOutController" class="dropdown-item">Logout</a>
                                         </li>
@@ -102,10 +95,11 @@
                         </div>
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
-                            <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                            <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
-                            <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
-                            <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
+                            <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                            <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                            <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                            <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>                         
+                            <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -116,10 +110,10 @@
 
         <section class="page-top-section set-bg" data-setbg="img/page-top-bg/4.jpg">
             <div class="page-info">
-                <h2>Community</h2>
+                <h2>Forum</h2>
                 <div class="site-breadcrumb">
-                    <a href="ReadGameHomeController">Home</a>  /
-                    <span>Community</span>
+                    <a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a>  /
+                    <span>Forum</span>
                 </div>
             </div>
         </section>
@@ -186,6 +180,7 @@
                                         long commentCount = commentCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
 
                                         long totalCount = commentCount;
+                                    mongoClient.close();
                                 %>
                                 <span><%= totalCount%><img src="./img/icons/chat-icon.png" alt=""></span>
                                     <%
@@ -216,6 +211,7 @@
                                 <%
                                     }
                                 %>
+
                             </div>
                         </div>
                         <hr class="subforum-devider">
@@ -245,17 +241,16 @@
                     <img src="./img/logo2.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
-                    <li><a href="ReadGameHomeController">Home</a></li>
-                    <li><a href="ReadGameLisstController">Games</a></li>
-                    <li><a href="">Reviews</a></li>
-                    <li><a href="">Contact</a></li>
+                    <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                    <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                    <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>                     
+                    <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
-                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                    <a href="#"><i class="fa fa-behance"></i></a>
+                    <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
+                    <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
+                    <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
+                    <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
                 </div>
                 <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
             </div>

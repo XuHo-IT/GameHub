@@ -57,10 +57,44 @@ p {
 	line-height: 1.6;
 	font-weight: 500;
 }
+.blog-item {
+    display: flex; /* Arrange image and text in a row */
+    align-items: center; /* Vertically center-align the content (image and text) */
+    margin-bottom: 30px; /* Adds space between posts */
+}
+
+.blog-thumb {
+    flex-shrink: 0; /* Prevents the image from shrinking */
+    width: 360px; /* Sets a fixed width for the image container */
+    height: 360px; /* Sets a fixed height for the image container */
+    margin-right: 20px; /* Adds space between the image and text */
+    overflow: hidden; /* Hides any overflow from the image */
+}
+
+.blog-thumb img {
+    width: 100%; /* Ensures the image fills the container width */
+    height: 100%; /* Ensures the image fills the container height */
+    object-fit: cover; /* Crops the image to cover the container */
+}
+.blog-text {
+    flex: 1; /* Allows the text to take the remaining space */
+    color: #fff; /* Ensures text color is white as per your previous design */
+}
+.blog-text h3 {
+    margin: 0; /* Removes default margins for better alignment */
+    padding-bottom: 10px;
+}
+
+.blog-text p {
+    margin: 0; /* Removes default margins */
+}
 
 img {
-	max-width: 100%;
+    max-width: 100%;
+    height: auto;
 }
+
+
 
 input:focus,
 select:focus,
@@ -448,7 +482,7 @@ ol {
 .footer-social p,
 .geme-social-share p {
 	display: inline-block;
-	color: #9190a5;
+	color: #ffffff;
 	font-size: 16px;
 	padding-top: 4px;
 }
@@ -1021,6 +1055,7 @@ img.logo1 {
 /* --------------------
   Intro video section
 -----------------------*/
+
 .intro-video-section {
     height: 500px; /* Adjust the height to make the video smaller */
     position: relative;
@@ -1084,48 +1119,50 @@ video {
 /* ----------------
   Featured section
 ---------------------*/
-
 .featured-section {
-	position: relative;
-	overflow: hidden;
+    position: relative;
+    background-image: url('https://cdn.donmai.us/original/29/e0/__original_drawn_by_rykyart__29e0513bb8be26ba81a29deec64878eb.png'); /* Ensure the path is correct */
+    background-size: cover; /* Make the image cover the entire section */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent background repetition */
+    height: 100vh; /* Full viewport height for the section */
+    display: flex; /* Flexbox layout for proper alignment */
 }
 
 .featured-bg {
-	width: calc(50% - 156px);
-	float: left;
-	height: 100%;
-	left: 0;
-	right: 0;
-	position: absolute;
+    flex: 1; /* Takes 50% width */
+    display: flex; /* Flexbox to center the content */
+    justify-content: center;
+    align-items: center;
+    z-index: 1; /* Ensure it appears above the background */
+}
+
+.featured-bg img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
 }
 
 .featured-box {
-	float: right;
-	width: calc(50% + 156px);
-	background: #fff;
-	padding: 100px 50px 130px 79px;
+    flex: 1; /* Takes 50% width */
+    background: rgba(255, 255, 255, 0.8); /* Add transparency to show the background */
+    padding: 100px 50px 130px 79px;
+    position: relative;
+    z-index: 2; /* Ensure content appears above the background */
 }
 
 .featured-box .text-box {
-	max-width: 810px;
-}
-
-.featured-box .text-box .top-meta {
-	color: #68647d;
+    max-width: 810px;
 }
 
 .featured-box .text-box h3 {
-	font-size: 60px;
-	max-width: 100%;
+    font-size: 60px;
 }
 
 .featured-box .text-box p {
-	font-size: 16px;
+    font-size: 16px;
 }
 
-.featured-box .text-box .read-more {
-	color: #251e2f;
-}
 
 .gradient-bg,
 .newsletter-section {

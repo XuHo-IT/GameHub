@@ -55,12 +55,11 @@
         <div class="header-warp">
 
             <div class="header-social d-flex justify-content-end">
-                <p>Follow us:</p>
-                <a href="#"><i class="fa fa-pinterest"></i></a>
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-                <a href="#"><i class="fa fa-dribbble"></i></a>
-                <a href="#"><i class="fa fa-behance"></i></a>
+                <p><strong>Follow us:</strong></p>
+                            <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
+                            <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
+                            <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
+                            <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
             </div>
             <div class="header-bar-warp d-flex">
                 <!-- site logo -->
@@ -100,14 +99,14 @@
             <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider1.jpg">
                 <div class="container">
                     <h2>Game on!</h2>
-                    <p>The platform serves as a hub for sharing the latest game news, offering users a space to stay updated on upcoming releases and industry developments.<br> It allows users to view, comment, and engage in discussions about the latest news, fostering an active gaming community. With an intuitive interface, the platform enables easy access to user-generated posts and admin-curated updates.</p>
+                    <p><strong>The platform serves as a hub for sharing the latest game news, offering users a space to stay updated on upcoming releases and industry developments.<br> It allows users to view, comment, and engage in discussions about the latest news, fostering an active gaming community. With an intuitive interface, the platform enables easy access to user-generated posts and admin-curated updates.</strong></p>
                     <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
                 </div>
             </div>
             <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider5.jpg">
                 <div class="container">
                     <h2>Game on!</h2>
-                    <p>The platform provides a centralized space for discovering and sharing game news, keeping users informed about upcoming titles and events.<br>Users can contribute by posting news, commenting on updates, and participating in forum discussions. The site promotes community interaction around gaming trends and developments.</p>
+                    <p><strong>The platform provides a centralized space for discovering and sharing game news, keeping users informed about upcoming titles and events.<br>Users can contribute by posting news, commenting on updates, and participating in forum discussions. The site promotes community interaction around gaming trends and developments.</strong></p>
                     <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
                 </div>
             </div>
@@ -234,26 +233,26 @@
 
     <!-- Intro section -->
     <section class="intro-video-section set-bg d-flex align-items-end">
-       <div class="video-container">
-           <!-- Add the video tag to autoplay the video -->
-           <video autoplay muted loop playsinline>
-               <source src="img/video.mp4" type="video/mp4">
-               Your browser does not support the video tag.
-           </video>
-       </div>
-       <div class="container">
-           <div class="video-text">
-               <h2>Promo video of the game</h2>
-               <p>Watch our exciting promotional video showcasing the latest features and gameplay of our highly anticipated game. 
-                   Dive into a thrilling world filled with immersive graphics, intense action, and engaging storylines.</p>
-           </div>
-       </div>
-   </section>
+        <div class="video-container">
+            <!-- Add the video tag to autoplay the video -->
+            <video autoplay muted loop playsinline>
+                <source src="img/Trailer.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="container">
+            <div class="video-text">
+                <h2>Promo video of the game</h2>
+                <p>Watch our exciting promotional video showcasing the latest features and gameplay of our highly anticipated game. 
+                    Dive into a thrilling world filled with immersive graphics, intense action, and engaging storylines.</p>
+            </div>
+        </div>
+    </section>
     <!-- Intro section end -->
 
 
     <!-- Featured section -->
-    <section class="featured-section" data-setbg="img/slider4.png">
+    <section class="featured-section">
         <c:forEach var="post" items="${posts}" varStatus="status">
             <c:if test="${status.index == 0}">
                 <!-- Featured background image -->
@@ -318,11 +317,10 @@
                 <li><a href="contact.jsp">Contact</a></li>
             </ul>
             <div class="footer-social d-flex justify-content-center">
-                <a href="#"><i class="fa fa-pinterest"></i></a>
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-                <a href="#"><i class="fa fa-dribbble"></i></a>
-                <a href="#"><i class="fa fa-behance"></i></a>
+                <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
+                <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
+                <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
+                <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
             </div>
             <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
         </div>

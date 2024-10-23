@@ -88,11 +88,10 @@
             <div class="header-warp">
                 <div class="header-social d-flex justify-content-end">
                     <p>Follow us:</p>
-                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                    <a href="#"><i class="fa fa-behance"></i></a>
+                    <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
+                    <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
+                    <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
+                    <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
                 </div>
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
@@ -125,8 +124,9 @@
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                             <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                            <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                             <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
-                            <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
+
                         </ul>
                     </nav>
                 </div>
@@ -148,17 +148,16 @@
                         <a href="#" class="site-btn">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
                     </div>
                 </div>
-                <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center"
-                     data-setbg="img/slider-bg-2.jpg">
-                    <div class="container">
-                        <h2>Game on!</h2>
-                        <p>Fusce erat dui, venenatis et erat in, vulputate dignissim lacus. Donec vitae tempus dolor,<br>sit
-                            amet elementum lorem. Ut cursus tempor turpis.</p>
-                        <a href="#" class="site-btn">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
-                    </div>
+            </div>
+            <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider5.jpg">
+                <div class="container">
+                    <h2>Game on!</h2>
+                    <p><strong>The platform provides a centralized space for discovering and sharing game news, keeping users informed about upcoming titles and events.<br>Users can contribute by posting news, commenting on updates, and participating in forum discussions. The site promotes community interaction around gaming trends and developments.</strong></p>
+                    <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
         <!-- Hero section end-->
 
 
@@ -323,13 +322,19 @@
 
 
     <!-- Intro section -->
-    <section class="intro-video-section set-bg d-flex align-items-end " data-setbg="./img/promo-bg.jpg">
-        <a href="https://www.youtube.com/watch?v=uFsGy5x_fyQ" class="video-play-btn video-popup"><img
-                src="img/icons/solid-right-arrow.png" alt="#"></a>
+    <section class="intro-video-section set-bg d-flex align-items-end">
+        <div class="video-container">
+            <!-- Add the video tag to autoplay the video -->
+            <video autoplay muted loop playsinline>
+                <source src="img/Trailer.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
         <div class="container">
             <div class="video-text">
                 <h2>Promo video of the game</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                <p>Watch our exciting promotional video showcasing the latest features and gameplay of our highly anticipated game. 
+                    Dive into a thrilling world filled with immersive graphics, intense action, and engaging storylines.</p>
             </div>
         </div>
     </section>
@@ -338,20 +343,35 @@
 
     <!-- Featured section -->
     <section class="featured-section">
-        <div class="featured-bg set-bg" data-setbg="img/featured-bg.jpg"></div>
-        <div class="featured-box">
-            <div class="text-box">
-                <div class="top-meta">11.11.18 / in <a href="">Games</a></div>
-                <h3>The game you?ve been waiting for is out now</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Ipsum dolor sit amet, consectetur
-                    adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquamet, consectetur
-                    adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vestibulum
-                    posuere porttitor justo id pellentesque. Proin id lacus feugiat, posuere erat sit amet, commodo
-                    ipsum. Donec pellentesque vestibulum metus...</p>
-                <a href="#" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
-            </div>
-        </div>
+        <c:forEach var="post" items="${posts}" varStatus="status">
+            <c:if test="${status.index == 0}">
+                <!-- Featured background image -->
+                <div class="featured-bg set-bg col-6 d-flex justify-content-center align-items-center" style="width: calc(50% - 40px); height: 100%; ">
+                    <img src="data:image/png;base64,${post.fileData}" alt="Game Image" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+                </div>
+
+                <!-- Featured content box -->
+                <div class="featured-box col-6" >
+                    <div class="text-box" >
+                        <!-- Display post date and category dynamically -->
+                        <div class="top-meta">${post.dateRelease} / in <a href="#">${post.genre}</a></div>
+
+                        <h3>Newest game release is coming up!</h3>
+
+                        <!-- Post title -->
+                        <p style="font-size: 40px">${post.title}</p>
+
+                        <!-- Post content (short summary) -->
+                        <p>${post.description}</p>
+
+                        <!-- Read more link -->
+                        <a href="game-single.jsp?id=${post.postID}" class="read-more">Read More  
+                            <img src="img/icons/double-arrow.png" alt="#"/>
+                        </a>
+                    </div>
+                </div>
+            </c:if>
+        </c:forEach>
     </section>
     <!-- Featured section end-->
 
@@ -485,17 +505,17 @@
                 <img src="./img/logo2.png" alt="">
             </a>
             <ul class="main-menu footer-menu">
-                <li><a href="ReadGameHomeController">Home</a></li>
-                <li><a href="ReadGameListController">Games</a></li>
-                <li><a href="forum.jsp">Forum</a></li>
-                <li><a href="contact.jsp">Contact</a></li>
+                <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+
             </ul>
             <div class="footer-social d-flex justify-content-center">
-                <a href="#"><i class="fa fa-pinterest"></i></a>
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-                <a href="#"><i class="fa fa-dribbble"></i></a>
-                <a href="#"><i class="fa fa-behance"></i></a>
+                    <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
+                    <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
+                    <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
+                    <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
             </div>
             <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
         </div>

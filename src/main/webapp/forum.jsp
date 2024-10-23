@@ -65,11 +65,10 @@
             <div class="header-warp">
                 <div class="header-social d-flex justify-content-end">
                     <p>Follow us:</p>
-                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                    <a href="#"><i class="fa fa-behance"></i></a>
+                        <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
+                        <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
+                        <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
+                        <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
                 </div>
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
@@ -87,11 +86,7 @@
                                                <!-- Menu -->
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeController">Home</a></li>
-                            <li><a href="ReadGameListController">Games</a>						
-                                <ul class="sub-menu">
-                                    <li><a href="top-rating-all.jsp">Top rating</a></li>
-                                </ul>
-                            </li>
+                            <li><a href="ReadGameListController">Games</a></li>
                             <li><a href="ReadTopicController">Forum</a></li>
                             <li><a href="contact.jsp">Contact</a></li>
                             
@@ -105,10 +100,10 @@
         <!-- Page top section -->
         <section class="page-top-section set-bg" data-setbg="img/page-top-bg/4.jpg">
             <div class="page-info">
-                <h2>Community</h2>
+                <h2>Forum</h2>
                 <div class="site-breadcrumb">
                     <a href="ReadGameHomeController">Home</a>  /
-                    <span>Community</span>
+                    <span>Forum</span>
                 </div>
             </div>
         </section>
@@ -169,6 +164,7 @@
                                     // Tính tổng số lượng bình luận và trả lời cho mỗi chủ đề
 //                                    long totalCount = commentCount + replyCount;
                                     long totalCount = commentCount;
+                                    mongoClient.close();
                                 %>
                                 <span style="font-size: 20px"><%= totalCount%><img src="./img/icons/chat-icon.png" alt=""> </span>
                             </div>
@@ -203,16 +199,15 @@
                 </a>
                 <ul class="main-menu footer-menu">
                     <li><a href="ReadGameHomeController">Home</a></li>
-                    <li><a href="ReadGameLisstController">Games</a></li>
-                    <li><a href="">Reviews</a></li>
-                    <li><a href="">Contact</a></li>
+                            <li><a href="ReadGameListController">Games</a></li>
+                            <li><a href="ReadTopicController">Forum</a></li>
+                            <li><a href="contact.jsp">Contact</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
-                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                    <a href="#"><i class="fa fa-behance"></i></a>
+                    <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
+                    <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
+                    <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
+                    <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
                 </div>
                 <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
             </div>

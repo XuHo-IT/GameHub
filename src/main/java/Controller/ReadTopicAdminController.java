@@ -109,7 +109,7 @@ public class ReadTopicAdminController extends HttpServlet {
             request.setAttribute("topics", topicsForCurrentPage);
             request.setAttribute("totalPages", totalPages);
             request.setAttribute("currentPage", currentPage);
-
+            
             request.getRequestDispatcher("forum-after-login.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();

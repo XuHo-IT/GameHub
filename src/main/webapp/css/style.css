@@ -1057,7 +1057,7 @@ img.logo1 {
 -----------------------*/
 
 .intro-video-section {
-    height: 600px; /* Adjust the height to make the video smaller */
+    height: 980px; /* Adjust the height to make the video smaller */
     position: relative;
     overflow: hidden;
 }
@@ -1114,7 +1114,13 @@ video {
     -webkit-box-shadow: 0 0 9px 3px rgba(226, 30, 228, 0.5);
     box-shadow: 0 0 9px 3px rgba(226, 30, 228, 0.5);
 }
-
+/* Styles for the video inside the contact section */
+.contact-page .contact-video {
+    width: 100%;
+    height: auto; /* Adjust as needed */
+    object-fit: fill; /* Modify based on your needs, e.g., contain, fill */
+    filter: none; /* Removes any brightness or filters applied */
+}
 
 /* ----------------
   Featured section

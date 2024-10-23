@@ -1,8 +1,9 @@
-
 package Model;
 
+import java.util.Date;
 
 public class Topic {
+
     private String topicId;
     private String userId;
     private String title;
@@ -10,18 +11,20 @@ public class Topic {
     private String imageData;
     private String photoUrl;
     private String userName;
+    private Date date;
 
     public Topic() {
     }
 
-     public Topic(String topicId, String userId, String title, String description, String imageData, String photoUrl, String userName) {
+    public Topic(String topicId, String userId, String title, String description, String imageData, String photoUrl, String userName, Date date) {
         this.topicId = topicId;
         this.userId = userId;
         this.title = title;
         this.description = description;
         this.imageData = imageData;
         this.photoUrl = photoUrl;
-         this.userName = userName;
+        this.userName = userName;
+        this.date = date;
     }
 
     public String getUserName() {
@@ -79,6 +82,12 @@ public class Topic {
     public void setImageData(String imageData) {
         this.imageData = imageData;
     }
-    
-    
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 }

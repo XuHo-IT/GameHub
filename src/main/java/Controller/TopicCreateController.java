@@ -25,19 +25,17 @@ import utils.MongoDBConnectionManager1;
 @MultipartConfig
 public class TopicCreateController extends HttpServlet {
 
-  
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-       
+
         // Get the logged-in user's ID
         String userId = (String) session.getAttribute("adminId");
 
         // Retrieve form inputs
         String topicTitle = request.getParameter("topicTitle");
         String topicContent = request.getParameter("topicContent");
-          String adminId = (String) request.getSession().getAttribute("adminId");
+        String adminId = (String) request.getSession().getAttribute("adminId");
         // Handle file upload
         Part filePart = request.getPart("topicImage");
 
@@ -58,7 +56,7 @@ public class TopicCreateController extends HttpServlet {
         }
 
         // Get MongoDB database and collection
-            MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
+        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("topic");
 
@@ -75,6 +73,5 @@ public class TopicCreateController extends HttpServlet {
         // Redirect to the forum page after successful insertion
         response.sendRedirect("ReadTopicMemberController?userId=" + adminId);
     }
-
 
 }

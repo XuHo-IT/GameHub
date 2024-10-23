@@ -26,8 +26,6 @@ import utils.MongoDBConnectionManager1;
 
 public class ReadTopicMemberController extends HttpServlet {
 
-  
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -43,7 +41,7 @@ public class ReadTopicMemberController extends HttpServlet {
             return; // Exit from the method
         }
         try {
-                MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
+            MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
             MongoDatabase database = mongoClient.getDatabase("GameHub");
             MongoCollection<Document> collection = database.getCollection("topic");
             List<Topic> topicList = new ArrayList<>();
@@ -108,7 +106,7 @@ public class ReadTopicMemberController extends HttpServlet {
             request.setAttribute("topics", topicsForCurrentPage);
             request.setAttribute("totalPages", totalPages);
             request.setAttribute("currentPage", currentPage);
-            
+
             request.getRequestDispatcher("forum-after-login-member.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();

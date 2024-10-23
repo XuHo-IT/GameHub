@@ -1,3 +1,4 @@
+<%@page import="utils.MongoDBConnectionManager1"%>
 <%@page import="java.time.Period"%>
 <%@page import="java.time.Duration"%>
 <%@page import="java.time.ZoneId"%>
@@ -102,10 +103,10 @@
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                            <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
-                            <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+                            <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
                             <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
                             <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                            <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -138,7 +139,7 @@
             System.out.println("Topic ID: " + topicId);
 
             // Connect to MongoDB
-            MongoClient mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub"); // Your connection string
+            MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
             MongoCollection<Document> topicsCollection = mongoClient.getDatabase("GameHub").getCollection("topic");
 
             // Find the topic by its ObjectId
@@ -226,7 +227,7 @@
                     <div class="body">
                         <div class="authors">                          
                             <img src="<%= (photoUrlUser == null || photoUrlUser.isEmpty()) ? "./img/t-rex.png" : photoUrlUser%>" alt="Photo User">
-                            <div class="username"><a href=""><%=userNameTopic%></a></div>
+                            <div class="username"><a href="#"><%=userNameTopic%></a></div>
                         </div>
                         <div class="content">
                             <p style="color: lightblue; white-space: normal; word-wrap: break-word; overflow-wrap: break-word;">
@@ -318,7 +319,7 @@
                                     <p style="color: lightblue; white-space: normal; word-wrap: break-word; overflow-wrap: break-word;">
                                         <%= comment.getContent()%>
                                     </p>
-                                    <%if (!comment.getUserId().equalsIgnoreCase(request.getSession().getAttribute("adminId").toString())) {%>
+                                    <%if (!comment.getUserId().equals(request.getSession().getAttribute("adminId").toString())) {%>
                                     <div class="comment">
                                         <button onclick="showReply('reply-area-<%= comment.getCommentId()%>', '<%=comment.getUserName()%>')">Reply</button>
                                     </div>
@@ -364,8 +365,16 @@
                 </div>
 
             </div>
-
         </section>
+
+                    <!-- Newsletter section -->
+        <section class="newsletter-section" style="">
+            <div class="container">
+                <h3 class="bottom-title">Thanks for using our website!</h3>
+                <img src="img/Dawn.gif" alt="Game Image" style="width: 100%; height: auto;" />
+            </div>
+        </section>
+        <!-- Newsletter section end -->
 
 
         <!-- Footer section -->
@@ -383,10 +392,10 @@
                 </a>
                 <ul class="main-menu footer-menu">
                     <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                    <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
-                    <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+                    <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
                     <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
                     <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                    <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
                     <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
@@ -398,98 +407,6 @@
             </div>
         </footer>
         <!-- Footer section end -->
-
-
-        <!-- Login Popup -->
-        <div class="blur-bg-overlay"></div>
-        <div class="form-popup">
-            <span class="close-btn material-symbols-rounded">close</span>
-            <div class="form-box login">
-                <div class="form-details">
-                    <h2>Welcome Back</h2>
-                    <p>Please log in using your personal information to stay connected with us.</p>
-                </div>
-                <div class="form-content">
-                    <h2>LOGIN</h2>
-                    <form action="LoginController" method="post">
-                        <c:if test="${not empty errorMessage}">
-                            <div class="error">${errorMessage}</div>
-                        </c:if>
-
-                        <div class="input-field">
-                            <label>Email</label>
-
-                            <input type="text" required name="email">
-                        </div>
-                        <div class="input-field">
-                            <label>Password</label>
-
-                            <input type="password" required name="password">
-                        </div>
-                        <a href="#" class="forgot-pass-link">Forgot password?</a>
-                        <button type="submit">Log In</button>
-                    </form>
-                    <div class="bottom-link">
-                        Don't have an account?
-                        <a href="#" id="signup-link">Signup</a>
-                    </div>
-                </div>
-            </div>
-            <div class="form-box signup">
-                <div class="form-details">
-                    <h2>Create Account</h2>
-                    <p>To become a part of our community, please sign up using your personal information.</p>
-                </div>
-                <div class="form-content">
-                    <h2>SIGNUP</h2>
-                    <form action="SignUpController" method="post">
-                        <div class="input-field">
-                            <label>Enter your name</label>
-
-                            <input type="text" required name="Name">
-                        </div>
-                        <div class="input-field">
-                            <label>Enter your email</label>
-
-                            <input type="text" required name="Email">
-                        </div>
-                        <div class="input-field">
-                            <label>Phone number</label>
-
-                            <input type="number" required name="Phone">
-                        </div>
-                        <div class="input-field">
-                            <label>Date of birth</label>
-
-                            <input type="date" required name="Dob">
-                        </div>
-                        <div class="input-field">
-                            <label>Address</label>
-
-                            <input type="text" required name="Address">
-                        </div>
-                        <div class="input-field">
-                            <label>Password</label>
-
-                            <input type="password" required name="Password">
-                        </div>
-                        <div class="policy-text">
-                            <input type="checkbox" id="policy">
-                            <label for="policy">
-                                I agree the
-                                <a href="#" class="option">Terms & Conditions</a>
-                            </label>
-                        </div>
-                        <button type="submit">Sign Up</button>
-                    </form>
-                    <div class="bottom-link">
-                        Already have an account? 
-                        <a href="#" id="login-link">Login</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
 
         <!--====== Javascripts & Jquery ======-->
         <script src="js/jquery-3.2.1.min.js"></script>
@@ -504,7 +421,7 @@
                                                 var commentArea = document.getElementById("comment-area");
                                                 commentArea.classList.toggle("hide");
                                             }
-                                            
+
                                             // Bắt sự kiện khi bấm vào dòng chữ "Be the first to comment!"
                                             const showCommentLink = document.getElementById("show-comment-area");
 
@@ -600,6 +517,12 @@
                 float: right;
                 font-size: 24px;
                 cursor: pointer;
+            }
+            h3.bottom-title {
+                color: white;
+                font-size: 35px;
+                font-family: 'Sixtyfour Convergence';
+                padding: 0 0px 30px 0;
             }
         </style>
     </body>

@@ -34,7 +34,7 @@ public class TopicDeleteAdmin extends HttpServlet {
 
         // Check if the user is logged in
         HttpSession session = request.getSession(false);
-        String userId = (String) session.getAttribute("adminId");
+        String adminId = (String) session.getAttribute("adminId");
 
         // Get MongoDB database and collection
         MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
@@ -45,6 +45,6 @@ public class TopicDeleteAdmin extends HttpServlet {
         collection.deleteOne(Filters.eq("_id", new ObjectId(topicId)));
 
         // Redirect to the appropriate page after deletion
-        response.sendRedirect("ReadTopicAdmin?userId" + userId);
+        response.sendRedirect("ReadTopicAdmin?userId" + adminId);
     }
 }

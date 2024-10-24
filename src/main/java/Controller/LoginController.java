@@ -73,8 +73,8 @@ public class LoginController extends HttpServlet {
                 } else {
                     if ("0".equals(role)) {
                         // For role 0 (regular user)
-                        response.sendRedirect("ReadGameHomeMemberController?memberid=" + userId);
-                    } else {
+                    response.sendRedirect("ReadGameHomeMemberController");
+                } else if ("1".equals(role)) {
                         // For role 1 (admin)
                         response.sendRedirect("ReadGameHomeAdminController?adminid=" + userId);
                     }
@@ -88,8 +88,10 @@ public class LoginController extends HttpServlet {
             // If authentication fails, set an error message
             request.setAttribute("errorMessage", "Invalid email or password");
 
-            request.getRequestDispatcher("ReadGameHomeController").forward(request, response);
-
+    @Override
+    public void destroy() {
+        if (mongoClient != null) {
+            mongoClient.close();
         }
     }
 }

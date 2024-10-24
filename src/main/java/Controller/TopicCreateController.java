@@ -63,7 +63,7 @@ public class TopicCreateController extends HttpServlet {
         // Create the document for the new topic
         Document topicDocument = new Document("Title", topicTitle)
                 .append("Description", topicContent)
-                .append("ImageData", fileDataBase64 != null ? fileDataBase64 : "")
+                .append("ImageData", fileDataBase64 != null ? fileDataBase64 : null)
                 .append("UserId", userId) // Ensure userId is properly added
                 .append("CreatedAt", new Date());
 

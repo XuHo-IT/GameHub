@@ -215,13 +215,13 @@
                                              onclick="openUpdatePopup('${topic.topicId}',
                                                              '${fn:escapeXml(topic.title)}',
                                                              '${fn:escapeXml(topic.description)}')">Edit</button>
+                                    <%}%>
                                     <form action="TopicDeleteAdminController" method="post">
                                         <input type="hidden" name="topicId" value="${topic.topicId}">
                                         <button type="submit" name="action" value="delete" class="btn-danger " 
                                                 style="margin: 0; margin-top: 5px; width: 90px; height: 50px;">Delete</button>
                                     </form>
                                 </div>
-                                <%}%>
                             </div>
                         </div>
                         <hr class="subforum-devider">

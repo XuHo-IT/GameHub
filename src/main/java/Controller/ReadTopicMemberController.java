@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
 import org.bson.Document;
 import org.bson.types.Binary;
 import org.bson.types.ObjectId;
-import utils.MongoDBConnectionManager1;
+import utils.MongoDBConnectionManager2;
 
 public class ReadTopicMemberController extends HttpServlet {
 
@@ -31,6 +31,7 @@ public class ReadTopicMemberController extends HttpServlet {
             throws ServletException, IOException {
         // Check if the request is for logging out
         String action = request.getParameter("action");
+        String userId = request.getParameter("userId");
         if ("logout".equalsIgnoreCase(action)) {
             // Logout: remove session attributes and redirect
             HttpSession session = request.getSession();
@@ -41,7 +42,7 @@ public class ReadTopicMemberController extends HttpServlet {
             return; // Exit from the method
         }
         try {
-            MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
+            MongoClient mongoClient = MongoDBConnectionManager2.getMongoClient();
             MongoDatabase database = mongoClient.getDatabase("GameHub");
             MongoCollection<Document> collection = database.getCollection("topic");
             List<Topic> topicList = new ArrayList<>();
@@ -52,37 +53,53 @@ public class ReadTopicMemberController extends HttpServlet {
             FindIterable<Document> topics = collection.find();
 
             // Map each document to a Topic object
-            for (Document topicDocument : topics) {
-                Object imageData = topicDocument.get("ImageData");
-                String imageDataBase64;
+            if (topics != null) {
+                for (Document topicDocument : topics) {
+                    Object imageData = topicDocument.get("ImageData");
+                    String imageDataBase64;
 
-                // Lấy thông tin người dùng từ collection "superadmin"
-                Document user = usersCollection.find(Filters.eq("_id", new ObjectId(topicDocument.getString("UserId")))).first();
-                String photoUrl = (user != null) ? user.getString("PhotoUrl") : "./img/t-rex.png";
+                    // Lấy thông tin người dùng từ collection "superadmin"
+                    String userIdTopic = topicDocument.getString("UserId");
 
-                if (imageData instanceof Binary) {
-                    Binary imageDataBinary = (Binary) imageData;
-                    imageDataBase64 = Base64.getEncoder().encodeToString(imageDataBinary.getData());
-                } else if (imageData instanceof String) {
-                    imageDataBase64 = (String) imageData;
-                } else {
-                    // Nếu không có ImageData, sử dụng một hình ảnh mặc định
-                    imageDataBase64 = ""; // hoặc gán URL của hình ảnh mặc định
+                    Document user = null;
+                    if (userIdTopic != null && ObjectId.isValid(userIdTopic)) {
+                        user = usersCollection.find(Filters.eq("_id", new ObjectId(userIdTopic))).first();
+                    }
+
+                    String photoUrl = (user != null) ? user.getString("PhotoUrl") : "./img/t-rex.png";
+
+                    if (imageData != null) {
+                        if (imageData instanceof Binary) {
+                            Binary fileDataBinary = (Binary) imageData;
+                            byte[] data = fileDataBinary.getData();
+                            if (data != null && data.length > 0) {
+                                imageDataBase64 = Base64.getEncoder().encodeToString(data);
+                            } else {
+                                imageDataBase64 = ""; // Gán giá trị mặc định nếu không có dữ liệu
+                            }
+                        } else if (imageData instanceof String) {
+                            imageDataBase64 = (String) imageData;
+                        } else {
+                            imageDataBase64 = ""; // Gán giá trị mặc định nếu không phải là Binary hoặc String
+                        }
+                    } else {
+                        imageDataBase64 = ""; // Gán giá trị mặc định nếu imageData là null
+                    }
+
+                    String userName = (user != null && user.containsKey("User Name")) ? user.getString("User Name") : "Unknown User";
+
+                    Topic topic = new Topic(
+                            topicDocument.getObjectId("_id").toString(),
+                            topicDocument.getString("UserId"),
+                            topicDocument.getString("Title"),
+                            topicDocument.getString("Description"),
+                            imageDataBase64, // Sử dụng imageDataBase64 đã được mã hóa
+                            photoUrl,
+                            (user != null && user.containsKey("Name")) ? user.getString("Name") : "Unknown Name",
+                            topicDocument.getDate("CreatedAt")
+                    );
+                    topicList.add(topic);
                 }
-
-                String userName = (user != null) ? user.getString("UserName") : "Unknown User"; // Make sure the field exists
-
-                Topic topic = new Topic(
-                        topicDocument.getObjectId("_id").toString(),
-                        topicDocument.getString("UserId"),
-                        topicDocument.getString("Title"),
-                        topicDocument.getString("Description"),
-                        topicDocument.getString("ImageData"),
-                        photoUrl,
-                        user.getString("Name"),
-                        topicDocument.getDate("CreatedAt")
-                );
-                topicList.add(topic);
             }
 
             Collections.reverse(topicList);
@@ -108,10 +125,10 @@ public class ReadTopicMemberController extends HttpServlet {
             request.setAttribute("totalPages", totalPages);
             request.setAttribute("currentPage", currentPage);
 
-            request.getRequestDispatcher("forum-after-login-member.jsp").forward(request, response);
+            request.getRequestDispatcher("forum-after-login-member.jsp?userId="+userId).forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("errorMessage", "Error retrieving topic.");
+            request.setAttribute("errorMessage", "Error retrieving topic." + e.getMessage());
             request.getRequestDispatcher("error-page.jsp").forward(request, response);
         }
     }

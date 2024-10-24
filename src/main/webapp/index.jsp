@@ -78,7 +78,7 @@
                     <ul class="main-menu primary-menu">
                         <li><a href="ReadGameHomeController">Home</a></li>
                         <li><a href="ReadGameListController">Games</a></li>
-                        <li><a href="ReadTopicController">Forum</a></li>
+                        <li><a href="ReadTopic">Forum</a></li>
                         <li><a href="contact.jsp">Contact</a></li>
 
                     </ul>
@@ -281,17 +281,8 @@
     </section>
 
     <!-- Featured section end-->
+  <!-- Newsletter section -->
 
-
-
-    <!-- Newsletter section -->
-    <section class="newsletter-section" style="">
-        <div class="container">
-            <h3 class="bottom-title">Thanks for using our website!</h3>
-            <img src="img/Dawn.gif" alt="Game Image" style="width: 100%; height: auto;" />
-        </div>
-    </section>
-    <!-- Newsletter section end -->
 
     <!-- Footer section -->
     <footer class="footer-section">
@@ -307,10 +298,10 @@
                 <img src="./img/logo2.png" alt="">
             </a>
             <ul class="main-menu footer-menu">
-                <li><a href="ReadGameHomeController">Home</a></li>
-                <li><a href="ReadGameListController">Games</a></li>
-                <li><a href="forum.jsp">Forum</a></li>
-                <li><a href="contact.jsp">Contact</a></li>
+                        <li><a href="ReadGameHomeController">Home</a></li>
+                        <li><a href="ReadGameListController">Games</a></li>
+                        <li><a href="ReadTopic">Forum</a></li>
+                        <li><a href="contact.jsp">Contact</a></li>
             </ul>
             <div class="footer-social d-flex justify-content-center">
                 <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>

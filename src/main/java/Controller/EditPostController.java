@@ -56,7 +56,7 @@ public class EditPostController extends HttpServlet {
                 .append("Price", price));
 
         collection.updateOne(new Document("_id", new ObjectId(postId)), update);
-        response.sendRedirect("ReadGameHomeAdminController");
+        response.sendRedirect("ReadGameHomeAdmin");
     }
 
     private void deletePost(HttpServletRequest request, HttpServletResponse response, String postId)
@@ -67,6 +67,6 @@ public class EditPostController extends HttpServlet {
 
         // Delete the post document from MongoDB
         collection.deleteOne(new Document("_id", new ObjectId(postId)));
-        response.sendRedirect("ReadGameHomeAdminController");
+        response.sendRedirect("ReadGameHomeAdmin");
     }
 }

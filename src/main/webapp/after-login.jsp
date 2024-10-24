@@ -138,16 +138,13 @@ String id = request.getParameter("id");%>
 
 
         <!-- Hero section -->
-        <section class="hero-section overflow-hidden">
-            <div class="hero-slider owl-carousel">
-                <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center"
-                     data-setbg="img/slider1.jpg">
-                    <div class="container">
-                        <h2>Game on!</h2>
-                        <p>Fusce erat dui, venenatis et erat in, vulputate dignissim lacus. Donec vitae tempus dolor,<br>sit
-                            amet elementum lorem. Ut cursus tempor turpis.</p>
-                        <a href="#" class="site-btn">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
-                    </div>
+    <section class="hero-section overflow-hidden">
+        <div class="hero-slider owl-carousel">
+            <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider1.jpg">
+                <div class="container">
+                    <h2>Game on!</h2>
+                    <p><strong>The platform serves as a hub for sharing the latest game news, offering users a space to stay updated on upcoming releases and industry developments.<br> It allows users to view, comment, and engage in discussions about the latest news, fostering an active gaming community. With an intuitive interface, the platform enables easy access to user-generated posts and admin-curated updates.</strong></p>
+                    <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
                 </div>
             </div>
             <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider5.jpg">
@@ -379,116 +376,7 @@ String id = request.getParameter("id");%>
 
 
     <!-- Newsletter section -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title bg-white text-center text-primary px-3">Founder & Co-Founder</h6>
-                <h1 class="mb-5">Meet Our Founders</h1>
-            </div>
-            <div class="row g-4">
-                <!-- Team Member 1 -->
-                <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="team-item">
-                        <div class="overflow-hidden">
-                            <img class="img-fluid" src="img/team-1.jpg" alt="" />
-                        </div>
-                        <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
-                                <i class="fab fa-github"></i></a>
-                        </div>
-                        <div class="text-center p-4">
-                            <h5 class="mb-0">Nguyen Thanh Tung</h5>
-                            <small>FE DEVELOPER</small>
-                        </div>
-                    </div>
-                </div>
-                <!-- Team Member 2 -->
-                <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="team-item">
-                        <div class="overflow-hidden">
-                            <img class="img-fluid" src="img/team-2.jpg" alt="" />
-                        </div>
-                        <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
-                                <i class="fab fa-github"></i></a>
-                        </div>
-                        <div class="text-center p-4">
-                            <h5 class="mb-0">Ngo Tran Xuan Hoa</h5>
-                            <small>BE DEVELOPER</small>
-                        </div>
-                    </div>
-                </div>
-                <!-- Team Member 3 -->
-                <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="team-item">
-                        <div class="overflow-hidden">
-                            <img class="img-fluid" src="img/Card.jpg" alt="" />
-                        </div>
-                        <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
-                                <i class="fab fa-github"></i></a>
-                        </div>
-                        <div class="text-center p-4">
-                            <h5 class="mb-0">Nguyen Le Dang Thanh</h5>
-                            <small>Game Developer</small>
-                        </div>
-                    </div>
-                </div>
-                <!-- Team Member 4 -->
-                <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                    <div class="team-item">
-                        <div class="overflow-hidden">
-                            <img class="img-fluid" src="img/team-4.jpg" alt="" />
-                        </div>
-                        <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
-                                <i class="fab fa-github"></i></a>
-                        </div>
-                        <div class="text-center p-4">
-                            <h5 class="mb-0">Tran Nguyen Han</h5>
-                            <small>Designation</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                    <div class="team-item">
-                        <div class="overflow-hidden">
-                            <img class="img-fluid" src="img/team-4.jpg" alt="" />
-                        </div>
-                        <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
-                                <i class="fab fa-github"></i></a>
-                        </div>
-                        <div class="text-center p-4">
-                            <h5 class="mb-0">Nguyen Thanh Tuan</h5>
-                            <small>Designation</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                    <div class="team-item">
-                        <div class="overflow-hidden">
-                            <img class="img-fluid" src="img/team-4.jpg" alt="" />
-                        </div>
-                        <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
-                            <a class="btn btn-square mx-1"  href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
-                                <i class="fab fa-github"></i></a>
-                        </div>
-                        <div class="text-center p-4">
-                            <h5 class="mb-0">Nguyen Hoang Duong</h5>
-                            <small>Designation</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <!-- Newsletter section end -->
 
 

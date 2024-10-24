@@ -1,4 +1,3 @@
-
 <%@page import="java.nio.charset.StandardCharsets"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
@@ -142,43 +141,28 @@
                                             <input type="hidden" name="vnp_OrderType" value="game">
                                             <input type="hidden" name="vnp_ReturnUrl" value="https://yourdomain.com/VnPayReturn">
                                             <input type="hidden" name="vnp_ExpireDate" value="<%= new SimpleDateFormat("yyyyMMddHHmmss").format(new Date(System.currentTimeMillis() + 300000))%>">
-<<<<<<< HEAD
-                                            <input type="hidden" id="vnp_Link" name="vnp_Link" value=""> <!-- Add this hidden input for the link -->
-=======
-
+                                            
                                             <!-- Hidden input for the original link value -->
                                             <input type="hidden" id="vnp_Link" name="vnp_Link" value="<%= link%>"> <!-- Original link value -->
 
                                             <!-- Hidden input for the user ID -->
                                             <input type="hidden" id="user_Id" name="user_Id" value="">
 
->>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
-
                                             <button type="submit" class="btn btn-success" style="margin-top: 10px;">Proceed to Payment</button>
                                         </form>
 
                                         <script>
                                             function setLinkValue() {
-<<<<<<< HEAD
-                                                // Set the value of the vnp_Link input before form submission
-                                                var linkValue = "<%= link%>"; // Replace with your dynamic link value
-                                                document.getElementById("vnp_Link").value = linkValue;
-                                            }
-                                        </script>
-
-=======
                                                 var originalLinkValue = document.getElementById("vnp_Link").value;
                                                 var userId = "<%= userId%>";
 
-                                                var updatedLinkValue = originalLinkValue + "&UserID=" + userId + "&UserID=";
+                                                var updatedLinkValue = originalLinkValue + "&UserID=" + userId;
 
                                                 document.getElementById("vnp_Link").value = updatedLinkValue;
                                                 document.getElementById("user_Id").value = userId;
                                             }
                                         </script>
 
-
->>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
                                         <%
                                                 } else {
                                                     out.println("<p style='color:red;'>Post not found.</p>");

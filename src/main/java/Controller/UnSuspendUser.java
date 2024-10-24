@@ -20,8 +20,8 @@ import mongodb.MongoConectUser;
  *
  * @author Admin
  */
-@WebServlet(name = "UnSuspendUserController", urlPatterns = {"/UnSuspendUserController"})
-public class UnSuspendUserController extends HttpServlet {
+@WebServlet(name = "UnSuspendUser", urlPatterns = {"/UnSuspendUser"})
+public class UnSuspendUser extends HttpServlet {
 
     private MongoConectUser mgcn;
 

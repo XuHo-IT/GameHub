@@ -1,3 +1,5 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="utils.MongoDBConnectionManager1"%>
 <%@page import="Model.Topic"%>
 <%@page import="com.mongodb.client.model.Filters"%>
@@ -95,10 +97,11 @@
                         </div>
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
+
                             <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                            <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
-                            <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
-                            <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>                         
+                            <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
+                            <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>   
+                            <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>                                               
                             <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                         </ul>
                     </nav>
@@ -123,8 +126,10 @@
             <div class="container" style="
                  margin: 20px;
                  margin-top: -100px;
-                 padding: 20px;">
-
+                 margin-left: auto;
+                 margin-right: auto;
+                 padding: 20px;
+                 max-width: 1500px">
                 <!-- button -->
                 <div class="button-top-forum" >
                     <div class="left-button-forum">
@@ -144,10 +149,10 @@
                             </div>
                             <div class="subforum-description subforum-column">
                                 <h4>
-                                    <a href="forum-detail-after-login-member.jsp?id=${topic.topicId}&adminId=<%= request.getSession().getAttribute("adminId")%>">
+                                    <a href="forum-detail-after-login-member.jsp?id=${topic.topicId}&userId=${sessionScope.adminId}">
                                         <c:choose>
-                                            <c:when test="${fn:length(topic.title) >= 60}">
-                                                ${fn:substring(topic.title, 0, 60)}...
+                                            <c:when test="${fn:length(topic.title) >= 65}">
+                                                ${fn:substring(topic.title, 0, 65)}...
                                             </c:when>
                                             <c:otherwise>
                                                 ${topic.title}
@@ -156,77 +161,53 @@
                                     </a>
                                 </h4>
                                 <c:choose>
-                                    <c:when test="${fn:length(topic.description) >= 120}">
-                                        <p>${fn:substring(topic.description, 0, 120)}...</p>
+                                    <c:when test="${fn:length(topic.description) >= 360}">
+                                        <p style="word-wrap: break-word;">${fn:substring(topic.description, 0, 390)}...</p>
                                     </c:when>
                                     <c:otherwise>
-                                        <p>${topic.description}</p>
+                                        <p style="word-wrap: break-word;">
+                                            <c:out value="${topic.description}"/>
+                                        </p>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
+
                             <div class="subforum-stats subforum-column center">
-                                <%
-                                    // Get the current topic object from JSTL
-                                    Topic topicObj = (Topic) pageContext.getAttribute("topic");
-
-                                    if (topicObj != null) {
-                                        // Connect to MongoDB
-                                        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
-
-                                        // Get the comment collection
-                                        MongoCollection<Document> commentCollection = mongoClient.getDatabase("GameHub").getCollection("comment");
-
-                                        // Count the number of comments for the current topic
-                                        long commentCount = commentCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
-
-                                        long totalCount = commentCount;
-                                        mongoClient.close();
-                                %>
-                                <span><%= totalCount%><img src="./img/icons/chat-icon.png" alt=""></span>
-                                    <%
-                                        }
-                                    %>
+                                <fmt:formatDate value="${topic.date}" pattern="hh:mm a dd-MM-yyyy" var="formattedDate" />
+                                <span style="font-size: 20px">${topic.commentCount} <img src="./img/icons/chat-icon.png" alt=""></span>
                             </div>
+
                             <div class="subforum-info subforum-column">
-                                <b>Post by</b> <a href="#">${topic.userName}</a>
-                                <%
-                                    // Get the current user ID from the session
-                                    String loggedInUserId = (String) session.getAttribute("adminId");
+                                <b>Post by</b> <a href="#" style="font-size: 15px">${topic.userName}</a><br>
+                                <b>On</b> <a style="font-family: 'Courier', 'Courier New', monospace;">${formattedDate}</a>
 
-                                    // Check if the logged-in user is the owner of the post
-                                    if (loggedInUserId != null && topicObj != null && loggedInUserId.equals(topicObj.getUserId())) {
-                                %>
-                                <!-- Button to open the Edit form -->
-                                <button  class="btn-edit" style="background-color:yellow;color:black;border: none;
-                                         border-radius: 5px; padding: 10px 20px; font-size: 16px; font-weight: bold; cursor: pointer;
-                                         transition: background-color 0.3s, transform 0.2s;" 
-                                         onclick="openUpdatePopup('${topic.topicId}', '${fn:escapeXml(topic.title)}', '${fn:escapeXml(topic.description)}')">
-                                    Edit
-                                </button>
-                                <form action="TopicDeleteAdminController" method="post">
-                                    <input type="hidden" name="topicId" value="${topic.topicId}">
-                                    <button type="submit" name="action" value="delete" class="btn-danger " style="margin-top: 5px;
-                                            width: 69px;">Delete</button>
-                                </form>
-                                <%
-                                    }
-                                %>
-
+                                <c:if test="${not empty sessionScope.adminId && not empty topic.userId && sessionScope.adminId == topic.userId}">
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <button class="btn-edit" style="background-color:yellow; color:black;" 
+                                                onclick="openUpdatePopup('${topic.topicId}', '${fn:escapeXml(topic.title)}', '${fn:escapeXml(topic.description)}')">Edit</button>
+                                        <form action="TopicDelete" method="post">
+                                            <input type="hidden" name="topicId" value="${topic.topicId}">
+                                            <button type="submit"  name="action" value="delete" class="btn-danger">Delete</button>
+                                        </form>
+                                    </div>
+                                </c:if>
                             </div>
+
                         </div>
                         <hr class="subforum-devider">
                     </c:forEach>
                 </div>
 
 
-                <div class="site-pagination" style="margin-top: 10px">
-                    <c:forEach var="i" begin="1" end="${totalPages}">
-                        <a href="?page=${i}" class="${i == currentPage ? 'active' : ''}">${i < 10 ? '0' + i : i}</a>
-                    </c:forEach>
-                </div>
+
+            </div>
+            <div class="site-pagination" style="margin-top: 10px; justify-content: center;">
+                <c:forEach var="i" begin="1" end="${totalPages}">
+                    <a href="?page=${i}" class="${i == currentPage ? 'active' : ''}">${i < 10 ? '0' + i : i}</a>
+                </c:forEach>
             </div>
         </section>
-        
+
         <!-- Newsletter section -->
         <section class="newsletter-section" style="">
             <div class="container">
@@ -251,8 +232,9 @@
                 </a>
                 <ul class="main-menu footer-menu">
                     <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                    <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
-                    <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>                     
+                    <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
+                    <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>   
+                    <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>                                               
                     <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
@@ -276,7 +258,7 @@
                     <p>Please enter topic details below to share with the community</p>
                 </div>
                 <div class="form-content">
-                    <form action="TopicCreateAdminController" method="post" enctype="multipart/form-data">
+                    <form action="TopicCreateAdmin" method="post" enctype="multipart/form-data">
                         <div class="input-field">
                             <label>Topic Title</label>
                             <input type="text" name="topicTitle" required>
@@ -304,7 +286,7 @@
                     <h2>Update Topic</h2>
                 </div>
                 <div class="form-content">
-                    <form action="TopicUpdateAdminController" method="post" enctype="multipart/form-data">
+                    <form action="TopicUpdateAdmin" method="post" enctype="multipart/form-data">
                         <input type="hidden" id="updateTopicId" name="topicId">
                         <div class="input-field">
                             <label for="updateTopicTitle">Topic Title</label>

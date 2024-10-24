@@ -14,6 +14,7 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page import="org.bson.Document" %>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -90,7 +91,7 @@
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeController">Home</a></li>
                             <li><a href="ReadGameListController">Games</a></li>
-                            <li><a href="ReadTopicController">Forum</a></li>
+                            <li><a href="ReadTopic">Forum</a></li>
                             <li><a href="contact.jsp">Contact</a></li>
 
                         </ul>
@@ -152,34 +153,18 @@
                                 </c:choose>
                             </div>
                             <div class="subforum-stats subforum-column center">
-                                <%
-                                    MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
-                                    // Get the topic object from the pageContext
-                                    Topic topicObj = (Topic) pageContext.getAttribute("topic");
-
-                                    // Kết nối đến cơ sở dữ liệu MongoDB
-                                    // Lấy collection comment và reply
-                                    MongoCollection<Document> commentCollection = mongoClient.getDatabase("GameHub").getCollection("comment");
-
-                                    // Đếm số lượng bình luận cho mỗi chủ đề
-                                    long commentCount = commentCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
-
-                                    Date date = topicObj.getDate();
-                                    SimpleDateFormat sdf = new SimpleDateFormat("mm:hh a dd-MM-yyyy");
-                                    String formattedDate = sdf.format(date);
-
-                                    mongoClient.close();
-                                %>
-                                <span style="font-size: 20px"><%= commentCount%> <img src="./img/icons/chat-icon.png" alt=""> </span>
+                                <span style="font-size: 20px">${topic.commentCount} <img src="./img/icons/chat-icon.png" alt=""></span>
                             </div>
                             <div class="subforum-info subforum-column">
-                                <b>Post by</b> <a href="#" style="font-size: 15px">${topic.userName}</a></br>
-                                <b>On</b><a style="font-family: "Courier ", "Courier New", monospace;"><%=formattedDate%></a>
+                                <b>Post by</b> <a href="#" style="font-size: 15px">${topic.userName}</a><br>
+                                <b>On</b> <a style="font-family: 'Courier', 'Courier New', monospace;">
+                                    <fmt:formatDate value="${topic.date}" pattern="MM:hh a dd-MM-yyyy"/>
+                                </a>
                             </div>
                         </div>
                         <hr class="subforum-devider">
                     </c:forEach>
-                </div>      
+                </div>
             </div>
             <div class="site-pagination" style="margin-top: 10px; justify-content: center;">
                 <c:forEach var="i" begin="1" end="${totalPages}">
@@ -204,7 +189,7 @@
                 <ul class="main-menu footer-menu">
                     <li><a href="ReadGameHomeController">Home</a></li>
                     <li><a href="ReadGameListController">Games</a></li>
-                    <li><a href="ReadTopicController">Forum</a></li>
+                    <li><a href="ReadTopic">Forum</a></li>
                     <li><a href="contact.jsp">Contact</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">

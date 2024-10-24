@@ -119,11 +119,29 @@
 
 
                         <ul class="main-menu primary-menu">
+<<<<<<< HEAD
+                            <li><a href="ReadGameHomeAdminController">Home</a></li>
+                            <li><a href="ReadGameListAdminController">Games</a>
+
+                                <ul class="sub-menu">
+                                    <li><a href="top-rating-all-after-login-admin.jsp">Top rating</a></li>
+                                    <li><a href="top-wishlist-all-after-login-admin.jsp">Top wishlist</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="contact-after-login-admin.jsp">Contact</a></li>
+                            <li><a href="chart/index-chart.jsp">Manage</a></li>
+                            <li><a href="ReadTopicAdmin.jsp">Community</a></li>
+=======
                             <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                             <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
                             <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
-                            <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+<<<<<<< HEAD
+                            <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
+>>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
+=======
+                            <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                             <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+>>>>>>> 4a7e61d314ac293c061966d4e2a08a39b8b0551d
                         </ul>
                     </nav>
                 </div>
@@ -237,7 +255,11 @@
                                             <input type="text" name="author" style="font-size: 20px; height: 50px" value="<%= author != null ? author : "No Author available"%>" class="form-control">
                                         </div>
                                     </div>
+<<<<<<< HEAD
+                                        
+=======
 
+>>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
                                     <div class="gs-gameplay">
                                         <h3 style="color: white">Link of the game</h3>
                                         <textarea name="Link" style="font-size: 20px; height: 50px" class="form-control"><%= linkGame != null ? linkGame : "No linkGame available"%></textarea>
@@ -323,7 +345,7 @@
                                                 <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                                                 <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
                                                 <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
-                                                <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                                                <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                                                 <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                                             </ul>
 

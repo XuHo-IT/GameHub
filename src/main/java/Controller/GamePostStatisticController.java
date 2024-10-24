@@ -20,6 +20,7 @@ public class GamePostStatisticController extends HttpServlet {
         MongoConnectStatistic mct = new MongoConnectStatistic();
         mct.getAllGamePost();
 
+
         List<GamePost> adminPostList = mct.adminPostList; // Fetch list of admin posts
         List<GamePost> memberPostList = mct.memberPostList; // Fetch list of member posts
 
@@ -33,10 +34,13 @@ public class GamePostStatisticController extends HttpServlet {
             adminPostCount, memberPostCount, totalPostCount
         );
 
+
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         out.print(jsonResponse);
         out.flush();
+
     }
 }
+
 

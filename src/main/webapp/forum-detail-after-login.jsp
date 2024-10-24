@@ -1,3 +1,4 @@
+<%@page import="Model.CommentTemp"%>
 <%@page import="utils.MongoDBConnectionManager1"%>
 <%@page import="java.time.Period"%>
 <%@page import="java.time.Duration"%>
@@ -105,7 +106,7 @@
                             <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                             <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
                             <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
-                            <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                            <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                             <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                         </ul>
                     </nav>
@@ -132,7 +133,7 @@
             String imageData = null;
             String photoUrlUser = null;
 
-            List<Comment> comments = new ArrayList<>();
+            List<CommentTemp> comments = new ArrayList<>();
 
             // Get the post ID from the URL query parameter
             String topicId = request.getParameter("id");
@@ -172,7 +173,7 @@
                     String photoUrl = (user != null) ? user.getString("PhotoUrl") : "./img/t-rex.png";
                     String userName = (user != null) ? user.getString("Name") : "Unknown";
 
-                    Comment comment = new Comment();
+                    CommentTemp comment = new CommentTemp();
                     comment.setCommentId(doc.getObjectId("_id").toString());
                     comment.setTopicId(doc.getString("TopicId").toString());
                     comment.setUserId(doc.getString("UserId").toString());
@@ -244,7 +245,7 @@
                     </div>
                 </div>
                 <!--Comment Area-->
-                <form action="AddCommentAdminController" method="POST">
+                <form action="AddCommentAdmin" method="POST">
                     <div class="comment-area hide" id="comment-area">
                         <!-- Textarea để nhập comment -->
                         <textarea name="comment" placeholder="comment here ..." required></textarea>
@@ -260,7 +261,7 @@
                 <div class="comments-container">
                     <% if (comments != null && !comments.isEmpty()) {
                             int commentIndex = 0;
-                            for (Comment comment : comments) {%>
+                            for (CommentTemp comment : comments) {%>
                     <!<!-- Comment-->
                     <div class="comments" id="<%= comment.getCommentId()%>">
                         <div class="comments" id="comment-<%= comment.getCommentId()%>" data-comment-index="<%= commentIndex++%>">
@@ -394,7 +395,7 @@
                     <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                     <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
                     <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
-                    <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                    <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                     <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">

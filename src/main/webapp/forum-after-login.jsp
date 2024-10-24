@@ -13,6 +13,7 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page import="org.bson.Document" %>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -97,10 +98,11 @@
                         </div>
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
+
                             <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                             <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
                             <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>   
-                            <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>                                               
+                            <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>                                               
                             <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                         </ul>
                     </nav>
@@ -128,7 +130,7 @@
                  margin-left: auto;
                  margin-right: auto;
                  padding: 20px;
-                 max-width: 1500px">           
+                 max-width: 1500px">
                 <!-- button -->
                 <div class="button-top-forum" >
                     <div class="left-button-forum">
@@ -148,10 +150,10 @@
                             </div>
                             <div class="subforum-description subforum-column">
                                 <h4>
-                                    <a href="forum-detail-after-login-member.jsp?id=${topic.topicId}&adminId=<%= request.getSession().getAttribute("adminId")%>">
+                                    <a href="forum-detail-after-login-member.jsp?id=${topic.topicId}&userId=${sessionScope.adminId}">
                                         <c:choose>
-                                            <c:when test="${fn:length(topic.title) >= 65}">
-                                                ${fn:substring(topic.title, 0, 65)}...
+                                            <c:when test="${fn:length(topic.title) >= 64}">
+                                                ${fn:substring(topic.title, 0, 64)}...
                                             </c:when>
                                             <c:otherwise>
                                                 ${topic.title}
@@ -161,7 +163,7 @@
                                 </h4>
                                 <c:choose>
                                     <c:when test="${fn:length(topic.description) >= 360}">
-                                        <p style="word-wrap: break-word;">${fn:substring(topic.description, 0, 390)}...</p>
+                                        <p style="word-wrap: break-word;">${fn:substring(topic.description, 0, 385)}...</p>
                                     </c:when>
                                     <c:otherwise>
                                         <p style="word-wrap: break-word;">
@@ -171,62 +173,43 @@
                                 </c:choose>
                             </div>
                             <div class="subforum-stats subforum-column center">
-                                <%
-                                    MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
-                                    // Get the current topic object from JSTL
-                                    Topic topicObj = (Topic) pageContext.getAttribute("topic");
-
-                                    // Get the comment collection
-                                    MongoCollection<Document> commentCollection = mongoClient.getDatabase("GameHub").getCollection("comment");
-
-                                    // Count the number of comments for the current topic
-                                    long commentCount = commentCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
-
-                                    Date date = topicObj.getDate();
-                                    SimpleDateFormat sdf = new SimpleDateFormat("mm:hh a dd-MM-yyyy");
-                                    String formattedDate = sdf.format(date);
-
-                                    mongoClient.close();
-                                %>
-                                <span style="font-size: 20px"><%= commentCount%><img src="./img/icons/chat-icon.png" alt=""></span>
+                                <span style="font-size: 20px">${topic.commentCount} <img src="./img/icons/chat-icon.png" alt=""></span>
                             </div>
-                            <div class="subforum-info subforum-column">
-                                <b>Post by</b> <a href="#" style="font-size: 15px">${topic.userName}</a></br>
-                                <b>On</b><a style="font-family: "Courier ", "Courier New", monospace;"><%=formattedDate%></a>                            
-                                <%
-                                    String adminId = request.getSession().getAttribute("adminId").toString();
 
-                                    // Check if the logged-in user is the owner of the post
-                                    if (topicObj.getUserId().equals(adminId)) {%>
-                                <!-- Button to open the Edit form -->
-                                <div style="display: flex; align-items: center; gap: 10px;">
-                                    <button  class="btn-edit" style="background-color:yellow;
-                                             color:black;
-                                             border: none;
-                                             border-radius: 5px;
-                                             padding: 10px 20px;
-                                             margin-top: 5px;
-                                             width: 90px;
-                                             height: 50px;
-                                             font-size: 16px;
-                                             font-weight: bold;
-                                             cursor: pointer;
-                                             transition: background-color 0.3s, transform 0.2s;" 
-                                             onclick="openUpdatePopup('${topic.topicId}',
-                                                             '${fn:escapeXml(topic.title)}',
-                                                             '${fn:escapeXml(topic.description)}')">Edit</button>
-                                    <%}%>
-                                    <form action="TopicDeleteAdminController" method="post">
+                            <div class="subforum-info subforum-column">
+                                <b>Post by</b> <a href="#" style="font-size: 15px">${topic.userName}</a><br>
+                                <b>On</b> <a style="font-family: 'Courier', 'Courier New', monospace;">
+                                    <fmt:formatDate value="${topic.date}" pattern="MM:hh a dd-MM-yyyy"/>
+                                </a>
+
+                                <c:if test="${not empty sessionScope.adminId && not empty topic.userId && sessionScope.adminId == topic.userId}">
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <button class="btn-edit" style="background-color:yellow;
+                                                color:black;
+                                                border: none;
+                                                border-radius: 5px;
+                                                padding: 10px 20px;
+                                                margin-top: 5px;
+                                                width: 90px;
+                                                height: 50px;
+                                                font-size: 16px;
+                                                font-weight: bold;
+                                                cursor: pointer;
+                                                transition: background-color 0.3s, transform 0.2s;"
+                                                onclick="openUpdatePopup('${topic.topicId}', '${fn:escapeXml(topic.title)}', '${fn:escapeXml(topic.description)}')">Edit</button>
+                                    </c:if>
+                                    <form action="TopicDeleteAdmin" method="post">
                                         <input type="hidden" name="topicId" value="${topic.topicId}">
                                         <button type="submit" name="action" value="delete" class="btn-danger " 
                                                 style="margin: 0; margin-top: 5px; width: 90px; height: 50px;">Delete</button>
                                     </form>
-                                </div>
+                                </div>                       
                             </div>
+
                         </div>
                         <hr class="subforum-devider">
                     </c:forEach>
-                </div>      
+                </div>
             </div>
             <div class="site-pagination" style="margin-top: 10px; justify-content: center;">
                 <c:forEach var="i" begin="1" end="${totalPages}">
@@ -261,7 +244,7 @@
                     <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                     <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
                     <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>   
-                    <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>                                               
+                    <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>                                               
                     <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
@@ -285,7 +268,7 @@
                     <p>Please enter topic details below to share with the community</p>
                 </div>
                 <div class="form-content">
-                    <form action="TopicCreateAdminController" method="post" enctype="multipart/form-data">
+                    <form action="TopicCreateAdmin" method="post" enctype="multipart/form-data">
                         <div class="input-field">
                             <label>Topic Title</label>
                             <input type="text" name="topicTitle" required>
@@ -313,7 +296,7 @@
                     <h2>Update Topic</h2>
                 </div>
                 <div class="form-content">
-                    <form action="TopicUpdateAdminController" method="post" enctype="multipart/form-data">
+                    <form action="TopicUpdateAdmin" method="post" enctype="multipart/form-data">
                         <input type="hidden" id="updateTopicId" name="topicId">
                         <div class="input-field">
                             <label for="updateTopicTitle">Topic Title</label>

@@ -118,12 +118,11 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                             <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
-                                <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                            <li><a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                             <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                         </ul>
                     </nav>

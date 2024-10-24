@@ -5,6 +5,71 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<< HEAD
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Admin Dashboard | Redesign</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="navigation">
+        <ul>
+          <li>
+            <a href="">
+              <span class="icon"><ion-icon name="logo-apple"></ion-icon></span>
+              <span class="title">Manage Amin</span>
+            </a>
+          </li>
+          <li>
+          </li>
+          <li>
+            <a href="../ReadGameUploadByMemberController">
+              <span class="icon">
+                <ion-icon name="people-outline"></ion-icon>
+              </span>
+              <span class="title">Censor Post</span>
+            </a>
+          </li>
+          <li>
+            <a href="index-chart.jsp">
+              <span class="icon">
+                <ion-icon name="chatbubbles-outline"></ion-icon>
+              </span>
+              <span class="title">Statistic</span>
+            </a>
+          </li>
+          <li>
+            <a href="list-user.jsp">
+              <span class="icon">
+                <ion-icon name="help-outline"></ion-icon>
+              </span>
+              <span class="title">Manage All User</span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+      <!-- main -->
+      <div class="main">
+        <div class="topbar">
+          <div class="toggle">
+            <ion-icon name="menu-outline"></ion-icon>
+          </div>
+          <!-- Search -->
+          <div class="search">
+            <label>
+              <input type="text" placeholder="Search here" />
+              <ion-icon name="search-outline"></ion-icon>
+            </label>
+          </div>
+          <!-- UserImg -->
+          <div class="user">
+            <img src="imgs/user.jpg" alt="" />
+          </div>
+=======
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -167,6 +232,7 @@
                     </div>
                 </div>
             </div>
+>>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
         </div>
 
         <input type="hidden" id="totalEarningsValue" value="${totalEarnings}" />

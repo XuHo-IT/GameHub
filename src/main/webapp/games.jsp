@@ -108,7 +108,7 @@
                                     <li><a href="top-rating-all.jsp">Top rating</a></li>
                                 </ul>
                             </li>
-                            <li><a href="ReadTopicController">Forum</a></li>
+                            <li><a href="ReadTopic">Forum</a></li>
                             <li><a href="contact.jsp">Contact</a></li>
                             
                         </ul>
@@ -233,7 +233,7 @@
                 <ul class="main-menu footer-menu">
                     <li><a href="ReadGameHomeController">Home</a></li>
                     <li><a href="ReadGameListController">Games</a></li>
-                    <li><a href="ReadTopicController">Forum</a></li>
+                    <li><a href="ReadTopic">Forum</a></li>
                     <li><a href="contact.jsp">Contact</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">

@@ -12,11 +12,13 @@ public class Topic {
     private String photoUrl;
     private String userName;
     private Date date;
+    private long commentCount;
+
 
     public Topic() {
     }
 
-    public Topic(String topicId, String userId, String title, String description, String imageData, String photoUrl, String userName, Date date) {
+    public Topic(String topicId, String userId, String title, String description, String imageData, String photoUrl, String userName, Date date, long commentCount) {
         this.topicId = topicId;
         this.userId = userId;
         this.title = title;
@@ -25,8 +27,18 @@ public class Topic {
         this.photoUrl = photoUrl;
         this.userName = userName;
         this.date = date;
+        this.commentCount = commentCount;
     }
 
+    public long getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(long commentCount) {
+        this.commentCount = commentCount;
+    }
+
+   
     public String getUserName() {
         return userName;
     }

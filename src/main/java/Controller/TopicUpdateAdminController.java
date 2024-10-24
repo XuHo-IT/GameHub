@@ -51,7 +51,7 @@ public class TopicUpdateAdminController extends HttpServlet {
             return;
         }
 
-        String userId = (String) session.getAttribute("adminId");
+        String adminId = (String) session.getAttribute("adminid");
 
         MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
@@ -78,7 +78,7 @@ public class TopicUpdateAdminController extends HttpServlet {
 
         collection.updateOne(Filters.eq("_id", new ObjectId(topicId)), updateFields);
 
-        response.sendRedirect("ReadTopicAdminController?userId"+userId);
+        response.sendRedirect("ReadTopicAdminController?adminid" + adminId);
     }
 
     private boolean isValidObjectId(String id) {

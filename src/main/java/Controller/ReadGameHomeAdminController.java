@@ -133,13 +133,14 @@ public class ReadGameHomeAdminController extends HttpServlet {
 
             // Determine where to redirect based on a parameter
             String view = request.getParameter("view");
+            String adminId = request.getParameter("adminid");
 
             if ("chart".equals(view)) {
                 // If 'chart' view is requested, forward to the chart page
-                request.getRequestDispatcher("chart/index-chart.jsp").forward(request, response);
+                request.getRequestDispatcher("chart/index-chart.jsp?adminid=" + adminId).forward(request, response);
             } else {
                 // Default: forward to the admin home page
-                request.getRequestDispatcher("admin-after-login.jsp").forward(request, response);
+                request.getRequestDispatcher("admin-after-login.jsp?adminid=" + adminId).forward(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();

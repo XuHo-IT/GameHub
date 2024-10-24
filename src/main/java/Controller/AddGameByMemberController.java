@@ -38,7 +38,7 @@ public class AddGameByMemberController extends HttpServlet {
         String price = "";
 
         // Get admin ID
-        String adminId = (String) request.getSession().getAttribute("adminId");
+        String memberId = (String) request.getSession().getAttribute("memberid");
 
         // Handle file upload
         Part filePart = request.getPart("file");
@@ -52,7 +52,7 @@ public class AddGameByMemberController extends HttpServlet {
         // Create a GamePost object
         GamePost gamePost = new GamePost(
                 null, title, gamePlay, description, dateRelease, author, genre,
-                adminId, fileName, fileDataBase64);
+                memberId, fileName, fileDataBase64);
 
         // Insert the game into MongoDB
         MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
@@ -64,14 +64,16 @@ public class AddGameByMemberController extends HttpServlet {
                 .append("DateRelease", gamePost.getDateRelease())
                 .append("Author", gamePost.getAuthor())
                 .append("Genre", gamePost.getGenre())
-                .append("AdminId", gamePost.getAdminId())
+                .append("MemberId", gamePost.getAdminId())
                 .append("FileName", gamePost.getFileName())
                 .append("FileData", fileDataBase64)
                 .append("Link of the game", linkGame)
                 .append("Price", price);
-
         collection.insertOne(postGame);
-        response.sendRedirect("ReadGameHomeMemberController");
+        
+        
+        response.sendRedirect("ReadGameHomeMemberController?memberid=" + memberId);
+        
     }
 
    

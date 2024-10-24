@@ -46,7 +46,6 @@ public class ReadTopicAdmin extends HttpServlet {
 
             // Find all documents in the topic collection
             FindIterable<Document> topics = topicCollection.find();
-            String adminId = (String) request.getSession().getAttribute("adminId");
 
             // Map each document to a Topic object
             for (Document topicDocument : topics) {
@@ -117,8 +116,9 @@ public class ReadTopicAdmin extends HttpServlet {
             request.setAttribute("totalPages", totalPages);
             request.setAttribute("currentPage", currentPage);
 
+            String adminId = (String) request.getSession().getAttribute("adminid");
             // Forward to the forum page
-            request.getRequestDispatcher("forum-after-login.jsp?userId=" + adminId).forward(request, response);
+            request.getRequestDispatcher("forum-after-login.jsp?adminid=" + adminId).forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Error retrieving topics.");

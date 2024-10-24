@@ -50,33 +50,37 @@ public class LoginController extends HttpServlet {
                         userDoc.getString("PhoneNumber"),
                         userDoc.getString("Address"),
                         userDoc.getString("Password"),
-                        userDoc.getString("PhotoUrl"),
+                        userDoc.getString("PhotoUrl"), // Get photoUrl from the user document
                         userDoc.getString("Role"),
                         userDoc.getString("Status")
                 );
-                String id = userDoc.getObjectId("_id").toString();
+                String userId = userDoc.getObjectId("_id").toString();
                 MongoConectUser mgcn = new MongoConectUser();
-                UserModel currentUser = mgcn.getUserById(id);
+                UserModel currentUser = mgcn.getUserById(userId);
                 // Set the current user session attribute
                 HttpSession session = request.getSession();
                 session.setAttribute("currentUser", superAdmin);
-
+                
                 // Set the adminId and adminEmail in the session
                 session.setAttribute("adminId", userDoc.getObjectId("_id").toString());
                 session.setAttribute("adminName", userDoc.getString("Name"));
                 session.setAttribute("adminEmail", userDoc.getString("Email")); // Insert adminEmail in session
+                session.setAttribute("photoUrl", userDoc.getString("PhotoUrl")); // Set photoUrl in session
 
                 // Redirect based on the user's role
                 String role = userDoc.getString("Role");
+                MongoConectUser mgcn = new MongoConectUser();
+                UserModel currentUser = mgcn.getUserById(superAdmin.getAdminId());
+                
                 if (currentUser.getStatus().equals("Suspend")) {
-                    response.sendRedirect("user-profile.jsp?id=" + id);
+                    response.sendRedirect("user-profile.jsp?id=" + userId);
                 } else {
                     if ("0".equals(role)) {
                         // For role 0 (regular user)
-                        response.sendRedirect("ReadGameHomeMemberController?id=" + id);
-                    } else {
+                    response.sendRedirect("ReadGameHomeMemberController");
+                } else if ("1".equals(role)) {
                         // For role 1 (admin)
-                        response.sendRedirect("ReadGameHomeAdmin?id=" + id);
+                        response.sendRedirect("ReadGameHomeAdmin?adminid=" + id);
                     }
                 }
 
@@ -87,9 +91,7 @@ public class LoginController extends HttpServlet {
         } else {
             // If authentication fails, set an error message
             request.setAttribute("errorMessage", "Invalid email or password");
-
-            request.getRequestDispatcher("ReadGameHomeControlelr").forward(request, response);
-
+            request.getRequestDispatcher("ReadGameHomeController").forward(request, response);
         }
     }
 }

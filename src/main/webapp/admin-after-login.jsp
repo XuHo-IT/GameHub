@@ -122,8 +122,9 @@
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                             <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
+                            <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                             <li><a href="ReadGameHomeAdmin?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
-                            <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>      
+                                  
                         </ul>
                     </nav>
                 </div>
@@ -155,42 +156,6 @@
 <!-- Team Section Start -->
 
 <!-- Team Section End -->
-
-
-
-        <!-- Intro section -->
-        <section class="intro-section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="intro-text-box text-box text-white">
-                            <div class="top-meta">11.11.18 / in <a href="">Games</a></div>
-                            <h3>The best online game is out now!</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                                labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida....</p>
-                            <a href="#" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="intro-text-box text-box text-white">
-                            <div class="top-meta">11.11.18 / in <a href="">Playstation</a></div>
-                            <h3>Top 5 best games in november</h3>
-                            <p>Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                                et dolore magna aliqua. Quis ipsum labore suspendisse ultrices gravida....</p>
-                            <a href="#" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider5.jpg">
-                    <div class="container">
-                        <h2>Game on!</h2>
-                        <p>The platform provides a centralized space for discovering and sharing game news, keeping users informed about upcoming titles and events.<br>Users can contribute by posting news, commenting on updates, and participating in forum discussions. The site promotes community interaction around gaming trends and developments.</p>
-                        <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Hero Section End -->
 
         <!-- Blog section -->
         <section class="blog-section spad">
@@ -317,6 +282,7 @@
 
 
         <!-- Intro section -->
+     <!-- Intro section -->
     <section class="intro-video-section set-bg d-flex align-items-end">
         <div class="video-container">
             <!-- Add the video tag to autoplay the video -->
@@ -332,10 +298,11 @@
                     Dive into a thrilling world filled with immersive graphics, intense action, and engaging storylines.</p>
             </div>
         </div>
-        <!-- Intro section end -->
+    </section>
+    <!-- Intro section end -->
 
 
-        <!-- Featured section -->
+    <!-- Featured section -->
     <section class="featured-section">
         <c:forEach var="post" items="${posts}" varStatus="status">
             <c:if test="${status.index == 0}">
@@ -371,13 +338,8 @@
 
 
 
-        <!-- Newsletter section -->
-
-        <!-- Newsletter section end -->
-
-
         <!-- Footer section -->
-        <footer class="footer-section">
+    <footer class="footer-section">
             <div class="container">
                 <div class="footer-left-pic">
                     <img src="img/footer-left-pic.png" alt="">

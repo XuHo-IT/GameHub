@@ -109,10 +109,6 @@
         <servlet-class>Controller.ConfirmPostController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>TopicCreateController</servlet-name>
-        <servlet-class>Controller.TopicCreateController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AddReplyController</servlet-name>
         <servlet-class>Controller.AddReplyController</servlet-class>
     </servlet>
@@ -135,26 +131,6 @@
     <servlet>
         <servlet-name>UploadLinkServlet</servlet-name>
         <servlet-class>Controller.UploadLinkServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ReadTopicController</servlet-name>
-        <servlet-class>Controller.ReadTopicController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ReadTopicAdminController</servlet-name>
-        <servlet-class>Controller.ReadTopicAdminController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ReadTopicMemberController</servlet-name>
-        <servlet-class>Controller.ReadTopicMemberController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>TopicUpdateController</servlet-name>
-        <servlet-class>Controller.TopicUpdateController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>TopicDeleteController</servlet-name>
-        <servlet-class>Controller.TopicDeleteController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteCommentController</servlet-name>
@@ -197,26 +173,65 @@
         <servlet-class>Controller.UpdateCommentAdminController</servlet-class>
     </servlet>
     <servlet>
-    <servlet-name>GoogleLoginController</servlet-name>
-    <servlet-class>Controller.GoogleLoginController</servlet-class>
-</servlet>
-<servlet>
-    <servlet-name>GoogleLogin</servlet-name>
-    <servlet-class>Controller.GoogleLogin</servlet-class>
-</servlet>
-<servlet>
-    <servlet-name>TopicCreateAdminController</servlet-name>
-    <servlet-class>Controller.TopicCreateAdminController</servlet-class>
-</servlet>
-<servlet>
-    <servlet-name>TopicDeleteAdminController</servlet-name>
-    <servlet-class>Controller.TopicDeleteAdminController</servlet-class>
-</servlet>
-<servlet>
-    <servlet-name>TopicUpdateAdminController</servlet-name>
-    <servlet-class>Controller.TopicUpdateAdminController</servlet-class>
-</servlet>
-
+        <servlet-name>GoogleLoginController</servlet-name>
+        <servlet-class>Controller.GoogleLoginController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GoogleLogin</servlet-name>
+        <servlet-class>Controller.GoogleLogin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TopicUpdateAdminController</servlet-name>
+        <servlet-class>Controller.TopicUpdateAdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReadTopicMember</servlet-name>
+        <servlet-class>Controller.ReadTopicMember</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TopicCreate</servlet-name>
+        <servlet-class>Controller.TopicCreate</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TopicDelete</servlet-name>
+        <servlet-class>Controller.TopicDelete</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TopicUpdate</servlet-name>
+        <servlet-class>Controller.TopicUpdate</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddComment</servlet-name>
+        <servlet-class>Controller.AddComment</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReadTopicAdmin</servlet-name>
+        <servlet-class>Controller.ReadTopicAdmin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TopicCreateAdmin</servlet-name>
+        <servlet-class>Controller.TopicCreateAdmin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TopicDeleteAdmin</servlet-name>
+        <servlet-class>Controller.TopicDeleteAdmin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddCommentAdmin</servlet-name>
+        <servlet-class>Controller.AddCommentAdmin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCommentAdmin</servlet-name>
+        <servlet-class>Controller.DeleteCommentAdmin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TopicUpdateAdmin</servlet-name>
+        <servlet-class>Controller.TopicUpdateAdmin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReadTopic</servlet-name>
+        <servlet-class>Controller.ReadTopic</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -326,10 +341,6 @@
         <url-pattern>/ConfirmPostController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>TopicCreateController</servlet-name>
-        <url-pattern>/TopicCreateController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AddReplyController</servlet-name>
         <url-pattern>/AddReplyController</url-pattern>
     </servlet-mapping>
@@ -357,26 +368,6 @@
         <file-size-threshold>5242880</file-size-threshold>
         <!-- 5 MB -->
     </multipart-config>
-    <servlet-mapping>
-        <servlet-name>ReadTopicController</servlet-name>
-        <url-pattern>/ReadTopicController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ReadTopicAdminController</servlet-name>
-        <url-pattern>/ReadTopicAdminController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ReadTopicMemberController</servlet-name>
-        <url-pattern>/ReadTopicMemberController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>TopicUpdateController</servlet-name>
-        <url-pattern>/TopicUpdateController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>TopicDeleteController</servlet-name>
-        <url-pattern>/TopicDeleteController</url-pattern>
-    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteCommentController</servlet-name>
         <url-pattern>/DeleteCommentController</url-pattern>
@@ -414,26 +405,65 @@
         <url-pattern>/UpdateCommentAdminController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-    <servlet-name>GoogleLoginController</servlet-name>
-    <url-pattern>/GoogleLoginController</url-pattern>
-</servlet-mapping>
-<servlet-mapping>
-    <servlet-name>GoogleLogin</servlet-name>
-    <url-pattern>/GoogleLogin</url-pattern>
-</servlet-mapping>
-<servlet-mapping>
-    <servlet-name>TopicCreateAdminController</servlet-name>
-    <url-pattern>/TopicCreateAdminController</url-pattern>
-</servlet-mapping>
-<servlet-mapping>
-    <servlet-name>TopicDeleteAdminController</servlet-name>
-    <url-pattern>/TopicDeleteAdminController</url-pattern>
-</servlet-mapping>
-<servlet-mapping>
-    <servlet-name>TopicUpdateAdminController</servlet-name>
-    <url-pattern>/TopicUpdateAdminController</url-pattern>
-</servlet-mapping>
-
+        <servlet-name>GoogleLoginController</servlet-name>
+        <url-pattern>/GoogleLoginController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GoogleLogin</servlet-name>
+        <url-pattern>/GoogleLogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TopicUpdateAdminController</servlet-name>
+        <url-pattern>/TopicUpdateAdminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReadTopicMember</servlet-name>
+        <url-pattern>/ReadTopicMember</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TopicCreate</servlet-name>
+        <url-pattern>/TopicCreate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TopicDelete</servlet-name>
+        <url-pattern>/TopicDelete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TopicUpdate</servlet-name>
+        <url-pattern>/TopicUpdate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddComment</servlet-name>
+        <url-pattern>/AddComment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReadTopicAdmin</servlet-name>
+        <url-pattern>/ReadTopicAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TopicCreateAdmin</servlet-name>
+        <url-pattern>/TopicCreateAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TopicDeleteAdmin</servlet-name>
+        <url-pattern>/TopicDeleteAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCommentAdmin</servlet-name>
+        <url-pattern>/AddCommentAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCommentAdmin</servlet-name>
+        <url-pattern>/DeleteCommentAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TopicUpdateAdmin</servlet-name>
+        <url-pattern>/TopicUpdateAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReadTopic</servlet-name>
+        <url-pattern>/ReadTopic</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>ReadGameHomeController</welcome-file>
     </welcome-file-list>

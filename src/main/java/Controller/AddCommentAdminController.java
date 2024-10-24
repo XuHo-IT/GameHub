@@ -30,7 +30,7 @@ public class AddCommentAdminController extends HttpServlet {
             throws ServletException, IOException {
         // Retrieve the form parameters
         String comment = request.getParameter("comment");
-        String userId = request.getParameter("userid");
+        String adminId = request.getParameter("adminid");
         String topicId = request.getParameter("topicid");
 
         LocalDateTime currentDateTime = LocalDateTime.now();
@@ -40,12 +40,12 @@ public class AddCommentAdminController extends HttpServlet {
         MongoCollection<Document> collection = database.getCollection("comment");
 
         Document comments = new Document("TopicId", topicId)
-                .append("UserId", userId)
+                .append("UserId", adminId)
                 .append("Content", comment)
                 .append("Status", "unedited")
                 .append("Date", currentDateTime);
         collection.insertOne(comments);
-        response.sendRedirect("forum-detail-after-login.jsp?id=" + topicId);
+        response.sendRedirect("forum-detail-after-login.jsp?adminid=" + adminId);
     }
 
 }

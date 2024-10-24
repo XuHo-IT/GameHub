@@ -117,6 +117,7 @@ public class ReadGameListAdminController extends HttpServlet {
             request.setAttribute("totalPages", totalPages);
             request.setAttribute("currentPage", currentPage);
             request.setAttribute("selectedGenre", selectedGenre);  // Pass selected genre to JSP
+            String memberId = request.getParameter("memberid");
 
             // Forward the request to the JSP page
             request.getRequestDispatcher("games-after-login.jsp").forward(request, response);

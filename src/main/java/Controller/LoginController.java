@@ -54,7 +54,9 @@ public class LoginController extends HttpServlet {
                         userDoc.getString("Role"),
                         userDoc.getString("Status")
                 );
-
+                String userId = userDoc.getObjectId("_id").toString();
+                MongoConectUser mgcn = new MongoConectUser();
+                UserModel currentUser = mgcn.getUserById(userId);
                 // Set the current user session attribute
                 HttpSession session = request.getSession();
                 session.setAttribute("currentUser", superAdmin);
@@ -71,14 +73,14 @@ public class LoginController extends HttpServlet {
                 UserModel currentUser = mgcn.getUserById(superAdmin.getAdminId());
                 
                 if (currentUser.getStatus().equals("Suspend")) {
-                    response.sendRedirect("user-profile.jsp?id=" + superAdmin.getAdminId());
+                    response.sendRedirect("user-profile.jsp?id=" + userId);
                 } else {
                     if ("0".equals(role)) {
                         // For role 0 (regular user)
-                        response.sendRedirect("ReadGameHomeMemberController?id=" + superAdmin.getAdminId());
-                    } else {
+                    response.sendRedirect("ReadGameHomeMemberController");
+                } else if ("1".equals(role)) {
                         // For role 1 (admin)
-                        response.sendRedirect("ReadGameHomeAdmin?id=" + superAdmin.getAdminId());
+                        response.sendRedirect("ReadGameHomeAdmin?adminid=" + id);
                     }
                 }
 

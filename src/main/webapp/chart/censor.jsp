@@ -16,7 +16,7 @@
         <div class="container">
             <div class="navigation" style="background: #6f2b95; border-left: 10px solid #6f2b95">
                 <ul>
-                   
+
                     <li>
                         <a href="">
                             <span class="icon"><ion-icon name="logo-apple"></ion-icon></span>
@@ -34,7 +34,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">
+                        <a href="ReadGameHomeAdmin?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">
                             <span class="icon">
                                 <ion-icon name="chatbubbles-outline"></ion-icon>
                             </span>
@@ -42,11 +42,7 @@
                         </a>
                     </li>
                     <li>
-<<<<<<< HEAD
-                        <a href="chart/list-user.jsp">
-=======
                         <a href="chart/list-user.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">
->>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
                             <span class="icon">
                                 <ion-icon name="help-outline"></ion-icon>
                             </span>
@@ -87,6 +83,7 @@
                                         <th>Author</th>
                                         <th>Genre</th>
                                         <th></th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -97,28 +94,49 @@
                                             <td>${post.author != null ? post.author : 'Unknown Author'}</td>
                                             <td>${post.genre != null ? post.genre : 'Unknown Genre'}</td>
                                             <td>
-                                                <!-- Pass the post ID as a hidden field -->
-                                                <input type="hidden" name="postId" value="${post.postID}">
-
+                                                <!-- Button to view details -->
+                                                <button type="button" class="btn details-btn" onclick="openDetailsModal('${post.title}', '${post.dateRelease}', '${post.author}', '${post.genre}', '${post.description}', '${post.postID}')">Details</button>
+                                            </td>
+                                            <td>
                                                 <!-- Confirm and Deny buttons -->
+                                                <input type="hidden" name="postId" value="${post.postID}">
                                                 <button type="submit" class="btn confirm-btn">Confirm</button>
                                                 <button type="button" class="btn deny-btn" onclick="denyPost(this)">Deny</button>
-
-                                                <!-- Re-Deny button (hidden initially) -->
                                                 <button type="button" class="btn redeny-btn" style="display:none;background: yellow;color: black" onclick="reDenyPost(this)">Re-Deny</button>
                                             </td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>
+
                             </table>
                         </form>
 
                     </div>
 
                 </div>
-                <button type="button" class="btn back-btn" style="background: #6f2b95; color: white" onclick="window.location.href = 'ReadGameHomeAdminController?&adminId=<%= request.getSession().getAttribute("adminId")%>'">Back To Home Page</button>
+                <button type="button" class="btn back-btn" style="background: #6f2b95; color: white" onclick="window.location.href = 'ReadGameHomeAdmin?&adminId=<%= request.getSession().getAttribute("adminId")%>'">Back To Home Page</button>
             </div>
         </div>
+        <!-- Modal for showing post details -->
+        <div id="postDetailsModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>Post Details</h2>
+                <p><strong>Title:</strong> <span id="modalTitle"></span></p>
+                <p><strong>Date Release:</strong> <span id="modalDateRelease"></span></p>
+                <p><strong>Author:</strong> <span id="modalAuthor"></span></p>
+                <p><strong>Genre:</strong> <span id="modalGenre"></span></p>
+                <p><strong>Description:</strong> <span id="modalDescription"></span></p>
+
+                <!-- Hidden form to confirm or deny within modal -->
+                <form action="ConfirmPostController" method="post">
+                    <input type="hidden" name="postId" id="modalPostId">
+                    <button type="submit" class="btn confirm-btn">Confirm</button>
+                    <button type="button" class="btn deny-btn" onclick="denyPostInModal()">Deny</button>
+                </form>
+            </div>
+        </div>
+
         <script
             type="module"
             src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
@@ -132,41 +150,102 @@
         <script src="chart/js/chart.min.js"></script>
         <script src="chart/js/main.js"></script>
         <script>
-                    // Function to handle deny button click
-                    function denyPost(denyButton) {
-                        // Hide the confirm and deny buttons
-                        const row = denyButton.closest('tr');
-                        const confirmBtn = row.querySelector('.confirm-btn');
-                        const reDenyBtn = row.querySelector('.redeny-btn');
+                        // Function to open the modal and display post details
+                        function openDetailsModal(title, dateRelease, author, genre, description, postId) {
+                            document.getElementById('modalTitle').innerText = title;
+                            document.getElementById('modalDateRelease').innerText = dateRelease;
+                            document.getElementById('modalAuthor').innerText = author;
+                            document.getElementById('modalGenre').innerText = genre;
+                            document.getElementById('modalDescription').innerText = description;
+                            document.getElementById('modalPostId').value = postId;
 
-                        confirmBtn.style.display = 'none';
-                        denyButton.style.display = 'none';
+                            // Show the modal
+                            document.getElementById('postDetailsModal').style.display = 'block';
+                        }
 
-                        // Show the re-deny button
-                        reDenyBtn.style.display = 'inline-block';
+// Function to close the modal
+                        function closeModal() {
+                            document.getElementById('postDetailsModal').style.display = 'none';
+                        }
 
-                        // Change text color of the entire row to gray
-                        row.style.color = 'gray';
-                    }
+// Handle deny button in the modal
+                        function denyPostInModal() {
+                            // Change button states or add additional functionality here if needed
+                            alert('Post denied!');
+                            closeModal();  // Close the modal after denying
+                        }
+
+                        // Function to handle deny button click
+                        function denyPost(denyButton) {
+                            // Hide the confirm and deny buttons
+                            const row = denyButton.closest('tr');
+                            const confirmBtn = row.querySelector('.confirm-btn');
+                            const reDenyBtn = row.querySelector('.redeny-btn');
+
+                            confirmBtn.style.display = 'none';
+                            denyButton.style.display = 'none';
+
+                            // Show the re-deny button
+                            reDenyBtn.style.display = 'inline-block';
+
+                            // Change text color of the entire row to gray
+                            row.style.color = 'gray';
+                        }
 
 
-                    // Function to handle re-deny button click
-                    function reDenyPost(reDenyButton) {
-                        // Show the confirm and deny buttons again
-                        const row = reDenyButton.closest('tr');
-                        const confirmBtn = row.querySelector('.confirm-btn');
-                        const denyBtn = row.querySelector('.deny-btn');
+                        // Function to handle re-deny button click
+                        function reDenyPost(reDenyButton) {
+                            // Show the confirm and deny buttons again
+                            const row = reDenyButton.closest('tr');
+                            const confirmBtn = row.querySelector('.confirm-btn');
+                            const denyBtn = row.querySelector('.deny-btn');
 
-                        confirmBtn.style.display = 'inline-block';
-                        denyBtn.style.display = 'inline-block';
+                            confirmBtn.style.display = 'inline-block';
+                            denyBtn.style.display = 'inline-block';
 
-                        // Hide the re-deny button
-                        reDenyButton.style.display = 'none';
-                        row.style.color = 'black';
+                            // Hide the re-deny button
+                            reDenyButton.style.display = 'none';
+                            row.style.color = 'black';
 
-                    }
+                        }
         </script>
         <style>
+            /* Modal styling */
+            .modal {
+                display: none; /* Hidden by default */
+                position: fixed; /* Stay in place */
+                z-index: 1; /* Sit on top */
+                padding-top: 100px; /* Location of the box */
+                left: 0;
+                top: 0;
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
+                background-color: rgba(0,0,0,0.4); /* Black background with opacity */
+            }
+
+            .modal-content {
+                background-color: #fefefe;
+                margin: auto;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 50%; /* Modal width */
+                text-align: left;
+            }
+
+            .close {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
             .styled-table {
                 width: 100%;
                 border-collapse: collapse;

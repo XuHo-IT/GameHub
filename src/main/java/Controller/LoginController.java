@@ -2,13 +2,11 @@ package Controller;
 
 import Model.SuperAdmin;
 import Model.UserModel;
-import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -69,8 +67,7 @@ public class LoginController extends HttpServlet {
 
                 // Redirect based on the user's role
                 String role = userDoc.getString("Role");
-                MongoConectUser mgcn = new MongoConectUser();
-                UserModel currentUser = mgcn.getUserById(superAdmin.getAdminId());
+                
                 
                 if (currentUser.getStatus().equals("Suspend")) {
                     response.sendRedirect("user-profile.jsp?id=" + userId);
@@ -80,7 +77,7 @@ public class LoginController extends HttpServlet {
                     response.sendRedirect("ReadGameHomeMemberController");
                 } else if ("1".equals(role)) {
                         // For role 1 (admin)
-                        response.sendRedirect("ReadGameHomeAdmin?adminid=" + id);
+                        response.sendRedirect("ReadGameHomeAdmin?adminid=");
                     }
                 }
 

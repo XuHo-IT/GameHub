@@ -1,3 +1,4 @@
+<%@page import="com.mongodb.client.MongoDatabase"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="utils.MongoDBConnectionManager1"%>
@@ -143,16 +144,14 @@
                 </div>
 
                 <div class="subforum">
-                    <%MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();%>
                     <c:forEach var="topic" items="${topics}">
                         <div class="subforum-row">
-
                             <div class="subforum-icon subforum-column center">
                                 <img src="${topic.photoUrl}" alt="User Photo">
                             </div>
                             <div class="subforum-description subforum-column">
                                 <h4>
-                                    <a href="forum-detail-after-login-member.jsp?id=${topic.topicId}&userId=<%= request.getSession().getAttribute("adminId")%>">
+                                    <a href="forum-detail-after-login-member.jsp?id=${topic.topicId}&userId=${sessionScope.adminId}">
                                         <c:choose>
                                             <c:when test="${fn:length(topic.title) >= 65}">
                                                 ${fn:substring(topic.title, 0, 65)}...
@@ -174,62 +173,35 @@
                                     </c:otherwise>
                                 </c:choose>
                             </div>
+
                             <div class="subforum-stats subforum-column center">
-                                <%
-                                    // Get the current topic object from JSTL
-                                    Topic topicObj = (Topic) pageContext.getAttribute("topic");
-
-                                    // Get the comment collection
-                                    MongoCollection<Document> commentCollection = mongoClient.getDatabase("GameHub").getCollection("comment");
-
-                                    // Count the number of comments for the current topic
-                                    long commentCount = commentCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
-
-                                    Date date = topicObj.getDate();
-                                    SimpleDateFormat sdf = new SimpleDateFormat("mm:hh a dd-MM-yyyy");
-                                    String formattedDate = sdf.format(date);
-                                %>
-                                <span style="font-size: 20px"><%= commentCount%><img src="./img/icons/chat-icon.png" alt=""></span>
+                                <fmt:formatDate value="${topic.date}" pattern="hh:mm a dd-MM-yyyy" var="formattedDate" />
+                                <span style="font-size: 20px">${topic.commentCount} <img src="./img/icons/chat-icon.png" alt=""></span>
                             </div>
+
                             <div class="subforum-info subforum-column">
-                                <b>Post by</b> <a href="#" style="font-size: 15px">${topic.userName}</a></br>
-                                <b>On</b><a style="font: "Courier ", "Courier New", monospace;"><%=formattedDate%></a>
-                                <%
-                                    // Get the current user ID from the session
-                                    String loggedInUserId = (String) session.getAttribute("adminId");
+                                <b>Post by</b> <a href="#" style="font-size: 15px">${topic.userName}</a><br>
+                                <b>On</b> <a style="font-family: 'Courier', 'Courier New', monospace;">${formattedDate}</a>
 
-                                    // Check if the logged-in user is the owner of the post
-                                    if (loggedInUserId != null && topicObj != null && loggedInUserId.equals(topicObj.getUserId())) {%>
-                                <!-- Button to open the Edit form -->
-                                <div style="display: flex; align-items: center; gap: 10px;">
-                                    <button  class="btn-edit" style="background-color:yellow;
-                                             color:black;
-                                             border: none;
-                                             border-radius: 5px;
-                                             padding: 10px 20px;
-                                             margin-top: 5px;
-                                             width: 90px;
-                                             height: 50px;
-                                             font-size: 16px;
-                                             font-weight: bold;
-                                             cursor: pointer;
-                                             transition: background-color 0.3s, transform 0.2s;" 
-                                             onclick="openUpdatePopup('${topic.topicId}',
-                                                             '${fn:escapeXml(topic.title)}',
-                                                             '${fn:escapeXml(topic.description)}')">Edit</button>
-                                    <form action="TopicDeleteController" method="post">
-                                        <input type="hidden" name="topicId" value="${topic.topicId}">
-                                        <button type="submit" name="action" value="delete" class="btn-danger " 
-                                                style="margin: 0; margin-top: 5px; width: 90px; height: 50px;">Delete</button>
-                                    </form>                                  
-                                </div>
-                                <%}%>
+                                <c:if test="${not empty sessionScope.adminId && not empty topic.userId && sessionScope.adminId == topic.userId}">
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <button class="btn-edit" style="background-color:yellow; color:black;" 
+                                                onclick="openUpdatePopup('${topic.topicId}', '${fn:escapeXml(topic.title)}', '${fn:escapeXml(topic.description)}')">Edit</button>
+                                        <form action="TopicDelete" method="post">
+                                            <input type="hidden" name="topicId" value="${topic.topicId}">
+                                            <button type="submit"  name="action" value="delete" class="btn-danger">Delete</button>
+                                        </form>
+                                    </div>
+                                </c:if>
                             </div>
+
                         </div>
                         <hr class="subforum-devider">
                     </c:forEach>
-                    <%mongoClient.close();%> 
-                </div>            
+                </div>
+
+
+
             </div>
             <div class="site-pagination" style="margin-top: 10px; justify-content: center;">
                 <c:forEach var="i" begin="1" end="${totalPages}">
@@ -278,7 +250,7 @@
                     <p>Please enter topic details below to share with the community</p>
                 </div>
                 <div class="form-content">
-                    <form action="TopicCreateController" method="post" enctype="multipart/form-data">
+                    <form action="TopicCreate" method="post" enctype="multipart/form-data">
                         <div class="input-field">
                             <label>Topic Title</label>
                             <input type="text" name="topicTitle" required>
@@ -306,7 +278,7 @@
                     <h2>Update Topic</h2>
                 </div>
                 <div class="form-content">
-                    <form action="TopicUpdateController" method="post" enctype="multipart/form-data">
+                    <form action="TopicUpdate" method="post" enctype="multipart/form-data">
                         <input type="hidden" id="updateTopicId" name="topicId">
                         <div class="input-field">
                             <label for="updateTopicTitle">Topic Title</label>

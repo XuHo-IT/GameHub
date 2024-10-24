@@ -121,8 +121,7 @@
                  margin-right: auto;
                  padding: 20px;
                  max-width: 1500px">
-                <div class="subforum">
-                    <%MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();%>
+              <div class="subforum">
                     <c:forEach var="topic" items="${topics}">
                         <div class="subforum-row">
                             <div class="subforum-icon subforum-column center">
@@ -153,32 +152,22 @@
                                 </c:choose>
                             </div>
                             <div class="subforum-stats subforum-column center">
-                                <%
-                                    // Get the topic object from the pageContext
-                                    Topic topicObj = (Topic) pageContext.getAttribute("topic");
-
-                                    // Kết nối đến cơ sở dữ liệu MongoDB
-                                    // Lấy collection comment và reply
-                                    MongoCollection<Document> commentCollection = mongoClient.getDatabase("GameHub").getCollection("comment");
-
-                                    // Đếm số lượng bình luận cho mỗi chủ đề
-                                    long commentCount = commentCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
-
-                                    Date date = topicObj.getDate();
-                                    SimpleDateFormat sdf = new SimpleDateFormat("mm:hh a dd-MM-yyyy");
-                                    String formattedDate = sdf.format(date);
-                                %>
-                                <span style="font-size: 20px"><%= commentCount%> <img src="./img/icons/chat-icon.png" alt=""> </span>
+                                <span style="font-size: 20px">${topic.commentCount} <img src="./img/icons/chat-icon.png" alt=""></span>
                             </div>
                             <div class="subforum-info subforum-column">
-                                <b>Post by</b> <a href="#" style="font-size: 15px">${topic.userName}</a></br>
-                                <b>On</b><a style="font: "Courier ", "Courier New", monospace;"><%=formattedDate%></a>
+                                <b>Post by</b> <a href="#" style="font-size: 15px">${topic.userName}</a><br>
+                                <b>On</b> <a style="font-family: 'Courier', 'Courier New', monospace;">
+                                    <c:out value="${topic.date}"/>  <!-- Ensure the date is properly formatted in your servlet -->
+                                </a>
                             </div>
                         </div>
                         <hr class="subforum-devider">
                     </c:forEach>
-                    <%mongoClient.close();%>
-                </div>      
+                </div>
+
+
+
+
             </div>
             <div class="site-pagination" style="margin-top: 10px; justify-content: center;">
                 <c:forEach var="i" begin="1" end="${totalPages}">

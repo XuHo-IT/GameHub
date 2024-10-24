@@ -102,26 +102,26 @@
                         </div>
 
                         <!-- Menu -->
-                        <ul class="main-menu primary-menu">
+                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                             <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
-                            <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
-                            <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
-                            <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+                            <li><a href="ReadGameHomeAdmin?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
+                            <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                         </ul>
                     </nav>
                 </div>
             </div>
-            <div class="button-top-forum" >
-                <div class="left-buttons">
-                    <button class="forum-button" >All Topics</button>
-                    <button class="forum-button">My Topics</button>
-                </div>
-                <div class="right-button">
-                    <button class="forum-button">Create New Topic</button>
+            
+        </header>
+        <section class="page-top-section set-bg" data-setbg="img/page-top-bg/4.jpg">
+            <div class="page-info">
+                <h2>Forum</h2>
+                <div class="site-breadcrumb">
+                    <a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a>  /
+                    <span>Forum</span>
                 </div>
             </div>
-        </header>
+        </section>
 
 
         <!--Forum section -->
@@ -394,9 +394,9 @@
                 <ul class="main-menu footer-menu">
                     <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                     <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
+                    <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                     <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
-                    <li><a href="ReadTopicAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
-                    <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+                    
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
                     <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>

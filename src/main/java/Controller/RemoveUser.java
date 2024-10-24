@@ -20,7 +20,7 @@ import mongodb.MongoConectUser;
  *
  * @author Admin
  */
-public class RemoveUserServlet extends HttpServlet {
+public class RemoveUser extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

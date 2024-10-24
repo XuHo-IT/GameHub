@@ -30,12 +30,11 @@ import utils.MongoDBConnectionManager1;
  */
 public class ReadGameListAdminController extends HttpServlet {
 
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-                MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
+            MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
             MongoDatabase database = mongoClient.getDatabase("GameHub");
             MongoCollection<Document> collection = database.getCollection("postGame");
 
@@ -87,7 +86,7 @@ public class ReadGameListAdminController extends HttpServlet {
                         post.getString("Description"),
                         post.getString("DateRelease"),
                         post.getString("Author"),
-                        post.getString("Genre"),  // Store genre name, not ID
+                        post.getString("Genre"), // Store genre name, not ID
                         post.getString("AdminId"),
                         post.getString("FileName"),
                         fileDataBase64

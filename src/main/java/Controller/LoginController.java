@@ -76,7 +76,7 @@ public class LoginController extends HttpServlet {
                         response.sendRedirect("ReadGameHomeMemberController?id=" + id);
                     } else {
                         // For role 1 (admin)
-                        response.sendRedirect("ReadGameHomeAdminController?id=" + id);
+                        response.sendRedirect("ReadGameHomeAdmin?id=" + id);
                     }
                 }
 

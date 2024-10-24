@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-<%@page import="mogodb.MongoConectUser"%>
-=======
+
 <%@page import="mongodb.MongoConectUser"%>
->>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
 <%@page import="Model.UserModel"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -23,10 +20,6 @@
         <div class="container">
             <div class="navigation" style="background: #6f2b95; border-left: 10px solid #6f2b95">
                 <ul>
-<<<<<<< HEAD
-=======
-                    
->>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
                     <li>
                         <a href="">
                             <span class="icon"><ion-icon name="logo-apple"></ion-icon></span>
@@ -36,11 +29,8 @@
                     <li>
                     </li>
                     <li>
-<<<<<<< HEAD
-                        <a href="../ReadGameUploadByMemberController">
-=======
+
                         <a href="../ReadGameUploadByMemberController?adminId=<%= request.getSession().getAttribute("adminId")%>">
->>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
                             <span class="icon">
                                 <ion-icon name="people-outline"></ion-icon>
                             </span>
@@ -48,11 +38,7 @@
                         </a>
                     </li>
                     <li>
-<<<<<<< HEAD
-                        <a href="chart/index-chart.jsp">
-=======
-                        <a href="../ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">
->>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
+                        <a href="../ReadGameHomeAdmin?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">
                             <span class="icon">
                                 <ion-icon name="chatbubbles-outline"></ion-icon>
                             </span>
@@ -60,22 +46,13 @@
                         </a>
                     </li>
                     <li>
-<<<<<<< HEAD
-                        <a href="chart/list-user.jsp">
-=======
                         <a href="chart/list-user.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">
->>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
                             <span class="icon">
                                 <ion-icon name="help-outline"></ion-icon>
                             </span>
                             <span class="title">Manage All User</span>
                         </a>
                     </li>
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
                 </ul>
             </div>
             <!-- main -->
@@ -126,10 +103,10 @@
                                                 // Determine the status label and action button based on user status
                                                 if ("Active".equals(user.getStatus())) {
                                                     statusLabel = "<span class='text-success'>Active</span>"; // Green for active
-                                                    actionButton = "<a href=\"../SuspendUserController?id=" + user.getId() + "\" class=\"btn btn-warning btn-sm\">Suspend</a>";
+                                                    actionButton = "<a href=\"../SuspendUser?id=" + user.getId() + "\" class=\"btn btn-warning btn-sm\">Suspend</a>";
                                                 } else {
                                                     statusLabel = "<span class='text-danger'>Suspended</span>"; // Red for suspended
-                                                    actionButton = "<a href=\"../UnSuspendUserController?id=" + user.getId() + "\" class=\"btn btn-primary btn-sm\">Unsuspend</a>";
+                                                    actionButton = "<a href=\"../UnSuspendUser?id=" + user.getId() + "\" class=\"btn btn-primary btn-sm\">Unsuspend</a>";
                                                 }
 
                                                 out.print("<tr>"
@@ -141,7 +118,7 @@
                                                         "<td>"
                                                         + "<div class='d-flex'>"
                                                         + // Use flexbox to align buttons horizontally
-                                                        "<a href=\"../RemoveUserServlet?id=" + user.getId() + "\" class=\"btn btn-danger btn-sm me-2\">Remove</a>"
+                                                        "<a href=\"../RemoveUser?id=" + user.getId() + "\" class=\"btn btn-danger btn-sm me-2\">Remove</a>"
                                                         + actionButton
                                                         + // Add the action button here
                                                         "</div>"
@@ -158,7 +135,7 @@
                     </div>
 
                 </div>
-                <button type="button" class="btn back-btn" style="background: #6f2b95; color: white" onclick="window.location.href = '../ReadGameHomeAdminController'">Back To Home Page</button>
+                <button type="button" class="btn back-btn" style="background: #6f2b95; color: white" onclick="window.location.href = 'ReadGameHomeAdmin?&adminId=<%= request.getSession().getAttribute("adminId")%>'">Back To Home Page</button>
             </div>
         </div>
         <script
@@ -171,13 +148,8 @@
         ></script>
         <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script> -->
         <!-- <script src="js/chart.umd.js"></script> -->
-<<<<<<< HEAD
-        <script src="chart/js/chart.min.js"></script>
-        <script src="chart/js/main.js"></script>
-=======
         <script src="js/chart.min.js"></script>
         <script src="js/main.js"></script>
->>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
         <script>
                     // Function to handle deny button click
                     function denyPost(denyButton) {
@@ -275,7 +247,7 @@
             }
 
             button.btn.back-btn {
-                padding: 3  0px;
+                padding: 30px;
                 float: right;
             }
             th {

@@ -118,24 +118,11 @@
                         </div>
 
                         <!-- Menu -->
-                        <ul class="main-menu primary-menu">
-<<<<<<< HEAD
-                            <li><a href="ReadGameHomeMemberController">Home</a></li>
-                            <li><a href="ReadGameListMemberController">Games</a>
-
-                                <ul class="sub-menu">
-                                    <li><a href="top-rating-all-after-login-member.jsp">Top rating</a></li>
-                                    <li><a href="top-wishlist-all-after-login-member.jsp">Top wishlist</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="contact-after-login-member.jsp">Contact</a></li>
-                            <li><a href="ReadTopicMember">Community</a></li>
-=======
+                       <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                             <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                            <li><a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                             <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
-                            <li><a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>">Community</a></li>
->>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
                         </ul>
                     </nav>
                 </div>
@@ -197,23 +184,11 @@
                 fileData = post.getString("FileData");
                 linkGame = post.getString("LinkGame");
                 price = post.getString("Price");// Ensure correct case
-                priceRating = post.getDouble("PriceRating");
-                graphicRating = post.getDouble("GraphicRating");
-                difficultyRating = post.getDouble("DifficultyRating");
-                gameplayRating = post.getDouble("GameplayRating");
-                averageRating = post.getDouble("AverageRating");
-
-                // Log retrieved values
-                System.out.println("Title: " + title);
-                System.out.println("Description: " + description);
-                System.out.println("Date Release: " + dateRelease);
-                System.out.println("File Data: " + fileData);
+               
             } else {
                 out.println("Post not found.");
             }
 
-            // Close MongoDB connection
-            mongoClient.close();
 
         %>
 
@@ -271,11 +246,11 @@
                                 <h3 style="color: white">Genre</h3>
                                 <p style="font-size: 20px"><%= genre != null ? genre : "No genre available"%></p>
                             </div>
-                            <div class="right-genre">
+                            <div class="right-genre" style="display: none">
                                 <h3 style="color: white">Link of the Game</h3>
                                 <p style="font-size: 20px"><%= linkGame != null ? linkGame : "No link available"%></p>
                             </div>
-                            <div class="right-genre">
+                            <div class="right-genre" style="display: none">
                                 <h3 style="color: white">Price</h3>
                                 <p style="font-size: 20px"><%= price != null ? price : "No price available"%></p>
                             </div>

@@ -121,7 +121,7 @@
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                            <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
+                            <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
                             <li><a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                             <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                         </ul>
@@ -313,10 +313,10 @@
                     <img src="./img/logo2.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
-                    <li><a href="ReadGameHomeController">Home</a></li>
-                    <li><a href="ReadGameListController">Games</a></li>
-                    <li><a href="forum.jsp">Forum</a></li>
-                    <li><a href="contact.jsp">Contact</a></li>
+                            <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                            <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                            <li><a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                            <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
                     <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>

@@ -9,10 +9,6 @@
         <servlet-class>Controller.SignUpController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>RemoveUserServlet</servlet-name>
-        <servlet-class>Controller.RemoveUserServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AddGameController</servlet-name>
         <servlet-class>Controller.AddGameController</servlet-class>
     </servlet>
@@ -35,10 +31,6 @@
     <servlet>
         <servlet-name>SuspendUserController</servlet-name>
         <servlet-class>Controller.SuspendUserController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>UnSuspendUserController</servlet-name>
-        <servlet-class>Controller.UnSuspendUserController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ChangePasswordController</servlet-name>
@@ -229,8 +221,20 @@
         <servlet-class>Controller.ReadTopic</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ReadTopicMember</servlet-name>
-        <servlet-class>Controller.ReadTopicMember</servlet-class>
+        <servlet-name>ReadGameHomeAdmin</servlet-name>
+        <servlet-class>Controller.ReadGameHomeAdmin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SuspendUser</servlet-name>
+        <servlet-class>Controller.SuspendUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UnsuspendUser</servlet-name>
+        <servlet-class>Controller.UnSuspendUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RemoveUser</servlet-name>
+        <servlet-class>Controller.RemoveUser</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -263,14 +267,6 @@
     <servlet-mapping>
         <servlet-name>SuspendUserController</servlet-name>
         <url-pattern>/SuspendUserController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UnSuspendUserController</servlet-name>
-        <url-pattern>/UnSuspendUserController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>RemoveUserServlet</servlet-name>
-        <url-pattern>/RemoveUserServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ChangePasswordController</servlet-name>
@@ -461,8 +457,20 @@
         <url-pattern>/ReadTopic</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ReadTopicMember</servlet-name>
-        <url-pattern>/ReadTopicMember</url-pattern>
+        <servlet-name>ReadGameHomeAdmin</servlet-name>
+        <url-pattern>/ReadGameHomeAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SuspendUser</servlet-name>
+        <url-pattern>/SuspendUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UnsuspendUser</servlet-name>
+        <url-pattern>/UnsuspendUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveUser</servlet-name>
+        <url-pattern>/RemoveUser</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>ReadGameHomeController</welcome-file>

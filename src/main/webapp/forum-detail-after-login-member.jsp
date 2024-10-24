@@ -41,6 +41,7 @@
         <link rel="stylesheet" href="css/searchbar.css" />
         <link rel="stylesheet" href="css/forum.css" />
         <link rel="stylesheet" href="css/header.css" />
+        <link rel="stylesheet" href="css/account-icon.css" />
 
         <!-- Main Stylesheets -->
         <link rel="stylesheet" href="css/style.css" />
@@ -66,7 +67,7 @@
 
         <header class="header-section">
             <div class="header-warp">
-                <div class="header-social d-flex justify-content-end">
+                <<div class="header-social d-flex justify-content-end">
                     <p>Follow us:</p>
                     <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
                     <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
@@ -83,20 +84,13 @@
                     </div>
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
-                            <!-- Bi?u t??ng gi? hï¿½ng -->
-                            <div class="cart-icon">
-                                <a href="shopping-cart.jsp">
-                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                </a>
-                            </div>
-                            <!-- Bi?u t??ng tï¿½i kho?n -->
                             <div class="account-container">
                                 <div class="account-icon">
                                     <i class="fa fa-user-circle" aria-hidden="true"></i>
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
-                                        <li><a href="user-profile.jsp">Account Info</a></li>
+                                        <li><a href="user-profile.jsp?id=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
                                         <li>
                                             <a href="LogOutController" class="dropdown-item">Logout</a>
                                         </li>
@@ -115,16 +109,17 @@
                     </nav>
                 </div>
             </div>
-            <div class="button-top-forum" >
-                <div class="left-buttons">
-                    <button class="forum-button" >All Topics</button>
-                    <button class="forum-button">My Topics</button>
-                </div>
-                <div class="right-button">
-                    <button class="forum-button">Create New Topic</button>
+            
+        </header>
+        <section class="page-top-section set-bg" data-setbg="img/page-top-bg/4.jpg">
+            <div class="page-info">
+                <h2>Forum</h2>
+                <div class="site-breadcrumb">
+                    <a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a>  /
+                    <span>Forum</span>
                 </div>
             </div>
-        </header>
+        </section>
 
         <!--Forum section-->
         <%
@@ -507,105 +502,105 @@
         <script src="js/jquery.magnific-popup.min.js"></script>
         <script src="js/main.js"></script>
         <script>
-                function showComment() {
-                    var commentArea = document.getElementById("comment-area");
-                    commentArea.classList.toggle("hide");
-                }
+                                            function showComment() {
+                                                var commentArea = document.getElementById("comment-area");
+                                                commentArea.classList.toggle("hide");
+                                            }
 
-                const showCommentLink = document.getElementById("show-comment-area");
+                                            const showCommentLink = document.getElementById("show-comment-area");
 
-                showCommentLink.addEventListener("click", (e) => {
-                    e.preventDefault();  // Ngăn chặn hành động mặc định của thẻ <a>
-                    toggleArea('comment-area');  // Gọi hàm toggleArea giống như khi bấm nút "Comment"
-                });
+                                            showCommentLink.addEventListener("click", (e) => {
+                                                e.preventDefault();  // Ngăn chặn hành động mặc định của thẻ <a>
+                                                toggleArea('comment-area');  // Gọi hàm toggleArea giống như khi bấm nút "Comment"
+                                            });
 
-                function showReply(areaId, username) {
-                    // Tìm tất cả các phần comment-area và ẩn chúng
-                    const allCommentAreas = document.querySelectorAll('.comment-area');
-                    allCommentAreas.forEach(area => {
-                        area.classList.add('hide'); // Ẩn tất cả các comment-area
-                    });
+                                            function showReply(areaId, username) {
+                                                // Tìm tất cả các phần comment-area và ẩn chúng
+                                                const allCommentAreas = document.querySelectorAll('.comment-area');
+                                                allCommentAreas.forEach(area => {
+                                                    area.classList.add('hide'); // Ẩn tất cả các comment-area
+                                                });
 
-                    // Hiển thị phần comment-area tương ứng với reply được bấm
-                    var replyArea = document.getElementById(areaId);
-                    replyArea.classList.toggle("hide"); // Toggle hiển thị phần comment-area được bấm
+                                                // Hiển thị phần comment-area tương ứng với reply được bấm
+                                                var replyArea = document.getElementById(areaId);
+                                                replyArea.classList.toggle("hide"); // Toggle hiển thị phần comment-area được bấm
 
-                    // Lấy thẻ textarea trong phần reply hiện tại
-                    var textArea = replyArea.querySelector('textarea');
+                                                // Lấy thẻ textarea trong phần reply hiện tại
+                                                var textArea = replyArea.querySelector('textarea');
 
-                    // Đặt giá trị ban đầu cho textarea là username
-                    textArea.value = '@' + username + ' ';
-                }
+                                                // Đặt giá trị ban đầu cho textarea là username
+                                                textArea.value = '@' + username + ' ';
+                                            }
 
-                function showUpdate(commentId, username, topicId, oldContent) {
-                    // Hide all comment areas
-                    const allCommentAreas = document.querySelectorAll('.comment-area');
-                    allCommentAreas.forEach(area => {
-                        area.classList.add('hide');
-                    });
+                                            function showUpdate(commentId, username, topicId, oldContent) {
+                                                // Hide all comment areas
+                                                const allCommentAreas = document.querySelectorAll('.comment-area');
+                                                allCommentAreas.forEach(area => {
+                                                    area.classList.add('hide');
+                                                });
 
-                    // Show the corresponding comment area
-                    var updateArea = document.getElementById('update-area-' + commentId);
-                    updateArea.classList.remove('hide');
+                                                // Show the corresponding comment area
+                                                var updateArea = document.getElementById('update-area-' + commentId);
+                                                updateArea.classList.remove('hide');
 
-                    // Set the initial value for the textarea
-                    var textArea = updateArea.querySelector('textarea');
-                    textArea.value = oldContent;
-                }
+                                                // Set the initial value for the textarea
+                                                var textArea = updateArea.querySelector('textarea');
+                                                textArea.value = oldContent;
+                                            }
 
-                function toggleArea(areaId) {
-                    var area = document.getElementById(areaId);
-                    area.classList.toggle("hide");
-                }
+                                            function toggleArea(areaId) {
+                                                var area = document.getElementById(areaId);
+                                                area.classList.toggle("hide");
+                                            }
 
-                document.addEventListener('DOMContentLoaded', function () {
-                    const toggleButtons = document.querySelectorAll('.toggle-replies');
+                                            document.addEventListener('DOMContentLoaded', function () {
+                                                const toggleButtons = document.querySelectorAll('.toggle-replies');
 
-                    toggleButtons.forEach(button => {
-                        button.addEventListener('click', function () {
-                            const hiddenReplies = this.previousElementSibling;
+                                                toggleButtons.forEach(button => {
+                                                    button.addEventListener('click', function () {
+                                                        const hiddenReplies = this.previousElementSibling;
 
-                            // Tìm tất cả các phần comment-area và ẩn chúng
-                            const allCommentAreas = document.querySelectorAll('.comment-area');
-                            allCommentAreas.forEach(area => {
-                                area.classList.add('hide'); // Ẩn tất cả các comment-area
-                            });
+                                                        // Tìm tất cả các phần comment-area và ẩn chúng
+                                                        const allCommentAreas = document.querySelectorAll('.comment-area');
+                                                        allCommentAreas.forEach(area => {
+                                                            area.classList.add('hide'); // Ẩn tất cả các comment-area
+                                                        });
 
-                            // Toggle hiển thị phần hidden-replies liên quan
-                            if (hiddenReplies.style.display === 'none') {
-                                hiddenReplies.style.display = 'block';
-                                this.textContent = 'Hide';
-                            } else {
-                                hiddenReplies.style.display = 'none';
-                                this.textContent = 'Show more';
-                            }
-                        });
-                    });
-                });
-                function deleteComment(value1, value2) {
-                    const form = document.createElement('form');
-                    form.method = 'POST';
-                    form.action = 'DeleteCommentController';  // Đường dẫn tới servlet
+                                                        // Toggle hiển thị phần hidden-replies liên quan
+                                                        if (hiddenReplies.style.display === 'none') {
+                                                            hiddenReplies.style.display = 'block';
+                                                            this.textContent = 'Hide';
+                                                        } else {
+                                                            hiddenReplies.style.display = 'none';
+                                                            this.textContent = 'Show more';
+                                                        }
+                                                    });
+                                                });
+                                            });
+                                            function deleteComment(value1, value2) {
+                                                const form = document.createElement('form');
+                                                form.method = 'POST';
+                                                form.action = 'DeleteCommentController';  // Đường dẫn tới servlet
 
-                    // Tạo các input ẩn để truyền giá trị
-                    const input1 = document.createElement('input');
-                    input1.type = 'hidden';
-                    input1.name = 'commentId';  // Tên của tham số truyền vào servlet
-                    input1.value = value1;
+                                                // Tạo các input ẩn để truyền giá trị
+                                                const input1 = document.createElement('input');
+                                                input1.type = 'hidden';
+                                                input1.name = 'commentId';  // Tên của tham số truyền vào servlet
+                                                input1.value = value1;
 
-                    const input2 = document.createElement('input');
-                    input2.type = 'hidden';
-                    input2.name = 'topicId';
-                    input2.value = value2;
+                                                const input2 = document.createElement('input');
+                                                input2.type = 'hidden';
+                                                input2.name = 'topicId';
+                                                input2.value = value2;
 
-                    // Thêm input vào form
-                    form.appendChild(input1);
-                    form.appendChild(input2);
+                                                // Thêm input vào form
+                                                form.appendChild(input1);
+                                                form.appendChild(input2);
 
-                    // Thêm form vào body và submit
-                    document.body.appendChild(form);
-                    form.submit();
-                }
+                                                // Thêm form vào body và submit
+                                                document.body.appendChild(form);
+                                                form.submit();
+                                            }
 
         </script>
         <style>.modal {

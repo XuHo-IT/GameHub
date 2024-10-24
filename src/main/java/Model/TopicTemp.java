@@ -2,7 +2,7 @@ package Model;
 
 import java.util.Date;
 
-public class Topic {
+public class TopicTemp {
 
     private String topicId;
     private String userId;
@@ -15,10 +15,10 @@ public class Topic {
     private long commentCount;
 
 
-    public Topic() {
+    public TopicTemp() {
     }
 
-    public Topic(String topicId, String userId, String title, String description, String imageData, String photoUrl, String userName, Date date, long commentCount) {
+    public TopicTemp(String topicId, String userId, String title, String description, String imageData, String photoUrl, String userName, Date date, long commentCount) {
         this.topicId = topicId;
         this.userId = userId;
         this.title = title;

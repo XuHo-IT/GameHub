@@ -21,7 +21,7 @@ public class DeleteCommentController extends HttpServlet {
             throws ServletException, IOException {
         String commentId = request.getParameter("commentId");
         String topicId = request.getParameter("topicId");
-
+        
         MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("comment");

@@ -1,3 +1,6 @@
+<%@page import="utils.MongoDBConnectionManager1"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="Model.Topic"%>
 <%@page import="com.mongodb.client.MongoDatabase"%>
 <%@page import="com.mongodb.client.model.Filters"%>
@@ -65,10 +68,10 @@
             <div class="header-warp">
                 <div class="header-social d-flex justify-content-end">
                     <p>Follow us:</p>
-                        <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
-                        <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
-                        <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
-                        <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
+                    <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
+                    <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
+                    <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
+                    <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
                 </div>
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
@@ -83,13 +86,13 @@
                             <button class="login-btn">LOG IN</button>
                         </div>
 
-                                               <!-- Menu -->
+                        <!-- Menu -->
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeController">Home</a></li>
                             <li><a href="ReadGameListController">Games</a></li>
                             <li><a href="ReadTopicController">Forum</a></li>
                             <li><a href="contact.jsp">Contact</a></li>
-                            
+
                         </ul>
                     </nav>
                 </div>
@@ -109,13 +112,16 @@
         </section>
         <!-- Page top end-->
 
+
         <section class="blog-section spad"> 
             <div class="container" style="
                  margin: 20px;
                  margin-top: -100px;
-                 padding: 20px;">
-
-                <div class="subforum">
+                 margin-left: auto;
+                 margin-right: auto;
+                 padding: 20px;
+                 max-width: 1500px">
+              <div class="subforum">
                     <c:forEach var="topic" items="${topics}">
                         <div class="subforum-row">
                             <div class="subforum-icon subforum-column center">
@@ -125,8 +131,8 @@
                                 <h4>
                                     <a href="forum-detail.jsp?id=${topic.topicId}">
                                         <c:choose>
-                                            <c:when test="${fn:length(topic.title) >= 60}">
-                                                ${fn:substring(topic.title, 0, 60)}...
+                                            <c:when test="${fn:length(topic.title) >= 65}">
+                                                ${fn:substring(topic.title, 0, 65)}...
                                             </c:when>
                                             <c:otherwise>
                                                 ${topic.title}
@@ -135,52 +141,38 @@
                                     </a>
                                 </h4>
                                 <c:choose>
-                                    <c:when test="${fn:length(topic.description) >= 120}">
-                                        <p>${fn:substring(topic.description, 0, 120)}...</p>
+                                    <c:when test="${fn:length(topic.description) >= 360}">
+                                        <p style="word-wrap: break-word;">${fn:substring(topic.description, 0, 390)}...</p>
                                     </c:when>
                                     <c:otherwise>
-                                        <p>${topic.description}</p>
+                                        <p style="word-wrap: break-word;">
+                                            <c:out value="${topic.description}"/>
+                                        </p>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
                             <div class="subforum-stats subforum-column center">
-                                <%
-                                    // Get the topic object from the pageContext
-                                    Topic topicObj = (Topic) pageContext.getAttribute("topic");
-
-                                    // Kết nối đến cơ sở dữ liệu MongoDB
-                                    MongoClient mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-
-                                    // Lấy collection comment và reply
-                                    MongoCollection<Document> commentCollection = mongoClient.getDatabase("GameHub").getCollection("comment");
-                                    MongoCollection<Document> replyCollection = mongoClient.getDatabase("GameHub").getCollection("reply");
-
-                                    // Đếm số lượng bình luận cho mỗi chủ đề
-                                    long commentCount = commentCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
-
-                                    // Đếm số lượng trả lời cho mỗi chủ đề
-//                                    long replyCount = replyCollection.countDocuments(Filters.eq("TopicId", topicObj.getTopicId()));
-
-                                    // Tính tổng số lượng bình luận và trả lời cho mỗi chủ đề
-//                                    long totalCount = commentCount + replyCount;
-                                    long totalCount = commentCount;
-                                    mongoClient.close();
-                                %>
-                                <span style="font-size: 20px"><%= totalCount%><img src="./img/icons/chat-icon.png" alt=""> </span>
+                                <span style="font-size: 20px">${topic.commentCount} <img src="./img/icons/chat-icon.png" alt=""></span>
                             </div>
                             <div class="subforum-info subforum-column">
-                                <b>Post by</b> <a href="#">${topic.userName}</a>
+                                <b>Post by</b> <a href="#" style="font-size: 15px">${topic.userName}</a><br>
+                                <b>On</b> <a style="font-family: 'Courier', 'Courier New', monospace;">
+                                    <c:out value="${topic.date}"/>  <!-- Ensure the date is properly formatted in your servlet -->
+                                </a>
                             </div>
                         </div>
                         <hr class="subforum-devider">
                     </c:forEach>
+                </div>
 
-                </div>
-                <div class="site-pagination" style="margin-top: 10px">
-                    <c:forEach var="i" begin="1" end="${totalPages}">
-                        <a href="?page=${i}" class="${i == currentPage ? 'active' : ''}">${i < 10 ? '0' + i : i}</a>
-                    </c:forEach>
-                </div>
+
+
+
+            </div>
+            <div class="site-pagination" style="margin-top: 10px; justify-content: center;">
+                <c:forEach var="i" begin="1" end="${totalPages}">
+                    <a href="?page=${i}" class="${i == currentPage ? 'active' : ''}">${i < 10 ? '0' + i : i}</a>
+                </c:forEach>
             </div>
         </section>
 
@@ -199,9 +191,9 @@
                 </a>
                 <ul class="main-menu footer-menu">
                     <li><a href="ReadGameHomeController">Home</a></li>
-                            <li><a href="ReadGameListController">Games</a></li>
-                            <li><a href="ReadTopicController">Forum</a></li>
-                            <li><a href="contact.jsp">Contact</a></li>
+                    <li><a href="ReadGameListController">Games</a></li>
+                    <li><a href="ReadTopicController">Forum</a></li>
+                    <li><a href="contact.jsp">Contact</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
                     <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>

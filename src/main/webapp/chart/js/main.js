@@ -23,20 +23,22 @@ var earning = document.getElementById("earning").getContext("2d");
 fetch('/Web_Trading_Game/getPostCounts')
     .then((response) => response.json())
     .then((data) => {
-        const adminPosts = data.adminPostList;
-        const memberPosts = data.memberPostList;
-        const totalPosts = data.totalPostCount; // Get the total posts from the response
+        // Swap the values of adminPosts and memberPosts
+        const adminPosts = data.memberPostList;  // Was previously adminPostList
+        const memberPosts = data.adminPostList;  // Was previously memberPostList
+        const totalPosts = adminPosts+memberPosts;  // Get the total posts from the response
+
         // Update the chart with member and admin posts
         var myChart = new Chart(ctx, {
             type: "polarArea",
             data: {
-                labels: ["Member Post", "Admin Post"],
+                labels: ["Member Post", "Admin Post"],  // No need to change this
                 datasets: [{
                     label: "Traffic Source",
-                    data: [memberPosts, adminPosts],
+                    data: [memberPosts, adminPosts],  // Now memberPosts is first, adminPosts second
                     backgroundColor: [
-                        "rgba(255, 99, 132, 1)",
-                        "rgba(54, 162, 235, 1)"
+                        "rgba(255, 99, 132, 1)",  // Red for Member Posts
+                        "rgba(54, 162, 235, 1)"   // Blue for Admin Posts
                     ]
                 }]
             },
@@ -44,10 +46,13 @@ fetch('/Web_Trading_Game/getPostCounts')
                 responsive: true,
             }
         });
+
         // Display the total posts in the card (Daily Views or Total Posts)
-        document.querySelector('.numbers1').textContent = totalPosts;
+        // Corrected the selector and set the content
+        document.querySelector('#totalPost .numbers1').textContent = totalPosts;
     })
     .catch((error) => console.error('Error fetching post counts:', error));
+
 
 // Helper function to parse date strings
 function parseDate(dateString) {

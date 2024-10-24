@@ -57,23 +57,20 @@
                         <ion-icon name="menu-outline"></ion-icon>
                     </div>
                     <!-- Search -->
-                    <div class="search">
-                        <label>
-                            <input type="text" placeholder="Search here" />
-                            <ion-icon name="search-outline"></ion-icon>
-                        </label>
-                    </div>
+
                     <!-- UserImg -->
                     <div class="user">
-                        <img src="imgs/user.jpg" alt="" />
+                        <%= request.getSession().getAttribute("adminId")%>
+                        <img src="<%= request.getSession().getAttribute("photoUrl")%>" alt="User Profile" />
                     </div>
+
                 </div>
 
                 <!-- Card Section -->
                 <div class="cardBox">
-                    <div class="card">
+                    <div class="card" id="totalPost">
                         <div>
-                            <div class="numbers1" ">0</div> 
+                            <div class="numbers1"></div> 
                             <div class="cardName">Total Posts</div>
                         </div>
                         <div class="iconBx">

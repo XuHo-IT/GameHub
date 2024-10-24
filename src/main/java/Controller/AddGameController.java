@@ -71,7 +71,8 @@ public class AddGameController extends HttpServlet {
                 .append("Price", price);
 
         collection.insertOne(postGame);
+        String memberId = (String) request.getSession().getAttribute("memberid");
         // Redirect to the admin page
-        response.sendRedirect("ReadGameHomeAdminController");
+        response.sendRedirect("ReadGameHomeAdminController?memberid=" + memberId);
     }
 }

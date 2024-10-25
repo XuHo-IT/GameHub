@@ -51,7 +51,7 @@
         <!-- Header section -->
         <header class="header-section">
             <div class="header-warp">
-                 <div class="row align-items-center">
+                <div class="row align-items-center">
                     <!-- Left side: Search Form (col-7) -->
                     <div class="col-8">
                         <form action="SearchController" method="GET">
@@ -79,10 +79,10 @@
                     <!-- Right side: Social Media Icons (col-4) -->
                     <div class="col-4 header-social d-flex align-items-center justify-content-end">
                         <p class="mb-0">Follow us:</p>
-                            <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
-                            <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
-                            <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
-                            <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
+                        <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
+                        <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
+                        <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
+                        <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
                     </div>
                 </div>
                 <div class="header-bar-warp d-flex">
@@ -103,8 +103,9 @@
                             </div>
                             <!-- Bi?u t??ng t�i kho?n -->
                             <div class="account-container">
-                                <div class="account-icon">
-                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                <div class="user">
+                                    <%= request.getSession().getAttribute("adminId")%>
+                                    <img src="<%= request.getSession().getAttribute("photoUrl")%>" alt="User Profile" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
@@ -118,7 +119,7 @@
                         </div>
 
                         <!-- Menu -->
-                       <ul class="main-menu primary-menu">
+                        <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                             <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
                             <li><a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
@@ -184,7 +185,7 @@
                 fileData = post.getString("FileData");
                 linkGame = post.getString("LinkGame");
                 price = post.getString("Price");// Ensure correct case
-               
+
             } else {
                 out.println("Post not found.");
             }
@@ -239,7 +240,7 @@
                         </div>
                         <div class="gs-auhtor-genre" ">
                             <div class="left-author">
-                                <h3 style="color: white">Author</h3>
+                                <h3 style="color: white">Publisher</h3>
                                 <p style="font-size: 20px"><%= author != null ? author : "No Author available"%></p>
                             </div>
                             <div class="right-genre">
@@ -300,15 +301,7 @@
 
 
         <!-- Newsletter section -->
-        <section class="newsletter-section">
-            <div class="container">
-                <h2>Subscribe to our newsletter</h2>
-                <form class="newsletter-form">
-                    <input type="text" placeholder="ENTER YOUR E-MAIL">
-                    <button class="site-btn">subscribe  <img src="img/icons/double-arrow.png" alt="#"/></button>
-                </form>
-            </div>
-        </section>
+
         <!-- Newsletter section end -->
 
 
@@ -325,11 +318,10 @@
                     <img src="./img/logo.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
-                    <li><a href="">Home</a></li>
-                    <li><a href="">Games</a></li>
-                    <li><a href="">Reviews</a></li>
-                    <li><a href="">News</a></li>
-                    <li><a href="">Contact</a></li>
+                            <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                            <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                            <li><a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                            <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                 </ul>
 
                 <div class="footer-social d-flex justify-content-center">
@@ -475,7 +467,24 @@
                 </div>
             </div>
         </div>
-
+        <style>
+            .user {
+                position: relative;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                overflow: hidden;
+                cursor: pointer;
+            }
+            .user img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        </style>
         <!--====== Javascripts & Jquery ======-->
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>

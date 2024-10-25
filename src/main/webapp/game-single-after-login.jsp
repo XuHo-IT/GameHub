@@ -30,6 +30,7 @@
         <link rel="stylesheet" href="css/magnific-popup.css"/>
         <link rel="stylesheet" href="css/animate.css"/>
         <link rel="stylesheet" href="css/searchbar.css"/>
+        <link rel="stylesheet" href="css/account-icon.css" />
 
         <!-- Main Stylesheets -->
         <link rel="stylesheet" href="css/style.css"/>
@@ -103,8 +104,9 @@
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
                             <div class="account-container">
-                                <div class="account-icon">
-                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                <div class="user">
+                                    <%= request.getSession().getAttribute("adminId")%>
+                                    <img src="<%= request.getSession().getAttribute("photoUrl")%>" alt="User Profile" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
@@ -229,7 +231,7 @@
 
                                     <div class="gs-auhtor-genre">
                                         <div class="left-author">
-                                            <h3 style="color: white">Author</h3>
+                                            <h3 style="color: white">Publisher</h3>
                                             <input type="text" name="author" style="font-size: 20px; height: 50px" value="<%= author != null ? author : "No Author available"%>" class="form-control">
                                         </div>
                                     </div>
@@ -332,7 +334,7 @@
                                         </div>
                                     </footer>
                                     <!-- Footer section end -->
-                                 
+
                                     <script>
                                         function addToWishlist(button) {
                                             button.style.backgroundColor = '#D9D9D9';
@@ -347,6 +349,22 @@
                                             font-size: 35px;
                                             font-family: 'Sixtyfour Convergence';
                                             padding: 0 0px 30px 0;
+                                        }
+                                        .user {
+                                            position: relative;
+                                            width: 40px;
+                                            height: 40px;
+                                            border-radius: 50%;
+                                            overflow: hidden;
+                                            cursor: pointer;
+                                        }
+                                        .user img {
+                                            position: absolute;
+                                            top: 0;
+                                            left: 0;
+                                            width: 100%;
+                                            height: 100%;
+                                            object-fit: cover;
                                         }
                                     </style>
                                     <!--====== Javascripts & Jquery ======-->

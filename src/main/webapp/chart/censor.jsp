@@ -62,7 +62,8 @@
                     <!-- Search -->
                     <!-- UserImg -->
                     <div class="user">
-                        <img src="imgs/user.jpg" alt="" />
+                        <%= request.getSession().getAttribute("adminId")%>
+                        <img src="<%= request.getSession().getAttribute("photoUrl")%>" alt="User Profile" />
                     </div>
                 </div>
 

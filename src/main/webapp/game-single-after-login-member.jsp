@@ -1,3 +1,7 @@
+<%@page import="Model.Genre"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="utils.MongoDBConnectionManager1"%>
+<%@page import="java.util.List"%>
 <%@page import="com.mongodb.client.model.Filters"%>
 <%@page import="org.bson.types.ObjectId"%>
 <%@page import="org.bson.Document"%>
@@ -48,33 +52,53 @@
             <div class="loader"></div>
         </div>
 
+        <%
+            String title = null;
+            String gamePlay = null;
+            String author = null;
+            String genre = null; // For storing genre name from post data
+            String description = null;
+            String dateRelease = null;
+            String fileData = null;
+            String linkGame = null;
+            String price = null;
+            String adminId = request.getParameter("adminId");
+            List<String> actionImages = null;
+
+            // Connect to MongoDB
+            MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
+            MongoCollection<Document> postsCollection = mongoClient.getDatabase("GameHub").getCollection("postGame");
+
+            // Get the post ID from the URL query parameter
+            String postId = request.getParameter("id");
+            System.out.println("Post ID: " + postId);
+
+            // Find the post by its ObjectId
+            Document post = postsCollection.find(Filters.eq("_id", new ObjectId(postId))).first();
+
+            // Check if the post exists
+            if (post != null) {
+                actionImages = (List<String>) post.get("ActionImages");
+                gamePlay = post.getString("GamePlay");
+                author = post.getString("Author");
+                genre = post.getString("Genre"); // Ensure correct case
+                title = post.getString("Title"); // Ensure correct case
+                description = post.getString("Description"); // Ensure correct case
+                dateRelease = post.getString("DateRelease"); // Ensure correct case
+                fileData = post.getString("FileData");
+                linkGame = post.getString("LinkGame");
+                price = post.getString("Price"); // Ensure correct case
+
+            } else {
+                out.println("Post not found.");
+            }
+        %>
         <!-- Header section -->
         <header class="header-section">
             <div class="header-warp">
                 <div class="row align-items-center">
                     <!-- Left side: Search Form (col-7) -->
                     <div class="col-8">
-                        <form action="SearchController" method="GET">
-                            <!-- Search Bar Row -->
-                            <div class="row" style="align-items: center;">
-                                <!-- Keyword input for the search bar -->
-                                <div class="col-2 d-flex align-items-end">
-                                    <button type="submit" class=" w-100" style="height: 52px;">Search</button>
-                                </div>
-
-                                <div class="col-10" style="text-align: center;padding-top: 33px ">
-                                    <input type="text" name="keyword" class="form-control" placeholder="Search by keyword..." aria-label="Search" style="height: 52px;">
-                                    <label for="genre" class="form-label" style="font-style: italic; font-weight: bold;">Genre:</label>
-                                    <select id="genre" name="genre" class="form-select" style="height: 34px; float: left; border: 2px solid #ccc; font-style: italic; padding: 5px; border-radius: 5px; font-family: 'Arial', sans-serif;">
-                                        <option value="">All Genres</option>
-                                        <!-- Dynamically populate genres from MongoDB -->
-                                        <c:forEach var="genre" items="${genres}">
-                                            <option value="${genre.genre}">${genre.genre}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                            </div>
-                        </form>
                     </div>
                     <!-- Right side: Social Media Icons (col-4) -->
                     <div class="col-4 header-social d-flex align-items-center justify-content-end">
@@ -146,52 +170,8 @@
 
 
         <!-- Games section -->
-        <%
-            String title = null;
-            String gamePlay = null;
-            String author = null;
-            String genre = null;
-            String description = null;
-            String dateRelease = null;
-            String fileData = null;
-            String linkGame = null;
-            String price = null;
-            double priceRating = 0.0;
-            double graphicRating = 0.0;
-            double difficultyRating = 0.0;
-            double gameplayRating = 0.0;
-            double averageRating = 0.0;
-            String adminId = request.getParameter("adminId");
-
-            // Get the post ID from the URL query parameter
-            String postId = request.getParameter("id");
-            System.out.println("Post ID: " + postId);
-
-            // Connect to MongoDB
-            MongoClient mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub"); // Your connection string
-            MongoCollection<Document> postsCollection = mongoClient.getDatabase("GameHub").getCollection("postGame");
-
-            // Find the post by its ObjectId
-            Document post = postsCollection.find(Filters.eq("_id", new ObjectId(postId))).first();
-
-            // Check if the post exists
-            if (post != null) {
-                gamePlay = post.getString("GamePlay");
-                author = post.getString("Author");
-                genre = post.getString("Genre");
-                title = post.getString("Title"); // Ensure correct case
-                description = post.getString("Description"); // Ensure correct case
-                dateRelease = post.getString("DateRelease"); // Ensure correct case
-                fileData = post.getString("FileData");
-                linkGame = post.getString("LinkGame");
-                price = post.getString("Price");// Ensure correct case
-
-            } else {
-                out.println("Post not found.");
-            }
 
 
-        %>
 
         <section class="games-single-page">
             <div class="container">
@@ -203,7 +183,7 @@
                             <input type="hidden" name="postId" value="<%= postId%>" />
                             <input type="hidden" name="adminId" value="<%= adminId%>" />
                             <input type="hidden" name="title" value="<%= title%>" />
-                            <input type="hidden" name="fileData" value="<%= fileData%>" />
+                            <input type="hidden" name="file Data" value="<%= fileData%>" />
                             <input type="hidden" name="dateRelease" value="<%= dateRelease%>" />
                             <input type="hidden" name="author" value="<%= author%>" />
                             <input type="hidden" name="price" value="<%= price%>" />
@@ -247,31 +227,13 @@
                                 <h3 style="color: white">Genre</h3>
                                 <p style="font-size: 20px"><%= genre != null ? genre : "No genre available"%></p>
                             </div>
-                            <div class="right-genre" style="display: none">
-                                <h3 style="color: white">Link of the Game</h3>
-                                <p style="font-size: 20px"><%= linkGame != null ? linkGame : "No link available"%></p>
-                            </div>
-                            <div class="right-genre" style="display: none">
-                                <h3 style="color: white">Price</h3>
-                                <p style="font-size: 20px"><%= price != null ? price : "No price available"%></p>
-                            </div>
                         </div>
+
                     </div>
+
                     <div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">
                         <div id="stickySidebar">
                             <div class="widget-item">
-                                <div class="rating-widget">
-                                    <h4 class="widget-title">Ratings</h4>
-                                    <ul>
-                                        <li>Price Rating: <strong><%= priceRating%></strong></li>
-                                        <li>Graphic Rating: <strong><%= graphicRating%></strong></li>
-                                        <li>Difficulty Rating: <strong><%= difficultyRating%></strong></li>
-                                        <li>Gameplay Rating: <strong><%= gameplayRating%></strong></li>
-                                    </ul>
-                                    <div class="rating">
-                                        <h5><i>Average Rating:</i><span><%= averageRating%></span> / 5</h5>
-                                    </div>
-                                </div>
                             </div>
                             <div class="widget-item">
                                 <div class="testimonials-widget">
@@ -285,6 +247,36 @@
                         </div>
                     </div>
                 </div>
+                <!-- Action Images Carousel -->
+                <div id="actionImagesCarousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <%
+                            if (actionImages != null && !actionImages.isEmpty()) {
+                                for (int i = 0; i < actionImages.size(); i++) {
+                                    String imageBase64 = actionImages.get(i);
+                        %>
+                        <div class="carousel-item <%= (i == 0) ? "active" : ""%>">
+                            <img src="data:image/jpeg;base64,<%= imageBase64%>" class="d-block w-100" alt="Game Action Image <%= i + 1%>">
+                        </div>
+                        <%
+                            }
+                        } else {
+                        %>
+                        <div class="carousel-item active">
+                            <p>No action images available.</p>
+                        </div>
+                        <% }%>
+                    </div>
+                    <a class="carousel-control-prev" href="#actionImagesCarousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#actionImagesCarousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+
             </div>
         </section>
         <!-- Games end-->
@@ -318,10 +310,10 @@
                     <img src="./img/logo.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
-                            <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                            <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
-                            <li><a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
-                            <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+                    <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                    <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                    <li><a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                    <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                 </ul>
 
                 <div class="footer-social d-flex justify-content-center">

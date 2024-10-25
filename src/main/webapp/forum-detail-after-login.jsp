@@ -228,7 +228,7 @@
                         <!-- Textarea để nhập comment -->
                         <textarea name="comment" placeholder="comment here ..." required></textarea>
                         <!-- Các trường ẩn để truyền các giá trị cần thiết -->
-                        <input type="hidden" name="userid" value="<%= request.getSession().getAttribute("adminId")%>">
+                        <input type="hidden" name="adminid" value="<%= request.getSession().getAttribute("adminId")%>">
                         <input type="hidden" name="topicid" value="<%=request.getParameter("topicId")%>">
 
                         <!-- Nút submit để gửi form -->

@@ -242,8 +242,9 @@
                     <div class="comment-area hide" id="comment-area">
                         <!-- Textarea để nhập comment -->
                         <textarea name="comment" placeholder="comment here ..." required></textarea>
-                        <input type="hidden" name="userid" value="<%=userId%>">
-                        <input type="hidden" name="topicid" value="<%=request.getParameter("topicId")%>">
+                        <!-- Các trường ẩn để truyền các giá trị cần thiết -->
+                        <input type="hidden" name="memberid" value="<%= request.getParameter("userId")%>">
+                        <input type="hidden" name="topicid" value="<%=request.getParameter("id")%>">
 
                         <!-- Nút submit để gửi form -->
                         <input type="submit" value="submit">
@@ -349,8 +350,8 @@
                                 <textarea name="comment" placeholder="reply here ..." required></textarea>
 
                                 <!-- Các trường ẩn để truyền các giá trị cần thiết -->
-                                <input type="hidden" name="userid" value="<%=userId%>">
-                                <input type="hidden" name="topicid" value="<%=request.getParameter("topicId")%>">            
+                                <input type="hidden" name="memberId" value="<%= request.getParameter("userId")%>">
+                                <input type="hidden" name="topicid" value="<%=request.getParameter("id")%>">            
 
                                 <!-- Nút submit để gửi form -->
                                 <input type="submit" value="submit">

@@ -404,6 +404,11 @@
             <div class="blur-bg-overlay"></div>
             <div class="form-popup create-post-popup">
                 <span class="close-btn material-symbols-rounded">close</span>
+            <!-- Create Post Popup -->
+            <!-- Create Post Popup -->
+            <div class="blur-bg-overlay"></div>
+            <div class="form-popup create-post-popup">
+                <span class="close-btn material-symbols-rounded" style="top:50px">close</span>
 
                 <div class="form-box create-post">
                     <div class="form-details">
@@ -432,8 +437,7 @@
                             </div>
                             <div class="input-field">
                                 <label for="exampleFormControlSelect1">Status</label>
-                                <select class="form-control" id="exampleFormControlSelect1" name="Status"
-                                        required="required">
+                                <select class="form-control" id="exampleFormControlSelect1" name="Status" required="required">
                                     <option>Pre-Release</option>
                                     <option>Released</option>
                                 </select>
@@ -447,15 +451,19 @@
                                 <select name="Genre" required>
                                     <option value="">Select Genre</option>
                                     <c:forEach var="genre" items="${genres}">
-                                        <option value="${genre.genre}">${genre.genre != null ? genre.genre :
-                                                         'No genre available'}</option>
-                                        </c:forEach>
+                                        <option value="${genre.genre}">${genre.genre != null ? genre.genre : 'No genre available'}</option>
+                                    </c:forEach>
                                 </select>
                             </div>
                             <div class="input-field">
-                                <label class="mr-2">Picture Of Game:</label>
+                                <label class="mr-2">Logo Of Game:</label>
                                 <input type="file" name="file">
                             </div>
+                            <div class="input-field">
+                                <label class="mr-2">Pictures of Game Actions:</label>
+                                <input type="file" name="actionFiles" multiple>
+                            </div>
+
                             <div class="policy-text">
                                 <input type="checkbox" id="policy">
                                 <label for="policy">I agree to the
@@ -471,7 +479,26 @@
                     </div>
 
                 </div>
+                </div>
 
+                <div class="form-box upload-photo">
+                    <div class="form-details">
+                    </div>
+                    <div class="form-content">
+                        <h2 style="margin-bottom: 6px">Upload Genre</h2>
+                        <form action="AddGenreController" method="post">
+                            <div class="input-field">
+                                <label class="mr-2">Genre Of Game:</label>
+                                <input type="text" required name="genre1">
+                            </div>
+                            <button type="submit">Send</button>
+                        </form>
+                        <div class="bottom-link">
+                            <a href="#" id="create-post-link">Add Post Game</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
                 <div class="form-box upload-photo">
                     <div class="form-details">
                     </div>
@@ -509,7 +536,24 @@
                 const showPopupBtn = document.querySelector(".create-btn"); // Button to open create post form
                 const hidePopupBtn = formPopup.querySelectorAll(".close-btn"); // Close buttons for both forms
                 const photoOrPost = document.querySelectorAll(".bottom-link a"); // Links to toggle forms
+            <!--====== Javascripts & Jquery ======-->
+            <script src="js/jquery-3.2.1.min.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+            <script src="js/jquery.slicknav.min.js"></script>
+            <script src="js/owl.carousel.min.js"></script>
+            <script src="js/jquery.sticky-sidebar.min.js"></script>
+            <script src="js/jquery.magnific-popup.min.js"></script>
+            <script src="js/main.js"></script>
+            <script>
+                const formPopup = document.querySelector(".form-popup");
+                const showPopupBtn = document.querySelector(".create-btn"); // Button to open create post form
+                const hidePopupBtn = formPopup.querySelectorAll(".close-btn"); // Close buttons for both forms
+                const photoOrPost = document.querySelectorAll(".bottom-link a"); // Links to toggle forms
 
+                // Show create post popup
+                showPopupBtn?.addEventListener("click", () => {
+                    document.body.classList.add("show-popup");
+                });
                 // Show create post popup
                 showPopupBtn?.addEventListener("click", () => {
                     document.body.classList.add("show-popup");
@@ -521,7 +565,24 @@
                         document.body.classList.remove("show-popup");
                     });
                 });
+                // Hide both popups when close button is clicked
+                hidePopupBtn.forEach(btn => {
+                    btn.addEventListener("click", () => {
+                        document.body.classList.remove("show-popup");
+                    });
+                });
 
+                // Switch between create post and upload photo forms
+                photoOrPost.forEach(link => {
+                    link.addEventListener("click", (e) => {
+                        e.preventDefault();
+                        if (link.id === 'upload-photo-link') {
+                            formPopup.classList.add("show-upload-photo");
+                        } else {
+                            formPopup.classList.remove("show-upload-photo");
+                        }
+                    });
+                });
                 // Switch between create post and upload photo forms
                 photoOrPost.forEach(link => {
                     link.addEventListener("click", (e) => {
@@ -554,7 +615,6 @@
                 .form-popup .create-post {
                     display: flex;
                 }
-
                 form button {
                     width: 100%;
                     color: #fff;
@@ -571,12 +631,10 @@
                     margin-top: 0px;
                     margin-bottom: 5px;
                 }
-
                 .right-position {
                     padding-top: 81px;
                     padding-right: 10px;
                 }
-
                 .upload-photo .form-details {
                     padding: 0 20px;
                     background: url("img/mortal-combat.jpg");

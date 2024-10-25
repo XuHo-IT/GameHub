@@ -121,7 +121,8 @@
                  margin-left: auto;
                  margin-right: auto;
                  padding: 20px;
-                 max-width: 1500px">
+                 max-width: 1500px;
+                 background: linear-gradient(to right, #2d1854 0%, #101D3D 100%);">
                 <div class="subforum">
                     <c:forEach var="topic" items="${topics}">
                         <div class="subforum-row">
@@ -130,7 +131,7 @@
                             </div>
                             <div class="subforum-description subforum-column">
                                 <h4>
-                                    <a href="forum-detail.jsp?id=${topic.topicId}">
+                                    <a href="forum-detail.jsp?topicId=${topic.topicId}">
                                         <c:choose>
                                             <c:when test="${fn:length(topic.title) >= 65}">
                                                 ${fn:substring(topic.title, 0, 65)}...

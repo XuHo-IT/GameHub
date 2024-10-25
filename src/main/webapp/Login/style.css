@@ -8,7 +8,10 @@
     font-family: "Open Sans", sans-serif;
 }
 
-
+@font-face{
+    font-family: DragonHunter;
+    src:url(DragonHunter.otf);
+}
 
 body {
     height: 100vh;
@@ -95,7 +98,7 @@ body {
 
 .create-post .form-details {
     padding: 0 20px;
-    background: url("images/Create_post.jpg");
+    background: url("images/Create-post.jpg");
     background-position: center;
     background-size: cover;
 }
@@ -114,22 +117,25 @@ body {
     background-size: cover;
 }
 
-.create-topic .form-details h2,.update-topic .form-details h2{
-    font-family: luminari, fantasy;
-    text-shadow: 
-        2px 2px 0 black, 
-        -2px -2px 0 black,
-        2px -2px 0 black, 
-        -2px 2px 0 black; 
+.create-topic .form-details h2,
+.update-topic .form-details h2, 
+.create-post .form-details h2{
+    font-family: DragonHunter;
+    text-shadow:
+        1px 1px 0 black,
+        -1px -1px 0 black,
+        1px -1px 0 black,
+        -1px 1px 0 black;
 }
 
-.create-topic .form-details p{
-    font-family: luminari, fantasy;
-    text-shadow: 
-        1px 1px 0 black, 
+.create-topic .form-details p,
+.create-post .form-details p{
+    font-family: DragonHunter;
+    text-shadow:
+        1px 1px 0 black,
         -1px -1px 0 black,
-        1px -1px 0 black, 
-        -1px 1px 0 black; 
+        1px -1px 0 black,
+        -1px 1px 0 black;
 }
 
 .form-box .form-content {
@@ -149,8 +155,8 @@ form .input-field {
     flex-direction: column; /* This makes sure that each label and input are stacked vertically */
 }
 
-.input-field input, 
-.input-field select, 
+.input-field input,
+.input-field select,
 .input-field input[type="file"] {
     height: 40px; /* You can adjust the height as needed */
     width: 100%;
@@ -162,8 +168,8 @@ form .input-field {
     border-radius: 3px;
 }
 
-.input-field input:focus, 
-.input-field select:focus, 
+.input-field input:focus,
+.input-field select:focus,
 .input-field input[type="file"]:focus {
     border: 1px solid #6f2b95;
 }

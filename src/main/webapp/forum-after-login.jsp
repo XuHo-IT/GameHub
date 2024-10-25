@@ -128,7 +128,8 @@
                  margin-left: auto;
                  margin-right: auto;
                  padding: 20px;
-                 max-width: 1500px">
+                 max-width: 1500px;
+                 background: linear-gradient(to right, #2d1854 0%, #101D3D 100%);">
                 <!-- button -->
                 <div class="button-top-forum" >
                     <div class="left-button-forum">
@@ -148,7 +149,7 @@
                             </div>
                             <div class="subforum-description subforum-column">
                                 <h4>
-                                    <a href="forum-detail-after-login.jsp?id=${topic.topicId}&adminId=${sessionScope.adminId}">
+                                    <a href="forum-detail-after-login.jsp?topicId=${topic.topicId}&adminId=${sessionScope.adminId}">
                                         <c:choose>
                                             <c:when test="${fn:length(topic.title) >= 64}">
                                                 ${fn:substring(topic.title, 0, 64)}...
@@ -244,7 +245,7 @@
 
         <!-- Create Post Popup -->
         <div class="blur-bg-overlay create-overlay"></div>
-        <div class="form-popup create-post-popup">
+        <div class="form-popup create-topic-popup">
             <span class="close-btn material-symbols-rounded">close</span>
             <div class="form-box create-topic">
                 <div class="form-details">
@@ -308,7 +309,7 @@
             const showCreatePopupBtn = document.querySelector(".create-btn"); // Button to open create post form
             if (showCreatePopupBtn) {
                 showCreatePopupBtn.addEventListener("click", () => {
-                    document.querySelector(".create-post-popup").style.display = "block"; // Show the create popup
+                    document.querySelector(".create-topic-popup").style.display = "block"; // Show the create popup
                     document.querySelector('.create-overlay').style.display = 'block'; // Show the overlay
                     document.body.classList.add("show-popup"); // Disable scrolling
                 });
@@ -338,7 +339,7 @@
             function closeUpdatePopup() {
                 // Hide both popups
                 document.getElementById("updateTopicPopup").style.display = "none";
-                document.querySelector(".create-post-popup").style.display = "none";
+                document.querySelector(".create-topic-popup").style.display = "none";
                 document.querySelector('.create-overlay').style.display = 'none'; // Hide the create overlay
                 document.querySelector('.update-overlay').style.display = 'none'; // Hide the update overlay
 
@@ -367,7 +368,6 @@
             .show-popup {
                 overflow: hidden; /* Disable scrolling when popups are visible */
             }
-
             .blur-bg-overlay {
                 position: fixed;
                 top: 0;
@@ -378,8 +378,7 @@
                 display: none;
                 z-index: 999;
             }
-
-            .create-post-popup, .update-topic-popup {
+            .create-topic-popup, .update-topic-popup {
                 display: none; /* Hidden by default */
                 z-index: 1000;
                 position: fixed;
@@ -392,7 +391,6 @@
                 border: 10px solid #501755;
                 border-radius: 15px;
             }
-
             .create-overlay, .update-overlay {
                 display: none;
                 opacity:1;
@@ -426,13 +424,14 @@
                 height: 50px;
                 font-size: 16px;
                 font-weight: bold;
+                border-radius: 5px;
             }
             .btn-danger:hover{
                 background-color: #4a4646;
             }
             .btn-edit {
-                background-color: yellow;
-                color: black;
+                background-color: #4CAF50;
+                color: white;
                 border: none;
                 border-radius: 5px;
                 padding: 10px 20px;
@@ -446,7 +445,6 @@
             }
             .btn-edit:hover{
                 background-color: #4a4646;
-                color: white;
             }
         </style>
         <!--====== Javascripts & Jquery ======-->

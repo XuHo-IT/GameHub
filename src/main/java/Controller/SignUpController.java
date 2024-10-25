@@ -27,6 +27,8 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import utils.MongoDBConnectionManager1;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class SignUpController extends HttpServlet {
 
@@ -54,6 +56,9 @@ public class SignUpController extends HttpServlet {
             return;
         }
 
+        // Hash the password for security
+        String hashedPassword = hashPassword(password);
+
         // Create a SuperAdmin object
         SuperAdmin superAdmin = new SuperAdmin(
                 null, // MongoDB will auto-generate the Admin ID
@@ -62,7 +67,7 @@ public class SignUpController extends HttpServlet {
                 email,
                 phoneNumber,
                 address,
-                password,
+                hashedPassword,
                 photoUrl,
                 role,
                 status
@@ -86,7 +91,7 @@ public class SignUpController extends HttpServlet {
                     .append("PhoneNumber", superAdmin.getPhone())
                     .append("DateOfBirth", new SimpleDateFormat("yyyy-MM-dd").format(superAdmin.getDob()))
                     .append("Address", superAdmin.getAddress())
-                    .append("Password", superAdmin.getPassWord()) // Ideally, you should hash the password
+                    .append("Password", superAdmin.getPassWord()) // Store hashed password
                     .append("PhotoUrl", superAdmin.getPhotoUrl())
                     .append("Role", superAdmin.getRole())
                     .append("Status", superAdmin.getStatus());
@@ -103,7 +108,7 @@ public class SignUpController extends HttpServlet {
             session.setAttribute("adminId", adminId.toString());
             session.setAttribute("adminName", superAdmin.getName());
             session.setAttribute("adminEmail", superAdmin.getEmail());
-
+            session.setAttribute("photoUrl", superAdmin.getPhotoUrl());
             // Generate the verification key (UUID)
             String verificationKey = UUID.randomUUID().toString();
 
@@ -126,13 +131,31 @@ public class SignUpController extends HttpServlet {
         }
     }
 
+    private String hashPassword(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hash = md.digest(password.getBytes());
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private boolean sendEmailVerification(String memberEmail, String verificationKey) {
         String subject = "GameHub: Email Verification";
         String body = "Hello, <br/><br/>"
                 + "Please <a href='http://localhost:8080/Game_Trading_Web/VerifyEmailHandler?key=" + verificationKey + "&email=" + memberEmail + "'>click here</a> to verify your email address.";
 
         String fromEmail = "gamehubtalk@gmail.com";
-        String emailPassword = "vqgf zhra oqfr drlg";
+        String emailPassword = "vqgf zhra oqfr drlg"; // Store sensitive data securely!
 
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", "true");

@@ -46,7 +46,6 @@ public class ReadTopic extends HttpServlet {
 
             // Find all documents in the topic collection
             FindIterable<Document> topics = topicCollection.find();
-            String adminId = (String) request.getSession().getAttribute("adminId");
 
             // Map each document to a Topic object
             for (Document topicDocument : topics) {
@@ -118,7 +117,7 @@ public class ReadTopic extends HttpServlet {
             request.setAttribute("currentPage", currentPage);
 
             // Forward to the forum page
-            request.getRequestDispatcher("forum.jsp?userId=" + adminId).forward(request, response);
+            request.getRequestDispatcher("forum.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Error retrieving topics.");

@@ -1,30 +1,30 @@
 package Controller;
 
-import Model.Topic;
-import Model.TopicTemp;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.model.Filters;
-import org.bson.Document;
-import org.bson.types.Binary;
-import org.bson.types.ObjectId;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 
-import utils.MongoDBConnectionManager1;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.bson.Document;
+import org.bson.types.Binary;
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
+
+import Model.TopicTemp;
+import utils.MongoDBConnectionManager1;
 
 public class ReadTopicAdmin extends HttpServlet {
 
@@ -46,7 +46,6 @@ public class ReadTopicAdmin extends HttpServlet {
 
             // Find all documents in the topic collection
             FindIterable<Document> topics = topicCollection.find();
-            String adminId = (String) request.getSession().getAttribute("adminId");
 
             // Map each document to a Topic object
             for (Document topicDocument : topics) {
@@ -70,7 +69,7 @@ public class ReadTopicAdmin extends HttpServlet {
                     Binary imageDataBinary = (Binary) imageData;
                     imageDataBase64 = Base64.getEncoder().encodeToString(imageDataBinary.getData());
                 } else if (imageData instanceof String) {
-                    imageDataBase64 = (String) imageData;  // Use if already a string
+                    imageDataBase64 = (String) imageData; // Use if already a string
                 } else {
                     imageDataBase64 = ""; // Default or placeholder image
                 }
@@ -117,8 +116,9 @@ public class ReadTopicAdmin extends HttpServlet {
             request.setAttribute("totalPages", totalPages);
             request.setAttribute("currentPage", currentPage);
 
+            String adminId = (String) request.getSession().getAttribute("adminid");
             // Forward to the forum page
-            request.getRequestDispatcher("forum-after-login.jsp?adminId=" + adminId).forward(request, response);
+            request.getRequestDispatcher("forum-after-login.jsp?adminid=" + adminId).forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Error retrieving topics.");

@@ -85,7 +85,7 @@
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
                             <div class="account-container">
-                                 <div class="user">
+                                <div class="user">
                                     <%= request.getSession().getAttribute("adminId")%>
                                     <img src="<%= request.getSession().getAttribute("photoUrl")%>" alt="User Profile" />
                                 </div>
@@ -225,13 +225,9 @@
                 <!--Comment Area-->
                 <form action="AddCommentAdmin" method="POST">
                     <div class="comment-area hide" id="comment-area">
-                        <!-- Textarea để nhập comment -->
                         <textarea name="comment" placeholder="comment here ..." required></textarea>
-                        <!-- Các trường ẩn để truyền các giá trị cần thiết -->
-                        <input type="hidden" name="adminid" value="<%= request.getSession().getAttribute("adminId")%>">
+                        <input type="hidden" name="adminid" value="<%=request.getSession().getAttribute("adminId")%>">
                         <input type="hidden" name="topicid" value="<%=request.getParameter("topicId")%>">
-
-                        <!-- Nút submit để gửi form -->
                         <input type="submit" value="submit">
                     </div>
                 </form>
@@ -303,12 +299,14 @@
                                         <div class="comment">
                                             <button style="width: 80px; height: 40px; background-color: #4CAF50" class="update-button" onclick="showUpdate('<%= comment.getCommentId()%>', '<%= comment.getContent()%>', '<%= topicId%>', '<%= comment.getContent()%>')" aria-label="Update comment">Edit</button>
                                         </div>
-                                        <form action="UpdateCommentAdminController" method="POST">
+                                        <form action="UpdateCommentAdmin" method="POST">
                                             <div class="comment-area hide" id="update-area-<%= comment.getCommentId()%>">
-                                                <textarea name="newContent" placeholder="reply here ..." required></textarea>
+                                                <textarea name="newContent" placeholder="reply here ..." required 
+                                                          oninput="checkAdminChanges(this, '<%= comment.getContent()%>')"></textarea>
                                                 <input type="hidden" name="commentid" value="<%= comment.getCommentId()%>">
                                                 <input type="hidden" name="topicid" value="<%=request.getParameter("topicId")%>">
-                                                <input type="submit" value="Submit">
+                                                <input type="hidden" name="adminid" value="<%=request.getSession().getAttribute("adminId")%>">
+                                                <input type="submit" value="Submit" id="adminSubmitBtn-<%= comment.getCommentId()%>" disabled>
                                             </div>
                                         </form>
                                         <%} else {%>                              
@@ -326,14 +324,9 @@
                         <!-- Reply text area -->
                         <form action="AddCommentAdmin" method="POST">
                             <div class="comment-area hide" id="reply-area-<%= comment.getCommentId()%>">
-                                <!-- Textarea để nhập reply -->
                                 <textarea name="comment" placeholder="reply here ..." required></textarea>
-
-                                <!-- Các trường ẩn để truyền các giá trị cần thiết -->
-                                <input type="hidden" name="userid" value="<%= request.getSession().getAttribute("adminId")%>">
+                                <input type="hidden" name="adminid" value="<%=request.getSession().getAttribute("adminId")%>">
                                 <input type="hidden" name="topicid" value="<%=request.getParameter("topicId")%>">            
-
-                                <!-- Nút submit để gửi form -->
                                 <input type="submit" value="submit">
                             </div>
                         </form>
@@ -439,10 +432,11 @@
                                                     var area = document.getElementById(areaId);
                                                     area.classList.toggle("hide");
                                                 }
+                                                
                                                 function deleteComment(value1, value2) {
                                                     const form = document.createElement('form');
                                                     form.method = 'POST';
-                                                    form.action = 'DeleteCommentAdminController';  // Đường dẫn tới servlet
+                                                    form.action = 'DeleteCommentAdmin';  // Đường dẫn tới servlet
 
                                                     // Tạo các input ẩn để truyền giá trị
                                                     const input1 = document.createElement('input');
@@ -455,6 +449,11 @@
                                                     input2.name = 'topicId';
                                                     input2.value = value2;
 
+                                                    const input3 = document.createElement('input');
+                                                    input3.type = 'hidden';
+                                                    input3.name = 'adminid';
+                                                    input3.value = <%=request.getSession().getAttribute("adminId")%>;
+
                                                     // Thêm input vào form
                                                     form.appendChild(input1);
                                                     form.appendChild(input2);
@@ -462,6 +461,11 @@
                                                     // Thêm form vào body và submit
                                                     document.body.appendChild(form);
                                                     form.submit();
+                                                }
+                                                
+                                                function checkAdminChanges(textarea, originalContent) {
+                                                    const submitBtn = document.getElementById(`adminSubmitBtn-${textarea.closest('.comment-area').id.split('-')[2]}`);
+                                                    submitBtn.disabled = (textarea.value.trim() === originalContent.trim());
                                                 }
         </script>
         <style>.modal {
@@ -493,22 +497,22 @@
                 font-family: 'Sixtyfour Convergence';
                 padding: 0 0px 30px 0;
             }
-             .user {
-                        position: relative;
-                        width: 40px;
-                        height: 40px;
-                        border-radius: 50%;
-                        overflow: hidden;
-                        cursor: pointer;
-                    }
-                    .user img {
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-                    }
+            .user {
+                position: relative;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                overflow: hidden;
+                cursor: pointer;
+            }
+            .user img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
         </style>
     </body>
 

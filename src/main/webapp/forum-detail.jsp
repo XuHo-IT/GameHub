@@ -1,17 +1,13 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
+<%@page import="Model.CommentTemp"%>
+<%@page import="utils.MongoDBConnectionManager2"%>
 <%@page import="java.time.Period"%>
 <%@page import="java.time.Duration"%>
 <%@page import="java.time.ZoneId"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@page import="java.util.Date"%>
->>>>>>> bfbcb4d2ca845faa79df5c014fc84182eaa34b56
 <%@page import="java.util.Collections"%>
 <%@page import="java.util.Collection"%>
 <%@page import="Model.Comment"%>
->>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -93,10 +89,10 @@
 
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
-                        <li><a href="ReadGameHomeController">Home</a></li>
-                        <li><a href="ReadGameListController">Games</a></li>
-                        <li><a href="ReadTopic">Forum</a></li>
-                        <li><a href="contact.jsp">Contact</a></li>
+                            <li><a href="ReadGameHomeController">Home</a></li>
+                            <li><a href="ReadGameListController">Games</a></li>
+                            <li><a href="ReadTopic">Forum</a></li>
+                            <li><a href="contact.jsp">Contact</a></li>
 
                         </ul>
                     </nav>
@@ -104,73 +100,51 @@
             </div>
         </header>
 
-<!-- Forum section -->
-<%
-    String userId = null;
-    String userNameTopic = null;
-    String title = null;
-    String description = null;
-    String imageData = null;
-    String photoUrlUser = null;
-    List<Comment> comments = new ArrayList<>();
+        <!-- Forum section -->
+        <%
+            String userId = null;
+            String userNameTopic = null;
+            String title = null;
+            String description = null;
+            String imageData = null;
+            String photoUrlUser = null;
+            List<CommentTemp> comments = new ArrayList<>();
 
-    // Get the post ID from the URL query parameter
-    String topicId = request.getParameter("id");
-    System.out.println("Topic ID: " + topicId);
+            // Get the post ID from the URL query parameter
+            String topicId = request.getParameter("id");
+            System.out.println("Topic ID: " + topicId);
 
-    // Connect to MongoDB
-    MongoClient mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
-    MongoCollection<Document> topicsCollection = mongoClient.getDatabase("GameHub").getCollection("topic");
+            // Connect to MongoDB
+            MongoClient mongoClient = MongoDBConnectionManager2.getMongoClient();
+            MongoCollection<Document> topicsCollection = mongoClient.getDatabase("GameHub").getCollection("topic");
 
-    // Find the topic by its ObjectId
-    Document topic = topicsCollection.find(Filters.eq("_id", new ObjectId(topicId))).first();
+            // Find the topic by its ObjectId
+            Document topic = topicsCollection.find(Filters.eq("_id", new ObjectId(topicId))).first();
 
-    // Check if the post exists
-    if (topic != null) {
-        title = topic.getString("Title");
-        description = topic.getString("Description");
-        imageData = topic.getString("ImageData");
-        userId = topic.getString("UserId");
+            // Check if the post exists
+            if (topic != null) {
+                title = topic.getString("Title");
+                description = topic.getString("Description");
+                imageData = topic.getString("ImageData");
+                userId = topic.getString("UserId");
 
-        MongoCollection<Document> usersCollection = mongoClient.getDatabase("GameHub").getCollection("superadmin");
-        // Find the user by its ObjectId
-        Document userTopic = usersCollection.find(Filters.eq("_id", new ObjectId(userId))).first();
+                MongoCollection<Document> usersCollection = mongoClient.getDatabase("GameHub").getCollection("superadmin");
+                // Find the user by its ObjectId
+                Document userTopic = usersCollection.find(Filters.eq("_id", new ObjectId(userId))).first();
 
-        userNameTopic = userTopic.getString("Name");
-        photoUrlUser = userTopic.getString("PhotoUrl");
+                userNameTopic = userTopic.getString("Name");
+                photoUrlUser = userTopic.getString("PhotoUrl");
 
-        MongoCollection<Document> commentsCollection = mongoClient.getDatabase("GameHub").getCollection("comment");
-        // Find the comment by its ObjectId
-        List<Document> commentDocuments = commentsCollection.find(Filters.eq("TopicId", topicId)).into(new ArrayList<>());
-
-        for (Document doc : commentDocuments) {
-            Document user = usersCollection.find(Filters.eq("_id", new ObjectId(doc.getString("UserId")))).first();
-            String photoUrl = (user != null) ? user.getString("PhotoUrl") : "./img/t-rex.png";
-            String userName = (user != null) ? user.getString("Name") : "Unknown";
-
-            Comment comment = new Comment();
-            comment.setCommentId(doc.getObjectId("_id").toString());
-            comment.setTopicId(doc.getString("TopicId").toString());
-            comment.setUserId(doc.getString("UserId").toString());
-            comment.setUserName(userName);
-            comment.setPhotoUrl(photoUrl);
-            comment.setContent(doc.getString("Content"));
-
-<<<<<<< HEAD
-            if ("unedited".equals(doc.getString("Status"))) {
-                comment.setStatus("");
-=======
+                MongoCollection<Document> commentsCollection = mongoClient.getDatabase("GameHub").getCollection("comment");
                 // Find the comment by its ObjectId
-                List<Document> commentDocuments = commentsCollection
-                        .find(Filters.eq("TopicId", topicId))
-                        .into(new ArrayList<>());
+                List<Document> commentDocuments = commentsCollection.find(Filters.eq("TopicId", topicId)).into(new ArrayList<>());
 
                 for (Document doc : commentDocuments) {
                     Document user = usersCollection.find(Filters.eq("_id", new ObjectId(doc.getString("UserId")))).first();
                     String photoUrl = (user != null) ? user.getString("PhotoUrl") : "./img/t-rex.png";
                     String userName = (user != null) ? user.getString("Name") : "Unknown";
 
-                    Comment comment = new Comment();
+                    CommentTemp comment = new CommentTemp();
                     comment.setCommentId(doc.getObjectId("_id").toString());
                     comment.setTopicId(doc.getString("TopicId").toString());
                     comment.setUserId(doc.getString("UserId").toString());
@@ -178,64 +152,20 @@
                     comment.setPhotoUrl(photoUrl);
                     comment.setContent(doc.getString("Content"));
 
-                    if (doc.getString("Status").equals("unedited")) {
+                    if ("unedited".equals(doc.getString("Status"))) {
                         comment.setStatus("");
                     } else {
                         comment.setStatus("(edited)");
-                    };
+                    }
                     comment.setDate(doc.getDate("Date"));
-
-                    // Log retrieved values
-                    System.out.println("Topic id: " + comment.getTopicId());
-                    System.out.println("User id: " + comment.getUserId());
-                    System.out.println("Comment id: " + comment.getCommentId());
-                    System.out.println("User name: " + userName);
-                    System.out.println("Content: " + comment.getContent());
-                    System.out.println("Photo ulr: " + photoUrl);
 
                     comments.add(comment);
                 }
-
                 Collections.reverse(comments);
-
-                // Log retrieved values
-                System.out.println("Title: " + title);
-                System.out.println("Description: " + description);
-                System.out.println("Image ulr: " + imageData);
-                System.out.println("User name: " + userNameTopic);
-                System.out.println("Photo ulr: " + photoUrlUser);
->>>>>>> 4a7e61d314ac293c061966d4e2a08a39b8b0551d
-            } else {
-                comment.setStatus("(edited)");
             }
-            comment.setDate(doc.getDate("Date"));
-
-            // Log retrieved values
-            System.out.println("Topic id: " + comment.getTopicId());
-            System.out.println("User id: " + comment.getUserId());
-            System.out.println("Comment id: " + comment.getCommentId());
-            System.out.println("User name: " + userName);
-            System.out.println("Content: " + comment.getContent());
-            System.out.println("Photo url: " + photoUrl);
-
-            comments.add(comment);
-        }
-
-        Collections.reverse(comments);
-
-        // Log retrieved values
-        System.out.println("Title: " + title);
-        System.out.println("Description: " + description);
-        System.out.println("Image url: " + imageData);
-        System.out.println("User name: " + userNameTopic);
-        System.out.println("Photo url: " + photoUrlUser);
-    } else {
-        out.println("Post not found.");
-    }
-
-    // Close MongoDB connection
-    mongoClient.close();
-%>
+            // Close MongoDB connection
+            mongoClient.close();
+        %>
 
 
         <section class="blog-section spad">
@@ -256,7 +186,7 @@
                             <div class="username"><a href="#"><%=userNameTopic%></a></div>
                         </div>
                         <div class="content">
-                            <p style="color: lightblue; white-space: normal; word-wrap: break-word; overflow-wrap: break-word;">
+                            <p style="color: lightblue; word-break: break-word; overflow-wrap: anywhere;">
                                 <%= description%>
                             </p>
 
@@ -271,7 +201,7 @@
                 <div class="comments-container">
                     <% if (comments != null && !comments.isEmpty()) {
                             int commentIndex = 0;
-                            for (Comment comment : comments) {%>
+                            for (CommentTemp comment : comments) {%>
                     <div class="comments" id="comment-<%= comment.getCommentId()%>" data-comment-index="<%= commentIndex++%>">
                         <div class="body">
                             <div class="authors">
@@ -324,7 +254,7 @@
                                 </div>
                             </div>
                             <div class="content">
-                                <p style="color: lightblue; word-wrap: break-word; overflow-wrap: break-word;">
+                                <p style="color: lightblue;  word-break: break-word; overflow-wrap: anywhere;">
                                     <%= comment.getContent()%>
                                 </p>
                             </div>
@@ -355,10 +285,10 @@
                     <img src="./img/logo2.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
-                        <li><a href="ReadGameHomeController">Home</a></li>
-                        <li><a href="ReadGameListController">Games</a></li>
-                        <li><a href="ReadTopic">Forum</a></li>
-                        <li><a href="contact.jsp">Contact</a></li>
+                    <li><a href="ReadGameHomeController">Home</a></li>
+                    <li><a href="ReadGameListController">Games</a></li>
+                    <li><a href="ReadTopic">Forum</a></li>
+                    <li><a href="contact.jsp">Contact</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
                     <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>

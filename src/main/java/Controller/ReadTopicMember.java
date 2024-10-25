@@ -26,6 +26,7 @@ public class ReadTopicMember extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            
             MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
             MongoDatabase database = mongoClient.getDatabase("GameHub");
 
@@ -38,25 +39,26 @@ public class ReadTopicMember extends HttpServlet {
 
             // Find all documents in the topic collection
             FindIterable<Document> topics = topicCollection.find();
-            
+            String userId = (String) request.getSession().getAttribute("adminId");
+
             // Map each document to a Topic object
             for (Document topicDocument : topics) {
                 String userIdStr = topicDocument.getString("UserId");
                 Document user = null;
-                
+
                 // Fetch user information from the "superadmin" collection
                 if (userIdStr != null && ObjectId.isValid(userIdStr)) {
                     user = usersCollection.find(Filters.eq("_id", new ObjectId(userIdStr))).first();
                 }
-                
+
                 // Handle missing or null user
                 String photoUrl = (user != null) ? user.getString("PhotoUrl") : "./img/t-rex.png";
-                String userName = (user != null) ? user.getString("UserName") : "Unknown User";
-                
+                String userName = (user != null) ? user.getString("Name") : "Unknown User";
+
                 // Handle image data, convert to Base64 if Binary type
                 Object imageData = topicDocument.get("ImageData");
                 String imageDataBase64 = "";
-                
+
                 if (imageData instanceof Binary) {
                     Binary imageDataBinary = (Binary) imageData;
                     imageDataBase64 = Base64.getEncoder().encodeToString(imageDataBinary.getData());
@@ -76,19 +78,18 @@ public class ReadTopicMember extends HttpServlet {
                         topicDocument.getString("UserId"),
                         topicDocument.getString("Title"),
                         topicDocument.getString("Description"),
-                        imageDataBase64,  // Only use Base64 encoded image data
+                        imageDataBase64, // Only use Base64 encoded image data
                         photoUrl,
-                        userName,  // User's name, or "Unknown User" if not found
+                        userName, // User's name, or "Unknown User" if not found
                         topicDocument.getDate("CreatedAt"),
                         commentCount // Pass the comment count
                 );
-                System.out.println(topic);
                 topicList.add(topic);
             }
 
             // Reverse the list for displaying the latest topics first
             Collections.reverse(topicList);
-            
+
             // Pagination logic
             int itemsPerPage = 6;
             int currentPage = 1;
@@ -100,7 +101,7 @@ public class ReadTopicMember extends HttpServlet {
             int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
             int startIndex = (currentPage - 1) * itemsPerPage;
             int endIndex = Math.min(startIndex + itemsPerPage, totalItems);
-            
+
             // Sublist for current page
             List<TopicTemp> topicsForCurrentPage = topicList.subList(startIndex, endIndex);
 
@@ -110,11 +111,14 @@ public class ReadTopicMember extends HttpServlet {
             request.setAttribute("currentPage", currentPage);
 
             // Forward to the forum page
-            request.getRequestDispatcher("forum-after-login-member.jsp").forward(request, response);
+            request.getRequestDispatcher("forum-after-login-member.jsp?userId="+ userId).forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Error retrieving topics.");
             request.getRequestDispatcher("error-page.jsp").forward(request, response);
         }
+    }
+    public static void main(String[] args) {
+        
     }
 }

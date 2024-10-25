@@ -111,8 +111,7 @@
             List<CommentTemp> comments = new ArrayList<>();
 
             // Get the post ID from the URL query parameter
-            String topicId = request.getParameter("id");
-            System.out.println("Topic ID: " + topicId);
+            String topicId = request.getParameter("topicId");
 
             // Connect to MongoDB
             MongoClient mongoClient = MongoDBConnectionManager2.getMongoClient();
@@ -163,8 +162,6 @@
                 }
                 Collections.reverse(comments);
             }
-            // Close MongoDB connection
-            mongoClient.close();
         %>
 
 
@@ -267,21 +264,6 @@
                 </div>
             </div>
         </section>
-
-
-
-        <!-- Newsletter section -->
-        <section class="newsletter-section">
-            <div class="container">
-                <h2>Subscribe to our newsletter</h2>
-                <form class="newsletter-form">
-                    <input type="text" placeholder="ENTER YOUR E-MAIL">
-                    <button class="site-btn">subscribe  <img src="img/icons/double-arrow.png" alt="#"/></button>
-                </form>
-            </div>
-        </section>
-        <!-- Newsletter section end -->
-
         <!-- Footer section -->
         <footer class="footer-section" style="margin-top: 0 ; padding: 10px 125px">
             <div class="container">

@@ -121,7 +121,8 @@
                  margin-left: auto;
                  margin-right: auto;
                  padding: 20px;
-                 max-width: 1500px">
+                 max-width: 1500px;
+                 background: linear-gradient(to right, #2d1854 0%, #101D3D 100%);">
                 <div class="subforum">
                     <c:forEach var="topic" items="${topics}">
                         <div class="subforum-row">
@@ -130,7 +131,7 @@
                             </div>
                             <div class="subforum-description subforum-column">
                                 <h4>
-                                    <a href="forum-detail.jsp?id=${topic.topicId}">
+                                    <a href="forum-detail.jsp?topicId=${topic.topicId}">
                                         <c:choose>
                                             <c:when test="${fn:length(topic.title) >= 65}">
                                                 ${fn:substring(topic.title, 0, 65)}...
@@ -173,17 +174,6 @@
             </div>
         </section>
 
-        <!-- Newsletter section -->
-        <section class="newsletter-section">
-            <div class="container">
-                <h2>Subscribe to our newsletter</h2>
-                <form class="newsletter-form">
-                    <input type="text" placeholder="ENTER YOUR E-MAIL">
-                    <button class="site-btn">subscribe  <img src="img/icons/double-arrow.png" alt="#"/></button>
-                </form>
-            </div>
-        </section>
-        <!-- Newsletter section end -->
         <!-- Footer section -->
         <footer class="footer-section" style="margin-top: 0 ; padding: 10px 125px">
             <div class="container">

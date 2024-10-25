@@ -124,7 +124,7 @@
 
         <!--Forum section -->
         <%
-            String userId = null;
+            String userIdTopic = null;
             String userNameTopic = null;
             String title = null;
             String description = null;
@@ -134,8 +134,7 @@
             List<CommentTemp> comments = new ArrayList<>();
 
             // Get the post ID from the URL query parameter
-            String topicId = request.getParameter("id");
-            System.out.println("Topic ID: " + topicId);
+            String topicId = request.getParameter("topicId");
 
             // Connect to MongoDB
             MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
@@ -149,12 +148,12 @@
                 title = topic.getString("Title");
                 description = topic.getString("Description");
                 imageData = topic.getString("ImageData");
-                userId = topic.getString("UserId");
+                userIdTopic = topic.getString("UserId");
 
                 MongoCollection<Document> usersCollection = mongoClient.getDatabase("GameHub").getCollection("superadmin");
 
                 // Find the user by its ObjectId
-                Document userTopic = usersCollection.find(Filters.eq("_id", new ObjectId(userId))).first();
+                Document userTopic = usersCollection.find(Filters.eq("_id", new ObjectId(userIdTopic))).first();
 
                 userNameTopic = userTopic.getString("Name");
                 photoUrlUser = userTopic.getString("PhotoUrl");
@@ -186,25 +185,9 @@
                     };
                     comment.setDate(doc.getDate("Date"));
 
-                    // Log retrieved values
-                    System.out.println("Topic id: " + comment.getTopicId());
-                    System.out.println("User id: " + comment.getUserId());
-                    System.out.println("Comment id: " + comment.getCommentId());
-                    System.out.println("User name: " + userName);
-                    System.out.println("Content: " + comment.getContent());
-                    System.out.println("Photo ulr: " + photoUrl);
-
                     comments.add(comment);
                 }
-
                 Collections.reverse(comments);
-
-                // Log retrieved values
-                System.out.println("Title: " + title);
-                System.out.println("Description: " + description);
-                System.out.println("Image ulr: " + imageData);
-                System.out.println("User name: " + userNameTopic);
-                System.out.println("Photo ulr: " + photoUrlUser);
             } else {
                 out.println("Post not found.");
             }
@@ -246,7 +229,7 @@
                         <textarea name="comment" placeholder="comment here ..." required></textarea>
                         <!-- Các trường ẩn để truyền các giá trị cần thiết -->
                         <input type="hidden" name="adminid" value="<%= request.getSession().getAttribute("adminId")%>">
-                        <input type="hidden" name="topicid" value="<%=request.getParameter("id")%>">
+                        <input type="hidden" name="topicid" value="<%=request.getParameter("topicId")%>">
 
                         <!-- Nút submit để gửi form -->
                         <input type="submit" value="submit">
@@ -318,13 +301,13 @@
                                     <div style="display: flex; align-items: center; flex-direction: row-reverse; gap: 10px;">
                                         <%if (comment.getUserId().equals(request.getParameter("adminId"))) {%>
                                         <div class="comment">
-                                            <button style="width: 80px; height: 40px; background-color: yellow; color: black" class="update-button" onclick="showUpdate('<%= comment.getCommentId()%>', '<%= comment.getContent()%>', '<%= topicId%>', '<%= comment.getContent()%>')" aria-label="Update comment">Edit</button>
+                                            <button style="width: 80px; height: 40px; background-color: #4CAF50" class="update-button" onclick="showUpdate('<%= comment.getCommentId()%>', '<%= comment.getContent()%>', '<%= topicId%>', '<%= comment.getContent()%>')" aria-label="Update comment">Edit</button>
                                         </div>
-                                        <form action="UpdateCommentAdmin" method="POST">
+                                        <form action="UpdateCommentAdminController" method="POST">
                                             <div class="comment-area hide" id="update-area-<%= comment.getCommentId()%>">
                                                 <textarea name="newContent" placeholder="reply here ..." required></textarea>
                                                 <input type="hidden" name="commentid" value="<%= comment.getCommentId()%>">
-                                                <input type="hidden" name="topicid" value="<%=request.getParameter("id")%>">
+                                                <input type="hidden" name="topicid" value="<%=request.getParameter("topicId")%>">
                                                 <input type="submit" value="Submit">
                                             </div>
                                         </form>
@@ -348,7 +331,7 @@
 
                                 <!-- Các trường ẩn để truyền các giá trị cần thiết -->
                                 <input type="hidden" name="userid" value="<%= request.getSession().getAttribute("adminId")%>">
-                                <input type="hidden" name="topicid" value="<%=request.getParameter("id")%>">            
+                                <input type="hidden" name="topicid" value="<%=request.getParameter("topicId")%>">            
 
                                 <!-- Nút submit để gửi form -->
                                 <input type="submit" value="submit">
@@ -364,16 +347,6 @@
 
             </div>
         </section>
-
-        <!-- Newsletter section -->
-        <section class="newsletter-section" style="">
-            <div class="container">
-                <h3 class="bottom-title">Thanks for using our website!</h3>
-                <img src="img/Dawn.gif" alt="Game Image" style="width: 100%; height: auto;" />
-            </div>
-        </section>
-        <!-- Newsletter section end -->
-
 
         <!-- Footer section -->
         <footer class="footer-section" style="margin-top: 0 ; padding: 10px 125px">
@@ -501,7 +474,6 @@
                 background-color: rgba(0, 0, 0, 0.5);
                 z-index: 1;
             }
-
             .modal-content {
                 background-color: white;
                 margin: 15% auto;
@@ -510,7 +482,6 @@
                 border-radius: 10px;
                 text-align: center;
             }
-
             .close {
                 float: right;
                 font-size: 24px;

@@ -1,17 +1,14 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
+
 <%@page import="java.time.Period"%>
 <%@page import="java.time.Duration"%>
 <%@page import="java.time.ZoneId"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@page import="java.util.Date"%>
->>>>>>> bfbcb4d2ca845faa79df5c014fc84182eaa34b56
+
 <%@page import="java.util.Collections"%>
 <%@page import="java.util.Collection"%>
 <%@page import="Model.Comment"%>
->>>>>>> 8d095345313693ae86e02c1c50850ceafd6c7970
+
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -156,10 +153,10 @@
             comment.setPhotoUrl(photoUrl);
             comment.setContent(doc.getString("Content"));
 
-<<<<<<< HEAD
+
             if ("unedited".equals(doc.getString("Status"))) {
                 comment.setStatus("");
-=======
+
                 // Find the comment by its ObjectId
                 List<Document> commentDocuments = commentsCollection
                         .find(Filters.eq("TopicId", topicId))
@@ -204,7 +201,7 @@
                 System.out.println("Image ulr: " + imageData);
                 System.out.println("User name: " + userNameTopic);
                 System.out.println("Photo ulr: " + photoUrlUser);
->>>>>>> 4a7e61d314ac293c061966d4e2a08a39b8b0551d
+
             } else {
                 comment.setStatus("(edited)");
             }
@@ -340,6 +337,17 @@
 
 
 
+        <!-- Newsletter section -->
+        <section class="newsletter-section">
+            <div class="container">
+                <h2>Subscribe to our newsletter</h2>
+                <form class="newsletter-form">
+                    <input type="text" placeholder="ENTER YOUR E-MAIL">
+                    <button class="site-btn">subscribe  <img src="img/icons/double-arrow.png" alt="#"/></button>
+                </form>
+            </div>
+        </section>
+        <!-- Newsletter section end -->
 
         <!-- Footer section -->
         <footer class="footer-section" style="margin-top: 0 ; padding: 10px 125px">

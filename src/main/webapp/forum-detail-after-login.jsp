@@ -41,6 +41,7 @@
         <link rel="stylesheet" href="css/searchbar.css" />
         <link rel="stylesheet" href="css/forum.css" />
         <link rel="stylesheet" href="css/header.css" />
+        <link rel="stylesheet" href="css/account-icon.css" />
 
         <!-- Main Stylesheets -->
         <link rel="stylesheet" href="css/style.css" />

@@ -69,8 +69,8 @@ public class LoginController extends HttpServlet {
 
                 // Redirect based on the user's role
                 String role = userDoc.getString("Role");
-                MongoConectUser mgcn = new MongoConectUser();
-                UserModel currentUser = mgcn.getUserById(superAdmin.getAdminId());
+//                MongoConectUser mgcn = new MongoConectUser();
+//                UserModel currentUser = mgcn.getUserById(superAdmin.getAdminId());
                 
                 if (currentUser.getStatus().equals("Suspend")) {
                     response.sendRedirect("user-profile.jsp?id=" + userId);
@@ -80,7 +80,7 @@ public class LoginController extends HttpServlet {
                     response.sendRedirect("ReadGameHomeMemberController");
                 } else if ("1".equals(role)) {
                         // For role 1 (admin)
-                        response.sendRedirect("ReadGameHomeAdmin?adminid=" + id);
+//                        response.sendRedirect("ReadGameHomeAdmin?adminid=" + id);
                     }
                 }
 

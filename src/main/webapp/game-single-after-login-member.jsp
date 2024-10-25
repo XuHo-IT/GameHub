@@ -121,7 +121,7 @@
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                            <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                            <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
                             <li><a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                             <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                         </ul>
@@ -240,7 +240,7 @@
                         </div>
                         <div class="gs-auhtor-genre" ">
                             <div class="left-author">
-                                <h3 style="color: white">Author</h3>
+                                <h3 style="color: white">Publisher</h3>
                                 <p style="font-size: 20px"><%= author != null ? author : "No Author available"%></p>
                             </div>
                             <div class="right-genre">
@@ -301,15 +301,7 @@
 
 
         <!-- Newsletter section -->
-        <section class="newsletter-section">
-            <div class="container">
-                <h2>Subscribe to our newsletter</h2>
-                <form class="newsletter-form">
-                    <input type="text" placeholder="ENTER YOUR E-MAIL">
-                    <button class="site-btn">subscribe  <img src="img/icons/double-arrow.png" alt="#"/></button>
-                </form>
-            </div>
-        </section>
+
         <!-- Newsletter section end -->
 
 
@@ -326,11 +318,10 @@
                     <img src="./img/logo.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
-                    <li><a href="">Home</a></li>
-                    <li><a href="">Games</a></li>
-                    <li><a href="">Reviews</a></li>
-                    <li><a href="">News</a></li>
-                    <li><a href="">Contact</a></li>
+                            <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                            <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                            <li><a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                            <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                 </ul>
 
                 <div class="footer-social d-flex justify-content-center">

@@ -213,7 +213,7 @@
                         </div>
                         <div class="gs-auhtor-genre" ">
                             <div class="left-author">
-                                <h3 style="color: white">Author</h3>
+                                <h3 style="color: white">Publisher</h3>
                             <p style="font-size: 20px"><%= author != null ? author : "No Author available"%></p>
                             </div>
                             <div class="right-genre">

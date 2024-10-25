@@ -14,6 +14,7 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page import="org.bson.Document" %>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -121,7 +122,7 @@
                  margin-right: auto;
                  padding: 20px;
                  max-width: 1500px">
-              <div class="subforum">
+                <div class="subforum">
                     <c:forEach var="topic" items="${topics}">
                         <div class="subforum-row">
                             <div class="subforum-icon subforum-column center">
@@ -157,17 +158,13 @@
                             <div class="subforum-info subforum-column">
                                 <b>Post by</b> <a href="#" style="font-size: 15px">${topic.userName}</a><br>
                                 <b>On</b> <a style="font-family: 'Courier', 'Courier New', monospace;">
-                                    <c:out value="${topic.date}"/>  <!-- Ensure the date is properly formatted in your servlet -->
+                                    <fmt:formatDate value="${topic.date}" pattern="MM:hh a dd-MM-yyyy"/>
                                 </a>
                             </div>
                         </div>
                         <hr class="subforum-devider">
                     </c:forEach>
                 </div>
-
-
-
-
             </div>
             <div class="site-pagination" style="margin-top: 10px; justify-content: center;">
                 <c:forEach var="i" begin="1" end="${totalPages}">
@@ -176,6 +173,17 @@
             </div>
         </section>
 
+        <!-- Newsletter section -->
+        <section class="newsletter-section">
+            <div class="container">
+                <h2>Subscribe to our newsletter</h2>
+                <form class="newsletter-form">
+                    <input type="text" placeholder="ENTER YOUR E-MAIL">
+                    <button class="site-btn">subscribe  <img src="img/icons/double-arrow.png" alt="#"/></button>
+                </form>
+            </div>
+        </section>
+        <!-- Newsletter section end -->
         <!-- Footer section -->
         <footer class="footer-section" style="margin-top: 0 ; padding: 10px 125px">
             <div class="container">

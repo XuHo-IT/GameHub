@@ -15,6 +15,7 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page import="org.bson.Document" %>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -100,7 +101,7 @@
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                            <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                            <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
                             <li><a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                             <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                         </ul>
@@ -120,7 +121,7 @@
                 </div>
             </div>
         </section>
-                    
+
         <!-- Page top end-->
 
         <section class="blog-section spad"> 
@@ -152,8 +153,8 @@
                                 <h4>
                                     <a href="forum-detail-after-login-member.jsp?id=${topic.topicId}&userId=${sessionScope.adminId}">
                                         <c:choose>
-                                            <c:when test="${fn:length(topic.title) >= 65}">
-                                                ${fn:substring(topic.title, 0, 65)}...
+                                            <c:when test="${fn:length(topic.title) >= 64}">
+                                                ${fn:substring(topic.title, 0, 64)}...
                                             </c:when>
                                             <c:otherwise>
                                                 ${topic.title}
@@ -174,33 +175,31 @@
                             </div>
 
                             <div class="subforum-stats subforum-column center">
-                                <fmt:formatDate value="${topic.date}" pattern="hh:mm a dd-MM-yyyy" var="formattedDate" />
                                 <span style="font-size: 20px">${topic.commentCount} <img src="./img/icons/chat-icon.png" alt=""></span>
                             </div>
 
                             <div class="subforum-info subforum-column">
                                 <b>Post by</b> <a href="#" style="font-size: 15px">${topic.userName}</a><br>
-                                <b>On</b> <a style="font-family: 'Courier', 'Courier New', monospace;">${formattedDate}</a>
-
-                                <c:if test="${not empty sessionScope.adminId && not empty topic.userId && sessionScope.adminId == topic.userId}">
+                                <b>On</b> <a style="font-family: 'Courier', 'Courier New', monospace;">
+                                    <fmt:formatDate value="${topic.date}" pattern="MM:hh a dd-MM-yyyy"/>
+                                </a>
+                                <c:if test="${sessionScope.adminId == topic.userId}">
                                     <div style="display: flex; align-items: center; gap: 10px;">
-                                        <button class="btn-edit" style="background-color:yellow; color:black;" 
-                                                onclick="openUpdatePopup('${topic.topicId}', '${fn:escapeXml(topic.title)}', '${fn:escapeXml(topic.description)}')">Edit</button>
+                                        <button  class="btn-edit"
+                                                 onclick="openUpdatePopup('${topic.topicId}',
+                                                                 '${fn:escapeXml(topic.title)}',
+                                                                 '${fn:escapeXml(topic.description)}')">Edit</button>
                                         <form action="TopicDelete" method="post">
                                             <input type="hidden" name="topicId" value="${topic.topicId}">
-                                            <button type="submit"  name="action" value="delete" class="btn-danger">Delete</button>
+                                            <button type="submit" name="action" value="delete" class="btn-danger">Delete</button>
                                         </form>
                                     </div>
                                 </c:if>
                             </div>
-
                         </div>
                         <hr class="subforum-devider">
                     </c:forEach>
                 </div>
-
-
-
             </div>
             <div class="site-pagination" style="margin-top: 10px; justify-content: center;">
                 <c:forEach var="i" begin="1" end="${totalPages}">
@@ -223,10 +222,10 @@
                     <img src="./img/logo2.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
-                            <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                            <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
-                            <li><a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
-                            <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+                    <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                    <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                    <li><a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                    <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
                     <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
@@ -242,8 +241,8 @@
         <!-- Create Post Popup -->
         <div class="blur-bg-overlay create-overlay"></div>
         <div class="form-popup create-post-popup">
-            <span class="close-btn material-symbols-rounded" style="top:50px">close</span>
-            <div class="form-box create-post">
+            <span class="close-btn material-symbols-rounded">close</span>
+            <div class="form-box create-topic">
                 <div class="form-details">
                     <h2>Create Topic</h2>
                     <p>Please enter topic details below to share with the community</p>
@@ -386,6 +385,8 @@
                 background-color: white;
                 padding: 20px;
                 box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+                border: 10px solid #501755;
+                border-radius: 15px;
             }
 
             .create-overlay, .update-overlay {
@@ -408,7 +409,35 @@
                         height: 100%;
                         object-fit: cover;
                     }
-
+            .btn-danger{
+                margin: 0;
+                margin-top: 5px;
+                width: 90px;
+                height: 50px;
+                font-size: 16px;
+                font-weight: bold;
+            }
+            .btn-danger:hover{
+                background-color: #4a4646;
+            }
+            .btn-edit {
+                background-color: yellow;
+                color: black;
+                border: none;
+                border-radius: 5px;
+                padding: 10px 20px;
+                margin-top: 5px;
+                width: 90px;
+                height: 50px;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: background-color 0.3s, transform 0.2s;
+            }
+            .btn-edit:hover{
+                background-color: #4a4646;
+                color: white;
+            }
         </style>
         <!--====== Javascripts & Jquery ======-->
         <script src="js/jquery-3.2.1.min.js"></script>

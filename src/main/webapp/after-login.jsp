@@ -76,7 +76,7 @@
 
     </head>
     <%
-        String id = request.getParameter("id");%>
+    String id = request.getParameter("id");%>
 
 
     <body>
@@ -126,7 +126,7 @@
 
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                            <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                            <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
                             <li><a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                             <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                         </ul>
@@ -203,7 +203,7 @@
                         </a>
                     </div>
                     <div class="col-lg-3 col-sm-6 wow fadeInUp icon-hover-service" data-wow-delay="0.7s">
-                        <a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>" class="nav-item nav-link">
+                        <a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>" class="nav-item nav-link">
                             <div class="service-item rounded pt-3">
                                 <div class="p-4">
                                     <i class="fa fa-users fa-3x text-primary mb-4"></i>
@@ -232,7 +232,7 @@
                         <!-- Blog item -->
                         <%
                             String adminId = request.getParameter("id");  // Get AdminId from session
-%>                        
+                        %>                        
                         <div class="blog-container">
                             <c:forEach var="post" items="${posts}">
                                 <div class="blog-item">
@@ -397,7 +397,7 @@
             <ul class="main-menu footer-menu">
                 <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                 <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
-                <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                <li><a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                 <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
 
             </ul>

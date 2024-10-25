@@ -64,15 +64,14 @@ public class AddGameController extends HttpServlet {
                 .append("DateRelease", gamePost.getDateRelease())
                 .append("Author", gamePost.getAuthor())
                 .append("Genre", gamePost.getGenre())
-                .append("AdminId", gamePost.getAdminId())
+                .append("AdminId", gamePost.getUserId())
                 .append("FileName", gamePost.getFileName())
                 .append("FileData", fileDataBase64)
                 .append("LinkGame", linkGame)
                 .append("Price", price);
 
         collection.insertOne(postGame);
-        String memberId = (String) request.getSession().getAttribute("memberid");
         // Redirect to the admin page
-        response.sendRedirect("ReadGameHomeAdminController?memberid=" + memberId);
+        response.sendRedirect("ReadGameHomeAdminController?memberid=" + adminId);
     }
 }

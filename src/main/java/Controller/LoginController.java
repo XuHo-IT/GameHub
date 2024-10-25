@@ -74,10 +74,10 @@ public class LoginController extends HttpServlet {
                 } else {
                     if ("0".equals(role)) {
                         // For role 0 (regular user)
-                    response.sendRedirect("ReadGameHomeMemberController");
+                    response.sendRedirect("ReadGameHomeMember?memberid=" + userId);
                 } else if ("1".equals(role)) {
                         // For role 1 (admin)
-                        response.sendRedirect("ReadGameHomeAdmin?adminid=");
+                        response.sendRedirect("ReadGameHomeAdmin?adminid=" + userId);
                     }
                 }
 

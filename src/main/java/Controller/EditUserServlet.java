@@ -27,10 +27,9 @@ public class EditUserServlet extends HttpServlet {
         
         MongoConectUser mongoConectUser = new MongoConectUser();
         boolean isUpdated = mongoConectUser.updateUser(userId, name, email, phone, address);
-
-
+        String memberId = (String) request.getSession().getAttribute("memberid");
         if (isUpdated) {
-            response.sendRedirect("user-profile.jsp?id=" + userId);
+            response.sendRedirect("user-profile.jsp?id=" + memberId);
         } else {
             response.getWriter().println("Failed to update user profile.");
         }

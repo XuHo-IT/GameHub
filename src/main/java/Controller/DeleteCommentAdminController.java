@@ -33,6 +33,6 @@ public class DeleteCommentAdminController extends HttpServlet {
 
         // Xóa tài liệu theo commentId
         collection.deleteOne(query);
-        response.sendRedirect("forum-detail-after-login.jsp?id=" + topicId);
+        response.sendRedirect("forum-detail-after-login.jsp?adminid=" + topicId);
     }
 }

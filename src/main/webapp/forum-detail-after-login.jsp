@@ -344,7 +344,7 @@
                             </div>
                         </div>
                         <!-- Reply text area -->
-                        <form action="AddCommentAdminController" method="POST">
+                        <form action="AddCommentAdmin" method="POST">
                             <div class="comment-area hide" id="reply-area-<%= comment.getCommentId()%>">
                                 <!-- Textarea để nhập reply -->
                                 <textarea name="comment" placeholder="reply here ..." required></textarea>

@@ -46,7 +46,7 @@ public class ReadGameHomeMemberController extends HttpServlet {
 
         try {
             // If not logout, proceed with fetching game posts
-                MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
+            MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
             MongoDatabase database = mongoClient.getDatabase("GameHub");
             MongoCollection<Document> collection = database.getCollection("postGame");
             List<GamePost> postList = new ArrayList<>();
@@ -116,9 +116,9 @@ public class ReadGameHomeMemberController extends HttpServlet {
             request.setAttribute("posts", postTop4);
             
             
-        
+        String memberId = (String) request.getSession().getAttribute("memberid");
             // Forward the request to the JSP page
-            request.getRequestDispatcher("after-login.jsp").forward(request, response);
+            request.getRequestDispatcher("after-login.jsp?memberid=" + memberId).forward(request, response);
         } catch (Exception e) {
             e.printStackTrace(); // Log the exception
             request.setAttribute("errorMessage", "Error retrieving game posts.");

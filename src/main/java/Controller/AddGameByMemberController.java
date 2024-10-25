@@ -64,7 +64,7 @@ public class AddGameByMemberController extends HttpServlet {
                 .append("DateRelease", gamePost.getDateRelease())
                 .append("Author", gamePost.getAuthor())
                 .append("Genre", gamePost.getGenre())
-                .append("MemberId", gamePost.getAdminId())
+                .append("MemberId", gamePost.getUserId())
                 .append("FileName", gamePost.getFileName())
                 .append("FileData", fileDataBase64)
                 .append("Link of the game", linkGame)

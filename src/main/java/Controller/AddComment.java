@@ -21,7 +21,7 @@ public class AddComment extends HttpServlet {
             throws ServletException, IOException {
         // Retrieve the form parameters
         String comment = request.getParameter("comment");
-        String memberId = request.getParameter("memberId");
+        String userId = request.getParameter("userid");
         String topicId = request.getParameter("topicid");
 
         LocalDateTime currentDateTime = LocalDateTime.now();
@@ -31,14 +31,14 @@ public class AddComment extends HttpServlet {
         MongoCollection<Document> collection = database.getCollection("comment");
 
         Document comments = new Document("TopicId", topicId)
-                .append("UserId", memberId)
+                .append("UserId", userId)
                 .append("Content", comment)
                 .append("Status", "unedited")
                 .append("Date", currentDateTime);
         collection.insertOne(comments);
 
         String memberId = (String) request.getSession().getAttribute("memberid");
-        response.sendRedirect("forum-detail-after-login-member.jsp?id=" + topicId +"?userId="+ memberId);
+        response.sendRedirect("forum-detail-after-login-member.jsp?id=" + topicId +"?memberid="+ memberId);
     }
 
 }

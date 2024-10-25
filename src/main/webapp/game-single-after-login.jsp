@@ -156,11 +156,7 @@
             String fileData = null;
             String linkGame = null;
             String price = null;
-            double priceRating = 0.0;
-            double graphicRating = 0.0;
-            double difficultyRating = 0.0;
-            double gameplayRating = 0.0;
-            double averageRating = 0.0;
+            
 
             // Get the post ID from the URL query parameter
             String postId = request.getParameter("id");

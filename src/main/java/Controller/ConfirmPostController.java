@@ -38,7 +38,8 @@ public class ConfirmPostController extends HttpServlet {
             // Remove the post from postGameMember collection
             postGameMemberCollection.deleteOne(new Document("_id", new ObjectId(postId)));
         }
+        String adminId = (String) request.getSession().getAttribute("adminid");
         // Redirect back to the member page (or wherever appropriate)
-        response.sendRedirect("ReadGameHomeAdminController");
+        response.sendRedirect("ReadGameHomeAdminController?adminid=" + adminId);
     }
 }

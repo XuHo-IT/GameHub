@@ -133,7 +133,7 @@
             List<CommentTemp> comments = new ArrayList<>();
 
             // Get the post ID from the URL query parameter
-            String topicId = request.getParameter("id");
+            String topicId = request.getParameter("topicId");
 
             // Connect to MongoDB
             MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
@@ -193,26 +193,10 @@
                         comment.setStatus("(edited)");
                     };
                     comment.setDate(doc.getDate("Date"));
-
-                    // Log retrieved values
-                    System.out.println("Topic id: " + comment.getTopicId());
-                    System.out.println("User id: " + comment.getUserId());
-                    System.out.println("Comment id: " + comment.getCommentId());
-                    System.out.println("User name: " + userName);
-                    System.out.println("Content: " + comment.getContent());
-                    System.out.println("Photo ulr: " + photoUrl);
-
+                    
                     comments.add(comment);
                 }
-
                 Collections.reverse(comments);
-
-                // Log retrieved values
-                System.out.println("Title: " + title);
-                System.out.println("Description: " + description);
-                System.out.println("Image ulr: " + imageData);
-                System.out.println("User name: " + userNameTopic);
-                System.out.println("Photo ulr: " + photoUrlUser);
             } else {
                 out.println("Post not found.");
             }
@@ -329,7 +313,7 @@
                                     <% if (comment.getUserId().equals(request.getParameter("userId"))) {%>      
                                     <div style="display: flex; align-items: center; flex-direction: row-reverse; gap: 10px;">  
                                         <div class="comment">
-                                            <button style="width: 80px; height: 40px; background-color: yellow; color: black" 
+                                            <button style="width: 80px; height: 40px; background-color: #4CAF50" 
                                                     class="update-button" onclick="showUpdate('<%= comment.getCommentId()%>', '<%= comment.getContent()%>', '<%= topicId%>', '<%= comment.getContent()%>')" aria-label="Update comment">Edit</button>
                                         </div>
                                         <div class="comment" style="background-color: #dc3545;">
@@ -624,7 +608,6 @@
                 background-color: rgba(0, 0, 0, 0.5);
                 z-index: 1;
             }
-
             .modal-content {
                 background-color: white;
                 margin: 15% auto;
@@ -633,7 +616,6 @@
                 border-radius: 10px;
                 text-align: center;
             }
-
             .close {
                 float: right;
                 font-size: 24px;

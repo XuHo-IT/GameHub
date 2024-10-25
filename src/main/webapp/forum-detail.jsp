@@ -111,8 +111,7 @@
             List<CommentTemp> comments = new ArrayList<>();
 
             // Get the post ID from the URL query parameter
-            String topicId = request.getParameter("id");
-            System.out.println("Topic ID: " + topicId);
+            String topicId = request.getParameter("topicId");
 
             // Connect to MongoDB
             MongoClient mongoClient = MongoDBConnectionManager2.getMongoClient();
@@ -163,8 +162,6 @@
                 }
                 Collections.reverse(comments);
             }
-            // Close MongoDB connection
-            mongoClient.close();
         %>
 
 

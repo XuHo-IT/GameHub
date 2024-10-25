@@ -222,12 +222,6 @@
             </div>
         </section>
         <!-- Featured section end-->
-
-
-        <!-- Newsletter section -->
-
-
-
         <!-- Popup Modal -->
         <div id="popup" class="popup" style="display: none;">
             <div class="popup-content">

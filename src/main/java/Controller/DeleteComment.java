@@ -14,16 +14,14 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 import utils.MongoDBConnectionManager1;
 
-public class DeleteCommentAdmin extends HttpServlet {
-
-   
+public class DeleteComment extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String commentId = request.getParameter("commentId");
         String topicId = request.getParameter("topicId");
-
+        
         MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("comment");
@@ -33,6 +31,6 @@ public class DeleteCommentAdmin extends HttpServlet {
 
         // Xóa tài liệu theo commentId
         collection.deleteOne(query);
-        response.sendRedirect("forum-detail-after-login.jsp?topicId=" + topicId);
+        response.sendRedirect("forum-detail-after-login-member.jsp?topicId=" + topicId);
     }
 }

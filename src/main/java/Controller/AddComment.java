@@ -1,25 +1,16 @@
 package Controller;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Base64;
-
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
-
-import org.apache.commons.io.IOUtils;
 import org.bson.Document;
 
 import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-import Model.Comment;
 import java.time.LocalDateTime;
 import utils.MongoDBConnectionManager1;
 
@@ -30,7 +21,7 @@ public class AddComment extends HttpServlet {
             throws ServletException, IOException {
         // Retrieve the form parameters
         String comment = request.getParameter("comment");
-        String userId = request.getParameter("userid");
+        String memberId = request.getParameter("memberId");
         String topicId = request.getParameter("topicid");
 
         LocalDateTime currentDateTime = LocalDateTime.now();
@@ -40,12 +31,14 @@ public class AddComment extends HttpServlet {
         MongoCollection<Document> collection = database.getCollection("comment");
 
         Document comments = new Document("TopicId", topicId)
-                .append("UserId", userId)
+                .append("UserId", memberId)
                 .append("Content", comment)
                 .append("Status", "unedited")
                 .append("Date", currentDateTime);
         collection.insertOne(comments);
-        response.sendRedirect("forum-detail-after-login-member.jsp?id=" + topicId +"?userId="+userId);
+
+        String memberId = (String) request.getSession().getAttribute("memberid");
+        response.sendRedirect("forum-detail-after-login-member.jsp?id=" + topicId +"?userId="+ memberId);
     }
 
 }

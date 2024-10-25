@@ -14,6 +14,7 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page import="org.bson.Document" %>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -121,7 +122,7 @@
                  margin-right: auto;
                  padding: 20px;
                  max-width: 1500px">
-              <div class="subforum">
+                <div class="subforum">
                     <c:forEach var="topic" items="${topics}">
                         <div class="subforum-row">
                             <div class="subforum-icon subforum-column center">
@@ -157,17 +158,13 @@
                             <div class="subforum-info subforum-column">
                                 <b>Post by</b> <a href="#" style="font-size: 15px">${topic.userName}</a><br>
                                 <b>On</b> <a style="font-family: 'Courier', 'Courier New', monospace;">
-                                    <c:out value="${topic.date}"/>  <!-- Ensure the date is properly formatted in your servlet -->
+                                    <fmt:formatDate value="${topic.date}" pattern="MM:hh a dd-MM-yyyy"/>
                                 </a>
                             </div>
                         </div>
                         <hr class="subforum-devider">
                     </c:forEach>
                 </div>
-
-
-
-
             </div>
             <div class="site-pagination" style="margin-top: 10px; justify-content: center;">
                 <c:forEach var="i" begin="1" end="${totalPages}">

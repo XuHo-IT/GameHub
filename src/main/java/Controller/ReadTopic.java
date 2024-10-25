@@ -59,7 +59,7 @@ public class ReadTopic extends HttpServlet {
 
                 // Handle missing or null user
                 String photoUrl = (user != null) ? user.getString("PhotoUrl") : "./img/t-rex.png";
-                String userName = (user != null) ? user.getString("UserName") : "Unknown User";
+                String userName = (user != null) ? user.getString("Name") : "Unknown User";
 
                 // Handle image data, convert to Base64 if Binary type
                 Object imageData = topicDocument.get("ImageData");

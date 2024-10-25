@@ -240,6 +240,10 @@
         <servlet-name>DeleteComment</servlet-name>
         <servlet-class>Controller.DeleteComment</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateUserRole</servlet-name>
+        <servlet-class>Controller.UpdateUserRole</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -483,6 +487,10 @@
     <servlet-mapping>
         <servlet-name>DeleteComment</servlet-name>
         <url-pattern>/DeleteComment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateUserRole</servlet-name>
+        <url-pattern>/UpdateUserRole</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>ReadGameHomeController</welcome-file>

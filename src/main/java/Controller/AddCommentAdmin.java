@@ -38,7 +38,7 @@ public class AddCommentAdmin extends HttpServlet {
                                 .append("Status", "unedited")
                                 .append("Date", currentDateTime);
                 collection.insertOne(comments);
-                response.sendRedirect("forum-detail-after-login.jsp?id=" + topicId + "&adminid=" + adminId);
+                response.sendRedirect("forum-detail-after-login.jsp?topicId=" + topicId + "&adminid=" + adminId);
         }
 
 }

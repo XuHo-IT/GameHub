@@ -462,8 +462,12 @@
                         </select>
                     </div>
                     <div class="input-field">
-                        <label class="mr-2">Picture Of Game:</label>
+                        <label class="mr-2">Logo Of Game:</label>
                         <input type="file" name="file">
+                    </div>
+                    <div class="input-field">
+                        <label class="mr-2">Pictures of Game Actions:</label>
+                        <input type="file" name="actionFiles" multiple>
                     </div>
                     <div class="policy-text">
                         <input type="checkbox" id="policy">

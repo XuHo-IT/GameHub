@@ -20,6 +20,8 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
 import Model.GamePost;
+import java.util.ArrayList;
+import java.util.List;
 import utils.MongoDBConnectionManager1;
 
 @MultipartConfig
@@ -28,7 +30,7 @@ public class AddGameController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Get form parameters
+        // Existing form parameters
         String title = request.getParameter("Title");
         String gamePlay = request.getParameter("Gameplay");
         String description = request.getParameter("Description");
@@ -36,11 +38,9 @@ public class AddGameController extends HttpServlet {
         String author = request.getParameter("Author");
         String genre = request.getParameter("Genre");
         String price = "";
-
-        // Get admin ID
         String adminId = (String) request.getSession().getAttribute("adminId");
 
-        // Handle file upload
+        // Primary cover image
         Part filePart = request.getPart("file");
         String fileName = filePart.getSubmittedFileName();
         InputStream fileContent = filePart.getInputStream();
@@ -48,6 +48,16 @@ public class AddGameController extends HttpServlet {
         String fileDataBase64 = Base64.getEncoder().encodeToString(fileDataBytes);
 
         Part linkGame = null;
+        // Game action images
+        List<String> actionImagesBase64 = new ArrayList<>();
+        for (Part actionFilePart : request.getParts()) {
+            if (actionFilePart.getName().equals("actionFiles")) {
+                InputStream actionFileContent = actionFilePart.getInputStream();
+                byte[] actionFileDataBytes = IOUtils.toByteArray(actionFileContent);
+                String actionFileDataBase64 = Base64.getEncoder().encodeToString(actionFileDataBytes);
+                actionImagesBase64.add(actionFileDataBase64);
+            }
+        }
 
         // Create a GamePost object
         GamePost gamePost = new GamePost(
@@ -67,12 +77,14 @@ public class AddGameController extends HttpServlet {
                 .append("AdminId", gamePost.getAdminId())
                 .append("FileName", gamePost.getFileName())
                 .append("FileData", fileDataBase64)
-                .append("LinkGame", linkGame)
+                .append("Link of the game", linkGame)
+                .append("ActionImages", actionImagesBase64) // Store action images list
                 .append("Price", price);
 
         collection.insertOne(postGame);
-        String memberId = (String) request.getSession().getAttribute("memberid");
+
         // Redirect to the admin page
-        response.sendRedirect("ReadGameHomeAdminController?memberid=" + memberId);
+        String memberId = (String) request.getSession().getAttribute("memberid");
+        response.sendRedirect("ReadGameHomeAdmin?adminid=" + memberId);
     }
 }

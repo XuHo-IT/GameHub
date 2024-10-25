@@ -75,8 +75,8 @@
             <![endif]-->
 
     </head>
-<%
-String id = request.getParameter("id");%>
+    <%
+        String id = request.getParameter("id");%>
 
 
     <body>
@@ -108,8 +108,9 @@ String id = request.getParameter("id");%>
 
                             <!-- Bi?u t??ng t�i kho?n -->
                             <div class="account-container">
-                                <div class="account-icon">
-                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                <div class="user">
+                                    <%= request.getSession().getAttribute("adminId")%>
+                                    <img src="<%= request.getSession().getAttribute("photoUrl")%>" alt="User Profile" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>                                    
@@ -138,24 +139,24 @@ String id = request.getParameter("id");%>
 
 
         <!-- Hero section -->
-    <section class="hero-section overflow-hidden">
-        <div class="hero-slider owl-carousel">
-            <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider1.jpg">
-                <div class="container">
-                    <h2>Game on!</h2>
-                    <p><strong>The platform serves as a hub for sharing the latest game news, offering users a space to stay updated on upcoming releases and industry developments.<br> It allows users to view, comment, and engage in discussions about the latest news, fostering an active gaming community. With an intuitive interface, the platform enables easy access to user-generated posts and admin-curated updates.</strong></p>
-                    <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
+        <section class="hero-section overflow-hidden">
+            <div class="hero-slider owl-carousel">
+                <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider1.jpg">
+                    <div class="container">
+                        <h2>Game on!</h2>
+                        <p><strong>The platform serves as a hub for sharing the latest game news, offering users a space to stay updated on upcoming releases and industry developments.<br> It allows users to view, comment, and engage in discussions about the latest news, fostering an active gaming community. With an intuitive interface, the platform enables easy access to user-generated posts and admin-curated updates.</strong></p>
+                        <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
+                    </div>
+                </div>
+                <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider5.jpg">
+                    <div class="container">
+                        <h2>Game on!</h2>
+                        <p><strong>The platform provides a centralized space for discovering and sharing game news, keeping users informed about upcoming titles and events.<br>Users can contribute by posting news, commenting on updates, and participating in forum discussions. The site promotes community interaction around gaming trends and developments.</strong></p>
+                        <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
+                    </div>
                 </div>
             </div>
-            <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider5.jpg">
-                <div class="container">
-                    <h2>Game on!</h2>
-                    <p><strong>The platform provides a centralized space for discovering and sharing game news, keeping users informed about upcoming titles and events.<br>Users can contribute by posting news, commenting on updates, and participating in forum discussions. The site promotes community interaction around gaming trends and developments.</strong></p>
-                    <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
         <!-- Hero section end-->
 
 
@@ -401,10 +402,10 @@ String id = request.getParameter("id");%>
 
             </ul>
             <div class="footer-social d-flex justify-content-center">
-                    <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
-                    <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
-                    <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
-                    <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
+                <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
+                <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
+                <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
+                <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
             </div>
             <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
         </div>
@@ -567,6 +568,22 @@ String id = request.getParameter("id");%>
         }
         a.btn.btn-square.mx-1 {
             padding-right: 35px;
+        }
+        .user {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .user img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
     </style>
 </body>

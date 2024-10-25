@@ -2,22 +2,20 @@ package Controller;
 
 import Model.SuperAdmin;
 import Model.UserModel;
-import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.http.HttpSession;
 import mongodb.MongoConectUser;
 import utils.MongoDBConnectionManager1;
 
@@ -54,38 +52,44 @@ public class LoginController extends HttpServlet {
                         userDoc.getString("Role"),
                         userDoc.getString("Status")
                 );
+
+                // Get user ID
                 String userId = userDoc.getObjectId("_id").toString();
+
+                // Check user status
                 MongoConectUser mgcn = new MongoConectUser();
                 UserModel currentUser = mgcn.getUserById(userId);
-                // Set the current user session attribute
+                
+                // Set session attributes
                 HttpSession session = request.getSession();
                 session.setAttribute("currentUser", superAdmin);
-                
-                // Set the adminId and adminEmail in the session
-                session.setAttribute("adminId", userDoc.getObjectId("_id").toString());
+                session.setAttribute("adminId", userId);
                 session.setAttribute("adminName", userDoc.getString("Name"));
                 session.setAttribute("adminEmail", userDoc.getString("Email")); // Insert adminEmail in session
                 session.setAttribute("photoUrl", userDoc.getString("PhotoUrl")); // Set photoUrl in session
 
                 // Redirect based on the user's role
                 String role = userDoc.getString("Role");
-                MongoConectUser mgcn = new MongoConectUser();
-                UserModel currentUser = mgcn.getUserById(superAdmin.getAdminId());
-                
                 if (currentUser.getStatus().equals("Suspend")) {
-                    response.sendRedirect("user-profile.jsp?id=" + userId);
+                    response.sendRedirect("ban.jsp?id=" + userId);
                 } else {
-                    if ("0".equals(role)) {
-                        // For role 0 (regular user)
-                    response.sendRedirect("ReadGameHomeMemberController");
-                } else if ("1".equals(role)) {
-                        // For role 1 (admin)
-                        response.sendRedirect("ReadGameHomeAdmin?adminid=" + id);
+                    switch (role) {
+                        case "0": // For role 0 (regular user)
+                            response.sendRedirect("ReadGameHomeMemberController?id=" + userId);
+                            break;
+                        case "1": // For role 1 (admin)
+                            response.sendRedirect("ReadGameHomeAdmin?adminid=" + userId);
+                            break;
+                        default:
+                            response.sendRedirect("error-page.jsp");
+                            break;
                     }
                 }
 
             } catch (ParseException ex) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                request.setAttribute("errorMessage", "Error processing date.");
+                request.getRequestDispatcher("error-page.jsp").forward(request, response);
             }
 
         } else {

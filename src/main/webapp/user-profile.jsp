@@ -72,7 +72,7 @@
         String phone = user.getPhone();
         String address = user.getAddress();
         String role = user.getRole().equals("1") ? "Administrator" : "Member";
-        String homePage = user.getRole().equals("1") ? "admin-after-login.jsp" : "after-login.jsp";
+        String homePage = user.getRole().equals("1") ? "ReadGameHomeAdmin" : "ReadGameHomeMemberController";
     %>
 
     <div class="container">

@@ -77,10 +77,10 @@
                     <!-- Right side: Social Media Icons (col-4) -->
                     <div class="col-4 header-social d-flex align-items-center justify-content-end">
                         <p class="mb-0">Follow us:</p>
-                            <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
-                            <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
-                            <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
-                            <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
+                        <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
+                        <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
+                        <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
+                        <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
                     </div>
                 </div>
                 <div class="header-bar-warp d-flex">
@@ -98,8 +98,9 @@
                             </div>
                             <!-- Bi?u t??ng t�i kho?n -->
                             <div class="account-container">
-                                <div class="account-icon">
-                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                <div class="user">
+                                    <%= request.getSession().getAttribute("adminId")%>
+                                    <img src="<%= request.getSession().getAttribute("photoUrl")%>" alt="User Profile" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
@@ -119,7 +120,7 @@
                             <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
                             <li><a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                             <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
-                            
+
 
                         </ul>
                     </nav>
@@ -225,7 +226,7 @@
 
         <!-- Newsletter section -->
 
-       
+
 
         <!-- Popup Modal -->
         <div id="popup" class="popup" style="display: none;">
@@ -385,6 +386,22 @@
                 width: 300px; /* set the width to 200px */
                 height: 200px; /* set the height to 200px */
                 object-fit: cover; /* make sure the image is scaled to cover the entire area */
+            }
+            .user {
+                position: relative;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                overflow: hidden;
+                cursor: pointer;
+            }
+            .user img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
             }
 
         </style>

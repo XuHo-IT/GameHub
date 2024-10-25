@@ -41,6 +41,7 @@
         <link rel="stylesheet" href="css/searchbar.css" />
         <link rel="stylesheet" href="css/forum.css" />
         <link rel="stylesheet" href="css/header.css" />
+        <link rel="stylesheet" href="css/account-icon.css" />
 
         <!-- Main Stylesheets -->
         <link rel="stylesheet" href="css/style.css" />
@@ -83,9 +84,6 @@
                     </div>
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
-                            <!-- Bi?u t??ng gi? hï¿½ng -->
-
-                            <!-- Bi?u t??ng tï¿½i kho?n -->
                             <div class="account-container">
                                 <div class="account-icon">
                                     <i class="fa fa-user-circle" aria-hidden="true"></i>
@@ -100,9 +98,8 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- Menu -->
-                         <ul class="main-menu primary-menu">
+                        <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                             <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
                             <li><a href="ReadGameHomeAdmin?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
@@ -111,7 +108,7 @@
                     </nav>
                 </div>
             </div>
-            
+
         </header>
         <section class="page-top-section set-bg" data-setbg="img/page-top-bg/4.jpg">
             <div class="page-info">
@@ -251,7 +248,7 @@
                         <textarea name="comment" placeholder="comment here ..." required></textarea>
                         <!-- Các trường ẩn để truyền các giá trị cần thiết -->
                         <input type="hidden" name="userid" value="<%= request.getSession().getAttribute("adminId")%>">
-                        <input type="hidden" name="topicid" value="<%=topicId%>">
+                        <input type="hidden" name="topicid" value="<%=request.getParameter("id")%>">
 
                         <!-- Nút submit để gửi form -->
                         <input type="submit" value="submit">
@@ -316,42 +313,44 @@
                                         %>
                                     </div>
                                 </div>
-                                <div class="content">
+                                <div class="content" style="display: grid; align-content: space-between;">
                                     <p style="color: lightblue; word-break: break-word; overflow-wrap: anywhere;">
                                         <%= comment.getContent()%>
                                     </p>
-                                    <%if (!comment.getUserId().equals(request.getSession().getAttribute("adminId").toString())) {%>
-                                    <div class="comment">
-                                        <button onclick="showReply('reply-area-<%= comment.getCommentId()%>', '<%=comment.getUserName()%>')">Reply</button>
-                                    </div>
-                                    <%} else {%>
-                                    <div class="comment">
-                                        <button class="update-button" onclick="showUpdate('<%= comment.getCommentId()%>', '<%= comment.getContent()%>', '<%= topicId%>', '<%= comment.getContent()%>')" aria-label="Update comment">Update</button>
-                                    </div>
-                                    <form action="UpdateCommentAdminController" method="POST">
-                                        <div class="comment-area hide" id="update-area-<%= comment.getCommentId()%>">
-                                            <textarea name="newContent" placeholder="reply here ..." required></textarea>
-                                            <input type="hidden" name="commentid" value="<%= comment.getCommentId()%>">
-                                            <input type="hidden" name="topicid" value="<%= topicId%>">
-                                            <input type="submit" value="Submit">
+                                    <div style="display: flex; align-items: center; flex-direction: row-reverse; gap: 10px;">
+                                        <%if (comment.getUserId().equals(request.getParameter("adminId"))) {%>
+                                        <div class="comment">
+                                            <button style="width: 80px; height: 40px; background-color: yellow; color: black" class="update-button" onclick="showUpdate('<%= comment.getCommentId()%>', '<%= comment.getContent()%>', '<%= topicId%>', '<%= comment.getContent()%>')" aria-label="Update comment">Edit</button>
                                         </div>
-                                    </form>
-                                    <%}%>
-                                    <div class="comment">
-                                        <button style="margin-left: 840px; margin-top: 15px;" onclick="deleteComment('<%= comment.getCommentId()%>', '<%=topicId%>')">Delete</button>
-                                    </div>   
+                                        <form action="UpdateCommentAdmin" method="POST">
+                                            <div class="comment-area hide" id="update-area-<%= comment.getCommentId()%>">
+                                                <textarea name="newContent" placeholder="reply here ..." required></textarea>
+                                                <input type="hidden" name="commentid" value="<%= comment.getCommentId()%>">
+                                                <input type="hidden" name="topicid" value="<%=request.getParameter("id")%>">
+                                                <input type="submit" value="Submit">
+                                            </div>
+                                        </form>
+                                        <%} else {%>                              
+                                        <div class="comment">
+                                            <button style="width: 80px; height: 40px;" onclick="showReply('reply-area-<%= comment.getCommentId()%>', '<%=comment.getUserName()%>')">Reply</button>
+                                        </div>
+                                        <%}%>  
+                                        <div class="comment">
+                                            <button style="width: 80px; height: 40px; background-color: #dc3545;" onclick="deleteComment('<%= comment.getCommentId()%>', '<%=topicId%>')">Delete</button>
+                                        </div> 
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <!-- Reply text area -->
-                        <form action="AddCommentAdminController" method="POST">
+                        <form action="AddCommentAdmin" method="POST">
                             <div class="comment-area hide" id="reply-area-<%= comment.getCommentId()%>">
                                 <!-- Textarea để nhập reply -->
                                 <textarea name="comment" placeholder="reply here ..." required></textarea>
 
                                 <!-- Các trường ẩn để truyền các giá trị cần thiết -->
                                 <input type="hidden" name="userid" value="<%= request.getSession().getAttribute("adminId")%>">
-                                <input type="hidden" name="topicid" value="<%=topicId%>">            
+                                <input type="hidden" name="topicid" value="<%=request.getParameter("id")%>">            
 
                                 <!-- Nút submit để gửi form -->
                                 <input type="submit" value="submit">
@@ -368,7 +367,7 @@
             </div>
         </section>
 
-                    <!-- Newsletter section -->
+        <!-- Newsletter section -->
         <section class="newsletter-section" style="">
             <div class="container">
                 <h3 class="bottom-title">Thanks for using our website!</h3>
@@ -396,7 +395,7 @@
                     <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
                     <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                     <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
-                    
+
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
                     <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
@@ -418,81 +417,81 @@
         <script src="js/jquery.magnific-popup.min.js"></script>
         <script src="js/main.js"></script>
         <script>
-                                            function showComment() {
-                                                var commentArea = document.getElementById("comment-area");
-                                                commentArea.classList.toggle("hide");
-                                            }
+                                                function showComment() {
+                                                    var commentArea = document.getElementById("comment-area");
+                                                    commentArea.classList.toggle("hide");
+                                                }
 
-                                            // Bắt sự kiện khi bấm vào dòng chữ "Be the first to comment!"
-                                            const showCommentLink = document.getElementById("show-comment-area");
+                                                // Bắt sự kiện khi bấm vào dòng chữ "Be the first to comment!"
+                                                const showCommentLink = document.getElementById("show-comment-area");
 
-                                            showCommentLink.addEventListener("click", (e) => {
-                                                e.preventDefault();  // Ngăn chặn hành động mặc định của thẻ <a>
-                                                toggleArea('comment-area');  // Gọi hàm toggleArea giống như khi bấm nút "Comment"
-                                            });
-
-                                            function showReply(areaId, username) {
-                                                // Tìm tất cả các phần comment-area và ẩn chúng
-                                                const allCommentAreas = document.querySelectorAll('.comment-area');
-                                                allCommentAreas.forEach(area => {
-                                                    area.classList.add('hide'); // Ẩn tất cả các comment-area
+                                                showCommentLink.addEventListener("click", (e) => {
+                                                    e.preventDefault();  // Ngăn chặn hành động mặc định của thẻ <a>
+                                                    toggleArea('comment-area');  // Gọi hàm toggleArea giống như khi bấm nút "Comment"
                                                 });
 
-                                                // Hiển thị phần comment-area tương ứng với reply được bấm
-                                                var replyArea = document.getElementById(areaId);
-                                                replyArea.classList.toggle("hide"); // Toggle hiển thị phần comment-area được bấm
+                                                function showReply(areaId, username) {
+                                                    // Tìm tất cả các phần comment-area và ẩn chúng
+                                                    const allCommentAreas = document.querySelectorAll('.comment-area');
+                                                    allCommentAreas.forEach(area => {
+                                                        area.classList.add('hide'); // Ẩn tất cả các comment-area
+                                                    });
 
-                                                // Lấy thẻ textarea trong phần reply hiện tại
-                                                var textArea = replyArea.querySelector('textarea');
+                                                    // Hiển thị phần comment-area tương ứng với reply được bấm
+                                                    var replyArea = document.getElementById(areaId);
+                                                    replyArea.classList.toggle("hide"); // Toggle hiển thị phần comment-area được bấm
 
-                                                // Đặt giá trị ban đầu cho textarea là username
-                                                textArea.value = '@' + username + ' ';
-                                            }
+                                                    // Lấy thẻ textarea trong phần reply hiện tại
+                                                    var textArea = replyArea.querySelector('textarea');
 
-                                            function showUpdate(commentId, username, topicId, oldContent) {
-                                                // Hide all comment areas
-                                                const allCommentAreas = document.querySelectorAll('.comment-area');
-                                                allCommentAreas.forEach(area => {
-                                                    area.classList.add('hide');
-                                                });
+                                                    // Đặt giá trị ban đầu cho textarea là username
+                                                    textArea.value = '@' + username + ' ';
+                                                }
 
-                                                // Show the corresponding comment area
-                                                var updateArea = document.getElementById('update-area-' + commentId);
-                                                updateArea.classList.remove('hide');
+                                                function showUpdate(commentId, username, topicId, oldContent) {
+                                                    // Hide all comment areas
+                                                    const allCommentAreas = document.querySelectorAll('.comment-area');
+                                                    allCommentAreas.forEach(area => {
+                                                        area.classList.add('hide');
+                                                    });
 
-                                                // Set the initial value for the textarea
-                                                var textArea = updateArea.querySelector('textarea');
-                                                textArea.value = oldContent;
-                                            }
+                                                    // Show the corresponding comment area
+                                                    var updateArea = document.getElementById('update-area-' + commentId);
+                                                    updateArea.classList.remove('hide');
 
-                                            function toggleArea(areaId) {
-                                                var area = document.getElementById(areaId);
-                                                area.classList.toggle("hide");
-                                            }
-                                            function deleteComment(value1, value2) {
-                                                const form = document.createElement('form');
-                                                form.method = 'POST';
-                                                form.action = 'DeleteCommentAdminController';  // Đường dẫn tới servlet
+                                                    // Set the initial value for the textarea
+                                                    var textArea = updateArea.querySelector('textarea');
+                                                    textArea.value = oldContent;
+                                                }
 
-                                                // Tạo các input ẩn để truyền giá trị
-                                                const input1 = document.createElement('input');
-                                                input1.type = 'hidden';
-                                                input1.name = 'commentId';  // Tên của tham số truyền vào servlet
-                                                input1.value = value1;
+                                                function toggleArea(areaId) {
+                                                    var area = document.getElementById(areaId);
+                                                    area.classList.toggle("hide");
+                                                }
+                                                function deleteComment(value1, value2) {
+                                                    const form = document.createElement('form');
+                                                    form.method = 'POST';
+                                                    form.action = 'DeleteCommentAdminController';  // Đường dẫn tới servlet
 
-                                                const input2 = document.createElement('input');
-                                                input2.type = 'hidden';
-                                                input2.name = 'topicId';
-                                                input2.value = value2;
+                                                    // Tạo các input ẩn để truyền giá trị
+                                                    const input1 = document.createElement('input');
+                                                    input1.type = 'hidden';
+                                                    input1.name = 'commentId';  // Tên của tham số truyền vào servlet
+                                                    input1.value = value1;
 
-                                                // Thêm input vào form
-                                                form.appendChild(input1);
-                                                form.appendChild(input2);
+                                                    const input2 = document.createElement('input');
+                                                    input2.type = 'hidden';
+                                                    input2.name = 'topicId';
+                                                    input2.value = value2;
 
-                                                // Thêm form vào body và submit
-                                                document.body.appendChild(form);
-                                                form.submit();
-                                            }
+                                                    // Thêm input vào form
+                                                    form.appendChild(input1);
+                                                    form.appendChild(input2);
+
+                                                    // Thêm form vào body và submit
+                                                    document.body.appendChild(form);
+                                                    form.submit();
+                                                }
         </script>
         <style>.modal {
                 display: none;

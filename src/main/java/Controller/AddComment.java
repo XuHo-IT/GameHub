@@ -19,7 +19,6 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-import Model.Comment;
 import java.time.LocalDateTime;
 import utils.MongoDBConnectionManager1;
 
@@ -45,7 +44,7 @@ public class AddComment extends HttpServlet {
                 .append("Status", "unedited")
                 .append("Date", currentDateTime);
         collection.insertOne(comments);
-        response.sendRedirect("forum-detail-after-login-member.jsp?id=" + topicId +"?userId="+userId);
+        response.sendRedirect("forum-detail-after-login-member.jsp?id=" + topicId +"&userId="+userId);
     }
 
 }

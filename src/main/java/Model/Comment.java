@@ -94,4 +94,5 @@ public class Comment {
     public void setDate(Date date) {
         this.date = date;
     }
+
 }

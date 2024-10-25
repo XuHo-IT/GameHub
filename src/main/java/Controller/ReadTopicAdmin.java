@@ -118,7 +118,7 @@ public class ReadTopicAdmin extends HttpServlet {
             request.setAttribute("currentPage", currentPage);
 
             // Forward to the forum page
-            request.getRequestDispatcher("forum-after-login.jsp?userId=" + adminId).forward(request, response);
+            request.getRequestDispatcher("forum-after-login.jsp?adminId=" + adminId).forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Error retrieving topics.");

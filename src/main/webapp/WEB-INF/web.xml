@@ -197,6 +197,10 @@
         <servlet-class>Controller.ReadTopicAdmin</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ReadTopicMember</servlet-name>
+        <servlet-class>Controller.ReadTopicMember</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>TopicCreateAdmin</servlet-name>
         <servlet-class>Controller.TopicCreateAdmin</servlet-class>
     </servlet>
@@ -431,6 +435,10 @@
     <servlet-mapping>
         <servlet-name>ReadTopicAdmin</servlet-name>
         <url-pattern>/ReadTopicAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReadTopicMember</servlet-name>
+        <url-pattern>/ReadTopicMember</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>TopicCreateAdmin</servlet-name>

@@ -125,7 +125,7 @@
                             <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
                             <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                             <li><a href="ReadGameHomeAdmin?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
-                                  
+
                         </ul>
                     </nav>
                 </div>
@@ -156,7 +156,7 @@
 
             <!-- Team Section Start -->
 
-<!-- Team Section End -->
+            <!-- Team Section End -->
 
             <!-- Blog section -->
             <section class="blog-section spad">
@@ -282,296 +282,301 @@
             <!-- Blog section end -->
 
 
-        <!-- Intro section -->
-     <!-- Intro section -->
-    <section class="intro-video-section set-bg d-flex align-items-end">
-        <div class="video-container">
-            <!-- Add the video tag to autoplay the video -->
-            <video autoplay muted loop playsinline>
-                <source src="img/Trailer.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
-        <div class="container">
-            <div class="video-text">
-                <h2>Promo video of the game</h2>
-                <p>Watch our exciting promotional video showcasing the latest features and gameplay of our highly anticipated game. 
-                    Dive into a thrilling world filled with immersive graphics, intense action, and engaging storylines.</p>
+            <!-- Intro section -->
+            <!-- Intro section -->
+            <section class="intro-video-section set-bg d-flex align-items-end">
+                <div class="video-container">
+                    <!-- Add the video tag to autoplay the video -->
+                    <video autoplay muted loop playsinline>
+                        <source src="img/Trailer.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="container">
+                    <div class="video-text">
+                        <h2>Promo video of the game</h2>
+                        <p>Watch our exciting promotional video showcasing the latest features and gameplay of our highly anticipated game. 
+                            Dive into a thrilling world filled with immersive graphics, intense action, and engaging storylines.</p>
+                    </div>
+                </div>
+            </section>
+            <!-- Intro section end -->
+
+
+            <!-- Featured section -->
+            <section class="featured-section">
+                <c:forEach var="post" items="${posts}" varStatus="status">
+                    <c:if test="${status.index == 0}">
+                        <!-- Featured background image -->
+                        <div class="featured-bg set-bg col-6 d-flex justify-content-center align-items-center" style="width: calc(50% - 40px); height: 100%; ">
+                            <img src="data:image/png;base64,${post.fileData}" alt="Game Image" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+                        </div>
+
+                        <!-- Featured content box -->
+                        <div class="featured-box col-6" >
+                            <div class="text-box" >
+                                <!-- Display post date and category dynamically -->
+                                <div class="top-meta">${post.dateRelease} / in <a href="#">${post.genre}</a></div>
+
+                                <h3>Newest game release is coming up!</h3>
+
+                                <!-- Post title -->
+                                <p style="font-size: 40px">${post.title}</p>
+
+                                <!-- Post content (short summary) -->
+                                <p>${post.description}</p>
+
+                                <!-- Read more link -->
+                                <a href="game-single.jsp?id=${post.postID}" class="read-more">Read More  
+                                    <img src="img/icons/double-arrow.png" alt="#"/>
+                                </a>
+                            </div>
+                        </div>
+                    </c:if>
+                </c:forEach>
+            </section>
+            <!-- Featured section end-->
+
+
+
+            <!-- Footer section -->
+            <footer class="footer-section">
+                <div class="container">
+                    <div class="footer-left-pic">
+                        <img src="img/footer-left-pic.png" alt="">
+                    </div>
+                    <div class="footer-right-pic">
+                        <img src="img/footer-right-pic.png" alt="">
+                    </div>
+                    <a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>" class="footer-logo">
+                        <img src="./img/logo1.png" alt="">
+                        <img src="./img/logo2.png" alt="">
+                    </a>
+                    <ul class="main-menu footer-menu">
+                        <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                        <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                        <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                        <li><a href="ReadGameHomeAdmin?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
+                    </ul>
+                    <div class="footer-social d-flex justify-content-center">
+                        <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
+                        <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
+                        <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
+                        <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
+                    </div>
+                    <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
+                </div>
+            </footer>
+            <!-- Footer section end -->
+
+
+            <!-- Create Post Popup -->
+            <!-- Create Post Popup -->
+            <div class="blur-bg-overlay"></div>
+            <div class="form-popup create-post-popup">
+                <span class="close-btn material-symbols-rounded" style="top:50px">close</span>
+
+                <div class="form-box create-post">
+                    <div class="form-details">
+                        <h2>Create Post Game</h2>
+                        <p>To develop our community, upload news about games that you know</p>
+                    </div>
+                    <div class="form-content">
+                        <h2 style="margin-bottom: 6px">Create post</h2>
+                        <form action="AddGameController" method="post" enctype="multipart/form-data">
+                            <!-- Form fields for creating post -->
+                            <div class="input-field">
+                                <label>Title</label>
+                                <input type="text" required name="Title">
+                            </div>
+                            <div class="input-field">
+                                <label>Game Play</label>
+                                <input type="text" required name="Gameplay">
+                            </div>
+                            <div class="input-field">
+                                <label>Description</label>
+                                <input type="text" required name="Description">
+                            </div>
+                            <div class="input-field">
+                                <label>Date Release</label>
+                                <input type="date" required name="DateRelease">
+                            </div>
+                            <div class="input-field">
+                                <label for="exampleFormControlSelect1">Status</label>
+                                <select class="form-control" id="exampleFormControlSelect1" name="Status" required="required">
+                                    <option>Pre-Release</option>
+                                    <option>Released</option>
+                                </select>
+                            </div>
+                            <div class="input-field">
+                                <label>Author</label>
+                                <input type="text" required name="Author">
+                            </div>
+                            <div class="input-field">
+                                <label>Genre</label>
+                                <select name="Genre" required>
+                                    <option value="">Select Genre</option>
+                                    <c:forEach var="genre" items="${genres}">
+                                        <option value="${genre.genre}">${genre.genre != null ? genre.genre : 'No genre available'}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="input-field">
+                                <label class="mr-2">Logo Of Game:</label>
+                                <input type="file" name="file">
+                            </div>
+                            <div class="input-field">
+                                <label class="mr-2">Pictures of Game Actions:</label>
+                                <input type="file" name="actionFiles" multiple>
+                            </div>
+
+                            <div class="policy-text">
+                                <input type="checkbox" id="policy">
+                                <label for="policy">I agree to the
+                                    <a href="#" class="option">Terms & Conditions</a>
+                                </label>
+                            </div>
+                            <button type="submit">Send</button>
+                        </form>
+                        <div class="bottom-link">
+                            Want to upload a genre?
+                            <a href="#" id="upload-photo-link">Upload Genre</a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-box upload-photo">
+                    <div class="form-details">
+                    </div>
+                    <div class="form-content">
+                        <h2 style="margin-bottom: 6px">Upload Genre</h2>
+                        <form action="AddGenreController" method="post">
+                            <div class="input-field">
+                                <label class="mr-2">Genre Of Game:</label>
+                                <input type="text" required name="genre1">
+                            </div>
+                            <button type="submit">Send</button>
+                        </form>
+                        <div class="bottom-link">
+                            <a href="#" id="create-post-link">Add Post Game</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
-    <!-- Intro section end -->
-
-
-    <!-- Featured section -->
-    <section class="featured-section">
-        <c:forEach var="post" items="${posts}" varStatus="status">
-            <c:if test="${status.index == 0}">
-                <!-- Featured background image -->
-                <div class="featured-bg set-bg col-6 d-flex justify-content-center align-items-center" style="width: calc(50% - 40px); height: 100%; ">
-                    <img src="data:image/png;base64,${post.fileData}" alt="Game Image" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
-                </div>
-
-                            <!-- Featured content box -->
-                            <div class="featured-box col-6" >
-                                <div class="text-box" >
-                                    <!-- Display post date and category dynamically -->
-                                    <div class="top-meta">${post.dateRelease} / in <a href="#">${post.genre}</a></div>
-
-                                    <h3>Newest game release is coming up!</h3>
-
-                                    <!-- Post title -->
-                                    <p style="font-size: 40px">${post.title}</p>
-
-                                    <!-- Post content (short summary) -->
-                                    <p>${post.description}</p>
-
-                                    <!-- Read more link -->
-                                    <a href="game-single.jsp?id=${post.postID}" class="read-more">Read More  
-                                        <img src="img/icons/double-arrow.png" alt="#"/>
-                                    </a>
-                                </div>
-                            </div>
-                        </c:if>
-                    </c:forEach>
-                </section>
-                <!-- Featured section end-->
-
-
-
-        <!-- Footer section -->
-    <footer class="footer-section">
-            <div class="container">
-                <div class="footer-left-pic">
-                    <img src="img/footer-left-pic.png" alt="">
-                </div>
-                <div class="footer-right-pic">
-                    <img src="img/footer-right-pic.png" alt="">
-                </div>
-                <a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>" class="footer-logo">
-                    <img src="./img/logo1.png" alt="">
-                    <img src="./img/logo2.png" alt="">
-                </a>
-                <ul class="main-menu footer-menu">
-                            <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                            <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
-                            <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
-                            <li><a href="ReadGameHomeAdmin?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
-                        </ul>
-                        <div class="footer-social d-flex justify-content-center">
-                            <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
-                            <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
-                            <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
-                            <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
-                        </div>
-                        <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
-                    </div>
-                </footer>
-                <!-- Footer section end -->
-
-
-                <!-- Create Post Popup -->
-                <!-- Create Post Popup -->
-                <div class="blur-bg-overlay"></div>
-                <div class="form-popup create-post-popup">
-                    <span class="close-btn material-symbols-rounded" style="top:50px">close</span>
-
-                    <div class="form-box create-post">
-                        <div class="form-details">
-                            <h2>Create Post Game</h2>
-                            <p>To develop our community, upload news about games that you know</p>
-                        </div>
-                        <div class="form-content">
-                            <h2 style="margin-bottom: 6px">Create post</h2>
-                            <form action="AddGameController" method="post" enctype="multipart/form-data">
-                                <!-- Form fields for creating post -->
-                                <div class="input-field">
-                                    <label>Title</label>
-                                    <input type="text" required name="Title">
-                                </div>
-                                <div class="input-field">
-                                    <label>Game Play</label>
-                                    <input type="text" required name="Gameplay">
-                                </div>
-                                <div class="input-field">
-                                    <label>Description</label>
-                                    <input type="text" required name="Description">
-                                </div>
-                                <div class="input-field">
-                                    <label>Date Release</label>
-                                    <input type="date" required name="DateRelease">
-                                </div>
-                                <div class="input-field">
-                                    <label for="exampleFormControlSelect1">Status</label>
-                                    <select class="form-control" id="exampleFormControlSelect1" name="Status" required="required">
-                                        <option>Pre-Release</option>
-                                        <option>Released</option>
-                                    </select>
-                                </div>
-                                <div class="input-field">
-                                    <label>Author</label>
-                                    <input type="text" required name="Author">
-                                </div>
-                                <div class="input-field">
-                                    <label>Genre</label>
-                                    <select name="Genre" required>
-                                        <option value="">Select Genre</option>
-                                        <c:forEach var="genre" items="${genres}">
-                                            <option value="${genre.genre}">${genre.genre != null ? genre.genre : 'No genre available'}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                                <div class="input-field">
-                                    <label class="mr-2">Picture Of Game:</label>
-                                    <input type="file" name="file">
-                                </div>
-                                <div class="policy-text">
-                                    <input type="checkbox" id="policy">
-                                    <label for="policy">I agree to the
-                                        <a href="#" class="option">Terms & Conditions</a>
-                                    </label>
-                                </div>
-                                <button type="submit">Send</button>
-                            </form>
-                            <div class="bottom-link">
-                                Want to upload a genre?
-                                <a href="#" id="upload-photo-link">Upload Genre</a>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="form-box upload-photo">
-                        <div class="form-details">
-                        </div>
-                        <div class="form-content">
-                            <h2 style="margin-bottom: 6px">Upload Genre</h2>
-                            <form action="AddGenreController" method="post">
-                                <div class="input-field">
-                                    <label class="mr-2">Genre Of Game:</label>
-                                    <input type="text" required name="genre1">
-                                </div>
-                                <button type="submit">Send</button>
-                            </form>
-                            <div class="bottom-link">
-                                <a href="#" id="create-post-link">Add Post Game</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
 
 
 
 
 
-                <!--====== Javascripts & Jquery ======-->
-                <script src="js/jquery-3.2.1.min.js"></script>
-                <script src="js/bootstrap.min.js"></script>
-                <script src="js/jquery.slicknav.min.js"></script>
-                <script src="js/owl.carousel.min.js"></script>
-                <script src="js/jquery.sticky-sidebar.min.js"></script>
-                <script src="js/jquery.magnific-popup.min.js"></script>
-                <script src="js/main.js"></script>
-                <script>
-                    const formPopup = document.querySelector(".form-popup");
-                    const showPopupBtn = document.querySelector(".create-btn"); // Button to open create post form
-                    const hidePopupBtn = formPopup.querySelectorAll(".close-btn"); // Close buttons for both forms
-                    const photoOrPost = document.querySelectorAll(".bottom-link a"); // Links to toggle forms
+            <!--====== Javascripts & Jquery ======-->
+            <script src="js/jquery-3.2.1.min.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+            <script src="js/jquery.slicknav.min.js"></script>
+            <script src="js/owl.carousel.min.js"></script>
+            <script src="js/jquery.sticky-sidebar.min.js"></script>
+            <script src="js/jquery.magnific-popup.min.js"></script>
+            <script src="js/main.js"></script>
+            <script>
+                const formPopup = document.querySelector(".form-popup");
+                const showPopupBtn = document.querySelector(".create-btn"); // Button to open create post form
+                const hidePopupBtn = formPopup.querySelectorAll(".close-btn"); // Close buttons for both forms
+                const photoOrPost = document.querySelectorAll(".bottom-link a"); // Links to toggle forms
 
-                    // Show create post popup
-                    showPopupBtn?.addEventListener("click", () => {
-                        document.body.classList.add("show-popup");
+                // Show create post popup
+                showPopupBtn?.addEventListener("click", () => {
+                    document.body.classList.add("show-popup");
+                });
+
+                // Hide both popups when close button is clicked
+                hidePopupBtn.forEach(btn => {
+                    btn.addEventListener("click", () => {
+                        document.body.classList.remove("show-popup");
                     });
+                });
 
-                    // Hide both popups when close button is clicked
-                    hidePopupBtn.forEach(btn => {
-                        btn.addEventListener("click", () => {
-                            document.body.classList.remove("show-popup");
-                        });
+                // Switch between create post and upload photo forms
+                photoOrPost.forEach(link => {
+                    link.addEventListener("click", (e) => {
+                        e.preventDefault();
+                        if (link.id === 'upload-photo-link') {
+                            formPopup.classList.add("show-upload-photo");
+                        } else {
+                            formPopup.classList.remove("show-upload-photo");
+                        }
                     });
+                });
 
-                    // Switch between create post and upload photo forms
-                    photoOrPost.forEach(link => {
-                        link.addEventListener("click", (e) => {
-                            e.preventDefault();
-                            if (link.id === 'upload-photo-link') {
-                                formPopup.classList.add("show-upload-photo");
-                            } else {
-                                formPopup.classList.remove("show-upload-photo");
-                            }
-                        });
-                    });
+            </script>
+            <style>
+                .form-popup .upload-photo,
+                .form-popup .create-post {
+                    display: none;
+                }
 
-                </script>
-                <style>
-                    .form-popup .upload-photo,
-                    .form-popup .create-post {
-                        display: none;
-                    }
+                /* Show upload-photo form and hide create-post form */
+                .form-popup.show-upload-photo .upload-photo {
+                    display: flex;
+                }
 
-                    /* Show upload-photo form and hide create-post form */
-                    .form-popup.show-upload-photo .upload-photo {
-                        display: flex;
-                    }
+                .form-popup.show-upload-photo .create-post {
+                    display: none;
+                }
 
-                    .form-popup.show-upload-photo .create-post {
-                        display: none;
-                    }
+                /* Show create-post form by default */
+                .form-popup .create-post {
+                    display: flex;
+                }
+                form button {
+                    width: 100%;
+                    color: #fff;
+                    border: none;
+                    outline: none;
+                    padding: 10px 0;
+                    font-size: 1rem;
+                    font-weight: 500;
+                    border-radius: 3px;
+                    cursor: pointer;
+                    margin: 25px 0;
+                    background: #6f2b95;
+                    transition: 0.2s ease;
+                    margin-top: 0px;
+                    margin-bottom: 5px;
+                }
+                .right-position {
+                    padding-top: 81px;
+                    padding-right: 10px;
+                }
+                .upload-photo .form-details {
+                    padding: 0 20px;
+                    background: url("img/mortal-combat.jpg");
+                    background-position: center;
+                    background-size: cover;
+                }
 
-                    /* Show create-post form by default */
-                    .form-popup .create-post {
-                        display: flex;
-                    }
-                    form button {
-                        width: 100%;
-                        color: #fff;
-                        border: none;
-                        outline: none;
-                        padding: 10px 0;
-                        font-size: 1rem;
-                        font-weight: 500;
-                        border-radius: 3px;
-                        cursor: pointer;
-                        margin: 25px 0;
-                        background: #6f2b95;
-                        transition: 0.2s ease;
-                        margin-top: 0px;
-                        margin-bottom: 5px;
-                    }
-                    .right-position {
-                        padding-top: 81px;
-                        padding-right: 10px;
-                    }
-                    .upload-photo .form-details {
-                        padding: 0 20px;
-                        background: url("img/mortal-combat.jpg");
-                        background-position: center;
-                        background-size: cover;
-                    }
-
-                    h3.bottom-title {
-                        color: white;
-                        font-size: 35px;
-                        font-family: 'Sixtyfour Convergence';
-                        padding: 0 0px 30px 0;
-                    }
-                    .user {
-                        position: relative;
-                        width: 40px;
-                        height: 40px;
-                        border-radius: 50%;
-                        overflow: hidden;
-                        cursor: pointer;
-                    }
-                    .user img {
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-                    }
-                </style>
-                </body>
-                </html>
+                h3.bottom-title {
+                    color: white;
+                    font-size: 35px;
+                    font-family: 'Sixtyfour Convergence';
+                    padding: 0 0px 30px 0;
+                }
+                .user {
+                    position: relative;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    cursor: pointer;
+                }
+                .user img {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            </style>
+    </body>
+</html>

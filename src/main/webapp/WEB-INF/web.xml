@@ -13,10 +13,6 @@
         <servlet-class>Controller.AddGameController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ReadGameHomeAdminController</servlet-name>
-        <servlet-class>Controller.ReadGameHomeAdminController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ReadGameHomeController</servlet-name>
         <servlet-class>Controller.ReadGameHomeController</servlet-class>
     </servlet>
@@ -255,10 +251,6 @@
     <servlet-mapping>
         <servlet-name>AddGameController</servlet-name>
         <url-pattern>/AddGameController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ReadGameHomeAdminController</servlet-name>
-        <url-pattern>/ReadGameHomeAdminController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ReadGameHomeController</servlet-name>

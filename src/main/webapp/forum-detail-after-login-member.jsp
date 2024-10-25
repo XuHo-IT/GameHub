@@ -257,7 +257,7 @@
                         <!-- Textarea để nhập comment -->
                         <textarea name="comment" placeholder="comment here ..." required></textarea>
                         <!-- Các trường ẩn để truyền các giá trị cần thiết -->
-                        <input type="hidden" name="userid" value="<%= request.getParameter("userId")%>">
+                        <input type="hidden" name="memberid" value="<%= request.getParameter("userId")%>">
                         <input type="hidden" name="topicid" value="<%=request.getParameter("id")%>">
 
                         <!-- Nút submit để gửi form -->
@@ -364,7 +364,7 @@
                                 <textarea name="comment" placeholder="reply here ..." required></textarea>
 
                                 <!-- Các trường ẩn để truyền các giá trị cần thiết -->
-                                <input type="hidden" name="userid" value="<%= request.getParameter("userId")%>">
+                                <input type="hidden" name="memberId" value="<%= request.getParameter("userId")%>">
                                 <input type="hidden" name="topicid" value="<%=request.getParameter("id")%>">            
 
                                 <!-- Nút submit để gửi form -->

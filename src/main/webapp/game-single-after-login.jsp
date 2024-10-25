@@ -1,4 +1,5 @@
 
+<%@page import="java.util.List"%>
 <%@page import="utils.MongoDBConnectionManager1"%>
 <%@page import="com.mongodb.client.MongoDatabase"%>
 <%@page import="com.mongodb.client.model.Filters"%>
@@ -55,34 +56,53 @@
         <div id="preloder">
             <div class="loader"></div>
         </div>
+        <%
+            String title = null;
+            String gamePlay = null;
+            String author = null;
+            String genre = null; // For storing genre name from post data
+            String description = null;
+            String dateRelease = null;
+            String fileData = null;
+            String linkGame = null;
+            String price = null;
+            String adminId = request.getParameter("adminId");
+            List<String> actionImages = null;
 
+            // Connect to MongoDB
+            MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
+            MongoCollection<Document> postsCollection = mongoClient.getDatabase("GameHub").getCollection("postGame");
+
+            // Get the post ID from the URL query parameter
+            String postId = request.getParameter("id");
+            System.out.println("Post ID: " + postId);
+
+            // Find the post by its ObjectId
+            Document post = postsCollection.find(Filters.eq("_id", new ObjectId(postId))).first();
+
+            // Check if the post exists
+            if (post != null) {
+                actionImages = (List<String>) post.get("ActionImages");
+                gamePlay = post.getString("GamePlay");
+                author = post.getString("Author");
+                genre = post.getString("Genre"); // Ensure correct case
+                title = post.getString("Title"); // Ensure correct case
+                description = post.getString("Description"); // Ensure correct case
+                dateRelease = post.getString("DateRelease"); // Ensure correct case
+                fileData = post.getString("FileData");
+                linkGame = post.getString("LinkGame");
+                price = post.getString("Price"); // Ensure correct case
+
+            } else {
+                out.println("Post not found.");
+            }
+        %>
         <!-- Header section -->
         <header class="header-section">
             <div class="header-warp">
                 <div class="row align-items-center">
                     <!-- Left side: Search Form (col-7) -->
                     <div class="col-8">
-                        <form action="SearchController" method="GET">
-                            <!-- Search Bar Row -->
-                            <div class="row" style="align-items: center;">
-                                <!-- Keyword input for the search bar -->
-                                <div class="col-2 d-flex align-items-end">
-                                    <button type="submit" class=" w-100" style="height: 52px;">Search</button>
-                                </div>
-
-                                <div class="col-10" style="text-align: center;padding-top: 33px ">
-                                    <input type="text" name="keyword" class="form-control" placeholder="Search by keyword..." aria-label="Search" style="height: 52px;">
-                                    <label for="genre" class="form-label" style="font-style: italic; font-weight: bold;">Genre:</label>
-                                    <select id="genre" name="genre" class="form-select" style="height: 34px; float: left; border: 2px solid #ccc; font-style: italic; padding: 5px; border-radius: 5px; font-family: 'Arial', sans-serif;">
-                                        <option value="">All Genres</option>
-                                        <!-- Dynamically populate genres from MongoDB -->
-                                        <c:forEach var="genre" items="${genres}">
-                                            <option value="${genre.genre}">${genre.genre}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                            </div>
-                        </form>
                     </div>
                     <!-- Right side: Social Media Icons (col-4) -->
                     <div class="col-4 header-social d-flex align-items-center justify-content-end">
@@ -148,62 +168,13 @@
 
 
         <!-- Games section -->
-        <%
-            String title = null;
-            String gamePlay = null;
-            String author = null;
-            String genre = null;
-            String description = null;
-            String dateRelease = null;
-            String fileData = null;
-            String linkGame = null;
-            String price = null;
-            double priceRating = 0.0;
-            double graphicRating = 0.0;
-            double difficultyRating = 0.0;
-            double gameplayRating = 0.0;
-            double averageRating = 0.0;
 
-            // Get the post ID from the URL query parameter
-            String postId = request.getParameter("id");
-            System.out.println("Post ID: " + postId);
-
-            // Connect to MongoDB
-            MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
-            MongoCollection<Document> postsCollection = mongoClient.getDatabase("GameHub").getCollection("postGame");
-
-            // Find the post by its ObjectId
-            Document post = postsCollection.find(Filters.eq("_id", new ObjectId(postId))).first();
-
-            // Check if the post exists
-            if (post != null) {
-                gamePlay = post.getString("GamePlay");
-                author = post.getString("Author");
-                genre = post.getString("Genre");
-                title = post.getString("Title"); // Ensure correct case
-                description = post.getString("Description"); // Ensure correct case
-                dateRelease = post.getString("DateRelease"); // Ensure correct case
-                fileData = post.getString("FileData");
-                linkGame = post.getString("LinkGame");
-                price = post.getString("Price");
-// Ensure correct case
-
-            } else {
-                out.println("Post not found.");
-            }
-        %>
 
         <section class="games-single-page">
             <div class="container">
                 <div class="game-single-preview">
                     <img src="data:image/jpeg;base64,<%= fileData != null ? fileData : ""%>" alt="Game Image" />
-                    <div class="wishlist-btns">
-                        <button id="wishlist-btn" class="wishlist-btn" style="background-color:#6f2b95" 
-                                onclick="addToWishlist(this)">
-                            Add to wishlist
-                        </button>
-                    </div>
-                </div>
+                </dv>
 
                 <div class="row">
                     <div class="col-xl-9 col-lg-8 col-md-7 game-single-content">
@@ -215,166 +186,181 @@
                             </div>
 
                             <h2 class="gs-title">
-                                <h3 style="color: white">Title/h3>
-                                    <input type="text" name="title" style="font-size: 20px; height: 50px" value="<%= title != null ? title : "Untitled"%>" class="form-control">
-                                    </h2>
-
-                                    <div class="gs-description">
-                                        <h3 style="color: white">Description</h3>
-                                        <textarea name="description" style="font-size: 20px; height: 400px" class="form-control"><%= description != null ? description : "No description available"%></textarea>
+                                <h3 style="color: white">Title</h3>
+                                <input type="text" name="title" style="font-size: 20px; height: 50px" value="<%= title != null ? title : "Untitled"%>" class="form-control">
+                            </h2>
+                            <div class="gs-description">
+                                <h3 style="color: white">Description</h3>
+                                <textarea name="description" style="font-size: 20px; height: 200px" class="form-control"><%= description != null ? description : "No description available"%></textarea>
+                            </div>
+                            <div class="gs-gameplay">
+                                <h3 style="color: white">Game Play</h3>
+                                <textarea name="gamePlay" style="font-size: 20px; height: 200px" class="form-control"><%= gamePlay != null ? gamePlay : "No gamePlay available"%></textarea>
+                            </div>
+                            <div class="gs-gameplay">
+                                <h3 style="color: white">Genre</h3>
+                                <textarea name="gamePlay" style="font-size: 20px; height: 50px" class="form-control"><%= genre != null ? genre : "No genre available"%></textarea>
+                            </div>
+                            <div class="gs-auhtor-genre">
+                                <div class="left-author">
+                                    <h3 style="color: white">Publisher</h3>
+                                    <input type="text" name="author" style="font-size: 20px; height: 50px" value="<%= author != null ? author : "No Author available"%>" class="form-control">
+                                </div>
+                            </div>
+                            <div class="gs-gameplay">
+                                <h3 style="color: white">Link of the game</h3>
+                                <textarea name="Link" style="font-size: 20px; height: 50px" class="form-control"><%= linkGame != null ? linkGame : "No linkGame available"%></textarea>
+                            </div> <div class="gs-gameplay">
+                                <h3 style="color: white">Price</h3>
+                                <textarea name="Price" style="font-size: 20px; height: 50px" class="form-control"><%= price != null ? price : "No price available"%></textarea>
+                            </div>
+                            <input type="hidden" name="postId" value="<%= postId%>">
+                            <button class="edit-btn" type="submit" name="action" value="edit" style="background-color:#4CAF50;">Edit</button>
+                        </form>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">
+                        <div id="stickySidebar">
+                            <div class="widget-item">
+                                <div class="testimonials-widget">
+                                    <h4 class="widget-title">Testimonials</h4>
+                                    <div class="testim-text">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                        <h6><span>James Smith,</span>Gamer</h6>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                                    <div class="gs-gameplay">
-                                        <h3 style="color: white">Game Play</h3>
-                                        <textarea name="gamePlay" style="font-size: 20px; height: 50px" class="form-control"><%= gamePlay != null ? gamePlay : "No gamePlay available"%></textarea>
-                                    </div>
+                <!-- Action Images Carousel -->
+                <div id="actionImagesCarousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <%
+                            if (actionImages != null && !actionImages.isEmpty()) {
+                                for (int i = 0; i < actionImages.size(); i++) {
+                                    String imageBase64 = actionImages.get(i);
+                        %>
+                        <div class="carousel-item <%= (i == 0) ? "active" : ""%>">
+                            <img src="data:image/jpeg;base64,<%= imageBase64%>" class="d-block w-100" alt="Game Action Image <%= i + 1%>">
+                        </div>
+                        <%
+                            }
+                        } else {
+                        %>
+                        <div class="carousel-item active">
+                            <p>No action images available.</p>
+                        </div>
+                        <% }%>
+                    </div>
+                    <a class="carousel-control-prev" href="#actionImagesCarousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#actionImagesCarousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!-- Games end-->
 
-                                    <div class="gs-auhtor-genre">
-                                        <div class="left-author">
-                                            <h3 style="color: white">Publisher</h3>
-                                            <input type="text" name="author" style="font-size: 20px; height: 50px" value="<%= author != null ? author : "No Author available"%>" class="form-control">
-                                        </div>
-                                    </div>
-
-                                    <div class="gs-gameplay">
-                                        <h3 style="color: white">Link of the game</h3>
-                                        <textarea name="Link" style="font-size: 20px; height: 50px" class="form-control"><%= linkGame != null ? linkGame : "No linkGame available"%></textarea>
-                                    </div> <div class="gs-gameplay">
-                                        <h3 style="color: white">Price</h3>
-                                        <textarea name="Price" style="font-size: 20px; height: 50px" class="form-control"><%= price != null ? price : "No price available"%></textarea>
-                                    </div>
-
-                                    <input type="hidden" name="postId" value="<%= postId%>">
-                                    <button class="edit-btn" type="submit" name="action" value="edit" style="background-color:#4CAF50;">Edit</button>
-                                    </form>
-                                    </div>
-
-
-                                    <div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">
-                                        <div id="stickySidebar">
-                                            <div class="widget-item">
-                                                <div class="rating-widget">
-                                                    <h4 class="widget-title">Ratings</h4>
-                                                    <ul>
-                                                        <li>Price Rating: <strong><%= priceRating%></strong></li>
-                                                        <li>Graphic Rating: <strong><%= graphicRating%></strong></li>
-                                                        <li>Difficulty Rating: <strong><%= difficultyRating%></strong></li>
-                                                        <li>Gameplay Rating: <strong><%= gameplayRating%></strong></li>
-                                                    </ul>
-                                                    <div class="rating">
-                                                        <h5><i>Average Rating:</i><span><%= averageRating%></span> / 5</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="widget-item">
-                                                <div class="testimonials-widget">
-                                                    <h4 class="widget-title">Testimonials</h4>
-                                                    <div class="testim-text">
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                                        <h6><span>James Smith,</span>Gamer</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    </div>
-                                    </div>
-                                    </section>
-
-                                    <!-- Games end-->
-
-                                    <section class="game-author-section">
-                                        <div class="container">
-                                            <div class="game-author-pic set-bg" data-setbg="img/author.jpg"></div>
-                                            <div class="game-author-info">
-                                                <h4>Written by: Michael Williams</h4>
-                                                <p>Vivamus volutpat nibh ac sollicitudin imperdiet. Donec scelerisque lorem sodales odio ultricies, nec rhoncus ex lobortis. Vivamus tincid-unt sit amet sem id varius. Donec elementum aliquet tortor. Curabitur justo mi, efficitur sed eros alique.</p>
-                                            </div>
-                                        </div>
-                                    </section>
+        <section class="game-author-section">
+            <div class="container">
+                <div class="game-author-pic set-bg" data-setbg="img/author.jpg"></div>
+                <div class="game-author-info">
+                    <h4>Written by: Michael Williams</h4>
+                    <p>Vivamus volutpat nibh ac sollicitudin imperdiet. Donec scelerisque lorem sodales odio ultricies, nec rhoncus ex lobortis. Vivamus tincid-unt sit amet sem id varius. Donec elementum aliquet tortor. Curabitur justo mi, efficitur sed eros alique.</p>
+                </div>
+            </div>
+        </section>
 
 
-                                    <!-- Newsletter section -->
-                                    <section class="newsletter-section" style="">
-                                        <div class="container">
-                                            <h3 class="bottom-title">Thanks for using our website!</h3>
-                                            <img src="img/Dawn.gif" alt="Game Image" style="width: 100%; height: auto;" />
-                                        </div>
-                                    </section>
-                                    <!-- Newsletter section end -->
+        <!-- Newsletter section -->
+        <section class="newsletter-section" style="">
+            <div class="container">
+                <h3 class="bottom-title">Thanks for using our website!</h3>
+                <img src="img/Dawn.gif" alt="Game Image" style="width: 100%; height: auto;" />
+            </div>
+        </section>
+        <!-- Newsletter section end -->
 
 
-                                    <!-- Footer section -->
-                                    <footer class="footer-section">
-                                        <div class="container">
-                                            <div class="footer-left-pic">
-                                                <img src="img/footer-left-pic.png" alt="">
-                                            </div>
-                                            <div class="footer-right-pic">
-                                                <img src="img/spider-removebg-preview.png" alt="">
-                                            </div>
-                                            <a href="#" class="footer-logo">
-                                                <img src="./img/logo.png" alt="">
-                                            </a>
-                                            <ul class="main-menu footer-menu">
-                                                <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                                                <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
-                                                <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
-                                                <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
-                                            </ul>
+        <!-- Footer section -->
+        <footer class="footer-section">
+            <div class="container">
+                <div class="footer-left-pic">
+                    <img src="img/footer-left-pic.png" alt="">
+                </div>
+                <div class="footer-right-pic">
+                    <img src="img/spider-removebg-preview.png" alt="">
+                </div>
+                <a href="#" class="footer-logo">
+                    <img src="./img/logo.png" alt="">
+                </a>
+                <ul class="main-menu footer-menu">
+                    <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                    <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
+                    <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
+                    <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                </ul>
 
-                                            <div class="footer-social d-flex justify-content-center">
-                                                <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
-                                                <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
-                                                <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
-                                                <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
-                                            </div>
-                                            <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
-                                        </div>
-                                    </footer>
-                                    <!-- Footer section end -->
+                <div class="footer-social d-flex justify-content-center">
+                    <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
+                    <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
+                    <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
+                    <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
+                </div>
+                <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
+            </div>
+        </footer>
+        <!-- Footer section end -->
 
-                                    <script>
-                                        function addToWishlist(button) {
-                                            button.style.backgroundColor = '#D9D9D9';
-                                            button.style.color = '#C20000';
-                                            button.style.fontWeight = 'bold';
-                                            button.innerHTML = 'Added to wishlist';
-                                        }
-                                    </script>
-                                    <style>
-                                        h3.bottom-title {
-                                            color: white;
-                                            font-size: 35px;
-                                            font-family: 'Sixtyfour Convergence';
-                                            padding: 0 0px 30px 0;
-                                        }
-                                        .user {
-                                            position: relative;
-                                            width: 40px;
-                                            height: 40px;
-                                            border-radius: 50%;
-                                            overflow: hidden;
-                                            cursor: pointer;
-                                        }
-                                        .user img {
-                                            position: absolute;
-                                            top: 0;
-                                            left: 0;
-                                            width: 100%;
-                                            height: 100%;
-                                            object-fit: cover;
-                                        }
-                                    </style>
-                                    <!--====== Javascripts & Jquery ======-->
-                                    <script src="js/jquery-3.2.1.min.js"></script>
-                                    <script src="js/bootstrap.min.js"></script>
-                                    <script src="js/jquery.slicknav.min.js"></script>
-                                    <script src="js/owl.carousel.min.js"></script>
-                                    <script src="js/jquery.sticky-sidebar.min.js"></script>
-                                    <script src="js/jquery.magnific-popup.min.js"></script>
-                                    <script src="js/main.js"></script>
+        <script>
+            function addToWishlist(button) {
+                button.style.backgroundColor = '#D9D9D9';
+                button.style.color = '#C20000';
+                button.style.fontWeight = 'bold';
+                button.innerHTML = 'Added to wishlist';
+            }
+        </script>
+        <style>
 
-                                    </body>
-                                    </html>
+
+            h3.bottom-title {
+                color: white;
+                font-size: 35px;
+                font-family: 'Sixtyfour Convergence';
+                padding: 0 0px 30px 0;
+            }
+            .user {
+                position: relative;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                overflow: hidden;
+                cursor: pointer;
+            }
+            .user img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        </style>
+        <!--====== Javascripts & Jquery ======-->
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.slicknav.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/jquery.sticky-sidebar.min.js"></script>
+        <script src="js/jquery.magnific-popup.min.js"></script>
+        <script src="js/main.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+
+    </body>
+</html>

@@ -240,13 +240,9 @@
                 <!--Comment Area-->
                 <form action="AddComment" method="POST">
                     <div class="comment-area hide" id="comment-area">
-                        <!-- Textarea để nhập comment -->
                         <textarea name="comment" placeholder="comment here ..." required></textarea>
-                        <!-- Các trường ẩn để truyền các giá trị cần thiết -->
                         <input type="hidden" name="memberid" value="<%= request.getParameter("userId")%>">
                         <input type="hidden" name="topicid" value="<%=request.getParameter("id")%>">
-
-                        <!-- Nút submit để gửi form -->
                         <input type="submit" value="submit">
                     </div>
                 </form>
@@ -322,15 +318,16 @@
                                         <div class="comment" style="background-color: #dc3545;">
                                             <button style="width: 80px; height: 40px;" onclick="deleteComment('<%= comment.getCommentId()%>', '<%= topicId%>')">Delete</button>
                                         </div>
-
-                                        <form action="UpdateCommentController" method="POST">
+                                        <form action="UpdateComment" method="POST">
                                             <div class="comment-area hide" id="update-area-<%= comment.getCommentId()%>">
-                                                <textarea name="newContent" placeholder="reply here ..." required></textarea>
+                                                <textarea name="newContent" placeholder="reply here ..." required 
+                                                          oninput="checkChanges(this, '<%= comment.getContent()%>')"></textarea>
                                                 <input type="hidden" name="commentid" value="<%= comment.getCommentId()%>">
                                                 <input type="hidden" name="topicid" value="<%=request.getParameter("id")%>">
-                                                <input type="submit" value="Submit">
+                                                <input type="hidden" name="memberid" value="<%=request.getParameter("userId")%>">
+                                                <input type="submit" value="Submit" id="submitBtn-<%= comment.getCommentId()%>" disabled>
                                             </div>
-                                        </form>                      
+                                        </form>                    
                                         <% } else {%>
                                         <div style="display: flex; align-items: center; flex-direction: row-reverse;">
                                             <div class="comment">
@@ -346,14 +343,9 @@
                         <!-- Reply text area -->
                         <form action="AddComment" method="POST">
                             <div class="comment-area hide" id="reply-area-<%= comment.getCommentId()%>">
-                                <!-- Textarea để nhập reply -->
                                 <textarea name="comment" placeholder="reply here ..." required></textarea>
-
-                                <!-- Các trường ẩn để truyền các giá trị cần thiết -->
-                                <input type="hidden" name="memberId" value="<%= request.getParameter("userId")%>">
+                                <input type="hidden" name="memberid" value="<%=request.getParameter("userId")%>">
                                 <input type="hidden" name="topicid" value="<%=request.getParameter("id")%>">            
-
-                                <!-- Nút submit để gửi form -->
                                 <input type="submit" value="submit">
                             </div>
                         </form>
@@ -572,6 +564,7 @@
                                                             });
                                                         });
                                                     });
+
                                                     function deleteComment(value1, value2) {
                                                         const form = document.createElement('form');
                                                         form.method = 'POST';
@@ -588,6 +581,11 @@
                                                         input2.name = 'topicId';
                                                         input2.value = value2;
 
+                                                        const input3 = document.createElement('input');
+                                                        input3.type = 'hidden';
+                                                        input3.name = 'memberId';
+                                                        input3.value = <%=request.getParameter("userId")%>;
+
                                                         // Thêm input vào form
                                                         form.appendChild(input1);
                                                         form.appendChild(input2);
@@ -597,6 +595,10 @@
                                                         form.submit();
                                                     }
 
+                                                    function checkChanges(textarea, originalContent) {
+                                                        const submitBtn = document.getElementById(`submitBtn-${textarea.closest('.comment-area').id.split('-')[2]}`);
+                                                        submitBtn.disabled = (textarea.value.trim() === originalContent.trim());
+                                                    }
         </script>
         <style>.modal {
                 display: none;

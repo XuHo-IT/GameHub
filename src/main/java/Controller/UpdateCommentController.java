@@ -37,7 +37,7 @@ public class UpdateCommentController extends HttpServlet {
         try {
             collection.updateOne(query, update);
             destroy();
-            response.sendRedirect("forum-detail-after-login-member.jsp?id=" + topicId);
+            response.sendRedirect("forum-detail-after-login-member.jsp?topicId=" + topicId);
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.getWriter().write("Error updating comment: " + e.getMessage());

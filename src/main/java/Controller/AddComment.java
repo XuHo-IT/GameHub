@@ -40,7 +40,7 @@ public class AddComment extends HttpServlet {
                 collection.insertOne(comments);
 
                 String memberId = (String) request.getSession().getAttribute("memberid");
-                response.sendRedirect("forum-detail-after-login-member.jsp?id=" + topicId + "&userId=" + memberId);
+                response.sendRedirect("forum-detail-after-login-member.jsp?topicId=" + topicId + "&userId=" + memberId);
         }
 
 }

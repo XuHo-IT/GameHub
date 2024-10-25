@@ -116,7 +116,7 @@
 
         <!-- Page top section -->
         <section class="page-top-section set-bg" data-setbg="img/page-top-bg/1.jpg">
-            <div class="page-info"style="padding-top: 30px">
+            <div class="page-info" style="padding-top: 30px">
                 <h2>Games</h2>
                 <div class="site-breadcrumb">
                     <a href="">Home</a>  /

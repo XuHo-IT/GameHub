@@ -82,7 +82,7 @@
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
                             <div class="account-container">
-                                 <div class="user">
+                                <div class="user">
                                     <%= request.getSession().getAttribute("adminId")%>
                                     <img src="<%= request.getSession().getAttribute("photoUrl")%>" alt="User Profile" />
                                 </div>
@@ -202,15 +202,6 @@
                 </c:forEach>
             </div>
         </section>
-
-        <!-- Newsletter section -->
-        <section class="newsletter-section" style="">
-            <div class="container">
-                <h3 class="bottom-title">Thanks for using our website!</h3>
-                <img src="img/Dawn.gif" alt="Game Image" style="width: 100%; height: auto;" />
-            </div>
-        </section>
-        <!-- Newsletter section end -->
 
         <!-- Footer section -->
         <footer class="footer-section" style="margin-top: 0 ; padding: 10px 125px">
@@ -395,28 +386,22 @@
                 display: none;
                 opacity:1;
             }
-            h3.bottom-title {
-                color: white;
-                font-size: 35px;
-                font-family: 'Sixtyfour Convergence';
-                padding: 0 0px 30px 0;
+            .user {
+                position: relative;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                overflow: hidden;
+                cursor: pointer;
             }
-             .user {
-                        position: relative;
-                        width: 40px;
-                        height: 40px;
-                        border-radius: 50%;
-                        overflow: hidden;
-                        cursor: pointer;
-                    }
-                    .user img {
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-                    }
+            .user img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
             .btn-danger{
                 margin: 0;
                 margin-top: 5px;

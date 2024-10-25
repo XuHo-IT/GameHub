@@ -124,7 +124,7 @@
 
         <!--Forum section -->
         <%
-            String userId = null;
+            String userIdTopic = null;
             String userNameTopic = null;
             String title = null;
             String description = null;
@@ -148,12 +148,12 @@
                 title = topic.getString("Title");
                 description = topic.getString("Description");
                 imageData = topic.getString("ImageData");
-                userId = topic.getString("UserId");
+                userIdTopic = topic.getString("UserId");
 
                 MongoCollection<Document> usersCollection = mongoClient.getDatabase("GameHub").getCollection("superadmin");
 
                 // Find the user by its ObjectId
-                Document userTopic = usersCollection.find(Filters.eq("_id", new ObjectId(userId))).first();
+                Document userTopic = usersCollection.find(Filters.eq("_id", new ObjectId(userIdTopic))).first();
 
                 userNameTopic = userTopic.getString("Name");
                 photoUrlUser = userTopic.getString("PhotoUrl");
@@ -229,7 +229,7 @@
                         <textarea name="comment" placeholder="comment here ..." required></textarea>
                         <!-- Các trường ẩn để truyền các giá trị cần thiết -->
                         <input type="hidden" name="userid" value="<%= request.getSession().getAttribute("adminId")%>">
-                        <input type="hidden" name="topicid" value="<%=request.getParameter("id")%>">
+                        <input type="hidden" name="topicid" value="<%=request.getParameter("topicId")%>">
 
                         <!-- Nút submit để gửi form -->
                         <input type="submit" value="submit">
@@ -303,11 +303,11 @@
                                         <div class="comment">
                                             <button style="width: 80px; height: 40px; background-color: #4CAF50" class="update-button" onclick="showUpdate('<%= comment.getCommentId()%>', '<%= comment.getContent()%>', '<%= topicId%>', '<%= comment.getContent()%>')" aria-label="Update comment">Edit</button>
                                         </div>
-                                        <form action="UpdateCommentAdmin" method="POST">
+                                        <form action="UpdateCommentAdminController" method="POST">
                                             <div class="comment-area hide" id="update-area-<%= comment.getCommentId()%>">
                                                 <textarea name="newContent" placeholder="reply here ..." required></textarea>
                                                 <input type="hidden" name="commentid" value="<%= comment.getCommentId()%>">
-                                                <input type="hidden" name="topicid" value="<%=request.getParameter("id")%>">
+                                                <input type="hidden" name="topicid" value="<%=request.getParameter("topicId")%>">
                                                 <input type="submit" value="Submit">
                                             </div>
                                         </form>
@@ -331,7 +331,7 @@
 
                                 <!-- Các trường ẩn để truyền các giá trị cần thiết -->
                                 <input type="hidden" name="userid" value="<%= request.getSession().getAttribute("adminId")%>">
-                                <input type="hidden" name="topicid" value="<%=request.getParameter("id")%>">            
+                                <input type="hidden" name="topicid" value="<%=request.getParameter("topicId")%>">            
 
                                 <!-- Nút submit để gửi form -->
                                 <input type="submit" value="submit">
@@ -347,16 +347,6 @@
 
             </div>
         </section>
-
-        <!-- Newsletter section -->
-        <section class="newsletter-section" style="">
-            <div class="container">
-                <h3 class="bottom-title">Thanks for using our website!</h3>
-                <img src="img/Dawn.gif" alt="Game Image" style="width: 100%; height: auto;" />
-            </div>
-        </section>
-        <!-- Newsletter section end -->
-
 
         <!-- Footer section -->
         <footer class="footer-section" style="margin-top: 0 ; padding: 10px 125px">

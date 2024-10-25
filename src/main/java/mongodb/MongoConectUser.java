@@ -17,10 +17,8 @@ import java.util.List;
 
 import static jdk.jfr.internal.consumer.EventLog.update;
 
-
-
-
 public class MongoConectUser {
+
     private static final String CONNECTION_STRING = "mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub";
     private static final String DATABASE_NAME = "GameHub";
     private static final String COLLECTION_NAME = "superadmin";
@@ -31,7 +29,7 @@ public class MongoConectUser {
         try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
             MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
             MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
-            
+
             for (Document doc : collection.find()) {
                 UserModel user = new UserModel();
                 user.setId(doc.getObjectId("_id").toString());
@@ -57,7 +55,7 @@ public class MongoConectUser {
         try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
             MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
             MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
-            
+
             // Use ObjectId for the MongoDB _id field
             Document result = collection.findOneAndDelete(Filters.eq("_id", new ObjectId(userId)));
             return result != null; // Return true if a user was deleted
@@ -68,8 +66,7 @@ public class MongoConectUser {
     }
 
     // Method to update a user in the database
-
-        public boolean updateUser(String userId, String name, String email, String phone, String address) {
+    public boolean updateUser(String userId, String name, String email, String phone, String address) {
 
         try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
             MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
@@ -78,27 +75,27 @@ public class MongoConectUser {
             // Create the document to update
             Document updatedUser = new Document("Name", name)
                     .append("Email", email)
-                    .append("Phone", phone)
+                    .append("Phone", phone) 
                     .append("Address", address);
 
             // Use ObjectId for _id field in MongoDB
-            long modifiedCount = collection.updateOne(Filters.eq("_id", new ObjectId(userId)), 
-                                                      new Document("$set", updatedUser))
-                                                      .getModifiedCount();
+            long modifiedCount = collection.updateOne(Filters.eq("_id", new ObjectId(userId)),
+                    new Document("$set", updatedUser))
+                    .getModifiedCount();
             return modifiedCount > 0; // Return true if user was updated
         } catch (Exception e) {
             e.printStackTrace();
             return false; // Return false if an error occurred
         }
 
-        }
+    }
 
     // Method to get a user by ID
     public UserModel getUserById(String userId) {
         try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
             MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
             MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
-            
+
             Document doc = collection.find(Filters.eq("_id", new ObjectId(userId))).first();
             if (doc != null) {
                 UserModel user = new UserModel();
@@ -120,69 +117,69 @@ public class MongoConectUser {
         return null; // Return null if user is not found
 
     }
+
     public boolean suspendUser(String userId) {
-    try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
-        MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
-        MongoCollection<Document> usersCollection = database.getCollection(COLLECTION_NAME);
+        try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
+            MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
+            MongoCollection<Document> usersCollection = database.getCollection(COLLECTION_NAME);
 
-        // Use ObjectId for the MongoDB _id field
-        Document query = new Document("_id", new ObjectId(userId));
-        Document update = new Document("$set", new Document("Status", "Suspend"));
+            // Use ObjectId for the MongoDB _id field
+            Document query = new Document("_id", new ObjectId(userId));
+            Document update = new Document("$set", new Document("Status", "Suspend"));
 
-        // Update the user's status to "Suspend"
-        if (usersCollection.updateOne(query, update).getModifiedCount() > 0) {
-            return true; // Successfully suspended the user
+            // Update the user's status to "Suspend"
+            if (usersCollection.updateOne(query, update).getModifiedCount() > 0) {
+                return true; // Successfully suspended the user
+            }
+            return false; // User not found or not modified
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false; // Return false if an error occurred
         }
-        return false; // User not found or not modified
-    } catch (Exception e) {
-        e.printStackTrace();
-        return false; // Return false if an error occurred
-    }
-}
-
-public boolean unsuspendUser(String userId) {
-    try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
-        MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
-        MongoCollection<Document> usersCollection = database.getCollection(COLLECTION_NAME);
-
-        // Use ObjectId for the MongoDB _id field
-        Document query = new Document("_id", new ObjectId(userId));
-        Document update = new Document("$set", new Document("Status", "Active"));
-
-        // Update the user's status to "Active"
-        if (usersCollection.updateOne(query, update).getModifiedCount() > 0) {
-            return true; // Successfully unsuspended the user
-        }
-        return false; // User not found or not modified
-    } catch (Exception e) {
-        e.printStackTrace();
-        return false; // Return false if an error occurred
-    }
-}
-
-public boolean assignAdmin(String userId) {
-    try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
-        MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
-        MongoCollection<Document> usersCollection = database.getCollection(COLLECTION_NAME);
-
-        // Use ObjectId for the MongoDB _id field
-        Document query = new Document("_id", new ObjectId(userId));
-        Document update = new Document("$set", new Document("Role", "1"));
-
-        // Update the user's status to "Suspend"
-        if (usersCollection.updateOne(query, update).getModifiedCount() > 0) {
-            return true; // Successfully suspended the user
-        }
-        return false; // User not found or not modified
-    } catch (Exception e) {
-        e.printStackTrace();
-        return false; // Return false if an error occurred
     }
 
-}
+    public boolean unsuspendUser(String userId) {
+        try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
+            MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
+            MongoCollection<Document> usersCollection = database.getCollection(COLLECTION_NAME);
 
+            // Use ObjectId for the MongoDB _id field
+            Document query = new Document("_id", new ObjectId(userId));
+            Document update = new Document("$set", new Document("Status", "Active"));
 
-public boolean updateUserProfilePicture(String userId, String imagePath) {
+            // Update the user's status to "Active"
+            if (usersCollection.updateOne(query, update).getModifiedCount() > 0) {
+                return true; // Successfully unsuspended the user
+            }
+            return false; // User not found or not modified
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false; // Return false if an error occurred
+        }
+    }
+
+    public boolean assignAdmin(String userId) {
+        try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
+            MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
+            MongoCollection<Document> usersCollection = database.getCollection(COLLECTION_NAME);
+
+            // Use ObjectId for the MongoDB _id field
+            Document query = new Document("_id", new ObjectId(userId));
+            Document update = new Document("$set", new Document("Role", "1"));
+
+            // Update the user's status to "Suspend"
+            if (usersCollection.updateOne(query, update).getModifiedCount() > 0) {
+                return true; // Successfully suspended the user
+            }
+            return false; // User not found or not modified
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false; // Return false if an error occurred
+        }
+
+    }
+
+    public boolean updateUserProfilePicture(String userId, String imagePath) {
         try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
             MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
             MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
@@ -199,6 +196,7 @@ public boolean updateUserProfilePicture(String userId, String imagePath) {
             return false; // Return false if an error occurred
         }
     }
+
     public boolean changePassword(String userId, String oldPassword, String newPassword) {
         try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
             MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
@@ -218,11 +216,5 @@ public boolean updateUserProfilePicture(String userId, String imagePath) {
         }
         return false; // Old password is incorrect or user not found
     }
-    
 
 }
-
-
-   
-
-

@@ -82,8 +82,9 @@
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
                             <div class="account-container">
-                                <div class="account-icon">
-                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                 <div class="user">
+                                    <%= request.getSession().getAttribute("adminId")%>
+                                    <img src="<%= request.getSession().getAttribute("photoUrl")%>" alt="User Profile" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
@@ -402,6 +403,22 @@
                 font-family: 'Sixtyfour Convergence';
                 padding: 0 0px 30px 0;
             }
+             .user {
+                        position: relative;
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        overflow: hidden;
+                        cursor: pointer;
+                    }
+                    .user img {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
             .btn-danger{
                 margin: 0;
                 margin-top: 5px;

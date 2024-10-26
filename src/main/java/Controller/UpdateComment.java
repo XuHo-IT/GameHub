@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import utils.MongoDBConnectionManager1;
 
-public class UpdateCommentController extends HttpServlet {
+public class UpdateComment extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,14 +34,9 @@ public class UpdateCommentController extends HttpServlet {
         // Tạo document mới chứa nội dung cập nhật
         Document update = new Document("$set", new Document("Content", newContent).append("Status", "edited"));
 
-        try {
-            collection.updateOne(query, update);
-            destroy();
-            response.sendRedirect("forum-detail-after-login-member.jsp?topicId=" + topicId);
-        } catch (Exception e) {
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            response.getWriter().write("Error updating comment: " + e.getMessage());
-        }
+        String memberId = (String) request.getSession().getAttribute("memberid");
+        collection.updateOne(query, update);
+        response.sendRedirect("forum-detail-after-login-member.jsp?topicId=" + topicId + "&userId=" + memberId);
     }
 
 }

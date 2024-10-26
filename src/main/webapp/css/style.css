@@ -876,7 +876,7 @@ img.logo1 {
     background: -webkit-linear-gradient(45deg, #2d1854 0%, #101D3D 100%);
     /* Chrome10-25,Safari5.1-6 */
     background: -o-linear-gradient(45deg, #2d1854 0%, #101D3D 100%);
-    background: linear-gradient(45deg, #2d1854 0%, #101D3D 100%);
+    background: linear-gradient(90deg, #2d1854 0%, #101D3D 100%);
     /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#501755', endColorstr='#2d1854', GradientType=1);
     /* IE6-9 fallback on horizontal gradient */

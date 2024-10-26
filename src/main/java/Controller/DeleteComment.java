@@ -19,9 +19,9 @@ public class DeleteComment extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String commentId = request.getParameter("commentId");
-        String topicId = request.getParameter("topicId");
-        String memberId = (String) request.getSession().getAttribute("memberId");
+        String commentId = request.getParameter("commentid");
+        String topicId = request.getParameter("topicid");
+        String memberId = (String) request.getSession().getAttribute("memberid");
         
         MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");

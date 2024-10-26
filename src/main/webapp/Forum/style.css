@@ -613,8 +613,8 @@ footer{
 }
 
 .body .content .comment button{
+    background-color: royalblue;
     color: white;
-    background-color: #6f2b95;
     border: none;
     padding:10px;
     font-weight: bolder;
@@ -622,11 +622,30 @@ footer{
     cursor: pointer;
     float: right;
     font-family: "Open Sans", sans-serif;
+    border-radius: 5px;
 }
 
 .body .content .comment button:hover{
     background-color: #4a4646;
     box-shadow: 4px 6px black;
+}
+
+.reply-button button{
+    background-color: royalblue !important;
+    width: 80px; 
+    height: 40px;
+}
+
+.delete-button button{
+    background-color: #dc3545 !important;
+    width: 80px; 
+    height: 40px;
+}
+
+.update-button button{
+    background-color: #4CAF50 !important;
+    width: 80px; 
+    height: 40px;
 }
 
 /* comment section */

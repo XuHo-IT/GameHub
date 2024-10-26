@@ -195,7 +195,7 @@
         <section class="blog-section spad">
             <div class="container" style="
                  margin: 0 auto;
-                 margin-top: 20px;
+                 margin-top: -160px;
                  padding: 20px;">
                 <div class="topic-container">
                     <!--Original thread-->
@@ -245,44 +245,36 @@
                                     <img src="<%= (comment.getPhotoUrl() == null || comment.getPhotoUrl().isEmpty()) ? "./img/t-rex.png" : comment.getPhotoUrl()%>" alt="Photo User">
                                     <div class="username"><a href=""><%= comment.getUserName()%></a></div>
                                     <div class="date-comment">
-                                        <%// Chuyển Date thành LocalDateTime
+                                        <%
                                             Date pastDate = comment.getDate();
                                             LocalDateTime pastDateTime = pastDate.toInstant().atZone(ZoneId.of("UTC")).toLocalDateTime();
 
-                                            // Lấy thời gian hiện tại (LocalDateTime)
                                             LocalDateTime now = LocalDateTime.now();
 
-                                            // Tính khoảng cách thời gian giữa hai thời điểm
                                             Duration duration = Duration.between(pastDateTime, now);
                                             Period period = Period.between(pastDateTime.toLocalDate(), now.toLocalDate());
 
-                                            // Điều kiện 1: Nếu nhỏ hơn 1 giờ -> Hiện n phút trước
                                             if (duration.toMinutes() < 60) {
                                         %>
                                         <b><%= duration.toMinutes()%>m ago<%=comment.getStatus()%></b>
                                         <%
-                                        } // Điều kiện 2: Nếu nhỏ hơn 1 ngày -> Hiện n giờ trước
-                                        else if (duration.toHours() < 24) {
+                                        } else if (duration.toHours() < 24) {
                                         %>
                                         <b><%= duration.toHours()%>H ago<%=comment.getStatus()%></b>
                                         <%
-                                        } // Điều kiện 3: Nếu nhỏ hơn 1 tuần -> Hiện n ngày trước
-                                        else if (duration.toDays() < 7) {
+                                        } else if (duration.toDays() < 7) {
                                         %>
                                         <b><%= duration.toDays()%>D ago<%=comment.getStatus()%></b>
                                         <%
-                                        } // Điều kiện 4: Nếu nhỏ hơn 4 tuần -> Hiện n tuần trước
-                                        else if (duration.toDays() < 28) {
+                                        } else if (duration.toDays() < 28) {
                                         %>
                                         <b><%= duration.toDays() / 7%>W ago<%=comment.getStatus()%></b>
                                         <%
-                                        } // Điều kiện 5: Nếu lớn hơn 4 tuần nhưng nhỏ hơn 1 năm -> Hiện n tháng trước
-                                        else if (period.toTotalMonths() < 12) {
+                                        } else if (period.toTotalMonths() < 12) {
                                         %>
                                         <b><%= period.toTotalMonths()%>M ago<%=comment.getStatus()%></b>
                                         <%
-                                        } // Điều kiện 6: Nếu lớn hơn 1 năm -> Hiện n năm trước
-                                        else {
+                                        } else {
                                         %>
                                         <b><%= period.getYears()%>Y ago<%=comment.getStatus()%></b>
                                         <%
@@ -295,32 +287,37 @@
                                         <%= comment.getContent()%>
                                     </p>
                                     <div style="display: flex; align-items: center; flex-direction: row-reverse; gap: 10px;">
-                                        <%if (comment.getUserId().equals(request.getParameter("adminId"))) {%>
-                                        <div class="comment">
-                                            <button style="width: 80px; height: 40px; background-color: #4CAF50" class="update-button" onclick="showUpdate('<%= comment.getCommentId()%>', '<%= comment.getContent()%>', '<%= topicId%>', '<%= comment.getContent()%>')" aria-label="Update comment">Edit</button>
+                                        <%if (comment.getUserId().equals(request.getSession().getAttribute("adminId"))) {%>
+                                        <div class="comment update-button">
+                                            <button onclick="showUpdate('<%= comment.getCommentId()%>', '<%= comment.getContent()%>', '<%= topicId%>', '<%= comment.getContent()%>')" aria-label="Update comment">Edit</button>
                                         </div>
-                                        <form action="UpdateCommentAdmin" method="POST">
-                                            <div class="comment-area hide" id="update-area-<%= comment.getCommentId()%>">
-                                                <textarea name="newContent" placeholder="reply here ..." required 
-                                                          oninput="checkAdminChanges(this, '<%= comment.getContent()%>')"></textarea>
-                                                <input type="hidden" name="commentid" value="<%= comment.getCommentId()%>">
-                                                <input type="hidden" name="topicid" value="<%=request.getParameter("topicId")%>">
-                                                <input type="hidden" name="adminid" value="<%=request.getSession().getAttribute("adminId")%>">
-                                                <input type="submit" value="Submit" id="adminSubmitBtn-<%= comment.getCommentId()%>" disabled>
-                                            </div>
-                                        </form>
                                         <%} else {%>                              
-                                        <div class="comment">
+                                        <div class="comment reply-button">
                                             <button style="width: 80px; height: 40px;" onclick="showReply('reply-area-<%= comment.getCommentId()%>', '<%=comment.getUserName()%>')">Reply</button>
                                         </div>
                                         <%}%>  
-                                        <div class="comment">
-                                            <button style="width: 80px; height: 40px; background-color: #dc3545;" onclick="deleteComment('<%= comment.getCommentId()%>', '<%=topicId%>')">Delete</button>
+                                        <div class="comment delete-button">
+                                            <form action="DeleteCommentAdmin" method="POST">
+                                                <input type="hidden" name="commentid" value="<%=comment.getCommentId()%>">
+                                                <input type="hidden" name="topicid" value="<%=request.getParameter("topicId")%>">
+                                                <input type="hidden" name="adminid" value="<%=request.getSession().getAttribute("adminId")%>">
+                                                <button type="submit">Delete</button>
+                                            </form>
                                         </div> 
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <form action="UpdateCommentAdmin" method="POST" onsubmit="return validateComment(this)">
+                            <div class="comment-area hide" id="update-area-<%= comment.getCommentId()%>">
+                                <textarea name="newContent" id="newContent-<%= comment.getCommentId()%>" placeholder="reply here ..." required></textarea>
+                                <input type="hidden" name="commentid" value="<%= comment.getCommentId()%>">
+                                <input type="hidden" name="topicid" value="<%=request.getParameter("topicId")%>">
+                                <input type="hidden" name="adminid" value="<%=request.getSession().getAttribute("adminId")%>">
+                                <input type="hidden" id="originalContent-<%= comment.getCommentId()%>" value="<%= comment.getContent()%>">
+                                <input type="submit" value="submit">
+                            </div>
+                        </form>
                         <!-- Reply text area -->
                         <form action="AddCommentAdmin" method="POST">
                             <div class="comment-area hide" id="reply-area-<%= comment.getCommentId()%>">
@@ -329,15 +326,14 @@
                                 <input type="hidden" name="topicid" value="<%=request.getParameter("topicId")%>">            
                                 <input type="submit" value="submit">
                             </div>
-                        </form>
-                        <% }
-                        } else { %>
-                        <p>No comments yet. <a href="#" id="show-comment-area">Be the first to comment!</a></p>
-                        <% }%>        
+                        </form>      
                     </div>
-
+                    <hr class="subforum-devider">
+                    <% }
+                    } else { %>
+                    <p>No comments yet. <a href="#" id="show-comment-area">Be the first to comment!</a></p>
+                    <% }%>  
                 </div>
-
             </div>
         </section>
 
@@ -381,94 +377,73 @@
         <script src="js/jquery.magnific-popup.min.js"></script>
         <script src="js/main.js"></script>
         <script>
-                                                function showComment() {
-                                                    var commentArea = document.getElementById("comment-area");
-                                                    commentArea.classList.toggle("hide");
-                                                }
+                            const showCommentLink = document.getElementById("show-comment-area");
 
-                                                // Bắt sự kiện khi bấm vào dòng chữ "Be the first to comment!"
-                                                const showCommentLink = document.getElementById("show-comment-area");
+                            showCommentLink.addEventListener("click", (e) => {
+                                e.preventDefault();
+                                toggleArea('comment-area');
+                            });
 
-                                                showCommentLink.addEventListener("click", (e) => {
-                                                    e.preventDefault();  // Ngăn chặn hành động mặc định của thẻ <a>
-                                                    toggleArea('comment-area');  // Gọi hàm toggleArea giống như khi bấm nút "Comment"
-                                                });
+                            function showReply(areaId, username) {
+                                const allCommentAreas = document.querySelectorAll('.comment-area');
+                                allCommentAreas.forEach(area => {
+                                    area.classList.add('hide');
+                                });
 
-                                                function showReply(areaId, username) {
-                                                    // Tìm tất cả các phần comment-area và ẩn chúng
-                                                    const allCommentAreas = document.querySelectorAll('.comment-area');
-                                                    allCommentAreas.forEach(area => {
-                                                        area.classList.add('hide'); // Ẩn tất cả các comment-area
-                                                    });
+                                var replyArea = document.getElementById(areaId);
+                                replyArea.classList.toggle("hide");
 
-                                                    // Hiển thị phần comment-area tương ứng với reply được bấm
-                                                    var replyArea = document.getElementById(areaId);
-                                                    replyArea.classList.toggle("hide"); // Toggle hiển thị phần comment-area được bấm
+                                var textArea = replyArea.querySelector('textarea');
 
-                                                    // Lấy thẻ textarea trong phần reply hiện tại
-                                                    var textArea = replyArea.querySelector('textarea');
+                                textArea.value = '@' + username + ' ';
+                            }
 
-                                                    // Đặt giá trị ban đầu cho textarea là username
-                                                    textArea.value = '@' + username + ' ';
-                                                }
+                            function showUpdate(commentId, username, topicId, oldContent) {
+                                const allCommentAreas = document.querySelectorAll('.comment-area');
+                                allCommentAreas.forEach(area => {
+                                    area.classList.add('hide');
+                                });
 
-                                                function showUpdate(commentId, username, topicId, oldContent) {
-                                                    // Hide all comment areas
-                                                    const allCommentAreas = document.querySelectorAll('.comment-area');
-                                                    allCommentAreas.forEach(area => {
-                                                        area.classList.add('hide');
-                                                    });
+                                var updateArea = document.getElementById('update-area-' + commentId);
+                                updateArea.classList.remove('hide');
 
-                                                    // Show the corresponding comment area
-                                                    var updateArea = document.getElementById('update-area-' + commentId);
-                                                    updateArea.classList.remove('hide');
+                                var textArea = updateArea.querySelector('textarea');
+                                textArea.value = oldContent;
+                            }
 
-                                                    // Set the initial value for the textarea
-                                                    var textArea = updateArea.querySelector('textarea');
-                                                    textArea.value = oldContent;
-                                                }
+                            function toggleArea(areaId) {
+                                var area = document.getElementById(areaId);
+                                area.classList.toggle("hide");
+                            }
 
-                                                function toggleArea(areaId) {
-                                                    var area = document.getElementById(areaId);
-                                                    area.classList.toggle("hide");
-                                                }
-                                                
-                                                function deleteComment(value1, value2) {
-                                                    const form = document.createElement('form');
-                                                    form.method = 'POST';
-                                                    form.action = 'DeleteCommentAdmin';  // Đường dẫn tới servlet
+                            function validateComment(form) {
+                                var originalContent = document.getElementById('originalContent-' + form.commentid.value).value;
+                                var newContent = document.getElementById('newContent-' + form.commentid.value).value;
 
-                                                    // Tạo các input ẩn để truyền giá trị
-                                                    const input1 = document.createElement('input');
-                                                    input1.type = 'hidden';
-                                                    input1.name = 'commentId';  // Tên của tham số truyền vào servlet
-                                                    input1.value = value1;
+                                if (newContent.trim() !== originalContent.trim()) {
+                                    return true;
+                                } else {
+                                    // Nếu giống, hiển thị thông báo lỗi bằng tooltip và không gửi form
+                                    var tooltip = document.createElement('div');
+                                    tooltip.classList.add('tooltip');
+                                    tooltip.textContent = 'Same content. Can not update.';
 
-                                                    const input2 = document.createElement('input');
-                                                    input2.type = 'hidden';
-                                                    input2.name = 'topicId';
-                                                    input2.value = value2;
+                                    // Thêm tooltip vào bên cạnh input
+                                    document.getElementById('newContent-' + form.commentid.value).parentNode.appendChild(tooltip);
 
-                                                    const input3 = document.createElement('input');
-                                                    input3.type = 'hidden';
-                                                    input3.name = 'adminid';
-                                                    input3.value = <%=request.getSession().getAttribute("adminId")%>;
+                                    setTimeout(() => {
+                                        tooltip.remove();
+                                    }, 5000); //5s
 
-                                                    // Thêm input vào form
-                                                    form.appendChild(input1);
-                                                    form.appendChild(input2);
-
-                                                    // Thêm form vào body và submit
-                                                    document.body.appendChild(form);
-                                                    form.submit();
-                                                }
-                                                
-                                                function checkAdminChanges(textarea, originalContent) {
-                                                    const submitBtn = document.getElementById(`adminSubmitBtn-${textarea.closest('.comment-area').id.split('-')[2]}`);
-                                                    submitBtn.disabled = (textarea.value.trim() === originalContent.trim());
-                                                }
+                                    return false;
+                                }
+                            }
         </script>
-        <style>.modal {
+        <style>
+            .hide{
+                display: none;
+            }
+            .modal {
                 display: none;
                 position: fixed;
                 left: 0;
@@ -491,12 +466,6 @@
                 font-size: 24px;
                 cursor: pointer;
             }
-            h3.bottom-title {
-                color: white;
-                font-size: 35px;
-                font-family: 'Sixtyfour Convergence';
-                padding: 0 0px 30px 0;
-            }
             .user {
                 position: relative;
                 width: 40px;
@@ -512,6 +481,17 @@
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
+            }
+            .tooltip {
+                position: absolute;
+                background-color: red;
+                color: white;
+                padding: 5px;
+                border-radius: 10px;
+                font-size: 16px;
+                z-index: 1000;
+                white-space: nowrap;
+                opacity: 1;
             }
         </style>
     </body>

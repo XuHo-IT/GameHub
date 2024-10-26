@@ -16,13 +16,11 @@ import utils.MongoDBConnectionManager1;
 
 public class DeleteCommentAdmin extends HttpServlet {
 
-   
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String commentId = request.getParameter("commentId");
-        String topicId = request.getParameter("topicId");
+        String commentId = request.getParameter("commentid");
+        String topicId = request.getParameter("topicid");
         String adminId = request.getParameter("adminid");
 
         MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();

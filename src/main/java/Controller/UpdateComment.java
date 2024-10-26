@@ -21,6 +21,7 @@ public class UpdateComment extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String commentId = request.getParameter("commentid");
         String newContent = request.getParameter("newContent");
+        String userId = request.getParameter("memberid");
         String topicId = request.getParameter("topicid");
 
         // Kết nối MongoDB
@@ -34,9 +35,8 @@ public class UpdateComment extends HttpServlet {
         // Tạo document mới chứa nội dung cập nhật
         Document update = new Document("$set", new Document("Content", newContent).append("Status", "edited"));
 
-        String memberId = (String) request.getSession().getAttribute("memberid");
         collection.updateOne(query, update);
-        response.sendRedirect("forum-detail-after-login-member.jsp?topicId=" + topicId + "&userId=" + memberId);
+        response.sendRedirect("forum-detail-after-login-member.jsp?topicId=" + topicId + "&userId=" + userId);
     }
 
 }

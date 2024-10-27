@@ -38,7 +38,6 @@ public class AddComment extends HttpServlet {
                 .append("Status", "unedited")
                 .append("Date", currentDateTime);
         collection.insertOne(comments);
-
         response.sendRedirect("forum-detail-after-login-member.jsp");
     }
 

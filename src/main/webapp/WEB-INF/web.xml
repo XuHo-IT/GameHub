@@ -141,10 +141,6 @@
         <servlet-class>Controller.ForgotPasswordController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UpdateCommentAdminController</servlet-name>
-        <servlet-class>Controller.UpdateCommentAdminController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>GoogleLoginController</servlet-name>
         <servlet-class>Controller.GoogleLoginController</servlet-class>
     </servlet>
@@ -223,6 +219,14 @@
     <servlet>
         <servlet-name>UpdateUserRole</servlet-name>
         <servlet-class>Controller.UpdateUserRole</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateComment</servlet-name>
+        <servlet-class>Controller.UpdateComment</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCommentAdmin</servlet-name>
+        <servlet-class>Controller.UpdateCommentAdmin</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -353,10 +357,6 @@
         <url-pattern>/SearchController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UpdateCommentController</servlet-name>
-        <url-pattern>/UpdateCommentController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>EmailSend</servlet-name>
         <url-pattern>/EmailSend</url-pattern>
     </servlet-mapping>
@@ -367,10 +367,6 @@
     <servlet-mapping>
         <servlet-name>ForgotPasswordController</servlet-name>
         <url-pattern>/ForgotPasswordController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UpdateCommentAdminController</servlet-name>
-        <url-pattern>/UpdateCommentAdminController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GoogleLoginController</servlet-name>
@@ -451,6 +447,14 @@
     <servlet-mapping>
         <servlet-name>UpdateUserRole</servlet-name>
         <url-pattern>/UpdateUserRole</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateComment</servlet-name>
+        <url-pattern>/UpdateComment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCommentAdmin</servlet-name>
+        <url-pattern>/UpdateCommentAdmin</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>ReadGameHomeController</welcome-file>

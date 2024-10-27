@@ -1,16 +1,13 @@
 package Controller;
 
-import DAO.CommentDAO;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoDatabase;
+import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import utils.MongoDBConnectionManager1;
 
-import java.io.IOException;
+import DAO.CommentDAO;
 
 public class AddComment extends HttpServlet {
 

@@ -1,20 +1,23 @@
 package Controller;
 
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import org.bson.Document;
-import org.bson.types.ObjectId;
+import DAO.GamePostDAO;
+import Model.GamePost;
+import Model.GamePostTemp;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import utils.MongoDBConnectionManager1;
+import java.io.InputStream;
+import java.util.Base64;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.Part;
 
+@MultipartConfig
 public class EditPostController extends HttpServlet {
+
+    private final GamePostDAO gamePostDAO = new GamePostDAO();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -31,11 +34,8 @@ public class EditPostController extends HttpServlet {
 
     private void editPost(HttpServletRequest request, HttpServletResponse response, String postId)
             throws ServletException, IOException {
-        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
-        MongoDatabase database = mongoClient.getDatabase("GameHub");
-        MongoCollection<Document> collection = database.getCollection("postGame");
-
         // Fetch new post data from the request
+        postId=request.getParameter("postId");
         String title = request.getParameter("title");
         String description = request.getParameter("description");
         String gamePlay = request.getParameter("gamePlay");
@@ -43,30 +43,30 @@ public class EditPostController extends HttpServlet {
         String author = request.getParameter("author");
         String genre = request.getParameter("genre");
         String linkGame = request.getParameter("Link");
+        String adminId = request.getParameter("adminId");
+        String fileName = request.getParameter("fileName");
         String price = request.getParameter("Price");
 
-        // Update the post document in MongoDB
-        Document update = new Document("$set", new Document("Title", title)
-                .append("Description", description)
-                .append("GamePlay", gamePlay)
-                .append("DateRelease", dateRelease)
-                .append("Author", author)
-                .append("Genre", genre)
-                .append("LinkGame", linkGame)
-                .append("Price", price));
+        Part filePart = request.getPart("fileData");
+        String base64Image = null; // Initialize the variable here
 
-        collection.updateOne(new Document("_id", new ObjectId(postId)), update);
+        if (filePart != null && filePart.getSize() > 0) {
+            InputStream fileContent = filePart.getInputStream();
+            byte[] fileBytes = fileContent.readAllBytes();
+            base64Image = Base64.getEncoder().encodeToString(fileBytes); // Set base64Image only if the filePart is valid
+        }
+
+// Create an updated GamePost object
+        GamePostTemp updatedPost = new GamePostTemp(postId, title, gamePlay, description, dateRelease, author, genre, adminId, fileName, base64Image, linkGame, price);
+        // Update the post in the database
+        gamePostDAO.editPost(postId, updatedPost);
         response.sendRedirect("ReadGameHomeAdmin");
     }
 
     private void deletePost(HttpServletRequest request, HttpServletResponse response, String postId)
             throws ServletException, IOException {
-            MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
-        MongoDatabase database = mongoClient.getDatabase("GameHub");
-        MongoCollection<Document> collection = database.getCollection("postGame");
-
-        // Delete the post document from MongoDB
-        collection.deleteOne(new Document("_id", new ObjectId(postId)));
+        // Delete the post in the database
+        gamePostDAO.deletePost(postId);
         response.sendRedirect("ReadGameHomeAdmin");
     }
 }

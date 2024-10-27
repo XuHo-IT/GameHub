@@ -1,27 +1,19 @@
+// LoginController.java
 package Controller;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import DAO.UserDAO;
+import Model.SuperAdmin;
+import Model.UserModel;
+import mongodb.MongoConectUser;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.bson.Document;
-
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-
-import Model.SuperAdmin;
-import Model.UserModel;
-import mongodb.MongoConectUser;
-import utils.MongoDBConnectionManager1;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LoginController extends HttpServlet {
 
@@ -31,71 +23,47 @@ public class LoginController extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        // Get the MongoDB database and collection
-        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
-        MongoDatabase database = mongoClient.getDatabase("GameHub");
-        MongoCollection<Document> collection = database.getCollection("superadmin");
-
-        // Create a query document to find the user by email
-        Document query = new Document("Email", email);
-        Document userDoc = collection.find(query).first();
+        // Instantiate DAO and fetch SuperAdmin
+        UserDAO superAdminDAO = new UserDAO();
+        SuperAdmin superAdmin = superAdminDAO.findByEmail(email);
 
         // Check if the user exists and the password matches
-        if (userDoc != null && userDoc.getString("Password").equals(password)) {
+        if (superAdmin != null && superAdmin.getPassWord().equals(password)) {
             try {
-                // Convert the MongoDB Document into a SuperAdmin object
-                SuperAdmin superAdmin = new SuperAdmin(
-                        userDoc.getObjectId("_id").toString(), // Assuming _id is being used as adminId
-                        userDoc.getString("Name"),
-                        new SimpleDateFormat("yyyy-MM-dd").parse(userDoc.getString("DateOfBirth")),
-                        userDoc.getString("Email"),
-                        userDoc.getString("PhoneNumber"),
-                        userDoc.getString("Address"),
-                        userDoc.getString("Password"),
-                        userDoc.getString("PhotoUrl"), // Get photoUrl from the user document
-                        userDoc.getString("Role"),
-                        userDoc.getString("Status")
-                );
-
-                // Get user ID
-                String userId = userDoc.getObjectId("_id").toString();
-
                 // Check user status
                 MongoConectUser mgcn = new MongoConectUser();
-                UserModel currentUser = mgcn.getUserById(userId);
-                
+                UserModel currentUser = mgcn.getUserById(superAdmin.getAdminId());
+
                 // Set session attributes
                 HttpSession session = request.getSession();
                 session.setAttribute("currentUser", superAdmin);
-                session.setAttribute("adminId", userId);
-                session.setAttribute("adminName", userDoc.getString("Name"));
-                session.setAttribute("adminEmail", userDoc.getString("Email")); // Insert adminEmail in session
-                session.setAttribute("photoUrl", userDoc.getString("PhotoUrl")); // Set photoUrl in session
+                session.setAttribute("adminId", superAdmin.getAdminId());
+                session.setAttribute("adminName", superAdmin.getName());
+                session.setAttribute("adminEmail", superAdmin.getEmail());
+                session.setAttribute("photoUrl", superAdmin.getPhotoUrl());
 
                 // Redirect based on the user's role
-                String role = userDoc.getString("Role");
+                String role = superAdmin.getRole();
                 if (currentUser.getStatus().equals("Suspend")) {
-                    response.sendRedirect("ban.jsp?id=" + userId);
+                    response.sendRedirect("ban.jsp?id=" + superAdmin.getAdminId());
                 } else {
                     switch (role) {
-                        case "0": // For role 0 (regular user)
-                            response.sendRedirect("ReadGameHomeMemberController?id=" + userId);
+                        case "0": // Regular user
+                            response.sendRedirect("ReadGameHomeMemberController?id=" + superAdmin.getAdminId());
                             break;
-                        case "1": // For role 1 (admin)
-                            response.sendRedirect("ReadGameHomeAdmin?adminid=" + userId);
+                        case "1": // Admin
+                            response.sendRedirect("ReadGameHomeAdmin?adminid=" + superAdmin.getAdminId());
                             break;
                         default:
                             response.sendRedirect("error-page.jsp");
                             break;
                     }
                 }
-
-            } catch (ParseException ex) {
+            } catch (Exception ex) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
                 request.setAttribute("errorMessage", "Error processing date.");
                 request.getRequestDispatcher("error-page.jsp").forward(request, response);
             }
-
         } else {
             // If authentication fails, set an error message
             request.setAttribute("errorMessage", "Invalid email or password");

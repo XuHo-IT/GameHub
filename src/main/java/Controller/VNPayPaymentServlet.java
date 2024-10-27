@@ -26,7 +26,7 @@ public class VNPayPaymentServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
+        MongoClient mongoClient = MongoDBConnectionManager1.getLocalMongoClient();
         database = mongoClient.getDatabase("GameHub");
         collection = database.getCollection("Transaction");
     }

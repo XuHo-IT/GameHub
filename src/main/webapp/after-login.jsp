@@ -75,8 +75,8 @@
             <![endif]-->
 
     </head>
-<%
-String id = request.getParameter("id");%>
+    <%
+    String id = request.getParameter("id");%>
 
 
     <body>
@@ -125,7 +125,7 @@ String id = request.getParameter("id");%>
 
                         <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                            <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                            <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
                             <li><a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                             <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                         </ul>
@@ -154,8 +154,7 @@ String id = request.getParameter("id");%>
                     <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
         <!-- Hero section end-->
 
 
@@ -202,7 +201,7 @@ String id = request.getParameter("id");%>
                         </a>
                     </div>
                     <div class="col-lg-3 col-sm-6 wow fadeInUp icon-hover-service" data-wow-delay="0.7s">
-                        <a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>" class="nav-item nav-link">
+                        <a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>" class="nav-item nav-link">
                             <div class="service-item rounded pt-3">
                                 <div class="p-4">
                                     <i class="fa fa-users fa-3x text-primary mb-4"></i>
@@ -231,7 +230,7 @@ String id = request.getParameter("id");%>
                         <!-- Blog item -->
                         <%
                             String adminId = request.getParameter("id");  // Get AdminId from session
-%>                        
+                        %>                        
                         <div class="blog-container">
                             <c:forEach var="post" items="${posts}">
                                 <div class="blog-item">
@@ -396,15 +395,15 @@ String id = request.getParameter("id");%>
             <ul class="main-menu footer-menu">
                 <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                 <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
-                <li><a href="ReadTopicMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                <li><a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                 <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
 
             </ul>
             <div class="footer-social d-flex justify-content-center">
-                    <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
-                    <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
-                    <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
-                    <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
+                <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
+                <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
+                <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
+                <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
             </div>
             <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
         </div>

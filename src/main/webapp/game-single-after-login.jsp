@@ -30,6 +30,7 @@
         <link rel="stylesheet" href="css/magnific-popup.css"/>
         <link rel="stylesheet" href="css/animate.css"/>
         <link rel="stylesheet" href="css/searchbar.css"/>
+        <link rel="stylesheet" href="css/account-icon.css" />
 
         <!-- Main Stylesheets -->
         <link rel="stylesheet" href="css/style.css"/>
@@ -225,7 +226,7 @@
 
                                     <div class="gs-auhtor-genre">
                                         <div class="left-author">
-                                            <h3 style="color: white">Author</h3>
+                                            <h3 style="color: white">Publisher</h3>
                                             <input type="text" name="author" style="font-size: 20px; height: 50px" value="<%= author != null ? author : "No Author available"%>" class="form-control">
                                         </div>
                                     </div>

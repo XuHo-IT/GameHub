@@ -99,6 +99,39 @@ body {
     background-position: center;
     background-size: cover;
 }
+
+.create-topic .form-details {
+    padding: 0 20px;
+    background: url("images/Create-topic.gif");
+    background-position: center;
+    background-size: cover;
+}
+
+.update-topic .form-details {
+    padding: 0 20px;
+    background: url("images/Update-topic.gif");
+    background-position: center;
+    background-size: cover;
+}
+
+.create-topic .form-details h2,.update-topic .form-details h2{
+    font-family: luminari, fantasy;
+    text-shadow: 
+        2px 2px 0 black, 
+        -2px -2px 0 black,
+        2px -2px 0 black, 
+        -2px 2px 0 black; 
+}
+
+.create-topic .form-details p{
+    font-family: luminari, fantasy;
+    text-shadow: 
+        1px 1px 0 black, 
+        -1px -1px 0 black,
+        1px -1px 0 black, 
+        -1px 1px 0 black; 
+}
+
 .form-box .form-content {
     width: 100%;
     padding: 35px;

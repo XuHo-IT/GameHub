@@ -1,17 +1,19 @@
 package Controller;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.bson.Document;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-import java.time.LocalDateTime;
 import utils.MongoDBConnectionManager1;
 
 public class AddComment extends HttpServlet {
@@ -24,11 +26,11 @@ public class AddComment extends HttpServlet {
         String userId = request.getParameter("userid");
         String topicId = request.getParameter("topicid");
 
-        LocalDateTime currentDateTime = LocalDateTime.now();
+                LocalDateTime currentDateTime = LocalDateTime.now();
 
-        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
-        MongoDatabase database = mongoClient.getDatabase("GameHub");
-        MongoCollection<Document> collection = database.getCollection("comment");
+                MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
+                MongoDatabase database = mongoClient.getDatabase("GameHub");
+                MongoCollection<Document> collection = database.getCollection("comment");
 
         Document comments = new Document("TopicId", topicId)
                 .append("UserId", userId)

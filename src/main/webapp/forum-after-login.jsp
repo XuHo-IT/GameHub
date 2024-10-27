@@ -85,8 +85,9 @@
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
                             <div class="account-container">
-                                <div class="account-icon">
-                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                <div class="user">
+                                    <%= request.getSession().getAttribute("adminId")%>
+                                    <img src="<%= request.getSession().getAttribute("photoUrl")%>" alt="User Profile" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
@@ -130,7 +131,8 @@
                  margin-left: auto;
                  margin-right: auto;
                  padding: 20px;
-                 max-width: 1500px">
+                 max-width: 1500px;
+                 background: linear-gradient(to right, #2d1854 0%, #101D3D 100%);">
                 <!-- button -->
                 <div class="button-top-forum" >
                     <div class="left-button-forum">
@@ -150,68 +152,59 @@
                             </div>
                             <div class="subforum-description subforum-column">
                                 <h4>
-                                    <a href="forum-detail-after-login.jsp?topicId=<%=session.getAttribute("topicId")%>">
-                                       <c:choose>
-                                           <c:when test="${fn:length(topic.title) >= 64}">
-                                               ${fn:substring(topic.title, 0, 64)}...
-                                           </c:when>
-                                           <c:otherwise>
-                                               ${topic.title}
-                                           </c:otherwise>
-                                       </c:choose>
-                                       </a>
-                                       </h4>
-                                       <c:choose>
-                                           <c:when test="${fn:length(topic.description) >= 360}">
-                                               <p style="word-wrap: break-word;">${fn:substring(topic.description, 0, 385)}...</p>
-                                           </c:when>
-                                           <c:otherwise>
-                                               <p style="word-wrap: break-word;">
-                                                   <c:out value="${topic.description}"/>
-                                               </p>
-                                           </c:otherwise>
-                                       </c:choose>
-                                       </div>
-                                       <div class="subforum-stats subforum-column center">
-                                           <span style="font-size: 20px">${topic.commentCount} <img src="./img/icons/chat-icon.png" alt=""></span>
-                                       </div>
+                                    <a href="forum-detail-after-login.jsp?topicId=${topic.topicId}&adminId=${sessionScope.adminId}">
+                                        <c:choose>
+                                            <c:when test="${fn:length(topic.title) >= 64}">
+                                                ${fn:substring(topic.title, 0, 64)}...
+                                            </c:when>
+                                            <c:otherwise>
+                                                ${topic.title}
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </a>
+                                </h4>
+                                <c:choose>
+                                    <c:when test="${fn:length(topic.description) >= 360}">
+                                        <p style="word-wrap: break-word;">${fn:substring(topic.description, 0, 385)}...</p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p style="word-wrap: break-word;">
+                                            <c:out value="${topic.description}"/>
+                                        </p>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                            <div class="subforum-stats subforum-column center">
+                                <span style="font-size: 20px">${topic.commentCount} <img src="./img/icons/chat-icon.png" alt=""></span>
+                            </div>
 
-                                       <div class="subforum-info subforum-column">
-                                           <b>Post by</b> <a href="#" style="font-size: 15px">${topic.userName}</a><br>
-                                           <b>On</b> <a style="font-family: 'Courier', 'Courier New', monospace;">
-                                               <fmt:formatDate value="${topic.date}" pattern="MM:hh a dd-MM-yyyy"/>
-                                           </a>
-                                           <div style="display: flex; align-items: center; gap: 10px;">
-                                               <c:if test="${not empty sessionScope.adminId && not empty topic.userId && sessionScope.adminId == topic.userId}">
-                                                   <button class="btn-edit"
-                                                           onclick="openUpdatePopup('${topic.topicId}', '${fn:escapeXml(topic.title)}', '${fn:escapeXml(topic.description)}')">Edit</button>
-                                               </c:if>
-                                               <form action="TopicDeleteAdmin" method="post">
-                                                   <input type="hidden" name="topicId" value="${topic.topicId}">
-                                                   <button type="submit" name="action" value="delete" class="btn-danger">Delete</button>
-                                               </form>
-                                           </div>   
-                                       </div>
-                                       </div>
-                                       <hr class="subforum-devider">
-                                    </c:forEach>
-                                    </div>
-                                    </div>
-                                    <div class="site-pagination" style="margin-top: 10px; justify-content: center;">
-                                        <c:forEach var="i" begin="1" end="${totalPages}">
-                                            <a href="?page=${i}" class="${i == currentPage ? 'active' : ''}">${i < 10 ? '0' + i : i}</a>
-                                        </c:forEach>
-                                    </div>
-                                    </section>
-
-                                    <!-- Newsletter section -->
-                                    <section class="newsletter-section" style="">
-                                        <div class="container">
-                                            <h3 class="bottom-title">Thanks for using our website!</h3>
-                                            <img src="img/Dawn.gif" alt="Game Image" style="width: 100%; height: auto;" />
-                                        </div>
-                                    </section>
-                                    <!-- Newsletter section end -->
+                            <div class="subforum-info subforum-column">
+                                <b>Post by</b> <a href="#" style="font-size: 15px">${topic.userName}</a><br>
+                                <b>On</b> <a style="font-family: 'Courier', 'Courier New', monospace;">
+                                    <fmt:formatDate value="${topic.date}" pattern="MM:hh a dd-MM-yyyy"/>
+                                </a>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <c:if test="${not empty sessionScope.adminId && not empty topic.userId && sessionScope.adminId == topic.userId}">
+                                        <button class="btn-edit"
+                                                onclick="openUpdatePopup('${topic.topicId}', '${fn:escapeXml(topic.title)}', '${fn:escapeXml(topic.description)}')">Edit</button>
+                                    </c:if>
+                                    <form action="TopicDeleteAdmin" method="post">
+                                        <input type="hidden" name="topicId" value="${topic.topicId}">
+                                        <button type="submit" name="action" value="delete" class="btn-danger">Delete</button>
+                                    </form>
+                                </div>   
+                            </div>
+                        </div>
+                        <hr class="subforum-devider">
+                    </c:forEach>
+                </div>
+            </div>
+            <div class="site-pagination" style="margin-top: 10px; justify-content: center;">
+                <c:forEach var="i" begin="1" end="${totalPages}">
+                    <a href="?page=${i}" class="${i == currentPage ? 'active' : ''}">${i < 10 ? '0' + i : i}</a>
+                </c:forEach>
+            </div>
+        </section>
 
                                     <!-- Footer section -->
                                     <footer class="footer-section" style="margin-top: 0 ; padding: 10px 125px">
@@ -244,34 +237,34 @@
                                     </footer>
                                     <!-- Footer section end -->
 
-                                    <!-- Create Post Popup -->
-                                    <div class="blur-bg-overlay create-overlay"></div>
-                                    <div class="form-popup create-post-popup">
-                                        <span class="close-btn material-symbols-rounded">close</span>
-                                        <div class="form-box create-topic">
-                                            <div class="form-details">
-                                                <h2>Create Topic</h2>
-                                                <p>Please enter topic details below to share with the forum</p>
-                                            </div>
-                                            <div class="form-content">
-                                                <form action="TopicCreateAdmin" method="post" enctype="multipart/form-data">
-                                                    <div class="input-field">
-                                                        <label>Topic Title</label>
-                                                        <input type="text" name="topicTitle" required>
-                                                    </div>
-                                                    <div class="input-field">
-                                                        <label>Topic Content</label>
-                                                        <textarea name="topicContent" rows="4" required></textarea>
-                                                    </div>
-                                                    <div class="input-field">
-                                                        <label>Upload Image (Optional)</label>
-                                                        <input type="file" name="topicImage" accept="image/*">
-                                                    </div>
-                                                    <button type="submit">Create Topic</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
+        <!-- Create Post Popup -->
+        <div class="blur-bg-overlay create-overlay"></div>
+        <div class="form-popup create-topic-popup">
+            <span class="close-btn material-symbols-rounded">close</span>
+            <div class="form-box create-topic">
+                <div class="form-details">
+                    <h2>Create Topic</h2>
+                    <p>Please enter topic details below to share with the forum</p>
+                </div>
+                <div class="form-content">
+                    <form action="TopicCreateAdmin" method="post" enctype="multipart/form-data">
+                        <div class="input-field">
+                            <label>Topic Title</label>
+                            <input type="text" name="topicTitle" required>
+                        </div>
+                        <div class="input-field">
+                            <label>Topic Content</label>
+                            <textarea name="topicContent" rows="4" required></textarea>
+                        </div>
+                        <div class="input-field">
+                            <label>Upload Image (Optional)</label>
+                            <input type="file" name="topicImage" accept="image/*">
+                        </div>
+                        <button type="submit">Create Topic</button>
+                    </form>
+                </div>
+            </div>
+        </div>
 
                                     <!-- Update Post Popup -->
                                     <div class="blur-bg-overlay update-overlay"></div>
@@ -306,15 +299,15 @@
 
                                     <script>
 
-                                        // Show Create Post Popup
-                                        const showCreatePopupBtn = document.querySelector(".create-btn"); // Button to open create post form
-                                        if (showCreatePopupBtn) {
-                                            showCreatePopupBtn.addEventListener("click", () => {
-                                                document.querySelector(".create-post-popup").style.display = "block"; // Show the create popup
-                                                document.querySelector('.create-overlay').style.display = 'block'; // Show the overlay
-                                                document.body.classList.add("show-popup"); // Disable scrolling
-                                            });
-                                        }
+            // Show Create Post Popup
+            const showCreatePopupBtn = document.querySelector(".create-btn"); // Button to open create post form
+            if (showCreatePopupBtn) {
+                showCreatePopupBtn.addEventListener("click", () => {
+                    document.querySelector(".create-topic-popup").style.display = "block"; // Show the create popup
+                    document.querySelector('.create-overlay').style.display = 'block'; // Show the overlay
+                    document.body.classList.add("show-popup"); // Disable scrolling
+                });
+            }
 
 
                                         function openUpdatePopup(topicId, title, description) {
@@ -337,12 +330,12 @@
                                         }
 
 
-                                        function closeUpdatePopup() {
-                                            // Hide both popups
-                                            document.getElementById("updateTopicPopup").style.display = "none";
-                                            document.querySelector(".create-post-popup").style.display = "none";
-                                            document.querySelector('.create-overlay').style.display = 'none'; // Hide the create overlay
-                                            document.querySelector('.update-overlay').style.display = 'none'; // Hide the update overlay
+            function closeUpdatePopup() {
+                // Hide both popups
+                document.getElementById("updateTopicPopup").style.display = "none";
+                document.querySelector(".create-topic-popup").style.display = "none";
+                document.querySelector('.create-overlay').style.display = 'none'; // Hide the create overlay
+                document.querySelector('.update-overlay').style.display = 'none'; // Hide the update overlay
 
                                             // Allow scrolling again
                                             document.body.classList.remove("show-popup");
@@ -358,91 +351,98 @@
                                             closeUpdatePopup();
                                         });
 
-                                        // Close button handler for both forms
-                                        document.querySelectorAll('.close-btn').forEach(btn => {
-                                            btn.addEventListener('click', function () {
-                                                closeUpdatePopup();
-                                            });
-                                        });
-                                    </script>
-                                    <style>
-                                        .show-popup {
-                                            overflow: hidden; /* Disable scrolling when popups are visible */
-                                        }
-
-                                        .blur-bg-overlay {
-                                            position: fixed;
-                                            top: 0;
-                                            left: 0;
-                                            width: 100%;
-                                            height: 100%;
-                                            background-color: rgba(0, 0, 0, 0.5);
-                                            display: none;
-                                            z-index: 999;
-                                        }
-
-                                        .create-post-popup, .update-topic-popup {
-                                            display: none; /* Hidden by default */
-                                            z-index: 1000;
-                                            position: fixed;
-                                            top: 50%;
-                                            left: 50%;
-                                            transform: translate(-50%, -50%);
-                                            background-color: white;
-                                            padding: 20px;
-                                            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
-                                            border: 10px solid #501755;
-                                            border-radius: 15px;
-                                        }
-
-                                        .create-overlay, .update-overlay {
-                                            display: none;
-                                            opacity:1;
-                                        }
-                                        h3.bottom-title {
-                                            color: white;
-                                            font-size: 35px;
-                                            font-family: 'Sixtyfour Convergence';
-                                            padding: 0 0px 30px 0;
-                                        }
-                                        .btn-danger{
-                                            margin: 0;
-                                            margin-top: 5px;
-                                            width: 90px;
-                                            height: 50px;
-                                            font-size: 16px;
-                                            font-weight: bold;
-                                        }
-                                        .btn-danger:hover{
-                                            background-color: #4a4646;
-                                        }
-                                        .btn-edit {
-                                            background-color: yellow;
-                                            color: black;
-                                            border: none;
-                                            border-radius: 5px;
-                                            padding: 10px 20px;
-                                            margin-top: 5px;
-                                            width: 90px;
-                                            height: 50px;
-                                            font-size: 16px;
-                                            font-weight: bold;
-                                            cursor: pointer;
-                                            transition: background-color 0.3s, transform 0.2s;
-                                        }
-                                        .btn-edit:hover{
-                                            background-color: #4a4646;
-                                            color: white;
-                                        }
-                                    </style>
-                                    <!--====== Javascripts & Jquery ======-->
-                                    <script src="js/jquery-3.2.1.min.js"></script>
-                                    <script src="js/bootstrap.min.js"></script>
-                                    <script src="js/jquery.slicknav.min.js"></script>
-                                    <script src="js/owl.carousel.min.js"></script>
-                                    <script src="js/jquery.sticky-sidebar.min.js"></script>
-                                    <script src="js/jquery.magnific-popup.min.js"></script>
-                                    <script src="js/main.js"></script>
-                                    <script src="Forum/main.js"></script>
-                                    </body>   
-                                    </html>
+            // Close button handler for both forms
+            document.querySelectorAll('.close-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    closeUpdatePopup();
+                });
+            });
+        </script>
+        <style>
+            .show-popup {
+                overflow: hidden; /* Disable scrolling when popups are visible */
+            }
+            .blur-bg-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: none;
+                z-index: 999;
+            }
+            .create-topic-popup, .update-topic-popup {
+                display: none; /* Hidden by default */
+                z-index: 1000;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: white;
+                padding: 20px;
+                box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+                border: 10px solid #501755;
+                border-radius: 15px;
+            }
+            .create-overlay, .update-overlay {
+                display: none;
+                opacity:1;
+            }
+            .user {
+                position: relative;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                overflow: hidden;
+                cursor: pointer;
+            }
+            .user img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            .btn-danger{
+                margin: 0;
+                margin-top: 5px;
+                width: 90px;
+                height: 50px;
+                font-size: 16px;
+                font-weight: bold;
+                border-radius: 5px;
+            }
+            .btn-danger:hover{
+                background-color: #4a4646;
+            }
+            .btn-edit {
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                padding: 10px 20px;
+                margin-top: 5px;
+                width: 90px;
+                height: 50px;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: background-color 0.3s, transform 0.2s;
+            }
+            .btn-edit:hover{
+                background-color: #4a4646;
+            }
+        </style>
+        <!--====== Javascripts & Jquery ======-->
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.slicknav.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/jquery.sticky-sidebar.min.js"></script>
+        <script src="js/jquery.magnific-popup.min.js"></script>
+        <script src="js/main.js"></script>
+        <script src="Forum/main.js"></script>
+    </body>   
+</html>

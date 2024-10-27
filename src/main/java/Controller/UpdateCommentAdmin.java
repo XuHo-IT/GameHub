@@ -15,13 +15,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import utils.MongoDBConnectionManager1;
 
-public class UpdateCommentController extends HttpServlet {
+public class UpdateCommentAdmin extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String commentId = request.getParameter("commentid");
         String newContent = request.getParameter("newContent");
         String topicId = request.getParameter("topicid");
+        String adminId = request.getParameter("adminid");
 
         // Kết nối MongoDB
         MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
@@ -34,14 +35,8 @@ public class UpdateCommentController extends HttpServlet {
         // Tạo document mới chứa nội dung cập nhật
         Document update = new Document("$set", new Document("Content", newContent).append("Status", "edited"));
 
-        try {
-            collection.updateOne(query, update);
-            destroy();
-            response.sendRedirect("forum-detail-after-login-member.jsp?id=" + topicId);
-        } catch (Exception e) {
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            response.getWriter().write("Error updating comment: " + e.getMessage());
-        }
+        collection.updateOne(query, update);
+        response.sendRedirect("forum-detail-after-login.jsp?topicId=" + topicId + "&adminid=" + adminId);
     }
 
 }

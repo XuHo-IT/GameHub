@@ -26,11 +26,11 @@ public class AddComment extends HttpServlet {
         String memberId = request.getParameter("memberId");
         String topicId = request.getParameter("topicId");
 
-                LocalDateTime currentDateTime = LocalDateTime.now();
+        LocalDateTime currentDateTime = LocalDateTime.now();
 
-                MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
-                MongoDatabase database = mongoClient.getDatabase("GameHub");
-                MongoCollection<Document> collection = database.getCollection("comment");
+        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
+        MongoDatabase database = mongoClient.getDatabase("GameHub");
+        MongoCollection<Document> collection = database.getCollection("comment");
 
         Document comments = new Document("TopicId", topicId)
                 .append("UserId", memberId)

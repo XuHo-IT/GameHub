@@ -75,7 +75,8 @@
             <![endif]-->
 
     </head>
-
+    <%
+        String id = request.getParameter("id");%>
 
 
     <body>
@@ -107,8 +108,9 @@
 
                             <!-- Bi?u t??ng t�i kho?n -->
                             <div class="account-container">
-                                <div class="account-icon">
-                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                <div class="user">
+                                    <%= request.getSession().getAttribute("adminId")%>
+                                    <img src="<%= request.getSession().getAttribute("photoUrl")%>" alt="User Profile" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>                                    
@@ -137,22 +139,22 @@
 
 
         <!-- Hero section -->
-    <section class="hero-section overflow-hidden">
-        <div class="hero-slider owl-carousel">
-            <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider1.jpg">
-                <div class="container">
-                    <h2>Game on!</h2>
-                    <p><strong>The platform serves as a hub for sharing the latest game news, offering users a space to stay updated on upcoming releases and industry developments.<br> It allows users to view, comment, and engage in discussions about the latest news, fostering an active gaming community. With an intuitive interface, the platform enables easy access to user-generated posts and admin-curated updates.</strong></p>
-                    <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
+        <section class="hero-section overflow-hidden">
+            <div class="hero-slider owl-carousel">
+                <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider1.jpg">
+                    <div class="container">
+                        <h2>game on!</h2>
+                        <p><strong>The platform serves as a hub for sharing the latest game news, offering users a space to stay updated on upcoming releases and industry developments.<br> It allows users to view, comment, and engage in discussions about the latest news, fostering an active gaming community. With an intuitive interface, the platform enables easy access to user-generated posts and admin-curated updates.</strong></p>
+                        <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
+                    </div>
                 </div>
-            </div>
-            <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider5.jpg">
-                <div class="container">
-                    <h2>Game on!</h2>
-                    <p><strong>The platform provides a centralized space for discovering and sharing game news, keeping users informed about upcoming titles and events.<br>Users can contribute by posting news, commenting on updates, and participating in forum discussions. The site promotes community interaction around gaming trends and developments.</strong></p>
-                    <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
+                <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider5.jpg">
+                    <div class="container">
+                        <h2>game on!</h2>
+                        <p><strong>The platform provides a centralized space for discovering and sharing game news, keeping users informed about upcoming titles and events.<br>Users can contribute by posting news, commenting on updates, and participating in forum discussions. The site promotes community interaction around gaming trends and developments.</strong></p>
+                        <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
+                    </div>
                 </div>
-            </div>
         </section>
         <!-- Hero section end-->
 
@@ -228,8 +230,8 @@
                         </div>
                         <!-- Blog item -->
                         <%
-                            String userId = request.getParameter("userId");  // Get userId from session
-                        %>                        
+                            String adminId = request.getParameter("id");  // Get AdminId from session
+%>                        
                         <div class="blog-container">
                             <c:forEach var="post" items="${posts}">
                                 <div class="blog-item">
@@ -412,7 +414,7 @@
     <!-- Create Post Popup -->
     <div class="blur-bg-overlay"></div>
     <div class="form-popup create-post-popup">
-        <span class="close-btn material-symbols-rounded" style="top:50px">close</span>
+        <span class="close-btn material-symbols-rounded">close</span>
 
         <div class="form-box create-post">
             <div class="form-details">
@@ -460,8 +462,12 @@
                         </select>
                     </div>
                     <div class="input-field">
-                        <label class="mr-2">Picture Of Game:</label>
+                        <label class="mr-2">Logo Of Game:</label>
                         <input type="file" name="file">
+                    </div>
+                    <div class="input-field">
+                        <label class="mr-2">Pictures of Game Actions:</label>
+                        <input type="file" name="actionFiles" multiple>
                     </div>
                     <div class="policy-text">
                         <input type="checkbox" id="policy">
@@ -565,6 +571,27 @@
         }
         a.btn.btn-square.mx-1 {
             padding-right: 35px;
+        }
+        .create-post-popup{
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+            border: 10px solid #501755;
+            border-radius: 15px;
+        }
+        .user {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .user img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
     </style>
 </body>

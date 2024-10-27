@@ -90,7 +90,7 @@
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
-                                        <li><a href="user-profile.jsp?id=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
+                                        <li><a href="user-profile.jsp">Account Info</a></li>
                                         <li>
                                             <a href="LogOutController" class="dropdown-item">Logout</a>
                                         </li>
@@ -100,10 +100,10 @@
                         </div>
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
-                            <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                            <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
-                            <li><a href="ReadGameHomeAdmin?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
-                            <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                            <li><a href="ReadGameHomeAdminController">Home</a></li>
+                            <li><a href="ReadGameListAdminController">Games</a></li>
+                            <li><a href="ReadGameHomeAdmin?view=chart">Manage</a></li>
+                            <li><a href="ReadTopicAdmin">Forum</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -114,7 +114,7 @@
             <div class="page-info">
                 <h2>Forum</h2>
                 <div class="site-breadcrumb">
-                    <a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a>  /
+                    <a href="ReadGameHomeAdminController">Home</a>  /
                     <span>Forum</span>
                 </div>
             </div>
@@ -131,9 +131,10 @@
             String photoUrlUser = null;
 
             List<CommentTemp> comments = new ArrayList<>();
-
             // Get the post ID from the URL query parameter
-            String topicId = request.getParameter("id");
+            
+            String topicId = (String) session.getAttribute("topicId");
+            
             System.out.println("Topic ID: " + topicId);
 
             // Connect to MongoDB
@@ -391,9 +392,9 @@
                     <img src="./img/logo2.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
-                    <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                    <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
-                    <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                    <li><a href="ReadGameHomeAdminController">Home</a></li>
+                    <li><a href="ReadGameListAdminController">Games</a></li>
+                    <li><a href="ReadTopicAdmin">Forum</a></li>
                     <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
 
                 </ul>

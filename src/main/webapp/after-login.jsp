@@ -75,8 +75,7 @@
             <![endif]-->
 
     </head>
-    <%
-    String id = request.getParameter("id");%>
+
 
 
     <body>
@@ -124,10 +123,10 @@
 
 
                         <ul class="main-menu primary-menu">
-                            <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                            <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
-                            <li><a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
-                            <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+                            <li><a href="ReadGameHomeMemberController">Home</a></li>
+                            <li><a href="ReadGameListMemberController">Games</a></li>
+                            <li><a href="ReadTopicMember">Forum</a></li>
+                            <li><a href="contact-after-login-member.jsp">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -168,7 +167,7 @@
                 </div>
                 <div class="row g-4">
                     <div class="col-lg-3 col-sm-6 wow fadeInUp icon-hover-service" data-wow-delay="0.1s">
-                        <a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>" class="nav-item nav-link">
+                        <a href="ReadGameHomeMemberController" class="nav-item nav-link">
                             <div class="service-item rounded pt-3">
                                 <div class="p-4">
                                     <i class="fa fa-gamepad fa-3x text-primary mb-4"></i>
@@ -179,7 +178,7 @@
                         </a>
                     </div>
                     <div class="col-lg-3 col-sm-6 wow fadeInUp icon-hover-service" data-wow-delay="0.3s">
-                        <a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>" class="nav-item nav-link">
+                        <a href="ReadGameListMemberController" class="nav-item nav-link">
                             <div class="service-item rounded pt-3">
                                 <div class="p-4">
                                     <i class="fa fa-shopping-cart fa-3x text-primary mb-4"></i>
@@ -190,7 +189,7 @@
                         </a>
                     </div>
                     <div class="col-lg-3 col-sm-6 wow fadeInUp icon-hover-service" data-wow-delay="0.5s">
-                        <a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>" class="nav-item nav-link">
+                        <a href="contact-after-login-member.jsp" class="nav-item nav-link">
                             <div class="service-item rounded pt-3">
                                 <div class="p-4">
                                     <i class="fa fa-address-book fa-3x text-primary mb-4"></i>
@@ -201,7 +200,7 @@
                         </a>
                     </div>
                     <div class="col-lg-3 col-sm-6 wow fadeInUp icon-hover-service" data-wow-delay="0.7s">
-                        <a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>" class="nav-item nav-link">
+                        <a href="ReadTopicMember" class="nav-item nav-link">
                             <div class="service-item rounded pt-3">
                                 <div class="p-4">
                                     <i class="fa fa-users fa-3x text-primary mb-4"></i>
@@ -229,7 +228,7 @@
                         </div>
                         <!-- Blog item -->
                         <%
-                            String adminId = request.getParameter("id");  // Get AdminId from session
+                            String userId = request.getParameter("userId");  // Get userId from session
                         %>                        
                         <div class="blog-container">
                             <c:forEach var="post" items="${posts}">
@@ -250,7 +249,7 @@
                                         <p>${post.description != null ? post.description : 'No description available'}</p>
 
                                         <!-- Read more link -->
-                                        <a href="game-single-after-login-member.jsp?id=${post.postID}&adminId=<%= adminId%>" class="read-more">
+                                        <a href="game-single-after-login-member.jsp" class="read-more">
                                             Read More <img src="img/icons/double-arrow.png" alt="#" />
                                         </a>
                                     </div>
@@ -362,7 +361,7 @@
                         <p>${post.description}</p>
 
                         <!-- Read more link -->
-                        <a href="game-single.jsp?id=${post.postID}" class="read-more">Read More  
+                        <a href="game-single.jsp" class="read-more">Read More  
                             <img src="img/icons/double-arrow.png" alt="#"/>
                         </a>
                     </div>
@@ -393,10 +392,10 @@
                 <img src="./img/logo2.png" alt="">
             </a>
             <ul class="main-menu footer-menu">
-                <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
-                <li><a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
-                <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+                <li><a href="ReadGameHomeMemberController">Home</a></li>
+                <li><a href="ReadGameListMemberController">Games</a>
+                <li><a href="ReadTopicMember">Forum</a></li>
+                <li><a href="contact-after-login-member.jsp">Contact</a></li>
 
             </ul>
             <div class="footer-social d-flex justify-content-center">

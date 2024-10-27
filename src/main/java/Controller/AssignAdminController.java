@@ -24,12 +24,11 @@ public class AssignAdminController extends HttpServlet {
 
         // Assuming you have a method in your MongoConectUser class to suspend a user
         boolean assign = mgcn.assignAdmin(userId);
-        String adminId = (String) request.getSession().getAttribute("adminid");
 
         if (assign) {
             response.sendRedirect("list-user.jsp");
         } else {
-            response.sendRedirect("list-user.jsp?adminid=" + adminId + "&error=Could not suspend user");
+            response.sendRedirect("list-user.jsp?error=Could not suspend user");
         }
     }
 

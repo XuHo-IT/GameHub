@@ -29,11 +29,11 @@ public class GameReleaseNotificationAdminController extends TimerTask {
 
     @Override
     public void run() {
-        String adminId = (String) session.getAttribute("adminid");
+        String userId = (String) session.getAttribute("userId");
         String adminEmail = (String) session.getAttribute("adminEmail");
-        if (adminId == null) {
+        if (userId == null) {
             System.out.println("Admin ID not found in session.");
-            return; // Exit the method if adminId is null
+            return; // Exit the method if userId is null
         }
         if (adminEmail == null) {
             System.out.println("Admin email not found in session.");
@@ -54,18 +54,18 @@ public class GameReleaseNotificationAdminController extends TimerTask {
                 String gameTitle = gamePost.getString("Title");
                 String postId = gamePost.getObjectId("_id").toString();
 
-                sendEmailNotification(gameTitle, postId, adminEmail, adminId);
+                sendEmailNotification(gameTitle, postId, adminEmail, userId);
             }
         }
     }
 
-    private void sendEmailNotification(String gameTitle, String postId, String adminEmail, String adminId) {
+    private void sendEmailNotification(String gameTitle, String postId, String adminEmail, String userId) {
         String subject = "Game Release Notification";
 
-        String gameLink = "http://localhost:8080/Web_Trading_Game/game-single-after-login.jsp?adminid=" + adminId + "&postId=" + postId;
+        String gameLink = "http://localhost:8080/Web_Trading_Game/game-single-after-login.jsp?postId=" + postId + "&userId=" + userId;
         String body
                 = "The game '" + gameTitle + "' is releasing today!"
-                + "Link to the game to upload link: " + gameLink;
+                + "Link to the game to upload link: " + gameLink;   
 
         // Set up email properties
         Properties properties = new Properties();

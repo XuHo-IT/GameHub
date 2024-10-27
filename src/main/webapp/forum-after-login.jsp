@@ -1,3 +1,6 @@
+<%@page import="java.util.Map"%>
+<%@page import="com.mongodb.client.FindIterable"%>
+<%@page import="com.mongodb.client.MongoDatabase"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="utils.MongoDBConnectionManager1"%>
@@ -87,7 +90,7 @@
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
-                                        <li><a href="user-profile.jsp?id=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
+                                        <li><a href="user-profile.jsp">Account Info</a></li>
                                         <li>
                                             <a href="LogOutController" class="dropdown-item">Logout</a>
                                         </li>
@@ -97,10 +100,10 @@
                         </div>
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
-                            <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                            <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
-                            <li><a href="ReadGameHomeAdmin?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
-                            <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>                                       
+                            <li><a href="ReadGameHomeAdminController">Home</a></li>
+                            <li><a href="ReadGameListAdminController">Games</a></li>
+                            <li><a href="ReadGameHomeAdmin">Manage</a></li>
+                            <li><a href="ReadTopicAdmin"">Forum</a></li>                                       
                         </ul>
                     </nav>
                 </div>
@@ -113,7 +116,7 @@
             <div class="page-info">
                 <h2>Forum</h2>
                 <div class="site-breadcrumb">
-                    <a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a>  /
+                    <a href="ReadGameHomeAdminController">Home</a>  /
                     <span>Forum</span>
                 </div>
             </div>
@@ -138,7 +141,7 @@
                         <button class="create-btn">Create New Topic</button>
                     </div>
                 </div>
-
+                
                 <div class="subforum">
                     <c:forEach var="topic" items="${topics}">
                         <div class="subforum-row">
@@ -147,299 +150,299 @@
                             </div>
                             <div class="subforum-description subforum-column">
                                 <h4>
-                                    <a href="forum-detail-after-login.jsp?topicid=${topic.topicid}&adminid=${sessionScope.adminid}">
-                                        <c:choose>
-                                            <c:when test="${fn:length(topic.title) >= 64}">
-                                                ${fn:substring(topic.title, 0, 64)}...
-                                            </c:when>
-                                            <c:otherwise>
-                                                ${topic.title}
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </a>
-                                </h4>
-                                <c:choose>
-                                    <c:when test="${fn:length(topic.description) >= 360}">
-                                        <p style="word-wrap: break-word;">${fn:substring(topic.description, 0, 385)}...</p>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <p style="word-wrap: break-word;">
-                                            <c:out value="${topic.description}"/>
-                                        </p>
-                                    </c:otherwise>
-                                </c:choose>
-                            </div>
-                            <div class="subforum-stats subforum-column center">
-                                <span style="font-size: 20px">${topic.commentCount} <img src="./img/icons/chat-icon.png" alt=""></span>
-                            </div>
+                                    <a href="forum-detail-after-login.jsp?topicId=<%=session.getAttribute("topicId")%>">
+                                       <c:choose>
+                                           <c:when test="${fn:length(topic.title) >= 64}">
+                                               ${fn:substring(topic.title, 0, 64)}...
+                                           </c:when>
+                                           <c:otherwise>
+                                               ${topic.title}
+                                           </c:otherwise>
+                                       </c:choose>
+                                       </a>
+                                       </h4>
+                                       <c:choose>
+                                           <c:when test="${fn:length(topic.description) >= 360}">
+                                               <p style="word-wrap: break-word;">${fn:substring(topic.description, 0, 385)}...</p>
+                                           </c:when>
+                                           <c:otherwise>
+                                               <p style="word-wrap: break-word;">
+                                                   <c:out value="${topic.description}"/>
+                                               </p>
+                                           </c:otherwise>
+                                       </c:choose>
+                                       </div>
+                                       <div class="subforum-stats subforum-column center">
+                                           <span style="font-size: 20px">${topic.commentCount} <img src="./img/icons/chat-icon.png" alt=""></span>
+                                       </div>
 
-                            <div class="subforum-info subforum-column">
-                                <b>Post by</b> <a href="#" style="font-size: 15px">${topic.userName}</a><br>
-                                <b>On</b> <a style="font-family: 'Courier', 'Courier New', monospace;">
-                                    <fmt:formatDate value="${topic.date}" pattern="MM:hh a dd-MM-yyyy"/>
-                                </a>
-                                <div style="display: flex; align-items: center; gap: 10px;">
-                                    <c:if test="${not empty sessionScope.adminId && not empty topic.userId && sessionScope.adminId == topic.userId}">
-                                        <button class="btn-edit"
-                                                onclick="openUpdatePopup('${topic.topicId}', '${fn:escapeXml(topic.title)}', '${fn:escapeXml(topic.description)}')">Edit</button>
-                                    </c:if>
-                                    <form action="TopicDeleteAdmin" method="post">
-                                        <input type="hidden" name="topicId" value="${topic.topicId}">
-                                        <button type="submit" name="action" value="delete" class="btn-danger">Delete</button>
-                                    </form>
-                                </div>   
-                            </div>
-                        </div>
-                        <hr class="subforum-devider">
-                    </c:forEach>
-                </div>
-            </div>
-            <div class="site-pagination" style="margin-top: 10px; justify-content: center;">
-                <c:forEach var="i" begin="1" end="${totalPages}">
-                    <a href="?page=${i}" class="${i == currentPage ? 'active' : ''}">${i < 10 ? '0' + i : i}</a>
-                </c:forEach>
-            </div>
-        </section>
+                                       <div class="subforum-info subforum-column">
+                                           <b>Post by</b> <a href="#" style="font-size: 15px">${topic.userName}</a><br>
+                                           <b>On</b> <a style="font-family: 'Courier', 'Courier New', monospace;">
+                                               <fmt:formatDate value="${topic.date}" pattern="MM:hh a dd-MM-yyyy"/>
+                                           </a>
+                                           <div style="display: flex; align-items: center; gap: 10px;">
+                                               <c:if test="${not empty sessionScope.adminId && not empty topic.userId && sessionScope.adminId == topic.userId}">
+                                                   <button class="btn-edit"
+                                                           onclick="openUpdatePopup('${topic.topicId}', '${fn:escapeXml(topic.title)}', '${fn:escapeXml(topic.description)}')">Edit</button>
+                                               </c:if>
+                                               <form action="TopicDeleteAdmin" method="post">
+                                                   <input type="hidden" name="topicId" value="${topic.topicId}">
+                                                   <button type="submit" name="action" value="delete" class="btn-danger">Delete</button>
+                                               </form>
+                                           </div>   
+                                       </div>
+                                       </div>
+                                       <hr class="subforum-devider">
+                                    </c:forEach>
+                                    </div>
+                                    </div>
+                                    <div class="site-pagination" style="margin-top: 10px; justify-content: center;">
+                                        <c:forEach var="i" begin="1" end="${totalPages}">
+                                            <a href="?page=${i}" class="${i == currentPage ? 'active' : ''}">${i < 10 ? '0' + i : i}</a>
+                                        </c:forEach>
+                                    </div>
+                                    </section>
 
-        <!-- Newsletter section -->
-        <section class="newsletter-section" style="">
-            <div class="container">
-                <h3 class="bottom-title">Thanks for using our website!</h3>
-                <img src="img/Dawn.gif" alt="Game Image" style="width: 100%; height: auto;" />
-            </div>
-        </section>
-        <!-- Newsletter section end -->
+                                    <!-- Newsletter section -->
+                                    <section class="newsletter-section" style="">
+                                        <div class="container">
+                                            <h3 class="bottom-title">Thanks for using our website!</h3>
+                                            <img src="img/Dawn.gif" alt="Game Image" style="width: 100%; height: auto;" />
+                                        </div>
+                                    </section>
+                                    <!-- Newsletter section end -->
 
-        <!-- Footer section -->
-        <footer class="footer-section" style="margin-top: 0 ; padding: 10px 125px">
-            <div class="container">
-                <div class="footer-left-pic">
-                    <img src="img/footer-left-pic.png" alt="">
-                </div>
-                <div class="footer-right-pic">
-                    <img src="img/footer-right-pic.png" alt="">
-                </div>
-                <a href="ReadGameHomeController" class="footer-logo">
-                    <img src="./img/logo1.png" alt="">
-                    <img src="./img/logo2.png" alt="">
-                </a>
-                <ul class="main-menu footer-menu">
-                    <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                    <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
-                    <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>                                               
-                    <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>   
+                                    <!-- Footer section -->
+                                    <footer class="footer-section" style="margin-top: 0 ; padding: 10px 125px">
+                                        <div class="container">
+                                            <div class="footer-left-pic">
+                                                <img src="img/footer-left-pic.png" alt="">
+                                            </div>
+                                            <div class="footer-right-pic">
+                                                <img src="img/footer-right-pic.png" alt="">
+                                            </div>
+                                            <a href="ReadGameHomeController" class="footer-logo">
+                                                <img src="./img/logo1.png" alt="">
+                                                <img src="./img/logo2.png" alt="">
+                                            </a>
+                                            <ul class="main-menu footer-menu">
+                                                <li><a href="ReadGameHomeAdminController">Home</a></li>
+                                                <li><a href="ReadGameListAdminController">Games</a></li>
+                                                <li><a href="ReadTopicAdmin">Forum</a></li>                                               
+                                                <li><a href="ReadGameHomeAdminController?view=chart">Manage</a></li>   
 
-                </ul>
-                <div class="footer-social d-flex justify-content-center">
-                    <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
-                    <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
-                    <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
-                    <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
-                </div>
-                <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
-            </div>
-        </footer>
-        <!-- Footer section end -->
+                                            </ul>
+                                            <div class="footer-social d-flex justify-content-center">
+                                                <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
+                                                <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
+                                                <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
+                                                <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
+                                            </div>
+                                            <div class="copyright"><a href="">Colorlib</a> 2018 @ All rights reserved</div>
+                                        </div>
+                                    </footer>
+                                    <!-- Footer section end -->
 
-        <!-- Create Post Popup -->
-        <div class="blur-bg-overlay create-overlay"></div>
-        <div class="form-popup create-post-popup">
-            <span class="close-btn material-symbols-rounded">close</span>
-            <div class="form-box create-topic">
-                <div class="form-details">
-                    <h2>Create Topic</h2>
-                    <p>Please enter topic details below to share with the forum</p>
-                </div>
-                <div class="form-content">
-                    <form action="TopicCreateAdmin" method="post" enctype="multipart/form-data">
-                        <div class="input-field">
-                            <label>Topic Title</label>
-                            <input type="text" name="topicTitle" required>
-                        </div>
-                        <div class="input-field">
-                            <label>Topic Content</label>
-                            <textarea name="topicContent" rows="4" required></textarea>
-                        </div>
-                        <div class="input-field">
-                            <label>Upload Image (Optional)</label>
-                            <input type="file" name="topicImage" accept="image/*">
-                        </div>
-                        <button type="submit">Create Topic</button>
-                    </form>
-                </div>
-            </div>
-        </div>
+                                    <!-- Create Post Popup -->
+                                    <div class="blur-bg-overlay create-overlay"></div>
+                                    <div class="form-popup create-post-popup">
+                                        <span class="close-btn material-symbols-rounded">close</span>
+                                        <div class="form-box create-topic">
+                                            <div class="form-details">
+                                                <h2>Create Topic</h2>
+                                                <p>Please enter topic details below to share with the forum</p>
+                                            </div>
+                                            <div class="form-content">
+                                                <form action="TopicCreateAdmin" method="post" enctype="multipart/form-data">
+                                                    <div class="input-field">
+                                                        <label>Topic Title</label>
+                                                        <input type="text" name="topicTitle" required>
+                                                    </div>
+                                                    <div class="input-field">
+                                                        <label>Topic Content</label>
+                                                        <textarea name="topicContent" rows="4" required></textarea>
+                                                    </div>
+                                                    <div class="input-field">
+                                                        <label>Upload Image (Optional)</label>
+                                                        <input type="file" name="topicImage" accept="image/*">
+                                                    </div>
+                                                    <button type="submit">Create Topic</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
 
-        <!-- Update Post Popup -->
-        <div class="blur-bg-overlay update-overlay"></div>
-        <div class="form-popup update-topic-popup" id="updateTopicPopup" style="display:none;">
-            <span class="close-btn material-symbols-rounded" onclick="closeUpdatePopup()">close</span>
-            <div class="form-box update-topic">
-                <div class="form-details">
-                    <h2>Update Topic</h2>
-                </div>
-                <div class="form-content">
-                    <form action="TopicUpdateAdmin" method="post" enctype="multipart/form-data">
-                        <input type="hidden" id="updateTopicId" name="topicId">
-                        <div class="input-field">
-                            <label for="updateTopicTitle">Topic Title</label>
-                            <input type="text" id="updateTopicTitle" name="topicTitle" required>
-                        </div>
-                        <div class="input-field">
-                            <label for="updateTopicContent">Topic Content</label>
-                            <textarea id="updateTopicContent" name="topicContent" rows="4" required></textarea>
-                        </div>
-                        <div class="input-field">
-                            <label for="updateTopicImage">Upload Image</label>
-                            <input type="file" id="updateTopicImage" name="topicImage">
-                        </div>
-                        <button type="submit" name="action" value="update" type="submit">Update Topic</button>
-                        <button type="button" onclick="closeUpdatePopup()">Cancel</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-
-        <script>
-
-            // Show Create Post Popup
-            const showCreatePopupBtn = document.querySelector(".create-btn"); // Button to open create post form
-            if (showCreatePopupBtn) {
-                showCreatePopupBtn.addEventListener("click", () => {
-                    document.querySelector(".create-post-popup").style.display = "block"; // Show the create popup
-                    document.querySelector('.create-overlay').style.display = 'block'; // Show the overlay
-                    document.body.classList.add("show-popup"); // Disable scrolling
-                });
-            }
+                                    <!-- Update Post Popup -->
+                                    <div class="blur-bg-overlay update-overlay"></div>
+                                    <div class="form-popup update-topic-popup" id="updateTopicPopup" style="display:none;">
+                                        <span class="close-btn material-symbols-rounded" onclick="closeUpdatePopup()">close</span>
+                                        <div class="form-box update-topic">
+                                            <div class="form-details">
+                                                <h2>Update Topic</h2>
+                                            </div>
+                                            <div class="form-content">
+                                                <form action="TopicUpdateAdmin" method="post" enctype="multipart/form-data">
+                                                    <input type="hidden" id="updateTopicId" name="topicId">
+                                                    <div class="input-field">
+                                                        <label for="updateTopicTitle">Topic Title</label>
+                                                        <input type="text" id="updateTopicTitle" name="topicTitle" required>
+                                                    </div>
+                                                    <div class="input-field">
+                                                        <label for="updateTopicContent">Topic Content</label>
+                                                        <textarea id="updateTopicContent" name="topicContent" rows="4" required></textarea>
+                                                    </div>
+                                                    <div class="input-field">
+                                                        <label for="updateTopicImage">Upload Image</label>
+                                                        <input type="file" id="updateTopicImage" name="topicImage">
+                                                    </div>
+                                                    <button type="submit" name="action" value="update" type="submit">Update Topic</button>
+                                                    <button type="button" onclick="closeUpdatePopup()">Cancel</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
 
 
-            function openUpdatePopup(topicId, title, description) {
-                const updatePopup = document.getElementById("updateTopicPopup");
-                const titleInput = document.getElementById("updateTopicTitle");
-                const contentTextarea = document.getElementById("updateTopicContent");
-                const topicIdInput = document.getElementById("updateTopicId"); // Get the hidden field
+                                    <script>
 
-                // Pre-fill the form with topic data
-                titleInput.value = title;
-                contentTextarea.value = description;
-                topicIdInput.value = topicId; // Set the topicId in the hidden field
-
-                // Display the update popup and overlay
-                updatePopup.style.display = "block";
-                document.querySelector('.update-overlay').style.display = 'block'; // Show the overlay
-
-                // Disable scrolling
-                document.body.classList.add("show-popup");
-            }
+                                        // Show Create Post Popup
+                                        const showCreatePopupBtn = document.querySelector(".create-btn"); // Button to open create post form
+                                        if (showCreatePopupBtn) {
+                                            showCreatePopupBtn.addEventListener("click", () => {
+                                                document.querySelector(".create-post-popup").style.display = "block"; // Show the create popup
+                                                document.querySelector('.create-overlay').style.display = 'block'; // Show the overlay
+                                                document.body.classList.add("show-popup"); // Disable scrolling
+                                            });
+                                        }
 
 
-            function closeUpdatePopup() {
-                // Hide both popups
-                document.getElementById("updateTopicPopup").style.display = "none";
-                document.querySelector(".create-post-popup").style.display = "none";
-                document.querySelector('.create-overlay').style.display = 'none'; // Hide the create overlay
-                document.querySelector('.update-overlay').style.display = 'none'; // Hide the update overlay
+                                        function openUpdatePopup(topicId, title, description) {
+                                            const updatePopup = document.getElementById("updateTopicPopup");
+                                            const titleInput = document.getElementById("updateTopicTitle");
+                                            const contentTextarea = document.getElementById("updateTopicContent");
+                                            const topicIdInput = document.getElementById("updateTopicId"); // Get the hidden field
 
-                // Allow scrolling again
-                document.body.classList.remove("show-popup");
-            }
+                                            // Pre-fill the form with topic data
+                                            titleInput.value = title;
+                                            contentTextarea.value = description;
+                                            topicIdInput.value = topicId; // Set the topicId in the hidden field
 
-            // Hide Create Popup when clicking outside
-            document.querySelector('.create-overlay').addEventListener('click', function () {
-                closeUpdatePopup();
-            });
+                                            // Display the update popup and overlay
+                                            updatePopup.style.display = "block";
+                                            document.querySelector('.update-overlay').style.display = 'block'; // Show the overlay
 
-            // Hide Update Popup when clicking outside
-            document.querySelector('.update-overlay').addEventListener('click', function () {
-                closeUpdatePopup();
-            });
+                                            // Disable scrolling
+                                            document.body.classList.add("show-popup");
+                                        }
 
-            // Close button handler for both forms
-            document.querySelectorAll('.close-btn').forEach(btn => {
-                btn.addEventListener('click', function () {
-                    closeUpdatePopup();
-                });
-            });
-        </script>
-        <style>
-            .show-popup {
-                overflow: hidden; /* Disable scrolling when popups are visible */
-            }
 
-            .blur-bg-overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.5);
-                display: none;
-                z-index: 999;
-            }
+                                        function closeUpdatePopup() {
+                                            // Hide both popups
+                                            document.getElementById("updateTopicPopup").style.display = "none";
+                                            document.querySelector(".create-post-popup").style.display = "none";
+                                            document.querySelector('.create-overlay').style.display = 'none'; // Hide the create overlay
+                                            document.querySelector('.update-overlay').style.display = 'none'; // Hide the update overlay
 
-            .create-post-popup, .update-topic-popup {
-                display: none; /* Hidden by default */
-                z-index: 1000;
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background-color: white;
-                padding: 20px;
-                box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
-                border: 10px solid #501755;
-                border-radius: 15px;
-            }
+                                            // Allow scrolling again
+                                            document.body.classList.remove("show-popup");
+                                        }
 
-            .create-overlay, .update-overlay {
-                display: none;
-                opacity:1;
-            }
-            h3.bottom-title {
-                color: white;
-                font-size: 35px;
-                font-family: 'Sixtyfour Convergence';
-                padding: 0 0px 30px 0;
-            }
-            .btn-danger{
-                margin: 0;
-                margin-top: 5px;
-                width: 90px;
-                height: 50px;
-                font-size: 16px;
-                font-weight: bold;
-            }
-            .btn-danger:hover{
-                background-color: #4a4646;
-            }
-            .btn-edit {
-                background-color: yellow;
-                color: black;
-                border: none;
-                border-radius: 5px;
-                padding: 10px 20px;
-                margin-top: 5px;
-                width: 90px;
-                height: 50px;
-                font-size: 16px;
-                font-weight: bold;
-                cursor: pointer;
-                transition: background-color 0.3s, transform 0.2s;
-            }
-            .btn-edit:hover{
-                background-color: #4a4646;
-                color: white;
-            }
-        </style>
-        <!--====== Javascripts & Jquery ======-->
-        <script src="js/jquery-3.2.1.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery.slicknav.min.js"></script>
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/jquery.sticky-sidebar.min.js"></script>
-        <script src="js/jquery.magnific-popup.min.js"></script>
-        <script src="js/main.js"></script>
-        <script src="Forum/main.js"></script>
-    </body>   
-</html>
+                                        // Hide Create Popup when clicking outside
+                                        document.querySelector('.create-overlay').addEventListener('click', function () {
+                                            closeUpdatePopup();
+                                        });
+
+                                        // Hide Update Popup when clicking outside
+                                        document.querySelector('.update-overlay').addEventListener('click', function () {
+                                            closeUpdatePopup();
+                                        });
+
+                                        // Close button handler for both forms
+                                        document.querySelectorAll('.close-btn').forEach(btn => {
+                                            btn.addEventListener('click', function () {
+                                                closeUpdatePopup();
+                                            });
+                                        });
+                                    </script>
+                                    <style>
+                                        .show-popup {
+                                            overflow: hidden; /* Disable scrolling when popups are visible */
+                                        }
+
+                                        .blur-bg-overlay {
+                                            position: fixed;
+                                            top: 0;
+                                            left: 0;
+                                            width: 100%;
+                                            height: 100%;
+                                            background-color: rgba(0, 0, 0, 0.5);
+                                            display: none;
+                                            z-index: 999;
+                                        }
+
+                                        .create-post-popup, .update-topic-popup {
+                                            display: none; /* Hidden by default */
+                                            z-index: 1000;
+                                            position: fixed;
+                                            top: 50%;
+                                            left: 50%;
+                                            transform: translate(-50%, -50%);
+                                            background-color: white;
+                                            padding: 20px;
+                                            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+                                            border: 10px solid #501755;
+                                            border-radius: 15px;
+                                        }
+
+                                        .create-overlay, .update-overlay {
+                                            display: none;
+                                            opacity:1;
+                                        }
+                                        h3.bottom-title {
+                                            color: white;
+                                            font-size: 35px;
+                                            font-family: 'Sixtyfour Convergence';
+                                            padding: 0 0px 30px 0;
+                                        }
+                                        .btn-danger{
+                                            margin: 0;
+                                            margin-top: 5px;
+                                            width: 90px;
+                                            height: 50px;
+                                            font-size: 16px;
+                                            font-weight: bold;
+                                        }
+                                        .btn-danger:hover{
+                                            background-color: #4a4646;
+                                        }
+                                        .btn-edit {
+                                            background-color: yellow;
+                                            color: black;
+                                            border: none;
+                                            border-radius: 5px;
+                                            padding: 10px 20px;
+                                            margin-top: 5px;
+                                            width: 90px;
+                                            height: 50px;
+                                            font-size: 16px;
+                                            font-weight: bold;
+                                            cursor: pointer;
+                                            transition: background-color 0.3s, transform 0.2s;
+                                        }
+                                        .btn-edit:hover{
+                                            background-color: #4a4646;
+                                            color: white;
+                                        }
+                                    </style>
+                                    <!--====== Javascripts & Jquery ======-->
+                                    <script src="js/jquery-3.2.1.min.js"></script>
+                                    <script src="js/bootstrap.min.js"></script>
+                                    <script src="js/jquery.slicknav.min.js"></script>
+                                    <script src="js/owl.carousel.min.js"></script>
+                                    <script src="js/jquery.sticky-sidebar.min.js"></script>
+                                    <script src="js/jquery.magnific-popup.min.js"></script>
+                                    <script src="js/main.js"></script>
+                                    <script src="Forum/main.js"></script>
+                                    </body>   
+                                    </html>

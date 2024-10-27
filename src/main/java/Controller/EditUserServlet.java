@@ -18,6 +18,7 @@ public class EditUserServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId = request.getParameter("userId");
         String name = request.getParameter("name");    
@@ -27,9 +28,8 @@ public class EditUserServlet extends HttpServlet {
         
         MongoConectUser mongoConectUser = new MongoConectUser();
         boolean isUpdated = mongoConectUser.updateUser(userId, name, email, phone, address);
-        String memberId = (String) request.getSession().getAttribute("memberid");
         if (isUpdated) {
-            response.sendRedirect("user-profile.jsp?id=" + memberId);
+            response.sendRedirect("user-profile.jsp");
         } else {
             response.getWriter().println("Failed to update user profile.");
         }

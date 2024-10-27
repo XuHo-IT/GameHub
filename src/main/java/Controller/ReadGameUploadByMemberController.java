@@ -91,7 +91,7 @@ public class ReadGameUploadByMemberController extends HttpServlet {
             // Forward the request to the appropriate JSP page
             String role = request.getParameter("role");
             if ("1".equals(role)) {
-                request.getRequestDispatcher("admin-after-login.jsp?id=" + id).forward(request, response);
+                request.getRequestDispatcher("admin-after-login.jsp?id=" + userId).forward(request, response);
             } else {
                 request.getRequestDispatcher("chart/censor.jsp").forward(request, response);
             }

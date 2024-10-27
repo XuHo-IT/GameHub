@@ -22,7 +22,6 @@ public class DeleteCommentAdmin extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String commentId = request.getParameter("commentId");
-        String topicId = request.getParameter("topicId");
 
         MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
@@ -33,7 +32,6 @@ public class DeleteCommentAdmin extends HttpServlet {
 
         // Xóa tài liệu theo commentId
         collection.deleteOne(query);
-        String adminId = (String) request.getSession().getAttribute("adminid");
-        response.sendRedirect("forum-detail-after-login.jsp?adminid=" + adminId);
+        response.sendRedirect("forum-detail-after-login.jsp");
     }
 }

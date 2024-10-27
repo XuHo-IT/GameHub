@@ -160,7 +160,7 @@
             
 
             // Get the post ID from the URL query parameter
-            String postId = request.getParameter("id");
+            String postId = (String) request.getSession().getAttribute("postId");
             System.out.println("Post ID: " + postId);
 
             // Connect to MongoDB
@@ -244,23 +244,6 @@
                                     </form>
                                     </div>
 
-
-                                    <div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">
-                                        <div id="stickySidebar">
-                                            <div class="widget-item">
-                                                <div class="rating-widget">
-                                                    <h4 class="widget-title">Ratings</h4>
-                                                    <ul>
-                                                        <li>Price Rating: <strong><%= priceRating%></strong></li>
-                                                        <li>Graphic Rating: <strong><%= graphicRating%></strong></li>
-                                                        <li>Difficulty Rating: <strong><%= difficultyRating%></strong></li>
-                                                        <li>Gameplay Rating: <strong><%= gameplayRating%></strong></li>
-                                                    </ul>
-                                                    <div class="rating">
-                                                        <h5><i>Average Rating:</i><span><%= averageRating%></span> / 5</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
 
                                             <div class="widget-item">
                                                 <div class="testimonials-widget">

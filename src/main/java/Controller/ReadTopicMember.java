@@ -39,7 +39,7 @@ public class ReadTopicMember extends HttpServlet {
 
             // Find all documents in the topic collection
             FindIterable<Document> topics = topicCollection.find();
-            String userId = (String) request.getSession().getAttribute("adminId");
+            String userId = (String) request.getSession().getAttribute("userId");
 
             // Map each document to a Topic object
             for (Document topicDocument : topics) {

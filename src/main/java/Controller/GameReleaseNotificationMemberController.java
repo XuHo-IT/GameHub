@@ -58,8 +58,7 @@ public class GameReleaseNotificationMemberController extends HttpServlet {
         }
         request.setAttribute(postId, "postId");
         request.setAttribute(userId, "adminId");
-        
-        String memberId = (String) request.getSession().getAttribute("memberid");
+
 
         if (emailSent) {
             response.sendRedirect("ReadGameHomeMemberController");
@@ -68,9 +67,9 @@ public class GameReleaseNotificationMemberController extends HttpServlet {
         }
     }
 
-    private boolean sendEmailNotification(String gameTitle, String postId, String memberId, String memberEmail) {
+    private boolean sendEmailNotification(String gameTitle, String postId, String userId, String memberEmail) {
         String subject = "Game Release Notification";
-        String gameLink = "http://localhost:8080/Web_Trading_Game/cart-buy.jsp?memberid=" + memberId + "&postId=" + postId ;
+        String gameLink = "http://localhost:8080/Web_Trading_Game/cart-buy.jsp?userId=" + userId + "&postId=" + postId ;
         String body = "Dear Member, the game '" + gameTitle + "' is releasing today! " +
                       "Here’s the link to the game: " + gameLink;
 

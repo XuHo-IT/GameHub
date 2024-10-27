@@ -21,15 +21,16 @@ public class EditPostController extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         String postId = request.getParameter("postId");
+        String userId = (String) request.getSession().getAttribute("userId");
 
         if ("edit".equals(action)) {
-            editPost(request, response, postId);
+            editPost(request, response, postId, userId);
         } else if ("delete".equals(action)) {
-            deletePost(request, response, postId);
+            deletePost(request, response, postId, userId);
         }
     }
 
-    private void editPost(HttpServletRequest request, HttpServletResponse response, String postId)
+    private void editPost(HttpServletRequest request, HttpServletResponse response, String postId, String userId)
             throws ServletException, IOException {
         MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
@@ -56,10 +57,10 @@ public class EditPostController extends HttpServlet {
                 .append("Price", price));
 
         collection.updateOne(new Document("_id", new ObjectId(postId)), update);
-        response.sendRedirect("ReadGameHomeAdmin");
+        response.sendRedirect("ReadGameHomeAdmin?userId=" + userId);
     }
 
-    private void deletePost(HttpServletRequest request, HttpServletResponse response, String postId)
+    private void deletePost(HttpServletRequest request, HttpServletResponse response, String postId, String userId)
             throws ServletException, IOException {
             MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");

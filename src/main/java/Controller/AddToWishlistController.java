@@ -23,8 +23,6 @@ public class AddToWishlistController extends HttpServlet {
 
         // Retrieve game title from MongoDB
         String gameTitle = getGameTitleFromMongo(postId);
-        
-        String memberId = (String) request.getSession().getAttribute("memberid");
 
         // Use the GameReleaseNotificationAdminController to send the confirmation email
 //        GameReleaseNotificationAdminController notificationController = 
@@ -32,7 +30,7 @@ public class AddToWishlistController extends HttpServlet {
 //        notificationController.sendWishlistConfirmationEmail(userEmail, gameTitle, postId);
 
         // Redirect to game-single.jsp with the updated wishlist status
-        response.sendRedirect("game-single.jsp?memberid=" + memberId + "&wishlistAdded=true");
+        response.sendRedirect("game-single.jsp?wishlistAdded=true");
     }
 
     private String getGameTitleFromMongo(String postId) {

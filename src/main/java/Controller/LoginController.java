@@ -60,7 +60,7 @@ public class LoginController extends HttpServlet {
                 session.setAttribute("currentUser", superAdmin);
                 
                 // Set the adminId and adminEmail in the session
-                session.setAttribute("adminId", userDoc.getObjectId("_id").toString());
+                session.setAttribute("userId", userDoc.getObjectId("_id").toString());
                 session.setAttribute("adminName", userDoc.getString("Name"));
                 session.setAttribute("adminEmail", userDoc.getString("Email")); // Insert adminEmail in session
                 session.setAttribute("photoUrl", userDoc.getString("PhotoUrl")); // Set photoUrl in session
@@ -70,14 +70,14 @@ public class LoginController extends HttpServlet {
                 
                 
                 if (currentUser.getStatus().equals("Suspend")) {
-                    response.sendRedirect("user-profile.jsp?id=" + userId);
+                    response.sendRedirect("user-profile.jsp");
                 } else {
                     if ("0".equals(role)) {
                         // For role 0 (regular user)
-                    response.sendRedirect("ReadGameHomeMember?memberid=" + userId);
+                    response.sendRedirect("ReadGameHomeMemberController");
                 } else if ("1".equals(role)) {
                         // For role 1 (admin)
-                        response.sendRedirect("ReadGameHomeAdmin?adminid=" + userId);
+                        response.sendRedirect("ReadGameHomeAdminController");
                     }
                 }
 

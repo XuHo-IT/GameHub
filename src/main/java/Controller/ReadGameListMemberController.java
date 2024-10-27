@@ -117,9 +117,10 @@ public class ReadGameListMemberController extends HttpServlet {
             request.setAttribute("totalPages", totalPages);
             request.setAttribute("currentPage", currentPage);
             request.setAttribute("selectedGenre", selectedGenre);  // Pass selected genre to JSP
-
+            
+            String userId = (String) request.getSession().getAttribute("userId");
             // Forward the request to the JSP page
-            request.getRequestDispatcher("games-after-login-member.jsp").forward(request, response);
+            request.getRequestDispatcher("games-after-login-member.jsp?userId=" + userId).forward(request, response);
         } catch (Exception e) {
             e.printStackTrace(); // Log the exception
             request.setAttribute("errorMessage", "Error retrieving game posts.");

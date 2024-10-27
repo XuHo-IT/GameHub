@@ -118,9 +118,10 @@ public class SearchController extends HttpServlet {
             request.setAttribute("genre", genre);
             request.setAttribute("genres", genres);  // Pass genres to the JSP
             request.setAttribute("postList", postList);
-
+            
+            String userId = (String) request.getSession().getAttribute("userId");
             // Forward to search results JSP
-            request.getRequestDispatcher("search-results.jsp").forward(request, response);
+            request.getRequestDispatcher("search-results.jsp?userId=" + userId).forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Error retrieving search results.");

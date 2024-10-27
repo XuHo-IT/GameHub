@@ -106,7 +106,7 @@
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
-                                        <li><a href="user-profile.jsp?id=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
+                                        <li><a href="user-profile.jsp?">Account Info</a></li>
                                         <li>
                                             <a href="LogOutController" class="dropdown-item">Logout</a>
                                         </li>
@@ -116,10 +116,10 @@
                         </div>
 
                         <ul class="main-menu primary-menu">
-                            <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                            <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
-                            <li><a href="ReadGameHomeAdmin?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
-                            <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>                           
+                            <li><a href="ReadGameHomeAdminController">Home</a></li>
+                            <li><a href="ReadGameListAdminController">Games</a></li>
+                            <li><a href="ReadGameHomeAdmin?view=chart">Manage</a></li>
+                            <li><a href="ReadTopicAdmin">Forum</a></li>                           
                         </ul>
                     </nav>
                 </div>
@@ -154,7 +154,7 @@
                                     <div class="game-item">
                                         <img src="data:image/png;base64,${post.fileData}" class="same-size" alt="Game Image" />
                                         <h5>${post.title != null ? post.title : 'Untitled'}</h5>
-                                        <a href="game-single-after-login.jsp?id=${post.postID}" class="read-more">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
+                                        <a href="game-single-after-login.jsp?id=${post.postID}&userId=${sessionScope.userId}" class="read-more">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
                                     </div>
                                 </div>
                             </c:forEach>
@@ -242,16 +242,16 @@
                 <div class="footer-right-pic">
                     <img src="img/footer-right-pic.png" alt="">
                 </div>
-                <a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>" class="footer-logo">
+                <a href="ReadGameHomeAdminController?userId=<%= request.getSession().getAttribute("userId")%>" class="footer-logo">
                     <img src="./img/logo1.png" alt="">
                     <img src="./img/logo2.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
-                    <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                    <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
-                    <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
-                    <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
-                    <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+                    <li><a href="ReadGameHomeAdminController?userId=<%= request.getSession().getAttribute("userId")%>">Home</a></li>
+                    <li><a href="ReadGameListAdminController?userId=<%= request.getSession().getAttribute("userId")%>">Games</a></li>
+                    <li><a href="ReadGameHomeAdminController?view=chart&userId=<%= request.getSession().getAttribute("userId")%>">Manage</a></li>
+                    <li><a href="ReadTopicAdmin?userId=<%= request.getSession().getAttribute("userId")%>">Forum</a></li>
+                    <li><a href="contact-after-login.jsp?userId=<%= request.getSession().getAttribute("userId")%>">Contact</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
                     <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>

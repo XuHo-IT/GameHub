@@ -225,10 +225,6 @@
         <servlet-class>Controller.ReadTopic</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ReadGameHomeAdmin</servlet-name>
-        <servlet-class>Controller.ReadGameHomeAdmin</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>SuspendUser</servlet-name>
         <servlet-class>Controller.SuspendUser</servlet-class>
     </servlet>
@@ -463,10 +459,6 @@
     <servlet-mapping>
         <servlet-name>ReadTopic</servlet-name>
         <url-pattern>/ReadTopic</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ReadGameHomeAdmin</servlet-name>
-        <url-pattern>/ReadGameHomeAdmin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SuspendUser</servlet-name>

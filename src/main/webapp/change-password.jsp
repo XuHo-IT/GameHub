@@ -1,5 +1,6 @@
+<%@page import="mongodb.MongoConectUser"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="Model.UserModel, mogodb.MongoConectUser" %>
+<%@ page import="Model.UserModel, mongodb.MongoConectUser" %>
 <%@ page import="org.bson.types.ObjectId" %>
 <%
     // Get the user ID from the request parameter

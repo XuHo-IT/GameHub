@@ -24,6 +24,7 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 
 import Model.TopicTemp;
+import javax.servlet.http.HttpSession;
 import utils.MongoDBConnectionManager1;
 
 public class ReadTopicAdmin extends HttpServlet {
@@ -43,9 +44,10 @@ public class ReadTopicAdmin extends HttpServlet {
             MongoCollection<Document> usersCollection = database.getCollection("superadmin");
 
             List<TopicTemp> topicList = new ArrayList<>();
-
+            
             // Find all documents in the topic collection
             FindIterable<Document> topics = topicCollection.find();
+            Object topicId = "";
 
             // Map each document to a Topic object
             for (Document topicDocument : topics) {
@@ -75,7 +77,7 @@ public class ReadTopicAdmin extends HttpServlet {
                 }
 
                 // Get the TopicId and count the comments related to this topic
-                ObjectId topicId = topicDocument.getObjectId("_id");
+                topicId = topicDocument.getObjectId("_id");
                 long commentCount = commentCollection.countDocuments(Filters.eq("TopicId", topicId.toString()));
 
                 // Create Topic object and add to the list
@@ -110,19 +112,21 @@ public class ReadTopicAdmin extends HttpServlet {
 
             // Sublist for current page
             List<TopicTemp> topicsForCurrentPage = topicList.subList(startIndex, endIndex);
-
+            
             // Set attributes for JSP
+            HttpSession session = request.getSession();
+            session.setAttribute("topicId", topicId.toString());
+            
             request.setAttribute("topics", topicsForCurrentPage);
             request.setAttribute("totalPages", totalPages);
             request.setAttribute("currentPage", currentPage);
 
-            String adminId = (String) request.getSession().getAttribute("adminid");
             // Forward to the forum page
-            request.getRequestDispatcher("forum-after-login.jsp?adminid=" + adminId).forward(request, response);
+            request.getRequestDispatcher("forum-after-login.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Error retrieving topics.");
-            request.getRequestDispatcher("error-page.jsp").forward(request, response);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }
 }

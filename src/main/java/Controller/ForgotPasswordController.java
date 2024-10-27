@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import utils.MongoDBConnectionManager1;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.UUID;
 
 public class ForgotPasswordController extends HttpServlet {
 
@@ -50,6 +49,7 @@ public class ForgotPasswordController extends HttpServlet {
         properties.put("mail.smtp.port", "587");
 
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+            @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication("gamehubtalk@gmail.com", "vqgf zhra oqfr drlg"); // Use App Password
             }

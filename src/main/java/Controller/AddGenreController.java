@@ -36,13 +36,13 @@ public class AddGenreController extends HttpServlet {
         String genre = request.getParameter("genre1");
         System.out.println("Genre from form: " + genre);
         // Get the admin's ID from the session
-        String adminId = (String) request.getSession().getAttribute("adminId");
+        String userId = (String) request.getSession().getAttribute("userId");
 
         // Create a GamePost object
         Genre genreMain = new Genre(
                 null,
                 genre,
-                adminId);
+                userId);
 
         // Get MongoDB database and collection
         MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
@@ -56,6 +56,6 @@ public class AddGenreController extends HttpServlet {
         // Insert the document into the MongoDB collection
         collection.insertOne(genre1);
         // Redirect to the admin page after successful insertion
-        response.sendRedirect("ReadGameHomeAdminController?adminid=" + adminId);
+        response.sendRedirect("ReadGameHomeAdminController");
     }
 }

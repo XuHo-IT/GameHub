@@ -140,11 +140,7 @@
             String description = null;
             String dateRelease = null;
             String fileData = null;
-            double priceRating = 0.0;
-            double graphicRating = 0.0;
-            double difficultyRating = 0.0;
-            double gameplayRating = 0.0;
-            double averageRating = 0.0;
+            
 
             // Get the post ID from the URL query parameter
             String postId = request.getParameter("id");
@@ -166,11 +162,7 @@
                 description = post.getString("Description"); // Ensure correct case
                 dateRelease = post.getString("DateRelease"); // Ensure correct case
                 fileData = post.getString("FileData"); // Ensure correct case
-                priceRating = post.getDouble("PriceRating");
-                graphicRating = post.getDouble("GraphicRating");
-                difficultyRating = post.getDouble("DifficultyRating");
-                gameplayRating = post.getDouble("GameplayRating");
-                averageRating = post.getDouble("AverageRating");
+               
 
                 // Log retrieved values
                 System.out.println("Title: " + title);

@@ -104,7 +104,7 @@
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
-                                        <li><a href="user-profile.jsp?id=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
+                                        <li><a href="user-profile.jsp?userid=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
                                         <li>
                                             <a href="LogOutController" class="dropdown-item">Logout</a>
                                         </li>
@@ -115,11 +115,10 @@
 
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
-                            <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                            <li><a href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                             <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
                             <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                             <li><a href="ReadGameHomeAdmin?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
-
                         </ul>
                     </nav>
                 </div>

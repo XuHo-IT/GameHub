@@ -75,7 +75,7 @@ public class MongoConectUser {
             // Create the document to update
             Document updatedUser = new Document("Name", name)
                     .append("Email", email)
-                    .append("Phone", phone) 
+                    .append("Phone", phone)
                     .append("Address", address);
 
             // Use ObjectId for _id field in MongoDB
@@ -179,23 +179,24 @@ public class MongoConectUser {
 
     }
 
-    public boolean updateUserProfilePicture(String userId, String imagePath) {
-        try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
-            MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
-            MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
+   public boolean updateUserProfilePicture(String userId, String photoUrl) {
+    try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
+        MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
+        MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
 
-            Document query = new Document("_id", new ObjectId(userId));
-            Document update = new Document("$set", new Document("PhotoUrl", imagePath));
+        // Create the update document with the new photo URL
+        Document update = new Document("$set", new Document("PhotoUrl", photoUrl));
 
-            if (collection.updateOne(query, update).getModifiedCount() > 0) {
-                return true; // Successfully updated the profile picture
-            }
-            return false; // User not found or not modified
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false; // Return false if an error occurred
-        }
+        // Update the document in MongoDB
+        collection.updateOne(new Document("_id", new ObjectId(userId)), update);
+
+        return true;
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false;
     }
+}
+
 
     public boolean changePassword(String userId, String oldPassword, String newPassword) {
         try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {

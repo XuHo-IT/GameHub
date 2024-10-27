@@ -1,19 +1,15 @@
 package Controller;
 
+import DAO.CommentDAO;
 import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import org.bson.Document;
-import org.bson.types.ObjectId;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 import utils.MongoDBConnectionManager1;
+
+import java.io.IOException;
 
 public class UpdateCommentController extends HttpServlet {
 
@@ -23,25 +19,25 @@ public class UpdateCommentController extends HttpServlet {
         String newContent = request.getParameter("newContent");
         String topicId = request.getParameter("topicid");
 
-        // Kết nối MongoDB
-        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
-        MongoDatabase database = mongoClient.getDatabase("GameHub");
-        MongoCollection<Document> collection = database.getCollection("comment");
+        // Input validation
+        if (commentId == null || commentId.trim().isEmpty() || newContent == null || newContent.trim().isEmpty()) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("Comment ID and new content are required.");
+            return;
+        }
 
-        // Tạo truy vấn để tìm comment bằng _id
-        Document query = new Document("_id", new ObjectId(commentId));
-
-        // Tạo document mới chứa nội dung cập nhật
-        Document update = new Document("$set", new Document("Content", newContent).append("Status", "edited"));
+        // Get MongoDB client and initialize CommentDAO
+     
+        CommentDAO commentDAO = new CommentDAO();
 
         try {
-            collection.updateOne(query, update);
-            destroy();
+            // Update the comment
+            commentDAO.updateComment(commentId, newContent);
+            // Redirect after successful update
             response.sendRedirect("forum-detail-after-login-member.jsp?topicId=" + topicId);
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.getWriter().write("Error updating comment: " + e.getMessage());
         }
     }
-
 }

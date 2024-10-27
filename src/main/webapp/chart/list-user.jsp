@@ -1,3 +1,5 @@
+<%@page import="DAO.UserDAO"%>
+<%@page import="DAO.GamePostDAO"%>
 <%@page import="mongodb.MongoConectUser"%>
 <%@page import="Model.UserModel"%>
 <%@page import="java.util.ArrayList"%>
@@ -61,8 +63,8 @@
                     <div class="recentOrders">
                         <div class="cardHeader">
                             <%
-                                MongoConectUser mgcn = new MongoConectUser();
-                                List<UserModel> userList = mgcn.getAllUsers();
+                                UserDAO userDAO = new UserDAO();
+                                List<UserModel> userList = userDAO.getAllUsers();
                                 request.setAttribute("userList", userList);  // Set the userList before displaying it in HTML
                             %>
                             <h2 style="color:#6f2b95">Post Uploaded By Member</h2>

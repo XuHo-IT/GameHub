@@ -25,10 +25,6 @@
         <servlet-class>Controller.ShowAllGameController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SuspendUserController</servlet-name>
-        <servlet-class>Controller.SuspendUserController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ChangePasswordController</servlet-name>
         <servlet-class>Controller.ChangePasswordController</servlet-class>
     </servlet>
@@ -121,21 +117,13 @@
         <servlet-class>Controller.UploadLinkServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DeleteCommentController</servlet-name>
-        <servlet-class>Controller.DeleteCommentController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>DeleteCommentAdminController</servlet-name>
-        <servlet-class>Controller.DeleteCommentAdminController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AddCommentAdminController</servlet-name>
         <servlet-class>Controller.AddCommentAdminController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SearchController</servlet-name>
-        <servlet-class>Controller.SearchController</servlet-class>       
-    </servlet>  
+        <servlet-class>Controller.SearchController</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>UpdateCommentController</servlet-name>
         <servlet-class>Controller.UpdateCommentController</servlet-class>
@@ -163,10 +151,6 @@
     <servlet>
         <servlet-name>GoogleLogin</servlet-name>
         <servlet-class>Controller.GoogleLogin</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>TopicUpdateAdminController</servlet-name>
-        <servlet-class>Controller.TopicUpdateAdminController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>TopicCreate</servlet-name>
@@ -265,10 +249,6 @@
         <url-pattern>/ShowAllGameController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SuspendUserController</servlet-name>
-        <url-pattern>/SuspendUserController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ChangePasswordController</servlet-name>
         <url-pattern>/ChangePasswordController</url-pattern>
     </servlet-mapping>
@@ -365,14 +345,6 @@
         <!-- 5 MB -->
     </multipart-config>
     <servlet-mapping>
-        <servlet-name>DeleteCommentController</servlet-name>
-        <url-pattern>/DeleteCommentController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DeleteCommentAdminController</servlet-name>
-        <url-pattern>/DeleteCommentAdminController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AddCommentAdminController</servlet-name>
         <url-pattern>/AddCommentAdminController</url-pattern>
     </servlet-mapping>
@@ -407,10 +379,6 @@
     <servlet-mapping>
         <servlet-name>GoogleLogin</servlet-name>
         <url-pattern>/GoogleLogin</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>TopicUpdateAdminController</servlet-name>
-        <url-pattern>/TopicUpdateAdminController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>TopicCreate</servlet-name>

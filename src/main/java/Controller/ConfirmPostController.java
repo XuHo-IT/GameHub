@@ -23,7 +23,7 @@ public class ConfirmPostController extends HttpServlet {
         String postId = request.getParameter("postId");
 
         // Get the MongoDB database and collections
-        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
+        MongoClient mongoClient = MongoDBConnectionManager1.getLocalMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> postGameMemberCollection = database.getCollection("postGameMember");
         MongoCollection<Document> postGameCollection = database.getCollection("postGame");
@@ -39,6 +39,6 @@ public class ConfirmPostController extends HttpServlet {
             postGameMemberCollection.deleteOne(new Document("_id", new ObjectId(postId)));
         }
         // Redirect back to the member page (or wherever appropriate)
-        response.sendRedirect("ReadGameHomeAdminController");
+        response.sendRedirect("ReadGameHomeAdmin");
     }
 }

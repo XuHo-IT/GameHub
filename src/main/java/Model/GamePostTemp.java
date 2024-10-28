@@ -8,7 +8,7 @@ package Model;
  *
  * @author OS
  */
-public class GamePost {
+public class GamePostTemp {
 
     private String postID;
     private String title;
@@ -23,7 +23,7 @@ public class GamePost {
     private String linkGame;
     private String price;
 
-    public GamePost(String postID, String title, String gamePlay, String description, String dateRelease, String author, String genre, String adminId, String fileName, String fileData, String linkGame, String price) {
+    public GamePostTemp(String postID, String title, String gamePlay, String description, String dateRelease, String author, String genre, String adminId, String fileName, String fileData, String linkGame, String price) {
         this.postID = postID;
         this.title = title;
         this.gamePlay = gamePlay;
@@ -48,7 +48,7 @@ public class GamePost {
 
     
 
-    public GamePost() {
+    public GamePostTemp() {
     }
 
     public String getPostID() {

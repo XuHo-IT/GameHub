@@ -25,10 +25,6 @@
         <servlet-class>Controller.ShowAllGameController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SuspendUserController</servlet-name>
-        <servlet-class>Controller.SuspendUserController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ChangePasswordController</servlet-name>
         <servlet-class>Controller.ChangePasswordController</servlet-class>
     </servlet>
@@ -129,6 +125,10 @@
         <servlet-class>Controller.SearchController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>UpdateCommentController</servlet-name>
+        <servlet-class>Controller.UpdateCommentController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>EmailSend</servlet-name>
         <servlet-class>EmailSend</servlet-class>
     </servlet>
@@ -147,10 +147,6 @@
     <servlet>
         <servlet-name>GoogleLogin</servlet-name>
         <servlet-class>Controller.GoogleLogin</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>TopicUpdateAdminController</servlet-name>
-        <servlet-class>Controller.TopicUpdateAdminController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>TopicCreate</servlet-name>
@@ -255,10 +251,6 @@
     <servlet-mapping>
         <servlet-name>ShowAllGameController</servlet-name>
         <url-pattern>/ShowAllGameController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SuspendUserController</servlet-name>
-        <url-pattern>/SuspendUserController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ChangePasswordController</servlet-name>
@@ -383,10 +375,6 @@
     <servlet-mapping>
         <servlet-name>GoogleLogin</servlet-name>
         <url-pattern>/GoogleLogin</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>TopicUpdateAdminController</servlet-name>
-        <url-pattern>/TopicUpdateAdminController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>TopicCreate</servlet-name>

@@ -1,24 +1,19 @@
 package Controller;
 
+import DAO.TopicDAO;
 import Model.TopicTemp;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.Collections;
-import java.util.List;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoDatabase;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.bson.Document;
-import org.bson.types.Binary;
-import org.bson.types.ObjectId;
+import javax.servlet.annotation.WebServlet;
 import utils.MongoDBConnectionManager1;
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Filters;
+
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 
 public class ReadTopicMember extends HttpServlet {
 
@@ -26,66 +21,11 @@ public class ReadTopicMember extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            
-            MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
-            MongoDatabase database = mongoClient.getDatabase("GameHub");
+           
+            TopicDAO topicDAO = new TopicDAO();
 
-            // Collection for topics and comments
-            MongoCollection<Document> topicCollection = database.getCollection("topic");
-            MongoCollection<Document> commentCollection = database.getCollection("comment");
-            MongoCollection<Document> usersCollection = database.getCollection("superadmin");
-
-            List<TopicTemp> topicList = new ArrayList<>();
-
-            // Find all documents in the topic collection
-            FindIterable<Document> topics = topicCollection.find();
-            String userId = (String) request.getSession().getAttribute("adminId");
-
-            // Map each document to a Topic object
-            for (Document topicDocument : topics) {
-                String userIdStr = topicDocument.getString("UserId");
-                Document user = null;
-
-                // Fetch user information from the "superadmin" collection
-                if (userIdStr != null && ObjectId.isValid(userIdStr)) {
-                    user = usersCollection.find(Filters.eq("_id", new ObjectId(userIdStr))).first();
-                }
-
-                // Handle missing or null user
-                String photoUrl = (user != null) ? user.getString("PhotoUrl") : "./img/t-rex.png";
-                String userName = (user != null) ? user.getString("Name") : "Unknown User";
-
-                // Handle image data, convert to Base64 if Binary type
-                Object imageData = topicDocument.get("ImageData");
-                String imageDataBase64 = "";
-
-                if (imageData instanceof Binary) {
-                    Binary imageDataBinary = (Binary) imageData;
-                    imageDataBase64 = Base64.getEncoder().encodeToString(imageDataBinary.getData());
-                } else if (imageData instanceof String) {
-                    imageDataBase64 = (String) imageData;  // Use if already a string
-                } else {
-                    imageDataBase64 = ""; // Default or placeholder image
-                }
-
-                // Get the TopicId and count the comments related to this topic
-                ObjectId topicId = topicDocument.getObjectId("_id");
-                long commentCount = commentCollection.countDocuments(Filters.eq("TopicId", topicId.toString()));
-
-                // Create Topic object and add to the list
-                TopicTemp topic = new TopicTemp(
-                        topicId.toString(),
-                        topicDocument.getString("UserId"),
-                        topicDocument.getString("Title"),
-                        topicDocument.getString("Description"),
-                        imageDataBase64, // Only use Base64 encoded image data
-                        photoUrl,
-                        userName, // User's name, or "Unknown User" if not found
-                        topicDocument.getDate("CreatedAt"),
-                        commentCount // Pass the comment count
-                );
-                topicList.add(topic);
-            }
+            // Fetch topics from the database
+            List<TopicTemp> topicList = topicDAO.fetchTopics();
 
             // Reverse the list for displaying the latest topics first
             Collections.reverse(topicList);
@@ -110,15 +50,13 @@ public class ReadTopicMember extends HttpServlet {
             request.setAttribute("totalPages", totalPages);
             request.setAttribute("currentPage", currentPage);
 
+            String adminId = (String) request.getSession().getAttribute("adminid");
             // Forward to the forum page
-            request.getRequestDispatcher("forum-after-login-member.jsp?userId="+ userId).forward(request, response);
+           request.getRequestDispatcher("forum-after-login-member.jsp?userId="+ adminId).forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Error retrieving topics.");
             request.getRequestDispatcher("error-page.jsp").forward(request, response);
         }
-    }
-    public static void main(String[] args) {
-        
     }
 }

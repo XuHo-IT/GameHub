@@ -6,26 +6,51 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MongoDBConnectionManager1 {
-    private static MongoClient mongoClient;
+    private static MongoClient localMongoClient;
+    private static MongoClient remoteMongoClient;
     private static final Logger logger = LoggerFactory.getLogger(MongoDBConnectionManager1.class);
+
+    // Local MongoDB connection URI
+    private static final String LOCAL_URI = "mongodb://localhost:27017"; 
+
+    // Remote MongoDB connection URI
+    private static final String REMOTE_URI = "mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub";
 
     private MongoDBConnectionManager1() {}
 
-    public static MongoClient getMongoClient() {
-        if (mongoClient == null) {
-            logger.info("Creating a new MongoClient instance.");
-            mongoClient = MongoClients.create("mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
+    // Method to get a local MongoDB client
+    public static MongoClient getLocalMongoClient() {
+        if (localMongoClient == null) {
+            logger.info("Creating a new local MongoClient instance.");
+            localMongoClient = MongoClients.create(LOCAL_URI);
         } else {
-            logger.info("Reusing existing MongoClient instance.");
+            logger.info("Reusing existing local MongoClient instance.");
         }
-        return mongoClient;
+        return localMongoClient;
     }
 
-    public static void closeMongoClient() {
-        if (mongoClient != null) {
-            logger.info("Closing MongoClient instance.");
-            mongoClient.close();
-            mongoClient = null;
+    // Method to get a remote MongoDB client
+    public static MongoClient getRemoteMongoClient() {
+        if (remoteMongoClient == null) {
+            logger.info("Creating a new remote MongoClient instance.");
+            remoteMongoClient = MongoClients.create(REMOTE_URI);
+        } else {
+            logger.info("Reusing existing remote MongoClient instance.");
+        }
+        return remoteMongoClient;
+    }
+
+    // Method to close both local and remote MongoDB clients
+    public static void closeClients() {
+        if (localMongoClient != null) {
+            logger.info("Closing local MongoClient instance.");
+            localMongoClient.close();
+            localMongoClient = null;
+        }
+        if (remoteMongoClient != null) {
+            logger.info("Closing remote MongoClient instance.");
+            remoteMongoClient.close();
+            remoteMongoClient = null;
         }
     }
 }

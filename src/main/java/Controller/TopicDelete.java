@@ -37,10 +37,12 @@ public class TopicDelete extends HttpServlet {
         // Get MongoDB database and collection
         MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
-        MongoCollection<Document> collection = database.getCollection("topic");
+        MongoCollection<Document> collection1 = database.getCollection("topic");
+        MongoCollection<Document> collection2 = database.getCollection("comment");
 
         // Delete the topic
-        collection.deleteOne(Filters.eq("_id", new ObjectId(topicId)));
+        collection1.deleteOne(Filters.eq("_id", new ObjectId(topicId)));
+        collection2.deleteMany(Filters.eq("TopicId", topicId));
 
         // Redirect to the appropriate page after deletion
         response.sendRedirect("ReadTopicMember?userId" + userId);

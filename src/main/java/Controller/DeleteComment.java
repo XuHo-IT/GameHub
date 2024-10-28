@@ -21,7 +21,7 @@ public class DeleteComment extends HttpServlet {
             throws ServletException, IOException {
         String commentId = request.getParameter("commentid");
         String topicId = request.getParameter("topicid");
-        String memberId = (String) request.getSession().getAttribute("memberid");
+        String userId = request.getParameter("memberid");
         
         MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
@@ -32,6 +32,6 @@ public class DeleteComment extends HttpServlet {
 
         // Xóa tài liệu theo commentId
         collection.deleteOne(query);
-        response.sendRedirect("forum-detail-after-login-member.jsp?topicId=" + topicId + "&userId=" + memberId);
+        response.sendRedirect("forum-detail-after-login-member.jsp?topicId=" + topicId + "&userId=" + userId);
     }
 }

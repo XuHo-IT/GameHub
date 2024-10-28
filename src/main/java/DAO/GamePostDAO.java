@@ -28,6 +28,8 @@ public class GamePostDAO {
     private final MongoCollection<Document> postCollection;
     private final MongoCollection<Document> genreCollection;
     private final MongoCollection<Document> transactionCollection;
+    public List<GamePostTemp> memberPostList;
+    public List<GamePostTemp> adminPostList;
 
     public GamePostDAO() {
         MongoClient mongoClient = MongoDBConnectionManager1.getLocalMongoClient();
@@ -36,6 +38,62 @@ public class GamePostDAO {
         this.genreCollection = database.getCollection("Genre");
         this.transactionCollection = database.getCollection("Transaction");
 
+    }
+
+    public List<GamePostTemp> getAllGamePosts() {
+        List<GamePostTemp> postList = new ArrayList<>();
+        memberPostList = new ArrayList<>();
+        adminPostList = new ArrayList<>();
+        List<String> existingPostIDs = new ArrayList<>();
+
+        MongoCollection<Document> memberCollection = database.getCollection("postGameMember");
+        MongoCollection<Document> adminCollection = database.getCollection("postGame");
+
+        try {
+            // Fetch member posts
+            for (Document doc : memberCollection.find()) {
+                String postID = doc.getObjectId("_id").toString();
+                if (!existingPostIDs.contains(postID)) {
+                    GamePostTemp gamePost = mapDocumentToGamePost(doc);
+                    postList.add(gamePost);
+                    memberPostList.add(gamePost);
+                    existingPostIDs.add(postID);
+                }
+            }
+
+            // Fetch admin posts
+            for (Document doc : adminCollection.find()) {
+                String postID = doc.getObjectId("_id").toString();
+                if (!existingPostIDs.contains(postID)) {
+                    GamePostTemp gamePost = mapDocumentToGamePost(doc);
+                    postList.add(gamePost);
+                    adminPostList.add(gamePost);
+                    existingPostIDs.add(postID);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return postList;
+    }
+
+    private GamePostTemp mapDocumentToGamePost(Document doc) {
+        String fileDataBase64 = extractFileDataBase64(doc.get("FileData"));
+        return new GamePostTemp(
+                doc.getObjectId("_id").toString(),
+                doc.getString("Title"),
+                doc.getString("GamePlay"),
+                doc.getString("Description"),
+                doc.getString("DateRelease"),
+                doc.getString("Author"),
+                doc.getString("Genre"),
+                doc.getString("AdminId"),
+                doc.getString("FileName"),
+                fileDataBase64,
+                doc.getString("LinkGame"),
+                doc.getString("Price")
+        );
     }
 
     public List<GamePostTemp> getGamePostsByGenre(String genreId) {

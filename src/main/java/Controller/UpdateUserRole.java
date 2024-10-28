@@ -17,10 +17,11 @@ public class UpdateUserRole extends HttpServlet {
         // Get the user ID and the new role from the request
         String userId = request.getParameter("userId");
         String newRole = request.getParameter("role");
+        String adminId = request.getParameter("adminId");
 
         // Input validation
         if (userId == null || userId.trim().isEmpty() || newRole == null || newRole.trim().isEmpty()) {
-            response.sendRedirect("chart/list-user.jsp?error=User ID and Role are required");
+            response.sendRedirect("chart/list-user.jsp?error=User ID and Role are required?adminId="+adminId);
             return;
         }
         UserDAO userDAO = new UserDAO();
@@ -30,10 +31,10 @@ public class UpdateUserRole extends HttpServlet {
             boolean isUpdated = userDAO.updateUserRole(userId, newRole);
             if (isUpdated) {
                 // Redirect back to the user management page with a success message
-                response.sendRedirect("chart/list-user.jsp?success=Role updated successfully");
+                response.sendRedirect("chart/list-user.jsp?success=Role updated successfully?adminId="+adminId);
             } else {
                 // Handle the case where the user was not found
-                response.sendRedirect("chart/list-user.jsp?error=User not found");
+                response.sendRedirect("chart/list-user.jsp?error=User not found?adminId="+adminId);
             }
         } catch (Exception e) {
             response.sendRedirect("chart/list-user.jsp?error=Error updating role: " + e.getMessage());

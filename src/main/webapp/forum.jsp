@@ -465,22 +465,6 @@
                     }
                 }
 
-                // Final validation before form submission (if necessary)
-                const signupForm = document.getElementById('signupForm');
-                signupForm.addEventListener('submit', function (event) {
-                    validateName();
-                    validateEmail();
-                    validatePhone();
-                    validateDOB();
-                    validateAddress();
-                    validatePassword();
-                    validatePolicy();
-
-                    // Prevent form submission if there are errors
-                    if (document.querySelectorAll('.error-message:empty').length !== 7) {
-                        event.preventDefault();
-                    }
-                });
             });
         </script>
 

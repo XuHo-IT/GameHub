@@ -49,7 +49,7 @@ public class LoginController extends HttpServlet {
                 } else {
                     switch (role) {
                         case "0": // Regular user
-                            response.sendRedirect("ReadGameHomeMemberController?id=" + superAdmin.getAdminId());
+                            response.sendRedirect("ReadGameHomeMember?id=" + superAdmin.getAdminId());
                             break;
                         case "1": // Admin
                             response.sendRedirect("ReadGameHomeAdmin?adminid=" + superAdmin.getAdminId());
@@ -67,7 +67,7 @@ public class LoginController extends HttpServlet {
         } else {
             // If authentication fails, set an error message
             request.setAttribute("errorMessage", "Invalid email or password");
-            request.getRequestDispatcher("ReadGameHomeController").forward(request, response);
+            request.getRequestDispatcher("ReadGameHome").forward(request, response);
         }
     }
 }

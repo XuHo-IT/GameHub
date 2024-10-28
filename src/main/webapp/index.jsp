@@ -281,7 +281,7 @@
     </section>
 
     <!-- Featured section end-->
-  <!-- Newsletter section -->
+    <!-- Newsletter section -->
 
 
     <!-- Footer section -->
@@ -298,10 +298,10 @@
                 <img src="./img/logo2.png" alt="">
             </a>
             <ul class="main-menu footer-menu">
-                        <li><a href="ReadGameHome">Home</a></li>
-                        <li><a href="ReadGameList">Games</a></li>
-                        <li><a href="ReadTopic">Forum</a></li>
-                        <li><a href="contact.jsp">Contact</a></li>
+                <li><a href="ReadGameHome">Home</a></li>
+                <li><a href="ReadGameList">Games</a></li>
+                <li><a href="ReadTopic">Forum</a></li>
+                <li><a href="contact.jsp">Contact</a></li>
             </ul>
             <div class="footer-social d-flex justify-content-center">
                 <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
@@ -345,11 +345,11 @@
                     <button type="submit">Log In</button>
                 </form>
                 <a href="https://accounts.google.com/o/oauth2/auth?scope=email profile openid&redirect_uri=http://localhost:8080/Web_Trading_Game/GoogleLogin&response_type=code&client_id=1057176700449-vfic30arnmput3sb11tug6d2m28o0m29.apps.googleusercontent.com&approval_prompt=force" class="btn btn-lg btn-danger">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16">
-                  <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z" />
-                </svg>
-                <span class="ms-2 fs-6">Sign in with Google</span>
-              </a>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16">
+                    <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z" />
+                    </svg>
+                    <span class="ms-2 fs-6">Sign in with Google</span>
+                </a>
                 <div class="bottom-link">
                     Don't have an account?
                     <a href="#" id="signup-link">Signup</a>
@@ -365,7 +365,7 @@
             </div>
             <div class="form-content">
                 <h2>SIGNUP</h2>
-                <form id="signupForm" action="SignUpController" method="post">
+                <form id="signupForm" action="SignUp" method="post">
                     <div class="input-field">
                         <label>Enter your name</label>
                         <input type="text" name="Name" id="name" required>
@@ -431,9 +431,17 @@
                 </div>
             </div>
         </div>
-        </div>
-        <script>
-              document.addEventListener("DOMContentLoaded", function () {
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Check if session attribute for emailRegistered is set
+            const emailRegistered = '<%= session.getAttribute("emailRegistered")%>';
+            if (emailRegistered === "true") {
+                alert("This email is already registered. Please use another email to register");
+                session.removeAttribute("emailRegistered"); // Clear session attribute after displaying the message
+            }
+        });
+        document.addEventListener("DOMContentLoaded", function () {
             // Form boxes
             const loginForm = document.querySelector(".form-box.login");
             const signupForm = document.querySelector(".form-box.signup");
@@ -483,100 +491,100 @@
                 document.body.classList.remove("show-popup");
             });
         });
-            document.addEventListener("DOMContentLoaded", function () {
-                // Get all form fields
-                const nameField = document.getElementById('name');
-                const emailField = document.getElementById('email');
-                const phoneField = document.getElementById('phone');
-                const dobField = document.getElementById('dob');
-                const addressField = document.getElementById('address');
-                const passwordField = document.getElementById('password');
-                const policyCheckbox = document.getElementById('policy');
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get all form fields
+            const nameField = document.getElementById('name');
+            const emailField = document.getElementById('email');
+            const phoneField = document.getElementById('phone');
+            const dobField = document.getElementById('dob');
+            const addressField = document.getElementById('address');
+            const passwordField = document.getElementById('password');
+            const policyCheckbox = document.getElementById('policy');
 
-                // Real-time validation for each field
-                nameField.addEventListener('input', validateName);
-                emailField.addEventListener('input', validateEmail);
-                phoneField.addEventListener('input', validatePhone);
-                dobField.addEventListener('input', validateDOB);
-                addressField.addEventListener('input', validateAddress);
-                passwordField.addEventListener('input', validatePassword);
-                policyCheckbox.addEventListener('change', validatePolicy);
+            // Real-time validation for each field
+            nameField.addEventListener('input', validateName);
+            emailField.addEventListener('input', validateEmail);
+            phoneField.addEventListener('input', validatePhone);
+            dobField.addEventListener('input', validateDOB);
+            addressField.addEventListener('input', validateAddress);
+            passwordField.addEventListener('input', validatePassword);
+            policyCheckbox.addEventListener('change', validatePolicy);
 
-                // Validation functions
-                function validateName() {
-                    const name = nameField.value.trim();
-                    const nameError = document.getElementById('nameError');
-                    if (name.length < 3) {
-                        nameError.textContent = 'Name must be at least 3 characters long.';
-                    } else {
-                        nameError.textContent = '';
-                    }
+            // Validation functions
+            function validateName() {
+                const name = nameField.value.trim();
+                const nameError = document.getElementById('nameError');
+                if (name.length < 3) {
+                    nameError.textContent = 'Name must be at least 3 characters long.';
+                } else {
+                    nameError.textContent = '';
                 }
+            }
 
-                function validateEmail() {
-                    const email = emailField.value.trim();
-                    const emailError = document.getElementById('emailError');
-                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (!emailPattern.test(email)) {
-                        emailError.textContent = 'Please enter a valid email address.';
-                    } else {
-                        emailError.textContent = '';
-                    }
+            function validateEmail() {
+                const email = emailField.value.trim();
+                const emailError = document.getElementById('emailError');
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(email)) {
+                    emailError.textContent = 'Please enter a valid email address.';
+                } else {
+                    emailError.textContent = '';
                 }
+            }
 
-                function validatePhone() {
-                    const phone = phoneField.value.trim();
-                    const phoneError = document.getElementById('phoneError');
-                    if (phone.length !== 10 || !/^\d+$/.test(phone)) {
-                        phoneError.textContent = 'Phone number must be 10 digits long.';
-                    } else {
-                        phoneError.textContent = '';
-                    }
+            function validatePhone() {
+                const phone = phoneField.value.trim();
+                const phoneError = document.getElementById('phoneError');
+                if (phone.length !== 10 || !/^\d+$/.test(phone)) {
+                    phoneError.textContent = 'Phone number must be 10 digits long.';
+                } else {
+                    phoneError.textContent = '';
                 }
+            }
 
-                function validateDOB() {
-                    const dob = dobField.value.trim();
-                    const dobError = document.getElementById('dobError');
-                    const date = new Date(dob);
-                    const today = new Date();
-                    const age = today.getFullYear() - date.getFullYear();
-                    if (age < 18) {
-                        dobError.textContent = 'You must be at least 18 years old.';
-                    } else {
-                        dobError.textContent = '';
-                    }
+            function validateDOB() {
+                const dob = dobField.value.trim();
+                const dobError = document.getElementById('dobError');
+                const date = new Date(dob);
+                const today = new Date();
+                const age = today.getFullYear() - date.getFullYear();
+                if (age < 18) {
+                    dobError.textContent = 'You must be at least 18 years old.';
+                } else {
+                    dobError.textContent = '';
                 }
+            }
 
-                function validateAddress() {
-                    const address = addressField.value.trim();
-                    const addressError = document.getElementById('addressError');
-                    if (address.length < 5) {
-                        addressError.textContent = 'Address must be at least 5 characters long.';
-                    } else {
-                        addressError.textContent = '';
-                    }
+            function validateAddress() {
+                const address = addressField.value.trim();
+                const addressError = document.getElementById('addressError');
+                if (address.length < 5) {
+                    addressError.textContent = 'Address must be at least 5 characters long.';
+                } else {
+                    addressError.textContent = '';
                 }
+            }
 
-                function validatePassword() {
-                    const password = passwordField.value.trim();
-                    const passwordError = document.getElementById('passwordError');
-                    if (password.length < 6) {
-                        passwordError.textContent = 'Password must be at least 6 characters long.';
-                    } else {
-                        passwordError.textContent = '';
-                    }
+            function validatePassword() {
+                const password = passwordField.value.trim();
+                const passwordError = document.getElementById('passwordError');
+                if (password.length < 6) {
+                    passwordError.textContent = 'Password must be at least 6 characters long.';
+                } else {
+                    passwordError.textContent = '';
                 }
+            }
 
-                function validatePolicy() {
-                    const policyError = document.getElementById('policyError');
-                    if (!policyCheckbox.checked) {
-                        policyError.textContent = 'You must agree to the terms and conditions.';
-                    } else {
-                        policyError.textContent = '';
-                    }
-                }           
-            });
-        </script>
+            function validatePolicy() {
+                const policyError = document.getElementById('policyError');
+                if (!policyCheckbox.checked) {
+                    policyError.textContent = 'You must agree to the terms and conditions.';
+                } else {
+                    policyError.textContent = '';
+                }
+            }
+        });
+    </script>
 
     <!--====== Javascripts & Jquery ======-->
     <script src="js/jquery-3.2.1.min.js"></script>

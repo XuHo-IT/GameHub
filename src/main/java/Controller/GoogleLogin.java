@@ -132,7 +132,7 @@ public class GoogleLogin extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    private static final String CONNECTION_STRING = "mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub";
+    private static final String CONNECTION_STRING = "mongodb://localhost:27017";
     private static final String DATABASE_NAME = "GameHub";
     private static final String COLLECTION_NAME = "superadmin";
     public static String getToken(String code) throws ClientProtocolException, IOException {

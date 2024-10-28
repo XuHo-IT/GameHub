@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import utils.MongoDBConnectionManager1;
+import utils.MongoDBConnectionManager;
 
 public class ConfirmPostController extends HttpServlet {
 
@@ -23,7 +23,7 @@ public class ConfirmPostController extends HttpServlet {
         String postId = request.getParameter("postId");
 
         // Get the MongoDB database and collections
-        MongoClient mongoClient = MongoDBConnectionManager1.getLocalMongoClient();
+        MongoClient mongoClient = MongoDBConnectionManager.getLocalMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> postGameMemberCollection = database.getCollection("postGameMember");
         MongoCollection<Document> postGameCollection = database.getCollection("postGame");

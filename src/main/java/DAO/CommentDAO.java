@@ -6,7 +6,7 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Indexes;
 import org.bson.Document;
 import org.bson.types.ObjectId;
-import utils.MongoDBConnectionManager1;
+import utils.MongoDBConnectionManager;
 
 import java.time.LocalDateTime;
 
@@ -15,7 +15,7 @@ public class CommentDAO {
     private final MongoCollection<Document> commentCollection;
 
     public CommentDAO() {
-        MongoClient mongoClient = MongoDBConnectionManager1.getLocalMongoClient();
+        MongoClient mongoClient = MongoDBConnectionManager.getLocalMongoClient();
         this.database = mongoClient.getDatabase("GameHub");
         this.commentCollection = database.getCollection("comment"); // Retrieve collection from database
         createCommentIndexes();

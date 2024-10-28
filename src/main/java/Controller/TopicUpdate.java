@@ -1,12 +1,12 @@
 package Controller;
 
+import DAO.TopicDAO;
 import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Filters;
 import org.apache.commons.io.IOUtils;
 import org.bson.Document;
 import org.bson.types.ObjectId;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -50,28 +50,22 @@ public class TopicUpdate extends HttpServlet {
         }
 
         String userId = (String) session.getAttribute("adminId");
-        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
-        MongoDatabase database = mongoClient.getDatabase("GameHub");
-        MongoCollection<Document> collection = database.getCollection("topic");
+      
+        TopicDAO topicDAO = new TopicDAO();
 
         // Retrieve form data
         String topicTitle = request.getParameter("topicTitle");
         String topicContent = request.getParameter("topicContent");
         Part filePart = request.getPart("topicImage");
         String fileDataBase64 = null;
+
         if (filePart != null && filePart.getSize() > 0) {
             InputStream fileContent = filePart.getInputStream();
             byte[] fileDataBytes = IOUtils.toByteArray(fileContent);
             fileDataBase64 = Base64.getEncoder().encodeToString(fileDataBytes);
         }
 
-        Document updateFields = new Document("$set", new Document("Title", topicTitle)
-                .append("Description", topicContent));
-        if (fileDataBase64 != null) {
-            updateFields.get("$set", Document.class).append("ImageData", fileDataBase64);
-        }
-
-        collection.updateOne(Filters.eq("_id", new ObjectId(topicId)), updateFields);
+        topicDAO.updateTopic(topicId, topicTitle, topicContent, fileDataBase64);
         response.sendRedirect("ReadTopicMember?userId=" + userId);
     }
 

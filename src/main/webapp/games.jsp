@@ -56,7 +56,7 @@
                 <div class="row align-items-center">
                     <!-- Left side: Search Form (col-7) -->
                     <div class="col-8">
-                        <form action="SearchController" method="GET">
+                        <form action="ReadGameListController" method="GET">
                             <!-- Search Bar Row -->
                             <div class="row" style="align-items: center;">
                                 <!-- Keyword input for the search bar -->

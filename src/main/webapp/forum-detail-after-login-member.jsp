@@ -140,7 +140,7 @@
             System.out.println(userId + "1");
 
             // Connect to MongoDB
-            MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
+            MongoClient mongoClient = MongoDBConnectionManager1.getLocalMongoClient();
             MongoCollection<Document> topicsCollection = mongoClient.getDatabase("GameHub").getCollection("topic");
 
             // Find the topic by its ObjectId

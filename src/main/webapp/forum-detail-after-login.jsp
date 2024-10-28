@@ -101,11 +101,11 @@
                             </div>
                         </div>
                         <!-- Menu -->
-                        <ul class="main-menu primary-menu">
-                            <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                       <ul class="main-menu primary-menu">
+                            <li><a href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                             <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
-                            <li><a href="ReadGameHomeAdmin?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
                             <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                            <li><a href="ReadGameHomeAdmin?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -138,7 +138,7 @@
             String topicId = request.getParameter("topicId");
 
             // Connect to MongoDB
-            MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
+            MongoClient mongoClient = MongoDBConnectionManager1.getLocalMongoClient();
             MongoCollection<Document> topicsCollection = mongoClient.getDatabase("GameHub").getCollection("topic");
 
             // Find the topic by its ObjectId
@@ -335,7 +335,9 @@
                         <form action="AddCommentAdmin" method="POST">
                             <div class="comment-area hide" id="reply-area-<%= comment.getCommentId()%>">
                                 <textarea name="comment" placeholder="reply here ..." required></textarea>
-                                <input type="hidden" name="adminid" value="<%=request.getSession().getAttribute("adminId")%>">
+
+                                <!-- Các trường ẩn để truyền các giá trị cần thiết -->
+                                <input type="hidden" name="adminid" value="<%= request.getSession().getAttribute("adminId")%>">
                                 <input type="hidden" name="topicid" value="<%=request.getParameter("topicId")%>">            
                                 <input type="submit" value="submit">
                             </div>

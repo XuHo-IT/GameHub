@@ -1,19 +1,15 @@
 package Controller;
 
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Filters;
-import org.bson.Document;
-import org.bson.types.ObjectId;
+import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import javax.servlet.http.HttpSession;
-import utils.MongoDBConnectionManager1;
+
+import DAO.TopicDAO;
+import DAO.CommentDAO;
 
 public class TopicDeleteAdmin extends HttpServlet {
 
@@ -31,22 +27,25 @@ public class TopicDeleteAdmin extends HttpServlet {
 
     private void deleteTopic(HttpServletRequest request, HttpServletResponse response, String topicId)
             throws ServletException, IOException {
-
         // Check if the user is logged in
         HttpSession session = request.getSession(false);
-        String adminId = (String) session.getAttribute("adminId");
+        if (session == null) {
+            response.sendRedirect("ReadGameHomeController");
+            return;
+        }
 
-        // Get MongoDB database and collection
-        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
-        MongoDatabase database = mongoClient.getDatabase("GameHub");
-        MongoCollection<Document> collection1 = database.getCollection("topic");
-        MongoCollection<Document> collection2 = database.getCollection("comment");
+        String userId = (String) session.getAttribute("adminId");
+
+        // Get MongoDB database and create DAO
+
+        TopicDAO topicDAO = new TopicDAO();
+        CommentDAO commentDAO = new CommentDAO();
 
         // Delete the topic
-        collection1.deleteOne(Filters.eq("_id", new ObjectId(topicId)));
-        collection2.deleteMany(Filters.eq("TopicId", topicId));
+        topicDAO.deleteTopic(topicId);
+        commentDAO.deleteManyComment(topicId);
 
         // Redirect to the appropriate page after deletion
-        response.sendRedirect("ReadTopicAdmin?userId" + adminId);
+        response.sendRedirect("ReadTopicAdmin?userId=" + userId);
     }
 }

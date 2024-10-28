@@ -2,27 +2,19 @@ package Controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Base64;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-
 import org.apache.commons.io.IOUtils;
-import org.bson.Document;
-
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-
 import Model.GamePost;
-import java.util.ArrayList;
+import DAO.GamePostDAO;
+import Model.GamePostTemp;
 import java.util.List;
-import utils.MongoDBConnectionManager1;
 
 @MultipartConfig
 public class AddGameByMemberController extends HttpServlet {
@@ -37,56 +29,45 @@ public class AddGameByMemberController extends HttpServlet {
         String dateRelease = request.getParameter("DateRelease");
         String author = request.getParameter("Author");
         String genre = request.getParameter("Genre");
+        String linkGame = "";
         String price = "";
 
-        // Get admin ID
+        // Get member ID
         String memberId = (String) request.getSession().getAttribute("memberid");
 
         // Handle file upload
         Part filePart = request.getPart("file");
         String fileName = filePart.getSubmittedFileName();
-        InputStream fileContent = filePart.getInputStream();
-        byte[] fileDataBytes = IOUtils.toByteArray(fileContent);
-        String fileDataBase64 = Base64.getEncoder().encodeToString(fileDataBytes);
+        byte[] fileDataBytes;
 
-        Part linkGame = null;
+        // Convert file data to Base64
+        try (InputStream fileContent = filePart.getInputStream()) {
+            fileDataBytes = IOUtils.toByteArray(fileContent);
+        }
+        String fileDataBase64 = Base64.getEncoder().encodeToString(fileDataBytes);
 
         // Game action images
         List<String> actionImagesBase64 = new ArrayList<>();
         for (Part actionFilePart : request.getParts()) {
             if (actionFilePart.getName().equals("actionFiles")) {
-                InputStream actionFileContent = actionFilePart.getInputStream();
-                byte[] actionFileDataBytes = IOUtils.toByteArray(actionFileContent);
-                String actionFileDataBase64 = Base64.getEncoder().encodeToString(actionFileDataBytes);
-                actionImagesBase64.add(actionFileDataBase64);
+                try (InputStream actionFileContent = actionFilePart.getInputStream()) {
+                    byte[] actionFileDataBytes = IOUtils.toByteArray(actionFileContent);
+                    String actionFileDataBase64 = Base64.getEncoder().encodeToString(actionFileDataBytes);
+                    actionImagesBase64.add(actionFileDataBase64);
+                }
             }
         }
 
         // Create a GamePost object
-        GamePost gamePost = new GamePost(
+        GamePostTemp gamePost = new GamePostTemp(
                 null, title, gamePlay, description, dateRelease, author, genre,
-                memberId, fileName, fileDataBase64);
+                memberId, fileName, fileDataBase64,linkGame,price);
 
-        // Insert the game into MongoDB
-        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
-        MongoDatabase database = mongoClient.getDatabase("GameHub");
-        MongoCollection<Document> collection = database.getCollection("postGameMember");
-        Document postGame = new Document("Title", gamePost.getTitle())
-                .append("GamePlay", gamePost.getGamePlay())
-                .append("Description", gamePost.getDescription())
-                .append("DateRelease", gamePost.getDateRelease())
-                .append("Author", gamePost.getAuthor())
-                .append("Genre", gamePost.getGenre())
-                .append("MemberId", gamePost.getAdminId())
-                .append("FileName", gamePost.getFileName())
-                .append("FileData", fileDataBase64)
-                .append("Link of the game", linkGame)
-                .append("ActionImages", actionImagesBase64)
-                .append("Price", price);
-        collection.insertOne(postGame);
+        // Use GamePostDAO to insert the game
+        GamePostDAO gamePostDAO = new GamePostDAO();
+        gamePostDAO.addGamePost(gamePost, actionImagesBase64);
 
+        // Redirect after adding
         response.sendRedirect("ReadGameHomeMemberController?memberid=" + memberId);
-
     }
-
 }

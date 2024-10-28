@@ -1,9 +1,8 @@
 package Controller;
 
+import DAO.UserDAO;
 import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import org.bson.Document;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,17 +18,25 @@ public class UpdateUserRole extends HttpServlet {
         String userId = request.getParameter("userId");
         String newRole = request.getParameter("role");
 
-        // Get the MongoDB database and collection
-        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
-        MongoDatabase database = mongoClient.getDatabase("GameHub");
-        MongoCollection<Document> collection = database.getCollection("superadmin"); 
+        // Input validation
+        if (userId == null || userId.trim().isEmpty() || newRole == null || newRole.trim().isEmpty()) {
+            response.sendRedirect("chart/list-user.jsp?error=User ID and Role are required");
+            return;
+        }
+        UserDAO userDAO = new UserDAO();
 
-        // Update the user's role
-        Document query = new Document("_id", new org.bson.types.ObjectId(userId));
-        Document update = new Document("$set", new Document("Role", newRole));
-        collection.updateOne(query, update);
-
-        // Redirect back to the user management page with a success message
-        response.sendRedirect("chart/list-user.jsp?success=Role updated successfully");
+        try {
+            // Update the user's role
+            boolean isUpdated = userDAO.updateUserRole(userId, newRole);
+            if (isUpdated) {
+                // Redirect back to the user management page with a success message
+                response.sendRedirect("chart/list-user.jsp?success=Role updated successfully");
+            } else {
+                // Handle the case where the user was not found
+                response.sendRedirect("chart/list-user.jsp?error=User not found");
+            }
+        } catch (Exception e) {
+            response.sendRedirect("chart/list-user.jsp?error=Error updating role: " + e.getMessage());
+        }
     }
 }

@@ -1,9 +1,8 @@
 package Controller;
 
+import DAO.TopicDAO;
 import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Filters;
 import org.apache.commons.io.IOUtils;
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -52,10 +51,8 @@ public class TopicUpdateAdmin extends HttpServlet {
         }
 
         String userId = (String) session.getAttribute("adminId");
-
-        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
-        MongoDatabase database = mongoClient.getDatabase("GameHub");
-        MongoCollection<Document> collection = database.getCollection("topic");
+      
+        TopicDAO topicDAO = new TopicDAO();
 
         // Retrieve form data
         String topicTitle = request.getParameter("topicTitle");
@@ -69,20 +66,14 @@ public class TopicUpdateAdmin extends HttpServlet {
             fileDataBase64 = Base64.getEncoder().encodeToString(fileDataBytes);
         }
 
-        Document updateFields = new Document("$set", new Document("Title", topicTitle)
-                .append("Description", topicContent));
+        // Call the update method from the DAO
+        topicDAO.updateTopic(topicId, topicTitle, topicContent, fileDataBase64);
 
-        if (fileDataBase64 != null) {
-            updateFields.get("$set", Document.class).append("ImageData", fileDataBase64);
-        }
-
-        collection.updateOne(Filters.eq("_id", new ObjectId(topicId)), updateFields);
-
-        response.sendRedirect("ReadTopicAdmin?userId"+userId);
+        // Redirect to the topic reading page
+        response.sendRedirect("ReadTopicAdmin?userId=" + userId);
     }
 
     private boolean isValidObjectId(String id) {
         return id != null && id.length() == 24 && id.matches("[0-9a-fA-F]+");
     }
-
 }

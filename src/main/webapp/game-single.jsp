@@ -7,6 +7,8 @@
 <%@page import="com.mongodb.client.MongoClients"%>
 <%@page import="com.mongodb.client.MongoCollection"%>
 <%@page import="com.mongodb.client.MongoClient"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="zxx">
     <head>
@@ -101,27 +103,6 @@
                 <div class="row align-items-center">
                     <!-- Left side: Search Form (col-7) -->
                     <div class="col-8">
-                        <form action="SearchController" method="GET">
-                            <!-- Search Bar Row -->
-                            <div class="row" style="align-items: center;">
-                                <!-- Keyword input for the search bar -->
-                                <div class="col-2 d-flex align-items-end">
-                                    <button type="submit" class=" w-100" style="height: 52px;">Search</button>
-                                </div>
-
-                                <div class="col-10" style="text-align: center;padding-top: 33px ">
-                                    <input type="text" name="keyword" class="form-control" placeholder="Search by keyword..." aria-label="Search" style="height: 52px;">
-                                    <label for="genre" class="form-label" style="font-style: italic; font-weight: bold;">Genre:</label>
-                                    <select id="genre" name="genre" class="form-select" style="height: 34px; float: left; border: 2px solid #ccc; font-style: italic; padding: 5px; border-radius: 5px; font-family: 'Arial', sans-serif;">
-                                        <option value="">All Genres</option>
-                                        <!-- Dynamically populate genres from MongoDB -->
-                                        <c:forEach var="genre" items="${genres}">
-                                            <option value="${genre.genre}">${genre.genre}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                            </div>
-                        </form>
                     </div>
                     <!-- Right side: Social Media Icons (col-4) -->
                     <div class="col-4 header-social d-flex align-items-center justify-content-end">
@@ -147,8 +128,8 @@
 
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
-                            <li><a href="ReadGameHomeController">Home</a></li>
-                            <li><a href="ReadGameListController">Games</a></li>
+                            <li><a href="ReadGameHome">Home</a></li>
+                            <li><a href="ReadGameList">Games</a></li>
                             <li><a href="ReadTopic">Forum</a></li>
                             <li><a href="contact.jsp">Contact</a></li>
 
@@ -292,8 +273,8 @@
                     <img src="./img/logo.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
-                    <li><a href="ReadGameHomeController">Home</a></li>
-                    <li><a href="ReadGameListController">Games</a></li>
+                    <li><a href="ReadGameHome">Home</a></li>
+                    <li><a href="ReadGameList">Games</a></li>
                     <li><a href="ReadTopic">Forum</a></li>
                     <li><a href="contact.jsp">Contact</a></li>
                 </ul>

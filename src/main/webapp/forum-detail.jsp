@@ -1,5 +1,5 @@
+<%@page import="utils.MongoDBConnectionManager1"%>
 <%@page import="Model.CommentTemp"%>
-<%@page import="utils.MongoDBConnectionManager2"%>
 <%@page import="java.time.Period"%>
 <%@page import="java.time.Duration"%>
 <%@page import="java.time.ZoneId"%>
@@ -21,7 +21,7 @@
 <html lang="zxx">
 
     <head>
-        <title>EndGam - Gaming Magazine Template</title>
+        <title>EndGame - Gaming Magazine Template</title>
         <meta charset="UTF-8">
         <meta name="description" content="EndGam Gaming Magazine Template">
         <meta name="keywords" content="endGam,gGaming, magazine, html">
@@ -77,7 +77,7 @@
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
                     <div class="logo-fix">
-                        <a href="ReadGameHomeController" class="site-logo">
+                        <a href="ReadGameHome" class="site-logo">
                             <img src="./img/logo1.png" alt="" class="logo1">
                             <img src="./img/logo2.png" alt="" class="logo2">
                         </a>
@@ -89,8 +89,8 @@
 
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
-                            <li><a href="ReadGameHomeController">Home</a></li>
-                            <li><a href="ReadGameListController">Games</a></li>
+                            <li><a href="ReadGameHome">Home</a></li>
+                            <li><a href="ReadGameList">Games</a></li>
                             <li><a href="ReadTopic">Forum</a></li>
                             <li><a href="contact.jsp">Contact</a></li>
 
@@ -114,7 +114,7 @@
             String topicId = request.getParameter("topicId");
 
             // Connect to MongoDB
-            MongoClient mongoClient = MongoDBConnectionManager2.getMongoClient();
+            MongoClient mongoClient = MongoDBConnectionManager1.getLocalMongoClient();
             MongoCollection<Document> topicsCollection = mongoClient.getDatabase("GameHub").getCollection("topic");
 
             // Find the topic by its ObjectId
@@ -273,13 +273,13 @@
                 <div class="footer-right-pic">
                     <img src="img/footer-right-pic.png" alt="">
                 </div>
-                <a href="ReadGameHomeController" class="footer-logo">
+                <a href="ReadGameHome" class="footer-logo">
                     <img src="./img/logo1.png" alt="">
                     <img src="./img/logo2.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
-                    <li><a href="ReadGameHomeController">Home</a></li>
-                    <li><a href="ReadGameListController">Games</a></li>
+                    <li><a href="ReadGameHome">Home</a></li>
+                    <li><a href="ReadGameList">Games</a></li>
                     <li><a href="ReadTopic">Forum</a></li>
                     <li><a href="contact.jsp">Contact</a></li>
                 </ul>

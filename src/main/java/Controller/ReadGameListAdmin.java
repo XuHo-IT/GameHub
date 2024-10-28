@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
-public class ReadGameListAdminController extends HttpServlet {
+public class ReadGameListAdmin extends HttpServlet {
 
     private final GamePostDAO gamePostDAO = new GamePostDAO();
 

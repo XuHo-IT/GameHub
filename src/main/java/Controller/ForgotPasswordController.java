@@ -23,7 +23,7 @@ public class ForgotPasswordController extends HttpServlet {
         String email = request.getParameter("emailForgot");
 
         // Connect to the database and collection
-        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
+        MongoClient mongoClient = MongoDBConnectionManager1.getLocalMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("superadmin");
 

@@ -1,11 +1,8 @@
 package Controller;
 
+import DAO.TopicDAO;
 import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Filters;
-import org.bson.Document;
-import org.bson.types.ObjectId;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,17 +29,21 @@ public class TopicDelete extends HttpServlet {
             throws ServletException, IOException {
         // Check if the user is logged in
         HttpSession session = request.getSession(false);
-        String userId = (String) session.getAttribute("adminId");
+        if (session == null) {
+            response.sendRedirect("ReadGameHomeController"); 
+            return;
+        }
 
-        // Get MongoDB database and collection
-        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
-        MongoDatabase database = mongoClient.getDatabase("GameHub");
-        MongoCollection<Document> collection = database.getCollection("topic");
+        String userId = (String) session.getAttribute("adminId");
+        
+        // Get MongoDB database and create DAO
+     
+        TopicDAO topicDAO = new TopicDAO();
 
         // Delete the topic
-        collection.deleteOne(Filters.eq("_id", new ObjectId(topicId)));
+        topicDAO.deleteTopic(topicId);
 
         // Redirect to the appropriate page after deletion
-        response.sendRedirect("ReadTopicMember?userId" + userId);
+        response.sendRedirect("ReadTopicMember?userId=" + userId);
     }
 }

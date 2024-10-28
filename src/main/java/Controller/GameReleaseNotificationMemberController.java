@@ -38,7 +38,7 @@ public class GameReleaseNotificationMemberController extends HttpServlet {
             response.getWriter().write("Invalid email address");
             return;
         }
-           MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient(); 
+           MongoClient mongoClient = MongoDBConnectionManager1.getLocalMongoClient(); 
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("postGame");
 

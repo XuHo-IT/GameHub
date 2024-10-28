@@ -34,7 +34,7 @@ public class VNPayReturnServlet extends HttpServlet {
         String paymentStatus = request.getParameter("vnp_ResponseCode");
         
         if ("00".equals(paymentStatus)) {
-                MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();// Payment success code
+                MongoClient mongoClient = MongoDBConnectionManager1.getLocalMongoClient();// Payment success code
             MongoCollection<Document> collection = mongoClient.getDatabase("GameHub").getCollection("postGame");
 
             if (postId != null) {

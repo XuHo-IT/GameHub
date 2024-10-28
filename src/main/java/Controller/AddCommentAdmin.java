@@ -1,20 +1,16 @@
 package Controller;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
+import DAO.CommentDAO;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoDatabase;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.bson.Document;
-
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-
 import utils.MongoDBConnectionManager1;
+
+import java.io.IOException;
 
 public class AddCommentAdmin extends HttpServlet {
 
@@ -23,24 +19,23 @@ public class AddCommentAdmin extends HttpServlet {
             throws ServletException, IOException {
         // Retrieve the form parameters
         String comment = request.getParameter("comment");
-        String memberId = request.getParameter("memberId");
-        String topicId = request.getParameter("topicId");
+        String userId = request.getParameter("adminId");
+        String topicId = request.getParameter("topicid");
 
-        LocalDateTime currentDateTime = LocalDateTime.now();
+        // Validate input (optional)
+        if (comment == null || comment.trim().isEmpty()) {
+            response.sendRedirect("forum-detail-after-login-member.jsp?topicId=" + topicId + "&error=Comment cannot be empty");
+            return;
+        }
 
-        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
-        MongoDatabase database = mongoClient.getDatabase("GameHub");
-        MongoCollection<Document> collection = database.getCollection("comment");
+        // Get MongoDB client and initialize CommentDAO
+      
+        CommentDAO commentDAO = new CommentDAO();
 
-        Document comments = new Document("TopicId", topicId)
-                .append("UserId", memberId)
-                .append("Content", comment)
-                .append("Status", "unedited")
-                .append("Date", currentDateTime);
-        collection.insertOne(comments);
-        
-        
-        response.sendRedirect("ReadGameHomeMemberController?memberid=" + memberId);
+        // Add the comment
+        commentDAO.addComment(topicId, userId, comment);
+
+        // Redirect to the forum detail page
+        response.sendRedirect("forum-detail-after-login.jsp?topicId=" + topicId + "&adminid=" + userId);
     }
-
 }

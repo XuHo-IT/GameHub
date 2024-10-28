@@ -1,25 +1,21 @@
 package Controller;
 
+import DAO.GamePostDAO;
 import Model.GamePost;
+import Model.GamePostTemp;
 import Model.Genre;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Filters;
-import org.bson.Document;
-import org.bson.types.Binary;
-import org.bson.conversions.Bson;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import utils.MongoDBConnectionManager1;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchController extends HttpServlet {
 
@@ -27,74 +23,19 @@ public class SearchController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
-            MongoDatabase database = mongoClient.getDatabase("GameHub");
-            MongoCollection<Document> genreCollection = database.getCollection("Genre");
-            MongoCollection<Document> collection = database.getCollection("postGame");
-            List<Genre> genres = new ArrayList<>();
+        
+            GamePostDAO gamePostDAO = new GamePostDAO();
 
-            // Fetch genres from MongoDB only once
-            List<Document> genreDocuments = genreCollection.find().into(new ArrayList<>());
-            for (Document doc : genreDocuments) {
-                Genre genre = new Genre();
-                genre.setGenreId(doc.getObjectId("_id").toString());
-                genre.setGenre(doc.getString("Genre"));
-                genres.add(genre);
-            }
+            // Fetch genres from MongoDB
+            List<Genre> genres = gamePostDAO.getGenres();
             request.setAttribute("genres", genres);  // Store genres in request attributes
 
             // Retrieve search parameters
             String keyword = request.getParameter("keyword");
             String genre = request.getParameter("genre");
 
-            // Build a dynamic query using MongoDB filters
-            List<Bson> filters = new ArrayList<>();
-
-            // Check if the keyword is provided and create the keyword filter
-            if (keyword != null && !keyword.trim().isEmpty()) {
-                filters.add(Filters.or(Filters.regex("Title", ".*" + keyword + ".*", "i")));
-            }
-
-            // Check if a genre is provided and create the genre filter
-            if (genre != null && !genre.trim().isEmpty() && !genre.equals("All Genres")) {
-                filters.add(Filters.eq("Genre", genre));
-            }
-
-            // Create the final filter query
-            FindIterable<Document> posts;
-            if (filters.isEmpty()) {
-                posts = collection.find(); // Retrieve all posts if no filters
-            } else {
-                posts = collection.find(Filters.and(filters)); // Apply all filters
-            }
-
-            // Map each document to GamePost object
-            List<GamePost> postList = new ArrayList<>();
-            for (Document post : posts) {
-                Object fileData = post.get("FileData");
-                String fileDataBase64;
-                if (fileData instanceof Binary) {
-                    Binary fileDataBinary = (Binary) fileData;
-                    fileDataBase64 = Base64.getEncoder().encodeToString(fileDataBinary.getData());
-                } else if (fileData instanceof String) {
-                    fileDataBase64 = (String) fileData;
-                } else {
-                    fileDataBase64 = null;
-                }
-                GamePost gamePost = new GamePost(
-                        post.getObjectId("_id").toString(),
-                        post.getString("Title"),
-                        post.getString("GamePlay"),
-                        post.getString("Description"),
-                        post.getString("DateRelease"),
-                        post.getString("Author"),
-                        post.getString("Genre"),
-                        post.getString("AdminId"),
-                        post.getString("FileName"),
-                        fileDataBase64
-                );
-                postList.add(gamePost);
-            }
+            // Search for posts
+            List<GamePostTemp> postList = gamePostDAO.searchPosts(keyword, genre);
 
             // Pagination logic
             int itemsPerPage = 9;
@@ -108,7 +49,7 @@ public class SearchController extends HttpServlet {
             int startIndex = (currentPage - 1) * itemsPerPage;
             int endIndex = Math.min(startIndex + itemsPerPage, totalItems);
             // Sublist for current page
-            List<GamePost> postsForCurrentPage = postList.subList(startIndex, endIndex);
+            List<GamePostTemp> postsForCurrentPage = postList.subList(startIndex, endIndex);
 
             // Set attributes for JSP
             request.setAttribute("posts", postsForCurrentPage);
@@ -116,7 +57,6 @@ public class SearchController extends HttpServlet {
             request.setAttribute("currentPage", currentPage);
             request.setAttribute("keyword", keyword);
             request.setAttribute("genre", genre);
-            request.setAttribute("genres", genres);  // Pass genres to the JSP
             request.setAttribute("postList", postList);
             
             String userId = (String) request.getSession().getAttribute("userId");

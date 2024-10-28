@@ -23,14 +23,8 @@ public class AddToWishlistController extends HttpServlet {
 
         // Retrieve game title from MongoDB
         String gameTitle = getGameTitleFromMongo(postId);
-
-        // Use the GameReleaseNotificationAdminController to send the confirmation email
-//        GameReleaseNotificationAdminController notificationController = 
-//                new GameReleaseNotificationAdminController(mongoClient);
-//        notificationController.sendWishlistConfirmationEmail(userEmail, gameTitle, postId);
-
-        // Redirect to game-single.jsp with the updated wishlist status
-        response.sendRedirect("game-single.jsp?wishlistAdded=true");
+        
+        response.sendRedirect("game-single.jsp?id=" + postId + "&wishlistAdded=true");
     }
 
     private String getGameTitleFromMongo(String postId) {

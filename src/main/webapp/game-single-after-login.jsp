@@ -66,11 +66,12 @@
             String fileData = null;
             String linkGame = null;
             String price = null;
+            String fileName = null;
             String adminId = request.getParameter("adminId");
             List<String> actionImages = null;
 
             // Connect to MongoDB
-            MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
+            MongoClient mongoClient = MongoDBConnectionManager1.getLocalMongoClient();
             MongoCollection<Document> postsCollection = mongoClient.getDatabase("GameHub").getCollection("postGame");
 
             // Get the post ID from the URL query parameter
@@ -91,7 +92,9 @@
                 dateRelease = post.getString("DateRelease"); // Ensure correct case
                 fileData = post.getString("FileData");
                 linkGame = post.getString("LinkGame");
-                price = post.getString("Price"); // Ensure correct case
+                fileName = post.getString("FileName");
+                price = post.getString("Price");
+                adminId = post.getString("AdminId");// Ensure correct case
 
             } else {
                 out.println("Post not found.");
@@ -141,10 +144,10 @@
 
 
                         <ul class="main-menu primary-menu">
-                            <li><a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                            <li><a href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                             <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
+                            <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                             <li><a href="ReadGameHomeAdmin?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
-                            <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>                                        
                         </ul>
                     </nav>
                 </div>
@@ -174,95 +177,107 @@
             <div class="container">
                 <div class="game-single-preview">
                     <img src="data:image/jpeg;base64,<%= fileData != null ? fileData : ""%>" alt="Game Image" />
-                </dv>
+                    </dv>
 
-                <div class="row">
-                    <div class="col-xl-9 col-lg-8 col-md-7 game-single-content">
-                        <!-- Button to submit the form -->
-                        <form action="EditPostController" method="POST">
-                            <div class="gs-meta">
-                                <h3 style="color: white">Release Date</h3>
-                                <input type="date" name="dateRelease" style="font-size: 20px; height: 50px" value="<%= dateRelease != null ? dateRelease : "Unknown Date"%>" class="form-control">
-                            </div>
+                    <div class="row">
+                        <div class="col-xl-9 col-lg-8 col-md-7 game-single-content">
+                            <!-- Button to submit the form -->
+                            <form action="EditPostController" method="POST" enctype="multipart/form-data">
 
-                            <h2 class="gs-title">
-                                <h3 style="color: white">Title</h3>
-                                <input type="text" name="title" style="font-size: 20px; height: 50px" value="<%= title != null ? title : "Untitled"%>" class="form-control">
-                            </h2>
-                            <div class="gs-description">
-                                <h3 style="color: white">Description</h3>
-                                <textarea name="description" style="font-size: 20px; height: 200px" class="form-control"><%= description != null ? description : "No description available"%></textarea>
-                            </div>
-                            <div class="gs-gameplay">
-                                <h3 style="color: white">Game Play</h3>
-                                <textarea name="gamePlay" style="font-size: 20px; height: 200px" class="form-control"><%= gamePlay != null ? gamePlay : "No gamePlay available"%></textarea>
-                            </div>
-                            <div class="gs-gameplay">
-                                <h3 style="color: white">Genre</h3>
-                                <textarea name="gamePlay" style="font-size: 20px; height: 50px" class="form-control"><%= genre != null ? genre : "No genre available"%></textarea>
-                            </div>
-                            <div class="gs-auhtor-genre">
-                                <div class="left-author">
-                                    <h3 style="color: white">Publisher</h3>
-                                    <input type="text" name="author" style="font-size: 20px; height: 50px" value="<%= author != null ? author : "No Author available"%>" class="form-control">
+                                <div class="gs-meta">
+                                    <h3 style="color: white">Release Date</h3>
+                                    <input type="date" name="dateRelease" style="font-size: 20px; height: 50px" value="<%= dateRelease != null ? dateRelease : "Unknown Date"%>" class="form-control">
                                 </div>
-                            </div>
-                            <div class="gs-gameplay">
-                                <h3 style="color: white">Link of the game</h3>
-                                <textarea name="Link" style="font-size: 20px; height: 50px" class="form-control"><%= linkGame != null ? linkGame : "No linkGame available"%></textarea>
-                            </div> <div class="gs-gameplay">
-                                <h3 style="color: white">Price</h3>
-                                <textarea name="Price" style="font-size: 20px; height: 50px" class="form-control"><%= price != null ? price : "No price available"%></textarea>
-                            </div>
-                            <input type="hidden" name="postId" value="<%= postId%>">
-                            <button class="edit-btn" type="submit" name="action" value="edit" style="background-color:#4CAF50;">Edit</button>
-                        </form>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">
-                        <div id="stickySidebar">
-                            <div class="widget-item">
-                                <div class="testimonials-widget">
-                                    <h4 class="widget-title">Testimonials</h4>
-                                    <div class="testim-text">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                        <h6><span>James Smith,</span>Gamer</h6>
+
+                                <h2 class="gs-title">
+                                    <h3 style="color: white">Title</h3>
+                                    <input type="text" name="title" style="font-size: 20px; height: 50px" value="<%= title != null ? title : "Untitled"%>" class="form-control">
+                                </h2>
+                                <div class="gs-description">
+                                    <h3 style="color: white">Description</h3>
+                                    <textarea name="description" style="font-size: 20px; height: 200px" class="form-control"><%= description != null ? description : "No description available"%></textarea>
+                                </div>
+                                <div class="gs-gameplay">
+                                    <h3 style="color: white">Game Play</h3>
+                                    <textarea name="gamePlay" style="font-size: 20px; height: 200px" class="form-control"><%= gamePlay != null ? gamePlay : "No gamePlay available"%></textarea>
+                                </div>
+                                <div class="gs-gameplay">
+                                    <h3 style="color: white">Genre</h3>
+                                    <textarea name="gamePlay" style="font-size: 20px; height: 50px" class="form-control"><%= genre != null ? genre : "No genre available"%></textarea>
+                                </div>
+                                <div class="gs-auhtor-genre">
+                                    <div class="left-author">
+                                        <h3 style="color: white">Publisher</h3>
+                                        <input type="text" name="author" style="font-size: 20px; height: 50px" value="<%= author != null ? author : "No Author available"%>" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="gs-gameplay">
+                                    <h3 style="color: white">Link of the game</h3>
+                                    <textarea name="Link" style="font-size: 20px; height: 50px" class="form-control"><%= linkGame != null ? linkGame : "No linkGame available"%></textarea>
+                                </div> <div class="gs-gameplay">
+                                    <h3 style="color: white">Price</h3>
+                                    <textarea name="Price" style="font-size: 20px; height: 50px" class="form-control"><%= price != null ? price : "No price available"%></textarea>
+                                </div>
+                                <div class="gs-gameplay" style="display:none">
+                                    <h3 style="color: white">AdminId</h3>
+                                    <textarea name="adminId" style="font-size: 20px; height: 50px" class="form-control"><%= price != null ? price : "No price available"%></textarea>
+                                </div> <div class="gs-gameplay"  style="display:none">
+                                    <h3 style="color: white">FileName</h3>
+                                    <textarea name="fileName" style="font-size: 20px; height: 50px" class="form-control"><%= price != null ? price : "No price available"%></textarea>
+                                </div>
+                                <div class="gs-gameplay">
+                                    <h3 style="color: white">Upload New Image</h3>
+                                    <input type="file" name="fileData" accept="image/*" class="form-control">
+                                </div>
+                                <input type="hidden" name="postId" value="<%= postId%>">
+                                <button class="edit-btn" type="submit" name="action" value="edit" style="background-color:#4CAF50;">Edit</button>
+                            </form>
+                        </div>
+                        <div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">
+                            <div id="stickySidebar">
+                                <div class="widget-item">
+                                    <div class="testimonials-widget">
+                                        <h4 class="widget-title">Testimonials</h4>
+                                        <div class="testim-text">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                            <h6><span>James Smith,</span>Gamer</h6>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Action Images Carousel -->
-                <div id="actionImagesCarousel" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        <%
-                            if (actionImages != null && !actionImages.isEmpty()) {
-                                for (int i = 0; i < actionImages.size(); i++) {
-                                    String imageBase64 = actionImages.get(i);
-                        %>
-                        <div class="carousel-item <%= (i == 0) ? "active" : ""%>">
-                            <img src="data:image/jpeg;base64,<%= imageBase64%>" class="d-block w-100" alt="Game Action Image <%= i + 1%>">
+                    <!-- Action Images Carousel -->
+                    <div id="actionImagesCarousel" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <%
+                                if (actionImages != null && !actionImages.isEmpty()) {
+                                    for (int i = 0; i < actionImages.size(); i++) {
+                                        String imageBase64 = actionImages.get(i);
+                            %>
+                            <div class="carousel-item <%= (i == 0) ? "active" : ""%>">
+                                <img src="data:image/jpeg;base64,<%= imageBase64%>" class="d-block w-100" alt="Game Action Image <%= i + 1%>">
+                            </div>
+                            <%
+                                }
+                            } else {
+                            %>
+                            <div class="carousel-item active">
+                                <p>No action images available.</p>
+                            </div>
+                            <% }%>
                         </div>
-                        <%
-                            }
-                        } else {
-                        %>
-                        <div class="carousel-item active">
-                            <p>No action images available.</p>
-                        </div>
-                        <% }%>
+                        <a class="carousel-control-prev" href="#actionImagesCarousel" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#actionImagesCarousel" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
                     </div>
-                    <a class="carousel-control-prev" href="#actionImagesCarousel" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#actionImagesCarousel" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
                 </div>
-            </div>
         </section>
         <!-- Games end-->
 

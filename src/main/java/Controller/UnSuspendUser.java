@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import DAO.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -23,25 +24,21 @@ import mongodb.MongoConectUser;
 @WebServlet(name = "UnSuspendUser", urlPatterns = {"/UnSuspendUser"})
 public class UnSuspendUser extends HttpServlet {
 
-    private MongoConectUser mgcn;
-
-    @Override
-    public void init() throws ServletException {
-        mgcn = new MongoConectUser();
-    }
+ 
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId = request.getParameter("id");
 
-        // Call the unsuspendUser method
-        boolean isUnsuspended = mgcn.unsuspendUser(userId);
+        String adminId = request.getParameter("adminId");
+         UserDAO userDAO = new UserDAO();
+        boolean isUnsuspended = userDAO.unsuspendUser(userId); 
 
         if (isUnsuspended) {
 
-            response.sendRedirect("chart/list-user.jsp?success=User unsuspended successfully");
+            response.sendRedirect("chart/list-user.jsp?success=User unsuspended successfully?adminid="+adminId);
         } else {
-            response.sendRedirect("chart/list-user.jsp?error=Failed to unsuspend user");
+            response.sendRedirect("chart/list-user.jsp?error=Failed to unsuspend user?adminid="+adminId);
 
         }
     }

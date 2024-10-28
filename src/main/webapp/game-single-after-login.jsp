@@ -135,7 +135,7 @@
                                     <ul>
                                         <li><a href="user-profile.jsp?id=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
                                         <li>
-                                            <a href="LogOutController" class="dropdown-item">Logout</a>
+                                            <a href="LogOut" class="dropdown-item">Logout</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -311,7 +311,7 @@
                 <div class="footer-right-pic">
                     <img src="img/spider-removebg-preview.png" alt="">
                 </div>
-                <a href="#" class="footer-logo">
+                <a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>" class="footer-logo">
                     <img src="./img/logo.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">

@@ -9,7 +9,7 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Indexes;
 import org.bson.Document;
 import org.bson.types.ObjectId;
-import utils.MongoDBConnectionManager1;
+import utils.MongoDBConnectionManager;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,7 +23,7 @@ public class UserDAO {
     private final MongoDatabase database;
 
     public UserDAO() {
-        MongoClient mongoClient = MongoDBConnectionManager1.getLocalMongoClient();
+        MongoClient mongoClient = MongoDBConnectionManager.getLocalMongoClient();
         this.database = mongoClient.getDatabase("GameHub"); // Initialize the database
         this.collection = database.getCollection("superadmin");
         createUserIndexes();

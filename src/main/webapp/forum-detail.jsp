@@ -1,3 +1,4 @@
+<%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="Model.CommentTemp"%>
 <%@page import="utils.MongoDBConnectionManager2"%>
 <%@page import="java.time.Period"%>
@@ -164,7 +165,6 @@
             }
         %>
 
-
         <section class="blog-section spad">
             <div class="container" style="
                  margin: 0 auto;
@@ -205,46 +205,52 @@
                                 <img src="<%= (comment.getPhotoUrl() == null || comment.getPhotoUrl().isEmpty()) ? "./img/t-rex.png" : comment.getPhotoUrl()%>" alt="Photo User">
                                 <div class="username"><a href=""><%= comment.getUserName()%></a></div>
                                 <div class="date-comment">
-                                    <%// Chuyển Date thành LocalDateTime
+                                    <%
                                         Date pastDate = comment.getDate();
                                         LocalDateTime pastDateTime = pastDate.toInstant().atZone(ZoneId.of("UTC")).toLocalDateTime();
+                                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+                                        String originalTime = pastDateTime.format(formatter);
 
-                                        // Lấy thời gian hiện tại (LocalDateTime)
                                         LocalDateTime now = LocalDateTime.now();
 
-                                        // Tính khoảng cách thời gian giữa hai thời điểm
                                         Duration duration = Duration.between(pastDateTime, now);
                                         Period period = Period.between(pastDateTime.toLocalDate(), now.toLocalDate());
 
-                                        // Điều kiện 1: Nếu nhỏ hơn 1 giờ -> Hiện n phút trước
                                         if (duration.toMinutes() < 60) {
                                     %>
-                                    <b><%= duration.toMinutes()%>m ago<%=comment.getStatus()%></b>
+                                    <b>
+                                        <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= duration.toMinutes()%>m ago <%= comment.getStatus()%>
+                                    </b>
                                     <%
-                                    } // Điều kiện 2: Nếu nhỏ hơn 1 ngày -> Hiện n giờ trước
-                                    else if (duration.toHours() < 24) {
+                                    } else if (duration.toHours() < 24) {
                                     %>
-                                    <b><%= duration.toHours()%>H ago<%=comment.getStatus()%></b>
+                                    <b>
+                                        <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= duration.toHours()%>H ago <%= comment.getStatus()%>
+                                    </b>
                                     <%
-                                    } // Điều kiện 3: Nếu nhỏ hơn 1 tuần -> Hiện n ngày trước
-                                    else if (duration.toDays() < 7) {
+                                    } else if (duration.toDays() < 7) {
                                     %>
-                                    <b><%= duration.toDays()%>D ago<%=comment.getStatus()%></b>
+                                    <b>
+                                        <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= duration.toDays()%>D ago <%= comment.getStatus()%>
+                                    </b>
                                     <%
-                                    } // Điều kiện 4: Nếu nhỏ hơn 4 tuần -> Hiện n tuần trước
-                                    else if (duration.toDays() < 28) {
+                                    } else if (duration.toDays() < 28) {
                                     %>
-                                    <b><%= duration.toDays() / 7%>W ago<%=comment.getStatus()%></b>
+                                    <b>
+                                        <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= duration.toDays() / 7%>W ago <%= comment.getStatus()%>
+                                    </b>
                                     <%
-                                    } // Điều kiện 5: Nếu lớn hơn 4 tuần nhưng nhỏ hơn 1 năm -> Hiện n tháng trước
-                                    else if (period.toTotalMonths() < 12) {
+                                    } else if (period.toTotalMonths() < 12) {
                                     %>
-                                    <b><%= period.toTotalMonths()%>M ago<%=comment.getStatus()%></b>
+                                    <b>
+                                        <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= period.toTotalMonths()%>M ago <%= comment.getStatus()%>
+                                    </b>
                                     <%
-                                    } // Điều kiện 6: Nếu lớn hơn 1 năm -> Hiện n năm trước
-                                    else {
+                                    } else {
                                     %>
-                                    <b><%= period.getYears()%>Y ago<%=comment.getStatus()%></b>
+                                    <b>
+                                        <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= period.getYears()%>Y ago <%= comment.getStatus()%>
+                                    </b>
                                     <%
                                         }
                                     %>

@@ -133,7 +133,7 @@
                                 <h4>
                                     <a href="forum-detail.jsp?topicId=${topic.topicId}">
                                         <c:choose>
-                                            <c:when test="${fn:length(topic.title) >= 65}">
+                                            <c:when test="${fn:length(topic.title) >= 64}">
                                                 ${fn:substring(topic.title, 0, 65)}...
                                             </c:when>
                                             <c:otherwise>
@@ -159,7 +159,7 @@
                             <div class="subforum-info subforum-column">
                                 <b>Post by</b> <a href="#" style="font-size: 15px">${topic.userName}</a><br>
                                 <b>On</b> <a style="font-family: 'Courier', 'Courier New', monospace;">
-                                    <fmt:formatDate value="${topic.date}" pattern="MM:hh a dd-MM-yyyy"/>
+                                    <fmt:formatDate value="${topic.date}" pattern="hh:mm a dd-MM-yyyy"/>
                                 </a>
                             </div>
                         </div>

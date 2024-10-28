@@ -19,7 +19,7 @@ public class AddCommentAdmin extends HttpServlet {
             throws ServletException, IOException {
         // Retrieve the form parameters
         String comment = request.getParameter("comment");
-        String userId = request.getParameter("adminId");
+        String userId = request.getParameter("adminid");
         String topicId = request.getParameter("topicid");
 
         // Validate input (optional)

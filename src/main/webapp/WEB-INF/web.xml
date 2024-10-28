@@ -17,10 +17,6 @@
         <servlet-class>Controller.ReadGameHomeController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ReadGameListController</servlet-name>
-        <servlet-class>Controller.ReadGameListController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ShowAllGameController</servlet-name>
         <servlet-class>Controller.ShowAllGameController</servlet-class>
     </servlet>
@@ -31,10 +27,6 @@
     <servlet>
         <servlet-name>UploadPhotoController</servlet-name>
         <servlet-class>Controller.UploadPhotoController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ReadGameHomeMemberController</servlet-name>
-        <servlet-class>Controller.ReadGameHomeMemberController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ReadGameUploadOfMemberController</servlet-name>
@@ -51,14 +43,6 @@
     <servlet>
         <servlet-name>LogOutController</servlet-name>
         <servlet-class>Controller.LogOutController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ReadGameListAdminController</servlet-name>
-        <servlet-class>Controller.ReadGameListAdminController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ReadGameListMemberController</servlet-name>
-        <servlet-class>Controller.ReadGameListMemberController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EditPostController</servlet-name>
@@ -119,10 +103,6 @@
     <servlet>
         <servlet-name>AddCommentAdminController</servlet-name>
         <servlet-class>Controller.AddCommentAdminController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>SearchController</servlet-name>
-        <servlet-class>Controller.SearchController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateCommentController</servlet-name>
@@ -228,6 +208,38 @@
         <servlet-name>UpdateCommentAdmin</servlet-name>
         <servlet-class>Controller.UpdateCommentAdmin</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReadGameListAdmin</servlet-name>
+        <servlet-class>Controller.ReadGameListAdmin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReadGameList</servlet-name>
+        <servlet-class>Controller.ReadGameList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReadGameListMember</servlet-name>
+        <servlet-class>Controller.ReadGameListMember</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReadGameHome</servlet-name>
+        <servlet-class>Controller.ReadGameHome</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReadGameHomeMember</servlet-name>
+        <servlet-class>Controller.ReadGameHomeMember</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Search</servlet-name>
+        <servlet-class>Controller.Search</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchAdmin</servlet-name>
+        <servlet-class>Controller.SearchAdmin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchMember</servlet-name>
+        <servlet-class>Controller.SearchMember</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -245,10 +257,6 @@
         <url-pattern>/ReadGameHomeController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ReadGameListController</servlet-name>
-        <url-pattern>/ReadGameListController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ShowAllGameController</servlet-name>
         <url-pattern>/ShowAllGameController</url-pattern>
     </servlet-mapping>
@@ -259,10 +267,6 @@
     <servlet-mapping>
         <servlet-name>UploadPhotoController</servlet-name>
         <url-pattern>/UploadPhotoController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ReadGameHomeMemberController</servlet-name>
-        <url-pattern>/ReadGameHomeMemberController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ReadGameUploadOfMemberController</servlet-name>
@@ -279,14 +283,6 @@
     <servlet-mapping>
         <servlet-name>LogOutController</servlet-name>
         <url-pattern>/LogOutController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ReadGameListAdminController</servlet-name>
-        <url-pattern>/ReadGameListAdminController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ReadGameListMemberController</servlet-name>
-        <url-pattern>/ReadGameListMemberController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditPostController</servlet-name>
@@ -351,10 +347,6 @@
     <servlet-mapping>
         <servlet-name>AddCommentAdminController</servlet-name>
         <url-pattern>/AddCommentAdminController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SearchController</servlet-name>
-        <url-pattern>/SearchController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EmailSend</servlet-name>
@@ -455,6 +447,38 @@
     <servlet-mapping>
         <servlet-name>UpdateCommentAdmin</servlet-name>
         <url-pattern>/UpdateCommentAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReadGameListAdmin</servlet-name>
+        <url-pattern>/ReadGameListAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReadGameList</servlet-name>
+        <url-pattern>/ReadGameList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReadGameListMember</servlet-name>
+        <url-pattern>/ReadGameListMember</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReadGameHome</servlet-name>
+        <url-pattern>/ReadGameHome</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReadGameHomeMember</servlet-name>
+        <url-pattern>/ReadGameHomeMember</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Search</servlet-name>
+        <url-pattern>/Search</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchAdmin</servlet-name>
+        <url-pattern>/SearchAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchMember</servlet-name>
+        <url-pattern>/SearchMember</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>ReadGameHomeController</welcome-file>

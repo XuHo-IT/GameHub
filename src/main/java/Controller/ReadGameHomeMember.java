@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Controller for handling game post retrieval for members, as well as logout functionality.
  */
-public class ReadGameHomeMemberController extends HttpServlet {
+public class ReadGameHomeMember extends HttpServlet {
 
     private final GamePostDAO gamePostDAO = new GamePostDAO();
 

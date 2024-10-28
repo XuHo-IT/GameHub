@@ -1,5 +1,5 @@
 // ReadGameHomeController.java
-package controller;
+package Controller;
 
 import DAO.GamePostDAO;
 import Model.GamePost;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class ReadGameHomeController extends HttpServlet {
+public class ReadGameHome extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

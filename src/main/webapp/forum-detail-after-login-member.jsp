@@ -1,3 +1,4 @@
+<%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="Model.CommentTemp"%>
 <%@page import="utils.MongoDBConnectionManager1"%>
 <%@page import="java.time.Period"%>
@@ -77,7 +78,7 @@
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
                     <div class="logo-fix">
-                        <a href="ReadGameHomeController" class="site-logo">
+                        <a href="ReadGameHomeMember?userId=<%= request.getSession().getAttribute("adminId")%>" class="site-logo">
                             <img src="./img/logo1.png" alt="" class="logo1">
                             <img src="./img/logo2.png" alt="" class="logo2">
                         </a>
@@ -102,10 +103,10 @@
 
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
-                            <li><a href="ReadGameHomeMemberController">Home</a></li>
-                            <li><a href="ReadGameListMemberController">Games</a></li>
-                            <li><a href="ReadTopicMember">Forum</a></li>
-                            <li><a href="contact-after-login-member.jsp">Contact</a></li>
+                            <li><a href="ReadGameHomeMember?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                            <li><a href="ReadGameListMember?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
+                            <li><a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                            <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -116,7 +117,7 @@
             <div class="page-info">
                 <h2>Forum</h2>
                 <div class="site-breadcrumb">
-                    <a href="ReadGameHomeMemberController">Home</a>  /
+                    <a href="ReadGameHomeMember?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a>  /
                     <span>Forum</span>
                 </div>
             </div>
@@ -200,8 +201,6 @@
                     comments.add(comment);
                 }
                 Collections.reverse(comments);
-            } else {
-                out.println("Post not found.");
             }
         %>
 
@@ -261,6 +260,9 @@
                                         <%
                                             Date pastDate = comment.getDate();
                                             LocalDateTime pastDateTime = pastDate.toInstant().atZone(ZoneId.of("UTC")).toLocalDateTime();
+                                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+                                            String originalTime = pastDateTime.format(formatter);
+
                                             LocalDateTime now = LocalDateTime.now();
 
                                             Duration duration = Duration.between(pastDateTime, now);
@@ -268,32 +270,39 @@
 
                                             if (duration.toMinutes() < 60) {
                                         %>
-                                        <b><%= duration.toMinutes()%>m ago<%=comment.getStatus()%></b>
+                                        <b>
+                                            <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= duration.toMinutes()%>m ago <%= comment.getStatus()%>
+                                        </b>
                                         <%
-                                        } 
-                                        else if (duration.toHours() < 24) {
+                                        } else if (duration.toHours() < 24) {
                                         %>
-                                        <b><%= duration.toHours()%>H ago<%=comment.getStatus()%></b>
+                                        <b>
+                                            <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= duration.toHours()%>H ago <%= comment.getStatus()%>
+                                        </b>
                                         <%
-                                        } 
-                                        else if (duration.toDays() < 7) {
+                                        } else if (duration.toDays() < 7) {
                                         %>
-                                        <b><%= duration.toDays()%>D ago<%=comment.getStatus()%></b>
+                                        <b>
+                                            <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= duration.toDays()%>D ago <%= comment.getStatus()%>
+                                        </b>
                                         <%
-                                        } 
-                                        else if (duration.toDays() < 28) {
+                                        } else if (duration.toDays() < 28) {
                                         %>
-                                        <b><%= duration.toDays() / 7%>W ago<%=comment.getStatus()%></b>
+                                        <b>
+                                            <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= duration.toDays() / 7%>W ago <%= comment.getStatus()%>
+                                        </b>
                                         <%
-                                        } 
-                                        else if (period.toTotalMonths() < 12) {
+                                        } else if (period.toTotalMonths() < 12) {
                                         %>
-                                        <b><%= period.toTotalMonths()%>M ago<%=comment.getStatus()%></b>
+                                        <b>
+                                            <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= period.toTotalMonths()%>M ago <%= comment.getStatus()%>
+                                        </b>
                                         <%
-                                        } 
-                                        else {
+                                        } else {
                                         %>
-                                        <b><%= period.getYears()%>Y ago<%=comment.getStatus()%></b>
+                                        <b>
+                                            <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= period.getYears()%>Y ago <%= comment.getStatus()%>
+                                        </b>
                                         <%
                                             }
                                         %>
@@ -366,13 +375,13 @@
                 <div class="footer-right-pic">
                     <img src="img/footer-right-pic.png" alt="">
                 </div>
-                <a href="ReadGameHomeController" class="footer-logo">
+                <a href="ReadGameHomeMember?userId=<%= request.getSession().getAttribute("adminId")%>" class="footer-logo">
                     <img src="./img/logo1.png" alt="">
                     <img src="./img/logo2.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
-                    <li><a href="ReadGameHomeMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                    <li><a href="ReadGameListMemberController?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
+                    <li><a href="ReadGameHomeMember?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                    <li><a href="ReadGameListMember?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
                     <li><a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                     <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                 </ul>

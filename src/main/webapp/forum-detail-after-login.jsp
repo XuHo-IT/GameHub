@@ -1,3 +1,4 @@
+<%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="Model.CommentTemp"%>
 <%@page import="utils.MongoDBConnectionManager1"%>
 <%@page import="java.time.Period"%>
@@ -29,7 +30,7 @@
         <link href="img/favicon.ico" rel="shortcut icon" />
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
         <!-- Stylesheets -->
         <link rel="stylesheet" href="css/bootstrap.min.css" />
@@ -77,7 +78,7 @@
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
                     <div class="logo-fix">
-                        <a href="ReadGameHomeController" class="site-logo">
+                        <a href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>"class="site-logo">
                             <img src="./img/logo1.png" alt="" class="logo1">
                             <img src="./img/logo2.png" alt="" class="logo2">
                         </a>
@@ -102,7 +103,7 @@
                         <!-- Menu -->
                        <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                            <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
+                            <li><a href="ReadGameListAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
                             <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                             <li><a href="ReadGameHomeAdmin?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
                         </ul>
@@ -115,7 +116,7 @@
             <div class="page-info">
                 <h2>Forum</h2>
                 <div class="site-breadcrumb">
-                    <a href="ReadGameHomeAdminController">Home</a>  /
+                    <a href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a>  /
                     <span>Forum</span>
                 </div>
             </div>
@@ -187,8 +188,6 @@
                     comments.add(comment);
                 }
                 Collections.reverse(comments);
-            } else {
-                out.println("Post not found.");
             }
         %>
         <section class="blog-section spad">
@@ -247,6 +246,8 @@
                                         <%
                                             Date pastDate = comment.getDate();
                                             LocalDateTime pastDateTime = pastDate.toInstant().atZone(ZoneId.of("UTC")).toLocalDateTime();
+                                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+                                            String originalTime = pastDateTime.format(formatter);
 
                                             LocalDateTime now = LocalDateTime.now();
 
@@ -255,27 +256,39 @@
 
                                             if (duration.toMinutes() < 60) {
                                         %>
-                                        <b><%= duration.toMinutes()%>m ago<%=comment.getStatus()%></b>
+                                        <b>
+                                            <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= duration.toMinutes()%>m ago <%= comment.getStatus()%>
+                                        </b>
                                         <%
                                         } else if (duration.toHours() < 24) {
                                         %>
-                                        <b><%= duration.toHours()%>H ago<%=comment.getStatus()%></b>
+                                        <b>
+                                            <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= duration.toHours()%>H ago <%= comment.getStatus()%>
+                                        </b>
                                         <%
                                         } else if (duration.toDays() < 7) {
                                         %>
-                                        <b><%= duration.toDays()%>D ago<%=comment.getStatus()%></b>
+                                        <b>
+                                            <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= duration.toDays()%>D ago <%= comment.getStatus()%>
+                                        </b>
                                         <%
                                         } else if (duration.toDays() < 28) {
                                         %>
-                                        <b><%= duration.toDays() / 7%>W ago<%=comment.getStatus()%></b>
+                                        <b>
+                                            <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= duration.toDays() / 7%>W ago <%= comment.getStatus()%>
+                                        </b>
                                         <%
                                         } else if (period.toTotalMonths() < 12) {
                                         %>
-                                        <b><%= period.toTotalMonths()%>M ago<%=comment.getStatus()%></b>
+                                        <b>
+                                            <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= period.toTotalMonths()%>M ago <%= comment.getStatus()%>
+                                        </b>
                                         <%
                                         } else {
                                         %>
-                                        <b><%= period.getYears()%>Y ago<%=comment.getStatus()%></b>
+                                        <b>
+                                            <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= period.getYears()%>Y ago <%= comment.getStatus()%>
+                                        </b>
                                         <%
                                             }
                                         %>
@@ -347,15 +360,15 @@
                 <div class="footer-right-pic">
                     <img src="img/footer-right-pic.png" alt="">
                 </div>
-                <a href="ReadGameHomeController" class="footer-logo">
+                <a href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>" class="footer-logo">
                     <img src="./img/logo1.png" alt="">
                     <img src="./img/logo2.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
-                    <li><a href="ReadGameHomeAdminController">Home</a></li>
-                    <li><a href="ReadGameListAdminController">Games</a></li>
-                    <li><a href="ReadTopicAdmin">Forum</a></li>
-                    <li><a href="ReadGameHomeAdminController?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
+                    <li><a href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                    <li><a href="ReadGameListAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
+                    <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                    <li><a href="ReadGameHomeAdmin?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
 
                 </ul>
                 <div class="footer-social d-flex justify-content-center">

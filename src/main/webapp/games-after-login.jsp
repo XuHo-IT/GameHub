@@ -86,7 +86,7 @@
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
                     <div class="logo-fix">
-                        <a href="ReadGameHomeController" class="site-logo">
+                        <a href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>" class="site-logo">
                             <img src="./img/logo1.png" alt="" class="logo1">
                             <img src="./img/logo2.png" alt="" class="logo2">
                         </a>
@@ -118,7 +118,7 @@
 
                        <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                            <li><a href="ReadGameListAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
+                            <li><a href="ReadGameListAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
                             <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                             <li><a href="ReadGameHomeAdmin?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
                         </ul>
@@ -167,11 +167,11 @@
                             <div class="widget-item">
                                 <div class="categories-widget">
                                     <h4 class="widget-title">Genre</h4>
-                                    <form action="ReadGameListAdminController" method="get">   
+                                    <form action="ReadGameListAdmin" method="get">   
                                         <ul>
                                             <c:forEach var="genre" items="${genres}">
                                                 <li>
-                                                    <a href="ReadGameListAdminController?genre=${genre.genre}">
+                                                    <a href="ReadGameListAdmin?genre=${genre.genre}">
                                                         ${genre.genre != null ? genre.genre : 'No genre available'}
                                                     </a>
                                                 </li>
@@ -239,16 +239,16 @@
                 <div class="footer-right-pic">
                     <img src="img/footer-right-pic.png" alt="">
                 </div>
-                <a href="ReadGameHomeAdminController?userId=<%= request.getSession().getAttribute("userId")%>" class="footer-logo">
+                <a href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>" class="footer-logo">
                     <img src="./img/logo1.png" alt="">
                     <img src="./img/logo2.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
-                    <li><a href="ReadGameHomeAdminController?userId=<%= request.getSession().getAttribute("userId")%>">Home</a></li>
-                    <li><a href="ReadGameListAdminController?userId=<%= request.getSession().getAttribute("userId")%>">Games</a></li>
-                    <li><a href="ReadGameHomeAdminController?view=chart&userId=<%= request.getSession().getAttribute("userId")%>">Manage</a></li>
-                    <li><a href="ReadTopicAdmin?userId=<%= request.getSession().getAttribute("userId")%>">Forum</a></li>
-                    <li><a href="contact-after-login.jsp?userId=<%= request.getSession().getAttribute("userId")%>">Contact</a></li>
+                    <li><a href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                    <li><a href="ReadGameListAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
+                    <li><a href="ReadGameHomeAdmin?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
+                    <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                    <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
                     <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>

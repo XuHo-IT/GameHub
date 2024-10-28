@@ -45,5 +45,61 @@ public class DataTransferUtility {
 
         MongoDBConnectionManager1.closeClients();
     }
+     public static void transferDataFromLocalToRemote() {
+        MongoClient remoteClient = MongoDBConnectionManager1.getRemoteMongoClient();
+        MongoClient localClient = MongoDBConnectionManager1.getLocalMongoClient();
+
+        MongoDatabase remoteDatabase = remoteClient.getDatabase("GameHub");
+        MongoDatabase localDatabase = localClient.getDatabase("GameHub");
+
+        for (String collectionName : COLLECTIONS_TO_TRANSFER) {
+            try {
+                MongoCollection<Document> remoteCollection = remoteDatabase.getCollection(collectionName);
+                MongoCollection<Document> localCollection = localDatabase.getCollection(collectionName);
+
+                FindIterable<Document> localDocuments = localCollection.find();
+
+                for (Document doc : localDocuments) {
+                    remoteCollection.insertOne(doc);
+                }
+
+                System.out.println("Successfully transferred data from " + collectionName);
+            } catch (Exception e) {
+                System.err.println("Error transferring data for collection " + collectionName + ": " + e.getMessage());
+            }
+        }
+
+        MongoDBConnectionManager1.closeClients();
+    }
+     
+     public static void dropDataFromRemoteAndInsertLocal() {
+    MongoClient remoteClient = MongoDBConnectionManager1.getRemoteMongoClient();
+    MongoClient localClient = MongoDBConnectionManager1.getLocalMongoClient();
+
+    MongoDatabase remoteDatabase = remoteClient.getDatabase("GameHub");
+    MongoDatabase localDatabase = localClient.getDatabase("GameHub");
+
+    for (String collectionName : COLLECTIONS_TO_TRANSFER) {
+        try {
+            MongoCollection<Document> remoteCollection = remoteDatabase.getCollection(collectionName);
+            MongoCollection<Document> localCollection = localDatabase.getCollection(collectionName);
+
+            // Clear the remote collection before transferring data
+            remoteCollection.drop();
+
+            // Transfer data from local to remote
+            FindIterable<Document> localDocuments = localCollection.find();
+            for (Document doc : localDocuments) {
+                remoteCollection.insertOne(doc);
+            }
+
+            System.out.println("Successfully transferred and replaced data for " + collectionName);
+        } catch (Exception e) {
+            System.err.println("Error transferring data for collection " + collectionName + ": " + e.getMessage());
+        }
+    }
+
+    MongoDBConnectionManager1.closeClients();
+}
 
 }

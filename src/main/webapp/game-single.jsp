@@ -341,7 +341,7 @@
                 </div>
                 <div class="form-content">
                     <h2>SIGNUP</h2>
-                    <form id="signupForm" action="SignUpController" method="post">
+                    <form id="signupForm" action="SignUp" method="post">
                         <div class="input-field">
                             <label>Enter your name</label>
                             <input type="text" name="Name" id="name" required>
@@ -409,6 +409,14 @@
             </div>
         </div>
         <script>
+             document.addEventListener("DOMContentLoaded", function () {
+            // Check if session attribute for emailRegistered is set
+            const emailRegistered = '<%= session.getAttribute("emailRegistered")%>';
+            if (emailRegistered === "true") {
+                alert("This email is already registered. Please use another email to register");
+                session.removeAttribute("emailRegistered"); // Clear session attribute after displaying the message
+            }
+        });
             document.addEventListener("DOMContentLoaded", function () {
                 // Form boxes
                 const loginForm = document.querySelector(".form-box.login");

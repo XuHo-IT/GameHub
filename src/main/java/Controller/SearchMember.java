@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchController extends HttpServlet {
+public class SearchMember extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -60,7 +60,7 @@ public class SearchController extends HttpServlet {
             request.setAttribute("postList", postList);
 
             // Forward to search results JSP
-            request.getRequestDispatcher("search-results.jsp").forward(request, response);
+            request.getRequestDispatcher("search-results-member.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Error retrieving search results.");

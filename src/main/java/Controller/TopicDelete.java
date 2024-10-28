@@ -1,15 +1,15 @@
 package Controller;
 
-import DAO.TopicDAO;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoDatabase;
+import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import utils.MongoDBConnectionManager1;
+
+import DAO.TopicDAO;
+import DAO.CommentDAO;
 
 public class TopicDelete extends HttpServlet {
 
@@ -30,18 +30,20 @@ public class TopicDelete extends HttpServlet {
         // Check if the user is logged in
         HttpSession session = request.getSession(false);
         if (session == null) {
-            response.sendRedirect("ReadGameHomeController"); 
+            response.sendRedirect("ReadGameHomeController");
             return;
         }
 
         String userId = (String) session.getAttribute("adminId");
-        
+
         // Get MongoDB database and create DAO
-     
+
         TopicDAO topicDAO = new TopicDAO();
+        CommentDAO commentDAO = new CommentDAO();
 
         // Delete the topic
         topicDAO.deleteTopic(topicId);
+        commentDAO.deleteManyComment(topicId);
 
         // Redirect to the appropriate page after deletion
         response.sendRedirect("ReadTopicMember?userId=" + userId);

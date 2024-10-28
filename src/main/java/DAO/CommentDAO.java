@@ -40,6 +40,11 @@ public class CommentDAO {
         Document query = new Document("_id", new ObjectId(commentId));
         commentCollection.deleteOne(query);
     }
+    
+    public void deleteManyComment(String topicId) {
+        Document query = new Document("TopicId", topicId);
+        commentCollection.deleteMany(query);
+    }
 
     public void updateComment(String commentId, String newContent) {
         Document query = new Document("_id", new ObjectId(commentId));

@@ -77,7 +77,7 @@
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
                     <div class="logo-fix">
-                        <a href="ReadGameHomeController" class="site-logo">
+                        <a href="ReadGameHome" class="site-logo">
                             <img src="./img/logo1.png" alt="" class="logo1">
                             <img src="./img/logo2.png" alt="" class="logo2">
                         </a>
@@ -89,8 +89,8 @@
 
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
-                            <li><a href="ReadGameHomeController">Home</a></li>
-                            <li><a href="ReadGameListController">Games</a></li>
+                            <li><a href="ReadGameHome">Home</a></li>
+                            <li><a href="ReadGameList">Games</a></li>
                             <li><a href="ReadTopic">Forum</a></li>
                             <li><a href="contact.jsp">Contact</a></li>
 
@@ -106,7 +106,7 @@
             <div class="page-info">
                 <h2>Forum</h2>
                 <div class="site-breadcrumb">
-                    <a href="ReadGameHomeController">Home</a>  /
+                    <a href="ReadGameHome">Home</a>  /
                     <span>Forum</span>
                 </div>
             </div>
@@ -133,7 +133,7 @@
                                 <h4>
                                     <a href="forum-detail.jsp?topicId=${topic.topicId}">
                                         <c:choose>
-                                            <c:when test="${fn:length(topic.title) >= 65}">
+                                            <c:when test="${fn:length(topic.title) >= 64}">
                                                 ${fn:substring(topic.title, 0, 65)}...
                                             </c:when>
                                             <c:otherwise>
@@ -159,7 +159,7 @@
                             <div class="subforum-info subforum-column">
                                 <b>Post by</b> <a href="#" style="font-size: 15px">${topic.userName}</a><br>
                                 <b>On</b> <a style="font-family: 'Courier', 'Courier New', monospace;">
-                                    <fmt:formatDate value="${topic.date}" pattern="MM:hh a dd-MM-yyyy"/>
+                                    <fmt:formatDate value="${topic.date}" pattern="hh:mm a dd-MM-yyyy"/>
                                 </a>
                             </div>
                         </div>
@@ -183,13 +183,13 @@
                 <div class="footer-right-pic">
                     <img src="img/footer-right-pic.png" alt="">
                 </div>
-                <a href="ReadGameHomeController" class="footer-logo">
+                <a href="ReadGameHome" class="footer-logo">
                     <img src="./img/logo1.png" alt="">
                     <img src="./img/logo2.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
-                    <li><a href="ReadGameHomeController">Home</a></li>
-                    <li><a href="ReadGameListController">Games</a></li>
+                    <li><a href="ReadGameHome">Home</a></li>
+                    <li><a href="ReadGameList">Games</a></li>
                     <li><a href="ReadTopic">Forum</a></li>
                     <li><a href="contact.jsp">Contact</a></li>
                 </ul>

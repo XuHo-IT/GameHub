@@ -56,7 +56,7 @@
                 <div class="row align-items-center">
                     <!-- Left side: Search Form (col-7) -->
                     <div class="col-8">
-                        <form action="ReadGameListController" method="GET">
+                        <form action="Search" method="GET">
                             <!-- Search Bar Row -->
                             <div class="row" style="align-items: center;">
                                 <!-- Keyword input for the search bar -->
@@ -90,7 +90,7 @@
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
                     <div class="logo-fix">
-                        <a href="ReadGameHomeController" class="site-logo">
+                        <a href="ReadGameHome" class="site-logo">
                             <img src="./img/logo1.png" alt="" class="logo1">
                             <img src="./img/logo2.png" alt="" class="logo2">
                         </a>
@@ -102,8 +102,8 @@
 
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
-                            <li><a href="ReadGameHomeController">Home</a></li>
-                            <li><a href="ReadGameListController">Games</a></li>
+                            <li><a href="ReadGameHome">Home</a></li>
+                            <li><a href="ReadGameList">Games</a></li>
                             <li><a href="ReadTopic">Forum</a></li>
                             <li><a href="contact.jsp">Contact</a></li>
 
@@ -149,11 +149,11 @@
                             <div class="widget-item">
                                 <div class="categories-widget">
                                     <h4 class="widget-title">Genre</h4>
-                                    <form action="ReadGameListController" method="get">   
+                                    <form action="ReadGameList" method="get">   
                                         <ul>
                                             <c:forEach var="genre" items="${genres}">
                                                 <li>
-                                                    <a href="ReadGameListController?genre=${genre.genre}">
+                                                    <a href="ReadGameList?genre=${genre.genre}">
                                                         ${genre.genre != null ? genre.genre : 'No genre available'}
                                                     </a>
                                                 </li>
@@ -222,13 +222,13 @@
                 <div class="footer-right-pic">
                     <img src="img/footer-right-pic.png" alt="">
                 </div>
-                <a href="ReadGameHomeController" class="footer-logo">
+                <a href="ReadGameHome" class="footer-logo">
                     <img src="./img/logo1.png" alt="">
                     <img src="./img/logo2.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
-                    <li><a href="ReadGameHomeController">Home</a></li>
-                    <li><a href="ReadGameListController">Games</a></li>
+                    <li><a href="ReadGameHome">Home</a></li>
+                    <li><a href="ReadGameList">Games</a></li>
                     <li><a href="ReadTopic">Forum</a></li>
                     <li><a href="contact.jsp">Contact</a></li>
                 </ul>

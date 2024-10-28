@@ -648,6 +648,21 @@ footer{
     height: 40px;
 }
 
+.reply-button button:hover{
+    background-color: #4a4646 !important;
+    box-shadow: 4px 6px black;
+}
+
+.delete-button button:hover{
+    background-color: #4a4646 !important;
+    box-shadow: 4px 6px black;
+}
+
+.update-button button:hover{
+    background-color: #4a4646 !important;
+    box-shadow: 4px 6px black;
+}
+
 /* comment section */
 .comment-area{
     margin-bottom:50px;

@@ -213,10 +213,6 @@
         <servlet-class>Controller.ReadGameListAdmin</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ReadGameList</servlet-name>
-        <servlet-class>Controller.ReadGameList</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ReadGameListMember</servlet-name>
         <servlet-class>Controller.ReadGameListMember</servlet-class>
     </servlet>
@@ -405,10 +401,6 @@
         <url-pattern>/AddCommentAdmin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DeleteCommentAdmin</servlet-name>
-        <url-pattern>/DeleteCommentAdmin</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>TopicUpdateAdmin</servlet-name>
         <url-pattern>/TopicUpdateAdmin</url-pattern>
     </servlet-mapping>
@@ -451,10 +443,6 @@
     <servlet-mapping>
         <servlet-name>ReadGameListAdmin</servlet-name>
         <url-pattern>/ReadGameListAdmin</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ReadGameList</servlet-name>
-        <url-pattern>/ReadGameList</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ReadGameListMember</servlet-name>

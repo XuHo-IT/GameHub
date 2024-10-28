@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
-public class ReadGameListMember extends HttpServlet {
+public class ReadGameList extends HttpServlet {
 
     private final GamePostDAO gamePostDAO = new GamePostDAO();
 
@@ -27,7 +27,7 @@ public class ReadGameListMember extends HttpServlet {
             // Get search parameters
             String keyword = request.getParameter("keyword");
             String selectedGenre = request.getParameter("genre");
-            
+
             List<GamePostTemp> postList;
 
             // If a keyword is provided, perform a search
@@ -37,9 +37,6 @@ public class ReadGameListMember extends HttpServlet {
                 // Fetch game posts by genre if no keyword is provided
                 postList = gamePostDAO.getGamePostsByGenre(selectedGenre);
             }
-            
-            // Reverse the list if needed
-            Collections.reverse(postList);
 
             // Pagination logic
             int itemsPerPage = 9;
@@ -67,7 +64,7 @@ public class ReadGameListMember extends HttpServlet {
             request.setAttribute("keyword", keyword);  // Pass the keyword for search
 
             // Forward the request to the JSP page
-            request.getRequestDispatcher("games-after-login-member.jsp").forward(request, response);
+            request.getRequestDispatcher("games.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace(); // Log the exception
             request.setAttribute("errorMessage", "Error retrieving game posts.");

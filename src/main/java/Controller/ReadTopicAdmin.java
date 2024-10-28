@@ -44,21 +44,19 @@ public class ReadTopicAdmin extends HttpServlet {
 
             // Sublist for current page
             List<TopicTemp> topicsForCurrentPage = topicList.subList(startIndex, endIndex);
-            
+
             // Set attributes for JSP
-            HttpSession session = request.getSession();
-            session.setAttribute("topicId", topicId.toString());
-            
             request.setAttribute("topics", topicsForCurrentPage);
             request.setAttribute("totalPages", totalPages);
             request.setAttribute("currentPage", currentPage);
 
+            String adminId = (String) request.getSession().getAttribute("adminid");
             // Forward to the forum page
-            request.getRequestDispatcher("forum-after-login.jsp").forward(request, response);
+            request.getRequestDispatcher("forum-after-login.jsp?adminid=" + adminId).forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Error retrieving topics.");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("error-page.jsp").forward(request, response);
         }
     }
 }

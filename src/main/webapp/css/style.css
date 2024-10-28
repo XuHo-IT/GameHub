@@ -782,10 +782,10 @@ img.logo1 {
     font-size: 300px;
     color: blue;
     text-shadow: 
-        1px 1px 0 black, 
-        -1px -1px 0 black, 
-        1px -1px 0 black, 
-        -1px 1px 0 black;
+        2px 2px 0 black, 
+        -2px -2px 0 black, 
+        2px -2px 0 black, 
+        -2px 2px 0 black;
 }
 
 .hero-slider .owl-item.active .hero-item p {

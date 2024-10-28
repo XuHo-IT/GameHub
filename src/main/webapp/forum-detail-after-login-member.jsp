@@ -1,3 +1,4 @@
+<%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="Model.CommentTemp"%>
 <%@page import="utils.MongoDBConnectionManager1"%>
 <%@page import="java.time.Period"%>
@@ -200,8 +201,6 @@
                     comments.add(comment);
                 }
                 Collections.reverse(comments);
-            } else {
-                out.println("Post not found.");
             }
         %>
 
@@ -261,6 +260,9 @@
                                         <%
                                             Date pastDate = comment.getDate();
                                             LocalDateTime pastDateTime = pastDate.toInstant().atZone(ZoneId.of("UTC")).toLocalDateTime();
+                                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+                                            String originalTime = pastDateTime.format(formatter);
+
                                             LocalDateTime now = LocalDateTime.now();
 
                                             Duration duration = Duration.between(pastDateTime, now);
@@ -268,32 +270,39 @@
 
                                             if (duration.toMinutes() < 60) {
                                         %>
-                                        <b><%= duration.toMinutes()%>m ago<%=comment.getStatus()%></b>
+                                        <b>
+                                            <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= duration.toMinutes()%>m ago <%= comment.getStatus()%>
+                                        </b>
                                         <%
-                                        } 
-                                        else if (duration.toHours() < 24) {
+                                        } else if (duration.toHours() < 24) {
                                         %>
-                                        <b><%= duration.toHours()%>H ago<%=comment.getStatus()%></b>
+                                        <b>
+                                            <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= duration.toHours()%>H ago <%= comment.getStatus()%>
+                                        </b>
                                         <%
-                                        } 
-                                        else if (duration.toDays() < 7) {
+                                        } else if (duration.toDays() < 7) {
                                         %>
-                                        <b><%= duration.toDays()%>D ago<%=comment.getStatus()%></b>
+                                        <b>
+                                            <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= duration.toDays()%>D ago <%= comment.getStatus()%>
+                                        </b>
                                         <%
-                                        } 
-                                        else if (duration.toDays() < 28) {
+                                        } else if (duration.toDays() < 28) {
                                         %>
-                                        <b><%= duration.toDays() / 7%>W ago<%=comment.getStatus()%></b>
+                                        <b>
+                                            <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= duration.toDays() / 7%>W ago <%= comment.getStatus()%>
+                                        </b>
                                         <%
-                                        } 
-                                        else if (period.toTotalMonths() < 12) {
+                                        } else if (period.toTotalMonths() < 12) {
                                         %>
-                                        <b><%= period.toTotalMonths()%>M ago<%=comment.getStatus()%></b>
+                                        <b>
+                                            <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= period.toTotalMonths()%>M ago <%= comment.getStatus()%>
+                                        </b>
                                         <%
-                                        } 
-                                        else {
+                                        } else {
                                         %>
-                                        <b><%= period.getYears()%>Y ago<%=comment.getStatus()%></b>
+                                        <b>
+                                            <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= period.getYears()%>Y ago <%= comment.getStatus()%>
+                                        </b>
                                         <%
                                             }
                                         %>

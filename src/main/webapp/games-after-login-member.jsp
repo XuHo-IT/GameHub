@@ -93,9 +93,6 @@
                     </div>
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
-                            <!-- Bi?u t??ng gi? h�ng -->
-                            <div class="cart-icon">
-                            </div>
                             <!-- Bi?u t??ng t�i kho?n -->
                             <div class="account-container">
                                 <div class="user">
@@ -135,7 +132,7 @@
             <div class="page-info" style="padding-top: 35px">
                 <h2>Games</h2>
                 <div class="site-breadcrumb">
-                    <a href="">Home</a>  /
+                    <a href="ReadGameHomeMember?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a>  /
                     <span>Games</span>
                 </div>
             </div>

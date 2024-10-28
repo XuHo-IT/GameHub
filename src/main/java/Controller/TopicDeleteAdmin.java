@@ -1,18 +1,14 @@
 package Controller;
 
+import DAO.TopicDAO;
 import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Filters;
-import org.bson.Document;
-import org.bson.types.ObjectId;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import utils.MongoDBConnectionManager1;
 
 public class TopicDeleteAdmin extends HttpServlet {
@@ -31,20 +27,23 @@ public class TopicDeleteAdmin extends HttpServlet {
 
     private void deleteTopic(HttpServletRequest request, HttpServletResponse response, String topicId)
             throws ServletException, IOException {
-
         // Check if the user is logged in
         HttpSession session = request.getSession(false);
-        String adminId = (String) session.getAttribute("adminId");
+        if (session == null) {
+            response.sendRedirect("ReadGameHomeController"); 
+            return;
+        }
 
-        // Get MongoDB database and collection
-        MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
-        MongoDatabase database = mongoClient.getDatabase("GameHub");
-        MongoCollection<Document> collection = database.getCollection("topic");
+        String userId = (String) session.getAttribute("adminId");
+        
+        // Get MongoDB database and create DAO
+     
+        TopicDAO topicDAO = new TopicDAO();
 
         // Delete the topic
-        collection.deleteOne(Filters.eq("_id", new ObjectId(topicId)));
+        topicDAO.deleteTopic(topicId);
 
         // Redirect to the appropriate page after deletion
-        response.sendRedirect("ReadTopicAdmin?userId" + adminId);
+        response.sendRedirect("ReadTopicAdmin?userId=" + userId);
     }
 }

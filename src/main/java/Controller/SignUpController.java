@@ -62,7 +62,7 @@ public class SignUpController extends HttpServlet {
 
         if (superAdminDAO.isEmailRegistered(email)) {
             request.setAttribute("errorMessage", "This email is already registered.");
-            request.getRequestDispatcher("ReadGameHomeController").forward(request, response);
+                   response.sendRedirect("email_register.jsp");
         } else {
             // Register user
             ObjectId adminId = superAdminDAO.registerSuperAdmin(superAdmin);
@@ -80,7 +80,7 @@ public class SignUpController extends HttpServlet {
                 session.setAttribute("adminName", superAdmin.getName());
                 session.setAttribute("adminEmail", superAdmin.getEmail());
                 session.setAttribute("photoUrl", superAdmin.getPhotoUrl());
-                response.sendRedirect("ReadGameHomeMemberController?id=" + adminId.toString());
+                response.sendRedirect("ReadGameHomeMember?id=" + adminId.toString());
             } else {
                 request.setAttribute("errorMessage", "Failed to send verification email.");
                 request.getRequestDispatcher("error-page.jsp").forward(request, response);

@@ -26,7 +26,7 @@
                     <li>
                     </li>
                     <li>
-                        <a href="ReadGameUploadByMemberController?adminId=<%= request.getSession().getAttribute("adminId")%>">
+                        <a href="ReadGameUploadByMember?adminId=<%= request.getSession().getAttribute("adminId")%>">
                             <span class="icon">
                                 <ion-icon name="people-outline"></ion-icon>
                             </span>

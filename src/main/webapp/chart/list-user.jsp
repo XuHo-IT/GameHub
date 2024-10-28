@@ -28,7 +28,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="../ReadGameUploadByMemberController?adminId=<%= request.getSession().getAttribute("adminId")%>">
+                        <a href="../ReadGameUploadByMember?adminId=<%= request.getSession().getAttribute("adminId")%>">
                             <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
                             <span class="title">Censor Post</span>
                         </a>
@@ -70,6 +70,9 @@
                             <h2 style="color:#6f2b95">Post Uploaded By Member</h2>
                             <h2 style="color:#6f2b95">Total Members: ${fn:length(userList)}</h2>
                         </div>
+                        <%
+                            String adminId = (String) request.getSession().getAttribute("adminId");
+                        %>
                         <div class="styled-table-wrapper">
                             <table class="styled-table">
                                 <thead>
@@ -79,7 +82,6 @@
                                         <th>Name</th>
                                         <th>Status</th>
                                         <th>Role User</th>
-                                        <th> Edit Role</th> <!-- New Role Column -->
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -93,15 +95,16 @@
                                                 // Determine the status label and action button based on user status
                                                 if ("Active".equals(user.getStatus())) {
                                                     statusLabel = "<span class='text-success'>Active</span>";
-                                                    actionButton = "<a href=\"../SuspendUser?id=" + user.getId() + "\" class=\"btn btn-warning btn-sm\">Suspend</a>";
+                                                    actionButton = "<a href=\"../SuspendUser?id=" + user.getId() + "&adminId=" + adminId + "\" class=\"btn btn-warning btn-sm\">Suspend</a>";
                                                 } else {
                                                     statusLabel = "<span class='text-danger'>Suspended</span>";
-                                                    actionButton = "<a href=\"../UnSuspendUser?id=" + user.getId() + "\" class=\"btn btn-primary btn-sm\">Unsuspend</a>";
+                                                    actionButton = "<a href=\"../UnSuspendUser?id=" + user.getId() + "&adminId=" + adminId + "\" class=\"btn btn-primary btn-sm\">Unsuspend</a>";
                                                 }
 
                                                 // New role management logic
                                                 String roleDropdown = "<form action='../UpdateUserRole' method='post' style='display:inline;'>"
                                                         + "<input type='hidden' name='userId' value='" + user.getId() + "'/>"
+                                                        + "<input type='hidden' name='adminId' value='" + adminId + "'/>" // Hidden input for adminId
                                                         + "<select name='role' onchange='this.form.submit()'>"
                                                         + "<option value='0'" + ("0".equals(user.getRole()) ? " selected" : "") + ">Member</option>"
                                                         + "<option value='1'" + ("1".equals(user.getRole()) ? " selected" : "") + ">Admin</option>"
@@ -112,16 +115,16 @@
                                                         + "<td>" + user.getEmail() + "</td>"
                                                         + "<td>" + user.getName() + "</td>"
                                                         + "<td>" + statusLabel + "</td>"
-                                                        + "<td>" + user.getRole() + "</td>"
-                                                        + "<td>" + roleDropdown + "</td>" // Display dropdown instead of user.getRole()
+                                                        + "<td>" + ("1".equals(user.getRole()) ? "Admin" : "Member") + "</td>"
+                                                        + "<td>" + roleDropdown + "</td>"
                                                         + "<td><div class='d-flex'>"
-                                                        + "<a href=\"../RemoveUser?id=" + user.getId() + "\" class=\"btn btn-danger btn-sm me-2\">Remove</a>"
+                                                        + "<a href=\"../RemoveUser?id=" + user.getId() + "&adminId=" + adminId + "\" class=\"btn btn-danger btn-sm me-2\">Remove</a>"
                                                         + actionButton
                                                         + "</div></td>"
                                                         + "</tr>");
                                             }
                                         } else {
-                                            out.print("<tr><td colspan='6' class='text-center'>No users found.</td></tr>");
+                                            out.print("<tr><td colspan='7' class='text-center'>No users found.</td></tr>");
                                         }
                                     %>
                                 </tbody>

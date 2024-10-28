@@ -70,7 +70,7 @@ public class GoogleLogin extends HttpServlet {
 
         if (emailExist == true) {
             UserModel user = mgcn.getUserById(id);
-            String location = user.getRole().equals("0") ? "after-login.jsp" : "admin-after-login.jsp";
+            String location = user.getRole().equals("0") ? "ReadGameHomeMember" : "ReadGameHomeAdmin";
             response.sendRedirect(location + "?id=" + id);
         }else {
             String name = acc.getName();
@@ -85,7 +85,7 @@ public class GoogleLogin extends HttpServlet {
         // Check if the account was created successfully
             if (userId != null) {
                 UserModel user = mgcn.getUserById(userId.toString());
-                String location = user.getRole().equals("0") ? "after-login.jsp" : "admin-after-login.jsp";
+                String location = user.getRole().equals("0") ? "ReadGameHomeMember" : "ReadGameHomeAdmin";
                 response.sendRedirect(location + "?id=" + user.getId());
             } else {
                 response.sendRedirect("index.jsp");

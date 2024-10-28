@@ -5,6 +5,7 @@ package Controller;
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
+import DAO.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -34,15 +35,16 @@ public class SuspendUser extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId = request.getParameter("id");
-        MongoConectUser mgcn = new MongoConectUser();
+         String adminId = request.getParameter("adminId");
+         UserDAO userDAO = new UserDAO();
+        boolean suspended = userDAO.suspendUser(userId); 
+        
 
-        // Assuming you have a method in your MongoConectUser class to suspend a user
-        boolean suspended = mgcn.suspendUser(userId);
 
         if (suspended) {
-            response.sendRedirect("chart/list-user.jsp");
+            response.sendRedirect("chart/list-user.jsp?message=User suspend successfully?adminid="+adminId);
         } else {
-            response.sendRedirect("chart/list-user.jsp?error=Could not suspend user");
+            response.sendRedirect("chart/list-user.jsp?error=Could not suspend user?adminid="+adminId);
         }
     }
 }

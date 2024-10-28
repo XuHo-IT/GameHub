@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
-public class SignUpController extends HttpServlet {
+public class SignUp extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -54,15 +54,16 @@ public class SignUpController extends HttpServlet {
                 address,
                 hashedPassword,
                 photoUrl,
-                "0", // Default role for regular user
+                "0",
                 "Active"
         );
 
         UserDAO superAdminDAO = new UserDAO();
 
         if (superAdminDAO.isEmailRegistered(email)) {
-            request.setAttribute("errorMessage", "This email is already registered.");
-                   response.sendRedirect("email_register.jsp");
+            HttpSession session = request.getSession();
+            session.setAttribute("emailRegistered", true);
+            response.sendRedirect("ReadGameHome");
         } else {
             // Register user
             ObjectId adminId = superAdminDAO.registerSuperAdmin(superAdmin);

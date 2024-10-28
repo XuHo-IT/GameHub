@@ -4,7 +4,7 @@ package utils;
 import utils.DataTransferUtility;
 
 
-public class PushDataTransfer {
+public class PushDataTransferFromRemoteToLocal {
 
     public static void main(String[] args) {
         DataTransferUtility.transferDataFromRemoteToLocal();

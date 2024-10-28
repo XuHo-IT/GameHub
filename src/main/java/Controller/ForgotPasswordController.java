@@ -12,7 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import utils.MongoDBConnectionManager1;
+import utils.MongoDBConnectionManager;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.UUID;
@@ -24,7 +24,7 @@ public class ForgotPasswordController extends HttpServlet {
         String email = request.getParameter("emailForgot");
 
         // Connect to the database and collection
-        MongoClient mongoClient = MongoDBConnectionManager1.getLocalMongoClient();
+        MongoClient mongoClient = MongoDBConnectionManager.getLocalMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("superadmin");
 

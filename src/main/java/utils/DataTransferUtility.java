@@ -21,8 +21,8 @@ public class DataTransferUtility {
     };
 
     public static void transferDataFromRemoteToLocal() {
-        MongoClient remoteClient = MongoDBConnectionManager1.getRemoteMongoClient();
-        MongoClient localClient = MongoDBConnectionManager1.getLocalMongoClient();
+        MongoClient remoteClient = MongoDBConnectionManager.getRemoteMongoClient();
+        MongoClient localClient = MongoDBConnectionManager.getLocalMongoClient();
 
         MongoDatabase remoteDatabase = remoteClient.getDatabase("GameHub");
         MongoDatabase localDatabase = localClient.getDatabase("GameHub");
@@ -44,11 +44,11 @@ public class DataTransferUtility {
             }
         }
 
-        MongoDBConnectionManager1.closeClients();
+        MongoDBConnectionManager.closeClients();
     }
      public static void transferDataFromLocalToRemote() {
-        MongoClient remoteClient = MongoDBConnectionManager1.getRemoteMongoClient();
-        MongoClient localClient = MongoDBConnectionManager1.getLocalMongoClient();
+        MongoClient remoteClient = MongoDBConnectionManager.getRemoteMongoClient();
+        MongoClient localClient = MongoDBConnectionManager.getLocalMongoClient();
 
         MongoDatabase remoteDatabase = remoteClient.getDatabase("GameHub");
         MongoDatabase localDatabase = localClient.getDatabase("GameHub");
@@ -70,12 +70,12 @@ public class DataTransferUtility {
             }
         }
 
-        MongoDBConnectionManager1.closeClients();
+        MongoDBConnectionManager.closeClients();
     }
      
      public static void dropDataFromRemoteAndInsertLocal() {
-    MongoClient remoteClient = MongoDBConnectionManager1.getRemoteMongoClient();
-    MongoClient localClient = MongoDBConnectionManager1.getLocalMongoClient();
+    MongoClient remoteClient = MongoDBConnectionManager.getRemoteMongoClient();
+    MongoClient localClient = MongoDBConnectionManager.getLocalMongoClient();
 
     MongoDatabase remoteDatabase = remoteClient.getDatabase("GameHub");
     MongoDatabase localDatabase = localClient.getDatabase("GameHub");
@@ -100,7 +100,7 @@ public class DataTransferUtility {
         }
     }
 
-    MongoDBConnectionManager1.closeClients();
+    MongoDBConnectionManager.closeClients();
 }
 
 }

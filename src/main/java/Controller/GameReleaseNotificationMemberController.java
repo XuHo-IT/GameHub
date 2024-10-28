@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
-import utils.MongoDBConnectionManager1;
+import utils.MongoDBConnectionManager;
 
 public class GameReleaseNotificationMemberController extends HttpServlet {
 
@@ -38,7 +38,7 @@ public class GameReleaseNotificationMemberController extends HttpServlet {
             response.getWriter().write("Invalid email address");
             return;
         }
-           MongoClient mongoClient = MongoDBConnectionManager1.getLocalMongoClient(); 
+           MongoClient mongoClient = MongoDBConnectionManager.getLocalMongoClient(); 
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("postGame");
 

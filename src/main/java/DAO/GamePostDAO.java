@@ -11,7 +11,7 @@ import com.mongodb.client.model.Indexes;
 import org.bson.Document;
 import org.bson.types.Binary;
 import org.bson.types.ObjectId;
-import utils.MongoDBConnectionManager1;
+import utils.MongoDBConnectionManager;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,7 +32,7 @@ public class GamePostDAO {
     public List<GamePostTemp> adminPostList;
 
     public GamePostDAO() {
-        MongoClient mongoClient = MongoDBConnectionManager1.getLocalMongoClient();
+        MongoClient mongoClient = MongoDBConnectionManager.getLocalMongoClient();
         this.database = mongoClient.getDatabase("GameHub");
         this.postCollection = database.getCollection("postGame");
         this.genreCollection = database.getCollection("Genre");

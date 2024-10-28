@@ -170,9 +170,9 @@
                             <div class="card mb-3">
                                 <div class="card-body">
                                     <div class="px-xl-3">
-                                        <button class="btn btn-block btn-secondary" onclick="location.href = 'ReadGameHomeController'">
+                                        <button class="btn btn-block btn-secondary" onclick="location.href = 'ReadGameHome'">
                                             <i class="fa fa-sign-out"></i>
-                                            <span>Logout</span>
+                                            <span>Exit</span>
                                         </button>
                                     </div>
                                 </div>

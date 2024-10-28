@@ -96,8 +96,24 @@
                         </a>
                     </div>
                     <nav class="top-nav-area w-100">
-                        <div class="user-panel">
-                            <button class="login-btn">LOG IN</button>
+                         <div class="user-panel d-flex">
+                            <!-- Bi?u t??ng gi? h�ng -->
+                           
+                            <!-- Bi?u t??ng t�i kho?n -->
+                            <div class="account-container">
+                                  <div class="user">
+                                    <%= request.getSession().getAttribute("adminId")%>
+                                    <img src="<%= request.getSession().getAttribute("photoUrl")%>" alt="User Profile" />
+                                </div>
+                                <div class="account-dropdown">
+                                    <ul>
+                                        <li><a href="user-profile.jsp?id=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
+                                        <li>
+                                            <a href="LogOut" class="dropdown-item">Logout</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Menu -->

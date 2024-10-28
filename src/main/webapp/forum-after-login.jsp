@@ -90,7 +90,7 @@
                                     <ul>
                                         <li><a href="user-profile.jsp?id=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
                                         <li>
-                                            <a href="LogOutController" class="dropdown-item">Logout</a>
+                                            <a href="LogOut" class="dropdown-item">Logout</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -131,14 +131,8 @@
                  max-width: 1500px;
                  background: linear-gradient(to right, #2d1854 0%, #101D3D 100%);">
                 <!-- button -->
-                <div class="button-top-forum" >
-                    <div class="left-button-forum">
-                        <button class="forum-button" >All Topics</button>
-                        <button class="forum-button">My Topics</button>
-                    </div>
-                    <div class="right-button-forum">
-                        <button class="create-btn">Create New Topic</button>
-                    </div>
+                <div class="button-top-forum" >                   
+                    <button class="create-btn">Create New Topic</button>
                 </div>
 
                 <div class="subforum">

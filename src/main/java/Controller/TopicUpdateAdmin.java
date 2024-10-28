@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
 import javax.servlet.http.HttpSession;
-import utils.MongoDBConnectionManager1;
+import utils.MongoDBConnectionManager;
 
 @MultipartConfig
 public class TopicUpdateAdmin extends HttpServlet {

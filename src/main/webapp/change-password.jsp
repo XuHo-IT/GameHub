@@ -1,11 +1,11 @@
+<%@page import="DAO.UserDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="Model.UserModel, mogodb.MongoConectUser" %>
 <%@ page import="org.bson.types.ObjectId" %>
 <%
     // Get the user ID from the request parameter
     String userId = request.getParameter("id");
     // Create an instance of MongoConectUser to retrieve user information
-    MongoConectUser mgcn = new MongoConectUser();
+    UserDAO mgcn = new UserDAO();
     // Get the user by ID
     UserModel user = mgcn.getUserById(userId);
 %>

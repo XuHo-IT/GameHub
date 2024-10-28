@@ -36,6 +36,6 @@
 <body>
     <h1>System Error</h1>
     <p>Sorry for this inconvenience. We will fix this issue soon.</p>
-    <a class="btn" href="ReadGameHomeController">Return to Home</a>
+    <a class="btn" href="ReadGameHome">Return to Home</a>
 </body>
 </html>

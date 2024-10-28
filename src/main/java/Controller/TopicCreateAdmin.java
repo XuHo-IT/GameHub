@@ -14,7 +14,7 @@ import javax.servlet.http.Part;
 import org.apache.commons.io.IOUtils;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoDatabase;
-import utils.MongoDBConnectionManager1;
+import utils.MongoDBConnectionManager;
 
 @MultipartConfig
 public class TopicCreateAdmin extends HttpServlet {

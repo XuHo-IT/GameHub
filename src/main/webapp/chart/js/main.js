@@ -20,7 +20,7 @@ var ctx = document.getElementById("myChart").getContext("2d");
 var earning = document.getElementById("earning").getContext("2d");
 
 // Fetch post counts and update polar area chart
-fetch('/Web_Trading_Game/getPostCounts')
+fetch('http://localhost:8080/Web_Trading_Game/PostStatistic')
     .then((response) => response.json())
     .then((data) => {
         // Swap the values of adminPosts and memberPosts
@@ -43,7 +43,7 @@ fetch('/Web_Trading_Game/getPostCounts')
                 }]
             },
             options: {
-                responsive: true,
+                responsive: true
             }
         });
 

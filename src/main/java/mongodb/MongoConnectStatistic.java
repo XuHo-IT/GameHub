@@ -71,7 +71,7 @@ public class MongoConnectStatistic {
                     gamepost.setDateRelease(doc.getString("DateRelease"));
                     gamepost.setAuthor(doc.getString("Author"));
                     gamepost.setGenre(doc.getString("Genre"));
-                    gamepost.setUserId(doc.getString("AdminId"));
+                    gamepost.setAdminId(doc.getString("AdminId"));
                     gamepost.setFileName(doc.getString("FileName"));
                     gamepost.setFileData(doc.getString("FileData"));
                     postList.add(gamepost);
@@ -90,7 +90,7 @@ public class MongoConnectStatistic {
                     gamepost.setDateRelease(doc.getString("DateRelease")); 
                     gamepost.setAuthor(doc.getString("Author")); 
                     gamepost.setGenre(doc.getString("Genre")); 
-                    gamepost.setUserId(doc.getString("AdminId")); 
+                    gamepost.setAdminId(doc.getString("AdminId")); 
                     gamepost.setFileName(doc.getString("FileName")); 
                     gamepost.setFileData(doc.getString("FileData")); 
                     postList.add(gamepost); 

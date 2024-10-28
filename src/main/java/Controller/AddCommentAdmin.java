@@ -39,9 +39,8 @@ public class AddCommentAdmin extends HttpServlet {
                 .append("Date", currentDateTime);
         collection.insertOne(comments);
         
-        String userId = (String) request.getSession().getAttribute("userId");
         
-        response.sendRedirect("forum-detail-after-login.jsp");
+        response.sendRedirect("ReadGameHomeMemberController?memberid=" + memberId);
     }
 
 }

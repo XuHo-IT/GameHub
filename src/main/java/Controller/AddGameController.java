@@ -38,9 +38,7 @@ public class AddGameController extends HttpServlet {
         String author = request.getParameter("Author");
         String genre = request.getParameter("Genre");
         String price = "";
-
-        // Get admin ID
-        String userId = (String) request.getSession().getAttribute("userId");
+        String adminId = (String) request.getSession().getAttribute("adminId");
 
         // Primary cover image
         Part filePart = request.getPart("file");
@@ -64,7 +62,7 @@ public class AddGameController extends HttpServlet {
         // Create a GamePost object
         GamePost gamePost = new GamePost(
                 null, title, gamePlay, description, dateRelease, author, genre,
-                userId, fileName, fileDataBase64);
+                adminId, fileName, fileDataBase64);
 
         // Insert the game into MongoDB
         MongoClient mongoClient = MongoDBConnectionManager1.getMongoClient();
@@ -76,7 +74,7 @@ public class AddGameController extends HttpServlet {
                 .append("DateRelease", gamePost.getDateRelease())
                 .append("Author", gamePost.getAuthor())
                 .append("Genre", gamePost.getGenre())
-                .append("AdminId", gamePost.getUserId())
+                .append("AdminId", gamePost.getAdminId())
                 .append("FileName", gamePost.getFileName())
                 .append("FileData", fileDataBase64)
                 .append("Link of the game", linkGame)
@@ -84,7 +82,9 @@ public class AddGameController extends HttpServlet {
                 .append("Price", price);
 
         collection.insertOne(postGame);
+
         // Redirect to the admin page
-        response.sendRedirect("ReadGameHomeAdminController");
+        String memberId = (String) request.getSession().getAttribute("memberid");
+        response.sendRedirect("ReadGameHomeAdmin?adminid=" + memberId);
     }
-}
+}   

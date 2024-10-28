@@ -69,6 +69,11 @@ public class LoginController extends HttpServlet {
                 session.setAttribute("currentUser", superAdmin);
                 
                 // Set the adminId and adminEmail in the session
+                if(userDoc.getString("Role").equals("1")){
+                    session.setAttribute("adminId", userDoc.getObjectId("_id").toString());
+                } else if(userDoc.getString("Role").equals("0")){
+                    session.setAttribute("memberId", userDoc.getObjectId("_id").toString());
+                }
                 session.setAttribute("userId", userDoc.getObjectId("_id").toString());
                 session.setAttribute("adminName", userDoc.getString("Name"));
                 session.setAttribute("adminEmail", userDoc.getString("Email")); // Insert adminEmail in session

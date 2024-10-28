@@ -16,7 +16,7 @@ public class GamePost {
     private String dateRelease;
     private String author;
     private String genre;
-    private String userId;
+    private String adminId;
     private String fileName;
     private String fileData;
 
@@ -28,7 +28,7 @@ public class GamePost {
         this.dateRelease = dateRelease;
         this.author = author;
         this.genre = genre;
-        this.userId = adminId;
+        this.adminId = adminId;
         this.fileName = fileName;
         this.fileData = fileData;
     }
@@ -92,12 +92,12 @@ public class GamePost {
         this.genre = genre;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getAdminId() {
+        return adminId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setAdminId(String adminId) {
+        this.adminId = adminId;
     }
 
     public String getFileName() {
@@ -118,7 +118,7 @@ public class GamePost {
 
     @Override
     public String toString() {
-        return "GamePost{" + "postID=" + postID + ", title=" + title + ", gamePlay=" + gamePlay + ", description=" + description + ", dateRelease=" + dateRelease + ", author=" + author + ", genre=" + genre + ", adminId=" + userId + ", fileName=" + fileName + ", fileData=" + fileData + '}';
+        return "GamePost{" + "postID=" + postID + ", title=" + title + ", gamePlay=" + gamePlay + ", description=" + description + ", dateRelease=" + dateRelease + ", author=" + author + ", genre=" + genre + ", adminId=" + adminId + ", fileName=" + fileName + ", fileData=" + fileData + '}';
     }
     
 }

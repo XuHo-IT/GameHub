@@ -1,5 +1,6 @@
 package Controller;
 
+import DAO.UserDAO;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -13,30 +14,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import org.bson.Document;
-import mongodb.MongoConectUser;
 import org.apache.commons.io.IOUtils;
 
 @WebServlet("/upload-photo")
 @MultipartConfig
 public class UploadPhotoController extends HttpServlet {
+
     private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String userId = request.getParameter("userId");
-            Part filePart = request.getPart("photofile");
-            System.out.print(filePart);
-
-            if (filePart == null || userId == null || userId.isEmpty()) {
-                response.getWriter().println("Photo or userId missing.");
+            Part filePart = request.getPart("photoInput");
+            if (filePart == null || filePart.getSize() == 0) {
+                response.getWriter().println("Photo part is missing or empty.");
                 return;
             }
+
+            System.out.print(filePart);
 
             InputStream fileContent = filePart.getInputStream();
             byte[] fileDataBytes = IOUtils.toByteArray(fileContent);
             String fileDataBase64 = Base64.getEncoder().encodeToString(fileDataBytes);
 
-            MongoConectUser mgcn = new MongoConectUser();
+            UserDAO mgcn = new UserDAO();
             boolean isUpdated = mgcn.updateUserProfilePicture(userId, fileDataBase64);
 
             if (isUpdated) {
@@ -50,4 +51,3 @@ public class UploadPhotoController extends HttpServlet {
         }
     }
 }
-

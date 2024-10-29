@@ -1,7 +1,10 @@
 <%@page import="com.mongodb.client.MongoDatabase"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
+<<<<<<< HEAD
 <%@page import="utils.MongoDBConnectionManager"%>
+=======
+>>>>>>> 75e362c79baba4d5764c39f39d8a0c0a405b401f
 <%@page import="Model.Topic"%>
 <%@page import="com.mongodb.client.model.Filters"%>
 <%@page import="org.bson.types.ObjectId"%>
@@ -84,13 +87,12 @@
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
                             <div class="account-container">
-                                <div class="user">
-                                    <%= request.getSession().getAttribute("adminId")%>
-                                    <img src="<%= request.getSession().getAttribute("photoUrl")%>" alt="User Profile" />
+                                   <div class="user">                                   
+                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
-                                        <li><a href="user-profile.jsp?id=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
+                                          <li><a href="user-profile.jsp?userid=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
                                         <li>
                                             <a href="LogOut" class="dropdown-item">Logout</a>
                                         </li>
@@ -142,7 +144,7 @@
                     <c:forEach var="topic" items="${topics}">
                         <div class="subforum-row">
                             <div class="subforum-icon subforum-column center">
-                                <img src="${topic.photoUrl}" alt="User Photo">
+                              <img src="data:image/jpeg;base64,${topic.photoUrl}" alt="User Photo" style="width: 140px; height: 140px; border-radius: 50%;" />
                             </div>
                             <div class="subforum-description subforum-column">
                                 <h4>

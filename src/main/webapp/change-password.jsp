@@ -1,3 +1,4 @@
+<%@page import="Model.UserModel"%>
 <%@page import="DAO.UserDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="org.bson.types.ObjectId" %>

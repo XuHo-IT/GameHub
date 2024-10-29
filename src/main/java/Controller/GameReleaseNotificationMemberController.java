@@ -61,7 +61,7 @@ public class GameReleaseNotificationMemberController extends HttpServlet {
 
 
         if (emailSent) {
-            response.sendRedirect("ReadGameHomeMemberController");
+            response.sendRedirect("ReadGameHomeMember");
         } else {
             response.sendRedirect("shopping-cart.jsp");
         }

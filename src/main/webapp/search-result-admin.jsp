@@ -101,9 +101,8 @@
                            
                             <!-- Bi?u t??ng t�i kho?n -->
                             <div class="account-container">
-                                  <div class="user">
-                                    <%= request.getSession().getAttribute("adminId")%>
-                                    <img src="<%= request.getSession().getAttribute("photoUrl")%>" alt="User Profile" />
+                                    <div class="user">                                   
+                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
@@ -146,9 +145,7 @@
             <div class="container">
                 <div class="row justify-content-center align-items-start">
                     <div class="col-xl-9 col-lg-8 col-md-7">
-                        <div class="row">
-                            <h2 style="color: #fff;
-                                font-size: 40px">Search Results for "${param.keyword}"</h1>
+                        <div class="row">                          
                                 <c:forEach var="post" items="${posts}">
                                     <div class="col-lg-4 col-md-6">
                                         <div class="game-item">

@@ -1,5 +1,4 @@
-
-<%@page import="utils.MongoDBConnectionManager1"%>
+<%@page import="utils.MongoDBConnectionManager"%>
 <%@page import="java.util.List"%>
 <%@page import="com.mongodb.client.model.Filters"%>
 <%@page import="org.bson.types.ObjectId"%>
@@ -70,7 +69,7 @@
             List<String> actionImages = null;
 
             // Connect to MongoDB
-            MongoClient mongoClient = MongoDBConnectionManager1.getLocalMongoClient();
+            MongoClient mongoClient = MongoDBConnectionManager.getLocalMongoClient();
             MongoCollection<Document> postsCollection = mongoClient.getDatabase("GameHub").getCollection("postGame");
 
             // Get the post ID from the URL query parameter
@@ -116,7 +115,7 @@
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
                     <div class="logo-fix">
-                        <a href="index.jsp" class="site-logo">
+                        <a href="ReadGameHome" class="site-logo">
                             <img src="./img/logo1.png" alt="" class="logo1">
                             <img src="./img/logo2.png" alt="" class="logo2">
                         </a>
@@ -146,7 +145,7 @@
             <div class="page-info">
                 <h2>Games</h2>
                 <div class="site-breadcrumb">
-                    <a href="">Home</a>  /
+                    <a href="ReadGameHome">Home</a>  /
                     <span>Games</span>
                 </div>
             </div>
@@ -196,7 +195,7 @@
                                 <div class="testimonials-widget">
                                     <h4 class="widget-title">Testimonials</h4>
                                     <div class="testim-text">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolo re magna aliqua. Quis ipsum suspend isse ultrices.</p>
+                                        <p>EndGame has transformed the way I discover new games! The wishlist feature allows me to keep track of all my favorite titles, and the notifications for game releases are a game-changer. Highly recommend!</p>
                                         <h6><span>James Smith,</span>Gamer</h6>
                                     </div>
                                 </div>
@@ -234,17 +233,7 @@
                 </div>
             </div>
         </section>
-        <!-- Games end-->
-
-        <section class="game-author-section">
-            <div class="container">
-                <div class="game-author-pic set-bg" data-setbg="img/author.jpg"></div>
-                <div class="game-author-info">
-                    <h4>Written by: Michael Williams</h4>
-                    <p>Vivamus volutpat nibh ac sollicitudin imperdiet. Donec scelerisque lorem sodales odio ultricies, nec rhoncus ex lobortis. Vivamus tincid-unt sit amet sem id varius. Donec elementum aliquet tortor. Curabitur justo mi, efficitur sed eros alique.</p>
-                </div>
-            </div>
-        </section>
+        <!-- Games end-->       
 
 
         <!-- Newsletter section -->

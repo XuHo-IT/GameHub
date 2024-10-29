@@ -245,8 +245,21 @@
         <servlet-class>Controller.SignUp</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
         <servlet-name>AddGenreController</servlet-name>
         <servlet-class>Controller.AddGenreController</servlet-class>
+=======
+        <servlet-name>UploadPhoto</servlet-name>
+        <servlet-class>Controller.UploadPhoto</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>WishList</servlet-name>
+        <servlet-class>Controller.WishList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ConfirmPost</servlet-name>
+        <servlet-class>Controller.ConfirmPost</servlet-class>
+>>>>>>> 75e362c79baba4d5764c39f39d8a0c0a405b401f
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -489,8 +502,21 @@
         <url-pattern>/SignUp</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
         <servlet-name>AddGenreController</servlet-name>
         <url-pattern>/AddGenreController</url-pattern>
+=======
+        <servlet-name>UploadPhoto</servlet-name>
+        <url-pattern>/UploadPhoto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WishList</servlet-name>
+        <url-pattern>/WishList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConfirmPost</servlet-name>
+        <url-pattern>/ConfirmPost</url-pattern>
+>>>>>>> 75e362c79baba4d5764c39f39d8a0c0a405b401f
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>ReadGameHome</welcome-file>

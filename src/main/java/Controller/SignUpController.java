@@ -41,8 +41,6 @@ public class SignUpController extends HttpServlet {
             return;
         }
 
-        // Hash the password
-        String hashedPassword = hashPassword(password);
 
         // Create a SuperAdmin object
         SuperAdmin superAdmin = new SuperAdmin(
@@ -52,7 +50,7 @@ public class SignUpController extends HttpServlet {
                 email,
                 phoneNumber,
                 address,
-                hashedPassword,
+                password,
                 photoUrl,
                 "0", // Default role for regular user
                 "Active"

@@ -90,7 +90,6 @@ button.forum-button{
     justify-content: flex-start;
     align-items: center; /* Căn giữa theo chiều dọc (nếu cần) */
     padding: 10px; /* Khoảng cách bên trong */
-    padding-left: 30px;
 }
 
 .left-button-forum,

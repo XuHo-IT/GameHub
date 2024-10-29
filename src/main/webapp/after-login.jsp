@@ -116,7 +116,7 @@
                                     <ul>                                    
                                         <li><a href="user-profile.jsp?id=<%=id%>">Account Info</a></li>
                                         <li>
-                                            <a href="LogOutController" class="dropdown-item">Logout</a>
+                                            <a href="LogOut" class="dropdown-item">Logout</a>
                                         </li>
                                     </ul>
                                 </div>

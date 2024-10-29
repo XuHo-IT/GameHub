@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
-import utils.MongoDBConnectionManager1;
+import utils.MongoDBConnectionManager;
 
 public class TopicDAO {
 
@@ -25,7 +25,7 @@ public class TopicDAO {
     private final MongoCollection<Document> usersCollection;
 
     public TopicDAO() {
-        MongoClient mongoClient = MongoDBConnectionManager1.getLocalMongoClient();
+        MongoClient mongoClient = MongoDBConnectionManager.getLocalMongoClient();
         this.database = mongoClient.getDatabase("GameHub"); // Initialize the database
         this.topicCollection = database.getCollection("topic");
         this.commentCollection = database.getCollection("comment");

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import utils.MongoDBConnectionManager1;
+import utils.MongoDBConnectionManager;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,7 +23,7 @@ public class ReadGameHomeAdmin extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            MongoClient mongoClient = MongoDBConnectionManager1.getLocalMongoClient();
+            MongoClient mongoClient = MongoDBConnectionManager.getLocalMongoClient();
             HttpSession session = request.getSession();
 
             GamePostDAO gamePostDAO = new GamePostDAO();

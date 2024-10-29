@@ -36,6 +36,6 @@
 <body>
     <h1>Account Banned</h1>
     <p>Sorry, your account has been banned based on your behavior.</p>
-    <a class="btn" href="ReadGameHomeController">Return to Home</a>
+    <a class="btn" href="ReadGameHome">Return to Home</a>
 </body>
 </html>

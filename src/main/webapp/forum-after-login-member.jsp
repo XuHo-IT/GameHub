@@ -84,7 +84,7 @@
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
                             <div class="account-container">
-                                 <div class="user">
+                                <div class="user">
                                     <%= request.getSession().getAttribute("adminId")%>
                                     <img src="<%= request.getSession().getAttribute("photoUrl")%>" alt="User Profile" />
                                 </div>
@@ -92,7 +92,7 @@
                                     <ul>
                                         <li><a href="user-profile.jsp?id=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
                                         <li>
-                                            <a href="LogOutController" class="dropdown-item">Logout</a>
+                                            <a href="LogOut" class="dropdown-item">Logout</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -134,14 +134,8 @@
                  max-width: 1500px;
                  background: linear-gradient(to right, #2d1854 0%, #101D3D 100%);">
                 <!-- button -->
-                <div class="button-top-forum" >
-                    <div class="left-button-forum">
-                        <button class="forum-button" >All Topics</button>
-                        <button class="forum-button">My Topics</button>
-                    </div>
-                    <div class="right-button-forum">
-                        <button class="create-btn">Create New Topic</button>
-                    </div>
+                <div class="button-top-forum" >                   
+                    <button class="create-btn">Create New Topic</button>
                 </div>
 
                 <div class="subforum">
@@ -391,22 +385,22 @@
                 display: none;
                 opacity:1;
             }
-             .user {
-                        position: relative;
-                        width: 40px;
-                        height: 40px;
-                        border-radius: 50%;
-                        overflow: hidden;
-                        cursor: pointer;
-                    }
-                    .user img {
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-                    }
+            .user {
+                position: relative;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                overflow: hidden;
+                cursor: pointer;
+            }
+            .user img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
             .btn-danger{
                 margin: 0;
                 margin-top: 5px;

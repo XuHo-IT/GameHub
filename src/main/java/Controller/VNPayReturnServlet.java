@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.bson.Document;
 import org.bson.types.ObjectId;
-import utils.MongoDBConnectionManager1;
+import utils.MongoDBConnectionManager;
 
 /**
  *
@@ -34,7 +34,7 @@ public class VNPayReturnServlet extends HttpServlet {
         String paymentStatus = request.getParameter("vnp_ResponseCode");
         
         if ("00".equals(paymentStatus)) {
-                MongoClient mongoClient = MongoDBConnectionManager1.getLocalMongoClient();// Payment success code
+                MongoClient mongoClient = MongoDBConnectionManager.getLocalMongoClient();// Payment success code
             MongoCollection<Document> collection = mongoClient.getDatabase("GameHub").getCollection("postGame");
 
             if (postId != null) {

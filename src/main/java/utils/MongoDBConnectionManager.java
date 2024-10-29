@@ -5,10 +5,10 @@ import com.mongodb.client.MongoClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MongoDBConnectionManager1 {
+public class MongoDBConnectionManager {
     private static MongoClient localMongoClient;
     private static MongoClient remoteMongoClient;
-    private static final Logger logger = LoggerFactory.getLogger(MongoDBConnectionManager1.class);
+    private static final Logger logger = LoggerFactory.getLogger(MongoDBConnectionManager.class);
 
     // Local MongoDB connection URI
     private static final String LOCAL_URI = "mongodb://localhost:27017"; 
@@ -16,7 +16,7 @@ public class MongoDBConnectionManager1 {
     // Remote MongoDB connection URI
     private static final String REMOTE_URI = "mongodb+srv://ngotranxuanhoa09062004:hoa09062004@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub";
 
-    private MongoDBConnectionManager1() {}
+    private MongoDBConnectionManager() {}
 
     // Method to get a local MongoDB client
     public static MongoClient getLocalMongoClient() {

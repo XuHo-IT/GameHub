@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import utils.MongoDBConnectionManager1;
+import utils.MongoDBConnectionManager;
 
 public class UpdateCommentAdmin extends HttpServlet {
 

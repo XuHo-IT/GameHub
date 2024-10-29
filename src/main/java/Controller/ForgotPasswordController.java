@@ -12,7 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import utils.MongoDBConnectionManager1;
+import utils.MongoDBConnectionManager;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -23,7 +23,7 @@ public class ForgotPasswordController extends HttpServlet {
         String email = request.getParameter("emailForgot");
 
         // Connect to the database and collection
-        MongoClient mongoClient = MongoDBConnectionManager1.getLocalMongoClient();
+        MongoClient mongoClient = MongoDBConnectionManager.getLocalMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> collection = database.getCollection("superadmin");
 
@@ -38,7 +38,7 @@ public class ForgotPasswordController extends HttpServlet {
             // Email does not exist
             request.setAttribute("errorMessage", "No account registered with this email address.");
         }
-        response.sendRedirect("ReadGameHomeController"); // Redirect back to the main page
+        response.sendRedirect("ReadGameHome"); // Redirect back to the main page
     }
 
     private void sendEmail(String toEmail, String password) {

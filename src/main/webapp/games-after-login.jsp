@@ -94,11 +94,7 @@
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
                             <!-- Bi?u t??ng gi? h�ng -->
-                            <div class="cart-icon">
-                                <a href="shopping-cart.jsp">
-                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                </a>
-                            </div>
+                           
                             <!-- Bi?u t??ng t�i kho?n -->
                             <div class="account-container">
                                   <div class="user">
@@ -109,7 +105,7 @@
                                     <ul>
                                         <li><a href="user-profile.jsp?">Account Info</a></li>
                                         <li>
-                                            <a href="LogOutController" class="dropdown-item">Logout</a>
+                                            <a href="LogOut" class="dropdown-item">Logout</a>
                                         </li>
                                     </ul>
                                 </div>

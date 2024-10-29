@@ -106,7 +106,7 @@
                                     <ul>
                                         <li><a href="user-profile.jsp?userid=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
                                         <li>
-                                            <a href="LogOutController" class="dropdown-item">Logout</a>
+                                            <a href="LogOut" class="dropdown-item">Logout</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -478,44 +478,28 @@
                     </div>
 
                 </div>
+                 <div class="form-box upload-photo">
+                    <div class="form-details">
+                    </div>
+                    <div class="form-content">
+                        <h2 style="margin-bottom: 6px">Upload Genre</h2>
+                        <form action="AddGenreController" method="post">
+                            <div class="input-field">
+                                <label class="mr-2">Genre Of Game:</label>
+                                <input type="text" required name="genre1">
+                            </div>
+                            <button type="submit">Send</button>
+                        </form>
+                        <div class="bottom-link">
+                            <a href="#" id="create-post-link">Add Post Game</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
                 </div>
 
-                <div class="form-box upload-photo">
-                    <div class="form-details">
-                    </div>
-                    <div class="form-content">
-                        <h2 style="margin-bottom: 6px">Upload Genre</h2>
-                        <form action="AddGenreController" method="post">
-                            <div class="input-field">
-                                <label class="mr-2">Genre Of Game:</label>
-                                <input type="text" required name="genre1">
-                            </div>
-                            <button type="submit">Send</button>
-                        </form>
-                        <div class="bottom-link">
-                            <a href="#" id="create-post-link">Add Post Game</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                <div class="form-box upload-photo">
-                    <div class="form-details">
-                    </div>
-                    <div class="form-content">
-                        <h2 style="margin-bottom: 6px">Upload Genre</h2>
-                        <form action="AddGenreController" method="post">
-                            <div class="input-field">
-                                <label class="mr-2">Genre Of Game:</label>
-                                <input type="text" required name="genre1">
-                            </div>
-                            <button type="submit">Send</button>
-                        </form>
-                        <div class="bottom-link">
-                            <a href="#" id="create-post-link">Add Post Game</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+               
+               
 
 
 

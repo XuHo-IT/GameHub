@@ -17,7 +17,7 @@ import org.bson.Document;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import utils.MongoDBConnectionManager1;
+import utils.MongoDBConnectionManager;
 
 @WebServlet("/vnpay-payment")
 public class VNPayPaymentServlet extends HttpServlet {
@@ -26,7 +26,7 @@ public class VNPayPaymentServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        MongoClient mongoClient = MongoDBConnectionManager1.getLocalMongoClient();
+        MongoClient mongoClient = MongoDBConnectionManager.getLocalMongoClient();
         database = mongoClient.getDatabase("GameHub");
         collection = database.getCollection("Transaction");
     }

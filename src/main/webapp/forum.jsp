@@ -1,4 +1,3 @@
-<%@page import="utils.MongoDBConnectionManager1"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="Model.Topic"%>

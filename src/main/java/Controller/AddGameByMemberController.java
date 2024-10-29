@@ -68,6 +68,6 @@ public class AddGameByMemberController extends HttpServlet {
         gamePostDAO.addGamePost(gamePost, actionImagesBase64);
 
         // Redirect after adding
-        response.sendRedirect("ReadGameHomeMemberController?memberid=" + memberId);
+        response.sendRedirect("ReadGameHomeMember?memberid=" + memberId);
     }
 }

@@ -1,6 +1,6 @@
+<%@page import="utils.MongoDBConnectionManager"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="Model.CommentTemp"%>
-<%@page import="utils.MongoDBConnectionManager1"%>
 <%@page import="java.time.Period"%>
 <%@page import="java.time.Duration"%>
 <%@page import="java.time.ZoneId"%>
@@ -138,7 +138,7 @@
             String topicId = request.getParameter("topicId");
 
             // Connect to MongoDB
-            MongoClient mongoClient = MongoDBConnectionManager1.getLocalMongoClient();
+            MongoClient mongoClient = MongoDBConnectionManager.getLocalMongoClient();
             MongoCollection<Document> topicsCollection = mongoClient.getDatabase("GameHub").getCollection("topic");
 
             // Find the topic by its ObjectId

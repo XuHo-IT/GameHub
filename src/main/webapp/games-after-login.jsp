@@ -155,8 +155,7 @@
                                     </div>
                                 </div>
                             </c:forEach>
-                        </div>
-                       
+                        </div>                   
                     </div>
                     <div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">
                         <div id="stickySidebar">
@@ -194,7 +193,6 @@
                             <a href="?genre=${selectedGenre}&page=${currentPage + 1}" class="next">Next</a>
                         </c:if>
                     </div>
-
                 </div>
             </div>
         </section>

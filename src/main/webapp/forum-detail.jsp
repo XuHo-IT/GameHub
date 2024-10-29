@@ -1,5 +1,5 @@
+<%@page import="utils.MongoDBConnectionManager"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
-<%@page import="utils.MongoDBConnectionManager1"%>
 <%@page import="Model.CommentTemp"%>
 <%@page import="java.time.Period"%>
 <%@page import="java.time.Duration"%>
@@ -115,7 +115,7 @@
             String topicId = request.getParameter("topicId");
 
             // Connect to MongoDB
-            MongoClient mongoClient = MongoDBConnectionManager1.getLocalMongoClient();
+            MongoClient mongoClient = MongoDBConnectionManager.getLocalMongoClient();
             MongoCollection<Document> topicsCollection = mongoClient.getDatabase("GameHub").getCollection("topic");
 
             // Find the topic by its ObjectId
@@ -179,7 +179,7 @@
 
                     <div class="body">
                         <div class="authors">                          
-                            <img src="<%= (photoUrlUser == null || photoUrlUser.isEmpty()) ? "./img/t-rex.png" : photoUrlUser%>" alt="Photo User">
+                            <img src="<%= (photoUrlUser == null || photoUrlUser.isEmpty()) ? "./img/t-rex.png" : "data:image/jpeg;base64," + photoUrlUser%>" alt="Photo User">
                             <div class="username"><a href="#"><%=userNameTopic%></a></div>
                         </div>
                         <div class="content">
@@ -202,7 +202,7 @@
                     <div class="comments" id="comment-<%= comment.getCommentId()%>" data-comment-index="<%= commentIndex++%>">
                         <div class="body">
                             <div class="authors">
-                                <img src="<%= (comment.getPhotoUrl() == null || comment.getPhotoUrl().isEmpty()) ? "./img/t-rex.png" : comment.getPhotoUrl()%>" alt="Photo User">
+                                  <img src="<%= (comment.getPhotoUrl() == null || comment.getPhotoUrl().isEmpty()) ? "./img/t-rex.png" : "data:image/jpeg;base64," + comment.getPhotoUrl() %>" alt="Photo User">
                                 <div class="username"><a href=""><%= comment.getUserName()%></a></div>
                                 <div class="date-comment">
                                     <%
@@ -301,7 +301,7 @@
         <!-- Footer section end -->
 
 
-       <!-- Popup Container -->
+        <!-- Popup Container -->
         <div class="blur-bg-overlay"></div>
         <div class="form-popup">
             <span class="close-btn material-symbols-rounded">close</span>

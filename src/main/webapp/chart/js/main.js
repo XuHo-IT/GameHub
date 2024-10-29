@@ -24,8 +24,8 @@ fetch('http://localhost:8080/Web_Trading_Game/PostStatistic')
     .then((response) => response.json())
     .then((data) => {
         // Swap the values of adminPosts and memberPosts
-        const adminPosts = data.memberPostList;  // Was previously adminPostList
-        const memberPosts = data.adminPostList;  // Was previously memberPostList
+        const adminPosts = data.adminPostList;  // Was previously adminPostList
+        const memberPosts = data.memberPostList;  // Was previously memberPostList
         const totalPosts = adminPosts+memberPosts;  // Get the total posts from the response
 
         // Update the chart with member and admin posts
@@ -35,7 +35,7 @@ fetch('http://localhost:8080/Web_Trading_Game/PostStatistic')
                 labels: ["Member Post", "Admin Post"],  // No need to change this
                 datasets: [{
                     label: "Traffic Source",
-                    data: [memberPosts, adminPosts],  // Now memberPosts is first, adminPosts second
+                    data: [adminPosts , memberPosts ],  // Now memberPosts is first, adminPosts second
                     backgroundColor: [
                         "rgba(255, 99, 132, 1)",  // Red for Member Posts
                         "rgba(54, 162, 235, 1)"   // Blue for Admin Posts

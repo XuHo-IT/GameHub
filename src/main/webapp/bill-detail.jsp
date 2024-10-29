@@ -56,7 +56,7 @@
         <p><strong>Response Code:</strong> <%= displayResponseCode %></p>
         <p><strong>Link of the Game:</strong> <a href="<%= linkGame %>" target="_blank">Download Game</a></p>
 
-        <a href="http://localhost:8080/Web_Trading_Game/ReadGameHomeController" class="btn btn-primary btn-back">Return to Home</a>
+        <a href="http://localhost:8080/Web_Trading_Game/ReadGameHome" class="btn btn-primary btn-back">Return to Home</a>
     </div>
 </body>
 </html>

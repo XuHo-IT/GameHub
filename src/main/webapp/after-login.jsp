@@ -97,7 +97,7 @@
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
                     <div class="logo-fix">
-                        <a href="after-login.html" class="site-logo">
+                        <a href="ReadGameHomeMember?userId=<%= request.getSession().getAttribute("adminId")%>" class="site-logo">
                             <img src="./img/logo1.png" alt="" class="logo1">
                             <img src="./img/logo2.png" alt="" class="logo2">
                         </a>
@@ -108,13 +108,12 @@
 
                             <!-- Bi?u t??ng t�i kho?n -->
                             <div class="account-container">
-                                <div class="user">
-                                    <%= request.getSession().getAttribute("adminId")%>
-                                    <img src="<%= request.getSession().getAttribute("photoUrl")%>" alt="User Profile" />
+                                <div class="user">                                   
+                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>                                    
-                                        <li><a href="user-profile.jsp?id=<%=id%>">Account Info</a></li>
+                                        <li><a href="user-profile.jsp?userid=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
                                         <li>
                                             <a href="LogOut" class="dropdown-item">Logout</a>
                                         </li>
@@ -231,7 +230,7 @@
                         <!-- Blog item -->
                         <%
                             String adminId = request.getParameter("id");  // Get AdminId from session
-%>                        
+                        %>                        
                         <div class="blog-container">
                             <c:forEach var="post" items="${posts}">
                                 <div class="blog-item">
@@ -261,6 +260,8 @@
                         <a href="ReadGameList" class=" more-game-btn"> More Game </a>
                     </div>
 
+                        
+                        
                     <style>
                         .more-game-btn{
                             margin-top: 50px;

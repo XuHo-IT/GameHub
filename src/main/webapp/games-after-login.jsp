@@ -193,7 +193,6 @@
                             <a href="?genre=${selectedGenre}&page=${currentPage + 1}" class="next">Next</a>
                         </c:if>
                     </div>
-
                 </div>
             </div>
         </section>

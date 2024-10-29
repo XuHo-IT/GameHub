@@ -156,12 +156,7 @@
                                     </div>
                                 </div>
                             </c:forEach>
-                        </div>
-                        <div class="site-pagination">
-                            <c:forEach var="i" begin="1" end="${totalPages}">
-                                <a href="?page=${i}" class="${i == currentPage ? 'active' : ''}">${i < 10 ? '0' + i : i}</a>
-                            </c:forEach>
-                        </div>
+                        </div>                   
                     </div>
                     <div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">
                         <div id="stickySidebar">

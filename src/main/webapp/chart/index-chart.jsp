@@ -59,9 +59,8 @@
                     <!-- Search -->
 
                     <!-- UserImg -->
-                    <div class="user">
-                        <%= request.getSession().getAttribute("adminId")%>
-                        <img src="<%= request.getSession().getAttribute("photoUrl")%>" alt="User Profile" />
+                    <div class="user">                                   
+                        <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
                     </div>
 
                 </div>
@@ -114,7 +113,7 @@
                     <div class="recentOrders">
                         <div class="cardHeader">
                             <h2>Recent Orders</h2>
-                            
+
                         </div>
                         <table>
                             <thead>

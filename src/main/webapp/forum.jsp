@@ -126,7 +126,7 @@
                     <c:forEach var="topic" items="${topics}">
                         <div class="subforum-row">
                             <div class="subforum-icon subforum-column center">
-                                <img src="${topic.photoUrl}" alt="User Photo">
+                               <img src="data:image/jpeg;base64,${topic.photoUrl}" alt="User Photo" style="width: 140px; height: 140px; border-radius: 50%;" />
                             </div>
                             <div class="subforum-description subforum-column">
                                 <h4>

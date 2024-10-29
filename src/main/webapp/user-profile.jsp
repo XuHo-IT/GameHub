@@ -1,3 +1,4 @@
+<%@page import="DAO.UserDAO"%>
 <%@ page import="java.util.List, Model.UserModel, mongodb.MongoConectUser" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,7 +61,7 @@
     <body>
         <%
             String id = request.getParameter("userid");
-            MongoConectUser mgcn = new MongoConectUser();
+            UserDAO mgcn = new UserDAO();
             UserModel user = mgcn.getUserById(id);
             if (user == null) {
                 out.println("User not found.");
@@ -70,9 +71,10 @@
             String profilePicture = user.getPhotoUrl(); // Gi? s? ph??ng th?c này t?n t?i
             String email = user.getEmail();
             String phone = user.getPhone();
+            String photo = user.getPhotoUrl();
             String address = user.getAddress();
             String role = user.getRole().equals("1") ? "Administrator" : "Member";
-            String homePage = user.getRole().equals("1") ? "ReadGameHomeAdmin" : "ReadGameHomeMemberController";
+            String homePage = user.getRole().equals("1") ? "ReadGameHomeAdmin" : "ReadGameHomeMember";
         %>
 
         <div class="container">
@@ -89,8 +91,8 @@
                                             <div class="col-12 col-sm-auto mb-3">
                                                 <div class="mx-auto" style="width: 140px;">
                                                     <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
-                                                        <% if (profilePicture != null && !profilePicture.isEmpty()) {%>
-                                                        <img src='<%= profilePicture%>' style='width: 140px; height: 140px; border-radius: 50%;'/>
+                                                        <% if (photo!= null && !photo.isEmpty()) {%>
+                                                         <img src="data:image/jpeg;base64,<%= photo %>" style="width: 140px; height: 140px;" alt="Profile Picture" />
                                                         <% } else { %>
                                                         <span style='color: rgb(166, 168, 170); font: bold 8pt Arial;'>No Photo</span>
                                                         <% }%>
@@ -101,14 +103,16 @@
                                                 <div class="text-center text-sm-left mb-2 mb-sm-0">
                                                     <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap"><%= name%></h4>
                                                     <div class="mt-2">
-                                                        <button class="btn btn-primary" type="button" onclick="document.getElementById('photoInput').click();">
-                                                            <i class="fa fa-fw fa-camera"></i>
-                                                            <span>Change Photo</span>
-                                                        </button>
-                                                        <form id="uploadForm" action="upload-photo" method="post" enctype="multipart/form-data">
-                                                            <input type="file" name="photofile" id="photoInput" style="display:none;">
+
+                                                        <form id="uploadForm" action="UploadPhoto" method="post" enctype="multipart/form-data">
+                                                            <div class="input-field">
+                                                                <label class="mr-2">Change Photo</label>
+                                                                <input type="file" name="photoInput" required>
+                                                            </div>
                                                             <input type="hidden" name="userId" value="<%= id%>">
+                                                            <button type="submit" class="btn btn-primary mt-3">Upload Photo</button>
                                                         </form>
+
                                                     </div>
                                                 </div>
                                                 <div class="text-center text-sm-right">
@@ -195,7 +199,7 @@
             <div class="popup-content">
                 <span class="close-btn" onclick="closeEditPopup()">&times;</span>
                 <h4>Edit Information</h4>
-                <form id="editForm" action="updateUser.jsp" method="post">
+                <form id="editForm" action="EditUserServlet" method="post">
                     <input type="hidden" name="id" value="<%= id%>">
                     <div class="form-group">
                         <label>Name</label>
@@ -219,6 +223,19 @@
         </div>
 
         <script>
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const bodyElement = document.querySelector('body');
+                const bgImage = bodyElement.getAttribute('data-sbg');
+                if (bgImage) {
+                    bodyElement.style.backgroundImage = `url(${bgImage})`;
+                    bodyElement.style.backgroundSize = 'cover';
+                    bodyElement.style.backgroundPosition = 'center';
+                    bodyElement.style.backgroundRepeat = 'no-repeat';
+                    bodyElement.style.backgroundAttachment = 'fixed';
+                }
+            });
+
             function openEditPopup() {
                 document.getElementById("editPopup").style.display = "flex";
             }
@@ -233,23 +250,13 @@
                 if (event.target === popup) {
                     closeEditPopup();
                 }
-            }
-            document.addEventListener("DOMContentLoaded", function () {
-                const bodyElement = document.querySelector('body');
-                const bgImage = bodyElement.getAttribute('data-sbg');
-                if (bgImage) {
-                    .
-                            bodyElement.style.backgroundImage = `url(${bgImage})`;
-                    bodyElement.style.backgroundSize = 'cover';
-                    bodyElement.style.backgroundPosition = 'center';
-                    bodyElement.style.backgroundRepeat = 'no-repeat';
-                    bodyElement.style.backgroundAttachment = 'fixed';
-                }
-            });
+            };
+
 
             document.getElementById('photoInput').addEventListener('change', function () {
                 document.getElementById('uploadForm').submit();
             });
+
         </script>
     </body>
 </html>

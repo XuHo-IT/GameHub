@@ -1,6 +1,6 @@
+<%@page import="utils.MongoDBConnectionManager"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="Model.CommentTemp"%>
-<%@page import="utils.MongoDBConnectionManager1"%>
 <%@page import="java.time.Period"%>
 <%@page import="java.time.Duration"%>
 <%@page import="java.time.ZoneId"%>
@@ -86,13 +86,12 @@
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
                             <div class="account-container">
-                                <div class="user">
-                                    <%= request.getSession().getAttribute("adminId")%>
-                                    <img src="<%= request.getSession().getAttribute("photoUrl")%>" alt="User Profile" />
+                                 <div class="user">                                   
+                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
-                                        <li><a href="user-profile.jsp?id=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
+                                         <li><a href="user-profile.jsp?userid=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
                                         <li>
                                             <a href="LogOut" class="dropdown-item">Logout</a>
                                         </li>
@@ -140,7 +139,7 @@
             System.out.println(userId + "1");
 
             // Connect to MongoDB
-            MongoClient mongoClient = MongoDBConnectionManager1.getLocalMongoClient();
+            MongoClient mongoClient = MongoDBConnectionManager.getLocalMongoClient();
             MongoCollection<Document> topicsCollection = mongoClient.getDatabase("GameHub").getCollection("topic");
 
             // Find the topic by its ObjectId
@@ -218,7 +217,7 @@
 
                     <div class="body">
                         <div class="authors">                          
-                            <img src="<%= (photoUrlUser == null || photoUrlUser.isEmpty()) ? "./img/t-rex.png" : photoUrlUser%>" alt="Photo User">
+                          <img src="<%= (photoUrlUser == null || photoUrlUser.isEmpty()) ? "./img/t-rex.png" : "data:image/jpeg;base64," + photoUrlUser %>" alt="Photo User">
                             <div class="username"><a href="#"><%=userNameTopic%></a></div>
                         </div>
                         <div class="content">
@@ -254,7 +253,7 @@
                         <div class="comments" id="comment-<%= comment.getCommentId()%>" data-comment-index="<%= commentIndex++%>">
                             <div class="body">
                                 <div class="authors">
-                                    <img src="<%= (comment.getPhotoUrl() == null || comment.getPhotoUrl().isEmpty()) ? "./img/t-rex.png" : comment.getPhotoUrl()%>" alt="Photo User">
+                                 <img src="<%= (comment.getPhotoUrl() == null || comment.getPhotoUrl().isEmpty()) ? "./img/t-rex.png" : "data:image/jpeg;base64," + comment.getPhotoUrl() %>" alt="Photo User">
                                     <div class="username"><a href=""><%= comment.getUserName()%></a></div>
                                     <div class="date-comment">
                                         <%

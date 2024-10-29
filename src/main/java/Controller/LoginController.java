@@ -31,7 +31,7 @@ public class LoginController extends HttpServlet {
         if (superAdmin != null && superAdmin.getPassWord().equals(password)) {
             try {
                 // Check user status
-                MongoConectUser mgcn = new MongoConectUser();
+                UserDAO mgcn = new UserDAO();
                 UserModel currentUser = mgcn.getUserById(superAdmin.getAdminId());
 
                 // Set session attributes

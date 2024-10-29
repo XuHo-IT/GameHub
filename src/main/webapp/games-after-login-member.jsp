@@ -93,9 +93,7 @@
                     </div>
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
-                            <!-- Bi?u t??ng gi? h�ng -->
-                           
-                           
+                            <!-- Bi?u t??ng t�i kho?n -->
                             <div class="account-container">
                                   <div class="user">                                   
                                     <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
@@ -133,7 +131,7 @@
             <div class="page-info" style="padding-top: 35px">
                 <h2>Games</h2>
                 <div class="site-breadcrumb">
-                    <a href="">Home</a>  /
+                    <a href="ReadGameHomeMember?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a>  /
                     <span>Games</span>
                 </div>
             </div>

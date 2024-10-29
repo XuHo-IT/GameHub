@@ -60,7 +60,7 @@ public class GameReleaseNotificationMemberController extends HttpServlet {
         request.setAttribute(adminId, "adminId");
 
         if (emailSent) {
-            response.sendRedirect("ReadGameHomeMemberController");
+            response.sendRedirect("ReadGameHomeMember");
         } else {
             response.sendRedirect("shopping-cart.jsp");
         }

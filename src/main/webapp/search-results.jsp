@@ -56,7 +56,7 @@
                 <div class="row align-items-center">
                     <!-- Left side: Search Form (col-7) -->
                     <div class="col-8">
-                        <form action="SearchController" method="GET">
+                        <form action="Search" method="GET">
                             <!-- Search Bar Row -->
                             <div class="row" style="align-items: center;">
                                 <!-- Keyword input for the search bar -->
@@ -130,9 +130,7 @@
             <div class="container">
                 <div class="row justify-content-center align-items-start">
                     <div class="col-xl-9 col-lg-8 col-md-7">
-                        <div class="row">
-                            <h2 style="color: #fff;
-                                font-size: 40px">Search Results for "${param.keyword}"</h1>
+                        <div class="row">                         
                                 <c:forEach var="post" items="${posts}">
                                     <div class="col-lg-4 col-md-6">
                                         <div class="game-item">

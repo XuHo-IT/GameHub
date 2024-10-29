@@ -13,7 +13,6 @@ import org.bson.Document;
 import utils.MongoDBConnectionManager;
 
 
-@WebServlet("/EditUserController")
 public class EditUserServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;

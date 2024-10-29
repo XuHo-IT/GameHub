@@ -64,9 +64,8 @@
                         <div class="user-panel d-flex">
                             <!-- Bi?u t??ng t�i kho?n -->
                             <div class="account-container">
-                                <div class="user">
-                                    <%= request.getSession().getAttribute("adminId")%>
-                                    <img src="<%= request.getSession().getAttribute("photoUrl")%>" alt="User Profile" />
+                                <div class="user">                                   
+                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>

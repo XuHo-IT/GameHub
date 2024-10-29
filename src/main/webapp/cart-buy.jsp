@@ -1,3 +1,4 @@
+<%@page import="utils.MongoDBConnectionManager"%>
 <%@page import="java.nio.charset.StandardCharsets"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
@@ -49,9 +50,9 @@
                                                 <h1 class="fw-bold mb-0" style="color:antiquewhite">Your Order</h1>
                                             </div>
                                             <%
-                                                MongoClient mongoClient = null;
+                                                MongoClient mongoClient = MongoDBConnectionManager.getLocalMongoClient();
                                                 try {
-                                                    mongoClient = MongoClients.create("mongodb+srv://LoliHunter:Loli_slayer_123@gamehub.hzcoa.mongodb.net/?retryWrites=true&w=majority&appName=GameHub");
+                                                    
                                                     MongoCollection<Document> collection = mongoClient.getDatabase("GameHub").getCollection("postGame");
                                                     String postId = request.getParameter("id");
                                                     String userId = request.getParameter("adminId");
@@ -61,7 +62,6 @@
                                                     }
 
                                                     Document post = collection.find(Filters.eq("_id", new ObjectId(postId))).first();
-
                                                     if (post != null) {
                                                         String title = post.getString("Title");
                                                         String fileData = post.getString("FileData");
@@ -170,11 +170,8 @@
                                             } catch (Exception e) {
                                                 e.printStackTrace();
                                                 out.println("<p style='color:red;'>An error occurred while processing your request.</p>");
-                                            } finally {
-                                                if (mongoClient != null) {
-                                                    mongoClient.close();
-                                                }
-                                            }
+                                            } 
+                                            
                                         %>
                                     </div>
                                 </div>

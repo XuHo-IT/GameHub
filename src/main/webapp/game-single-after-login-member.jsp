@@ -1,6 +1,8 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
+<%@page import="utils.MongoDBConnectionManager"%>
 <%@page import="Model.Genre"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="utils.MongoDBConnectionManager1"%>
 <%@page import="java.util.List"%>
 <%@page import="com.mongodb.client.model.Filters"%>
 <%@page import="org.bson.types.ObjectId"%>
@@ -62,11 +64,11 @@
             String fileData = null;
             String linkGame = null;
             String price = null;
-            String adminId = request.getParameter("adminId");
+            String adminId = request.getSession().getAttribute("adminId").toString();
             List<String> actionImages = null;
 
             // Connect to MongoDB
-            MongoClient mongoClient = MongoDBConnectionManager1.getLocalMongoClient();
+            MongoClient mongoClient = MongoDBConnectionManager.getLocalMongoClient();
             MongoCollection<Document> postsCollection = mongoClient.getDatabase("GameHub").getCollection("postGame");
 
             // Get the post ID from the URL query parameter
@@ -127,13 +129,12 @@
                             </div>
                             <!-- Bi?u t??ng t�i kho?n -->
                             <div class="account-container">
-                                <div class="user">
-                                    <%= request.getSession().getAttribute("adminId")%>
-                                    <img src="<%= request.getSession().getAttribute("photoUrl")%>" alt="User Profile" />
+                                <div class="user">                                   
+                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
-                                        <li><a href="user-profile.jsp">Account Info</a></li>
+                                        <li><a href="user-profile.jsp?userid=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
                                         <li>
                                             <a href="LogOut" class="dropdown-item">Logout</a>
                                         </li>
@@ -183,7 +184,7 @@
                             <input type="hidden" name="postId" value="<%= postId%>" />
                             <input type="hidden" name="adminId" value="<%= adminId%>" />
                             <input type="hidden" name="title" value="<%= title%>" />
-                            <input type="hidden" name="file Data" value="<%= fileData%>" />
+                            <input type="hidden" name="fileData" value="<%= fileData%>" />
                             <input type="hidden" name="dateRelease" value="<%= dateRelease%>" />
                             <input type="hidden" name="author" value="<%= author%>" />
                             <input type="hidden" name="price" value="<%= price%>" />
@@ -200,6 +201,29 @@
                         </form>
 
                     </div>
+                    <%
+                        // Parse the release date if it's not null
+                        Date today = new Date();
+                        Date releaseDate = null;
+
+                        if (dateRelease != null) {
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Ensure format matches dateRelease
+                            releaseDate = sdf.parse(dateRelease);
+                        }
+                    %>
+
+                    <div class="gs-meta">
+                        Release: <%= dateRelease != null ? dateRelease : "Unknown Date"%>
+                    </div>
+
+                    <% if (releaseDate != null && releaseDate.before(today)) {%>
+                    <div class="buy-btn">
+                        <button class="buy-button" type="submit" 
+                                onclick="window.location.href = 'http://localhost:8080/Web_Trading_Game/cart-buy.jsp?id=<%= postId%>&adminId=<%= adminId%>'">
+                            Buy Game
+                        </button>
+                    </div>
+                    <% }%>
                 </div>
                 <div class="row">
                     <div class="col-xl-9 col-lg-8 col-md-7 game-single-content">
@@ -239,7 +263,7 @@
                                 <div class="testimonials-widget">
                                     <h4 class="widget-title">Testimonials</h4>
                                     <div class="testim-text">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolo re magna aliqua. Quis ipsum suspend isse ultrices.</p>
+                                        <p>EndGam has transformed the way I discover new games! The wishlist feature allows me to keep track of all my favorite titles, and the notifications for game releases are a game-changer. Highly recommend!</p>
                                         <h6><span>James Smith,</span>Gamer</h6>
                                     </div>
                                 </div>
@@ -281,15 +305,7 @@
         </section>
         <!-- Games end-->
 
-        <section class="game-author-section">
-            <div class="container">
-                <div class="game-author-pic set-bg" data-setbg="img/author.jpg"></div>
-                <div class="game-author-info">
-                    <h4>Written by: Michael Williams</h4>
-                    <p>Vivamus volutpat nibh ac sollicitudin imperdiet. Donec scelerisque lorem sodales odio ultricies, nec rhoncus ex lobortis. Vivamus tincid-unt sit amet sem id varius. Donec elementum aliquet tortor. Curabitur justo mi, efficitur sed eros alique.</p>
-                </div>
-            </div>
-        </section>
+
 
 
         <!-- Newsletter section -->
@@ -475,6 +491,21 @@
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
+            }
+            .buy-button{
+                width: 20%;
+                color: #fff;
+                border: none;
+                outline: none;
+                padding: 14px 0;
+                font-size: 1rem;
+                font-weight: 500;
+                border-radius: 3px;
+                cursor: pointer;
+                margin: 25px 0;
+                background: #952b2b;
+                transition: 0.2s ease;
+
             }
         </style>
         <!--====== Javascripts & Jquery ======-->

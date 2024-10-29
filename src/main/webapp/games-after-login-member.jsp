@@ -97,13 +97,12 @@
                            
                            
                             <div class="account-container">
-                                <div class="user">
-                                    <%= request.getSession().getAttribute("adminId")%>
-                                    <img src="<%= request.getSession().getAttribute("photoUrl")%>" alt="User Profile" />
+                                  <div class="user">                                   
+                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
-                                        <li><a href="user-profile.jsp">Account Info</a></li>
+                                           <li><a href="user-profile.jsp?userid=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
                                         <li>
                                             <a href="LogOut" class="dropdown-item">Logout</a>
                                         </li>

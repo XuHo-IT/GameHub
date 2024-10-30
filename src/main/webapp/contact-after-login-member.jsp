@@ -8,7 +8,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Favicon -->
         <link href="./img/favicon.png" rel="icon" />
-
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -92,18 +91,13 @@
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
                     <div class="logo-fix">
-                        <a href="ReadGameHomeController" class="site-logo">
+                        <a href="ReadGameHomeMember?userId=<%= request.getSession().getAttribute("adminId")%>" class="site-logo">
                             <img src="./img/logo1.png" alt="" class="logo1">
                             <img src="./img/logo2.png" alt="" class="logo2">
                         </a>
                     </div>
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
-                            <!-- Bi?u t??ng gi? h�ng -->
-                            <div class="cart-icon">
-
-                            </div>
-                            <!-- Bi?u t??ng t�i kho?n -->
                             <div class="account-container">
                                 <div class="user">                                   
                                     <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
@@ -297,8 +291,24 @@
             </div>
         </div>
         <!-- Newsletter section end -->
+        
+        <!-- Newsletter section -->
+        <section class="newsletter-section" style="background-image: url('img/Gif2.gif'); background-size: cover; background-position: center; height: 80vh; position: relative; color: white; display: flex; align-items: center; justify-content: center;">
+            <div class="container" style="position: relative; z-index: 1; text-align: center;">
+                <h3 class="bottom-title">Thanks for using our website!</h3>
+            </div>
+        </section>
+        <style>
+            .bottom-title {
+                font-family: 'Sixtyfour Convergence', sans-serif;
+                font-size: 45px;
+            }
 
-
+            .newsletter-section {
+                /* Optional: Add any other styles you want */
+            }
+        </style>
+        
         <!-- Footer section -->
         <footer class="footer-section">
             <div class="container">

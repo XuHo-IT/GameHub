@@ -26,6 +26,9 @@
         <link rel="stylesheet" href="css/animate.css" />
         <link rel="stylesheet" href="css/searchbar.css" />
         <link rel="stylesheet" href="css/account-icon.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Sixtyfour+Convergence&display=swap" rel="stylesheet">
 
         <!-- Main Stylesheets -->
         <link rel="stylesheet" href="css/style.css" />
@@ -52,18 +55,22 @@
                 <div class="row align-items-center">
                     <!-- Left side: Search Form (col-7) -->
                     <div class="col-8">
-                        <form action="SearchController" method="GET">
+                        <form action="SearchAdmin" method="GET">
                             <!-- Search Bar Row -->
                             <div class="row" style="align-items: center;">
-                                <!-- Keyword input for the search bar -->
+                                <!-- Search button on the left side -->
                                 <div class="col-2 d-flex align-items-end">
-                                    <button type="submit" class=" w-100" style="height: 52px;">Search</button>
+                                    <button type="submit" class="w-100" style="height: 52px;">Search</button>
                                 </div>
 
-                                <div class="col-10" style="text-align: center;padding-top: 33px ">
+                                <!-- Keyword input for the search bar -->
+                                <div class="col-6" style="padding-top: 15px;">
                                     <input type="text" name="keyword" class="form-control" placeholder="Search by keyword..." aria-label="Search" style="height: 52px;">
-                                    <label for="genre" class="form-label" style="font-style: italic; font-weight: bold;">Genre:</label>
-                                    <select id="genre" name="genre" class="form-select" style="height: 34px; float: left; border: 2px solid #ccc; font-style: italic; padding: 5px; border-radius: 5px; font-family: 'Arial', sans-serif;">
+                                </div>
+
+                                <!-- Genre dropdown next to search input -->
+                                <div class="col-4" style="padding-top: 15px;">
+                                    <select id="genre" name="genre" class="form-select" style="height: 52px; border: 2px solid #ccc; font-style: italic; padding: 5px; border-radius: 5px; font-family: 'Arial', sans-serif;">
                                         <option value="">All Genres</option>
                                         <!-- Dynamically populate genres from MongoDB -->
                                         <c:forEach var="genre" items="${genres}">
@@ -74,6 +81,8 @@
                             </div>
                         </form>
                     </div>
+
+
                     <!-- Right side: Social Media Icons (col-4) -->
                     <div class="col-4 header-social d-flex align-items-center justify-content-end">
                         <p class="mb-0">Follow us:</p>
@@ -93,12 +102,13 @@
                     </div>
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
-                            <!-- Bi?u t??ng gi? h�ng -->
 
-                            <!-- Bi?u t??ng t�i kho?n -->
                             <div class="account-container">
                                 <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
+                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl") %>" 
+                                        alt="Profile Picture" 
+                                        style="width: 50px; height: 50px; border-radius: 50%;" 
+                                        onerror="this.onerror=null;this.src='img/t-rex.png';" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
@@ -215,15 +225,6 @@
         <!-- Featured section end-->
 
 
-        <!-- Newsletter section -->
-        <section class="newsletter-section" style="">
-            <div class="container">
-                <h3 class="bottom-title">Thanks for using our website!</h3>
-                <img src="img/Dawn.gif" alt="Game Image" style="width: 100%; height: auto;" />
-            </div>
-        </section>
-        <!-- Newsletter section end -->
-
 
         <!-- Footer section -->
         <footer class="footer-section">
@@ -243,7 +244,6 @@
                     <li><a href="ReadGameListAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
                     <li><a href="ReadGameHomeAdmin?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
                     <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
-                    <li><a href="contact-after-login.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
                     <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>

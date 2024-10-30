@@ -87,7 +87,10 @@
                         <div class="user-panel d-flex">
                             <div class="account-container">
                                  <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
+                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl") %>" 
+                                        alt="Profile Picture" 
+                                        style="width: 50px; height: 50px; border-radius: 50%;" 
+                                        onerror="this.onerror=null;this.src='img/t-rex.png';" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>

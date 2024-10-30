@@ -264,6 +264,10 @@
         <servlet-name>ConfirmPost</servlet-name>
         <servlet-class>Controller.ConfirmPost</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddGenre</servlet-name>
+        <servlet-class>Controller.AddGenre</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -527,6 +531,10 @@
     <servlet-mapping>
         <servlet-name>ConfirmPost</servlet-name>
         <url-pattern>/ConfirmPost</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddGenre</servlet-name>
+        <url-pattern>/AddGenre</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>ReadGameHome</welcome-file>

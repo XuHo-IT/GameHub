@@ -202,7 +202,7 @@
                     <div class="comments" id="comment-<%= comment.getCommentId()%>" data-comment-index="<%= commentIndex++%>">
                         <div class="body">
                             <div class="authors">
-                                  <img src="<%= (comment.getPhotoUrl() == null || comment.getPhotoUrl().isEmpty()) ? "./img/t-rex.png" : "data:image/jpeg;base64," + comment.getPhotoUrl() %>" alt="Photo User">
+                                <img src="<%= (comment.getPhotoUrl() == null || comment.getPhotoUrl().isEmpty()) ? "./img/t-rex.png" : "data:image/jpeg;base64," + comment.getPhotoUrl()%>" alt="Photo User">
                                 <div class="username"><a href=""><%= comment.getUserName()%></a></div>
                                 <div class="date-comment">
                                     <%
@@ -274,10 +274,10 @@
         <footer class="footer-section" style="margin-top: 0 ; padding: 10px 125px">
             <div class="container">
                 <div class="footer-left-pic">
-                    <img src="img/footer-left-pic.png" alt="">
+                    <img class="img_bottom_1" src="./img/bottom_pic_1.png" alt="">
                 </div>
                 <div class="footer-right-pic">
-                    <img src="img/footer-right-pic.png" alt="">
+                    <img class="img_bottom_2" src="./img//bottom_pic_2.png" alt="">
                 </div>
                 <a href="ReadGameHome" class="footer-logo">
                     <img src="./img/logo1.png" alt="">
@@ -419,6 +419,7 @@
             </div>
         </div>
         <script>
+
             document.addEventListener("DOMContentLoaded", function () {
                 // Check if session attribute for emailRegistered is set
                 const emailRegistered = '<%= session.getAttribute("emailRegistered")%>';
@@ -580,6 +581,11 @@
         <script src="js/jquery.sticky-sidebar.min.js"></script>
         <script src="js/jquery.magnific-popup.min.js"></script>
         <script src="js/main.js"></script>
+        <style>
+            img.img_bottom_1,img.img_bottom_2  {
+                width: 50%;
+            }
+        </style>
         <script>
             const showLoginFromComment = document.getElementById("show-login-from-comment");
             // Show login popup when click letter "Be the first to comment!"

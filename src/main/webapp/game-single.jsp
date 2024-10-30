@@ -153,56 +153,37 @@
         <!-- Page top end-->
 
         <!-- Games section -->
-
         <section class="games-single-page">
             <div class="container">
                 <div class="game-single-preview">
-                    <img src="data:image/jpeg;base64,<%= fileData != null ? fileData : ""%>" alt="Game Image" />
+                    <img class="game_single_img" src="data:image/jpeg;base64,<%= fileData != null ? fileData : ""%>" alt="Game Image" />
                 </div>
-                <div class="row">
-                    <div class="col-xl-9 col-lg-8 col-md-7 game-single-content">
-                        <div class="gs-meta">
-                            Release : <%= dateRelease != null ? dateRelease : "Unknown Date"%>
+                    <h2 class="gs-title">
+                        <%= title != null ? title : "Untitled"%>
+                    </h2>
+                    <br>
+                    <div class="gs-meta">
+                        Release : <%= dateRelease != null ? dateRelease : "Unknown Date"%>
+                    </div>                   
+                    <div class="gs-description">
+                        <h3 style="color: white">Description</h3>
+                        <p style="font-size: 20px"><%= description != null ? description : "No description available"%></p>
+                    </div>
+                    <div class="gs-gameplay">
+                        <h3 style="color: white">Game Play</h3>
+                        <p style="font-size: 20px"><%= gamePlay != null ? gamePlay : "No gamePlay available"%></p>
+                    </div>
+                    <div class="gs-auhtor-genre" ">
+                        <div class="left-author">
+                            <h3 style="color: white">Publisher</h3>
+                            <p style="font-size: 20px"><%= author != null ? author : "No Author available"%></p>
                         </div>
-                        <h2 class="gs-title">
-                            <%= title != null ? title : "Untitled"%>
-                        </h2>
-                        <div class="gs-description">
-                            <h3 style="color: white">Description</h3>
-
-                            <p style="font-size: 20px"><%= description != null ? description : "No description available"%></p>
-                        </div>
-                        <div class="gs-gameplay">
-                            <h3 style="color: white">Game Play</h3>
-                            <p style="font-size: 20px"><%= gamePlay != null ? gamePlay : "No gamePlay available"%></p>
-                        </div>
-                        <div class="gs-auhtor-genre" ">
-                            <div class="left-author">
-                                <h3 style="color: white">Publisher</h3>
-                                <p style="font-size: 20px"><%= author != null ? author : "No Author available"%></p>
-                            </div>
-                            <div class="right-genre">
-                                <h3 style="color: white">Genre</h3>
-                                <p style="font-size: 20px"><%= genre != null ? genre : "No genre available"%></p>
-                            </div>
+                        <div class="right-genre">
+                            <h3 style="color: white">Genre</h3>
+                            <p style="font-size: 20px"><%= genre != null ? genre : "No genre available"%></p>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">
-                        <div id="stickySidebar">
-                            <div class="widget-item">  
-                            </div>
-                            <div class="widget-item">
-                                <div class="testimonials-widget">
-                                    <h4 class="widget-title">Testimonials</h4>
-                                    <div class="testim-text">
-                                        <p>EndGame has transformed the way I discover new games! The wishlist feature allows me to keep track of all my favorite titles, and the notifications for game releases are a game-changer. Highly recommend!</p>
-                                        <h6><span>James Smith,</span>Gamer</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+             
                 <div id="actionImagesCarousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                         <%
@@ -236,27 +217,14 @@
         <!-- Games end-->       
 
 
-        <!-- Newsletter section -->
-        <section class="newsletter-section">
-            <div class="container">
-                <h2>Subscribe to our newsletter</h2>
-                <form class="newsletter-form">
-                    <input type="text" placeholder="ENTER YOUR E-MAIL">
-                    <button class="site-btn">subscribe  <img src="img/icons/double-arrow.png" alt="#"/></button>
-                </form>
-            </div>
-        </section>
-        <!-- Newsletter section end -->
-
-
         <!-- Footer section -->
         <footer class="footer-section">
             <div class="container">
                 <div class="footer-left-pic">
-                    <img src="img/footer-left-pic.png" alt="">
+                    <img class="img_bottom_1" src="./img/bottom_pic_1.png" alt="">
                 </div>
                 <div class="footer-right-pic">
-                    <img src="img/spider-removebg-preview.png" alt="">
+                    <img class="img_bottom_2" src="./img//bottom_pic_2.png" alt="">
                 </div>
                 <a href="#" class="footer-logo">
                     <img src="./img/logo.png" alt="">
@@ -280,7 +248,7 @@
         <!-- Footer section end -->
 
 
-       <!-- Popup Container -->
+        <!-- Popup Container -->
         <div class="blur-bg-overlay"></div>
         <div class="form-popup">
             <span class="close-btn material-symbols-rounded">close</span>
@@ -398,14 +366,14 @@
             </div>
         </div>
         <script>
-             document.addEventListener("DOMContentLoaded", function () {
-            // Check if session attribute for emailRegistered is set
-            const emailRegistered = '<%= session.getAttribute("emailRegistered")%>';
-            if (emailRegistered === "true") {
-                alert("This email is already registered. Please use another email to register");
-                session.removeAttribute("emailRegistered"); // Clear session attribute after displaying the message
-            }
-        });
+            document.addEventListener("DOMContentLoaded", function () {
+                // Check if session attribute for emailRegistered is set
+                const emailRegistered = '<%= session.getAttribute("emailRegistered")%>';
+                if (emailRegistered === "true") {
+                    alert("This email is already registered. Please use another email to register");
+                    session.removeAttribute("emailRegistered"); // Clear session attribute after displaying the message
+                }
+            });
             document.addEventListener("DOMContentLoaded", function () {
                 // Form boxes
                 const loginForm = document.querySelector(".form-box.login");
@@ -552,7 +520,49 @@
                 // Final validation before form submission (if necessary)
             });
         </script>
+        <style>
+            .gs-auhtor-genre {
+                width: 100%;
+                display: flex;
+                align-content: stretch;
+                flex-wrap: wrap;
+                justify-content: space-around;
+            }
+            .left-author {
+                padding: 20px 0;
+            }
+            .right-genre {
+                padding: 20px 0;
+            }
 
+            .gs-description {
+                padding: 50px 0;
+            }
+            .gs-gameplay {
+                padding: 50px 0;
+            }
+            .gs-author-genre{
+                padding: 50px 0;
+            }
+            .gs-meta {
+                font-size: 20px;
+                color: #585858;
+            }
+            h2.gs-title {
+                font-size: 60px;
+                color: white;
+            }
+            .game-single-preview {
+                text-align: center;
+            }
+            img.game_single_img {
+                width: 1000px;
+                height: 700px;
+            }
+            img.img_bottom_1,img.img_bottom_2  {
+                width: 50%;
+            }
+        </style>
         <!--====== Javascripts & Jquery ======-->
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>

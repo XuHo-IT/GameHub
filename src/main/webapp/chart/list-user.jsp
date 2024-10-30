@@ -53,8 +53,14 @@
                     <div class="toggle">
                         <ion-icon name="menu-outline"></ion-icon>
                     </div>
+                    <!-- UserImg -->
+                    <%
+                        UserDAO userDAO = new UserDAO();
+                        UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
+                        request.setAttribute("user", user);
+                    %>
                     <div class="user">                                   
-                        <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
+                        <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
                     </div>
                 </div>
 
@@ -62,7 +68,6 @@
                     <div class="recentOrders">
                         <div class="cardHeader">
                             <%
-                                UserDAO userDAO = new UserDAO();
                                 List<UserModel> userList = userDAO.getAllUsers();
                                 request.setAttribute("userList", userList);  // Set the userList before displaying it in HTML
                             %>
@@ -87,17 +92,17 @@
                                 <tbody>
                                     <%
                                         if (userList != null && !userList.isEmpty()) {
-                                            for (UserModel user : userList) {
+                                            for (UserModel userItem : userList) {
                                                 String statusLabel;
                                                 String actionButton;
 
                                                 // Determine the status label and action button based on user status
-                                                if ("Active".equals(user.getStatus())) {
+                                                if ("Active".equals(userItem.getStatus())) {
                                                     statusLabel = "<span class='text-success'>Active</span>";
-                                                    actionButton = "<a href=\"../SuspendUser?id=" + user.getId() + "&adminId=" + adminId + "\" class=\"btn btn-warning btn-sm\">Suspend</a>";
+                                                    actionButton = "<a href=\"../SuspendUser?id=" + userItem.getId() + "&adminId=" + adminId + "\" class=\"btn btn-warning btn-sm\">Suspend</a>";
                                                 } else {
                                                     statusLabel = "<span class='text-danger'>Suspended</span>";
-                                                    actionButton = "<a href=\"../UnSuspendUser?id=" + user.getId() + "&adminId=" + adminId + "\" class=\"btn btn-primary btn-sm\">Unsuspend</a>";
+                                                    actionButton = "<a href=\"../UnSuspendUser?id=" + userItem.getId() + "&adminId=" + adminId + "\" class=\"btn btn-primary btn-sm\">Unsuspend</a>";
                                                 }
 
                                                 // New role management logic
@@ -105,19 +110,19 @@
                                                         + "<input type='hidden' name='userId' value='" + user.getId() + "'/>"
                                                         + "<input type='hidden' name='adminId' value='" + adminId + "'/>" // Hidden input for adminId
                                                         + "<select name='role' onchange='this.form.submit()'>"
-                                                        + "<option value='0'" + ("0".equals(user.getRole()) ? " selected" : "") + ">Member</option>"
-                                                        + "<option value='1'" + ("1".equals(user.getRole()) ? " selected" : "") + ">Admin</option>"
+                                                        + "<option value='0'" + ("0".equals(userItem.getRole()) ? " selected" : "") + ">Member</option>"
+                                                        + "<option value='1'" + ("1".equals(userItem.getRole()) ? " selected" : "") + ">Admin</option>"
                                                         + "</select></form>";
 
                                                 out.print("<tr>"
-                                                        + "<td>" + user.getId() + "</td>"
-                                                        + "<td>" + user.getEmail() + "</td>"
-                                                        + "<td>" + user.getName() + "</td>"
+                                                        + "<td>" + userItem.getId() + "</td>"
+                                                        + "<td>" + userItem.getEmail() + "</td>"
+                                                        + "<td>" + userItem.getName() + "</td>"
                                                         + "<td>" + statusLabel + "</td>"
-                                                        + "<td>" + ("1".equals(user.getRole()) ? "Admin" : "Member") + "</td>"
+                                                        + "<td>" + ("1".equals(userItem.getRole()) ? "Admin" : "Member") + "</td>"
                                                         + "<td>" + roleDropdown + "</td>"
                                                         + "<td><div class='d-flex'>"
-                                                        + "<a href=\"../RemoveUser?id=" + user.getId() + "&adminId=" + adminId + "\" class=\"btn btn-danger btn-sm me-2\">Remove</a>"
+                                                        + "<a href=\"../RemoveUser?id=" + userItem.getId() + "&adminId=" + adminId + "\" class=\"btn btn-danger btn-sm me-2\">Remove</a>"
                                                         + actionButton
                                                         + "</div></td>"
                                                         + "</tr>");

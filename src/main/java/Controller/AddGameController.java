@@ -57,8 +57,6 @@ public class AddGameController extends HttpServlet {
         // Call DAO to insert the game post into MongoDB
         addGameDAO.addGamePost(gamePost, actionImagesBase64);
 
-        // Redirect to the admin page
-        String memberId = (String) request.getSession().getAttribute("memberid");
-        response.sendRedirect("ReadGameHomeAdmin?adminid=" + memberId);
+        response.sendRedirect("ReadGameHomeAdmin?adminid=" + adminId);
     }
 }

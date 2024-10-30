@@ -1,3 +1,5 @@
+<%@page import="Model.UserModel"%>
+<%@page import="DAO.UserDAO"%>
 <%@page import="utils.MongoDBConnectionManager"%>
 <%@page import="java.util.List"%>
 <%@page import="com.mongodb.client.MongoDatabase"%>
@@ -131,6 +133,13 @@
                                         alt="Profile Picture" 
                                         style="width: 50px; height: 50px; border-radius: 50%;" 
                                         onerror="this.onerror=null;this.src='img/t-rex.png';" />
+                                 <%
+                                    UserDAO userDAO = new UserDAO();
+                                    UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
+                                    request.setAttribute("user", user);
+                                %>
+                                <div class="user">                                   
+                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
@@ -280,7 +289,7 @@
         </section>
         <!-- Games end-->
 
-        
+
 
 
         <!-- Newsletter section -->
@@ -297,10 +306,10 @@
         <footer class="footer-section">
             <div class="container">
                 <div class="footer-left-pic">
-                    <img src="img/footer-left-pic.png" alt="">
+                    <img class="img_bottom_1" src="./img/bottom_pic_1.png" alt="">
                 </div>
                 <div class="footer-right-pic">
-                    <img src="img/spider-removebg-preview.png" alt="">
+                    <img class="img_bottom_2" src="./img//bottom_pic_2.png" alt="">
                 </div>
                 <a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>" class="footer-logo">
                     <img src="./img/logo.png" alt="">
@@ -332,7 +341,47 @@
             }
         </script>
         <style>
+               .gs-auhtor-genre {
+                width: 100%;
+                display: flex;
+                align-content: stretch;
+                flex-wrap: wrap;
+                justify-content: space-around;
+            }
+            .left-author {
+                padding: 20px 0;
+            }
+            .right-genre {
+                padding: 20px 0;
+            }
 
+            .gs-description {
+                padding: 50px 0;
+            }
+            .gs-gameplay {
+                padding: 50px 0;
+            }
+            .gs-author-genre{
+                padding: 50px 0;
+            }
+            .gs-meta {
+                font-size: 20px;
+                color: #585858;
+            }
+            h2.gs-title {
+                font-size: 60px;
+                color: white;
+            }
+            .game-single-preview {
+                text-align: center;
+            }
+            img.game_single_img {
+                width: 1000px;
+                height: 700px;
+            }
+            img.img_bottom_1,img.img_bottom_2  {
+                width: 50%;
+            }
 
             h3.bottom-title {
                 color: white;

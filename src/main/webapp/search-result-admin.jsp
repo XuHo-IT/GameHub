@@ -1,3 +1,5 @@
+<%@page import="Model.UserModel"%>
+<%@page import="DAO.UserDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -106,6 +108,13 @@
                          <div class="user-panel d-flex">
 
                             <div class="account-container">
+                                <%
+                                    UserDAO userDAO = new UserDAO();
+                                    UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
+                                    request.setAttribute("user", user);
+                                %>
+                                <div class="user">                                   
+                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
                                     <div class="user">                                   
                                     <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl") %>" 
                                         alt="Profile Picture" 
@@ -154,15 +163,15 @@
                 <div class="row justify-content-center align-items-start">
                     <div class="col-xl-9 col-lg-8 col-md-7">
                         <div class="row">                          
-                                <c:forEach var="post" items="${posts}">
-                                    <div class="col-lg-4 col-md-6">
-                                        <div class="game-item">
-                                            <img src="data:image/png;base64,${post.fileData}" class="same-size" alt="Game Image" />
-                                            <h5>${post.title != null ? post.title : 'Untitled'}</h5>
-                                            <a href="game-single.jsp?id=${post.postID}" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#"/></a>
-                                        </div>
+                            <c:forEach var="post" items="${posts}">
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="game-item">
+                                        <img src="data:image/png;base64,${post.fileData}" class="same-size" alt="Game Image" />
+                                        <h5>${post.title != null ? post.title : 'Untitled'}</h5>
+                                        <a href="game-single.jsp?id=${post.postID}" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#"/></a>
                                     </div>
-                                </c:forEach>
+                                </div>
+                            </c:forEach>
                         </div>
                     </div>
 
@@ -239,10 +248,10 @@
         <footer class="footer-section">
             <div class="container">
                 <div class="footer-left-pic">
-                    <img src="img/footer-left-pic.png" alt="">
+                    <img class="img_bottom_1" src="./img/bottom_pic_1.png" alt="">
                 </div>
                 <div class="footer-right-pic">
-                    <img src="img/footer-right-pic.png" alt="">
+                    <img class="img_bottom_2" src="./img//bottom_pic_2.png" alt="">
                 </div>
                 <a href="ReadGameHome" class="footer-logo">
                     <img src="./img/logo1.png" alt="">
@@ -428,6 +437,9 @@
             });
         </script>
         <style>
+            img.img_bottom_1,img.img_bottom_2  {
+                width: 50%;
+            }
             .same-size {
                 width: 300px; /* set the width to 200px */
                 height: 200px; /* set the height to 200px */

@@ -1,9 +1,8 @@
 package Controller;
 
-import Model.GamePost;
 import Model.Genre;
 import DAO.GamePostDAO;
-import Model.GamePostTemp;
+import Model.GamePostMember;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +26,7 @@ public class ReadGameUploadByMember extends HttpServlet {
             request.setAttribute("genres", genres);
 
             // Fetch game posts from the DAO
-            List<GamePostTemp> postList = gamePostDAO.getGamePostsMember(selectedGenreId);
+            List<GamePostMember> postList = gamePostDAO.getGamePostsMember(selectedGenreId);
             Collections.reverse(postList); // Reverse the list if needed
 
             request.setAttribute("postsMember", postList);

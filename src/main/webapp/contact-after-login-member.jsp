@@ -1,3 +1,5 @@
+<%@page import="Model.UserModel"%>
+<%@page import="DAO.UserDAO"%>
 <!DOCTYPE html>
 <html lang="zxx">
     <head>
@@ -98,13 +100,19 @@
                     </div>
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
+                          
                             <div class="account-container">
+                                <%
+                                    UserDAO userDAO = new UserDAO();
+                                    UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
+                                    request.setAttribute("user", user);
+                                %>
                                 <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
+                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
-                                          <li><a href="user-profile.jsp?userid=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
+                                        <li><a href="user-profile.jsp?userid=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
                                         <li>
                                             <a href="LogOut" class="dropdown-item">Logout</a>
                                         </li>
@@ -142,13 +150,8 @@
         <!-- Contact page -->
         <section class="contact-page">
             <div class="container">
-                <div class="map">
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14376.077865872314!2d108.2583164!3d15.9688859!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbd!4v1546528920522" 
-                        style="border:0" 
-                        allowfullscreen>
-                    </iframe>
-                </div>                <div class="row">
+                <div class="map"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3835.856069317691!2d108.25831101151101!3d15.968891042050895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3142116949840599%3A0x365b35580f52e8d5!2zxJDhuqFpIGjhu41jIEZQVCDEkMOgIE7hurVuZw!5e0!3m2!1svi!2s!4v1729673804832!5m2!1svi!2s" style="border:0" allowfullscreen></iframe></div>
+                <div class="row">
                     <div class="col-lg-7 order-2 order-lg-1">
                         <video class="contact-video" controls width="100%">
                             <source src="img/fpt.mp4" type="video/mp4">
@@ -170,14 +173,31 @@
                             <div class="ci-text">02367300999</div>
                         </div>
                         <div class="cont-info">
-                            <div class="ci-icon"><a href="https://daihoc.fpt.edu.vn/"><img src="img/icons/mail.png" alt=""></div>
-                                    <div class="ci-text">https://daihoc.fpt.edu.vn/</div>
+                            <div class="ci-icon">
+                                <img src="img/icons/mail.png" alt="">
                             </div>
+                            <div class="ci-text1" onclick="window.location.href = 'https://daihoc.fpt.edu.vn/'">https://daihoc.fpt.edu.vn/</div>
                         </div>
                     </div>
                 </div>
+            </div>
         </section>
         <!-- Contact page end-->
+
+        <!-- Newsletter section -->
+        <section class="newsletter-section">
+            <div class="container">
+                <h2>Subscribe to our newsletter</h2>
+                <form class="newsletter-form" onsubmit="return subscribeNewsletter(event)">
+                    <input type="email" placeholder="ENTER YOUR E-MAIL" required>
+                    <button type="submit" class="site-btn">subscribe <img src="img/icons/double-arrow.png" alt="#"/></button>
+                </form>
+                <p id="thank-you-message" style="display:none; color: green; font-weight: bold; margin-top: 10px;">
+                    Thank you for subscribing! We will notify when our web have updates
+                </p>
+            </div>
+        </section>
+        <!-- Newsletter section end -->
 
 
         <div class="container-xxl py-5">
@@ -313,10 +333,10 @@
         <footer class="footer-section">
             <div class="container">
                 <div class="footer-left-pic">
-                    <img src="img/footer-left-pic.png" alt="">
+                    <img class="img_bottom_1" src="./img/bottom_pic_1.png" alt="">
                 </div>
                 <div class="footer-right-pic">
-                    <img src="img/footer-right-pic.png" alt="">
+                    <img class="img_bottom_2" src="./img//bottom_pic_2.png" alt="">
                 </div>
                 <a href="ReadGameHome" class="footer-logo">
                     <img src="./img/logo1.png" alt="">
@@ -339,8 +359,23 @@
         </footer>
         <!-- Footer section end -->
         <style>
-            a.btn.btn-square.mx-1 {
-                padding-right: 35px;
+            img.img_bottom_1,img.img_bottom_2  {
+                width: 50%;
+            }
+            .ci-text1 {
+                color: White; /* Initial color */
+                cursor: pointer;
+                text-decoration: underline; /* Optional: makes it look more like a link */
+            }
+
+            .ci-text1:hover {
+                color: darkorange; /* Change color on hover */
+            }
+            i.fab.fa-facebook-f,i.fab.fa-github {
+                margin-left: -5px;
+            }
+            img.img_bottom_1,img.img_bottom_2  {
+                width: 50%;
             }
             .user {
                 position: relative;
@@ -359,6 +394,15 @@
                 object-fit: cover;
             }
         </style>
+        <script>
+            function subscribeNewsletter(event) {
+                event.preventDefault(); // Prevent form from submitting traditionally
+                document.getElementById('thank-you-message').style.display = 'block'; // Show the thank-you message
+
+                // Optionally, clear the input field
+                document.querySelector('.newsletter-form input').value = '';
+            }
+        </script>
         <!--====== Javascripts & Jquery ======-->
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>

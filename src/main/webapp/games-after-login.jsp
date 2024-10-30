@@ -1,3 +1,5 @@
+<%@page import="Model.UserModel"%>
+<%@page import="DAO.UserDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -104,6 +106,11 @@
                         <div class="user-panel d-flex">
 
                             <div class="account-container">
+                                 <%
+                                    UserDAO userDAO = new UserDAO();
+                                    UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
+                                    request.setAttribute("user", user);
+                                %>
                                 <div class="user">                                   
                                     <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl") %>" 
                                         alt="Profile Picture" 
@@ -167,43 +174,35 @@
                         </div>
 
                     </div>
-                    <div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">
-                        <div id="stickySidebar">
-                            <div class="widget-item">
-                                <div class="categories-widget">
-                                    <h4 class="widget-title">Genre</h4>
-                                    <form action="ReadGameListAdmin" method="get">   
-                                        <ul>
-                                            <c:forEach var="genre" items="${genres}">
-                                                <li>
-                                                    <a href="ReadGameListAdmin?genre=${genre.genre}">
-                                                        ${genre.genre != null ? genre.genre : 'No genre available'}
-                                                    </a>
-                                                </li>
-                                            </c:forEach>     
-                                        </ul>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="widget-item">
-                                <img src="img/game-console.jpg" alt="#">
+                    <div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">                       
+                        <div class="widget-item">
+                            <img src="img/zed.gif" alt="#">
+                        </div>
+                        <div class="widget-item">
+                            <div class="categories-widget">
+                                <h4 class="widget-title">Genre</h4>
+                                <form action="ReadGameList" method="get">   
+                                    <ul>
+                                        <c:forEach var="genre" items="${genres}">
+                                            <li>
+                                                <a href="ReadGameListAdmin?genre=${genre.genre}">
+                                                    ${genre.genre != null ? genre.genre : 'No genre available'}
+                                                </a>
+                                            </li>
+                                        </c:forEach>
+                                    </ul>
+                                </form>
                             </div>
                         </div>
+                        <div class="widget-item">
+                            <img src="img/ironMan.gif" alt="#">
+                        </div>                       
                     </div>
                     <div class="site-pagination">
-                        <c:if test="${currentPage > 1}">
-                            <a href="?genre=${selectedGenre}&page=${currentPage - 1}" class="prev">Previous</a>
-                        </c:if>
-
                         <c:forEach var="i" begin="1" end="${totalPages}">
                             <a href="?genre=${selectedGenre}&page=${i}" class="${i == currentPage ? 'active' : ''}">${i}</a>
                         </c:forEach>
-
-                        <c:if test="${currentPage < totalPages}">
-                            <a href="?genre=${selectedGenre}&page=${currentPage + 1}" class="next">Next</a>
-                        </c:if>
                     </div>
-
                 </div>
             </div>
         </section>
@@ -212,16 +211,37 @@
 
         <!-- Featured section -->
         <section class="featured-section">
-            <div class="featured-bg set-bg" data-setbg="img/featured-bg.jpg"></div>
-            <div class="featured-box">
-                <div class="text-box">
-                    <div class="top-meta">11.11.18  /  in <a href="">Games</a></div>
-                    <h3>The game you?ve been waiting  for is out now</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquamet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vestibulum posuere porttitor justo id pellentesque. Proin id lacus feugiat, posuere erat sit amet, commodo ipsum. Donec pellentesque vestibulum metus...</p>
-                    <a href="#" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#"/></a>
-                </div>
-            </div>
+            <c:forEach var="post" items="${posts}" varStatus="status">
+                <c:if test="${status.index == 0}">
+                    <!-- Featured background image -->
+                    <div class="featured-bg set-bg col-6 d-flex justify-content-center align-items-center" style="width: calc(50% - 40px); height: 100%; ">
+                        <img class="img_newest" src="data:image/png;base64,${post.fileData}" alt="Game Image" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+                    </div>
+
+                    <!-- Featured content box -->
+                    <div class="featured-box col-6" >
+                        <div class="text-box" >
+                            <!-- Display post date and category dynamically -->
+                            <div class="top-meta">${post.dateRelease} / in <a href="#">${post.genre}</a></div>
+
+                            <h3>Newest game release is coming up!</h3>
+
+                            <!-- Post title -->
+                            <p style="font-size: 40px">${post.title}</p>
+
+                            <!-- Post content (short summary) -->
+                            <p>${post.description}</p>
+
+                            <!-- Read more link -->
+                            <a href="game-single.jsp?id=${post.postID}" class="read-more">Read More  
+                                <img src="img/icons/double-arrow.png" alt="#"/>
+                            </a>
+                        </div>
+                    </div>
+                </c:if>
+            </c:forEach>
         </section>
+
         <!-- Featured section end-->
 
 
@@ -230,10 +250,10 @@
         <footer class="footer-section">
             <div class="container">
                 <div class="footer-left-pic">
-                    <img src="img/footer-left-pic.png" alt="">
+                    <img class="img_bottom_1" src="./img/bottom_pic_1.png" alt="">
                 </div>
                 <div class="footer-right-pic">
-                    <img src="img/footer-right-pic.png" alt="">
+                    <img class="img_bottom_2" src="./img//bottom_pic_2.png" alt="">
                 </div>
                 <a href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>" class="footer-logo">
                     <img src="./img/logo1.png" alt="">
@@ -257,6 +277,12 @@
         <!-- Footer section end -->
 
         <style>
+             img.img_newest {
+                height: 100%;
+            }
+            img.img_bottom_1,img.img_bottom_2  {
+                width: 50%;
+            }
             .same-size {
                 width: 300px; /* set the width to 200px */
                 height: 200px; /* set the height to 200px */

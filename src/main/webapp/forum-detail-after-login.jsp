@@ -1,3 +1,5 @@
+<%@page import="Model.UserModel"%>
+<%@page import="DAO.UserDAO"%>
 <%@page import="utils.MongoDBConnectionManager"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="Model.CommentTemp"%>
@@ -46,12 +48,10 @@
 
         <!-- Main Stylesheets -->
         <link rel="stylesheet" href="css/style.css" />
-        <link rel="stylesheet"
-              href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
         <link rel="stylesheet" href="Login/style.css">
         <script src="Login/script.js" defer></script>
         <link rel="stylesheet" href="Forum/style.css">
-
 
         <!--[if lt IE 9]>
                   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -86,12 +86,17 @@
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
                             <div class="account-container">
-                                 <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl") %>" 
+                                 <%
+                                    UserDAO userDAO = new UserDAO();
+                                    UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
+                                    request.setAttribute("user", user);
+                                %>
+                                <div class="user">                                   
+                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : "" %>" 
                                         alt="Profile Picture" 
                                         style="width: 50px; height: 50px; border-radius: 50%;" 
                                         onerror="this.onerror=null;this.src='img/t-rex.png';" />
-                                </div>
+                                </div>                                
                                 <div class="account-dropdown">
                                     <ul>
                                         <li><a href="user-profile.jsp?id=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
@@ -103,7 +108,7 @@
                             </div>
                         </div>
                         <!-- Menu -->
-                       <ul class="main-menu primary-menu">
+                        <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                             <li><a href="ReadGameListAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
                             <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
@@ -206,7 +211,7 @@
                     </div>
                     <div class="body">
                         <div class="authors">                          
-                           <img src="<%= (photoUrlUser == null || photoUrlUser.isEmpty()) ? "./img/t-rex.png" : "data:image/jpeg;base64," + photoUrlUser %>" alt="Photo User">
+                            <img src="<%= (photoUrlUser == null || photoUrlUser.isEmpty()) ? "./img/t-rex.png" : "data:image/jpeg;base64," + photoUrlUser%>" alt="Photo User">
                             <div class="username"><a href="#"><%=userNameTopic%></a></div>
                         </div>
                         <div class="content">
@@ -243,7 +248,7 @@
                             <div class="body">
 
                                 <div class="authors">
-                                    <img src="<%= (comment.getPhotoUrl() == null || comment.getPhotoUrl().isEmpty()) ? "./img/t-rex.png" : "data:image/jpeg;base64," + comment.getPhotoUrl() %>" alt="Photo User">
+                                    <img src="<%= (comment.getPhotoUrl() == null || comment.getPhotoUrl().isEmpty()) ? "./img/t-rex.png" : "data:image/jpeg;base64," + comment.getPhotoUrl()%>" alt="Photo User">
                                     <div class="username"><a href=""><%= comment.getUserName()%></a></div>
                                     <div class="date-comment">
                                         <%
@@ -358,10 +363,10 @@
         <footer class="footer-section" style="margin-top: 0 ; padding: 10px 125px">
             <div class="container">
                 <div class="footer-left-pic">
-                    <img src="img/footer-left-pic.png" alt="">
+                    <img class="img_bottom_1" src="./img/bottom_pic_1.png" alt="">
                 </div>
                 <div class="footer-right-pic">
-                    <img src="img/footer-right-pic.png" alt="">
+                    <img class="img_bottom_2" src="./img//bottom_pic_2.png" alt="">
                 </div>
                 <a href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>" class="footer-logo">
                     <img src="./img/logo1.png" alt="">
@@ -457,6 +462,9 @@
                             }
         </script>
         <style>
+            img.img_bottom_1,img.img_bottom_2  {
+                width: 50%;
+            }
             .hide{
                 display: none;
             }

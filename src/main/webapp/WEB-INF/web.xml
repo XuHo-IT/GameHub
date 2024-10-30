@@ -57,14 +57,6 @@
         <servlet-class>Controller.WishListServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ReadGameUploadByMemberController</servlet-name>
-        <servlet-class>Controller.ReadGameUploadByMemberController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AddGameByMemberController</servlet-name>
-        <servlet-class>Controller.AddGameByMemberController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AddToWishlistController</servlet-name>
         <servlet-class>Controller.AddToWishlistController</servlet-class>
     </servlet>
@@ -265,6 +257,10 @@
         <servlet-class>Controller.ConfirmPost</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AddGameByMember</servlet-name>
+        <servlet-class>Controller.AddGameByMember</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AddGenre</servlet-name>
         <servlet-class>Controller.AddGenre</servlet-class>
     </servlet>
@@ -323,14 +319,6 @@
     <servlet-mapping>
         <servlet-name>WishListServlet</servlet-name>
         <url-pattern>/WishListServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ReadGameUploadByMemberController</servlet-name>
-        <url-pattern>/ReadGameUploadByMemberController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddGameByMemberController</servlet-name>
-        <url-pattern>/AddGameByMemberController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddToWishlistController</servlet-name>
@@ -531,6 +519,10 @@
     <servlet-mapping>
         <servlet-name>ConfirmPost</servlet-name>
         <url-pattern>/ConfirmPost</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddGameByMember</servlet-name>
+        <url-pattern>/AddGameByMember</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddGenre</servlet-name>

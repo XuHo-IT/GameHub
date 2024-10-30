@@ -39,6 +39,9 @@ body {
     pointer-events: auto;
     transform: translate(-50%, -50%);
     transition: transform 0.3s ease, opacity 0.1s;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    border: 10px solid #501755;
+    border-radius: 15px;
 }
 
 .form-popup .close-btn {
@@ -89,6 +92,12 @@ body {
     background-size: cover;
 }
 
+.forgot-password .form-details{
+    background: url("images/forgot.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
 .signup .form-details {
     padding: 0 20px;
     background: url("images/Register.jpg");
@@ -119,7 +128,10 @@ body {
 
 .create-topic .form-details h2,
 .update-topic .form-details h2, 
-.create-post .form-details h2{
+.create-post .form-details h2,
+.forgot-password .form-details h2,
+.login .form-details h2,
+.signup .form-details h2{
     font-family: DragonHunter;
     text-shadow:
         1px 1px 0 black,
@@ -129,7 +141,10 @@ body {
 }
 
 .create-topic .form-details p,
-.create-post .form-details p{
+.create-post .form-details p,
+.forgot-password .form-details p,
+.login .form-details p,
+.signup .form-details p{
     font-family: DragonHunter;
     text-shadow:
         1px 1px 0 black,
@@ -194,6 +209,7 @@ input[type="checkbox"] {
 
 
 .form-box a {
+    width: 100%;
     color: #6f2b95;
     text-decoration: none;
 }

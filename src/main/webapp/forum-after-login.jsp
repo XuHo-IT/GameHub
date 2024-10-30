@@ -1,3 +1,5 @@
+<%@page import="Model.UserModel"%>
+<%@page import="DAO.UserDAO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="Model.Topic"%>
@@ -81,15 +83,20 @@
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
                             <div class="account-container">
-                                  <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl") %>" 
+                                <%
+                                    UserDAO userDAO = new UserDAO();
+                                    UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
+                                    request.setAttribute("user", user);
+                                %>
+                                <div class="user">                                   
+                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : "" %>" 
                                         alt="Profile Picture" 
                                         style="width: 50px; height: 50px; border-radius: 50%;" 
                                         onerror="this.onerror=null;this.src='img/t-rex.png';" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
-                                         <li><a href="user-profile.jsp?userid=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
+                                        <li><a href="user-profile.jsp?userid=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
                                         <li>
                                             <a href="LogOut" class="dropdown-item">Logout</a>
                                         </li>
@@ -98,9 +105,9 @@
                             </div>
                         </div>
                         <!-- Menu -->
-                       <ul class="main-menu primary-menu">
+                        <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                            <li><a href="ReadGameList?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
+                            <li><a href="ReadGameListAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
                             <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                             <li><a href="ReadGameHomeAdmin?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
                         </ul>
@@ -134,7 +141,7 @@
                 <!-- button -->
                 <div class="button-top-forum" >
                     <div class="left-button-forum">
-                       
+
                     </div>
                     <div class="right-button-forum">
                         <button class="create-btn">Create New Topic</button>
@@ -208,10 +215,10 @@
         <footer class="footer-section" style="margin-top: 0 ; padding: 10px 125px">
             <div class="container">
                 <div class="footer-left-pic">
-                    <img src="img/footer-left-pic.png" alt="">
+                    <img class="img_bottom_1" src="./img/bottom_pic_1.png" alt="">
                 </div>
                 <div class="footer-right-pic">
-                    <img src="img/footer-right-pic.png" alt="">
+                    <img class="img_bottom_2" src="./img//bottom_pic_2.png" alt="">
                 </div>
                 <a href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>" class="footer-logo">
                     <img src="./img/logo1.png" alt="">
@@ -357,6 +364,9 @@
             });
         </script>
         <style>
+            img.img_bottom_1,img.img_bottom_2  {
+                width: 50%;
+            }
             .show-popup {
                 overflow: hidden; /* Disable scrolling when popups are visible */
             }

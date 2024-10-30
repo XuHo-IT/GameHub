@@ -148,7 +148,7 @@
                             </div>
                         </c:forEach>                      
                     </div>
-                    <a href="ReadGameListController" class=" more-game-btn"> More Game </a>
+                    <a href="ReadGameList" class=" more-game-btn"> More Game </a>
                 </div>
 
                 <style>
@@ -178,48 +178,48 @@
 
 
                 <div class="col-xl-3 col-lg-4 col-md-5 sidebar">
-                    <div id="stickySidebar">
-                        <div class="widget-item">
-                            <a href="#" class="add">
-                                <img src="./img/Game_Interactive.jpg" alt="">
-                            </a>
-                        </div>
 
-                        <div class="widget-item">
-                            <div class="categories-widget">
-                                <h4 class="widget-title">Genre</h4>
-                                <form action="ReadGameHome" method="get">   
-                                    <ul>
-                                        <c:forEach var="genre" items="${genres}">
-                                            <li>
-                                                <a href="ReadGameHome?genre=${genre.genre}">
-                                                    ${genre.genre != null ? genre.genre : 'No genre available'}
-                                                </a>
-                                            </li>
-                                        </c:forEach>     
-                                    </ul>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="site-pagination">
-                            <c:if test="${currentPage > 1}">
-                                <a href="?genre=${selectedGenre}&page=${currentPage - 1}" class="prev">Previous</a>
-                            </c:if>
+                    <div class="widget-item">
+                        <a href="#" class="add">
+                            <img src="./img/gif_pi_2.gif" alt="">
+                        </a>
+                    </div>
 
-                            <c:forEach var="i" begin="1" end="${totalPages}">
-                                <a href="?genre=${selectedGenre}&page=${i}" class="${i == currentPage ? 'active' : ''}">${i}</a>
-                            </c:forEach>
-
-                            <c:if test="${currentPage < totalPages}">
-                                <a href="?genre=${selectedGenre}&page=${currentPage + 1}" class="next">Next</a>
-                            </c:if>
-                        </div>
-                        <div class="widget-item">
-                            <a href="#" class="add">
-                                <img src="./img/add.jpg" alt="">
-                            </a>
+                    <div class="widget-item">
+                        <div class="categories-widget">
+                            <h4 class="widget-title">Genre</h4>
+                            <form action="ReadGameHome" method="get">   
+                                <ul>
+                                    <c:forEach var="genre" items="${genres}">
+                                        <li>
+                                            <a href="ReadGameHome?genre=${genre.genre}">
+                                                ${genre.genre != null ? genre.genre : 'No genre available'}
+                                            </a>
+                                        </li>
+                                    </c:forEach>     
+                                </ul>
+                            </form>
                         </div>
                     </div>
+                    <div class="site-pagination">
+                        <c:if test="${currentPage > 1}">
+                            <a href="?genre=${selectedGenre}&page=${currentPage - 1}" class="prev">Previous</a>
+                        </c:if>
+
+                        <c:forEach var="i" begin="1" end="${totalPages}">
+                            <a href="?genre=${selectedGenre}&page=${i}" class="${i == currentPage ? 'active' : ''}">${i}</a>
+                        </c:forEach>
+
+                        <c:if test="${currentPage < totalPages}">
+                            <a href="?genre=${selectedGenre}&page=${currentPage + 1}" class="next">Next</a>
+                        </c:if>
+                    </div>
+                    <div class="widget-item">
+                        <a href="#" class="add">
+                            <img src="./img/gif_pi.gif" alt="">
+                        </a>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -253,7 +253,7 @@
             <c:if test="${status.index == 0}">
                 <!-- Featured background image -->
                 <div class="featured-bg set-bg col-6 d-flex justify-content-center align-items-center" style="width: calc(50% - 40px); height: 100%; ">
-                    <img src="data:image/png;base64,${post.fileData}" alt="Game Image" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+                    <img class="img_newset" src="data:image/png;base64,${post.fileData}" alt="Game Image" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
                 </div>
 
                 <!-- Featured content box -->
@@ -281,17 +281,16 @@
     </section>
 
     <!-- Featured section end-->
-    <!-- Newsletter section -->
 
 
     <!-- Footer section -->
     <footer class="footer-section">
         <div class="container">
             <div class="footer-left-pic">
-                <img src="img/footer-left-pic.png" alt="">
+                <img class="img_bottom_1" src="./img/bottom_pic_1.png" alt="">
             </div>
             <div class="footer-right-pic">
-                <img src="img/footer-right-pic.png" alt="">
+                <img class="img_bottom_2" src="./img//bottom_pic_2.png" alt="">
             </div>
             <a href="ReadGameHome" class="footer-logo">
                 <img src="./img/logo1.png" alt="">
@@ -433,6 +432,7 @@
         </div>
     </div>
     <script>
+
         document.addEventListener("DOMContentLoaded", function () {
             // Check if session attribute for emailRegistered is set
             const emailRegistered = '<%= session.getAttribute("emailRegistered")%>';
@@ -446,14 +446,12 @@
             const loginForm = document.querySelector(".form-box.login");
             const signupForm = document.querySelector(".form-box.signup");
             const forgotPasswordForm = document.querySelector(".form-box.forgot-password");
-
             // Links
             const signupLink = document.getElementById("signup-link");
             const loginLink = document.getElementById("login-link");
             const forgotPasswordLink = document.querySelector(".forgot-pass-link");
             const backToLoginLink = document.querySelector(".back-to-login");
             const hidePopupBtn = document.querySelector(".close-btn");
-
             // Show signup form
             signupLink.addEventListener("click", (e) => {
                 e.preventDefault();
@@ -461,7 +459,6 @@
                 signupForm.style.display = "flex";
                 forgotPasswordForm.style.display = "none";
             });
-
             // Show login form
             loginLink.addEventListener("click", (e) => {
                 e.preventDefault();
@@ -469,7 +466,6 @@
                 loginForm.style.display = "flex";
                 forgotPasswordForm.style.display = "none";
             });
-
             // Show forgot password form
             forgotPasswordLink.addEventListener("click", (e) => {
                 e.preventDefault();
@@ -477,7 +473,6 @@
                 forgotPasswordForm.style.display = "flex";
                 signupForm.style.display = "none";
             });
-
             // Back to login from forgot password
             backToLoginLink.addEventListener("click", (e) => {
                 e.preventDefault();
@@ -485,7 +480,6 @@
                 loginForm.style.display = "flex";
                 signupForm.style.display = "none";
             });
-
             // Hide the popup
             hidePopupBtn.addEventListener("click", () => {
                 document.body.classList.remove("show-popup");
@@ -500,7 +494,6 @@
             const addressField = document.getElementById('address');
             const passwordField = document.getElementById('password');
             const policyCheckbox = document.getElementById('policy');
-
             // Real-time validation for each field
             nameField.addEventListener('input', validateName);
             emailField.addEventListener('input', validateEmail);
@@ -509,7 +502,6 @@
             addressField.addEventListener('input', validateAddress);
             passwordField.addEventListener('input', validatePassword);
             policyCheckbox.addEventListener('change', validatePolicy);
-
             // Validation functions
             function validateName() {
                 const name = nameField.value.trim();
@@ -595,30 +587,36 @@
     <script src="js/jquery.magnific-popup.min.js"></script>
     <script src="js/main.js"></script>
     <script>
-            $(document).ready(function () {
-                $(".carousel").owlCarousel({
-                    items: 5, // Number of items to show
-                    loop: true, // Infinite looping
-                    margin: 10, // Margin between items
-                    nav: true, // Show next/prev navigation buttons
-                    dots: true, // Show pagination dots
-                    autoplay: true, // Auto sliding
-                    autoplayTimeout: 3000, // Slide every 3 seconds
-                    responsive: {// Responsive settings
-                        0: {
-                            items: 1
-                        },
-                        600: {
-                            items: 3
-                        },
-                        1000: {
-                            items: 5
-                        }
+        $(document).ready(function () {
+            $(".carousel").owlCarousel({
+                items: 5, // Number of items to show
+                loop: true, // Infinite looping
+                margin: 10, // Margin between items
+                nav: true, // Show next/prev navigation buttons
+                dots: true, // Show pagination dots
+                autoplay: true, // Auto sliding
+                autoplayTimeout: 3000, // Slide every 3 seconds
+                responsive: {// Responsive settings
+                    0: {
+                        items: 1
+                    },
+                    600: {
+                        items: 3
+                    },
+                    1000: {
+                        items: 5
                     }
-                });
+                }
             });
+        });
     </script>
     <style>
+        img.img_bottom_1,img.img_bottom_2  {
+            width: 50%;
+        }
+        img.img_newset {
+            height: 100% ;
+        }
         h3.bottom-title {
             color: white;
             font-size: 35px;

@@ -21,24 +21,37 @@ public class ConfirmPost extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String postId = request.getParameter("postId");
+        String actionType = request.getParameter("actionType");
 
-        // Get the MongoDB database and collections
+        // Get the MongoDB database and collection
         MongoClient mongoClient = MongoDBConnectionManager.getLocalMongoClient();
         MongoDatabase database = mongoClient.getDatabase("GameHub");
         MongoCollection<Document> postGameMemberCollection = database.getCollection("postGameMember");
-        MongoCollection<Document> postGameCollection = database.getCollection("postGame");
 
         // Find the post in postGameMember by ID
         Document post = postGameMemberCollection.find(new Document("_id", new ObjectId(postId))).first();
 
         if (post != null) {
-            // Insert the post into postGame collection
-            postGameCollection.insertOne(post);
-
-            // Remove the post from postGameMember collection
-            postGameMemberCollection.deleteOne(new Document("_id", new ObjectId(postId)));
+            switch (actionType) {
+                case "confirm":
+                    // Insert the post into postGame collection and remove from postGameMember
+                    MongoCollection<Document> postGameCollection = database.getCollection("postGame");
+                    postGameCollection.insertOne(post);
+                    postGameMemberCollection.deleteOne(new Document("_id", new ObjectId(postId)));
+                    break;
+                case "deny":
+                    // Update the status field to denied
+                    postGameMemberCollection.updateOne(new Document("_id", new ObjectId(postId)),
+                            new Document("$set", new Document("status", "denied")));
+                    break;
+                case "re-deny":
+                    // Update the status field to re-denied
+                    postGameMemberCollection.updateOne(new Document("_id", new ObjectId(postId)),
+                            new Document("$set", new Document("status", "re-denied")));
+                    break;
+            }
         }
         // Redirect back to the member page (or wherever appropriate)
-        response.sendRedirect("ReadGameHomeAdmin");
+        response.sendRedirect("ReadGameUploadByMember?adminId=<%= request.getSession().getAttribute(\"adminId\")%>\"");
     }
 }

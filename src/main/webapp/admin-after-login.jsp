@@ -1,3 +1,5 @@
+<%@page import="Model.UserModel"%>
+<%@page import="DAO.UserDAO"%>
 <%@page import="java.util.ArrayList" %>
 <%@page import="java.util.List" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -97,8 +99,13 @@
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
                             <div class="account-container">
+                                <%
+                                    UserDAO userDAO = new UserDAO();
+                                    UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
+                                    request.setAttribute("user", user);
+                                %>
                                 <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
+                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
@@ -194,7 +201,7 @@
                                             <p>${post.description != null ? post.description : 'No
                                                  description available'}</p>
 
-                                            
+
 
                                             <!-- Edit and Delete Buttons -->
                                             <div class="action-buttons">
@@ -244,52 +251,50 @@
                         </style>
 
                         <div class="col-xl-3 col-lg-4 col-md-5 sidebar">
-                            <div id="stickySidebar">
-                                <div class="widget-item">
-                                    <a href="#" class="add">
-                                        <img src="./img/Game_Interactive.jpg" alt="">
-                                    </a>
-                                </div>
+                            <div class="widget-item">
+                                <a href="#" class="add">
+                                    <img src="./img/gif_pi_2.gif" alt="">
+                                </a>
+                            </div>
 
-                                <div class="widget-item">
-                                    <div class="categories-widget">
-                                        <h4 class="widget-title">Genre</h4>
-                                        <form
-                                            action="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>" method="get">
-                                            <ul>
-                                                <c:forEach var="genre" items="${genres}">
-                                                    <li>
-                                                        <a href="ReadGameHomeAdmin?genre=${genre.genre}&adminId=<%= request.getSession().getAttribute("adminId")%>">
-                                                            ${genre.genre != null ? genre.genre : 'No genre
-                                                              available'}
-                                                        </a>
-                                                    </li>
-                                                </c:forEach>
-                                            </ul>
-                                        </form>
-                                    </div>
+                            <div class="widget-item">
+                                <div class="categories-widget">
+                                    <h4 class="widget-title">Genre</h4>
+                                    <form
+                                        action="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>" method="get">
+                                        <ul>
+                                            <c:forEach var="genre" items="${genres}">
+                                                <li>
+                                                    <a href="ReadGameHomeAdmin?genre=${genre.genre}&adminId=<%= request.getSession().getAttribute("adminId")%>">
+                                                        ${genre.genre != null ? genre.genre : 'No genre
+                                                          available'}
+                                                    </a>
+                                                </li>
+                                            </c:forEach>
+                                        </ul>
+                                    </form>
                                 </div>
-                                <div class="site-pagination">
-                                    <c:if test="${currentPage > 1}">
-                                        <a href="?genre=${selectedGenre}&page=${currentPage - 1}"
-                                           class="prev">Previous</a>
-                                    </c:if>
+                            </div>
+                            <div class="site-pagination">
+                                <c:if test="${currentPage > 1}">
+                                    <a href="?genre=${selectedGenre}&page=${currentPage - 1}"
+                                       class="prev">Previous</a>
+                                </c:if>
 
-                                    <c:forEach var="i" begin="1" end="${totalPages}">
-                                        <a href="?genre=${selectedGenre}&page=${i}"
-                                           class="${i == currentPage ? 'active' : ''}">${i}</a>
-                                    </c:forEach>
+                                <c:forEach var="i" begin="1" end="${totalPages}">
+                                    <a href="?genre=${selectedGenre}&page=${i}"
+                                       class="${i == currentPage ? 'active' : ''}">${i}</a>
+                                </c:forEach>
 
-                                    <c:if test="${currentPage < totalPages}">
-                                        <a href="?genre=${selectedGenre}&page=${currentPage + 1}"
-                                           class="next">Next</a>
-                                    </c:if>
-                                </div>
-                                <div class="widget-item">
-                                    <a href="#" class="add">
-                                        <img src="./img/add.jpg" alt="">
-                                    </a>
-                                </div>
+                                <c:if test="${currentPage < totalPages}">
+                                    <a href="?genre=${selectedGenre}&page=${currentPage + 1}"
+                                       class="next">Next</a>
+                                </c:if>
+                            </div>
+                            <div class="widget-item">
+                                <a href="#" class="add">
+                                    <img src="./img/gif_pi.gif" alt="">
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -328,7 +333,7 @@
                         <!-- Featured background image -->
                         <div class="featured-bg set-bg col-6 d-flex justify-content-center align-items-center"
                              style="width: calc(50% - 40px); height: 100%; ">
-                            <img src="data:image/png;base64,${post.fileData}" alt="Game Image"
+                            <img class="img_newset"  src="data:image/png;base64,${post.fileData}" alt="Game Image"
                                  style="max-width: 100%; max-height: 100%; object-fit: contain;" />
                         </div>
 
@@ -364,10 +369,10 @@
             <footer class="footer-section">
                 <div class="container">
                     <div class="footer-left-pic">
-                        <img src="img/footer-left-pic.png" alt="">
+                        <img class="img_bottom_1" src="./img/bottom_pic_1.png" alt="">
                     </div>
                     <div class="footer-right-pic">
-                        <img src="img/footer-right-pic.png" alt="">
+                        <img class="img_bottom_2" src="./img//bottom_pic_2.png" alt="">
                     </div>
                     <a href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>" class="footer-logo">
                         <img src="./img/logo1.png" alt="">
@@ -523,36 +528,34 @@
             <script src="js/jquery.magnific-popup.min.js"></script>
             <script src="js/main.js"></script>
                 <script>
-                  const formPopup = document.querySelector(".form-popup");
-                  const showPopupBtn = document.querySelector(".create-btn"); // Button to open create post form
-                  const hidePopupBtn = formPopup.querySelectorAll(".close-btn"); // Close buttons for both forms
-                  const photoOrPost = document.querySelectorAll(".bottom-link a"); // Links to toggle forms
+            const formPopup = document.querySelector(".form-popup");
+            const showPopupBtn = document.querySelector(".create-btn"); // Button to open create post form
+            const hidePopupBtn = formPopup.querySelectorAll(".close-btn"); // Close buttons for both forms               const photoOrPost = document.querySelectorAll(".bottom-link a"); // Links to toggle forms
         
-                  // Show create post popup
-                  showPopupBtn?.addEventListener("click", () => {
+            // Show create post popup
+            showPopupBtn?.addEventListener("click", () => {
                         document.body.classList.add("show-popup");
         });
-        // Show create post popup
-                  showPopupBtn?.addEventListener("click", () => {
+            // Show create post popup
+            showPopupBtn?.addEventListener("click", () => {
                         document.body.classList.add("show-popup");
         });
         
-                  // Hide both popups when close button is clicked
+            // Hide both popups when close button is clicked
+            hidePopupBtn.forEach(btn => {
+                        btn.addEventListener("click", () => {                         document.body.classList.remove("show-popup");
+                        });
+        });
+            // Hide both popups when close button is clicked
         hidePopupBtn.forEach(btn => {
-                  btn.addEventListener("click", () => {
-                        document.body.classList.remove("show-popup");
-                        });
-        });
-        // Hide both popups when close button is clicked
-                  hidePopupBtn.forEach(btn => {
-                  btn.addEventListener("click", () => {
+            btn.addEventListener("click", () => {
                         document.body.classList.remove("show-popup");
                         });
         });
         
-        // Switch between create post and upload photo forms
-                  photoOrPost.forEach(link => {
-                  link.addEventListener("click", (e) => {
+            // Switch between create post and upload photo forms
+            photoOrPost.forEach(link => {
+                        link.addEventListener("click", (e) => {
                         e.preventDefault();
                         if (link.id === 'upload-photo-link') {
                         formPopup.classList.add("show-upload-photo");
@@ -560,89 +563,95 @@
                         formPopup.classList.remove("show-upload-photo");
                         }
                         });
-        });
-        // Switch between create post and upload photo forms
-        photoOrPost.forEach(link => {
-                  link.addEventListener("click", (e) => {
-                  e.preventDefault();
+              });
+            // Switch between create post and upload photo forms
+            photoOrPost.forEach(link => {
+                        link.addEventListener("click", (e) => {                         e.preventDefault();
                         if (link.id === 'upload-photo-link') {
                         formPopup.classList.add("show-upload-photo");
                         } else {
                         formPopup.classList.remove("show-upload-photo");
                         }
                         });
-                });
-                
-                </script>
-            <style                    >
-                 .form-popup .upload-photo,
-        .form-popup .create-post {
-            display: none;
-        }
+            });
+            </script>
+                                <style>
+                    img.img_n                        ewset {
+                        height:                    100% ;
+              }
 
-        /* Show upload-photo form and hide create-post form */
-        .form-popup.show-upload-photo .upload-photo {
-            display: flex;
-        }
+                    img.img_bottom_1,img.img_bottom_2 {
+                        width: 50%;
+              }
 
-        .form-popup.show-upload-photo .create-post {
-            display: none;
-        }
+                    .form-popup .upload-photo,
+                    .form-popup .create-post {
+                        display: none;
+              }
 
-        /* Show create-post form by default */
-        .form-popup .create-post {
-            display: flex;
-        }
-        form button {
-            width: 100%;
-            color: #fff;
-            border: none;
-            outline: none;
-            padding: 10px 0;
-            font-size: 1rem;
-            font-weight: 500;
-            border-radius: 3px;
-            cursor: pointer;
-            margin: 25px 0;
-            background: #6f2b95;
-            transition: 0.2s ease;
-            margin-top: 0px;
-            margin-bottom: 5px;
-        }
-        .right-position {
-            padding-top: 81px;
-            padding-right: 10px;
-        }
-        .upload-photo .form-details {
-            padding: 0 20px;
-            background: url("img/mortal-combat.jpg");
-            background-position: center;
-            background-size: cover;
-        }
-        a.btn.btn-square.mx-1 {
-            padding-right: 35px;
-        }
-        .create-post-popup{
-            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
-            border: 10px solid #501755;
-            border-radius: 15px;
-        }
-        .user {
-            position: relative;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            overflow: hidden;
-            cursor: pointer;
-        }
-        .user img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+                    /* Show upload-photo form and hide create-post form */
+                    .form-popup.show-upload-photo .upload-photo {
+                        display: flex;
+              }
+
+                    .form-popup.show-upload-photo .create-post {
+                        display: none;
+              }
+
+                    /* Show create-post form by default */
+                    .form-popup .create-post {
+                        display: flex;
+                    }
+                    form button {
+                        width: 100%;
+                        color: #fff;
+                        border: none;
+                        outline: none;
+                        padding: 10px 0;
+                        font-size: 1rem;
+                        font-weight: 500;
+                        border-radius: 3px;
+                        cursor: pointer;
+                        margin: 25px 0;
+                        background: #6f2b95;
+                        transition: 0.2s ease;
+                        margin-top: 0px;
+                        margin-bottom: 5px;
+                    }
+                    .right-position {
+                        padding-top: 81px;
+                        padding-right: 10px;
+                    }
+                    .upload-photo .form-details {
+                        padding: 0 20px;
+                        background: url("img/mortal-combat.jpg");
+                        background-position: center;
+                        background-size: cover;
+                    }
+                    a.btn.btn-square.mx-1 {
+                        padding-right: 35px;
+                    }
+                    .create-post-popup{
+                        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+                        border: 10px solid #501755;
+                        border-radius: 15px;
+                    }
+                    .user {
+                        position: relative;
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        overflow: hidden;
+                        cursor: pointer;
+                    }
+                    .user img {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
             </style>
     </body>
 

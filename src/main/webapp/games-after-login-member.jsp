@@ -1,3 +1,5 @@
+<%@page import="Model.UserModel"%>
+<%@page import="DAO.UserDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -93,14 +95,19 @@
                     </div>
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
-                            <!-- Bi?u t??ng t�i kho?n -->
+
                             <div class="account-container">
-                                  <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
+                                 <%
+                                    UserDAO userDAO = new UserDAO();
+                                    UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
+                                    request.setAttribute("user", user);
+                                %>
+                                <div class="user">                                   
+                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
-                                           <li><a href="user-profile.jsp?userid=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
+                                        <li><a href="user-profile.jsp?userid=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
                                         <li>
                                             <a href="LogOut" class="dropdown-item">Logout</a>
                                         </li>
@@ -158,28 +165,29 @@
                             </c:forEach>
                         </div>                   
                     </div>
-                    <div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">
-                        <div id="stickySidebar">
-                            <div class="widget-item">
-                                <div class="categories-widget">
-                                    <h4 class="widget-title">Genre</h4>
-                                    <form action="ReadGameListMemberController" method="get">   
-                                        <ul>
-                                            <c:forEach var="genre" items="${genres}">
-                                                <li>
-                                                    <a href="ReadGameListMember?genre=${genre.genre}">
-                                                        ${genre.genre != null ? genre.genre : 'No genre available'}
-                                                    </a>
-                                                </li>
-                                            </c:forEach>     
-                                        </ul>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="widget-item">
-                                <img src="img/game-console.jpg" alt="#">
+                    <div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">                       
+                        <div class="widget-item">
+                            <img src="img/zed.gif" alt="#">
+                        </div>
+                        <div class="widget-item">
+                            <div class="categories-widget">
+                                <h4 class="widget-title">Genre</h4>
+                                <form action="ReadGameList" method="get">   
+                                    <ul>
+                                        <c:forEach var="genre" items="${genres}">
+                                            <li>
+                                                <a href="ReadGameListMember?genre=${genre.genre}">
+                                                    ${genre.genre != null ? genre.genre : 'No genre available'}
+                                                </a>
+                                            </li>
+                                        </c:forEach>
+                                    </ul>
+                                </form>
                             </div>
                         </div>
+                        <div class="widget-item">
+                            <img src="img/ironMan.gif" alt="#">
+                        </div>                       
                     </div>
                     <div class="site-pagination">
                         <c:forEach var="i" begin="1" end="${totalPages}">
@@ -194,24 +202,39 @@
 
         <!-- Featured section -->
         <section class="featured-section">
-            <div class="featured-bg set-bg" data-setbg="img/featured-bg.jpg"></div>
-            <div class="featured-box">
-                <div class="text-box">
-                    <div class="top-meta">11.11.18  /  in <a href="">Games</a></div>
-                    <h3>The game you?ve been waiting  for is out now</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquamet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vestibulum posuere porttitor justo id pellentesque. Proin id lacus feugiat, posuere erat sit amet, commodo ipsum. Donec pellentesque vestibulum metus...</p>
-                    <a href="#" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#"/></a>
-                </div>
-            </div>
+            <c:forEach var="post" items="${posts}" varStatus="status">
+                <c:if test="${status.index == 0}">
+                    <!-- Featured background image -->
+                    <div class="featured-bg set-bg col-6 d-flex justify-content-center align-items-center" style="width: calc(50% - 40px); height: 100%; ">
+                        <img class="img_newest" src="data:image/png;base64,${post.fileData}" alt="Game Image" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+                    </div>
+
+                    <!-- Featured content box -->
+                    <div class="featured-box col-6" >
+                        <div class="text-box" >
+                            <!-- Display post date and category dynamically -->
+                            <div class="top-meta">${post.dateRelease} / in <a href="#">${post.genre}</a></div>
+
+                            <h3>Newest game release is coming up!</h3>
+
+                            <!-- Post title -->
+                            <p style="font-size: 40px">${post.title}</p>
+
+                            <!-- Post content (short summary) -->
+                            <p>${post.description}</p>
+
+                            <!-- Read more link -->
+                            <a href="game-single.jsp?id=${post.postID}" class="read-more">Read More  
+                                <img src="img/icons/double-arrow.png" alt="#"/>
+                            </a>
+                        </div>
+                    </div>
+                </c:if>
+            </c:forEach>
         </section>
+
         <!-- Featured section end-->
-        <!-- Popup Modal -->
-        <div id="popup" class="popup" style="display: none;">
-            <div class="popup-content">
-                <span class="close-btn">&times;</span>
-                <p>Thanks for subscribing to our website!We will notify when we have update</p>
-            </div>
-        </div>
+
         <style>
             .popup {
                 position: fixed;
@@ -269,20 +292,20 @@
         <footer class="footer-section">
             <div class="container">
                 <div class="footer-left-pic">
-                    <img src="img/footer-left-pic.png" alt="">
+                    <img class="img_bottom_1" src="./img/bottom_pic_1.png" alt="">
                 </div>
                 <div class="footer-right-pic">
-                    <img src="img/footer-right-pic.png" alt="">
+                    <img class="img_bottom_2" src="./img//bottom_pic_2.png" alt="">
                 </div>
                 <a href="ReadGameHomeMember?userId=<%= request.getSession().getAttribute("adminId")%>" class="footer-logo">
                     <img src="./img/logo1.png" alt="">
                     <img src="./img/logo2.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
-                            <li><a href="ReadGameHomeMember?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                            <li><a href="ReadGameListMember?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
-                            <li><a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
-                            <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+                    <li><a href="ReadGameHomeMember?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                    <li><a href="ReadGameListMember?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
+                    <li><a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                    <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
                     <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
@@ -359,6 +382,12 @@
         </div>
 
         <style>
+             img.img_newest {
+                height: 100%;
+            }
+            img.img_bottom_1,img.img_bottom_2  {
+                width: 50%;
+            }
             .same-size {
                 width: 300px; /* set the width to 200px */
                 height: 200px; /* set the height to 200px */

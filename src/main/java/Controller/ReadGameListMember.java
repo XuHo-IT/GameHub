@@ -36,10 +36,7 @@ public class ReadGameListMember extends HttpServlet {
             } else {
                 // Fetch game posts by genre if no keyword is provided
                 postList = gamePostDAO.getGamePostsByGenre(selectedGenre);
-            }
-            
-            // Reverse the list if needed
-            Collections.reverse(postList);
+            }           
 
             // Pagination logic
             int itemsPerPage = 9;

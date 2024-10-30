@@ -1,5 +1,6 @@
 package DAO;
 
+import Model.GamePostMember;
 import Model.GamePostTemp;
 import Model.Genre;
 import com.mongodb.client.FindIterable;
@@ -26,6 +27,7 @@ public class GamePostDAO {
 
     private final MongoDatabase database;
     private final MongoCollection<Document> postCollection;
+    private final MongoCollection<Document> postCollectionMember;
     private final MongoCollection<Document> genreCollection;
     private final MongoCollection<Document> transactionCollection;
     public List<GamePostTemp> memberPostList;
@@ -35,6 +37,7 @@ public class GamePostDAO {
         MongoClient mongoClient = MongoDBConnectionManager.getLocalMongoClient();
         this.database = mongoClient.getDatabase("GameHub");
         this.postCollection = database.getCollection("postGame");
+        this.postCollectionMember = database.getCollection("postGameMember");
         this.genreCollection = database.getCollection("Genre");
         this.transactionCollection = database.getCollection("Transaction");
 
@@ -191,6 +194,24 @@ public class GamePostDAO {
         postCollection.insertOne(postGame);
     }
 
+    public void addGamePostMember(GamePostMember gamePost, List<String> actionImagesBase64) {
+        Document postGame = new Document("Title", gamePost.getTitle())
+                .append("GamePlay", gamePost.getGamePlay())
+                .append("Description", gamePost.getDescription())
+                .append("DateRelease", gamePost.getDateRelease())
+                .append("Author", gamePost.getAuthor())
+                .append("Genre", gamePost.getGenre())
+                .append("AdminId", gamePost.getAdminId())
+                .append("FileName", gamePost.getFileName())
+                .append("FileData", gamePost.getFileDataBase64()) // Store Base64 file data
+                .append("LinkGame", gamePost.getLinkGame())
+                .append("ActionImages", actionImagesBase64)
+                .append("Price", gamePost.getPrice())
+                .append("Status", gamePost.getStatus());
+
+        postCollectionMember.insertOne(postGame);
+    }
+
     public void addGenre(Genre genre) {
         MongoCollection<Document> collection = database.getCollection("Genre");
 
@@ -202,9 +223,9 @@ public class GamePostDAO {
         collection.insertOne(genreDocument);
     }
 
-    public List<GamePostTemp> getGamePostsMember(String selectedGenreId) {
+    public List<GamePostMember> getGamePostsMember(String selectedGenreId) {
         MongoCollection<Document> collection = database.getCollection("postGameMember");
-        List<GamePostTemp> postList = new ArrayList<>();
+        List<GamePostMember> postList = new ArrayList<>();
 
         // Fetch posts, optionally filtering by genre
         FindIterable<Document> posts;
@@ -218,7 +239,7 @@ public class GamePostDAO {
         for (Document post : posts) {
             String fileDataBase64 = extractFileDataBase64(post.get("FileData")); // Correctly retrieve file data
 
-            GamePostTemp gamePost = new GamePostTemp(
+            GamePostMember gamePost = new GamePostMember(
                     post.getObjectId("_id").toString(),
                     post.getString("Title"),
                     post.getString("GamePlay"),
@@ -230,7 +251,9 @@ public class GamePostDAO {
                     post.getString("FileName"),
                     fileDataBase64, // Correctly retrieve fileDataBase64
                     post.getString("LinkGame"),
-                    post.getString("Price")
+                    post.getString("Price"),
+                    post.getString("Status")
+                    
             );
             postList.add(gamePost);
         }

@@ -1,3 +1,5 @@
+<%@page import="Model.UserModel"%>
+<%@page import="DAO.UserDAO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="utils.MongoDBConnectionManager"%>
@@ -120,17 +122,15 @@
                         </a>
                     </div>
                     <nav class="top-nav-area w-100">
-                        <div class="user-panel d-flex">
-                            <!-- Bi?u t??ng gi? h�ng -->
-                            <div class="cart-icon">
-                                <a href="shopping-cart.jsp">
-                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                </a>
-                            </div>
-                            <!-- Bi?u t??ng t�i kho?n -->
+                        <div class="user-panel d-flex">                          
                             <div class="account-container">
+                                <%
+                                    UserDAO userDAO = new UserDAO();
+                                    UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
+                                    request.setAttribute("user", user);
+                                %>
                                 <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
+                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
@@ -174,10 +174,11 @@
 
 
 
+        <!-- Games section -->
         <section class="games-single-page">
             <div class="container">
                 <div class="game-single-preview">
-                    <img src="data:image/jpeg;base64,<%= fileData != null ? fileData : ""%>" alt="Game Image" />
+                    <img class="game_single_img" src="data:image/jpeg;base64,<%= fileData != null ? fileData : ""%>" alt="Game Image" />
                     <!-- Add to Wishlist button -->
                     <div class="wishlist-btns">
                         <form id="wishlistForm" action="shopping-cart.jsp?id=<%= postId%>?adminId=<%= adminId%>" method="POST">
@@ -199,7 +200,6 @@
                                 }
                             </script>
                         </form>
-
                     </div>
                     <%
                         // Parse the release date if it's not null
@@ -212,10 +212,6 @@
                         }
                     %>
 
-                    <div class="gs-meta">
-                        Release: <%= dateRelease != null ? dateRelease : "Unknown Date"%>
-                    </div>
-
                     <% if (releaseDate != null && releaseDate.before(today)) {%>
                     <div class="buy-btn">
                         <button class="buy-button" type="submit" 
@@ -224,54 +220,34 @@
                         </button>
                     </div>
                     <% }%>
+
                 </div>
-                <div class="row">
-                    <div class="col-xl-9 col-lg-8 col-md-7 game-single-content">
-                        <div class="gs-meta">
-                            Release : <%= dateRelease != null ? dateRelease : "Unknown Date"%>
-                        </div>
-                        <h2 class="gs-title">
-                            <%= title != null ? title : "Untitled"%>
-                        </h2>
-                        <div class="gs-description">
-                            <h3 style="color: white">Description</h3>
-
-                            <p style="font-size: 20px"><%= description != null ? description : "No description available"%></p>
-                        </div>
-                        <div class="gs-gameplay">
-                            <h3 style="color: white">Game Play</h3>
-                            <p style="font-size: 20px"><%= gamePlay != null ? gamePlay : "No gamePlay available"%></p>
-                        </div>
-                        <div class="gs-auhtor-genre" ">
-                            <div class="left-author">
-                                <h3 style="color: white">Publisher</h3>
-                                <p style="font-size: 20px"><%= author != null ? author : "No Author available"%></p>
-                            </div>
-                            <div class="right-genre">
-                                <h3 style="color: white">Genre</h3>
-                                <p style="font-size: 20px"><%= genre != null ? genre : "No genre available"%></p>
-                            </div>
-                        </div>
-
+                <h2 class="gs-title">
+                    <%= title != null ? title : "Untitled"%>
+                </h2>
+                <br>
+                <div class="gs-meta">
+                    Release : <%= dateRelease != null ? dateRelease : "Unknown Date"%>
+                </div>                   
+                <div class="gs-description">
+                    <h3 style="color: white">Description</h3>
+                    <p style="font-size: 20px"><%= description != null ? description : "No description available"%></p>
+                </div>
+                <div class="gs-gameplay">
+                    <h3 style="color: white">Game Play</h3>
+                    <p style="font-size: 20px"><%= gamePlay != null ? gamePlay : "No gamePlay available"%></p>
+                </div>
+                <div class="gs-auhtor-genre" ">
+                    <div class="left-author">
+                        <h3 style="color: white">Publisher</h3>
+                        <p style="font-size: 20px"><%= author != null ? author : "No Author available"%></p>
                     </div>
-
-                    <div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">
-                        <div id="stickySidebar">
-                            <div class="widget-item">
-                            </div>
-                            <div class="widget-item">
-                                <div class="testimonials-widget">
-                                    <h4 class="widget-title">Testimonials</h4>
-                                    <div class="testim-text">
-                                        <p>EndGam has transformed the way I discover new games! The wishlist feature allows me to keep track of all my favorite titles, and the notifications for game releases are a game-changer. Highly recommend!</p>
-                                        <h6><span>James Smith,</span>Gamer</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="right-genre">
+                        <h3 style="color: white">Genre</h3>
+                        <p style="font-size: 20px"><%= genre != null ? genre : "No genre available"%></p>
                     </div>
                 </div>
-                <!-- Action Images Carousel -->
+
                 <div id="actionImagesCarousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                         <%
@@ -300,9 +276,9 @@
                         <span class="sr-only">Next</span>
                     </a>
                 </div>
-
             </div>
         </section>
+        <!-- Games end-->    
         <!-- Games end-->
 
 
@@ -317,10 +293,10 @@
         <footer class="footer-section">
             <div class="container">
                 <div class="footer-left-pic">
-                    <img src="img/footer-left-pic.png" alt="">
+                    <img class="img_bottom_1" src="./img/bottom_pic_1.png" alt="">
                 </div>
                 <div class="footer-right-pic">
-                    <img src="img/spider-removebg-preview.png" alt="">
+                    <img class="img_bottom_2" src="./img//bottom_pic_2.png" alt="">
                 </div>
                 <a href="#" class="footer-logo">
                     <img src="./img/logo.png" alt="">
@@ -476,6 +452,47 @@
             </div>
         </div>
         <style>
+               .gs-auhtor-genre {
+                width: 100%;
+                display: flex;
+                align-content: stretch;
+                flex-wrap: wrap;
+                justify-content: space-around;
+            }
+            .left-author {
+                padding: 20px 0;
+            }
+            .right-genre {
+                padding: 20px 0;
+            }
+
+            .gs-description {
+                padding: 50px 0;
+            }
+            .gs-gameplay {
+                padding: 50px 0;
+            }
+            .gs-author-genre{
+                padding: 50px 0;
+            }
+            .gs-meta {
+                font-size: 20px;
+                color: #585858;
+            }
+            h2.gs-title {
+                font-size: 60px;
+                color: white;
+            }
+            .game-single-preview {
+                text-align: center;
+            }
+            img.game_single_img {
+                width: 1000px;
+                height: 700px;
+            }
+            img.img_bottom_1,img.img_bottom_2  {
+                width: 50%;
+            }
             .user {
                 position: relative;
                 width: 40px;

@@ -36,7 +36,7 @@ public class UploadPhoto extends HttpServlet {
             UserDAO mgcn = new UserDAO();
             mgcn.updateUserProfilePicture(userId, fileDataBase64);
 
-            response.sendRedirect("user-profile.jsp?id=" + userId);
+            response.sendRedirect("user-profile.jsp?userid=" + userId);
 
         }
     }

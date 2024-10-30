@@ -126,7 +126,7 @@
                     <c:forEach var="topic" items="${topics}">
                         <div class="subforum-row">
                             <div class="subforum-icon subforum-column center">
-                               <img src="data:image/jpeg;base64,${topic.photoUrl}" alt="User Photo" style="width: 140px; height: 140px; border-radius: 50%;" />
+                                <img src="data:image/jpeg;base64,${topic.photoUrl}" alt="User Photo" style="width: 140px; height: 140px; border-radius: 50%;" />
                             </div>
                             <div class="subforum-description subforum-column">
                                 <h4>
@@ -177,10 +177,10 @@
         <footer class="footer-section" style="margin-top: 0 ; padding: 10px 125px">
             <div class="container">
                 <div class="footer-left-pic">
-                    <img src="img/footer-left-pic.png" alt="">
+                    <img class="img_bottom_1" src="./img/bottom_pic_1.png" alt="">
                 </div>
                 <div class="footer-right-pic">
-                    <img src="img/footer-right-pic.png" alt="">
+                    <img class="img_bottom_2" src="./img//bottom_pic_2.png" alt="">
                 </div>
                 <a href="ReadGameHome" class="footer-logo">
                     <img src="./img/logo1.png" alt="">
@@ -321,14 +321,14 @@
             </div>
         </div>
         <script>
-             document.addEventListener("DOMContentLoaded", function () {
-            // Check if session attribute for emailRegistered is set
-            const emailRegistered = '<%= session.getAttribute("emailRegistered")%>';
-            if (emailRegistered === "true") {
-                alert("This email is already registered. Please use another email to register");
-                session.removeAttribute("emailRegistered"); // Clear session attribute after displaying the message
-            }
-        });
+            document.addEventListener("DOMContentLoaded", function () {
+                // Check if session attribute for emailRegistered is set
+                const emailRegistered = '<%= session.getAttribute("emailRegistered")%>';
+                if (emailRegistered === "true") {
+                    alert("This email is already registered. Please use another email to register");
+                    session.removeAttribute("emailRegistered"); // Clear session attribute after displaying the message
+                }
+            });
             document.addEventListener("DOMContentLoaded", function () {
                 // Form boxes
                 const loginForm = document.querySelector(".form-box.login");
@@ -474,7 +474,11 @@
 
             });
         </script>
-
+        <style>
+          img.img_bottom_1,img.img_bottom_2  {
+            width: 50%;
+        }
+        </style>
 
         <!--====== Javascripts & Jquery ======-->
         <script src="js/jquery-3.2.1.min.js"></script>

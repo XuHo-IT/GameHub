@@ -40,8 +40,6 @@ public class ReadGameListAdmin extends HttpServlet {
                 // Fetch game posts by selected genre if no keyword
                 List<GamePostTemp> postList = gamePostDAO.getGamePostsByGenre(selectedGenre);
                 
-                // Reverse the list if needed
-                Collections.reverse(postList);
 
                 // Pagination logic
                 int itemsPerPage = 9;

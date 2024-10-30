@@ -1,3 +1,5 @@
+<%@page import="Model.UserModel"%>
+<%@page import="DAO.UserDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -108,8 +110,13 @@
 
                             <!-- Bi?u t??ng t�i kho?n -->
                             <div class="account-container">
+                                 <%
+                                    UserDAO userDAO = new UserDAO();
+                                    UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
+                                    request.setAttribute("user", user);
+                                %>
                                 <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
+                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>                                    
@@ -230,7 +237,7 @@
                         <!-- Blog item -->
                         <%
                             String adminId = request.getParameter("id");  // Get AdminId from session
-                        %>                        
+%>                        
                         <div class="blog-container">
                             <c:forEach var="post" items="${posts}">
                                 <div class="blog-item">
@@ -288,7 +295,11 @@
                     </style>
 
                     <div class="col-xl-3 col-lg-4 col-md-5 sidebar">
-
+                        <div class="widget-item">
+                            <a href="#" class="add">
+                                <img src="./img/gif_pi_2.gif" alt="">
+                            </a>
+                        </div>
                         <div class="widget-item">
                             <div class="widget-item">
                                 <div class="categories-widget">
@@ -309,7 +320,7 @@
                         </div>
                         <div class="widget-item">
                             <a href="#" class="add">
-                                <img src="./img/add.jpg" alt="">
+                                <img src="./img/gif_pi.gif" alt="">
                             </a>
                         </div>
                     </div>
@@ -346,7 +357,7 @@
             <c:if test="${status.index == 0}">
                 <!-- Featured background image -->
                 <div class="featured-bg set-bg col-6 d-flex justify-content-center align-items-center" style="width: calc(50% - 40px); height: 100%; ">
-                    <img src="data:image/png;base64,${post.fileData}" alt="Game Image" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+                    <img class="img_newset" src="data:image/png;base64,${post.fileData}" alt="Game Image" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
                 </div>
 
                 <!-- Featured content box -->
@@ -385,10 +396,10 @@
     <footer class="footer-section">
         <div class="container">
             <div class="footer-left-pic">
-                <img src="img/footer-left-pic.png" alt="">
+                <img class="img_bottom_1" src="./img/bottom_pic_1.png" alt="">
             </div>
             <div class="footer-right-pic">
-                <img src="img/footer-right-pic.png" alt="">
+                <img class="img_bottom_2" src="./img//bottom_pic_2.png" alt="">
             </div>
             <a href="after-login.jsp" class="footer-logo">
                 <img src="./img/logo1.png" alt="">
@@ -424,7 +435,7 @@
             </div>
             <div class="form-content">
                 <h2 style="margin-bottom: 6px">Create post</h2>
-                <form action="AddGameByMemberController" method="post" enctype="multipart/form-data">
+                <form action="AddGameByMember" method="post" enctype="multipart/form-data">
                     <!-- Form fields for creating post -->
                     <div class="input-field">
                         <label>Title</label>
@@ -526,6 +537,12 @@
     </script>
 
     <style>
+        img.img_newset {
+            height: 100% ;
+        }
+        img.img_bottom_1,img.img_bottom_2  {
+            width: 50%;
+        }
         .form-popup .upload-photo,
         .form-popup .create-post {
             display: none;

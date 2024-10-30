@@ -1,3 +1,5 @@
+<%@page import="Model.UserModel"%>
+<%@page import="DAO.UserDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -61,8 +63,13 @@
                     </div>
                     <!-- Search -->
                     <!-- UserImg -->
+                    <%
+                        UserDAO userDAO = new UserDAO();
+                        UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
+                        request.setAttribute("user", user);
+                    %>
                     <div class="user">                                   
-                        <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
+                        <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
                     </div>
                 </div>
 
@@ -93,6 +100,8 @@
                                             <td>${post.dateRelease != null ? post.dateRelease : 'No Date'}</td>
                                             <td>${post.author != null ? post.author : 'Unknown Author'}</td>
                                             <td>${post.genre != null ? post.genre : 'Unknown Genre'}</td>
+                                            <td>${post.genre != null ? post.genre : 'Unknown Genre'}</td>
+
                                             <td>
                                                 <!-- Button to view details -->
                                                 <button type="button" class="btn details-btn" onclick="openDetailsModal('${post.title}', '${post.dateRelease}', '${post.author}', '${post.genre}', '${post.description}', '${post.postID}')">Details</button>
@@ -101,14 +110,14 @@
                                                 <!-- Confirm and Deny buttons -->
                                                 <input type="hidden" name="postId" value="${post.postID}">
                                                 <button type="submit" class="btn confirm-btn">Confirm</button>
-                                                <button type="button" class="btn deny-btn" onclick="denyPost(this)">Deny</button>
-                                                <button type="button" class="btn redeny-btn" style="display:none;background: yellow;color: black" onclick="reDenyPost(this)">Re-Deny</button>
+                                                <button type="button" class="btn deny-btn" onclick="setActionType('deny')">Deny</button>
+                                                <button type="button" class="btn redeny-btn" style="display:none;background: yellow;color: black" onclick="setActionType('re-deny')">Re-Deny</button>
                                             </td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>
-
                             </table>
+
                         </form>
 
                     </div>
@@ -205,8 +214,12 @@
 
                             // Hide the re-deny button
                             reDenyButton.style.display = 'none';
-                            row.style.color = 'black';
+                            row.style.color = '#6f2b95';
 
+                        }
+                        function setActionType(type) {
+                            document.getElementById("actionType").value = type;
+                            document.querySelector("form").submit(); // Submit form with selected action
                         }
         </script>
         <style>

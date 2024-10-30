@@ -1316,7 +1316,10 @@ video {
   Other Pages
 =====================
 ---------------------*/
-
+.User-form{
+    padding-top: 210px;
+    padding: 104px 0;
+}
 .page-top-section {
     height: 355px;
     padding-top: 210px;

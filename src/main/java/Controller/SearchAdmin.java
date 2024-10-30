@@ -60,7 +60,7 @@ public class SearchAdmin extends HttpServlet {
             request.setAttribute("postList", postList);
 
             // Forward to search results JSP
-            request.getRequestDispatcher("search-results-admin.jsp").forward(request, response);
+            request.getRequestDispatcher("search-result-admin.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Error retrieving search results.");

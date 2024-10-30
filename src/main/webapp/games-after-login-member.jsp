@@ -183,7 +183,7 @@
                         <div class="widget-item">
                             <div class="categories-widget">
                                 <h4 class="widget-title">Genre</h4>
-                                <form action="ReadGameList" method="get">   
+                                <form action="ReadGameListMember" method="get">   
                                     <ul>
                                         <c:forEach var="genre" items="${genres}">
                                             <li>

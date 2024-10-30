@@ -115,7 +115,7 @@
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
                     <div class="logo-fix">
-                        <a href="index.jsp" class="site-logo">
+                        <a href="ReadGameHome" class="site-logo">
                             <img src="./img/logo1.png" alt="" class="logo1">
                             <img src="./img/logo2.png" alt="" class="logo2">
                         </a>
@@ -145,7 +145,7 @@
             <div class="page-info">
                 <h2>Games</h2>
                 <div class="site-breadcrumb">
-                    <a href="">Home</a>  /
+                    <a href="ReadGameHome">Home</a>  /
                     <span>Games</span>
                 </div>
             </div>

@@ -99,7 +99,7 @@
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
                     <div class="logo-fix">
-                        <a href="after-login.html" class="site-logo">
+                        <a href="ReadGameHomeMember?userId=<%= request.getSession().getAttribute("adminId")%>" class="site-logo">
                             <img src="./img/logo1.png" alt="" class="logo1">
                             <img src="./img/logo2.png" alt="" class="logo2">
                         </a>
@@ -267,6 +267,8 @@
                         <a href="ReadGameList" class=" more-game-btn"> More Game </a>
                     </div>
 
+                        
+                        
                     <style>
                         .more-game-btn{
                             margin-top: 50px;

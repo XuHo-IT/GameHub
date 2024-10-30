@@ -22,7 +22,7 @@ public class LogOutController extends HttpServlet {
           session.removeAttribute("currentUser");
           HttpSession session2 = request.getSession();
           session2.setAttribute("succMsg", "Logout Successfully");
-          response.sendRedirect("ReadGameHomeController");
+          response.sendRedirect("ReadGameHome");
        }catch(Exception e){
            e.printStackTrace();
        }

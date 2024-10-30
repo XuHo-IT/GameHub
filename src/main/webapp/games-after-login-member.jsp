@@ -95,8 +95,6 @@
                     </div>
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
-                            <!-- Bi?u t??ng gi? h�ng -->
-
 
                             <div class="account-container">
                                  <%
@@ -140,7 +138,7 @@
             <div class="page-info" style="padding-top: 35px">
                 <h2>Games</h2>
                 <div class="site-breadcrumb">
-                    <a href="">Home</a>  /
+                    <a href="ReadGameHomeMember?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a>  /
                     <span>Games</span>
                 </div>
             </div>
@@ -165,12 +163,7 @@
                                     </div>
                                 </div>
                             </c:forEach>
-                        </div>
-                        <div class="site-pagination">
-                            <c:forEach var="i" begin="1" end="${totalPages}">
-                                <a href="?page=${i}" class="${i == currentPage ? 'active' : ''}">${i < 10 ? '0' + i : i}</a>
-                            </c:forEach>
-                        </div>
+                        </div>                   
                     </div>
                     <div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">                       
                         <div class="widget-item">

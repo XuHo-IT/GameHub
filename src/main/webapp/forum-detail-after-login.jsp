@@ -46,12 +46,10 @@
 
         <!-- Main Stylesheets -->
         <link rel="stylesheet" href="css/style.css" />
-        <link rel="stylesheet"
-              href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
         <link rel="stylesheet" href="Login/style.css">
         <script src="Login/script.js" defer></script>
         <link rel="stylesheet" href="Forum/style.css">
-
 
         <!--[if lt IE 9]>
                   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -86,7 +84,7 @@
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
                             <div class="account-container">
-                                 <div class="user">                                   
+                                <div class="user">                                   
                                     <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
                                 </div>
                                 <div class="account-dropdown">
@@ -100,7 +98,7 @@
                             </div>
                         </div>
                         <!-- Menu -->
-                       <ul class="main-menu primary-menu">
+                        <ul class="main-menu primary-menu">
                             <li><a href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                             <li><a href="ReadGameListAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
                             <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
@@ -203,7 +201,7 @@
                     </div>
                     <div class="body">
                         <div class="authors">                          
-                           <img src="<%= (photoUrlUser == null || photoUrlUser.isEmpty()) ? "./img/t-rex.png" : "data:image/jpeg;base64," + photoUrlUser %>" alt="Photo User">
+                            <img src="<%= (photoUrlUser == null || photoUrlUser.isEmpty()) ? "./img/t-rex.png" : "data:image/jpeg;base64," + photoUrlUser%>" alt="Photo User">
                             <div class="username"><a href="#"><%=userNameTopic%></a></div>
                         </div>
                         <div class="content">
@@ -240,7 +238,7 @@
                             <div class="body">
 
                                 <div class="authors">
-                                    <img src="<%= (comment.getPhotoUrl() == null || comment.getPhotoUrl().isEmpty()) ? "./img/t-rex.png" : "data:image/jpeg;base64," + comment.getPhotoUrl() %>" alt="Photo User">
+                                    <img src="<%= (comment.getPhotoUrl() == null || comment.getPhotoUrl().isEmpty()) ? "./img/t-rex.png" : "data:image/jpeg;base64," + comment.getPhotoUrl()%>" alt="Photo User">
                                     <div class="username"><a href=""><%= comment.getUserName()%></a></div>
                                     <div class="date-comment">
                                         <%

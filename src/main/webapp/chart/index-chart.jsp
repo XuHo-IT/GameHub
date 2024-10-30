@@ -18,7 +18,7 @@
                 <ul>
                     <li>
                         <a href="">
-                            <span class="icon"><ion-icon name="logo-apple"></ion-icon></span>
+                            <img src="./img/logo1.png" alt="" class="logo1" style="width: 25%; height: 25%;">
                             <span class="title">Manage Admin</span>
                         </a>
                     </li>
@@ -57,7 +57,11 @@
                         <ion-icon name="menu-outline"></ion-icon>
                     </div>
                     <!-- Search -->
-
+                    <div style="font-family: "Ubuntu", sans-serif;">
+                        <button type="button" class="btn back-btn" style="background: white; color: white; padding: 15px; font-size: 20px; color: #6f2b95; border: none; cursor: pointer" onclick="window.location.href = 'ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>'">Forum</button>   
+                        <button type="button" class="btn back-btn" style="background: white; color: white; padding: 15px; font-size: 20px; color: #6f2b95; border: none; cursor: pointer" onclick="window.location.href = 'ReadGameListAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>'">Games</button>
+                        <button type="button" class="btn back-btn" style="background: white; color: white; padding: 15px; font-size: 20px; color: #6f2b95; border: none; cursor: pointer" onclick="window.location.href = 'ReadGameHomeAdmin?&adminId=<%= request.getSession().getAttribute("adminId")%>'">Home</button>                    
+                    </div>
                     <!-- UserImg -->
                     <div class="user">                                   
                         <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
@@ -151,15 +155,6 @@
                         <!-- Finalize total earnings -->
                         <c:set var="totalEarnings" value="${totalEarnings}" />
                     </div>
-
-                    <!-- New Customers -->
-                    <div class="recentCustomers">
-                        <div class="cardHeader">
-                            <h2>Recent Customers</h2>
-                        </div>
-                        <button type="button" class="btn back-btn" style="background: #6f2b95; color: white" onclick="window.location.href = 'ReadGameHomeAdmin?&adminId=<%= request.getSession().getAttribute("adminId")%>'">Back To Home Page</button>
-
-                    </div>
                 </div>
             </div>
         </div>
@@ -209,13 +204,17 @@
                 position: relative;
                 width: 100%;
                 padding: 20px;
-                display: grid;
                 grid-template-columns: 2fr 1fr;
                 grid-gap: 30px;
             }
             button.btn.back-btn {
                 padding: 30px;
                 float: right;
+            }
+            .details .recentOrders table tr td {
+                padding: 12px 15px;
+                text-align: start !important;
+                /* padding: 10px; */
             }
         </style>
     </body>

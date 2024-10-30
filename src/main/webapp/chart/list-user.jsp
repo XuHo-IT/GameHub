@@ -23,7 +23,7 @@
                 <ul>
                     <li>
                         <a href="">
-                            <span class="icon"><ion-icon name="logo-apple"></ion-icon></span>
+                            <img src="../img/logo1.png" alt="" class="logo1" style="width: 25%; height: 25%;">
                             <span class="title">Manage Admin</span>
                         </a>
                     </li>
@@ -40,7 +40,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="chart/list-user.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">
+                        <a href="list-user.jsp?adminId=<%= request.getSession().getAttribute("adminId")%>">
                             <span class="icon"><ion-icon name="help-outline"></ion-icon></span>
                             <span class="title">Manage All User</span>
                         </a>
@@ -52,6 +52,11 @@
                 <div class="topbar">
                     <div class="toggle">
                         <ion-icon name="menu-outline"></ion-icon>
+                    </div>
+                    <div style="font-family: "Ubuntu", sans-serif;">
+                        <button type="button" class="btn back-btn" style="background: white; color: white; padding: 15px; font-size: 20px; color: #6f2b95; border: none; cursor: pointer" onclick="window.location.href = '../ReadGameHomeAdmin?&adminId=<%= request.getSession().getAttribute("adminId")%>'">Home</button>                    
+                        <button type="button" class="btn back-btn" style="background: white; color: white; padding: 15px; font-size: 20px; color: #6f2b95; border: none; cursor: pointer" onclick="window.location.href = '../ReadGameListAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>'">Games</button>
+                        <button type="button" class="btn back-btn" style="background: white; color: white; padding: 15px; font-size: 20px; color: #6f2b95; border: none; cursor: pointer" onclick="window.location.href = '../ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>'">Forum</button>   
                     </div>
                     <div class="user">                                   
                         <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
@@ -94,10 +99,10 @@
                                                 // Determine the status label and action button based on user status
                                                 if ("Active".equals(user.getStatus())) {
                                                     statusLabel = "<span class='text-success'>Active</span>";
-                                                    actionButton = "<a href=\"../SuspendUser?id=" + user.getId() + "&adminId=" + adminId + "\" class=\"btn btn-warning btn-sm\">Suspend</a>";
+                                                    actionButton = "<a href=\"../SuspendUser?id=" + user.getId() + "&adminId=" + adminId + "\" class=\"btn btn-warning btn-sm\" style=\"margin-left: 5px;\">Suspend</a>";
                                                 } else {
                                                     statusLabel = "<span class='text-danger'>Suspended</span>";
-                                                    actionButton = "<a href=\"../UnSuspendUser?id=" + user.getId() + "&adminId=" + adminId + "\" class=\"btn btn-primary btn-sm\">Unsuspend</a>";
+                                                    actionButton = "<a href=\"../UnSuspendUser?id=" + user.getId() + "&adminId=" + adminId + "\" class=\"btn btn-primary btn-sm\" style=\"margin-left: 5px;\">Unsuspend</a>";
                                                 }
 
                                                 // New role management logic
@@ -116,7 +121,7 @@
                                                         + "<td>" + statusLabel + "</td>"
                                                         + "<td>" + ("1".equals(user.getRole()) ? "Admin" : "Member") + "</td>"
                                                         + "<td>" + roleDropdown + "</td>"
-                                                        + "<td><div class='d-flex'>"
+                                                        + "<td><div class='d-flex' style='text-align: center !important;'>"
                                                         + "<a href=\"../RemoveUser?id=" + user.getId() + "&adminId=" + adminId + "\" class=\"btn btn-danger btn-sm me-2\">Remove</a>"
                                                         + actionButton
                                                         + "</div></td>"
@@ -132,11 +137,19 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" class="btn back-btn" style="background: #6f2b95; color: white" onclick="window.location.href = '../ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>'">Back To Home Page</button>
             </div>
         </div>
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
         <script src="js/main.js"></script>
     </body>
+    <style>
+        th {
+            padding: 12px 15px;
+            text-align: start;
+        }
+        td {
+            text-align: start !important;
+        }
+    </style>
 </html>

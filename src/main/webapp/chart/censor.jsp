@@ -18,11 +18,10 @@
         <div class="container">
             <div class="navigation" style="background: #6f2b95; border-left: 10px solid #6f2b95">
                 <ul>
-
                     <li>
                         <a href="">
-                            <span class="icon"><ion-icon name="logo-apple"></ion-icon></span>
-                            <span class="title" >Manage Amin</span>
+                            <img src="./img/logo1.png" alt="" class="logo1" style="width: 25%; height: 25%;">
+                            <span class="title" >Manage Admin</span>
                         </a>
                     </li>
                     <li>
@@ -51,8 +50,6 @@
                             <span class="title">Manage All User</span>
                         </a>
                     </li>
-
-
                 </ul>
             </div>
             <!-- main -->
@@ -61,13 +58,16 @@
                     <div class="toggle">
                         <ion-icon name="menu-outline"></ion-icon>
                     </div>
-                    <!-- Search -->
-                    <!-- UserImg -->
                     <%
                         UserDAO userDAO = new UserDAO();
                         UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
                         request.setAttribute("user", user);
                     %>
+                    <div style="font-family: "Ubuntu", sans-serif;">
+                        <button type="button" class="btn back-btn" style="background: white; color: white; padding: 15px; font-size: 20px; color: #6f2b95;" onclick="window.location.href = 'ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>'">Forum</button>   
+                        <button type="button" class="btn back-btn" style="background: white; color: white; padding: 15px; font-size: 20px; color: #6f2b95;" onclick="window.location.href = 'ReadGameListAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>'">Games</button>
+                        <button type="button" class="btn back-btn" style="background: white; color: white; padding: 15px; font-size: 20px; color: #6f2b95;" onclick="window.location.href = 'ReadGameHomeAdmin?&adminId=<%= request.getSession().getAttribute("adminId")%>'">Home</button>                    
+                    </div>
                     <div class="user">                                   
                         <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
                     </div>
@@ -84,23 +84,23 @@
                         <form action="ConfirmPost" method="post">
                             <table class="styled-table">
                                 <thead>
-                                    <tr style="color:white">
+                                    <tr style="color:white;">
                                         <th>Title</th>
                                         <th>Date Release</th>
                                         <th>Author</th>
                                         <th>Genre</th>
-                                        <th></th>
+                                        <th>View</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <c:forEach var="post" items="${postsMember}">
                                         <tr>
-                                            <td>${post.title != null ? post.title : 'No Title'}</td>
-                                            <td>${post.dateRelease != null ? post.dateRelease : 'No Date'}</td>
-                                            <td>${post.author != null ? post.author : 'Unknown Author'}</td>
-                                            <td>${post.genre != null ? post.genre : 'Unknown Genre'}</td>
-                                            <td>${post.genre != null ? post.genre : 'Unknown Genre'}</td>
+                                            <td style="padding: 12px 15px;text-align: start;">${post.title != null ? post.title : 'No Title'}</td>
+                                            <td style="padding: 12px 15px;text-align: start;">${post.dateRelease != null ? post.dateRelease : 'No Date'}</td>
+                                            <td style="padding: 12px 15px;text-align: start;">${post.author != null ? post.author : 'Unknown Author'}</td>
+                                            <td style="padding: 12px 15px;text-align: start;">${post.genre != null ? post.genre : 'Unknown Genre'}</td>
+                                            <td style="padding: 12px 15px;text-align: start;">${post.genre != null ? post.genre : 'Unknown Genre'}</td>
 
                                             <td>
                                                 <!-- Button to view details -->
@@ -123,7 +123,6 @@
                     </div>
 
                 </div>
-                <button type="button" class="btn back-btn" style="background: #6f2b95; color: white" onclick="window.location.href = 'ReadGameHomeAdmin?&adminId=<%= request.getSession().getAttribute("adminId")%>'">Back To Home Page</button>
             </div>
         </div>
         <!-- Modal for showing post details -->

@@ -48,12 +48,10 @@
 
         <!-- Main Stylesheets -->
         <link rel="stylesheet" href="css/style.css" />
-        <link rel="stylesheet"
-              href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
         <link rel="stylesheet" href="Login/style.css">
         <script src="Login/script.js" defer></script>
         <link rel="stylesheet" href="Forum/style.css">
-
 
         <!--[if lt IE 9]>
                   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -95,7 +93,8 @@
                                 %>
                                 <div class="user">                                   
                                     <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
-                                </div>                                <div class="account-dropdown">
+                                </div>                                
+                                <div class="account-dropdown">
                                     <ul>
                                         <li><a href="user-profile.jsp?id=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
                                         <li>

@@ -31,7 +31,7 @@
         <link href="img/favicon.ico" rel="shortcut icon" />
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
         <!-- Stylesheets -->
         <link rel="stylesheet" href="css/bootstrap.min.css" />
@@ -46,18 +46,16 @@
 
         <!-- Main Stylesheets -->
         <link rel="stylesheet" href="css/style.css" />
-        <link rel="stylesheet"
-              href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
         <link rel="stylesheet" href="Login/style.css">
         <script src="Login/script.js" defer></script>
         <link rel="stylesheet" href="Forum/style.css">
-
 
         <!--[if lt IE 9]>
                   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-
+        
     </head>
 
     <body>

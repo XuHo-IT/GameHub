@@ -130,7 +130,8 @@ body {
 .update-topic .form-details h2, 
 .create-post .form-details h2,
 .forgot-password .form-details h2,
-.login .form-details h2{
+.login .form-details h2,
+.signup .form-details h2{
     font-family: DragonHunter;
     text-shadow:
         1px 1px 0 black,
@@ -142,7 +143,8 @@ body {
 .create-topic .form-details p,
 .create-post .form-details p,
 .forgot-password .form-details p,
-.login .form-details p{
+.login .form-details p,
+.signup .form-details p{
     font-family: DragonHunter;
     text-shadow:
         1px 1px 0 black,

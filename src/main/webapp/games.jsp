@@ -59,15 +59,19 @@
                         <form action="Search" method="GET">
                             <!-- Search Bar Row -->
                             <div class="row" style="align-items: center;">
-                                <!-- Keyword input for the search bar -->
+                                <!-- Search button on the left side -->
                                 <div class="col-2 d-flex align-items-end">
-                                    <button type="submit" class=" w-100" style="height: 52px;">Search</button>
+                                    <button type="submit" class="w-100" style="height: 52px;">Search</button>
                                 </div>
 
-                                <div class="col-10" style="text-align: center;padding-top: 33px ">
+                                <!-- Keyword input for the search bar -->
+                                <div class="col-6" style="padding-top: 15px;">
                                     <input type="text" name="keyword" class="form-control" placeholder="Search by keyword..." aria-label="Search" style="height: 52px;">
-                                    <label for="genre" class="form-label" style="font-style: italic; font-weight: bold;">Genre:</label>
-                                    <select id="genre" name="genre" class="form-select" style="height: 34px; float: left; border: 2px solid #ccc; font-style: italic; padding: 5px; border-radius: 5px; font-family: 'Arial', sans-serif;">
+                                </div>
+
+                                <!-- Genre dropdown next to search input -->
+                                <div class="col-4" style="padding-top: 15px;">
+                                    <select id="genre" name="genre" class="form-select" style="height: 52px; border: 2px solid #ccc; font-style: italic; padding: 5px; border-radius: 5px; font-family: 'Arial', sans-serif;">
                                         <option value="">All Genres</option>
                                         <!-- Dynamically populate genres from MongoDB -->
                                         <c:forEach var="genre" items="${genres}">
@@ -78,6 +82,8 @@
                             </div>
                         </form>
                     </div>
+
+
                     <!-- Right side: Social Media Icons (col-4) -->
                     <div class="col-4 header-social d-flex align-items-center justify-content-end">
                         <p class="mb-0">Follow us:</p>

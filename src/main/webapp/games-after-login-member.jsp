@@ -54,18 +54,22 @@
                 <div class="row align-items-center">
                     <!-- Left side: Search Form (col-7) -->
                     <div class="col-8">
-                        <form action="ReadGameListMember" method="GET">
+                        <form action="SearchMember" method="GET">
                             <!-- Search Bar Row -->
                             <div class="row" style="align-items: center;">
-                                <!-- Keyword input for the search bar -->
+                                <!-- Search button on the left side -->
                                 <div class="col-2 d-flex align-items-end">
-                                    <button type="submit" class=" w-100" style="height: 52px;">Search</button>
+                                    <button type="submit" class="w-100" style="height: 52px;">Search</button>
                                 </div>
 
-                                <div class="col-10" style="text-align: center;padding-top: 33px ">
+                                <!-- Keyword input for the search bar -->
+                                <div class="col-6" style="padding-top: 15px;">
                                     <input type="text" name="keyword" class="form-control" placeholder="Search by keyword..." aria-label="Search" style="height: 52px;">
-                                    <label for="genre" class="form-label" style="font-style: italic; font-weight: bold;">Genre:</label>
-                                    <select id="genre" name="genre" class="form-select" style="height: 34px; float: left; border: 2px solid #ccc; font-style: italic; padding: 5px; border-radius: 5px; font-family: 'Arial', sans-serif;">
+                                </div>
+
+                                <!-- Genre dropdown next to search input -->
+                                <div class="col-4" style="padding-top: 15px;">
+                                    <select id="genre" name="genre" class="form-select" style="height: 52px; border: 2px solid #ccc; font-style: italic; padding: 5px; border-radius: 5px; font-family: 'Arial', sans-serif;">
                                         <option value="">All Genres</option>
                                         <!-- Dynamically populate genres from MongoDB -->
                                         <c:forEach var="genre" items="${genres}">
@@ -76,6 +80,8 @@
                             </div>
                         </form>
                     </div>
+
+
                     <!-- Right side: Social Media Icons (col-4) -->
                     <div class="col-4 header-social d-flex align-items-center justify-content-end">
                         <p class="mb-0">Follow us:</p>
@@ -97,6 +103,11 @@
                         <div class="user-panel d-flex">
 
                             <div class="account-container">
+                                div class="user">                                   
+                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl") %>" 
+                                        alt="Profile Picture" 
+                                        style="width: 50px; height: 50px; border-radius: 50%;" 
+                                        onerror="this.onerror=null;this.src='img/t-rex.png';" />
                                  <%
                                     UserDAO userDAO = new UserDAO();
                                     UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
@@ -172,7 +183,7 @@
                         <div class="widget-item">
                             <div class="categories-widget">
                                 <h4 class="widget-title">Genre</h4>
-                                <form action="ReadGameList" method="get">   
+                                <form action="ReadGameListMember" method="get">   
                                     <ul>
                                         <c:forEach var="genre" items="${genres}">
                                             <li>
@@ -319,67 +330,7 @@
         <!-- Footer section end -->
 
 
-        <!-- Login Popup -->
-        <div class="blur-bg-overlay"></div>
-        <div class="form-popup">
-            <span class="close-btn material-symbols-rounded">close</span>
-            <div class="form-box login">
-                <div class="form-details">
-                    <h2>Welcome Back</h2>
-                    <p>Please log in using your personal information to stay connected with us.</p>
-                </div>
-                <div class="form-content">
-                    <h2>LOGIN</h2>
-                    <form action="#">
-                        <div class="input-field">
-                            <input type="text" required>
-                            <label>Email</label>
-                        </div>
-                        <div class="input-field">
-                            <input type="password" required>
-                            <label>Password</label>
-                        </div>
-                        <a href="#" class="forgot-pass-link">Forgot password?</a>
-                        <button type="submit">Log In</button>
-                    </form>
-                    <div class="bottom-link">
-                        Don't have an account?
-                        <a href="#" id="signup-link">Signup</a>
-                    </div>
-                </div>
-            </div>
-            <div class="form-box signup">
-                <div class="form-details">
-                    <h2>Create Account</h2>
-                    <p>To become a part of our community, please sign up using your personal information.</p>
-                </div>
-                <div class="form-content">
-                    <h2>SIGNUP</h2>
-                    <form action="#">
-                        <div class="input-field">
-                            <input type="text" required>
-                            <label>Enter your email</label>
-                        </div>
-                        <div class="input-field">
-                            <input type="password" required>
-                            <label>Create password</label>
-                        </div>
-                        <div class="policy-text">
-                            <input type="checkbox" id="policy">
-                            <label for="policy">
-                                I agree the
-                                <a href="#" class="option">Terms & Conditions</a>
-                            </label>
-                        </div>
-                        <button type="submit">Sign Up</button>
-                    </form>
-                    <div class="bottom-link">
-                        Already have an account? 
-                        <a href="#" id="login-link">Login</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+
 
         <style>
              img.img_newest {

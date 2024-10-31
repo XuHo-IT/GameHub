@@ -116,7 +116,10 @@
                                     request.setAttribute("user", user);
                                 %>
                                 <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
+                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl") %>" 
+                                        alt="Profile Picture" 
+                                        style="width: 50px; height: 50px; border-radius: 50%;" 
+                                        onerror="this.onerror=null;this.src='img/t-rex.png';" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>                                    
@@ -151,14 +154,14 @@
                     <div class="container">
                         <h2>game on!</h2>
                         <p><strong>The platform serves as a hub for sharing the latest game news, offering users a space to stay updated on upcoming releases and industry developments.<br> It allows users to view, comment, and engage in discussions about the latest news, fostering an active gaming community. With an intuitive interface, the platform enables easy access to user-generated posts and admin-curated updates.</strong></p>
-                        <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
+                        <a href="Read-more-member.jsp" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
                     </div>
                 </div>
                 <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider5.jpg">
                     <div class="container">
                         <h2>game on!</h2>
                         <p><strong>The platform provides a centralized space for discovering and sharing game news, keeping users informed about upcoming titles and events.<br>Users can contribute by posting news, commenting on updates, and participating in forum discussions. The site promotes community interaction around gaming trends and developments.</strong></p>
-                        <a href="#" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
+                        <a href="Read-more-member.jsp" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
                     </div>
                 </div>
         </section>

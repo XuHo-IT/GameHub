@@ -62,7 +62,7 @@ public class AddGameByMember extends HttpServlet {
         // Create a GamePost object
         GamePostMember gamePost = new GamePostMember(
                 null, title, gamePlay, description, dateRelease, author, genre,
-                memberId, fileName, fileDataBase64,linkGame,price,status);
+                memberId, fileName, fileDataBase64,linkGame,price,status, actionImagesBase64);
 
         // Use GamePostDAO to insert the game
         GamePostDAO gamePostDAO = new GamePostDAO();

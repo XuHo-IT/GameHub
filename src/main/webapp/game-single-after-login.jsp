@@ -128,18 +128,17 @@
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
                             <div class="account-container">
-                                  <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl") %>" 
-                                        alt="Profile Picture" 
-                                        style="width: 50px; height: 50px; border-radius: 50%;" 
-                                        onerror="this.onerror=null;this.src='img/t-rex.png';" />
-                                 <%
+
+                                <%
                                     UserDAO userDAO = new UserDAO();
                                     UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
                                     request.setAttribute("user", user);
                                 %>
                                 <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
+                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" 
+                                         alt="Profile Picture" 
+                                         style="width: 50px; height: 50px; border-radius: 50%;" 
+                                         onerror="this.onerror=null;this.src='img/t-rex.png';" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
@@ -149,6 +148,7 @@
                                         </li>
                                     </ul>
                                 </div>
+
                             </div>
                         </div>
 
@@ -184,11 +184,11 @@
         <section class="games-single-page">
             <div class="container">
                 <div class="game-single-preview">
-                    <img src="data:image/jpeg;base64,<%= fileData != null ? fileData : ""%>" alt="Game Image" />
+                    <img class="game_single_img" src="data:image/jpeg;base64,<%= fileData != null ? fileData : ""%>" alt="Game Image" />
                     </dv>
 
-                    <div class="row">
-                        <div class="col-xl-9 col-lg-8 col-md-7 game-single-content">
+             
+                      
                             <!-- Button to submit the form -->
                             <form action="EditPostController" method="POST" enctype="multipart/form-data">
 
@@ -234,27 +234,14 @@
                                     <textarea name="fileName" style="font-size: 20px; height: 50px" class="form-control"><%= price != null ? price : "No price available"%></textarea>
                                 </div>
                                 <div class="gs-gameplay">
-                                    <h3 style="color: white">Upload New Image</h3>
+                                    <h3 style="color: white">Upload New Logo</h3>
                                     <input type="file" name="fileData" accept="image/*" class="form-control">
                                 </div>
                                 <input type="hidden" name="postId" value="<%= postId%>">
                                 <button class="edit-btn" type="submit" name="action" value="edit" style="background-color:#4CAF50;">Edit</button>
                             </form>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">
-                            <div id="stickySidebar">
-                                <div class="widget-item">
-                                    <div class="testimonials-widget">
-                                        <h4 class="widget-title">Testimonials</h4>
-                                        <div class="testim-text">
-                                            <p>EndGame has transformed the way I discover new games! The wishlist feature allows me to keep track of all my favorite titles, and the notifications for game releases are a game-changer. Highly recommend!</p>
-                                            <h6><span>James Smith,</span>Gamer</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                              
+                   
 
                     <!-- Action Images Carousel -->
                     <div id="actionImagesCarousel" class="carousel slide" data-ride="carousel">
@@ -296,7 +283,6 @@
         <section class="newsletter-section" style="">
             <div class="container">
                 <h3 class="bottom-title">Thanks for using our website!</h3>
-                <img src="img/Dawn.gif" alt="Game Image" style="width: 100%; height: auto;" />
             </div>
         </section>
         <!-- Newsletter section end -->
@@ -341,9 +327,8 @@
             }
         </script>
         <style>
-               .gs-auhtor-genre {
+            .gs-auhtor-genre {
                 width: 100%;
-                display: flex;
                 align-content: stretch;
                 flex-wrap: wrap;
                 justify-content: space-around;
@@ -404,6 +389,10 @@
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
+            }
+              img.game_single_img {
+                width: 1000px;
+                height: 700px;
             }
         </style>
         <!--====== Javascripts & Jquery ======-->

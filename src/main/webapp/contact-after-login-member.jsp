@@ -59,6 +59,9 @@
         <link rel="stylesheet" href="css/animate.css" />
         <link rel="stylesheet" href="css/searchbar.css" />
         <link rel="stylesheet" href="css/account-icon.css" />
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Sixtyfour+Convergence&display=swap" rel="stylesheet">
 
         <!-- Main Stylesheets -->
         <link rel="stylesheet" href="css/style.css" />
@@ -310,22 +313,17 @@
                 </div>
             </div>
         </div>
-        <!-- Newsletter section end -->
-        
+   
         <!-- Newsletter section -->
         <section class="newsletter-section" style="background-image: url('img/Gif2.gif'); background-size: cover; background-position: center; height: 80vh; position: relative; color: white; display: flex; align-items: center; justify-content: center;">
             <div class="container" style="position: relative; z-index: 1; text-align: center;">
-                <h3 class="bottom-title">Thanks for using our website!</h3>
+                <h3 style=" font-family: 'Sixtyfour Convergence', sans-serif;" class="bottom-title">Thanks for using our website!</h3>
             </div>
         </section>
         <style>
             .bottom-title {
                 font-family: 'Sixtyfour Convergence', sans-serif;
                 font-size: 45px;
-            }
-
-            .newsletter-section {
-                /* Optional: Add any other styles you want */
             }
         </style>
         

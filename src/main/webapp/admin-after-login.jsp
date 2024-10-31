@@ -253,7 +253,7 @@
                         <div class="col-xl-3 col-lg-4 col-md-5 sidebar">
                             <div class="widget-item">
                                 <a href="#" class="add">
-                                    <img src="./img/gif_pi_2.gif" alt="">
+                                    <img src="./img/gif_pi_2.gif" alt="" style="margin-top: -15px;">
                                 </a>
                             </div>
 
@@ -294,6 +294,11 @@
                             <div class="widget-item">
                                 <a href="#" class="add">
                                     <img src="./img/gif_pi.gif" alt="">
+                                </a>
+                            </div>
+                            <div class="widget-item">
+                                <a href="#" class="add">
+                                    <img src="./img/img_pi.jpg" alt="">
                                 </a>
                             </div>
                         </div>

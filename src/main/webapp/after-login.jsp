@@ -110,7 +110,7 @@
 
                             <!-- Bi?u t??ng t�i kho?n -->
                             <div class="account-container">
-                                 <%
+                                <%
                                     UserDAO userDAO = new UserDAO();
                                     UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
                                     request.setAttribute("user", user);
@@ -170,7 +170,7 @@
         <div class="container-xxl py-5">
             <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                    <h6 class="section-title bg-white text-center text-primary px-3">Services</h6>
+                    <h6 class="section-title bg-white text-center text-primary px-3"></h6>
                     <h1 class="mb-5 text-primary">Our Services</h1>
                 </div>
                 <div class="row g-4">
@@ -179,7 +179,7 @@
                             <div class="service-item rounded pt-3">
                                 <div class="p-4">
                                     <i class="fa fa-gamepad fa-3x text-primary mb-4"></i>
-                                    <h5>Game News</h5>
+                                    <h5 style="color: skyblue">Game News</h5>
                                     <p>Available.</p>
                                 </div>
                             </div>
@@ -190,7 +190,7 @@
                             <div class="service-item rounded pt-3">
                                 <div class="p-4">
                                     <i class="fa fa-shopping-cart fa-3x text-primary mb-4"></i>
-                                    <h5>Notification & Buy Game</h5>
+                                    <h5 style="color: skyblue">Notification & Buy Game</h5>
                                     <p>Available</p>
                                 </div>
                             </div>
@@ -201,7 +201,7 @@
                             <div class="service-item rounded pt-3">
                                 <div class="p-4">
                                     <i class="fa fa-address-book fa-3x text-primary mb-4"></i>
-                                    <h5>Contact With Us</h5>
+                                    <h5 style="color: skyblue">Contact With Us</h5>
                                     <p>Available</p>
                                 </div>
                             </div>
@@ -212,7 +212,7 @@
                             <div class="service-item rounded pt-3">
                                 <div class="p-4">
                                     <i class="fa fa-users fa-3x text-primary mb-4"></i>
-                                    <h5>Forum</h5>
+                                    <h5 style="color: skyblue">Forum</h5>
                                     <p>Available</p>
                                 </div>
                             </div>
@@ -267,8 +267,8 @@
                         <a href="ReadGameList" class=" more-game-btn"> More Game </a>
                     </div>
 
-                        
-                        
+
+
                     <style>
                         .more-game-btn{
                             margin-top: 50px;
@@ -297,7 +297,7 @@
                     <div class="col-xl-3 col-lg-4 col-md-5 sidebar">
                         <div class="widget-item">
                             <a href="#" class="add">
-                                <img src="./img/gif_pi_2.gif" alt="">
+                                <img src="./img/gif_pi_2.gif" alt="" style="margin-top: -15px;">
                             </a>
                         </div>
                         <div class="widget-item">
@@ -321,6 +321,11 @@
                         <div class="widget-item">
                             <a href="#" class="add">
                                 <img src="./img/gif_pi.gif" alt="">
+                            </a>
+                        </div>
+                        <div class="widget-item">
+                            <a href="#" class="add">
+                                <img src="./img/img_pi.jpg" alt="">
                             </a>
                         </div>
                     </div>
@@ -537,6 +542,14 @@
     </script>
 
     <style>
+        .text-primary {
+            background: linear-gradient(to right, #0004CE, skyblue);
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .spad {
+            padding-top: 0;
+        }
         img.img_newset {
             height: 100% ;
         }

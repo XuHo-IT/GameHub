@@ -1,3 +1,7 @@
+<%@page import="com.mongodb.client.MongoCollection"%>
+<%@page import="utils.MongoDBConnectionManager"%>
+<%@page import="com.mongodb.client.MongoClient"%>
+<%@page import="Model.GamePostMember"%>
 <%@page import="Model.UserModel"%>
 <%@page import="DAO.UserDAO"%>
 <%@page import="java.util.ArrayList"%>
@@ -91,6 +95,7 @@
                                         <th>Genre</th>
                                         <th>View</th>
                                         <th></th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -130,12 +135,13 @@
             <div class="modal-content">
                 <span class="close" onclick="closeModal()">&times;</span>
                 <h2>Post Details</h2>
-                <p><strong>Title:</strong> <span id="modalTitle"></span></p>
-                <p><strong>Date Release:</strong> <span id="modalDateRelease"></span></p>
-                <p><strong>Author:</strong> <span id="modalAuthor"></span></p>
-                <p><strong>Genre:</strong> <span id="modalGenre"></span></p>
-                <p><strong>Description:</strong> <span id="modalDescription"></span></p>
-
+                <div>
+                    <p><strong>Title:</strong> <span id="modalTitle"></span></p>
+                    <p><strong>Date Release:</strong> <span id="modalDateRelease"></span></p>
+                    <p><strong>Author:</strong> <span id="modalAuthor"></span></p>
+                    <p><strong>Genre:</strong> <span id="modalGenre"></span></p>
+                    <p><strong>Description:</strong> <span id="modalDescription"></span></p>
+                </div>
                 <!-- Hidden form to confirm or deny within modal -->
                 <form action="ConfirmPostController" method="post">
                     <input type="hidden" name="postId" id="modalPostId">

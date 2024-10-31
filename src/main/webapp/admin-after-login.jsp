@@ -145,7 +145,7 @@
                                 discussions about the latest news, fostering an active gaming community.
                                 With an intuitive interface, the platform enables easy access to
                                 user-generated posts and admin-curated updates.</strong></p>
-                        <a href="#" class="site-btn">Read More <img src="img/icons/double-arrow.png"
+                        <a href="Read-more-admin.jsp" class="site-btn">Read More <img src="img/icons/double-arrow.png"
                                                                     alt="#" /></a>
                     </div>
                 </div>
@@ -158,7 +158,7 @@
                                 can contribute by posting news, commenting on updates, and participating in
                                 forum discussions. The site promotes community interaction around gaming
                                 trends and developments.</strong></p>
-                        <a href="#" class="site-btn">Read More <img src="img/icons/double-arrow.png"
+                        <a href="Read-more-admin.jsp" class="site-btn">Read More <img src="img/icons/double-arrow.png"
                                                                     alt="#" /></a>
                     </div>
                 </div>
@@ -488,7 +488,7 @@
                         </div>
                         <div class="form-content">
                             <h2 style="margin-bottom: 6px">Upload Genre</h2>
-                            <form action="AddGenreController" method="post">
+                            <form action="AddGenre" method="post">
                                 <div class="input-field">
                                     <label class="mr-2">Genre Of Game:</label>
                                     <input type="text" required name="genre1">

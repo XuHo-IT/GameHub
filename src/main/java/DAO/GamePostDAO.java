@@ -235,9 +235,10 @@ public class GamePostDAO {
             posts = collection.find();
         }
 
-        // Map each document to a GamePost object
+        // Map each document to a GamePostMember object
         for (Document post : posts) {
             String fileDataBase64 = extractFileDataBase64(post.get("FileData")); // Correctly retrieve file data
+            List<String> actionImagesBase64 = (List<String>) post.getList("ActionImages", String.class); // Retrieve action images
 
             GamePostMember gamePost = new GamePostMember(
                     post.getObjectId("_id").toString(),
@@ -252,8 +253,8 @@ public class GamePostDAO {
                     fileDataBase64, // Correctly retrieve fileDataBase64
                     post.getString("LinkGame"),
                     post.getString("Price"),
-                    post.getString("Status")
-                    
+                    post.getString("Status"),
+                    actionImagesBase64 // Pass the action images to the GamePostMember
             );
             postList.add(gamePost);
         }

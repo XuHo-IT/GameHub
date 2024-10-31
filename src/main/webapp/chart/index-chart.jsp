@@ -65,14 +65,14 @@
                         <button type="button" class="btn back-btn" style="background: white; color: white; padding: 15px; font-size: 20px; color: #6f2b95; border: none; cursor: pointer" onclick="window.location.href = 'ReadGameHomeAdmin?&adminId=<%= request.getSession().getAttribute("adminId")%>'">Home</button>                    
                     </div>
                     <!-- UserImg -->
-                     <%
-                                    UserDAO userDAO = new UserDAO();
-                                    UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
-                                    request.setAttribute("user", user);
-                                %>
-                                <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
-                                </div>
+                    <%
+                        UserDAO userDAO = new UserDAO();
+                        UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
+                        request.setAttribute("user", user);
+                    %>
+                    <div class="user">                                   
+                        <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
+                    </div>
 
                 </div>
 
@@ -180,6 +180,40 @@
 
             // Update the earnings display with the formatted value
             document.getElementById("totalEarningsDisplay").innerHTML = `VND ${formattedEarnings}`;
+            // Fetch post counts and update polar area chart
+            fetch('http://localhost:8080/Web_Trading_Game/PostStatistic')
+                    .then((response) => response.json())
+                    .then((data) => {
+                        // Swap the values of adminPosts and memberPosts
+                        const adminPosts = data.adminPostList;
+                        const memberPosts = data.memberPostList;
+                        const totalPosts = adminPosts + memberPosts;
+
+                        // Update the chart with member and admin posts
+                        var myChart = new Chart(ctx, {
+                            type: "polarArea",
+                            data: {
+                                labels: ["Admin Post", "Member Post"], // No need to change this
+                                datasets: [{
+                                        label: "Traffic Source",
+                                        data: [adminPosts, memberPosts], // Now memberPosts is first, adminPosts second
+                                        backgroundColor: [
+                                            "rgba(54, 162, 235, 1)",
+                                            "rgba(255, 99, 132, 1)"
+                                        ]
+                                    }]
+                            },
+                            options: {
+                                responsive: true
+                            }
+                        });
+
+                        // Display the total posts in the card (Daily Views or Total Posts)
+                        // Corrected the selector and set the content
+                        document.querySelector('#totalPost .numbers1').textContent = totalPosts;
+                    })
+                    .catch((error) => console.error('Error fetching post counts:', error));
+
         </script>
 
 

@@ -4,6 +4,8 @@
  */
 package Model;
 
+import java.util.List;
+
 /**
  *
  * @author OS
@@ -23,8 +25,9 @@ public class GamePostMember {
     private String linkGame;
     private String price;
     private String status;
+    private List<String> actionImages;
 
-    public GamePostMember(String postID, String title, String gamePlay, String description, String dateRelease, String author, String genre, String adminId, String fileName, String fileData, String linkGame, String price, String status) {
+     public GamePostMember(String postID, String title, String gamePlay, String description, String dateRelease, String author, String genre, String adminId, String fileName, String fileData, String linkGame, String price, String status, List<String> actionImages) {
         this.postID = postID;
         this.title = title;
         this.gamePlay = gamePlay;
@@ -38,11 +41,19 @@ public class GamePostMember {
         this.linkGame = linkGame;
         this.price = price;
         this.status = status;
+        this.actionImages = actionImages; 
     }
 
     public GamePostMember() {
     }
 
+     public List<String> getActionImages() {
+        return actionImages;
+    }
+
+    public void setActionImages(List<String> actionImages) {
+        this.actionImages = actionImages;
+    }
     public String getStatus() {
         return status;
     }
@@ -51,8 +62,6 @@ public class GamePostMember {
         this.status = status;
     }
 
- 
-
     public String getLinkGame() {
         return linkGame;
     }
@@ -60,10 +69,6 @@ public class GamePostMember {
     public String getPrice() {
         return price;
     }
-
-    
-
-   
 
     public String getPostID() {
         return postID;

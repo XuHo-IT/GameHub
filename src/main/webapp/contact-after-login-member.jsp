@@ -59,6 +59,9 @@
         <link rel="stylesheet" href="css/animate.css" />
         <link rel="stylesheet" href="css/searchbar.css" />
         <link rel="stylesheet" href="css/account-icon.css" />
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Sixtyfour+Convergence&display=swap" rel="stylesheet">
 
         <!-- Main Stylesheets -->
         <link rel="stylesheet" href="css/style.css" />

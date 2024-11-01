@@ -86,16 +86,16 @@
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
                             <div class="account-container">
-                                 <%
+                                <%
                                     UserDAO userDAO = new UserDAO();
                                     UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
                                     request.setAttribute("user", user);
                                 %>
                                 <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : "" %>" 
-                                        alt="Profile Picture" 
-                                        style="width: 50px; height: 50px; border-radius: 50%;" 
-                                        onerror="this.onerror=null;this.src='img/t-rex.png';" />
+                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" 
+                                         alt="Profile Picture" 
+                                         style="width: 50px; height: 50px; border-radius: 50%;" 
+                                         onerror="this.onerror=null;this.src='img/t-rex.png';" />
                                 </div>                                
                                 <div class="account-dropdown">
                                     <ul>
@@ -174,9 +174,9 @@
                         .into(new ArrayList<>());
 
                 for (Document doc : commentDocuments) {
-                    Document user = usersCollection.find(Filters.eq("_id", new ObjectId(doc.getString("UserId")))).first();
-                    String photoUrl = (user != null) ? user.getString("PhotoUrl") : "./img/t-rex.png";
-                    String userName = (user != null) ? user.getString("Name") : "Unknown";
+                    Document commentUser = usersCollection.find(Filters.eq("_id", new ObjectId(doc.getString("UserId")))).first();
+                    String photoUrl = (commentUser != null) ? commentUser.getString("PhotoUrl") : "./img/t-rex.png";
+                    String userName = (commentUser != null) ? commentUser.getString("Name") : "Unknown";
 
                     CommentTemp comment = new CommentTemp();
                     comment.setCommentId(doc.getObjectId("_id").toString());
@@ -198,6 +198,7 @@
                 Collections.reverse(comments);
             }
         %>
+
         <section class="blog-section spad">
             <div class="container" style="
                  margin: 0 auto;

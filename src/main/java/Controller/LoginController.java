@@ -67,7 +67,7 @@ public class LoginController extends HttpServlet {
         } else {
             // If authentication fails, set an error message
             request.setAttribute("errorMessage", "Invalid email or password");
-            request.getRequestDispatcher("ReadGameHome").forward(request, response);
+            request.getRequestDispatcher("wrong_password.jsp").forward(request, response);
         }
     }
 }

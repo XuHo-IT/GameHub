@@ -49,36 +49,49 @@
                                                 <h1 class="fw-bold mb-0" style="color:antiquewhite">Your Game WishList</h1>
                                             </div>
                                             <%
-                                                String postId = request.getParameter("postId");
+                                                String postId = request.getParameter("id");
+                                                String adminId = request.getParameter("adminId");
                                                 String title = request.getParameter("title");
                                                 String fileData = request.getParameter("fileData");
                                                 String dateRelease = request.getParameter("dateRelease");
                                                 String author = request.getParameter("author");
                                                 String price = request.getParameter("price");
-                                                String adminId = request.getParameter("adminId");
+
+                                                // Print all parameters for debugging
+                                                System.out.println("Received Parameters:");
+                                                System.out.println("Post ID: " + postId);
+                                                System.out.println("Admin ID: " + adminId);
+                                                System.out.println("Title: " + title);
+                                                System.out.println("File Data: " + fileData);
+                                                System.out.println("Date Release: " + dateRelease);
+                                                System.out.println("Author: " + author);
+                                                System.out.println("Price: " + price);
 
                                                 if (postId != null && title != null && author != null && fileData != null) {
                                             %>
                                             <div class="wishlist-item row" style="display:flex">
                                                 <div class="col-6">
-                                                    <!-- First image displayed with larger size based on card's width/height -->
-                                                    <img src="data:image/jpeg;base64,<%= fileData%>" alt="Game Image" 
-                                                         style="width: 100%; height: auto;" />
-                                                    <form action="game-single.jsp?id=<%= postId%>" method="GET">
-                                                        <button type="submit">Cancel</button>
+                                                    <img src="data:image/jpeg;base64,<%= fileData%>" alt="Game Image" style="width: 100%; height: auto;" />
+                                                    <form>
+                                                        <!-- Updated Cancel Button to Include postId and adminId -->
+                                                        <button 
+                                                            onclick="window.location.href = 'game-single-after-login-member.jsp?id=<%= postId%>&adminId=<%= adminId%>'" 
+                                                            type="button">
+                                                            Cancel
+                                                        </button>
                                                     </form>
                                                 </div>        
                                                 <div class="col-6">
                                                     <p style="color:white;font-size:28px">Title: <%= title%></p>
                                                     <p style="color:white;font-size:28px">Author: <%= author%></p> 
-
                                                 </div>  
                                             </div>
-                                            <%
-                                                } else {
-                                                    out.println("No game data found.");
-                                                }
-                                            %>
+                                                
+                                    <%
+                                        } else {
+                                            out.println("No game data found.");
+                                        }
+                                    %>
                                             <script>
                                                 function validateEmail() {
                                                     var email = document.getElementById('emailField').value;
@@ -93,8 +106,8 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <!-- Second image displayed with larger size -->
-                                        <img src="img/cart.jpg" alt="Game Image" style="width: 100%; height: auto; padding:10px 7px" />
-                                        <form id="wishlistForm" action="GameReleaseNotificationMemberController?id=<%= postId%>?adminId=<%= adminId%>"" method="post">
+                                        <img src="img/cart.jpg" alt="Game Image" style="width: 100%; height: auto; padding:10px 7px" />                                      
+                                        <form id="wishlistForm" action="GameReleaseNotificationMember" method="post">
                                             <input type="hidden" name="postId" value="<%= postId%>" />
                                             <input type="hidden" name="adminId" value="<%= adminId%>" />
                                             <input type="hidden" name="title" value="<%= title%>" />
@@ -103,14 +116,13 @@
                                             <input type="hidden" name="author" value="<%= author%>" />
                                             <div style="margin-top: 50px; margin-bottom: 5px">
                                                 <label for="userEmail" style="color:white;font-size:28px">Enter your email:</label>
-                                                <input class="mail" style="
-                                                       width: 98%;
-                                                       padding: 10px;
-                                                       " type="email" name="userEmail" required />
-                                                <button type="submit" style=" width: 98%;">Confirm</button>
+                                                <input class="mail" style="width: 98%; padding: 10px;" type="email" name="userEmail" required />
+                                                <button type="submit" style="width: 98%;">Confirm</button>
                                             </div>
                                         </form>
+
                                     </div>
+
                                 </div>
                             </div>
                         </div>

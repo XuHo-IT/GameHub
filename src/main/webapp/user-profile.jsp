@@ -261,7 +261,7 @@
             <div class="popup-content">
                 <span class="close-btn" onclick="closeEditPopup()">&times;</span>
                 <h4>Edit Information</h4>
-                <form id="editForm" action="EditUserServlet" method="post">
+                <form id="editForm" action="EditUser" method="post">
                     <input type="hidden" name="id" value="<%= id%>">
                     <div class="form-group">
                         <label>Name</label>

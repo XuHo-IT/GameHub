@@ -496,113 +496,117 @@
                 passwordField.addEventListener('input', validatePassword);
                 policyCheckbox.addEventListener('change', validatePolicy);
 
-                // Validation functions
-                function validateName() {
-                    const name = nameField.value.trim();
-                    const nameError = document.getElementById('nameError');
-                    if (name.length < 3) {
-                        nameError.textContent = 'Name must be at least 3 characters long.';
-                        document.getElementById("formWarning").style.display = "block";
-                    } else {
-                        nameError.textContent = '';
-                        if (checkAllFieldsValid()) {
-                            document.getElementById("formWarning").style.display = "none";
-                        }
-                    }
+                         function validateName() {
+                const name = nameField.value.trim();
+                const nameError = document.getElementById('nameError');
+                if (name.length < 3) {
+                    nameError.textContent = 'Name must be at least 3 characters long.';
+                    document.getElementById("formWarning").style.display = "block";
+                            return false;
+                } else {
+                    nameError.textContent = '';
+                           return true;
                 }
+            }
 
-                function validateEmail() {
-                    const email = emailField.value.trim();
-                    const emailError = document.getElementById('emailError');
-                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (!emailPattern.test(email)) {
-                        emailError.textContent = 'Please enter a valid email address.';
-                        document.getElementById("formWarning").style.display = "block";
-                    } else {
-                        emailError.textContent = '';
-                        if (checkAllFieldsValid()) {
-                            document.getElementById("formWarning").style.display = "none";
-                        }
-                    }
+            function validateEmail() {
+                const email = emailField.value.trim();
+                const emailError = document.getElementById('emailError');
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(email)) {
+                    emailError.textContent = 'Please enter a valid email address.';
+                    document.getElementById("formWarning").style.display = "block";
+                            return false;
+                } else {
+                    emailError.textContent = '';
+                           return true;
                 }
+            }
 
-                function validatePhone() {
-                    const phone = phoneField.value.trim();
-                    const phoneError = document.getElementById('phoneError');
-                    if (phone.length !== 10 || !/^\d+$/.test(phone)) {
-                        phoneError.textContent = 'Phone number must be 10 digits long.';
-                        document.getElementById("formWarning").style.display = "block";
-                    } else {
-                        phoneError.textContent = '';
-                        if (checkAllFieldsValid()) {
-                            document.getElementById("formWarning").style.display = "none";
-                        }
-                    }
+            function validatePhone() {
+                const phone = phoneField.value.trim();
+                const phoneError = document.getElementById('phoneError');
+                if (phone.length !== 10 || !/^\d+$/.test(phone)) {
+                    phoneError.textContent = 'Phone number must be 10 digits long.';
+                    document.getElementById("formWarning").style.display = "block";
+                            return false;
+                } else {
+                    phoneError.textContent = '';
+                             return true;
                 }
+            }
 
-                function validateDOB() {
-                    const dob = dobField.value.trim();
-                    const dobError = document.getElementById('dobError');
-                    const date = new Date(dob);
-                    const today = new Date();
-                    const age = today.getFullYear() - date.getFullYear();
-                    if (age < 18) {
-                        dobError.textContent = 'You must be at least 18 years old.';
-                        document.getElementById("formWarning").style.display = "block";
-                    } else {
-                        dobError.textContent = '';
-                        if (checkAllFieldsValid()) {
-                            document.getElementById("formWarning").style.display = "none";
-                        }
-                    }
+            function validateDOB() {
+                const dob = dobField.value.trim();
+                const dobError = document.getElementById('dobError');
+                const date = new Date(dob);
+                const today = new Date();
+                const age = today.getFullYear() - date.getFullYear();
+                if (age < 18) {
+                    dobError.textContent = 'You must be at least 18 years old.';
+                    document.getElementById("formWarning").style.display = "block";
+                            return false;
+                } else {
+                    dobError.textContent = '';
+                            return true;
                 }
+            }
 
-                function validateAddress() {
-                    const address = addressField.value.trim();
-                    const addressError = document.getElementById('addressError');
-                    if (address.length < 5) {
-                        addressError.textContent = 'Address must be at least 5 characters long.';
-                        document.getElementById("formWarning").style.display = "block";
-                    } else {
-                        addressError.textContent = '';
-                        if (checkAllFieldsValid()) {
-                            document.getElementById("formWarning").style.display = "none";
-                        }
-                    }
+            function validateAddress() {
+                const address = addressField.value.trim();
+                const addressError = document.getElementById('addressError');
+                if (address.length < 5) {
+                    addressError.textContent = 'Address must be at least 5 characters long.';
+                    document.getElementById("formWarning").style.display = "block";
+                            return false;
+                } else {
+                    addressError.textContent = '';
+                            return true;
                 }
+            }
 
-                function validatePassword() {
-                    const password = passwordField.value.trim();
-                    const passwordError = document.getElementById('passwordError');
-                    if (password.length < 6) {
-                        passwordError.textContent = 'Password must be at least 6 characters long.';
-                        document.getElementById("formWarning").style.display = "block";
-                    } else {
-                        passwordError.textContent = '';
-                        if (checkAllFieldsValid()) {
-                            document.getElementById("formWarning").style.display = "none";
-                        }
-                    }
+            function validatePassword() {
+                const password = passwordField.value.trim();
+                const passwordError = document.getElementById('passwordError');
+                if (password.length < 6) {
+                    passwordError.textContent = 'Password must be at least 6 characters long.';
+                    document.getElementById("formWarning").style.display = "block";
+                            return false;
+                } else {
+                    passwordError.textContent = '';
+                          return true;
                 }
+            }
 
-                function validatePolicy() {
-                    const policyError = document.getElementById('policyError');
-                    if (!policyCheckbox.checked) {
-                        policyError.textContent = 'You must agree to the terms and conditions.';
-                        document.getElementById("formWarning").style.display = "block";
-                    } else {
-                        policyError.textContent = '';
-                        if (checkAllFieldsValid()) {
-                            document.getElementById("formWarning").style.display = "none";
-                        }
-                    }
+            function validatePolicy() {
+                const policyError = document.getElementById('policyError');
+                if (!policyCheckbox.checked) {
+                    policyError.textContent = 'You must agree to the terms and conditions.';
+                    document.getElementById("formWarning").style.display = "block";
+                            return false;
+                } else {
+                    policyError.textContent = '';
+                         return true;
                 }
+            }
+            function ValidateAll() {
+                const isNameValid = validateName();
+                const isEmailValid = validateEmail();
+                const isPhoneValid = validatePhone();
+                const isDOBValid = validateDOB();
+                const isAddressValid = validateAddress();
+                const isPasswordValid = validatePassword();
+                const isPolicyValid = validatePolicy();
 
-                function checkAllFieldsValid() {
-                    const errors = document.querySelectorAll('.error');
-                    return [...errors].every(error => error.textContent === '');
-                }
-            });
+                const allValid = isNameValid && isEmailValid && isPhoneValid && isDOBValid && isAddressValid && isPasswordValid && isPolicyValid;
+
+                document.getElementById("formWarning").style.display = allValid ? "none" : "block";
+
+                return allValid;
+            }
+        }
+
+        );
         </script>
 
         <!--====== Javascripts & Jquery ======-->

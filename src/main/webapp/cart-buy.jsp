@@ -105,7 +105,7 @@
                                             <input type="hidden" name="link" value="<%= link%>" />
                                             <input type="hidden" name="author" value="<%= author%>" />
                                             <div style="margin-top: 50px; margin-bottom: 5px">
-                                                <p style="color:white;font-size:28px">Price: <%= price%></p>
+                                                <p style="color:white;font-size:28px">Price: <%= price%>VND</p>
                                             </div>
                                         </form>
                                         <%

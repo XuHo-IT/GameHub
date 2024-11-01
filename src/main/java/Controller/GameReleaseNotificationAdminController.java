@@ -30,7 +30,7 @@ public class GameReleaseNotificationAdminController extends TimerTask {
     @Override
     public void run() {
         String adminEmail = (String) session.getAttribute("adminEmail");
-
+        String adminId = (String) session.getAttribute("adminId");
         if (adminEmail == null) {
             System.out.println("Admin email not found in session.");
             return; // Exit the method if adminEmail is null
@@ -50,15 +50,15 @@ public class GameReleaseNotificationAdminController extends TimerTask {
                 String gameTitle = gamePost.getString("Title");
                 String postId = gamePost.getObjectId("_id").toString();
 
-                sendEmailNotification(gameTitle, postId, adminEmail);
+                sendEmailNotification(gameTitle, postId, adminEmail, adminId);
             }
         }
     }
 
-    private void sendEmailNotification(String gameTitle, String postId, String adminEmail) {
+    private void sendEmailNotification(String gameTitle, String postId, String adminEmail, String adminId) {
+        session.setAttribute("adminId", adminId);
         String subject = "Game Release Notification";
-
-        String gameLink = "http://localhost:8080/Web_Trading_Game/game-single-after-login.jsp?id=" + postId + "&postId=" + postId;
+        String gameLink = "http://localhost:8080/Web_Trading_Game/game-single-after-login.jsp?id=" + postId + "&adminId=" + adminId;
         String body
                 = "The game '" + gameTitle + "' is releasing today!"
                 + "Link to the game to upload link: " + gameLink;
@@ -97,7 +97,7 @@ public class GameReleaseNotificationAdminController extends TimerTask {
     }
 
     // Start the scheduled task
-   public static void startScheduler(MongoClient mongoClient, HttpSession session) {
+    public static void startScheduler(MongoClient mongoClient, HttpSession session) {
         Timer timer = new Timer();
         // Schedule the task to run once a day (every 24 hours)
         timer.scheduleAtFixedRate(new GameReleaseNotificationAdminController(mongoClient, session), 0, TimeUnit.DAYS.toMillis(1));

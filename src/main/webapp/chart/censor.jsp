@@ -9,6 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page import="org.bson.Document" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -107,9 +108,9 @@
                                             <td style="padding: 12px 15px;text-align: start;">${post.author != null ? post.author : 'Unknown Author'}</td>
                                             <td style="padding: 12px 15px;text-align: start;">${post.genre != null ? post.genre : 'Unknown Genre'}</td>
                                             <td style="padding: 12px 15px;text-align: start;">${post.genre != null ? post.genre : 'Unknown Genre'}</td> 
-                                            <td style="padding: 12px 15px;text-align: start;cursor: pointer;text-decoration: underline;border-radius: 50%;" 
+                                            <td style="padding: 12px 15px;text-align: start;cursor: pointer;text-decoration: underline;" 
                                                 onclick="openImageModal('data:image/png;base64,${post.fileData}')" class="view-link">View Image</td>
-                                            <td style="padding: 12px 15px;text-align: start;cursor: pointer;text-decoration: underline;border-radius: 50%;" 
+                                            <td style="padding: 12px 15px;text-align: start;cursor: pointer;text-decoration: underline;" 
                                                 onclick="openActionImagesModal('data:image/png;base64,${post.actionImages}')" class="view-link">View Action Images</td>
                                             <td style="padding: 12px 15px;text-align: start;">
                                                 <!-- Confirm and Deny buttons -->
@@ -135,10 +136,10 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header" style="display: flex; justify-content: space-between;">
-                        <h5 class="modal-title" id="imageModalLabel">Game Image</h5>
+                        <h5 class="modal-title" id="imageModalLabel" style="font-size: 25px">Game Image</h5>
                         <button type="button" class="btn-close"  onclick=" closeImageModal()" aria-label="Close">X</button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" id="gameImagesContainer">
                         <img id="modalImage" src="" alt="Game Image" class="img-fluid">
                     </div>
                 </div>
@@ -150,7 +151,7 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header" style="display: flex; justify-content: space-between;">
-                        <h5 class="modal-title" id="actionImagesModalLabel">Game Image Actions</h5>
+                        <h5 class="modal-title" id="actionImagesModalLabel" style="font-size: 25px">Game Image Actions</h5>
                         <button type="button" class="btn-close" onclick="closeActionModal()" aria-label="Close">X</button>
                     </div>
                     <div class="modal-body" id="actionImagesContainer">
@@ -256,11 +257,6 @@
                             }
         </script>
         <style>
-            button.btn-close {
-                display: flex;
-                width: 100px;
-                height: 26px;
-            }
             .modal_1 {
                 display: none; /* Hidden by default */
                 position: fixed; /* Stay in place */
@@ -288,9 +284,23 @@
                 background-color: #fefefe;
                 margin: auto;
                 padding: 20px;
-                border: 1px solid #888;
+                border: 5px solid #501755;
                 width: 50%; /* Modal width */
-                text-align: left;
+                text-align: center;
+                height: 50%;
+                border-radius: 15px;
+            }
+
+            #gameImagesContainer{
+                max-height: 700px; 
+                overflow-y: auto; 
+                margin-top: 5px;
+            }
+            
+            #actionImagesContainer {
+                max-height: 700px; 
+                overflow-y: auto; 
+                margin-top: 5px;
             }
 
             .close {
@@ -357,6 +367,7 @@
                 justify-content: space-evenly;
                 align-items: center;
                 cursor: pointer;
+                border-radius: 50%;
             }
             button.btn-close:hover{
                 background: red;
@@ -375,8 +386,9 @@
                 float: right;
             }
             img.img-fluid {
-                width: 195px;
-                height: 200px;
+                width: 100%;
+                height: 100%;
+                margin-top: 10px;
             }
         </style>
     </body>

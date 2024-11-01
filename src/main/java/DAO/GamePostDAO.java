@@ -6,6 +6,7 @@ import Model.Genre;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Indexes;
@@ -337,5 +338,19 @@ public class GamePostDAO {
             postList.add(gamePost);
         }
         return postList;
+    }
+     public String getGameTitleByReleaseDate(String dateRelease) {
+        Document query = new Document("DateRelease", dateRelease);
+        try (MongoCursor<Document> cursor = postCollection.find(query).iterator()) {
+            if (cursor.hasNext()) {
+                Document gamePost = cursor.next();
+                return gamePost.getString("Title");
+            }
+        }
+        return null;
+    }
+     public String getGameTitleById(String postId) {
+        Document gamePost = postCollection.find(new Document("_id", new ObjectId(postId))).first();
+        return gamePost != null ? gamePost.getString("Title") : null;
     }
 }

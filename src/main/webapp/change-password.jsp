@@ -5,6 +5,7 @@
 <%
     // Get the user ID from the request parameter
     String userId = request.getParameter("id");
+    System.out.print(userId);
     // Create an instance of MongoConectUser to retrieve user information
     UserDAO mgcn = new UserDAO();
     // Get the user by ID
@@ -19,7 +20,7 @@
     <title>Change Password</title>
 </head>
 <body>
-    <form action="ChangePasswordController" method="post">
+    <form action="ChangePassWord" method="post">
         <input type="hidden" name="id" value="<%= userId %>"> <!-- Hidden field to send the user id -->
         <div class="row">
             <div class="col">

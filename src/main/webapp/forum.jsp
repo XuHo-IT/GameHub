@@ -251,6 +251,7 @@
                     <h2>Create Account</h2>
                     <p>To become a part of our community, please sign up using your personal information.</p>
                     <p id="formWarning" style="display: none;">This form will be larger if you do not enter the required value correctly.</p>
+                    <p id="formWarning" style="display: none;">This form will be larger if you do not enter the required value correctly.</p>
                 </div>
                 <div class="form-content">
                     <h2>SIGNUP</h2>
@@ -399,18 +400,16 @@
                 passwordField.addEventListener('input', validatePassword);
                 policyCheckbox.addEventListener('change', validatePolicy);
 
-                // Validation functions
                 function validateName() {
                     const name = nameField.value.trim();
                     const nameError = document.getElementById('nameError');
                     if (name.length < 3) {
                         nameError.textContent = 'Name must be at least 3 characters long.';
                         document.getElementById("formWarning").style.display = "block";
+                        return false;
                     } else {
                         nameError.textContent = '';
-                        if (checkAllFieldsValid()) {
-                            document.getElementById("formWarning").style.display = "none";
-                        }
+                        return true;
                     }
                 }
 
@@ -421,11 +420,10 @@
                     if (!emailPattern.test(email)) {
                         emailError.textContent = 'Please enter a valid email address.';
                         document.getElementById("formWarning").style.display = "block";
+                        return false;
                     } else {
                         emailError.textContent = '';
-                        if (checkAllFieldsValid()) {
-                            document.getElementById("formWarning").style.display = "none";
-                        }
+                        return true;
                     }
                 }
 
@@ -435,11 +433,10 @@
                     if (phone.length !== 10 || !/^\d+$/.test(phone)) {
                         phoneError.textContent = 'Phone number must be 10 digits long.';
                         document.getElementById("formWarning").style.display = "block";
+                        return false;
                     } else {
                         phoneError.textContent = '';
-                        if (checkAllFieldsValid()) {
-                            document.getElementById("formWarning").style.display = "none";
-                        }
+                        return true;
                     }
                 }
 
@@ -452,11 +449,10 @@
                     if (age < 18) {
                         dobError.textContent = 'You must be at least 18 years old.';
                         document.getElementById("formWarning").style.display = "block";
+                        return false;
                     } else {
                         dobError.textContent = '';
-                        if (checkAllFieldsValid()) {
-                            document.getElementById("formWarning").style.display = "none";
-                        }
+                        return true;
                     }
                 }
 
@@ -466,11 +462,10 @@
                     if (address.length < 5) {
                         addressError.textContent = 'Address must be at least 5 characters long.';
                         document.getElementById("formWarning").style.display = "block";
+                        return false;
                     } else {
                         addressError.textContent = '';
-                        if (checkAllFieldsValid()) {
-                            document.getElementById("formWarning").style.display = "none";
-                        }
+                        return true;
                     }
                 }
 
@@ -480,11 +475,10 @@
                     if (password.length < 6) {
                         passwordError.textContent = 'Password must be at least 6 characters long.';
                         document.getElementById("formWarning").style.display = "block";
+                        return false;
                     } else {
                         passwordError.textContent = '';
-                        if (checkAllFieldsValid()) {
-                            document.getElementById("formWarning").style.display = "none";
-                        }
+                        return true;
                     }
                 }
 
@@ -493,21 +487,35 @@
                     if (!policyCheckbox.checked) {
                         policyError.textContent = 'You must agree to the terms and conditions.';
                         document.getElementById("formWarning").style.display = "block";
+                        return false;
                     } else {
                         policyError.textContent = '';
-                        if (checkAllFieldsValid()) {
-                            document.getElementById("formWarning").style.display = "none";
-                        }
+                        return true;
                     }
                 }
+                function ValidateAll() {
+                    const isNameValid = validateName();
+                    const isEmailValid = validateEmail();
+                    const isPhoneValid = validatePhone();
+                    const isDOBValid = validateDOB();
+                    const isAddressValid = validateAddress();
+                    const isPasswordValid = validatePassword();
+                    const isPolicyValid = validatePolicy();
 
-                function checkAllFieldsValid() {
-                    const errors = document.querySelectorAll('.error');
-                    return [...errors].every(error => error.textContent === '');
+                    const allValid = isNameValid && isEmailValid && isPhoneValid && isDOBValid && isAddressValid && isPasswordValid && isPolicyValid;
+
+                    document.getElementById("formWarning").style.display = allValid ? "none" : "block";
+
+                    return allValid;
                 }
-            });
+            }
+
+            );
         </script>
         <style>
+            img.img_bottom_1,img.img_bottom_2  {
+                width: 50%;
+            }
             img.img_bottom_1,img.img_bottom_2  {
                 width: 50%;
             }

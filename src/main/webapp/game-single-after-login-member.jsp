@@ -130,10 +130,10 @@
                                     request.setAttribute("user", user);
                                 %>
                                 <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl") %>" 
-                                        alt="Profile Picture" 
-                                        style="width: 50px; height: 50px; border-radius: 50%;" 
-                                        onerror="this.onerror=null;this.src='img/t-rex.png';" />
+                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" 
+                                         alt="Profile Picture" 
+                                         style="width: 50px; height: 50px; border-radius: 50%;" 
+                                         onerror="this.onerror=null;this.src='img/t-rex.png';" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
@@ -182,9 +182,21 @@
             <div class="container">
                 <div class="game-single-preview">
                     <img class="game_single_img" src="data:image/jpeg;base64,<%= fileData != null ? fileData : ""%>" alt="Game Image" />
+                    <%
+                        // Parse the release date if it's not null
+                        Date today = new Date();
+                        Date releaseDate = null;
+
+                        if (dateRelease != null) {
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Ensure format matches dateRelease
+                            releaseDate = sdf.parse(dateRelease);
+                        }
+                    %>
+
                     <!-- Add to Wishlist button -->
+                    <% if (releaseDate != null && releaseDate.after(today)) {%>
                     <div class="wishlist-btns">
-                        <form id="wishlistForm" action="shopping-cart.jsp?id=<%= postId%>?adminId=<%= adminId%>" method="POST">
+                        <form id="wishlistForm" action="shopping-cart.jsp?id=<%= postId%>&adminId=<%= adminId%>" method="POST">
                             <input type="hidden" name="postId" value="<%= postId%>" />
                             <input type="hidden" name="adminId" value="<%= adminId%>" />
                             <input type="hidden" name="title" value="<%= title%>" />
@@ -204,16 +216,7 @@
                             </script>
                         </form>
                     </div>
-                    <%
-                        // Parse the release date if it's not null
-                        Date today = new Date();
-                        Date releaseDate = null;
-
-                        if (dateRelease != null) {
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Ensure format matches dateRelease
-                            releaseDate = sdf.parse(dateRelease);
-                        }
-                    %>
+                    <% }%>
 
                     <% if (releaseDate != null && releaseDate.before(today)) {%>
                     <div class="buy-btn">
@@ -323,7 +326,7 @@
         <!-- Footer section end -->
 
 
-  
+
 
         <!--====== Javascripts & Jquery ======-->
         <script src="js/jquery-3.2.1.min.js"></script>
@@ -336,7 +339,7 @@
 
 
         <style>
-               .gs-auhtor-genre {
+            .gs-auhtor-genre {
                 width: 100%;
                 display: flex;
                 align-content: stretch;
@@ -409,6 +412,6 @@
 
             }
         </style>
- 
+
     </body>
 </html>

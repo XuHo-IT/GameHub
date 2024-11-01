@@ -39,7 +39,7 @@ public class ForgotPasswordController extends HttpServlet {
             // Email does not exist
             request.setAttribute("errorMessage", "No account registered with this email address.");
         }
-        response.sendRedirect("ReadGameHome"); // Redirect back to the main page
+        response.sendRedirect("forgot_password_page.jsp"); // Redirect back to the main page
     }
 
     private void sendEmail(String toEmail, String password) {

@@ -98,20 +98,20 @@
             <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider004.jpg">
                 <div class="container">
                     <h2 >game on!</h2>
-                        <p style="font-family: 'Silkscreen', cursive; font-size: 21px;">
-                            Welcome to our gaming news platform, your go-to hub for the latest updates and insights in the gaming world. Whether you're a casual player or a dedicated enthusiast, our site offers features to keep you informed and engaged.<br><br>
-                            Discover and share game news, upcoming titles, and industry events in a user-friendly space. Navigate through a mix of user-generated posts and admin-curated updates easily.<br><br>
-                            Engage with fellow gamers by posting news, commenting on updates, and participating in discussions. Join our vibrant community and celebrate your passion for games.<br><br>
-                            Stay updated and enjoy discovering what's new in the gaming world, Where all in one place!
-                        </p>
+                    <p style="font-family: 'Silkscreen', cursive; font-size: 21px;">
+                        Welcome to our gaming news platform, your go-to hub for the latest updates and insights in the gaming world. Whether you're a casual player or a dedicated enthusiast, our site offers features to keep you informed and engaged.<br><br>
+                        Discover and share game news, upcoming titles, and industry events in a user-friendly space. Navigate through a mix of user-generated posts and admin-curated updates easily.<br><br>
+                        Engage with fellow gamers by posting news, commenting on updates, and participating in discussions. Join our vibrant community and celebrate your passion for games.<br><br>
+                        Stay updated and enjoy discovering what's new in the gaming world, Where all in one place!
+                    </p>
                 </div>
             </div>
         </div>
     </section>
-    
+
     <!-- Hero section end-->
-    
-    
+
+
     <!-- Footer section -->
     <footer class="footer-section">
         <div class="container">
@@ -190,6 +190,7 @@
             <div class="form-details">
                 <h2>Create Account</h2>
                 <p>To become a part of our community, please sign up using your personal information.</p>
+                <p id="formWarning" style="display: none;">This form will be larger if you do not enter the required value correctly.</p>
             </div>
             <div class="form-content">
                 <h2>SIGNUP</h2>
@@ -344,8 +345,12 @@
                 const nameError = document.getElementById('nameError');
                 if (name.length < 3) {
                     nameError.textContent = 'Name must be at least 3 characters long.';
+                    document.getElementById("formWarning").style.display = "block";
                 } else {
                     nameError.textContent = '';
+                    if (checkAllFieldsValid()) {
+                        document.getElementById("formWarning").style.display = "none";
+                    }
                 }
             }
 
@@ -355,8 +360,12 @@
                 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailPattern.test(email)) {
                     emailError.textContent = 'Please enter a valid email address.';
+                    document.getElementById("formWarning").style.display = "block";
                 } else {
                     emailError.textContent = '';
+                    if (checkAllFieldsValid()) {
+                        document.getElementById("formWarning").style.display = "none";
+                    }
                 }
             }
 
@@ -365,8 +374,12 @@
                 const phoneError = document.getElementById('phoneError');
                 if (phone.length !== 10 || !/^\d+$/.test(phone)) {
                     phoneError.textContent = 'Phone number must be 10 digits long.';
+                    document.getElementById("formWarning").style.display = "block";
                 } else {
                     phoneError.textContent = '';
+                    if (checkAllFieldsValid()) {
+                        document.getElementById("formWarning").style.display = "none";
+                    }
                 }
             }
 
@@ -378,8 +391,12 @@
                 const age = today.getFullYear() - date.getFullYear();
                 if (age < 18) {
                     dobError.textContent = 'You must be at least 18 years old.';
+                    document.getElementById("formWarning").style.display = "block";
                 } else {
                     dobError.textContent = '';
+                    if (checkAllFieldsValid()) {
+                        document.getElementById("formWarning").style.display = "none";
+                    }
                 }
             }
 
@@ -388,8 +405,12 @@
                 const addressError = document.getElementById('addressError');
                 if (address.length < 5) {
                     addressError.textContent = 'Address must be at least 5 characters long.';
+                    document.getElementById("formWarning").style.display = "block";
                 } else {
                     addressError.textContent = '';
+                    if (checkAllFieldsValid()) {
+                        document.getElementById("formWarning").style.display = "none";
+                    }
                 }
             }
 
@@ -398,8 +419,12 @@
                 const passwordError = document.getElementById('passwordError');
                 if (password.length < 6) {
                     passwordError.textContent = 'Password must be at least 6 characters long.';
+                    document.getElementById("formWarning").style.display = "block";
                 } else {
                     passwordError.textContent = '';
+                    if (checkAllFieldsValid()) {
+                        document.getElementById("formWarning").style.display = "none";
+                    }
                 }
             }
 
@@ -407,9 +432,18 @@
                 const policyError = document.getElementById('policyError');
                 if (!policyCheckbox.checked) {
                     policyError.textContent = 'You must agree to the terms and conditions.';
+                    document.getElementById("formWarning").style.display = "block";
                 } else {
                     policyError.textContent = '';
+                    if (checkAllFieldsValid()) {
+                        document.getElementById("formWarning").style.display = "none";
+                    }
                 }
+            }
+
+            function checkAllFieldsValid() {
+                const errors = document.querySelectorAll('.error');
+                return [...errors].every(error => error.textContent === '');
             }
         });
     </script>
@@ -423,28 +457,28 @@
     <script src="js/jquery.magnific-popup.min.js"></script>
     <script src="js/main.js"></script>
     <script>
-            $(document).ready(function () {
-                $(".carousel").owlCarousel({
-                    items: 5, // Number of items to show
-                    loop: true, // Infinite looping
-                    margin: 10, // Margin between items
-                    nav: true, // Show next/prev navigation buttons
-                    dots: true, // Show pagination dots
-                    autoplay: true, // Auto sliding
-                    autoplayTimeout: 3000, // Slide every 3 seconds
-                    responsive: {// Responsive settings
-                        0: {
-                            items: 1
-                        },
-                        600: {
-                            items: 3
-                        },
-                        1000: {
-                            items: 5
-                        }
+        $(document).ready(function () {
+            $(".carousel").owlCarousel({
+                items: 5, // Number of items to show
+                loop: true, // Infinite looping
+                margin: 10, // Margin between items
+                nav: true, // Show next/prev navigation buttons
+                dots: true, // Show pagination dots
+                autoplay: true, // Auto sliding
+                autoplayTimeout: 3000, // Slide every 3 seconds
+                responsive: {// Responsive settings
+                    0: {
+                        items: 1
+                    },
+                    600: {
+                        items: 3
+                    },
+                    1000: {
+                        items: 5
                     }
-                });
+                }
             });
+        });
     </script>
     <style>
         h3.bottom-title {

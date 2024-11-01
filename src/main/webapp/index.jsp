@@ -495,6 +495,7 @@
             const addressField = document.getElementById('address');
             const passwordField = document.getElementById('password');
             const policyCheckbox = document.getElementById('policy');
+
             // Real-time validation for each field
             nameField.addEventListener('input', validateName);
             emailField.addEventListener('input', validateEmail);
@@ -503,6 +504,7 @@
             addressField.addEventListener('input', validateAddress);
             passwordField.addEventListener('input', validatePassword);
             policyCheckbox.addEventListener('change', validatePolicy);
+
             // Validation functions
             function validateName() {
                 const name = nameField.value.trim();

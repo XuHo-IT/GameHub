@@ -251,6 +251,7 @@
                     <h2>Create Account</h2>
                     <p>To become a part of our community, please sign up using your personal information.</p>
                     <p id="formWarning" style="display: none;">This form will be larger if you do not enter the required value correctly.</p>
+                    <p id="formWarning" style="display: none;">This form will be larger if you do not enter the required value correctly.</p>
                 </div>
                 <div class="form-content">
                     <h2>SIGNUP</h2>
@@ -512,6 +513,9 @@
             );
         </script>
         <style>
+            img.img_bottom_1,img.img_bottom_2  {
+                width: 50%;
+            }
             img.img_bottom_1,img.img_bottom_2  {
                 width: 50%;
             }

@@ -300,6 +300,7 @@
                     <h2>Create Account</h2>
                     <p>To become a part of our community, please sign up using your personal information.</p>
                     <p id="formWarning" style="display: none;">This form will be larger if you do not enter the required value correctly.</p>
+                    <p id="formWarning" style="display: none;">This form will be larger if you do not enter the required value correctly.</p>
                 </div>
                 <div class="form-content">
                     <h2>SIGNUP</h2>

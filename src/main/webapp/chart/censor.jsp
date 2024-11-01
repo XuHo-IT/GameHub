@@ -114,6 +114,8 @@
                                                 onclick="openActionImagesModal('data:image/png;base64,${post.actionImages}')" class="view-link">View Action Images</td>
                                             <td style="padding: 12px 15px;text-align: start;">
                                                 <!-- Confirm and Deny buttons -->
+                                                <input type="hidden" name="actionType" id="actionType" value="">
+                                                <input type="hidden" name="adminId" value="<%= request.getSession().getAttribute("adminId")%>">
                                                 <input type="hidden" name="postId" value="${post.postID}">
                                                 <button type="submit" class="btn confirm-btn" onclick="setActionType('confirm')">Confirm</button>
                                                 <button type="button" class="btn deny-btn" onclick="denyPost(this)">Deny</button>
@@ -238,8 +240,6 @@
                                 reDenyBtn.style.display = 'inline-block';
                                 row.style.color = 'gray';
 
-                                setActionType('deny');
-                                document.querySelector("form").submit();
                             }
 
                             function reDenyPost(reDenyButton) {
@@ -252,8 +252,6 @@
                                 reDenyButton.style.display = 'none';
                                 row.style.color = '#6f2b95';
 
-                                setActionType('re-deny');
-                                document.querySelector("form").submit();
                             }
         </script>
         <style>
@@ -292,14 +290,14 @@
             }
 
             #gameImagesContainer{
-                max-height: 700px; 
-                overflow-y: auto; 
+                max-height: 700px;
+                overflow-y: auto;
                 margin-top: 5px;
             }
-            
+
             #actionImagesContainer {
-                max-height: 700px; 
-                overflow-y: auto; 
+                max-height: 700px;
+                overflow-y: auto;
                 margin-top: 5px;
             }
 

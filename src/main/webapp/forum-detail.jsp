@@ -55,7 +55,7 @@
                   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-        
+
     </head>
 
     <body>
@@ -346,6 +346,7 @@
                 <div class="form-details">
                     <h2>Create Account</h2>
                     <p>To become a part of our community, please sign up using your personal information.</p>
+                    <p id="formWarning" style="display: none;">This form will be larger if you do not enter the required value correctly.</p>
                 </div>
                 <div class="form-content">
                     <h2>SIGNUP</h2>
@@ -501,8 +502,12 @@
                     const nameError = document.getElementById('nameError');
                     if (name.length < 3) {
                         nameError.textContent = 'Name must be at least 3 characters long.';
+                        document.getElementById("formWarning").style.display = "block";
                     } else {
                         nameError.textContent = '';
+                        if (checkAllFieldsValid()) {
+                            document.getElementById("formWarning").style.display = "none";
+                        }
                     }
                 }
 
@@ -512,8 +517,12 @@
                     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                     if (!emailPattern.test(email)) {
                         emailError.textContent = 'Please enter a valid email address.';
+                        document.getElementById("formWarning").style.display = "block";
                     } else {
                         emailError.textContent = '';
+                        if (checkAllFieldsValid()) {
+                            document.getElementById("formWarning").style.display = "none";
+                        }
                     }
                 }
 
@@ -522,8 +531,12 @@
                     const phoneError = document.getElementById('phoneError');
                     if (phone.length !== 10 || !/^\d+$/.test(phone)) {
                         phoneError.textContent = 'Phone number must be 10 digits long.';
+                        document.getElementById("formWarning").style.display = "block";
                     } else {
                         phoneError.textContent = '';
+                        if (checkAllFieldsValid()) {
+                            document.getElementById("formWarning").style.display = "none";
+                        }
                     }
                 }
 
@@ -535,8 +548,12 @@
                     const age = today.getFullYear() - date.getFullYear();
                     if (age < 18) {
                         dobError.textContent = 'You must be at least 18 years old.';
+                        document.getElementById("formWarning").style.display = "block";
                     } else {
                         dobError.textContent = '';
+                        if (checkAllFieldsValid()) {
+                            document.getElementById("formWarning").style.display = "none";
+                        }
                     }
                 }
 
@@ -545,8 +562,12 @@
                     const addressError = document.getElementById('addressError');
                     if (address.length < 5) {
                         addressError.textContent = 'Address must be at least 5 characters long.';
+                        document.getElementById("formWarning").style.display = "block";
                     } else {
                         addressError.textContent = '';
+                        if (checkAllFieldsValid()) {
+                            document.getElementById("formWarning").style.display = "none";
+                        }
                     }
                 }
 
@@ -555,8 +576,12 @@
                     const passwordError = document.getElementById('passwordError');
                     if (password.length < 6) {
                         passwordError.textContent = 'Password must be at least 6 characters long.';
+                        document.getElementById("formWarning").style.display = "block";
                     } else {
                         passwordError.textContent = '';
+                        if (checkAllFieldsValid()) {
+                            document.getElementById("formWarning").style.display = "none";
+                        }
                     }
                 }
 
@@ -564,9 +589,18 @@
                     const policyError = document.getElementById('policyError');
                     if (!policyCheckbox.checked) {
                         policyError.textContent = 'You must agree to the terms and conditions.';
+                        document.getElementById("formWarning").style.display = "block";
                     } else {
                         policyError.textContent = '';
+                        if (checkAllFieldsValid()) {
+                            document.getElementById("formWarning").style.display = "none";
+                        }
                     }
+                }
+
+                function checkAllFieldsValid() {
+                    const errors = document.querySelectorAll('.error');
+                    return [...errors].every(error => error.textContent === '');
                 }
             });
         </script>

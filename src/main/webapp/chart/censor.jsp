@@ -68,9 +68,9 @@
                         request.setAttribute("user", user);
                     %>
                     <div style="font-family: "Ubuntu", sans-serif;">
-                        <button type="button" class="btn back-btn" style="background: white; color: white; padding: 15px; font-size: 20px; color: #6f2b95;" onclick="window.location.href = 'ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>'">Forum</button>   
-                        <button type="button" class="btn back-btn" style="background: white; color: white; padding: 15px; font-size: 20px; color: #6f2b95;" onclick="window.location.href = 'ReadGameListAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>'">Games</button>
                         <button type="button" class="btn back-btn" style="background: white; color: white; padding: 15px; font-size: 20px; color: #6f2b95;" onclick="window.location.href = 'ReadGameHomeAdmin?&adminId=<%= request.getSession().getAttribute("adminId")%>'">Home</button>                    
+                        <button type="button" class="btn back-btn" style="background: white; color: white; padding: 15px; font-size: 20px; color: #6f2b95;" onclick="window.location.href = 'ReadGameListAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>'">Games</button>
+                        <button type="button" class="btn back-btn" style="background: white; color: white; padding: 15px; font-size: 20px; color: #6f2b95;" onclick="window.location.href = 'ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>'">Forum</button>   
                     </div>
                     <div class="user">                                   
                         <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
@@ -102,24 +102,21 @@
                                 <tbody>
                                     <c:forEach var="post" items="${postsMember}">
                                         <tr>
-                                            <td style="padding: 10px 10px;text-align: start;">${post.title != null ? post.title : 'No Title'}</td>
-                                            <td style="padding: 10px 10px;text-align: start;">${post.dateRelease != null ? post.dateRelease : 'No Date'}</td>
-                                            <td style="padding: 10px 10px;text-align: start;">${post.author != null ? post.author : 'Unknown Author'}</td>
-                                            <td style="padding: 10px 10px;text-align: start;">${post.genre != null ? post.genre : 'Unknown Genre'}</td>
-                                            <td style="padding: 10px 10px;text-align: start;">${post.genre != null ? post.genre : 'Unknown Genre'}</td> 
-                                            <td style="padding: 10px 10px;text-align: start;">
-                                                <a href="#" onclick="openImageModal('data:image/png;base64,${post.fileData}')" class="view-link">View Image</a>
-                                            </td>
-                                            <td style="padding: 5px 5px; text-align: start;">
-                                                <a href="#" onclick="openActionImagesModal('data:image/png;base64,${post.actionImages}')" class="view-link">View Action Images</a>
-                                            </td>
-
+                                            <td style="padding: 12px 15px;text-align: start;">${post.title != null ? post.title : 'No Title'}</td>
+                                            <td style="padding: 12px 15px;text-align: start;">${post.dateRelease != null ? post.dateRelease : 'No Date'}</td>
+                                            <td style="padding: 12px 15px;text-align: start;">${post.author != null ? post.author : 'Unknown Author'}</td>
+                                            <td style="padding: 12px 15px;text-align: start;">${post.genre != null ? post.genre : 'Unknown Genre'}</td>
+                                            <td style="padding: 12px 15px;text-align: start;">${post.genre != null ? post.genre : 'Unknown Genre'}</td> 
+                                            <td style="padding: 12px 15px;text-align: start;cursor: pointer;text-decoration: underline;border-radius: 50%;" 
+                                                onclick="openImageModal('data:image/png;base64,${post.fileData}')" class="view-link">View Image</td>
+                                            <td style="padding: 12px 15px;text-align: start;cursor: pointer;text-decoration: underline;border-radius: 50%;" 
+                                                onclick="openActionImagesModal('data:image/png;base64,${post.actionImages}')" class="view-link">View Action Images</td>
                                             <td style="padding: 12px 15px;text-align: start;">
                                                 <!-- Confirm and Deny buttons -->
                                                 <input type="hidden" name="postId" value="${post.postID}">
                                                 <button type="submit" class="btn confirm-btn" onclick="setActionType('confirm')">Confirm</button>
                                                 <button type="button" class="btn deny-btn" onclick="denyPost(this)">Deny</button>
-                                                <button type="button" class="btn redeny-btn" style="display:none;background: yellow;color: black" onclick="reDenyPost(this)">Re-Deny</button>
+                                                <button type="button" class="btn redeny-btn" style="display:none;background: yellow;color: black;" onclick="reDenyPost(this)">Re-Deny</button>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -137,9 +134,9 @@
         <div class="modal_1 fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header" style="display: flex; justify-content: space-between;">
                         <h5 class="modal-title" id="imageModalLabel">Game Image</h5>
-                        <button type="button" class="btn-close"  onclick=" closeImageModal()" aria-label="Close"></button>
+                        <button type="button" class="btn-close"  onclick=" closeImageModal()" aria-label="Close">X</button>
                     </div>
                     <div class="modal-body">
                         <img id="modalImage" src="" alt="Game Image" class="img-fluid">
@@ -152,9 +149,9 @@
         <div class="modal fade" id="actionImagesModal" tabindex="-1" aria-labelledby="actionImagesModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header" style="display: flex; justify-content: space-between;">
                         <h5 class="modal-title" id="actionImagesModalLabel">Game Image Actions</h5>
-                        <button type="button" class="btn-close" onclick="closeActionModal()" aria-label="Close"></button>
+                        <button type="button" class="btn-close" onclick="closeActionModal()" aria-label="Close">X</button>
                     </div>
                     <div class="modal-body" id="actionImagesContainer">
                         <!-- Action images will be loaded here -->
@@ -178,7 +175,7 @@
         <script src="chart/js/chart.min.js"></script>
         <script src="chart/js/main.js"></script>
         <script>
-                            function openImageModal(imageData) {                             
+                            function openImageModal(imageData) {
                                 document.getElementById('modalImage').src = imageData;
                                 const imageModalElement = document.querySelector('.modal_1');
                                 imageModalElement.style.display = 'block';
@@ -347,17 +344,29 @@
             .confirm-btn {
                 background-color: #4CAF50; /* Green */
                 color: white;
+                width: 80px;
             }
             .deny-btn {
                 background-color: #f44336; /* Red */
                 color: white;
+                width: 80px;
             }
-
+            button.btn-close {
+                width: 25px;
+                height: 25px;
+                justify-content: space-evenly;
+                align-items: center;
+                cursor: pointer;
+            }
+            button.btn-close:hover{
+                background: red;
+                color: white;
+            }
             .details {
                 position: relative;
                 width: 100%;
                 padding: 20px;
-                /* margin-top: 10px; */
+                /* margin-top: 10px; 
             }
             button.btn.back-btn {
                 /* margin-left: 500px; */

@@ -495,6 +495,7 @@
             const addressField = document.getElementById('address');
             const passwordField = document.getElementById('password');
             const policyCheckbox = document.getElementById('policy');
+
             // Real-time validation for each field
             nameField.addEventListener('input', validateName);
             emailField.addEventListener('input', validateEmail);
@@ -503,15 +504,19 @@
             addressField.addEventListener('input', validateAddress);
             passwordField.addEventListener('input', validatePassword);
             policyCheckbox.addEventListener('change', validatePolicy);
+
             // Validation functions
             function validateName() {
                 const name = nameField.value.trim();
                 const nameError = document.getElementById('nameError');
                 if (name.length < 3) {
                     nameError.textContent = 'Name must be at least 3 characters long.';
+                    document.getElementById("formWarning").style.display = "block";
                 } else {
                     nameError.textContent = '';
-                    document.getElementById("formWarning").style.display = "none";
+                    if (checkAllFieldsValid()) {
+                        document.getElementById("formWarning").style.display = "none";
+                    }
                 }
             }
 
@@ -524,7 +529,9 @@
                     document.getElementById("formWarning").style.display = "block";
                 } else {
                     emailError.textContent = '';
-                    document.getElementById("formWarning").style.display = "none";
+                    if (checkAllFieldsValid()) {
+                        document.getElementById("formWarning").style.display = "none";
+                    }
                 }
             }
 
@@ -536,7 +543,9 @@
                     document.getElementById("formWarning").style.display = "block";
                 } else {
                     phoneError.textContent = '';
-                    document.getElementById("formWarning").style.display = "none";
+                    if (checkAllFieldsValid()) {
+                        document.getElementById("formWarning").style.display = "none";
+                    }
                 }
             }
 
@@ -551,7 +560,9 @@
                     document.getElementById("formWarning").style.display = "block";
                 } else {
                     dobError.textContent = '';
-                    document.getElementById("formWarning").style.display = "none";
+                    if (checkAllFieldsValid()) {
+                        document.getElementById("formWarning").style.display = "none";
+                    }
                 }
             }
 
@@ -563,7 +574,9 @@
                     document.getElementById("formWarning").style.display = "block";
                 } else {
                     addressError.textContent = '';
-                    document.getElementById("formWarning").style.display = "none";
+                    if (checkAllFieldsValid()) {
+                        document.getElementById("formWarning").style.display = "none";
+                    }
                 }
             }
 
@@ -575,7 +588,9 @@
                     document.getElementById("formWarning").style.display = "block";
                 } else {
                     passwordError.textContent = '';
-                    document.getElementById("formWarning").style.display = "none";
+                    if (checkAllFieldsValid()) {
+                        document.getElementById("formWarning").style.display = "none";
+                    }
                 }
             }
 
@@ -586,8 +601,15 @@
                     document.getElementById("formWarning").style.display = "block";
                 } else {
                     policyError.textContent = '';
-                    document.getElementById("formWarning").style.display = "none";
+                    if (checkAllFieldsValid()) {
+                        document.getElementById("formWarning").style.display = "none";
+                    }
                 }
+            }
+
+            function checkAllFieldsValid() {
+                const errors = document.querySelectorAll('.error');
+                return [...errors].every(error => error.textContent === '');
             }
         });
     </script>

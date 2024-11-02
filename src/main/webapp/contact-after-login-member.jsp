@@ -17,6 +17,7 @@
             href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
             rel="stylesheet"
             />
+        <link href="https://fonts.googleapis.com/css2?family=Sixtyfour+Convergence&display=swap" rel="stylesheet">
 
         <!-- Bootstrap CSS -->
         <link
@@ -59,7 +60,7 @@
         <link rel="stylesheet" href="css/animate.css" />
         <link rel="stylesheet" href="css/searchbar.css" />
         <link rel="stylesheet" href="css/account-icon.css" />
-                <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Sixtyfour+Convergence&display=swap" rel="stylesheet">
 
@@ -103,7 +104,7 @@
                     </div>
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
-                          
+
                             <div class="account-container">
                                 <%
                                     UserDAO userDAO = new UserDAO();
@@ -186,22 +187,6 @@
             </div>
         </section>
         <!-- Contact page end-->
-
-        <!-- Newsletter section -->
-        <section class="newsletter-section">
-            <div class="container">
-                <h2>Subscribe to our newsletter</h2>
-                <form class="newsletter-form" onsubmit="return subscribeNewsletter(event)">
-                    <input type="email" placeholder="ENTER YOUR E-MAIL" required>
-                    <button type="submit" class="site-btn">subscribe <img src="img/icons/double-arrow.png" alt="#"/></button>
-                </form>
-                <p id="thank-you-message" style="display:none; color: green; font-weight: bold; margin-top: 10px;">
-                    Thank you for subscribing! We will notify when our web have updates
-                </p>
-            </div>
-        </section>
-        <!-- Newsletter section end -->
-
 
         <div class="container-xxl py-5">
             <div class="container">
@@ -313,20 +298,17 @@
                 </div>
             </div>
         </div>
-   
+
         <!-- Newsletter section -->
-        <section class="newsletter-section" style="background-image: url('img/Gif2.gif'); background-size: cover; background-position: center; height: 80vh; position: relative; color: white; display: flex; align-items: center; justify-content: center;">
-            <div class="container" style="position: relative; z-index: 1; text-align: center;">
-                <h3 style=" font-family: 'Sixtyfour Convergence', sans-serif;" class="bottom-title">Thanks for using our website!</h3>
+        <section class="newsletter-section" style="color: white;
+                 font-size: 35px;
+                 padding: 30px 0 30px 0;">
+            <div class="container">
+                <h3 class="bottom-title" style="font-family: 'Sixtyfour Convergence';">Thanks for using our website!</h3>
             </div>
         </section>
-        <style>
-            .bottom-title {
-                font-family: 'Sixtyfour Convergence', sans-serif;
-                font-size: 45px;
-            }
-        </style>
-        
+        <!-- Newsletter section end -->
+
         <!-- Footer section -->
         <footer class="footer-section">
             <div class="container">

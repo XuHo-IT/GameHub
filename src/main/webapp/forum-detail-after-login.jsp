@@ -33,6 +33,7 @@
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Sixtyfour+Convergence&display=swap" rel="stylesheet">
 
         <!-- Stylesheets -->
         <link rel="stylesheet" href="css/bootstrap.min.css" />
@@ -199,7 +200,7 @@
             }
         %>
 
-        <section class="blog-section spad">
+        <section class="blog-section spad" style="padding-bottom: 0;">
             <div class="container" style="
                  margin: 0 auto;
                  margin-top: -160px;
@@ -359,6 +360,16 @@
                 </div>
             </div>
         </section>
+
+        <!-- Newsletter section -->
+        <section class="newsletter-section" style="color: white;
+                 font-size: 35px;
+                 padding: 30px 0 30px 0;">
+            <div class="container">
+                <h3 class="bottom-title" style="font-family: 'Sixtyfour Convergence';">Thanks for using our website!</h3>
+            </div>
+        </section>
+        <!-- Newsletter section end -->
 
         <!-- Footer section -->
         <footer class="footer-section" style="margin-top: 0 ; padding: 10px 125px">

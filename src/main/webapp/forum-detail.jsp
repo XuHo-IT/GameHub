@@ -32,6 +32,7 @@
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Sixtyfour+Convergence&display=swap" rel="stylesheet">
 
         <!-- Stylesheets -->
         <link rel="stylesheet" href="css/bootstrap.min.css" />
@@ -163,7 +164,7 @@
             }
         %>
 
-        <section class="blog-section spad">
+        <section class="blog-section spad" style="padding-bottom: 0;">
             <div class="container" style="
                  margin: 0 auto;
                  margin-top: -30px;
@@ -268,6 +269,17 @@
                 </div>
             </div>
         </section>
+
+        <!-- Newsletter section -->
+        <section class="newsletter-section" style="color: white;
+                 font-size: 35px;
+                 padding: 30px 0 30px 0;">
+            <div class="container">
+                <h3 class="bottom-title" style="font-family: 'Sixtyfour Convergence';">Thanks for using our website!</h3>
+            </div>
+        </section>
+        <!-- Newsletter section end -->
+
         <!-- Footer section -->
         <footer class="footer-section" style="margin-top: 0 ; padding: 10px 125px">
             <div class="container">
@@ -496,117 +508,117 @@
                 passwordField.addEventListener('input', validatePassword);
                 policyCheckbox.addEventListener('change', validatePolicy);
 
-                         function validateName() {
-                const name = nameField.value.trim();
-                const nameError = document.getElementById('nameError');
-                if (name.length < 3) {
-                    nameError.textContent = 'Name must be at least 3 characters long.';
-                    document.getElementById("formWarning").style.display = "block";
-                            return false;
-                } else {
-                    nameError.textContent = '';
-                           return true;
+                function validateName() {
+                    const name = nameField.value.trim();
+                    const nameError = document.getElementById('nameError');
+                    if (name.length < 3) {
+                        nameError.textContent = 'Name must be at least 3 characters long.';
+                        document.getElementById("formWarning").style.display = "block";
+                        return false;
+                    } else {
+                        nameError.textContent = '';
+                        return true;
+                    }
+                }
+
+                function validateEmail() {
+                    const email = emailField.value.trim();
+                    const emailError = document.getElementById('emailError');
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailPattern.test(email)) {
+                        emailError.textContent = 'Please enter a valid email address.';
+                        document.getElementById("formWarning").style.display = "block";
+                        return false;
+                    } else {
+                        emailError.textContent = '';
+                        return true;
+                    }
+                }
+
+                function validatePhone() {
+                    const phone = phoneField.value.trim();
+                    const phoneError = document.getElementById('phoneError');
+                    if (phone.length !== 10 || !/^\d+$/.test(phone)) {
+                        phoneError.textContent = 'Phone number must be 10 digits long.';
+                        document.getElementById("formWarning").style.display = "block";
+                        return false;
+                    } else {
+                        phoneError.textContent = '';
+                        return true;
+                    }
+                }
+
+                function validateDOB() {
+                    const dob = dobField.value.trim();
+                    const dobError = document.getElementById('dobError');
+                    const date = new Date(dob);
+                    const today = new Date();
+                    const age = today.getFullYear() - date.getFullYear();
+                    if (age < 18) {
+                        dobError.textContent = 'You must be at least 18 years old.';
+                        document.getElementById("formWarning").style.display = "block";
+                        return false;
+                    } else {
+                        dobError.textContent = '';
+                        return true;
+                    }
+                }
+
+                function validateAddress() {
+                    const address = addressField.value.trim();
+                    const addressError = document.getElementById('addressError');
+                    if (address.length < 5) {
+                        addressError.textContent = 'Address must be at least 5 characters long.';
+                        document.getElementById("formWarning").style.display = "block";
+                        return false;
+                    } else {
+                        addressError.textContent = '';
+                        return true;
+                    }
+                }
+
+                function validatePassword() {
+                    const password = passwordField.value.trim();
+                    const passwordError = document.getElementById('passwordError');
+                    if (password.length < 6) {
+                        passwordError.textContent = 'Password must be at least 6 characters long.';
+                        document.getElementById("formWarning").style.display = "block";
+                        return false;
+                    } else {
+                        passwordError.textContent = '';
+                        return true;
+                    }
+                }
+
+                function validatePolicy() {
+                    const policyError = document.getElementById('policyError');
+                    if (!policyCheckbox.checked) {
+                        policyError.textContent = 'You must agree to the terms and conditions.';
+                        document.getElementById("formWarning").style.display = "block";
+                        return false;
+                    } else {
+                        policyError.textContent = '';
+                        return true;
+                    }
+                }
+                function ValidateAll() {
+                    const isNameValid = validateName();
+                    const isEmailValid = validateEmail();
+                    const isPhoneValid = validatePhone();
+                    const isDOBValid = validateDOB();
+                    const isAddressValid = validateAddress();
+                    const isPasswordValid = validatePassword();
+                    const isPolicyValid = validatePolicy();
+
+                    const allValid = isNameValid && isEmailValid && isPhoneValid && isDOBValid && isAddressValid && isPasswordValid && isPolicyValid;
+
+                    document.getElementById("formWarning").style.display = allValid ? "none" : "block";
+
+                    return allValid;
                 }
             }
 
-            function validateEmail() {
-                const email = emailField.value.trim();
-                const emailError = document.getElementById('emailError');
-                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailPattern.test(email)) {
-                    emailError.textContent = 'Please enter a valid email address.';
-                    document.getElementById("formWarning").style.display = "block";
-                            return false;
-                } else {
-                    emailError.textContent = '';
-                           return true;
-                }
-            }
-
-            function validatePhone() {
-                const phone = phoneField.value.trim();
-                const phoneError = document.getElementById('phoneError');
-                if (phone.length !== 10 || !/^\d+$/.test(phone)) {
-                    phoneError.textContent = 'Phone number must be 10 digits long.';
-                    document.getElementById("formWarning").style.display = "block";
-                            return false;
-                } else {
-                    phoneError.textContent = '';
-                             return true;
-                }
-            }
-
-            function validateDOB() {
-                const dob = dobField.value.trim();
-                const dobError = document.getElementById('dobError');
-                const date = new Date(dob);
-                const today = new Date();
-                const age = today.getFullYear() - date.getFullYear();
-                if (age < 18) {
-                    dobError.textContent = 'You must be at least 18 years old.';
-                    document.getElementById("formWarning").style.display = "block";
-                            return false;
-                } else {
-                    dobError.textContent = '';
-                            return true;
-                }
-            }
-
-            function validateAddress() {
-                const address = addressField.value.trim();
-                const addressError = document.getElementById('addressError');
-                if (address.length < 5) {
-                    addressError.textContent = 'Address must be at least 5 characters long.';
-                    document.getElementById("formWarning").style.display = "block";
-                            return false;
-                } else {
-                    addressError.textContent = '';
-                            return true;
-                }
-            }
-
-            function validatePassword() {
-                const password = passwordField.value.trim();
-                const passwordError = document.getElementById('passwordError');
-                if (password.length < 6) {
-                    passwordError.textContent = 'Password must be at least 6 characters long.';
-                    document.getElementById("formWarning").style.display = "block";
-                            return false;
-                } else {
-                    passwordError.textContent = '';
-                          return true;
-                }
-            }
-
-            function validatePolicy() {
-                const policyError = document.getElementById('policyError');
-                if (!policyCheckbox.checked) {
-                    policyError.textContent = 'You must agree to the terms and conditions.';
-                    document.getElementById("formWarning").style.display = "block";
-                            return false;
-                } else {
-                    policyError.textContent = '';
-                         return true;
-                }
-            }
-            function ValidateAll() {
-                const isNameValid = validateName();
-                const isEmailValid = validateEmail();
-                const isPhoneValid = validatePhone();
-                const isDOBValid = validateDOB();
-                const isAddressValid = validateAddress();
-                const isPasswordValid = validatePassword();
-                const isPolicyValid = validatePolicy();
-
-                const allValid = isNameValid && isEmailValid && isPhoneValid && isDOBValid && isAddressValid && isPasswordValid && isPolicyValid;
-
-                document.getElementById("formWarning").style.display = allValid ? "none" : "block";
-
-                return allValid;
-            }
-        }
-
-        );
+            );
         </script>
 
         <!--====== Javascripts & Jquery ======-->

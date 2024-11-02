@@ -91,7 +91,24 @@
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
                     <div class="logo-fix">
-                        <% if ("Administrator".equals(role)) {%>
+                        <%
+                            String id = request.getParameter("userid");
+                            UserDAO mgcn = new UserDAO();
+                            UserModel user = mgcn.getUserById(id);
+                            if (user == null) {
+                                out.println("User not found.");
+                                return;
+                            }
+
+                            String name = user.getName();
+                            String profilePicture = user.getPhotoUrl();
+                            String email = user.getEmail();
+                            String phone = user.getPhone();
+                            String photo = user.getPhotoUrl();
+                            String address = user.getAddress();
+                            String role = user.getRole().equals("1") ? "Administrator" : "Member";
+                            String homePage = user.getRole().equals("1") ? "ReadGameHomeAdmin" : "ReadGameHomeMember";
+                         if ("Administrator".equals(role)) {%>
                         <a href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>" class="site-logo">
                         <% } else {%>
                         <a href="ReadGameHomeMember?userId=<%= request.getSession().getAttribute("adminId")%>" class="site-logo">   
@@ -122,24 +139,7 @@
                         </div>
                         <!-- Menu -->
 
-                        <%
-                            String id = request.getParameter("userid");
-                            UserDAO mgcn = new UserDAO();
-                            UserModel user = mgcn.getUserById(id);
-                            if (user == null) {
-                                out.println("User not found.");
-                                return;
-                            }
-
-                            String name = user.getName();
-                            String profilePicture = user.getPhotoUrl();
-                            String email = user.getEmail();
-                            String phone = user.getPhone();
-                            String photo = user.getPhotoUrl();
-                            String address = user.getAddress();
-                            String role = user.getRole().equals("1") ? "Administrator" : "Member";
-                            String homePage = user.getRole().equals("1") ? "ReadGameHomeAdmin" : "ReadGameHomeMember";
-                        %>
+                        
                         <ul class="main-menu primary-menu">
                             <% if ("Administrator".equals(role)) {%>
                             <!-- Menu for Administrator -->

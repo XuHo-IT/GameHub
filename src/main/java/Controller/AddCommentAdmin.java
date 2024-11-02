@@ -24,7 +24,7 @@ public class AddCommentAdmin extends HttpServlet {
 
         // Validate input (optional)
         if (comment == null || comment.trim().isEmpty()) {
-            response.sendRedirect("forum-detail-after-login-member.jsp?topicId=" + topicId + "&error=Comment cannot be empty");
+            response.sendRedirect("forum-detail-after-login.jsp?topicId=" + topicId + "&error=Comment cannot be empty");
             return;
         }
 

@@ -237,7 +237,7 @@
                             <% }%>
 
                             <!-- File input for uploading a new logo -->
-                            <input type="file" name="fileData" accept="image/*" class="form-control" ><%= fileData != null ? fileData : ""%>
+                            <input type="file" name="fileData" accept="image/*"  class="form-control" ><%= fileData != null ? fileData : ""%>
                         </div>
 
                         <input type="hidden" name="postId" value="<%= postId%>">

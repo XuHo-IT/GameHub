@@ -1,3 +1,5 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="Model.UserModel"%>
 <%@page import="DAO.UserDAO"%>
 <%@page import="utils.MongoDBConnectionManager"%>
@@ -22,7 +24,7 @@
 
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
-
+        <link href="https://fonts.googleapis.com/css2?family=Sixtyfour+Convergence&display=swap" rel="stylesheet">
 
         <!-- Stylesheets -->
         <link rel="stylesheet" href="css/bootstrap.min.css"/>
@@ -129,16 +131,13 @@
                         <div class="user-panel d-flex">
                             <div class="account-container">
 
-                                <%
+                               <%
                                     UserDAO userDAO = new UserDAO();
                                     UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
                                     request.setAttribute("user", user);
                                 %>
                                 <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" 
-                                         alt="Profile Picture" 
-                                         style="width: 50px; height: 50px; border-radius: 50%;" 
-                                         onerror="this.onerror=null;this.src='img/t-rex.png';" />
+                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" onerror="this.onerror=null;this.src='img/t-rex.png';"  />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
@@ -184,108 +183,119 @@
         <section class="games-single-page">
             <div class="container">
                 <div class="game-single-preview">
-                    <img class="game_single_img" src="data:image/jpeg;base64,<%= fileData != null ? fileData : ""%>" alt="Game Image" />               
-                    <!-- Button to submit the form -->
-                    <form action="EditPostController" method="POST" enctype="multipart/form-data">
-                        <div class="gs-meta">
-                            <h3 style="color: white">Release Date</h3>
-                            <input type="date" name="dateRelease" style="font-size: 20px; height: 50px" value="<%= dateRelease != null ? dateRelease : "Unknown Date"%>" class="form-control">
-                        </div>
+                    <img class="game_single_img" src="data:image/jpeg;base64,<%= fileData != null ? fileData : ""%>" alt="Game Image" />
+                    <%
+                        // Parse the release date if it's not null
+                        Date today = new Date();
+                        Date releaseDate = null;
 
-                        <h2 class="gs-title">
-                            <h3 style="color: white">Title</h3>
-                            <input type="text" name="title" style="font-size: 20px; height: 50px" value="<%= title != null ? title : "Untitled"%>" class="form-control">
-                        </h2>
-                        <div class="gs-description">
-                            <h3 style="color: white">Description</h3>
-                            <textarea name="description" style="font-size: 20px; height: 200px" class="form-control"><%= description != null ? description : "No description available"%></textarea>
-                        </div>
-                        <div class="gs-gameplay">
-                            <h3 style="color: white">Game Play</h3>
-                            <textarea name="gamePlay" style="font-size: 20px; height: 200px" class="form-control"><%= gamePlay != null ? gamePlay : "No gamePlay available"%></textarea>
-                        </div>
-                        <div class="gs-gameplay">
-                            <h3 style="color: white">Genre</h3>
-                            <textarea name="gamePlay" style="font-size: 20px; height: 50px" class="form-control"><%= genre != null ? genre : "No genre available"%></textarea>
-                        </div>
-                        <div class="gs-auhtor-genre">
-                            <div class="left-author">
-                                <h3 style="color: white">Publisher</h3>
-                                <input type="text" name="author" style="font-size: 20px; height: 50px" value="<%= author != null ? author : "No Author available"%>" class="form-control">
-                            </div>
-                        </div>
-                        <div class="gs-gameplay">
-                            <h3 style="color: white">Link of the game</h3>
-                            <textarea name="Link" style="font-size: 20px; height: 50px" class="form-control"><%= linkGame != null ? linkGame : "No linkGame available"%></textarea>
-                        </div> <div class="gs-gameplay">
-                            <h3 style="color: white">Price</h3>
-                            <textarea name="Price" style="font-size: 20px; height: 50px" class="form-control"><%= price != null ? price : "No price available"%></textarea>
-                        </div>
-                        <div class="gs-gameplay" style="display:none">
-                            <h3 style="color: white">AdminId</h3>
-                            <textarea name="adminId" style="font-size: 20px; height: 50px" class="form-control"><%= price != null ? price : "No price available"%></textarea>
-                        </div> <div class="gs-gameplay"  style="display:none">
-                            <h3 style="color: white">FileName</h3>
-                            <textarea name="fileName" style="font-size: 20px; height: 50px" class="form-control"><%= price != null ? price : "No price available"%></textarea>
-                        </div>
-                        <div class="gs-gameplay">
-                            <h3 style="color: white">Upload New Logo</h3>
+                        if (dateRelease != null) {
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Ensure format matches dateRelease
+                            releaseDate = sdf.parse(dateRelease);
+                        }
+                    %>
+                </div>
 
-                            <!-- Display the uploaded image if it exists -->
-                            <% if (fileData != null && !fileData.isEmpty()) {%>
-                            <img src="data:image/png;base64,<%= fileData%>" alt="Current Logo" class="img-thumbnail" style="max-width: 200px; max-height: 200px; margin-bottom: 10px;">
-                            <% }%>
-
-                            <!-- File input for uploading a new logo -->
-                            <input type="file" name="fileData" accept="image/*"  class="form-control" ><%= fileData != null ? fileData : ""%>
-                        </div>
-
-                        <input type="hidden" name="postId" value="<%= postId%>">
-                        <button class="edit-btn" type="submit" name="action" value="edit" style="background-color:#4CAF50;">Edit</button>
-                    </form>
-
-
-
-                    <!-- Action Images Carousel -->
-                    <div id="actionImagesCarousel" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner">
-                            <%
-                                if (actionImages != null && !actionImages.isEmpty()) {
-                                    for (int i = 0; i < actionImages.size(); i++) {
-                                        String imageBase64 = actionImages.get(i);
-                            %>
-                            <div class="carousel-item <%= (i == 0) ? "active" : ""%>">
-                                <img src="data:image/jpeg;base64,<%= imageBase64%>" class="d-block w-100" alt="Game Action Image <%= i + 1%>">
-                            </div>
-                            <%
+                <div style="display: flex;
+                     justify-content: space-between;
+                     align-items: center;">
+                    <h2 class="gs-title">
+                        <%= title != null ? title : "Untitled"%>
+                    </h2>
+                    <!-- Add to Wishlist button -->
+                    <% if (releaseDate != null && releaseDate.after(today)) {%>
+                    <div class="wishlist-btns">
+                        <form id="wishlistForm" action="shopping-cart.jsp?id=<%= postId%>&adminId=<%= adminId%>" method="POST">
+                            <input type="hidden" name="postId" value="<%= postId%>" />
+                            <input type="hidden" name="adminId" value="<%= adminId%>" />
+                            <input type="hidden" name="title" value="<%= title%>" />
+                            <input type="hidden" name="fileData" value="<%= fileData%>" />
+                            <input type="hidden" name="dateRelease" value="<%= dateRelease%>" />
+                            <input type="hidden" name="author" value="<%= author%>" />
+                            <input type="hidden" name="price" value="<%= price%>" />
+                            <input type="hidden" name="linkGame" value="<%= linkGame%>" />
+                            <button type="submit" style="float: inline-end; width: 140%; font-weight: bold;">Add to Wishlist</button>
+                            <script>
+                                function addToWishlist(button) {
+                                    button.style.backgroundColor = '#D9D9D9';
+                                    button.style.color = '#C20000';
+                                    button.style.fontWeight = 'bold';
+                                    button.innerHTML = 'Added to wishlist';
                                 }
-                            } else {
-                            %>
-                            <div class="carousel-item active">
-                                <p>No action images available.</p>
-                            </div>
-                            <% }%>
-                        </div>
-                        <a class="carousel-control-prev" href="#actionImagesCarousel" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#actionImagesCarousel" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
+                            </script>
+                        </form>
                     </div>
+                    <% }%>
+
+                    <% if (releaseDate != null && releaseDate.before(today)) {%>
+                    <div class="buy-btn">
+                        <button class="buy-button" type="submit" style="float: inline-end;"
+                                onclick="window.location.href = 'http://localhost:8080/Web_Trading_Game/cart-buy.jsp?id=<%= postId%>&adminId=<%= adminId%>'">
+                            Buy Game
+                        </button>
+                    </div>
+                    <% }%>
+                </div>
+                <br>
+                <div class="gs-meta">
+                    Release : <%= dateRelease != null ? dateRelease : "Unknown Date"%>
+                </div>                   
+                <div class="gs-description">
+                    <h3 style="color: white">Description</h3>
+                    <p style="font-size: 20px"><%= description != null ? description : "No description available"%></p>
+                </div>
+                <div class="gs-gameplay">
+                    <h3 style="color: white">Game Play</h3>
+                    <p style="font-size: 20px"><%= gamePlay != null ? gamePlay : "No gamePlay available"%></p>
+                </div>
+                <div class="gs-auhtor-genre" ">
+                    <div class="left-author">
+                        <h3 style="color: white">Publisher</h3>
+                        <p style="font-size: 20px"><%= author != null ? author : "No Author available"%></p>
+                    </div>
+                    <div class="right-genre">
+                        <h3 style="color: white">Genre</h3>
+                        <p style="font-size: 20px"><%= genre != null ? genre : "No genre available"%></p>
+                    </div>
+                </div>
+
+                <div id="actionImagesCarousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <%
+                            if (actionImages != null && !actionImages.isEmpty()) {
+                                for (int i = 0; i < actionImages.size(); i++) {
+                                    String imageBase64 = actionImages.get(i);
+                        %>
+                        <div class="carousel-item <%= (i == 0) ? "active" : ""%>">
+                            <img src="data:image/jpeg;base64,<%= imageBase64%>" class="d-block w-100" alt="Game Action Image <%= i + 1%>">
+                        </div>
+                        <%
+                            }
+                        } else {
+                        %>
+                        <div class="carousel-item active">
+                            <p>No action images available.</p>
+                        </div>
+                        <% }%>
+                    </div>
+                    <a class="carousel-control-prev" href="#actionImagesCarousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#actionImagesCarousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
                 </div>
         </section>
         <!-- Games end-->
 
-
-
-
         <!-- Newsletter section -->
-        <section class="newsletter-section" style="">
+        <section class="newsletter-section" style="color: white;
+                 font-size: 35px;
+                 padding: 30px 0 30px 0;">
             <div class="container">
-                <h3 class="bottom-title">Thanks for using our website!</h3>
+                <h3 class="bottom-title" style="font-family: 'Sixtyfour Convergence';">Thanks for using our website!</h3>
             </div>
         </section>
         <!-- Newsletter section end -->
@@ -301,7 +311,8 @@
                     <img class="img_bottom_2" src="./img//bottom_pic_2.png" alt="">
                 </div>
                 <a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>" class="footer-logo">
-                    <img src="./img/logo.png" alt="">
+                    <img src="./img/logo1.png" alt="">
+                    <img src="./img/logo2.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
                     <li><a href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
@@ -330,8 +341,12 @@
             }
         </script>
         <style>
+            .games-single-page, .review-section, .blog-page, .contact-page {
+                padding-bottom: 0;
+            }
             .gs-auhtor-genre {
                 width: 100%;
+                display: flex;
                 align-content: stretch;
                 flex-wrap: wrap;
                 justify-content: space-around;
@@ -396,6 +411,25 @@
             img.game_single_img {
                 width: 1000px;
                 height: 700px;
+            }
+            .buy-button{
+                color: #fff;
+                border: none;
+                outline: none;
+                padding: 14px 0;
+                font-size: 1rem;
+                font-weight: 500;
+                border-radius: 3px;
+                cursor: pointer;
+                margin: 25px 0;
+                background: #6f2b95;
+                transition: 0.2s ease;
+                float: end;
+                width: 140%;
+                font-weight: bold;
+            }
+            .buy-button:hover{
+                background: #4a4646;
             }
         </style>
         <!--====== Javascripts & Jquery ======-->

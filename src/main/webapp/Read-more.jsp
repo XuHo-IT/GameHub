@@ -98,19 +98,27 @@
             <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider004.jpg">
                 <div class="container">
                     <h2 >game on!</h2>
-                    <p style="font-family: 'Silkscreen', cursive; font-size: 21px;">
+                    <strong style="font-family: 'Silkscreen', cursive; font-size: 20px; color: rgba(255, 255, 255, 0.7);">
                         Welcome to our gaming news platform, your go-to hub for the latest updates and insights in the gaming world. Whether you're a casual player or a dedicated enthusiast, our site offers features to keep you informed and engaged.<br><br>
                         Discover and share game news, upcoming titles, and industry events in a user-friendly space. Navigate through a mix of user-generated posts and admin-curated updates easily.<br><br>
                         Engage with fellow gamers by posting news, commenting on updates, and participating in discussions. Join our vibrant community and celebrate your passion for games.<br><br>
                         Stay updated and enjoy discovering what's new in the gaming world, Where all in one place!
-                    </p>
+                    </strong>
                 </div>
             </div>
         </div>
     </section>
-
     <!-- Hero section end-->
 
+    <!-- Newsletter section -->
+    <section class="newsletter-section" style="color: white;
+             font-size: 35px;
+             padding: 30px 0 30px 0;">
+        <div class="container">
+            <h3 class="bottom-title" style="font-family: 'Sixtyfour Convergence';">Thanks for using our website!</h3>
+        </div>
+    </section>
+    <!-- Newsletter section end -->
 
     <!-- Footer section -->
     <footer class="footer-section">

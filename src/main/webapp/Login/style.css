@@ -127,7 +127,7 @@ body {
 }
 
 .create-topic .form-details h2,
-.update-topic .form-details h2, 
+.update-topic .form-details h2,
 .create-post .form-details h2,
 .forgot-password .form-details h2,
 .login .form-details h2,
@@ -319,6 +319,12 @@ button.create-btn{
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s
 }
+
+button.create-btn:hover{
+    color: black;
+    background-color: #4a4646;
+}
+
 .form-popup .hidden {
     opacity: 0;
     visibility: hidden;

@@ -15,7 +15,7 @@
 
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
-
+        <link href="https://fonts.googleapis.com/css2?family=Sixtyfour+Convergence&display=swap" rel="stylesheet">
 
         <!-- Stylesheets -->
         <link rel="stylesheet" href="css/bootstrap.min.css"/>
@@ -217,9 +217,17 @@
                 </c:if>
             </c:forEach>
         </section>
-
         <!-- Featured section end-->
 
+        <!-- Newsletter section -->
+        <section class="newsletter-section" style="color: white;
+                 font-size: 35px;
+                 padding: 30px 0 30px 0;">
+            <div class="container">
+                <h3 class="bottom-title" style="font-family: 'Sixtyfour Convergence';">Thanks for using our website!</h3>
+            </div>
+        </section>
+        <!-- Newsletter section end -->
 
         <!-- Footer section -->
         <footer class="footer-section">
@@ -299,7 +307,6 @@
                 <div class="form-details">
                     <h2>Create Account</h2>
                     <p>To become a part of our community, please sign up using your personal information.</p>
-                    <p id="formWarning" style="display: none;">This form will be larger if you do not enter the required value correctly.</p>
                     <p id="formWarning" style="display: none;">This form will be larger if you do not enter the required value correctly.</p>
                 </div>
                 <div class="form-content">

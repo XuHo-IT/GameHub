@@ -1,11 +1,11 @@
 @font-face{
-    font-family: CatelyndrawnRegularDemo;
-    src:url(CatelyndrawnRegularDemo.otf);
+    font-family: BladeDesire;
+    src:url(BladeDesire.ttf);
 }
 
 @font-face{
-    font-family: BladeDesire;
-    src:url(BladeDesire.ttf);
+    font-family: FungkybrowdemoRegular;
+    src:url(FungkybrowdemoRegular.otf);
 }
 
 html,
@@ -1265,18 +1265,18 @@ video {
 
 .footer-section .container {
     position: relative;
-    padding: 60px 15px 25px;
+    padding: 0 15px 25px;
 }
 
 .footer-left-pic {
     position: absolute;
-    left: -13px;
+    left: -70px;
     bottom: 19px;
 }
 
 .footer-right-pic {
     position: absolute;
-    right: 50px;
+    right: -30px;
     bottom: 19px;
 }
 
@@ -1499,7 +1499,7 @@ video {
 }
 
 .game-single-preview {
-    margin-bottom: 108px;
+    margin-bottom: 40px;
 }
 
 .game-single-content .gs-meta {
@@ -2208,8 +2208,4 @@ video {
     border-bottom: 1px solid black;
 
 
-}
-
-.container p strong{
-    font-family: CatelyndrawnRegularDemo;
 }

@@ -16,6 +16,7 @@
             href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
             rel="stylesheet"
             />
+        <link href="https://fonts.googleapis.com/css2?family=Sixtyfour+Convergence&display=swap" rel="stylesheet">
 
         <!-- Bootstrap CSS -->
         <link
@@ -170,21 +171,6 @@
         </section>
         <!-- Contact page end-->
 
-        <!-- Newsletter section -->
-        <section class="newsletter-section">
-            <div class="container">
-                <h2>Subscribe to our newsletter</h2>
-                <form class="newsletter-form" onsubmit="return subscribeNewsletter(event)">
-                    <input type="email" placeholder="ENTER YOUR E-MAIL" required>
-                    <button type="submit" class="site-btn">subscribe <img src="img/icons/double-arrow.png" alt="#"/></button>
-                </form>
-                <p id="thank-you-message" style="display:none; color: green; font-weight: bold; margin-top: 10px;">
-                    Thank you for subscribing! We will notify when our web have updates
-                </p>
-            </div>
-        </section>
-        <!-- Newsletter section end -->
-
         <div class="container-xxl py-5">
             <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
@@ -196,16 +182,16 @@
                     <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="team-item">
                             <div class="overflow-hidden">
-                                <img class="img-fluid" src="img/team-1.jpg" alt="" />
+                                <img class="img-fluid" src="img/NTTung.jpg" alt="" />
                             </div>
                             <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
                                 <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
+                                <a class="btn btn-square mx-1" href="https://github.com/NTT24" target="_blank" rel="noopener">
                                     <i class="fab fa-github"></i></a>
                             </div>
                             <div class="text-center p-4">
                                 <h5 class="mb-0">Nguyen Thanh Tung</h5>
-                                <small>FE DEVELOPER</small>
+                                <small>BE DEVELOPER</small>
                             </div>
                         </div>
                     </div>
@@ -213,11 +199,11 @@
                     <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="team-item">
                             <div class="overflow-hidden">
-                                <img class="img-fluid" src="img/team-2.jpg" alt="" />
+                                <img class="img-fluid" src="img/NTXH.jpg" alt="" />
                             </div>
                             <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
                                 <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
+                                <a class="btn btn-square mx-1" href="https://github.com/XuHo-IT" target="_blank" rel="noopener">
                                     <i class="fab fa-github"></i></a>
                             </div>
                             <div class="text-center p-4">
@@ -230,11 +216,11 @@
                     <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="team-item">
                             <div class="overflow-hidden">
-                                <img class="img-fluid" src="img/Card.jpg" alt="" />
+                                <img class="img-fluid" src="img/NLDT.jpg" alt="" />
                             </div>
                             <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
                                 <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
+                                <a class="btn btn-square mx-1" href="https://github.com/thanhnld0912" target="_blank" rel="noopener">
                                     <i class="fab fa-github"></i></a>
                             </div>
                             <div class="text-center p-4">
@@ -247,48 +233,48 @@
                     <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
                         <div class="team-item">
                             <div class="overflow-hidden">
-                                <img class="img-fluid" src="img/team-4.jpg" alt="" />
+                                <img class="img-fluid" src="img/TNHan.jpg" alt="" />
                             </div>
                             <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
                                 <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
+                                <a class="btn btn-square mx-1" href="https://github.com/HanTNnguyen2612" target="_blank" rel="noopener">
                                     <i class="fab fa-github"></i></a>
                             </div>
                             <div class="text-center p-4">
                                 <h5 class="mb-0">Tran Nguyen Han</h5>
-                                <small>Designation</small>
+                                <small>BE DEVELOPER</small>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
                         <div class="team-item">
                             <div class="overflow-hidden">
-                                <img class="img-fluid" src="img/team-4.jpg" alt="" />
+                                <img class="img-fluid" src="img/NTTuan.png" alt="" />
                             </div>
                             <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
                                 <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
+                                <a class="btn btn-square mx-1" href="https://github.com/tuns86" target="_blank" rel="noopener">
                                     <i class="fab fa-github"></i></a>
                             </div>
                             <div class="text-center p-4">
                                 <h5 class="mb-0">Nguyen Thanh Tuan</h5>
-                                <small>Designation</small>
+                                <small>FE DEVELOPER</small>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
                         <div class="team-item">
                             <div class="overflow-hidden">
-                                <img class="img-fluid" src="img/team-4.jpg" alt="" />
+                                <img class="img-fluid" src="img/NHD.PNG" alt="" />
                             </div>
                             <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
                                 <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
+                                <a class="btn btn-square mx-1" href="https://github.com/LmaoLmao123456" target="_blank" rel="noopener">
                                     <i class="fab fa-github"></i></a>
                             </div>
                             <div class="text-center p-4">
                                 <h5 class="mb-0">Nguyen Hoang Duong</h5>
-                                <small>Designation</small>
+                                <small>BE DEVELOPER</small>
                             </div>
                         </div>
                     </div>
@@ -297,21 +283,14 @@
         </div>
 
         <!-- Newsletter section -->
-        <section class="newsletter-section" style="background-image: url('img/Gif2.gif'); background-size: cover; background-position: center; height: 80vh; position: relative; color: white; display: flex; align-items: center; justify-content: center;">
-            <div class="container" style="position: relative; z-index: 1; text-align: center;">
-                <h3 class="bottom-title">Thanks for using our website!</h3>
+        <section class="newsletter-section" style="color: white;
+                 font-size: 35px;
+                 padding: 30px 0 30px 0;">
+            <div class="container">
+                <h3 class="bottom-title" style="font-family: 'Sixtyfour Convergence';">Thanks for using our website!</h3>
             </div>
         </section>
-        <style>
-            .bottom-title {
-                font-family: 'Sixtyfour Convergence', sans-serif;
-                font-size: 45px;
-            }
-
-            .newsletter-section {
-                /* Optional: Add any other styles you want */
-            }
-        </style>
+        <!-- Newsletter section end -->
 
 
         <!-- Footer section -->
@@ -479,6 +458,9 @@
             }
             i.fab.fa-facebook-f,i.fab.fa-github {
                 margin-left: -5px;
+            }
+            .overflow-hidden {
+                height: 155px;
             }
         </style>
         <script>

@@ -25,7 +25,7 @@
 
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
-
+        <link href="https://fonts.googleapis.com/css2?family=Sixtyfour+Convergence&display=swap" rel="stylesheet">
 
         <!-- Stylesheets -->
         <link rel="stylesheet" href="css/bootstrap.min.css" />
@@ -124,16 +124,13 @@
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">                          
                             <div class="account-container">
-                                <%
+                                 <%
                                     UserDAO userDAO = new UserDAO();
                                     UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
                                     request.setAttribute("user", user);
                                 %>
                                 <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" 
-                                         alt="Profile Picture" 
-                                         style="width: 50px; height: 50px; border-radius: 50%;" 
-                                         onerror="this.onerror=null;this.src='img/t-rex.png';" />
+                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" onerror="this.onerror=null;this.src='img/t-rex.png';"  />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
@@ -192,7 +189,13 @@
                             releaseDate = sdf.parse(dateRelease);
                         }
                     %>
-
+                </div>
+                <div style="display: flex;
+                     justify-content: space-between;
+                     align-items: center;">
+                    <h2 class="gs-title">
+                        <%= title != null ? title : "Untitled"%>
+                    </h2>
                     <!-- Add to Wishlist button -->
                     <% if (releaseDate != null && releaseDate.after(today)) {%>
                     <div class="wishlist-btns">
@@ -205,7 +208,7 @@
                             <input type="hidden" name="author" value="<%= author%>" />
                             <input type="hidden" name="price" value="<%= price%>" />
                             <input type="hidden" name="linkGame" value="<%= linkGame%>" />
-                            <button type="submit">Add to Wishlist</button>
+                            <button type="submit" style="float: inline-end; width: 140%; font-weight: bold;">Add to Wishlist</button>
                             <script>
                                 function addToWishlist(button) {
                                     button.style.backgroundColor = '#D9D9D9';
@@ -220,17 +223,13 @@
 
                     <% if (releaseDate != null && releaseDate.before(today)) {%>
                     <div class="buy-btn">
-                        <button class="buy-button" type="submit" 
+                        <button class="buy-button" type="submit" style="float: inline-end;"
                                 onclick="window.location.href = 'http://localhost:8080/Web_Trading_Game/cart-buy.jsp?id=<%= postId%>&adminId=<%= adminId%>'">
                             Buy Game
                         </button>
                     </div>
                     <% }%>
-
                 </div>
-                <h2 class="gs-title">
-                    <%= title != null ? title : "Untitled"%>
-                </h2>
                 <br>
                 <div class="gs-meta">
                     Release : <%= dateRelease != null ? dateRelease : "Unknown Date"%>
@@ -287,13 +286,15 @@
         <!-- Games end-->    
         <!-- Games end-->
 
-
-
-
         <!-- Newsletter section -->
-
+        <section class="newsletter-section" style="color: white;
+                 font-size: 35px;
+                 padding: 30px 0 30px 0;">
+            <div class="container">
+                <h3 class="bottom-title" style="font-family: 'Sixtyfour Convergence';">Thanks for using our website!</h3>
+            </div>
+        </section>
         <!-- Newsletter section end -->
-
 
         <!-- Footer section -->
         <footer class="footer-section">
@@ -304,8 +305,9 @@
                 <div class="footer-right-pic">
                     <img class="img_bottom_2" src="./img//bottom_pic_2.png" alt="">
                 </div>
-                <a href="#" class="footer-logo">
-                    <img src="./img/logo.png" alt="">
+                <a href="ReadGameHomeMember?userId=<%= request.getSession().getAttribute("adminId")%>" class="footer-logo">
+                    <img src="./img/logo1.png" alt="">
+                    <img src="./img/logo2.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
                     <li><a href="ReadGameHomeMember?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
@@ -339,6 +341,9 @@
 
 
         <style>
+            .games-single-page, .review-section, .blog-page, .contact-page {
+                padding-bottom: 0;
+            }
             .gs-auhtor-genre {
                 width: 100%;
                 display: flex;
@@ -397,7 +402,6 @@
                 object-fit: cover;
             }
             .buy-button{
-                width: 20%;
                 color: #fff;
                 border: none;
                 outline: none;
@@ -407,9 +411,14 @@
                 border-radius: 3px;
                 cursor: pointer;
                 margin: 25px 0;
-                background: #952b2b;
+                background: #6f2b95;
                 transition: 0.2s ease;
-
+                float: end;
+                width: 140%;
+                font-weight: bold;
+            }
+            .buy-button:hover{
+                background: #4a4646;
             }
         </style>
 

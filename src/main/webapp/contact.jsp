@@ -170,9 +170,22 @@
         </section>
         <!-- Contact page end-->
 
+        <!-- Newsletter section -->
+        <section class="newsletter-section">
+            <div class="container">
+                <h2>Subscribe to our newsletter</h2>
+                <form class="newsletter-form" onsubmit="return subscribeNewsletter(event)">
+                    <input type="email" placeholder="ENTER YOUR E-MAIL" required>
+                    <button type="submit" class="site-btn">subscribe <img src="img/icons/double-arrow.png" alt="#"/></button>
+                </form>
+                <p id="thank-you-message" style="display:none; color: green; font-weight: bold; margin-top: 10px;">
+                    Thank you for subscribing! We will notify when our web have updates
+                </p>
+            </div>
+        </section>
+        <!-- Newsletter section end -->
 
-
-  <div class="container-xxl py-5">
+        <div class="container-xxl py-5">
             <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                     <h6 class="section-title bg-white text-center text-primary px-3">Founder & Co-Founder</h6>
@@ -282,7 +295,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Newsletter section -->
         <section class="newsletter-section" style="background-image: url('img/Gif2.gif'); background-size: cover; background-position: center; height: 80vh; position: relative; color: white; display: flex; align-items: center; justify-content: center;">
             <div class="container" style="position: relative; z-index: 1; text-align: center;">
@@ -299,18 +312,8 @@
                 /* Optional: Add any other styles you want */
             }
         </style>
-       <!-- Newsletter section -->
-        <section class="newsletter-section">
-            <div class="container">
-                <h2>Subscribe to our newsletter</h2>
-                <form class="newsletter-form">
-                    <input type="text" placeholder="ENTER YOUR E-MAIL">
-                    <button class="site-btn">subscribe <img src="img/icons/double-arrow.png" alt="#"/></button>
-                </form>
-            </div>
-        </section>
-        <!-- Newsletter section end -->
-        
+
+
         <!-- Footer section -->
         <footer class="footer-section">
             <div class="container">
@@ -389,6 +392,8 @@
                 <div class="form-details">
                     <h2>Create Account</h2>
                     <p>To become a part of our community, please sign up using your personal information.</p>
+                    <p id="formWarning" style="display: none;">This form will be larger if you do not enter the required value correctly.</p>
+                    <p id="formWarning" style="display: none;">This form will be larger if you do not enter the required value correctly.</p>
                 </div>
                 <div class="form-content">
                     <h2>SIGNUP</h2>
@@ -563,14 +568,16 @@
                 passwordField.addEventListener('input', validatePassword);
                 policyCheckbox.addEventListener('change', validatePolicy);
 
-                // Validation functions
                 function validateName() {
                     const name = nameField.value.trim();
                     const nameError = document.getElementById('nameError');
                     if (name.length < 3) {
                         nameError.textContent = 'Name must be at least 3 characters long.';
+                        document.getElementById("formWarning").style.display = "block";
+                        return false;
                     } else {
                         nameError.textContent = '';
+                        return true;
                     }
                 }
 
@@ -580,8 +587,11 @@
                     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                     if (!emailPattern.test(email)) {
                         emailError.textContent = 'Please enter a valid email address.';
+                        document.getElementById("formWarning").style.display = "block";
+                        return false;
                     } else {
                         emailError.textContent = '';
+                        return true;
                     }
                 }
 
@@ -590,8 +600,11 @@
                     const phoneError = document.getElementById('phoneError');
                     if (phone.length !== 10 || !/^\d+$/.test(phone)) {
                         phoneError.textContent = 'Phone number must be 10 digits long.';
+                        document.getElementById("formWarning").style.display = "block";
+                        return false;
                     } else {
                         phoneError.textContent = '';
+                        return true;
                     }
                 }
 
@@ -603,8 +616,11 @@
                     const age = today.getFullYear() - date.getFullYear();
                     if (age < 18) {
                         dobError.textContent = 'You must be at least 18 years old.';
+                        document.getElementById("formWarning").style.display = "block";
+                        return false;
                     } else {
                         dobError.textContent = '';
+                        return true;
                     }
                 }
 
@@ -613,8 +629,11 @@
                     const addressError = document.getElementById('addressError');
                     if (address.length < 5) {
                         addressError.textContent = 'Address must be at least 5 characters long.';
+                        document.getElementById("formWarning").style.display = "block";
+                        return false;
                     } else {
                         addressError.textContent = '';
+                        return true;
                     }
                 }
 
@@ -623,8 +642,11 @@
                     const passwordError = document.getElementById('passwordError');
                     if (password.length < 6) {
                         passwordError.textContent = 'Password must be at least 6 characters long.';
+                        document.getElementById("formWarning").style.display = "block";
+                        return false;
                     } else {
                         passwordError.textContent = '';
+                        return true;
                     }
                 }
 
@@ -632,11 +654,31 @@
                     const policyError = document.getElementById('policyError');
                     if (!policyCheckbox.checked) {
                         policyError.textContent = 'You must agree to the terms and conditions.';
+                        document.getElementById("formWarning").style.display = "block";
+                        return false;
                     } else {
                         policyError.textContent = '';
+                        return true;
                     }
                 }
-            });
+                function ValidateAll() {
+                    const isNameValid = validateName();
+                    const isEmailValid = validateEmail();
+                    const isPhoneValid = validatePhone();
+                    const isDOBValid = validateDOB();
+                    const isAddressValid = validateAddress();
+                    const isPasswordValid = validatePassword();
+                    const isPolicyValid = validatePolicy();
+
+                    const allValid = isNameValid && isEmailValid && isPhoneValid && isDOBValid && isAddressValid && isPasswordValid && isPolicyValid;
+
+                    document.getElementById("formWarning").style.display = allValid ? "none" : "block";
+
+                    return allValid;
+                }
+            }
+
+            );
         </script>
 
         <!--====== Javascripts & Jquery ======-->

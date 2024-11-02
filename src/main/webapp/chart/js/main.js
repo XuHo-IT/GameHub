@@ -19,39 +19,6 @@ toggle.onclick = function () {
 var ctx = document.getElementById("myChart").getContext("2d");
 var earning = document.getElementById("earning").getContext("2d");
 
-// Fetch post counts and update polar area chart
-fetch('http://localhost:8080/Web_Trading_Game/PostStatistic')
-    .then((response) => response.json())
-    .then((data) => {
-        // Swap the values of adminPosts and memberPosts
-        const adminPosts = data.adminPostList;  // Was previously adminPostList
-        const memberPosts = data.memberPostList;  // Was previously memberPostList
-        const totalPosts = adminPosts+memberPosts;  // Get the total posts from the response
-
-        // Update the chart with member and admin posts
-        var myChart = new Chart(ctx, {
-            type: "polarArea",
-            data: {
-                labels: ["Member Post", "Admin Post"],  // No need to change this
-                datasets: [{
-                    label: "Traffic Source",
-                    data: [adminPosts , memberPosts ],  // Now memberPosts is first, adminPosts second
-                    backgroundColor: [
-                        "rgba(255, 99, 132, 1)",  // Red for Member Posts
-                        "rgba(54, 162, 235, 1)"   // Blue for Admin Posts
-                    ]
-                }]
-            },
-            options: {
-                responsive: true
-            }
-        });
-
-        // Display the total posts in the card (Daily Views or Total Posts)
-        // Corrected the selector and set the content
-        document.querySelector('#totalPost .numbers1').textContent = totalPosts;
-    })
-    .catch((error) => console.error('Error fetching post counts:', error));
 
 
 // Helper function to parse date strings
@@ -117,17 +84,17 @@ function updateChart() {
             data: {
                 labels: dates, // Dates from the table
                 datasets: [{
-                    label: "Earnings",
-                    data: amounts, // Corresponding earnings amounts
-                    backgroundColor: [
-                        "rgba(255, 99, 132, 1)",
-                        "rgba(54, 162, 235, 1)",
-                        "rgba(255, 206, 86, 1)",
-                        "rgba(75, 192, 192, 1)",
-                        "rgba(153, 102, 255, 1)",
-                        "rgba(255, 159, 64, 1)"
-                    ]
-                }]
+                        label: "Earnings",
+                        data: amounts, // Corresponding earnings amounts
+                        backgroundColor: [
+                            "rgba(255, 99, 132, 1)",
+                            "rgba(54, 162, 235, 1)",
+                            "rgba(255, 206, 86, 1)",
+                            "rgba(75, 192, 192, 1)",
+                            "rgba(153, 102, 255, 1)",
+                            "rgba(255, 159, 64, 1)"
+                        ]
+                    }]
             },
             options: {
                 responsive: true,

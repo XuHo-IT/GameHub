@@ -128,18 +128,17 @@
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
                             <div class="account-container">
-                                  <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl") %>" 
-                                        alt="Profile Picture" 
-                                        style="width: 50px; height: 50px; border-radius: 50%;" 
-                                        onerror="this.onerror=null;this.src='img/t-rex.png';" />
-                                 <%
+
+                                <%
                                     UserDAO userDAO = new UserDAO();
                                     UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
                                     request.setAttribute("user", user);
                                 %>
                                 <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
+                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" 
+                                         alt="Profile Picture" 
+                                         style="width: 50px; height: 50px; border-radius: 50%;" 
+                                         onerror="this.onerror=null;this.src='img/t-rex.png';" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
@@ -149,6 +148,7 @@
                                         </li>
                                     </ul>
                                 </div>
+
                             </div>
                         </div>
 
@@ -184,77 +184,67 @@
         <section class="games-single-page">
             <div class="container">
                 <div class="game-single-preview">
-                    <img src="data:image/jpeg;base64,<%= fileData != null ? fileData : ""%>" alt="Game Image" />
-                    </dv>
-
-                    <div class="row">
-                        <div class="col-xl-9 col-lg-8 col-md-7 game-single-content">
-                            <!-- Button to submit the form -->
-                            <form action="EditPostController" method="POST" enctype="multipart/form-data">
-
-                                <div class="gs-meta">
-                                    <h3 style="color: white">Release Date</h3>
-                                    <input type="date" name="dateRelease" style="font-size: 20px; height: 50px" value="<%= dateRelease != null ? dateRelease : "Unknown Date"%>" class="form-control">
-                                </div>
-
-                                <h2 class="gs-title">
-                                    <h3 style="color: white">Title</h3>
-                                    <input type="text" name="title" style="font-size: 20px; height: 50px" value="<%= title != null ? title : "Untitled"%>" class="form-control">
-                                </h2>
-                                <div class="gs-description">
-                                    <h3 style="color: white">Description</h3>
-                                    <textarea name="description" style="font-size: 20px; height: 200px" class="form-control"><%= description != null ? description : "No description available"%></textarea>
-                                </div>
-                                <div class="gs-gameplay">
-                                    <h3 style="color: white">Game Play</h3>
-                                    <textarea name="gamePlay" style="font-size: 20px; height: 200px" class="form-control"><%= gamePlay != null ? gamePlay : "No gamePlay available"%></textarea>
-                                </div>
-                                <div class="gs-gameplay">
-                                    <h3 style="color: white">Genre</h3>
-                                    <textarea name="gamePlay" style="font-size: 20px; height: 50px" class="form-control"><%= genre != null ? genre : "No genre available"%></textarea>
-                                </div>
-                                <div class="gs-auhtor-genre">
-                                    <div class="left-author">
-                                        <h3 style="color: white">Publisher</h3>
-                                        <input type="text" name="author" style="font-size: 20px; height: 50px" value="<%= author != null ? author : "No Author available"%>" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="gs-gameplay">
-                                    <h3 style="color: white">Link of the game</h3>
-                                    <textarea name="Link" style="font-size: 20px; height: 50px" class="form-control"><%= linkGame != null ? linkGame : "No linkGame available"%></textarea>
-                                </div> <div class="gs-gameplay">
-                                    <h3 style="color: white">Price</h3>
-                                    <textarea name="Price" style="font-size: 20px; height: 50px" class="form-control"><%= price != null ? price : "No price available"%></textarea>
-                                </div>
-                                <div class="gs-gameplay" style="display:none">
-                                    <h3 style="color: white">AdminId</h3>
-                                    <textarea name="adminId" style="font-size: 20px; height: 50px" class="form-control"><%= price != null ? price : "No price available"%></textarea>
-                                </div> <div class="gs-gameplay"  style="display:none">
-                                    <h3 style="color: white">FileName</h3>
-                                    <textarea name="fileName" style="font-size: 20px; height: 50px" class="form-control"><%= price != null ? price : "No price available"%></textarea>
-                                </div>
-                                <div class="gs-gameplay">
-                                    <h3 style="color: white">Upload New Image</h3>
-                                    <input type="file" name="fileData" accept="image/*" class="form-control">
-                                </div>
-                                <input type="hidden" name="postId" value="<%= postId%>">
-                                <button class="edit-btn" type="submit" name="action" value="edit" style="background-color:#4CAF50;">Edit</button>
-                            </form>
+                    <img class="game_single_img" src="data:image/jpeg;base64,<%= fileData != null ? fileData : ""%>" alt="Game Image" />               
+                    <!-- Button to submit the form -->
+                    <form action="EditPostController" method="POST" enctype="multipart/form-data">
+                        <div class="gs-meta">
+                            <h3 style="color: white">Release Date</h3>
+                            <input type="date" name="dateRelease" style="font-size: 20px; height: 50px" value="<%= dateRelease != null ? dateRelease : "Unknown Date"%>" class="form-control">
                         </div>
-                        <div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">
-                            <div id="stickySidebar">
-                                <div class="widget-item">
-                                    <div class="testimonials-widget">
-                                        <h4 class="widget-title">Testimonials</h4>
-                                        <div class="testim-text">
-                                            <p>EndGame has transformed the way I discover new games! The wishlist feature allows me to keep track of all my favorite titles, and the notifications for game releases are a game-changer. Highly recommend!</p>
-                                            <h6><span>James Smith,</span>Gamer</h6>
-                                        </div>
-                                    </div>
-                                </div>
+
+                        <h2 class="gs-title">
+                            <h3 style="color: white">Title</h3>
+                            <input type="text" name="title" style="font-size: 20px; height: 50px" value="<%= title != null ? title : "Untitled"%>" class="form-control">
+                        </h2>
+                        <div class="gs-description">
+                            <h3 style="color: white">Description</h3>
+                            <textarea name="description" style="font-size: 20px; height: 200px" class="form-control"><%= description != null ? description : "No description available"%></textarea>
+                        </div>
+                        <div class="gs-gameplay">
+                            <h3 style="color: white">Game Play</h3>
+                            <textarea name="gamePlay" style="font-size: 20px; height: 200px" class="form-control"><%= gamePlay != null ? gamePlay : "No gamePlay available"%></textarea>
+                        </div>
+                        <div class="gs-gameplay">
+                            <h3 style="color: white">Genre</h3>
+                            <textarea name="gamePlay" style="font-size: 20px; height: 50px" class="form-control"><%= genre != null ? genre : "No genre available"%></textarea>
+                        </div>
+                        <div class="gs-auhtor-genre">
+                            <div class="left-author">
+                                <h3 style="color: white">Publisher</h3>
+                                <input type="text" name="author" style="font-size: 20px; height: 50px" value="<%= author != null ? author : "No Author available"%>" class="form-control">
                             </div>
                         </div>
-                    </div>
+                        <div class="gs-gameplay">
+                            <h3 style="color: white">Link of the game</h3>
+                            <textarea name="Link" style="font-size: 20px; height: 50px" class="form-control"><%= linkGame != null ? linkGame : "No linkGame available"%></textarea>
+                        </div> <div class="gs-gameplay">
+                            <h3 style="color: white">Price</h3>
+                            <textarea name="Price" style="font-size: 20px; height: 50px" class="form-control"><%= price != null ? price : "No price available"%></textarea>
+                        </div>
+                        <div class="gs-gameplay" style="display:none">
+                            <h3 style="color: white">AdminId</h3>
+                            <textarea name="adminId" style="font-size: 20px; height: 50px" class="form-control"><%= price != null ? price : "No price available"%></textarea>
+                        </div> <div class="gs-gameplay"  style="display:none">
+                            <h3 style="color: white">FileName</h3>
+                            <textarea name="fileName" style="font-size: 20px; height: 50px" class="form-control"><%= price != null ? price : "No price available"%></textarea>
+                        </div>
+                        <div class="gs-gameplay">
+                            <h3 style="color: white">Upload New Logo</h3>
+
+                            <!-- Display the uploaded image if it exists -->
+                            <% if (fileData != null && !fileData.isEmpty()) {%>
+                            <img src="data:image/png;base64,<%= fileData%>" alt="Current Logo" class="img-thumbnail" style="max-width: 200px; max-height: 200px; margin-bottom: 10px;">
+                            <% }%>
+
+                            <!-- File input for uploading a new logo -->
+                            <input type="file" name="fileData" accept="image/*" class="form-control" ><%= fileData != null ? fileData : ""%>
+                        </div>
+
+                        <input type="hidden" name="postId" value="<%= postId%>">
+                        <button class="edit-btn" type="submit" name="action" value="edit" style="background-color:#4CAF50;">Edit</button>
+                    </form>
+
+
 
                     <!-- Action Images Carousel -->
                     <div id="actionImagesCarousel" class="carousel slide" data-ride="carousel">
@@ -296,7 +286,6 @@
         <section class="newsletter-section" style="">
             <div class="container">
                 <h3 class="bottom-title">Thanks for using our website!</h3>
-                <img src="img/Dawn.gif" alt="Game Image" style="width: 100%; height: auto;" />
             </div>
         </section>
         <!-- Newsletter section end -->
@@ -341,9 +330,8 @@
             }
         </script>
         <style>
-               .gs-auhtor-genre {
+            .gs-auhtor-genre {
                 width: 100%;
-                display: flex;
                 align-content: stretch;
                 flex-wrap: wrap;
                 justify-content: space-around;
@@ -404,6 +392,10 @@
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
+            }
+            img.game_single_img {
+                width: 1000px;
+                height: 700px;
             }
         </style>
         <!--====== Javascripts & Jquery ======-->

@@ -22,6 +22,7 @@ public class ConfirmPost extends HttpServlet {
             throws ServletException, IOException {
         String postId = request.getParameter("postId");
         String actionType = request.getParameter("actionType");
+        String adminId = request.getParameter("adminId");
 
         // Get the MongoDB database and collection
         MongoClient mongoClient = MongoDBConnectionManager.getLocalMongoClient();
@@ -39,19 +40,9 @@ public class ConfirmPost extends HttpServlet {
                     postGameCollection.insertOne(post);
                     postGameMemberCollection.deleteOne(new Document("_id", new ObjectId(postId)));
                     break;
-                case "deny":
-                    // Update the status field to denied
-                    postGameMemberCollection.updateOne(new Document("_id", new ObjectId(postId)),
-                            new Document("$set", new Document("status", "denied")));
-                    break;
-                case "re-deny":
-                    // Update the status field to re-denied
-                    postGameMemberCollection.updateOne(new Document("_id", new ObjectId(postId)),
-                            new Document("$set", new Document("status", "re-denied")));
-                    break;
             }
         }
         // Redirect back to the member page (or wherever appropriate)
-        response.sendRedirect("ReadGameUploadByMember?adminId=<%= request.getSession().getAttribute(\"adminId\")%>\"");
+        response.sendRedirect("ReadGameUploadByMember?adminId="+adminId);
     }
 }

@@ -62,13 +62,13 @@ public class AddGameByMember extends HttpServlet {
         // Create a GamePost object
         GamePostMember gamePost = new GamePostMember(
                 null, title, gamePlay, description, dateRelease, author, genre,
-                memberId, fileName, fileDataBase64,linkGame,price,status);
+                memberId, fileName, fileDataBase64,linkGame,price,status, actionImagesBase64);
 
         // Use GamePostDAO to insert the game
         GamePostDAO gamePostDAO = new GamePostDAO();
         gamePostDAO.addGamePostMember(gamePost, actionImagesBase64);
 
         // Redirect after adding
-        response.sendRedirect("ReadGameHomeMember?memberid=" + memberId);
+        response.sendRedirect("add_game_member.jsp?memberId="+memberId);
     }
 }

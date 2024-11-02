@@ -9,6 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page import="org.bson.Document" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -68,9 +69,9 @@
                         request.setAttribute("user", user);
                     %>
                     <div style="font-family: "Ubuntu", sans-serif;">
-                        <button type="button" class="btn back-btn" style="background: white; color: white; padding: 15px; font-size: 20px; color: #6f2b95;" onclick="window.location.href = 'ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>'">Forum</button>   
-                        <button type="button" class="btn back-btn" style="background: white; color: white; padding: 15px; font-size: 20px; color: #6f2b95;" onclick="window.location.href = 'ReadGameListAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>'">Games</button>
                         <button type="button" class="btn back-btn" style="background: white; color: white; padding: 15px; font-size: 20px; color: #6f2b95;" onclick="window.location.href = 'ReadGameHomeAdmin?&adminId=<%= request.getSession().getAttribute("adminId")%>'">Home</button>                    
+                        <button type="button" class="btn back-btn" style="background: white; color: white; padding: 15px; font-size: 20px; color: #6f2b95;" onclick="window.location.href = 'ReadGameListAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>'">Games</button>
+                        <button type="button" class="btn back-btn" style="background: white; color: white; padding: 15px; font-size: 20px; color: #6f2b95;" onclick="window.location.href = 'ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>'">Forum</button>   
                     </div>
                     <div class="user">                                   
                         <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
@@ -93,9 +94,10 @@
                                         <th>Date Release</th>
                                         <th>Author</th>
                                         <th>Genre</th>
-                                        <th>View</th>
-                                        <th></th>
-                                        <th></th>
+                                        <th>Views</th>
+                                        <th>Game Image</th>
+                                        <th>Action Images</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -105,51 +107,63 @@
                                             <td style="padding: 12px 15px;text-align: start;">${post.dateRelease != null ? post.dateRelease : 'No Date'}</td>
                                             <td style="padding: 12px 15px;text-align: start;">${post.author != null ? post.author : 'Unknown Author'}</td>
                                             <td style="padding: 12px 15px;text-align: start;">${post.genre != null ? post.genre : 'Unknown Genre'}</td>
-                                            <td style="padding: 12px 15px;text-align: start;">${post.genre != null ? post.genre : 'Unknown Genre'}</td>
-
-                                            <td>
-                                                <!-- Button to view details -->
-                                                <button type="button" class="btn details-btn" onclick="openDetailsModal('${post.title}', '${post.dateRelease}', '${post.author}', '${post.genre}', '${post.description}', '${post.postID}')">Details</button>
-                                            </td>
-                                            <td>
+                                            <td style="padding: 12px 15px;text-align: start;">${post.genre != null ? post.genre : 'Unknown Genre'}</td> 
+                                            <td style="padding: 12px 15px;text-align: start;cursor: pointer;text-decoration: underline;" 
+                                                onclick="openImageModal('data:image/png;base64,${post.fileData}')" class="view-link">View Image</td>
+                                            <td style="padding: 12px 15px;text-align: start;cursor: pointer;text-decoration: underline;" 
+                                                onclick="openActionImagesModal('data:image/png;base64,${post.actionImages}')" class="view-link">View Action Images</td>
+                                            <td style="padding: 12px 15px;text-align: start;">
                                                 <!-- Confirm and Deny buttons -->
+                                                <input type="hidden" name="actionType" id="actionType" value="">
+                                                <input type="hidden" name="adminId" value="<%= request.getSession().getAttribute("adminId")%>">
                                                 <input type="hidden" name="postId" value="${post.postID}">
-                                                <button type="submit" class="btn confirm-btn">Confirm</button>
-                                                <button type="button" class="btn deny-btn" onclick="setActionType('deny')">Deny</button>
-                                                <button type="button" class="btn redeny-btn" style="display:none;background: yellow;color: black" onclick="setActionType('re-deny')">Re-Deny</button>
+                                                <button type="submit" class="btn confirm-btn" onclick="setActionType('confirm')">Confirm</button>
+                                                <button type="button" class="btn deny-btn" onclick="denyPost(this)">Deny</button>
+                                                <button type="button" class="btn redeny-btn" style="display:none;background: yellow;color: black;" onclick="reDenyPost(this)">Re-Deny</button>
                                             </td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>
                             </table>
-
                         </form>
-
                     </div>
 
                 </div>
             </div>
         </div>
         <!-- Modal for showing post details -->
-        <div id="postDetailsModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <h2>Post Details</h2>
-                <div>
-                    <p><strong>Title:</strong> <span id="modalTitle"></span></p>
-                    <p><strong>Date Release:</strong> <span id="modalDateRelease"></span></p>
-                    <p><strong>Author:</strong> <span id="modalAuthor"></span></p>
-                    <p><strong>Genre:</strong> <span id="modalGenre"></span></p>
-                    <p><strong>Description:</strong> <span id="modalDescription"></span></p>
+
+        <!-- Main Image Modal -->
+        <div class="modal_1 fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header" style="display: flex; justify-content: space-between;">
+                        <h5 class="modal-title" id="imageModalLabel" style="font-size: 25px">Game Image</h5>
+                        <button type="button" class="btn-close"  onclick=" closeImageModal()" aria-label="Close">X</button>
+                    </div>
+                    <div class="modal-body" id="gameImagesContainer">
+                        <img id="modalImage" src="" alt="Game Image" class="img-fluid">
+                    </div>
                 </div>
-                <!-- Hidden form to confirm or deny within modal -->
-                <form action="ConfirmPostController" method="post">
-                    <input type="hidden" name="postId" id="modalPostId">
-                    <button type="submit" class="btn confirm-btn">Confirm</button>
-                    <button type="button" class="btn deny-btn" onclick="denyPostInModal()">Deny</button>
-                </form>
             </div>
         </div>
+
+        <!-- Action Images Modal -->
+        <div class="modal fade" id="actionImagesModal" tabindex="-1" aria-labelledby="actionImagesModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header" style="display: flex; justify-content: space-between;">
+                        <h5 class="modal-title" id="actionImagesModalLabel" style="font-size: 25px">Game Image Actions</h5>
+                        <button type="button" class="btn-close" onclick="closeActionModal()" aria-label="Close">X</button>
+                    </div>
+                    <div class="modal-body" id="actionImagesContainer">
+                        <!-- Action images will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 
         <script
             type="module"
@@ -164,71 +178,94 @@
         <script src="chart/js/chart.min.js"></script>
         <script src="chart/js/main.js"></script>
         <script>
-                        // Function to open the modal and display post details
-                        function openDetailsModal(title, dateRelease, author, genre, description, postId) {
-                            document.getElementById('modalTitle').innerText = title;
-                            document.getElementById('modalDateRelease').innerText = dateRelease;
-                            document.getElementById('modalAuthor').innerText = author;
-                            document.getElementById('modalGenre').innerText = genre;
-                            document.getElementById('modalDescription').innerText = description;
-                            document.getElementById('modalPostId').value = postId;
+                            function openImageModal(imageData) {
+                                document.getElementById('modalImage').src = imageData;
+                                const imageModalElement = document.querySelector('.modal_1');
+                                imageModalElement.style.display = 'block';
+                            }
+                            function closeImageModal() {
+                                const imageModalElement = document.querySelector('.modal_1');
+                                imageModalElement.style.display = 'none';
+                            }
 
-                            // Show the modal
-                            document.getElementById('postDetailsModal').style.display = 'block';
-                        }
+                            function openActionImagesModal(actionImagesBase64) {
 
-// Function to close the modal
-                        function closeModal() {
-                            document.getElementById('postDetailsModal').style.display = 'none';
-                        }
+                                const actionImagesContainer = document.getElementById('actionImagesContainer');
+                                actionImagesContainer.innerHTML = '';
 
-// Handle deny button in the modal
-                        function denyPostInModal() {
-                            // Change button states or add additional functionality here if needed
-                            alert('Post denied!');
-                            closeModal();  // Close the modal after denying
-                        }
+                                // Remove any brackets and split by commas
+                                const cleanedActionImagesBase64 = actionImagesBase64.replace(/\[|\]/g, ''); // Remove brackets
+                                const actionImagesArray = cleanedActionImagesBase64.split(',')
+                                        .map(image => image.trim()) // Trim spaces around each entry
+                                        .filter(image => image); // Filter out empty strings
 
-                        // Function to handle deny button click
-                        function denyPost(denyButton) {
-                            // Hide the confirm and deny buttons
-                            const row = denyButton.closest('tr');
-                            const confirmBtn = row.querySelector('.confirm-btn');
-                            const reDenyBtn = row.querySelector('.redeny-btn');
+                                actionImagesArray.forEach(imageData => {
+                                    const img = document.createElement('img');
 
-                            confirmBtn.style.display = 'none';
-                            denyButton.style.display = 'none';
+                                    // Only prepend the prefix if it doesn't already exist
+                                    img.src = imageData.startsWith('data:image/png;base64,') ? imageData : `data:image/png;base64,` + imageData;
+                                    if (img.src === 'data:image/png;base64,data:image/png;base64') {
+                                        img.style.display = 'none'; // Hide the image
+                                    }
+                                    img.alt = 'Action Image';
+                                    img.className = 'img-fluid';
+                                    img.style.marginBottom = '10px';
+                                    actionImagesContainer.appendChild(img);
+                                    console.log(actionImagesArray);
 
-                            // Show the re-deny button
-                            reDenyBtn.style.display = 'inline-block';
+                                });
 
-                            // Change text color of the entire row to gray
-                            row.style.color = 'gray';
-                        }
+                                const actionImagesModal = document.querySelector('.modal');
+                                actionImagesModal.style.display = 'block';
+                            }
+
+                            function closeActionModal() {
+                                const imageModalElement = document.querySelector('.modal');
+                                imageModalElement.style.display = 'none';
+                            }
 
 
-                        // Function to handle re-deny button click
-                        function reDenyPost(reDenyButton) {
-                            // Show the confirm and deny buttons again
-                            const row = reDenyButton.closest('tr');
-                            const confirmBtn = row.querySelector('.confirm-btn');
-                            const denyBtn = row.querySelector('.deny-btn');
 
-                            confirmBtn.style.display = 'inline-block';
-                            denyBtn.style.display = 'inline-block';
+                            function setActionType(type) {
+                                document.getElementById("actionType").value = type;
+                            }
 
-                            // Hide the re-deny button
-                            reDenyButton.style.display = 'none';
-                            row.style.color = '#6f2b95';
+                            function denyPost(denyButton) {
+                                const row = denyButton.closest('tr');
+                                const confirmBtn = row.querySelector('.confirm-btn');
+                                const reDenyBtn = row.querySelector('.redeny-btn');
 
-                        }
-                        function setActionType(type) {
-                            document.getElementById("actionType").value = type;
-                            document.querySelector("form").submit(); // Submit form with selected action
-                        }
+                                confirmBtn.style.display = 'none';
+                                denyButton.style.display = 'none';
+                                reDenyBtn.style.display = 'inline-block';
+                                row.style.color = 'gray';
+
+                            }
+
+                            function reDenyPost(reDenyButton) {
+                                const row = reDenyButton.closest('tr');
+                                const confirmBtn = row.querySelector('.confirm-btn');
+                                const denyBtn = row.querySelector('.deny-btn');
+
+                                confirmBtn.style.display = 'inline-block';
+                                denyBtn.style.display = 'inline-block';
+                                reDenyButton.style.display = 'none';
+                                row.style.color = '#6f2b95';
+
+                            }
         </script>
         <style>
-            /* Modal styling */
+            .modal_1 {
+                display: none; /* Hidden by default */
+                position: fixed; /* Stay in place */
+                z-index: 1; /* Sit on top */
+                padding-top: 100px; /* Location of the box */
+                left: 0;
+                top: 0;
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
+                background-color: rgba(0,0,0,0.4); /* Black background with opacity */
+            }
             .modal {
                 display: none; /* Hidden by default */
                 position: fixed; /* Stay in place */
@@ -245,9 +282,23 @@
                 background-color: #fefefe;
                 margin: auto;
                 padding: 20px;
-                border: 1px solid #888;
+                border: 5px solid #501755;
                 width: 50%; /* Modal width */
-                text-align: left;
+                text-align: center;
+                height: 50%;
+                border-radius: 15px;
+            }
+
+            #gameImagesContainer{
+                max-height: 700px;
+                overflow-y: auto;
+                margin-top: 5px;
+            }
+
+            #actionImagesContainer {
+                max-height: 700px;
+                overflow-y: auto;
+                margin-top: 5px;
             }
 
             .close {
@@ -301,23 +352,41 @@
             .confirm-btn {
                 background-color: #4CAF50; /* Green */
                 color: white;
+                width: 80px;
             }
             .deny-btn {
                 background-color: #f44336; /* Red */
                 color: white;
+                width: 80px;
             }
-
+            button.btn-close {
+                width: 25px;
+                height: 25px;
+                justify-content: space-evenly;
+                align-items: center;
+                cursor: pointer;
+                border-radius: 50%;
+            }
+            button.btn-close:hover{
+                background: red;
+                color: white;
+            }
             .details {
                 position: relative;
                 width: 100%;
                 padding: 20px;
-                /* margin-top: 10px; */
+                /* margin-top: 10px; 
             }
             button.btn.back-btn {
                 /* margin-left: 500px; */
                 /* text-align: right; */
                 padding: 30px;
                 float: right;
+            }
+            img.img-fluid {
+                width: 100%;
+                height: 100%;
+                margin-top: 10px;
             }
         </style>
     </body>

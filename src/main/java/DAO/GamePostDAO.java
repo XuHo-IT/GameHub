@@ -6,6 +6,7 @@ import Model.Genre;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Indexes;
@@ -235,9 +236,10 @@ public class GamePostDAO {
             posts = collection.find();
         }
 
-        // Map each document to a GamePost object
+        // Map each document to a GamePostMember object
         for (Document post : posts) {
             String fileDataBase64 = extractFileDataBase64(post.get("FileData")); // Correctly retrieve file data
+            List<String> actionImagesBase64 = (List<String>) post.getList("ActionImages", String.class); // Retrieve action images
 
             GamePostMember gamePost = new GamePostMember(
                     post.getObjectId("_id").toString(),
@@ -252,8 +254,8 @@ public class GamePostDAO {
                     fileDataBase64, // Correctly retrieve fileDataBase64
                     post.getString("LinkGame"),
                     post.getString("Price"),
-                    post.getString("Status")
-                    
+                    post.getString("Status"),
+                    actionImagesBase64 // Pass the action images to the GamePostMember
             );
             postList.add(gamePost);
         }
@@ -336,5 +338,19 @@ public class GamePostDAO {
             postList.add(gamePost);
         }
         return postList;
+    }
+     public String getGameTitleByReleaseDate(String dateRelease) {
+        Document query = new Document("DateRelease", dateRelease);
+        try (MongoCursor<Document> cursor = postCollection.find(query).iterator()) {
+            if (cursor.hasNext()) {
+                Document gamePost = cursor.next();
+                return gamePost.getString("Title");
+            }
+        }
+        return null;
+    }
+     public String getGameTitleById(String postId) {
+        Document gamePost = postCollection.find(new Document("_id", new ObjectId(postId))).first();
+        return gamePost != null ? gamePost.getString("Title") : null;
     }
 }

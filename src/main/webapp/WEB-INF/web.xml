@@ -65,10 +65,6 @@
         <servlet-class>Controller.GameReleaseNotificationMemberController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ConfirmPostController</servlet-name>
-        <servlet-class>Controller.ConfirmPostController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AddReplyController</servlet-name>
         <servlet-class>Controller.AddReplyController</servlet-class>
     </servlet>
@@ -264,6 +260,30 @@
         <servlet-name>AddGenre</servlet-name>
         <servlet-class>Controller.AddGenre</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GameReleaseNotificationMember</servlet-name>
+        <servlet-class>Controller.GameReleaseNotificationMember</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditUser</servlet-name>
+        <servlet-class>Controller.EditUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangePassWord</servlet-name>
+        <servlet-class>Controller.ChangePassWord</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NotificationSchedule</servlet-name>
+        <servlet-class>Controller.NotificationSchedule</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AppContextListener</servlet-name>
+        <servlet-class>Controller.AppContextListener</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ConfirmPostGame</servlet-name>
+        <servlet-class>Controller.ConfirmPostGame</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -327,10 +347,6 @@
     <servlet-mapping>
         <servlet-name>GameReleaseNotificationMemberController</servlet-name>
         <url-pattern>/GameReleaseNotificationMemberController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ConfirmPostController</servlet-name>
-        <url-pattern>/ConfirmPostController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddReplyController</servlet-name>
@@ -527,6 +543,30 @@
     <servlet-mapping>
         <servlet-name>AddGenre</servlet-name>
         <url-pattern>/AddGenre</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GameReleaseNotificationMember</servlet-name>
+        <url-pattern>/GameReleaseNotificationMember</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditUser</servlet-name>
+        <url-pattern>/EditUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePassWord</servlet-name>
+        <url-pattern>/ChangePassWord</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NotificationSchedule</servlet-name>
+        <url-pattern>/NotificationSchedule</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AppContextListener</servlet-name>
+        <url-pattern>/AppContextListener</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConfirmPostGame</servlet-name>
+        <url-pattern>/ConfirmPostGame</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>ReadGameHome</welcome-file>

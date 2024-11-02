@@ -48,7 +48,7 @@ public class VNPayPaymentServlet extends HttpServlet {
         vnp_Params.put("vnp_Version", "2.1.0");
         vnp_Params.put("vnp_Command", "pay");
         vnp_Params.put("vnp_TmnCode", Config.vnp_TmnCode); // Your terminal code
-        vnp_Params.put("vnp_Amount", String.valueOf(Long.parseLong(amount) * 100)); // Amount in VND
+        vnp_Params.put("vnp_Amount", String.valueOf(Long.parseLong(amount))); // Amount in VND
         vnp_Params.put("vnp_CurrCode", "VND");
         vnp_Params.put("vnp_TxnRef", orderId);
         vnp_Params.put("vnp_OrderInfo", "Payment for order " + orderId);

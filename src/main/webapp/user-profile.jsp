@@ -27,11 +27,11 @@
                 color: white;
             }
             body {
-            background-image: url('img/Gif1.gif'); /* Update the path as needed */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-           }
+                background-image: url('img/Gif1.gif'); /* Update the path as needed */
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
             .container {
                 min-height: 78vh;
             }
@@ -98,17 +98,17 @@
                     </div>
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
-                            
+
                             <div class="account-container">
                                 <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl") %>" 
-                                        alt="Profile Picture" 
-                                        style="width: 50px; height: 50px; border-radius: 50%;" 
-                                        onerror="this.onerror=null;this.src='img/t-rex.png';" />
+                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" 
+                                         alt="Profile Picture" 
+                                         style="width: 50px; height: 50px; border-radius: 50%;" 
+                                         onerror="this.onerror=null;this.src='img/t-rex.png';" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
-                                          <li><a href="user-profile.jsp?userid=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
+                                        <li><a href="user-profile.jsp?userid=<%= request.getSession().getAttribute("adminId")%>">Account Info</a></li>
                                         <li>
                                             <a href="LogOut" class="dropdown-item">Logout</a>
                                         </li>
@@ -117,37 +117,47 @@
                             </div>
                         </div>
                         <!-- Menu -->
+
+                        <%
+                            String id = request.getParameter("userid");
+                            UserDAO mgcn = new UserDAO();
+                            UserModel user = mgcn.getUserById(id);
+                            if (user == null) {
+                                out.println("User not found.");
+                                return;
+                            }
+
+                            String name = user.getName();
+                            String profilePicture = user.getPhotoUrl();
+                            String email = user.getEmail();
+                            String phone = user.getPhone();
+                            String photo = user.getPhotoUrl();
+                            String address = user.getAddress();
+                            String role = user.getRole().equals("1") ? "Administrator" : "Member";
+                            String homePage = user.getRole().equals("1") ? "ReadGameHomeAdmin" : "ReadGameHomeMember";
+                        %>
                         <ul class="main-menu primary-menu">
+                            <% if ("Administrator".equals(role)) {%>
+                            <!-- Menu for Administrator -->
+                            <li><a href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                            <li><a href="ReadGameListAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
+                            <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                            <li><a href="ReadGameHomeAdmin?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
+                                <% } else {%>
+                            <!-- Menu for Member -->
                             <li><a href="ReadGameHomeMember?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
                             <li><a href="ReadGameListMember?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
                             <li><a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
                             <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+                                <% } %>
                         </ul>
+
                     </nav>
                 </div>
             </div>
         </header>
         <!-- Header section end -->
 
-
-        <%
-            String id = request.getParameter("userid");
-            UserDAO mgcn = new UserDAO();
-            UserModel user = mgcn.getUserById(id);
-            if (user == null) {
-                out.println("User not found.");
-                return; 
-            }
-            
-            String name = user.getName();
-            String profilePicture = user.getPhotoUrl(); 
-            String email = user.getEmail();
-            String phone = user.getPhone();
-            String photo = user.getPhotoUrl();
-            String address = user.getAddress();
-            String role = user.getRole().equals("1") ? "Administrator" : "Member";
-            String homePage = user.getRole().equals("1") ? "ReadGameHomeAdmin" : "ReadGameHomeMember";
-        %>
         <section class ="page-top-section">
             <div class="container">
                 <div class="row flex-lg-nowrap">
@@ -161,8 +171,8 @@
                                                 <div class="col-12 col-sm-auto mb-3">
                                                     <div class="mx-auto" style="width: 140px;">
                                                         <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
-                                                            <% if (photo!= null && !photo.isEmpty()) {%>
-                                                             <img src="data:image/jpeg;base64,<%= photo %>" style="width: 140px; height: 140px;" alt="Profile Picture" />
+                                                            <% if (photo != null && !photo.isEmpty()) {%>
+                                                            <img src="data:image/jpeg;base64,<%= photo%>" style="width: 140px; height: 140px;" alt="Profile Picture" />
                                                             <% } else { %>
                                                             <span style='color: rgb(166, 168, 170); font: bold 8pt Arial;'>No Photo</span>
                                                             <% }%>
@@ -240,84 +250,84 @@
                                 </div>
                             </div>
 
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Popup for Editing Information -->
-            <div id="editPopup" class="popup">
-                <div class="popup-content">
-                    <span class="close-btn" onclick="closeEditPopup()">&times;</span>
-                    <h4>Edit Information</h4>
-                    <form id="editForm" action="EditUserServlet" method="post">
-                        <input type="hidden" name="id" value="<%= id%>">
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" class="form-control" name="name" value="<%= name%>" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" class="form-control" name="email" value="<%= email%>" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Phone</label>
-                            <input type="text" class="form-control" name="phone" value="<%= phone%>" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Address</label>
-                            <input type="text" class="form-control" name="address" value="<%= address%>" required>
-                        </div>
-                        <button type="submit" class="btn btn-secondary">Save Changes</button>
-                    </form>
-                </div>
+        <!-- Popup for Editing Information -->
+        <div id="editPopup" class="popup">
+            <div class="popup-content">
+                <span class="close-btn" onclick="closeEditPopup()">&times;</span>
+                <h4>Edit Information</h4>
+                <form id="editForm" action="EditUser" method="post">
+                    <input type="hidden" name="id" value="<%= id%>">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" name="name" value="<%= name%>" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" name="email" value="<%= email%>" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="text" class="form-control" name="phone" value="<%= phone%>" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" class="form-control" name="address" value="<%= address%>" required>
+                    </div>
+                    <button type="submit" class="btn btn-secondary">Save Changes</button>
+                </form>
             </div>
-        </section>
-        <script>
+        </div>
+    </section>
+    <script>
 
-            document.addEventListener("DOMContentLoaded", function () {
-                const bodyElement = document.querySelector('body');
-                const bgImage = bodyElement.getAttribute('data-sbg');
-                if (bgImage) {
-                    bodyElement.style.backgroundImage = `url(${bgImage})`;
-                    bodyElement.style.backgroundSize = 'cover';
-                    bodyElement.style.backgroundPosition = 'center';
-                    bodyElement.style.backgroundRepeat = 'no-repeat';
-                    bodyElement.style.backgroundAttachment = 'fixed';
-                }
-            });
-
-            function openEditPopup() {
-                document.getElementById("editPopup").style.display = "flex";
+        document.addEventListener("DOMContentLoaded", function () {
+            const bodyElement = document.querySelector('body');
+            const bgImage = bodyElement.getAttribute('data-sbg');
+            if (bgImage) {
+                bodyElement.style.backgroundImage = `url(${bgImage})`;
+                bodyElement.style.backgroundSize = 'cover';
+                bodyElement.style.backgroundPosition = 'center';
+                bodyElement.style.backgroundRepeat = 'no-repeat';
+                bodyElement.style.backgroundAttachment = 'fixed';
             }
+        });
 
-            function closeEditPopup() {
-                document.getElementById("editPopup").style.display = "none";
+        function openEditPopup() {
+            document.getElementById("editPopup").style.display = "flex";
+        }
+
+        function closeEditPopup() {
+            document.getElementById("editPopup").style.display = "none";
+        }
+
+        // Close popup when clicking outside of the popup content
+        window.onclick = function (event) {
+            var popup = document.getElementById("editPopup");
+            if (event.target === popup) {
+                closeEditPopup();
             }
-
-            // Close popup when clicking outside of the popup content
-            window.onclick = function (event) {
-                var popup = document.getElementById("editPopup");
-                if (event.target === popup) {
-                    closeEditPopup();
-                }
-            };
+        };
 
 
-            document.getElementById('photoInput').addEventListener('change', function () {
-                document.getElementById('uploadForm').submit();
-            });
+        document.getElementById('photoInput').addEventListener('change', function () {
+            document.getElementById('uploadForm').submit();
+        });
 
-        </script>
-        <!--====== Javascripts & Jquery ======-->
-        <script src="js/jquery-3.2.1.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery.slicknav.min.js"></script>
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/jquery.sticky-sidebar.min.js"></script>
-        <script src="js/jquery.magnific-popup.min.js"></script>
-        <script src="js/main.js"></script>
+    </script>
+    <!--====== Javascripts & Jquery ======-->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.slicknav.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.sticky-sidebar.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/main.js"></script>
 
-    </body>
+</body>
 </html>

@@ -92,10 +92,10 @@
                                     request.setAttribute("user", user);
                                 %>
                                 <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : "" %>" 
-                                        alt="Profile Picture" 
-                                        style="width: 50px; height: 50px; border-radius: 50%;" 
-                                        onerror="this.onerror=null;this.src='img/t-rex.png';" />
+                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" 
+                                         alt="Profile Picture" 
+                                         style="width: 50px; height: 50px; border-radius: 50%;" 
+                                         onerror="this.onerror=null;this.src='img/t-rex.png';" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
@@ -141,10 +141,10 @@
 
             List<CommentTemp> comments = new ArrayList<>();
 
-            // Get the post ID from the URL query parameter
+            // Get the post ID and user ID from the URL query parameters
             String topicId = request.getParameter("topicId");
-            String userId = request.getParameter("userId");
-            System.out.println(userId + "1");
+            String currentUserId = request.getParameter("userId");
+            System.out.println(currentUserId + "1");
 
             // Connect to MongoDB
             MongoClient mongoClient = MongoDBConnectionManager.getLocalMongoClient();
@@ -170,39 +170,39 @@
 
                 MongoCollection<Document> commentsCollection = mongoClient.getDatabase("GameHub").getCollection("comment");
 
-                // Find the comment by its ObjectId
+                // Find the comments by their TopicId
                 List<Document> commentDocuments = commentsCollection
                         .find(Filters.eq("TopicId", topicId))
                         .into(new ArrayList<>());
 
                 for (Document doc : commentDocuments) {
                     String userIdComment = doc.getString("UserId");
-                    String photoUrl;
-                    String userName;
+                    String commentPhotoUrl;
+                    String commentUserName;
 
                     if (userIdComment != null && ObjectId.isValid(userIdComment)) {
-                        Document user = usersCollection.find(Filters.eq("_id", new ObjectId(userIdComment))).first();
-                        photoUrl = (user != null) ? user.getString("PhotoUrl") : "./img/t-rex.png";
-                        userName = (user != null) ? user.getString("Name") : "Unknown";
+                        Document commentUser = usersCollection.find(Filters.eq("_id", new ObjectId(userIdComment))).first();
+                        commentPhotoUrl = (commentUser != null) ? commentUser.getString("PhotoUrl") : "./img/t-rex.png";
+                        commentUserName = (commentUser != null) ? commentUser.getString("Name") : "Unknown";
                     } else {
-                        // Xử lý trường hợp UserId không hợp lệ
-                        photoUrl = "./img/t-rex.png";
-                        userName = "Unknown";
+                        // Handle invalid UserId case
+                        commentPhotoUrl = "./img/t-rex.png";
+                        commentUserName = "Unknown";
                     }
 
                     CommentTemp comment = new CommentTemp();
                     comment.setCommentId(doc.getObjectId("_id").toString());
                     comment.setTopicId(doc.getString("TopicId").toString());
                     comment.setUserId(doc.getString("UserId").toString());
-                    comment.setUserName(userName);
-                    comment.setPhotoUrl(photoUrl);
+                    comment.setUserName(commentUserName);
+                    comment.setPhotoUrl(commentPhotoUrl);
                     comment.setContent(doc.getString("Content"));
 
-                    if (doc.getString("Status").equals("unedited")) {
+                    if ("unedited".equals(doc.getString("Status"))) {
                         comment.setStatus("");
                     } else {
                         comment.setStatus("(edited)");
-                    };
+                    }
                     comment.setDate(doc.getDate("Date"));
 
                     comments.add(comment);
@@ -210,6 +210,7 @@
                 Collections.reverse(comments);
             }
         %>
+
 
         <section class="blog-section spad">
             <div class="container" style="

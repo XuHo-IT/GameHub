@@ -22,7 +22,7 @@
 
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Sixtyfour+Convergence&display=swap" rel="stylesheet">
+
 
         <!-- Stylesheets -->
         <link rel="stylesheet" href="css/bootstrap.min.css"/>
@@ -242,10 +242,10 @@
 
                         <input type="hidden" name="postId" value="<%= postId%>">
                         <button class="edit-btn" type="submit" name="action" value="edit" style="background-color:#4CAF50;">Edit</button>
+                        <button type="submit" name="action" value="delete"
+                                class="btn-danger " style="margin-top: 5px;
+                                width: 100%;">Delete</button>
                     </form>
-
-
-
                     <!-- Action Images Carousel -->
                     <div id="actionImagesCarousel" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
@@ -279,12 +279,13 @@
         </section>
         <!-- Games end-->
 
+
+
+
         <!-- Newsletter section -->
-        <section class="newsletter-section" style="color: white;
-                 font-size: 35px;
-                 padding: 30px 0 30px 0;">
+        <section class="newsletter-section" style="">
             <div class="container">
-                <h3 class="bottom-title" style="font-family: 'Sixtyfour Convergence';">Thanks for using our website!</h3>
+                <h3 class="bottom-title">Thanks for using our website!</h3>
             </div>
         </section>
         <!-- Newsletter section end -->
@@ -329,9 +330,6 @@
             }
         </script>
         <style>
-            .games-single-page, .review-section, .blog-page, .contact-page {
-                padding-bottom: 0;
-            }
             .gs-auhtor-genre {
                 width: 100%;
                 align-content: stretch;

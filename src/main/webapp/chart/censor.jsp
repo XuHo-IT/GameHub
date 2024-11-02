@@ -367,6 +367,7 @@
                 align-items: center;
                 cursor: pointer;
                 border-radius: 50%;
+                font-weight: bold;
             }
             button.btn-close:hover{
                 background: red;

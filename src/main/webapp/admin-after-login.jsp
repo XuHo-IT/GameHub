@@ -100,7 +100,7 @@
                                     request.setAttribute("user", user);
                                 %>
                                 <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
+                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" onerror="this.onerror=null;this.src='img/t-rex.png';"  />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
@@ -190,10 +190,9 @@
                                          flex-wrap: wrap;
                                          flex-direction: column;">
                                         <!-- Display the release date and genre -->
-                                        <div class="top-meta">${post.dateRelease != null ?
-                                                                post.dateRelease : 'Unknown Date'} /
-                                            <a href="#">${post.genre != null ? post.genre : 'UnknownGenre'}</a>
-                                        </div>
+                                        <div class="top-meta">${post.dateRelease != null ? post.dateRelease : 'Unknown Date'} /  <a href="#">${post.genre != null ? post.genre : 'Unknown
+                                                                Genre'}</a></div>
+
                                         <h3>${post.title != null ? post.title : 'Untitled'}</h3>
                                         <!-- Display the description -->
                                         <c:choose>
@@ -292,6 +291,20 @@
                                 <form
                                     action="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>" method="get">
                                     <ul>
+                                        <a style="display: inline-block;
+                                           position: relative;
+                                           font-size: 16px;
+                                           color: #68647d;
+                                           font-weight: 500;
+                                           margin-bottom: 15px;
+                                           padding-right: 19px;
+                                           -webkit-transition: all 0.2s;
+                                           -o-transition: all 0.2s;
+                                           transition: all 0.2s;
+                                           background-image: url(../img/icons/double-arrow.png);
+                                           background-repeat: no-repeat;
+                                           background-position: right -120% center;
+                                           background-size: 11px;" href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">All Genre</a>
                                         <c:forEach var="genre" items="${genres}">
                                             <li>
                                                 <a href="ReadGameHomeAdmin?genre=${genre.genre}&adminId=<%= request.getSession().getAttribute("adminId")%>">
@@ -446,7 +459,6 @@
         <div class="form-popup create-post-popup">
             <span class="close-btn material-symbols-rounded">close</span>
             <!-- Create Post Popup -->
-            <!-- Create Post Popup -->
             <div class="blur-bg-overlay"></div>
             <div class="form-popup create-post-popup">
                 <span class="close-btn material-symbols-rounded" style="top:50px">close</span>
@@ -540,6 +552,7 @@
             </div>
         </div>
 
+
         <!--====== Javascripts & Jquery ======-->
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
@@ -548,59 +561,62 @@
         <script src="js/jquery.sticky-sidebar.min.js"></script>
         <script src="js/jquery.magnific-popup.min.js"></script>
         <script src="js/main.js"></script>
+
         <script>
             const formPopup = document.querySelector(".form-popup");
-            const showPopupBtn = document.querySelector(".create-btn"); // Button to open create post form
-            const hidePopupBtn = formPopup.querySelectorAll(".close-btn"); // Close buttons for both forms
-            const photoOrPost = document.querySelectorAll(".bottom-link a"); // Links to toggle forms
-<!--====== Javascr                ipts & Jquery ======-->
-                    <script src="js/jquery-3.2.1.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery.slicknav.min.js"></script>
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/jquery.sticky-sidebar.min.js"></script>
-        <script src="js/jquery.magnific-popup.min.js"></script>
-        <script src="js/main.js"></script>
-        <script>
-const formPopup = document.querySelector(".form-popup");
-const showPopupBtn = document.querySelector(".create-btn"); // Button to open create post form
-const hidePopupBtn = formPopup.querySelectorAll(".close-btn"); // Close buttons for both forms                        
-        const photoOrPost = document.querySelectorAll(".bottom-link a"); // Links to toggle forms
-        // Show create post popup         showPopupBtn?.addEventListener("click", () => {
-                    document.body.classList.add("show-popup");
-        });
-        
-// Hide both popups when close button is clicked
-        hidePopupBtn.forEach(btn => {
-                    btn.addEventListener("click", () => {document.body.classList.remove("show-popup");
-                    });
-});
-        // Hide both popups when close button is clicked
-        hidePopupBtn.forEach(btn => {
-                    btn.addEventListener("click", () => {
+            const showPopupBtn = document.querySelector(".create-btn");
+            const closeBtn = document.querySelectorAll(".close-btn");
+            const uploadPhotoLink = document.getElementById("upload-photo-link");
+            const createPostLink = document.getElementById("create-post-link");
+
+            // Show popup
+            showPopupBtn?.addEventListener("click", () => {
+                document.body.classList.add("show-popup");
+            });
+
+            // Close popup
+            closeBtn.forEach(btn => {
+                btn.addEventListener("click", () => {
                     document.body.classList.remove("show-popup");
-});
-        });
-        // Switch between create post and upload photo forms
-        photoOrPost.forEach(link => {
-                    link.addEventListener("click", (e) => {
-                    e.preventDefault(); if (link.id === 'upload-photo-link') {
-                    formPopup.classList.add("show-upload-photo");
-                    } else {
                     formPopup.classList.remove("show-upload-photo");
-}
-                    });
-        });
-        // Switch between create post and upload photo forms
-        photoOrPost.forEach(link => {
-                    link.addEventListener("click", (e) => {e.preventDefault();
-                    if (link.id === 'upload-photo-link') {
-                    formPopup.classList.add("show-upload-photo");
-                    } else {
-                    formPopup.classList.remove("show-upload-photo");
+                });
+            });
+
+            // Switch to "Upload Genre" form
+            uploadPhotoLink.addEventListener("click", (e) => {
+                e.preventDefault();
+                formPopup.classList.add("show-upload-photo");
+            });
+
+            // Switch back to "Create Post" form
+            createPostLink.addEventListener("click", (e) => {
+                e.preventDefault();
+                formPopup.classList.remove("show-upload-photo");
+            });
+        </script>
+        <script>
+            $(document).ready(function () {
+                $(".carousel").owlCarousel({
+                    items: 5, // Number of items to show
+                    loop: true, // Infinite looping
+                    margin: 10, // Margin between items
+                    nav: true, // Show next/prev navigation buttons
+                    dots: true, // Show pagination dots
+                    autoplay: true, // Auto sliding
+                    autoplayTimeout: 3000, // Slide every 3 seconds
+                    responsive: {// Responsive settings
+                        0: {
+                            items: 1
+                        },
+                        600: {
+                            items: 3
+                        },
+                        1000: {
+                            items: 5
+                        }
                     }
-                    });
-        });
+                });
+            });
         </script>
         <style>
             img.img_newset {
@@ -679,6 +695,6 @@ const hidePopupBtn = formPopup.querySelectorAll(".close-btn"); // Close buttons 
                 height: 100%;
                 object-fit: cover;
             }
-    </style>
+        </style>
     </body>
 </html>

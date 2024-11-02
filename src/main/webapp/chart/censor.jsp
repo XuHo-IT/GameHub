@@ -94,7 +94,8 @@
                                         <th>Date Release</th>
                                         <th>Author</th>
                                         <th>Genre</th>
-                                        <th>Views</th>
+                                        <th>Game Play</th>
+                                        <th>Description</th>
                                         <th>Game Image</th>
                                         <th>Action Images</th>
                                         <th>Actions</th>
@@ -107,13 +108,16 @@
                                             <td style="padding: 12px 15px;text-align: start;">${post.dateRelease != null ? post.dateRelease : 'No Date'}</td>
                                             <td style="padding: 12px 15px;text-align: start;">${post.author != null ? post.author : 'Unknown Author'}</td>
                                             <td style="padding: 12px 15px;text-align: start;">${post.genre != null ? post.genre : 'Unknown Genre'}</td>
-                                            <td style="padding: 12px 15px;text-align: start;">${post.genre != null ? post.genre : 'Unknown Genre'}</td> 
+                                            <td style="padding: 12px 15px;text-align: start;">${post.gamePlay != null ? post.gamePlay : 'Unknown Genre'}</td> 
+                                            <td style="padding: 12px 15px;text-align: start;">${post.description!= null ? post.description : 'Unknown Genre'}</td> 
                                             <td style="padding: 12px 15px;text-align: start;cursor: pointer;text-decoration: underline;" 
                                                 onclick="openImageModal('data:image/png;base64,${post.fileData}')" class="view-link">View Image</td>
                                             <td style="padding: 12px 15px;text-align: start;cursor: pointer;text-decoration: underline;" 
                                                 onclick="openActionImagesModal('data:image/png;base64,${post.actionImages}')" class="view-link">View Action Images</td>
                                             <td style="padding: 12px 15px;text-align: start;">
                                                 <!-- Confirm and Deny buttons -->
+                                                <input type="hidden" name="actionType" id="actionType" value="">
+                                                <input type="hidden" name="adminId" value="<%= request.getSession().getAttribute("adminId")%>">
                                                 <input type="hidden" name="postId" value="${post.postID}">
                                                 <button type="submit" class="btn confirm-btn" onclick="setActionType('confirm')">Confirm</button>
                                                 <button type="button" class="btn deny-btn" onclick="denyPost(this)">Deny</button>
@@ -125,7 +129,6 @@
                             </table>
                         </form>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -238,8 +241,6 @@
                                 reDenyBtn.style.display = 'inline-block';
                                 row.style.color = 'gray';
 
-                                setActionType('deny');
-                                document.querySelector("form").submit();
                             }
 
                             function reDenyPost(reDenyButton) {
@@ -252,8 +253,6 @@
                                 reDenyButton.style.display = 'none';
                                 row.style.color = '#6f2b95';
 
-                                setActionType('re-deny');
-                                document.querySelector("form").submit();
                             }
         </script>
         <style>
@@ -292,14 +291,14 @@
             }
 
             #gameImagesContainer{
-                max-height: 700px; 
-                overflow-y: auto; 
+                max-height: 700px;
+                overflow-y: auto;
                 margin-top: 5px;
             }
-            
+
             #actionImagesContainer {
-                max-height: 700px; 
-                overflow-y: auto; 
+                max-height: 700px;
+                overflow-y: auto;
                 margin-top: 5px;
             }
 

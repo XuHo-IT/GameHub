@@ -5,7 +5,7 @@
     <title>Password Changed Successfully</title>
     <style>
          <%
-                String id = request.getParameter("userId");
+                String id = request.getParameter("userid");
             %>
         .message {
             font-size: 20px;

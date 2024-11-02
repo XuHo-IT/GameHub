@@ -1,3 +1,5 @@
+<%@page import="DAO.GamePostDAO"%>
+<%@page import="Model.Genre"%>
 <%@page import="Model.UserModel"%>
 <%@page import="DAO.UserDAO"%>
 <%@page import="utils.MongoDBConnectionManager"%>
@@ -9,6 +11,7 @@
 <%@page import="com.mongodb.client.MongoClients"%>
 <%@page import="com.mongodb.client.MongoCollection"%>
 <%@page import="com.mongodb.client.MongoClient"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="zxx">
     <head>
@@ -133,12 +136,12 @@
                                     UserDAO userDAO = new UserDAO();
                                     UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
                                     request.setAttribute("user", user);
+                                    GamePostDAO postDao = new GamePostDAO();
+                                    List<Genre> genres = postDao.getGenres();
+                                    request.setAttribute("genres", genres);
                                 %>
                                 <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" 
-                                         alt="Profile Picture" 
-                                         style="width: 50px; height: 50px; border-radius: 50%;" 
-                                         onerror="this.onerror=null;this.src='img/t-rex.png';" />
+                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" onerror="this.onerror=null;this.src='img/t-rex.png';"  />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
@@ -206,7 +209,14 @@
                         </div>
                         <div class="gs-gameplay">
                             <h3 style="color: white">Genre</h3>
-                            <textarea name="gamePlay" style="font-size: 20px; height: 50px" class="form-control"><%= genre != null ? genre : "No genre available"%></textarea>
+                            <select name="genre" style="font-size: 20px; height: 50px" class="form-control">
+                                <option value="">Select Genre</option>
+                                <c:forEach var="genre" items="${genres}">
+                                    <option value="${genre.genre}" ${selectedGenreId != null && selectedGenreId == genre.genre ? 'selected' : ''}>
+                                        ${genre.genre != null ? genre.genre : "No genre available"}
+                                    </option>
+                                </c:forEach>
+                            </select>
                         </div>
                         <div class="gs-auhtor-genre">
                             <div class="left-author">

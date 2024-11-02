@@ -94,7 +94,7 @@
                         <%
                             String id = request.getParameter("userid");
                             UserDAO mgcn = new UserDAO();
-                            UserModel user = mgcn.getUserById(id);
+                            UserModel user = mgcn.getUserById((String) request.getSession().getAttribute("adminId"));
                             if (user == null) {
                                 out.println("User not found.");
                                 return;
@@ -121,11 +121,12 @@
                         <div class="user-panel d-flex">
 
                             <div class="account-container">
+                                <%
+                                    UserDAO userDAO = new UserDAO();
+                                    request.setAttribute("user", user);
+                                %>
                                 <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" 
-                                         alt="Profile Picture" 
-                                         style="width: 50px; height: 50px; border-radius: 50%;" 
-                                         onerror="this.onerror=null;this.src='img/t-rex.png';" />
+                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>

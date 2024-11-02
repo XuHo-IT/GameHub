@@ -1270,13 +1270,13 @@ video {
 
 .footer-left-pic {
     position: absolute;
-    left: -13px;
+    left: -70px;
     bottom: 19px;
 }
 
 .footer-right-pic {
     position: absolute;
-    right: 50px;
+    right: -30px;
     bottom: 19px;
 }
 

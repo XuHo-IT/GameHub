@@ -29,7 +29,7 @@ public class SignUp extends HttpServlet {
         String dateOfBirth = request.getParameter("Dob");
         String address = request.getParameter("Address");
         String password = request.getParameter("Password");
-        String photoUrl = request.getParameter("PhotoUrl");
+        String photoUrl = "img/t-rex.png";
 
         // Parse the Date of Birth
         Date dob;

@@ -1,6 +1,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@ page import="org.bson.Document" %>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,8 +17,10 @@
     <link href="img/favicon.ico" rel="shortcut icon"/>
 
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
@@ -29,8 +33,8 @@
 
     <!-- Main Stylesheets -->
     <link rel="stylesheet" href="css/style.css"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
-    <link rel="stylesheet" href="Login/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0"/>
+    <link rel="stylesheet" href="Login/style.css"/>
     <script src="Login/script.js" defer></script>
 
     <!--[if lt IE 9]>
@@ -92,18 +96,29 @@
     <!-- Hero section -->
     <section class="hero-section overflow-hidden">
         <div class="hero-slider owl-carousel">
-            <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider1.jpg">
+            <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center"
+                 data-setbg="img/slider1.jpg">
                 <div class="container">
                     <h2>game on!</h2>
-                    <p><strong>The platform serves as a hub for sharing the latest game news, offering users a space to stay updated on upcoming releases and industry developments.<br> It allows users to view, comment, and engage in discussions about the latest news, fostering an active gaming community. With an intuitive interface, the platform enables easy access to user-generated posts and admin-curated updates.</strong></p>
-                    <a href="Read-more.jsp" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
+                    <p style="margin-bottom: 10px;"><strong style="font-family: 'Silkscreen', cursive;">The platform serves as a hub for sharing the latest game news, offering
+                            users a space to stay updated on upcoming releases and industry
+                            developments.<br> It allows users to view, comment, and engage in
+                            discussions about the latest news, fostering an active gaming community.
+                            With an intuitive interface, the platform enables easy access to
+                            user-generated posts and admin-curated updates.</strong></p>
+                    <a href="Read-more.jsp" class="site-btn">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
                 </div>
             </div>
-            <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider5.jpg">
+            <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center"
+                 data-setbg="img/slider5.jpg">
                 <div class="container">
                     <h2>game on!</h2>
-                    <p><strong>The platform provides a centralized space for discovering and sharing game news, keeping users informed about upcoming titles and events.<br>Users can contribute by posting news, commenting on updates, and participating in forum discussions. The site promotes community interaction around gaming trends and developments.</strong></p>
-                    <a href="Read-more.jsp" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
+                    <p style="margin-bottom: 10px;"><strong style="font-family: 'Silkscreen', cursive;">The platform provides a centralized space for discovering and sharing
+                            game news, keeping users informed about upcoming titles and events.<br>Users
+                            can contribute by posting news, commenting on updates, and participating in
+                            forum discussions. The site promotes community interaction around gaming
+                            trends and developments.</strong></p>
+                    <a href="Read-more.jsp" class="site-btn">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
                 </div>
             </div>
         </div>
@@ -126,7 +141,9 @@
                     <!-- Blog item -->
                     <div class="blog-container">
                         <c:forEach var="post" items="${posts}">
-                            <div class="blog-item">
+                            <div class="blog-item" style="
+                                 display: flex;
+                                 align-items: stretch;">
                                 <!-- Display the post title -->
 
                                 <div class="blog-thumb">
@@ -134,13 +151,27 @@
                                     <img src="data:image/png;base64,${post.fileData}" alt="Game Image" />
                                 </div>
 
-                                <div class="blog-text text-box text-white">
+                                <div class="blog-text text-box text-white" style="
+                                     display: flex;
+                                     justify-content: space-around;
+                                     flex-wrap: wrap;
+                                     flex-direction: column;">
                                     <!-- Display the release date and genre -->
                                     <div class="top-meta">${post.dateRelease != null ? post.dateRelease : 'Unknown Date'} / <a href="#">${post.genre != null ? post.genre : 'Unknown Genre'}</a></div>
                                     <h3>${post.title != null ? post.title : 'Untitled'}</h3>
-
                                     <!-- Display the description -->
-                                    <p>${post.description != null ? post.description : 'No description available'}</p>
+                                    <c:choose>
+                                        <c:when test="${fn:length(post.description) > 300}">
+                                            <p>
+                                                <c:out value="${fn:substring(post.description, 0, 280)}"/>...
+                                            </p>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <p>
+                                                <c:out value="${post.description}"/>
+                                            </p>
+                                        </c:otherwise>
+                                    </c:choose>
 
                                     <!-- Read more link -->
                                     <a href="game-single.jsp?id=${post.postID}" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
@@ -279,9 +310,17 @@
             </c:if>
         </c:forEach>
     </section>
-
     <!-- Featured section end-->
 
+    <!-- Newsletter section -->
+    <section class="newsletter-section" style="color: white;
+             font-size: 35px;
+             padding: 30px 0 30px 0;">
+        <div class="container">
+            <h3 class="bottom-title" style="font-family: 'Sixtyfour Convergence';">Thanks for using our website!</h3>
+        </div>
+    </section>
+    <!-- Newsletter section end -->
 
     <!-- Footer section -->
     <footer class="footer-section">
@@ -512,10 +551,10 @@
                 if (name.length < 3) {
                     nameError.textContent = 'Name must be at least 3 characters long.';
                     document.getElementById("formWarning").style.display = "block";
-                            return false;
+                    return false;
                 } else {
                     nameError.textContent = '';
-                           return true;
+                    return true;
                 }
             }
 
@@ -526,10 +565,10 @@
                 if (!emailPattern.test(email)) {
                     emailError.textContent = 'Please enter a valid email address.';
                     document.getElementById("formWarning").style.display = "block";
-                            return false;
+                    return false;
                 } else {
                     emailError.textContent = '';
-                           return true;
+                    return true;
                 }
             }
 
@@ -539,10 +578,10 @@
                 if (phone.length !== 10 || !/^\d+$/.test(phone)) {
                     phoneError.textContent = 'Phone number must be 10 digits long.';
                     document.getElementById("formWarning").style.display = "block";
-                            return false;
+                    return false;
                 } else {
                     phoneError.textContent = '';
-                             return true;
+                    return true;
                 }
             }
 
@@ -555,10 +594,10 @@
                 if (age < 18) {
                     dobError.textContent = 'You must be at least 18 years old.';
                     document.getElementById("formWarning").style.display = "block";
-                            return false;
+                    return false;
                 } else {
                     dobError.textContent = '';
-                            return true;
+                    return true;
                 }
             }
 
@@ -568,10 +607,10 @@
                 if (address.length < 5) {
                     addressError.textContent = 'Address must be at least 5 characters long.';
                     document.getElementById("formWarning").style.display = "block";
-                            return false;
+                    return false;
                 } else {
                     addressError.textContent = '';
-                            return true;
+                    return true;
                 }
             }
 
@@ -581,10 +620,10 @@
                 if (password.length < 6) {
                     passwordError.textContent = 'Password must be at least 6 characters long.';
                     document.getElementById("formWarning").style.display = "block";
-                            return false;
+                    return false;
                 } else {
                     passwordError.textContent = '';
-                          return true;
+                    return true;
                 }
             }
 
@@ -593,10 +632,10 @@
                 if (!policyCheckbox.checked) {
                     policyError.textContent = 'You must agree to the terms and conditions.';
                     document.getElementById("formWarning").style.display = "block";
-                            return false;
+                    return false;
                 } else {
                     policyError.textContent = '';
-                         return true;
+                    return true;
                 }
             }
             function ValidateAll() {
@@ -657,12 +696,6 @@
         }
         img.img_newset {
             height: 100% ;
-        }
-        h3.bottom-title {
-            color: white;
-            font-size: 35px;
-            font-family: 'Sixtyfour Convergence';
-            padding: 0 0px 30px 0;
         }
     </style>
 

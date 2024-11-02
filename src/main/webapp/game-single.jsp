@@ -21,7 +21,7 @@
 
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
-
+        <link href="https://fonts.googleapis.com/css2?family=Sixtyfour+Convergence&display=swap" rel="stylesheet">
 
         <!-- Stylesheets -->
         <link rel="stylesheet" href="css/bootstrap.min.css"/>
@@ -173,7 +173,7 @@
                     <h3 style="color: white">Game Play</h3>
                     <p style="font-size: 20px"><%= gamePlay != null ? gamePlay : "No gamePlay available"%></p>
                 </div>
-                <div class="gs-auhtor-genre" ">
+                <div class="gs-auhtor-genre" >
                     <div class="left-author">
                         <h3 style="color: white">Publisher</h3>
                         <p style="font-size: 20px"><%= author != null ? author : "No Author available"%></p>
@@ -216,6 +216,15 @@
         </section>
         <!-- Games end-->       
 
+        <!-- Newsletter section -->
+        <section class="newsletter-section" style="color: white;
+                 font-size: 35px;
+                 padding: 30px 0 30px 0;">
+            <div class="container">
+                <h3 class="bottom-title" style="font-family: 'Sixtyfour Convergence';">Thanks for using our website!</h3>
+            </div>
+        </section>
+        <!-- Newsletter section end -->
 
         <!-- Footer section -->
         <footer class="footer-section">
@@ -226,8 +235,9 @@
                 <div class="footer-right-pic">
                     <img class="img_bottom_2" src="./img//bottom_pic_2.png" alt="">
                 </div>
-                <a href="#" class="footer-logo">
-                    <img src="./img/logo.png" alt="">
+                <a href="ReadGameHome" class="footer-logo">
+                    <img src="./img/logo1.png" alt="">
+                    <img src="./img/logo2.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
                     <li><a href="ReadGameHome">Home</a></li>
@@ -553,6 +563,9 @@
             });
         </script>
         <style>
+            .games-single-page, .review-section, .blog-page, .contact-page {
+                padding-bottom: 0;
+            }
             .gs-auhtor-genre {
                 width: 100%;
                 display: flex;

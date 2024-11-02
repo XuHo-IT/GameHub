@@ -3,6 +3,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@ page import="org.bson.Document" %>
 <html lang="zxx">
     <head>
@@ -17,33 +19,22 @@
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
-            rel="stylesheet"
-            />
+        <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Sixtyfour+Convergence&display=swap" rel="stylesheet">
 
         <!-- Bootstrap CSS -->
-        <link
-            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-            rel="stylesheet"
-            />
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
         <!-- Icon Font Stylesheet -->
         <link
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
-            rel="stylesheet"
-            />
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet"/>
         <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
-            rel="stylesheet"
-            />
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet"/>
 
         <!-- Libraries Stylesheet -->
         <link href="lib/animate/animate.min.css" rel="stylesheet" />
         <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
         <link
-            href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css"
-            rel="stylesheet"
-            />
+            href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet"/>
         <link href="css/cssfpt2.css" rel="stylesheet" />
 
         <!-- Template Stylesheet -->
@@ -52,7 +43,7 @@
 
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
-
+        <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
 
         <!-- Stylesheets -->
         <link rel="stylesheet" href="css/bootstrap.min.css" />
@@ -66,8 +57,7 @@
 
         <!-- Main Stylesheets -->
         <link rel="stylesheet" href="css/style.css" />
-        <link rel="stylesheet"
-              href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
         <link rel="stylesheet" href="Login/style.css">
         <script src="Login/script.js" defer></script>
 
@@ -77,9 +67,7 @@
             <![endif]-->
 
     </head>
-    <%
-        String id = request.getParameter("id");%>
-
+    <%String id = request.getParameter("id");%>
 
     <body>
         <!-- Page Preloder -->
@@ -106,9 +94,9 @@
                     </div>
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
-                            <!-- Bi?u t??ng gi? h�ng -->
+                            <!-- Bi?u t??ng gi? hï¿½ng -->
 
-                            <!-- Bi?u t??ng t�i kho?n -->
+                            <!-- Bi?u t??ng tï¿½i kho?n -->
                             <div class="account-container">
                                 <%
                                     UserDAO userDAO = new UserDAO();
@@ -116,10 +104,10 @@
                                     request.setAttribute("user", user);
                                 %>
                                 <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl") %>" 
-                                        alt="Profile Picture" 
-                                        style="width: 50px; height: 50px; border-radius: 50%;" 
-                                        onerror="this.onerror=null;this.src='img/t-rex.png';" />
+                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" 
+                                         alt="Profile Picture" 
+                                         style="width: 50px; height: 50px; border-radius: 50%;" 
+                                         onerror="this.onerror=null;this.src='img/t-rex.png';" />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>                                    
@@ -150,20 +138,32 @@
         <!-- Hero section -->
         <section class="hero-section overflow-hidden">
             <div class="hero-slider owl-carousel">
-                <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider1.jpg">
+                <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center"
+                     data-setbg="img/slider1.jpg">
                     <div class="container">
                         <h2>game on!</h2>
-                        <p><strong>The platform serves as a hub for sharing the latest game news, offering users a space to stay updated on upcoming releases and industry developments.<br> It allows users to view, comment, and engage in discussions about the latest news, fostering an active gaming community. With an intuitive interface, the platform enables easy access to user-generated posts and admin-curated updates.</strong></p>
-                        <a href="Read-more-member.jsp" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
+                        <p style="margin-bottom: 10px;"><strong style="font-family: 'Silkscreen', cursive;">The platform serves as a hub for sharing the latest game news, offering
+                                users a space to stay updated on upcoming releases and industry
+                                developments.<br> It allows users to view, comment, and engage in
+                                discussions about the latest news, fostering an active gaming community.
+                                With an intuitive interface, the platform enables easy access to
+                                user-generated posts and admin-curated updates.</strong></p>
+                        <a href="Read-more-member.jsp" class="site-btn">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
                     </div>
                 </div>
-                <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="img/slider5.jpg">
+                <div class="hero-item set-bg d-flex align-items-center justify-content-center text-center"
+                     data-setbg="img/slider5.jpg">
                     <div class="container">
                         <h2>game on!</h2>
-                        <p><strong>The platform provides a centralized space for discovering and sharing game news, keeping users informed about upcoming titles and events.<br>Users can contribute by posting news, commenting on updates, and participating in forum discussions. The site promotes community interaction around gaming trends and developments.</strong></p>
-                        <a href="Read-more-member.jsp" class="site-btn">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
+                        <p style="margin-bottom: 10px;"><strong style="font-family: 'Silkscreen', cursive;">The platform provides a centralized space for discovering and sharing
+                                game news, keeping users informed about upcoming titles and events.<br>Users
+                                can contribute by posting news, commenting on updates, and participating in
+                                forum discussions. The site promotes community interaction around gaming
+                                trends and developments.</strong></p>
+                        <a href="Read-more-member.jsp" class="site-btn">Read More <img src="img/icons/double-arrow.png" alt="#" /></a>
                     </div>
                 </div>
+            </div>
         </section>
         <!-- Hero section end-->
 
@@ -233,17 +233,19 @@
         <section class="blog-section spad">
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-9 col-lg-8 col-md-7">
+                    <div class="col-xl-9 col-lg-8 col-md-7" style="display: flex; flex-wrap: wrap;">
                         <div class="user-panel">
                             <button class="create-btn">Add Game Post</button>
                         </div>
                         <!-- Blog item -->
                         <%
                             String adminId = request.getParameter("id");  // Get AdminId from session
-%>                        
+                        %>                        
                         <div class="blog-container">
                             <c:forEach var="post" items="${posts}">
-                                <div class="blog-item">
+                                <div class="blog-item" style="
+                                     display: flex;
+                                     align-items: stretch;">
                                     <!-- Display the post title -->
 
                                     <div class="blog-thumb">
@@ -251,13 +253,28 @@
                                         <img src="data:image/png;base64,${post.fileData}" alt="Game Image" />
                                     </div>
 
-                                    <div class="blog-text text-box text-white">
+                                    <div class="blog-text text-box text-white" style="
+                                         display: flex;
+                                         justify-content: space-around;
+                                         flex-wrap: wrap;
+                                         flex-direction: column;">
                                         <!-- Display the release date and genre -->
                                         <div class="top-meta">${post.dateRelease != null ? post.dateRelease : 'Unknown Date'} / <a href="#">${post.genre != null ? post.genre : 'Unknown Genre'}</a></div>
                                         <h3>${post.title != null ? post.title : 'Untitled'}</h3>
 
                                         <!-- Display the description -->
-                                        <p>${post.description != null ? post.description : 'No description available'}</p>
+                                        <c:choose>
+                                            <c:when test="${fn:length(post.description) > 300}">
+                                                <p>
+                                                    <c:out value="${fn:substring(post.description, 0, 280)}"/>...
+                                                </p>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <p>
+                                                    <c:out value="${post.description}"/>
+                                                </p>
+                                            </c:otherwise>
+                                        </c:choose>
 
                                         <!-- Read more link -->
                                         <a href="game-single-after-login-member.jsp?id=${post.postID}&adminId=<%= adminId%>" class="read-more">
@@ -267,10 +284,8 @@
                                 </div>
                             </c:forEach>
                         </div>
-                        <a href="ReadGameList" class=" more-game-btn"> More Game </a>
+                        <a href="ReadGameListMember?userId=<%= request.getSession().getAttribute("adminId")%>" class=" more-game-btn"> More Game </a>
                     </div>
-
-
 
                     <style>
                         .more-game-btn{
@@ -377,10 +392,22 @@
                         <h3>Newest game release is coming up!</h3>
 
                         <!-- Post title -->
-                        <p style="font-size: 40px">${post.title}</p>
+                        <h3>${post.title != null ? post.title : 'Untitled'}</h3>
 
                         <!-- Post content (short summary) -->
-                        <p>${post.description}</p>
+                        <!-- Display the description -->
+                        <c:choose>
+                            <c:when test="${fn:length(post.description) > 300}">
+                                <p>
+                                    <c:out value="${fn:substring(post.description, 0, 280)}"/>...
+                                </p>
+                            </c:when>
+                            <c:otherwise>
+                                <p>
+                                    <c:out value="${post.description}"/>
+                                </p>
+                            </c:otherwise>
+                        </c:choose>
 
                         <!-- Read more link -->
                         <a href="game-single.jsp?id=${post.postID}" class="read-more">Read More  
@@ -393,12 +420,15 @@
     </section>
     <!-- Featured section end-->
 
-
-
     <!-- Newsletter section -->
-
+    <section class="newsletter-section" style="color: white;
+             font-size: 35px;
+             padding: 30px 0 30px 0;">
+        <div class="container">
+            <h3 class="bottom-title" style="font-family: 'Sixtyfour Convergence';">Thanks for using our website!</h3>
+        </div>
+    </section>
     <!-- Newsletter section end -->
-
 
     <!-- Footer section -->
     <footer class="footer-section">

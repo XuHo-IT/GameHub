@@ -242,6 +242,9 @@
 
                         <input type="hidden" name="postId" value="<%= postId%>">
                         <button class="edit-btn" type="submit" name="action" value="edit" style="background-color:#4CAF50;">Edit</button>
+                        <button type="submit" name="action" value="delete"
+                                class="btn-danger " style="margin-top: 5px;
+                                width: 100%;">Delete</button>
                     </form>
 
 

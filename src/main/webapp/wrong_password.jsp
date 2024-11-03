@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Wrong Password</title>
+    <title>Login Error</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -34,7 +34,24 @@
     </style>
 </head>
 <body>
-    <h1>Your password is incorrect, using forgot password to recover your account</h1>
+    <h1>
+        <% 
+            String errorMessage = (String) request.getAttribute("errorMessage");
+            if ("Invalid email".equals(errorMessage)) {
+        %>
+            This email has not been registered, please sign up.
+        <% 
+            } else if ("Wrong password".equals(errorMessage)) {
+        %>
+            Your password is incorrect, use forgot password to recover your account.
+        <% 
+            } else {
+        %>
+            An error occurred. Please try again.
+        <% 
+            }
+        %>
+    </h1>
     <a class="btn" href="ReadGameHome">Return to Home</a>
 </body>
 </html>

@@ -40,6 +40,7 @@
         <!-- Main Stylesheets -->
         <link rel="stylesheet" href="css/style.css"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
+        <link href="https://fonts.googleapis.com/css2?family=Sixtyfour+Convergence&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="Login/style.css">
         <script src="Login/script.js" defer></script>
 
@@ -289,13 +290,12 @@
         </section>
         <!-- Games end-->
 
-
-
-
         <!-- Newsletter section -->
-        <section class="newsletter-section" style="">
+        <section class="newsletter-section" style="color: white;
+                 font-size: 35px;
+                 padding: 30px 0 30px 0;">
             <div class="container">
-                <h3 class="bottom-title">Thanks for using our website!</h3>
+                <h3 class="bottom-title" style="font-family: 'Sixtyfour Convergence';">Thanks for using our website!</h3>
             </div>
         </section>
         <!-- Newsletter section end -->
@@ -311,7 +311,8 @@
                     <img class="img_bottom_2" src="./img//bottom_pic_2.png" alt="">
                 </div>
                 <a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>" class="footer-logo">
-                    <img src="./img/logo.png" alt="">
+                    <img src="./img/logo1.png" alt="">
+                    <img src="./img/logo2.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
                     <li><a href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>

@@ -35,7 +35,7 @@
         <script src="Login/script.js" defer></script>
     </head>
     <body>
-        <section class="h-custom" style="background-color: #6f2b95;">
+        <section class="h-custom" style="background: url('img/bg-order.jpg');">
             <div class="container py-5 h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-12">

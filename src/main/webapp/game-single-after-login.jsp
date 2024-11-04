@@ -196,46 +196,9 @@
                     %>
                 </div>
 
-                <div style="display: flex;
-                     justify-content: space-between;
-                     align-items: center;">
-                    <h2 class="gs-title">
-                        <%= title != null ? title : "Untitled"%>
-                    </h2>
-                    <!-- Add to Wishlist button -->
-                    <% if (releaseDate != null && releaseDate.after(today)) {%>
-                    <div class="wishlist-btns">
-                        <form id="wishlistForm" action="shopping-cart.jsp?id=<%= postId%>&adminId=<%= adminId%>" method="POST">
-                            <input type="hidden" name="postId" value="<%= postId%>" />
-                            <input type="hidden" name="adminId" value="<%= adminId%>" />
-                            <input type="hidden" name="title" value="<%= title%>" />
-                            <input type="hidden" name="fileData" value="<%= fileData%>" />
-                            <input type="hidden" name="dateRelease" value="<%= dateRelease%>" />
-                            <input type="hidden" name="author" value="<%= author%>" />
-                            <input type="hidden" name="price" value="<%= price%>" />
-                            <input type="hidden" name="linkGame" value="<%= linkGame%>" />
-                            <button type="submit" style="float: inline-end; width: 140%; font-weight: bold;">Add to Wishlist</button>
-                            <script>
-                                function addToWishlist(button) {
-                                    button.style.backgroundColor = '#D9D9D9';
-                                    button.style.color = '#C20000';
-                                    button.style.fontWeight = 'bold';
-                                    button.innerHTML = 'Added to wishlist';
-                                }
-                            </script>
-                        </form>
-                    </div>
-                    <% }%>
-
-                    <% if (releaseDate != null && releaseDate.before(today)) {%>
-                    <div class="buy-btn">
-                        <button class="buy-button" type="submit" style="float: inline-end;"
-                                onclick="window.location.href = 'http://localhost:8080/Web_Trading_Game/cart-buy.jsp?id=<%= postId%>&adminId=<%= adminId%>'">
-                            Buy Game
-                        </button>
-                    </div>
-                    <% }%>
-                </div>
+                <h2 class="gs-title">
+                    <%= title != null ? title : "Untitled"%>
+                </h2>
                 <br>
                 <div class="gs-meta">
                     Release : <%= dateRelease != null ? dateRelease : "Unknown Date"%>

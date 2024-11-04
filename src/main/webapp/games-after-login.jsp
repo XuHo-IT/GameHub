@@ -66,12 +66,12 @@
                                 </div>
 
                                 <!-- Keyword input for the search bar -->
-                                <div class="col-6" style="padding-top: 15px;">
+                                <div class="col-6" style="padding-top: 15px; margin-bottom: 14px;">
                                     <input type="text" name="keyword" class="form-control" placeholder="Search by keyword..." aria-label="Search" style="height: 52px;">
                                 </div>
 
                                 <!-- Genre dropdown next to search input -->
-                                <div class="col-4" style="padding-top: 15px;">
+                                <div class="col-4" style="padding-top: 15px; margin-bottom: 14px;">
                                     <select id="genre" name="genre" class="form-select" style="height: 52px; border: 2px solid #ccc; font-style: italic; padding: 5px; border-radius: 5px; font-family: 'Arial', sans-serif;">
                                         <option value="">All Genres</option>
                                         <!-- Dynamically populate genres from MongoDB -->
@@ -150,21 +150,36 @@
         </section>
         <!-- Page top end-->
 
-
-
-
         <!-- Games section -->
         <section class="games-section">
             <div class="container">
-                <div class="row justify-content-center align-items-center">
+                <div class="row justify-content-center">
                     <div class="col-xl-9 col-lg-8 col-md-7">
                         <div class="row">
                             <c:forEach var="post" items="${posts}">
                                 <div class="col-lg-4 col-md-6">
-                                    <div class="game-item">
+                                    <div class="game-item" style="margin-bottom: 0px; height: 80%;">
                                         <img src="data:image/png;base64,${post.fileData}" class="same-size" alt="Game Image" />
                                         <h5>${post.title != null ? post.title : 'Untitled'}</h5>
                                         <a href="game-single-after-login.jsp?id=${post.postID}" class="read-more">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
+                                    </div>
+                                    <!-- Edit and Delete Buttons -->
+                                    <div class="action-buttons" style="
+                                         display: flex;
+                                         align-items: center;
+                                         justify-content: space-evenly;
+                                         gap: 10px;
+                                         padding-bottom: 15px;
+                                         padding-top: 10px;">
+                                        <a href="game-single-after-login-edit.jsp?id=${post.postID}&postId=${post.postID}"
+                                           class="btn btn-edit">Edit</a>
+
+                                        <form action="EditPostController" method="post">
+                                            <input type="hidden" name="postId"
+                                                   value="${post.postID}">
+                                            <button type="submit" name="action" value="delete"
+                                                    class="btn btn-danger">Delete</button>
+                                        </form>
                                     </div>
                                 </div>
                             </c:forEach>
@@ -230,7 +245,7 @@
                             <p>${post.description}</p>
 
                             <!-- Read more link -->
-                            <a href="game-single.jsp?id=${post.postID}" class="read-more">Read More  
+                            <a href="game-single-after-login.jsp?id=${post.postID}"  class="read-more">Read More  
                                 <img src="img/icons/double-arrow.png" alt="#"/>
                             </a>
                         </div>
@@ -281,6 +296,20 @@
         <!-- Footer section end -->
 
         <style>
+            .btn-edit, .btn-danger{
+                width: 120px;
+                height: 45px;
+                padding: 10px 10px;
+                font-weight: bold;
+            }
+            .btn-danger{
+                background-color: #dc3545;
+                margin: 0;
+            }
+            .btn-edit:hover, .btn-danger:hover{
+                color: black;
+                background-color: #4a4646;
+            }
             img.img_newest {
                 height: 100%;
             }

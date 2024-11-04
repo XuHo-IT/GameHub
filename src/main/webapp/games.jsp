@@ -65,12 +65,12 @@
                                 </div>
 
                                 <!-- Keyword input for the search bar -->
-                                <div class="col-6" style="padding-top: 15px;">
+                                <div class="col-6" style="padding-top: 15px; margin-bottom: 14px;">
                                     <input type="text" name="keyword" class="form-control" placeholder="Search by keyword..." aria-label="Search" style="height: 52px;">
                                 </div>
 
                                 <!-- Genre dropdown next to search input -->
-                                <div class="col-4" style="padding-top: 15px;">
+                                <div class="col-4" style="padding-top: 15px; margin-bottom: 14px;">
                                     <select id="genre" name="genre" class="form-select" style="height: 52px; border: 2px solid #ccc; font-style: italic; padding: 5px; border-radius: 5px; font-family: 'Arial', sans-serif;">
                                         <option value="">All Genres</option>
                                         <!-- Dynamically populate genres from MongoDB -->
@@ -135,12 +135,12 @@
         <!-- Games section -->
         <section class="games-section">
             <div class="container">
-                <div class="row justify-content-center align-items-center">
+                <div class="row justify-content-center">
                     <div class="col-xl-9 col-lg-8 col-md-7">
                         <div class="row">
                             <c:forEach var="post" items="${posts}">
                                 <div class="col-lg-4 col-md-6">
-                                    <div class="game-item">
+                                    <div class="game-item" style="margin-bottom: 15px; height: 80%;">
                                         <img src="data:image/png;base64,${post.fileData}" class="same-size" alt="Game Image" />
                                         <h5>${post.title != null ? post.title : 'Untitled'}</h5>
                                         <a href="game-single.jsp?id=${post.postID}" class="read-more">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
@@ -343,10 +343,12 @@
                             <div class="error-message" id="passwordError"></div>
                         </div>
                         <div class="policy-text">
-                            <input type="checkbox" id="policy" name="policy">
-                            <label for="policy">I agree to the
-                                <a href="#" class="option">Terms & Conditions</a>
-                            </label>
+                            <div>
+                                <input type="checkbox" id="policy" name="policy">
+                                <label for="policy">I agree to the
+                                    <a href="#" class="option">Terms & Conditions</a>
+                                </label>
+                            </div>
                             <div class="error-message" id="policyError"></div>
                         </div>
                         <button type="submit">Sign Up</button>
@@ -542,7 +544,7 @@
                 function validatePolicy() {
                     const policyError = document.getElementById('policyError');
                     if (!policyCheckbox.checked) {
-                        policyError.textContent = 'You must agree to the terms and conditions.';
+                        policyError.textContent = 'You must agree to the terms & conditions.';
                         document.getElementById("formWarning").style.display = "block";
                         return false;
                     } else {

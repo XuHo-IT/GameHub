@@ -64,9 +64,12 @@ public class LoginController extends HttpServlet {
                 request.setAttribute("errorMessage", "Error processing date.");
                 request.getRequestDispatcher("error-page.jsp").forward(request, response);
             }
-        } else {
+        } else if (superAdmin != null && !superAdmin.getPassWord().equals(password)) {
             // If authentication fails, set an error message
-            request.setAttribute("errorMessage", "Invalid email or password");
+            request.setAttribute("errorMessage", "Wrong password");
+            request.getRequestDispatcher("wrong_password.jsp").forward(request, response);
+        } else if(superAdmin == null){
+            request.setAttribute("errorMessage", "Invalid email");
             request.getRequestDispatcher("wrong_password.jsp").forward(request, response);
         }
     }

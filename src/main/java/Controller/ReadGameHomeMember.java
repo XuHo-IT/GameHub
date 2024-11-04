@@ -1,14 +1,12 @@
 package Controller;
 
 import DAO.GamePostDAO;
-import Model.GamePost;
 import Model.GamePostTemp;
 import Model.Genre;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -24,15 +22,24 @@ public class ReadGameHomeMember extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            // Fetch the genres and top 4 game posts for display
+            // Fetch genres and set as request attribute
             List<Genre> genres = gamePostDAO.getGenres();
-            List<GamePostTemp> postTop4 = gamePostDAO.getTopGamePosts(4);
-
-            // Set retrieved data as request attributes
             request.setAttribute("genres", genres);
+
+            // Retrieve selected genre from request parameters
+            String selectedGenreId = request.getParameter("genre");
+
+            // Fetch the top 4 game posts, filtered by genre if specified
+            List<GamePostTemp> postTop4;
+            if (selectedGenreId != null && !selectedGenreId.isEmpty()) {
+                List<GamePostTemp> genreFilteredPosts = gamePostDAO.getGamePostsByGenre(selectedGenreId);
+                postTop4 = genreFilteredPosts.subList(0, Math.min(4, genreFilteredPosts.size()));
+            } else {
+                postTop4 = gamePostDAO.getTopGamePosts(4);
+            }
             request.setAttribute("posts", postTop4);
 
-            // Forward the request to the member home JSP page
+            // Forward to the member's home page JSP
             request.getRequestDispatcher("after-login.jsp").forward(request, response);
             
         } catch (Exception e) {

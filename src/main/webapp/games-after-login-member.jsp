@@ -346,23 +346,6 @@
                 height: 200px; /* set the height to 200px */
                 object-fit: cover; /* make sure the image is scaled to cover the entire area */
             }
-            .user {
-                position: relative;
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                overflow: hidden;
-                cursor: pointer;
-            }
-            .user img {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-
         </style>
         <!--====== Javascripts & Jquery ======-->
         <script src="js/jquery-3.2.1.min.js"></script>

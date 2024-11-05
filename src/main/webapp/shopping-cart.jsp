@@ -35,7 +35,10 @@
         <script src="Login/script.js" defer></script>
     </head>
     <body>
-        <section class="h-custom" style="background: url('img/bg-order.jpg');">
+        <section class="h-custom" style="background: url('img/bg-order.jpg');
+                 background-size: 100%;
+                 background-repeat: no-repeat;
+                 background-position: top;;">
             <div class="container py-5 h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-12">
@@ -86,12 +89,12 @@
                                                     <p style="color:white;font-size:28px">Author: <%= author%></p> 
                                                 </div>  
                                             </div>
-                                                
-                                    <%
-                                        } else {
-                                            out.println("No game data found.");
-                                        }
-                                    %>
+
+                                            <%
+                                                } else {
+                                                    out.println("No game data found.");
+                                                }
+                                            %>
                                             <script>
                                                 function validateEmail() {
                                                     var email = document.getElementById('emailField').value;

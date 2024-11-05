@@ -355,22 +355,6 @@
                 font-family: 'Sixtyfour Convergence';
                 padding: 0 0px 30px 0;
             }
-            .user {
-                position: relative;
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                overflow: hidden;
-                cursor: pointer;
-            }
-            .user img {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
             img.game_single_img {
                 width: 1000px;
                 height: 700px;

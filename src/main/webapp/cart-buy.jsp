@@ -38,7 +38,10 @@
         <script src="Login/script.js" defer></script>
     </head>
     <body>
-        <section class="h-custom" style="background: url('img/bg-order.jpg');">
+        <section class="h-custom" style="background: url('img/bg-order.jpg');
+                 background-size: 100%;
+                 background-repeat: no-repeat;
+                 background-position: top;">
             <div class="container py-5 h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-14">
@@ -59,13 +62,13 @@
 
                                                     MongoCollection<Document> collection = mongoClient.getDatabase("GameHub").getCollection("postGame");
                                                     MongoCollection<Document> userCollection = mongoClient.getDatabase("GameHub").getCollection("superadmin");
-                                                    
+
                                                     String postId = request.getParameter("id");
                                                     String userId = request.getParameter("adminId");
-                                                    
+
                                                     Document user = userCollection.find(Filters.eq("_id", new ObjectId(userId))).first();
                                                     String photoUrl = user.getString("PhotoUrl");
-                                                    
+
                                                     if (postId == null || postId.isEmpty() || postId.length() != 24) {
                                                         out.println("<p style='color:red;'>Invalid post ID provided.</p>");
                                                         return;

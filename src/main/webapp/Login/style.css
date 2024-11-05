@@ -48,7 +48,8 @@ body {
     position: absolute;
     top: 12px;
     right: 12px;
-    color: #878484;
+    color: red;
+    font-weight: bold;
     cursor: pointer;
 }
 
@@ -122,6 +123,13 @@ body {
 .update-topic .form-details {
     padding: 0 20px;
     background: url("images/Update-topic.gif");
+    background-position: center;
+    background-size: cover;
+}
+
+.upload-photo .form-details {
+    padding: 0 20px;
+    background: url("images/forgot.jpg");
     background-position: center;
     background-size: cover;
 }

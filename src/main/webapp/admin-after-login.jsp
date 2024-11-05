@@ -461,8 +461,7 @@
             <!-- Create Post Popup -->
             <div class="blur-bg-overlay"></div>
             <div class="form-popup create-post-popup">
-                <span class="close-btn material-symbols-rounded" style="top:50px">close</span>
-
+                <span class="close-btn material-symbols-rounded">close</span>
                 <div class="form-box create-post">
                     <div class="form-details">
                         <h2>Create Post Game</h2>
@@ -537,7 +536,10 @@
                     </div>
                     <div class="form-content">
                         <h2 style="margin-bottom: 6px">Upload Genre</h2>
-                        <form action="AddGenre" method="post">
+                        <form action="AddGenre" method="post" style="
+                              display: flex;
+                              gap: 10px;
+                              flex-wrap: wrap;">
                             <div class="input-field">
                                 <label class="mr-2">Genre Of Game:</label>
                                 <input type="text" required name="genre1">
@@ -665,12 +667,6 @@
                 padding-top: 81px;
                 padding-right: 10px;
             }
-            .upload-photo .form-details {
-                padding: 0 20px;
-                background: url("img/mortal-combat.jpg");
-                background-position: center;
-                background-size: cover;
-            }
             a.btn.btn-square.mx-1 {
                 padding-right: 35px;
             }
@@ -678,22 +674,6 @@
                 box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
                 border: 10px solid #501755;
                 border-radius: 15px;
-            }
-            .user {
-                position: relative;
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                overflow: hidden;
-                cursor: pointer;
-            }
-            .user img {
-                position: absolue;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
             }
         </style>
     </body>

@@ -104,10 +104,7 @@
                                     request.setAttribute("user", user);
                                 %>
                                 <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" 
-                                         alt="Profile Picture" 
-                                         style="width: 50px; height: 50px; border-radius: 50%;" 
-                                         onerror="this.onerror=null;this.src='img/t-rex.png';" />
+                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" onerror="this.onerror=null;this.src='img/t-rex.png';"  />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>                                    
@@ -259,7 +256,8 @@
                                          flex-wrap: wrap;
                                          flex-direction: column;">
                                         <!-- Display the release date and genre -->
-                                        <div class="top-meta">${post.dateRelease != null ? post.dateRelease : 'Unknown Date'} / <a href="#">${post.genre != null ? post.genre : 'Unknown Genre'}</a></div>
+                                        <div class="top-meta">${post.dateRelease != null ? post.dateRelease : 'Unknown Date'} /  <a href="#">${post.genre != null ? post.genre : 'Unknown
+                                                                Genre'}</a></div>
                                         <h3>${post.title != null ? post.title : 'Untitled'}</h3>
 
                                         <!-- Display the description -->
@@ -318,23 +316,54 @@
                                 <img src="./img/gif_pi_2.gif" alt="" style="margin-top: -15px;">
                             </a>
                         </div>
+
                         <div class="widget-item">
-                            <div class="widget-item">
-                                <div class="categories-widget">
-                                    <h4 class="widget-title">Genre</h4>
-                                    <form action="ReadGameHomeMember" method="get">   
-                                        <ul>
-                                            <c:forEach var="genre" items="${genres}">
-                                                <li>
-                                                    <a href="ReadGameHomeMember?genre=${genre.genreId}">
-                                                        ${genre.genre != null ? genre.genre : 'No genre available'}
-                                                    </a>
-                                                </li>
-                                            </c:forEach>     
-                                        </ul>
-                                    </form>
-                                </div>
+                            <div class="categories-widget">
+                                <h4 class="widget-title">Genre</h4>                               
+                                <form
+                                    action="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>" method="get">
+                                    <ul>
+                                        <a style=" display: inline-block;
+                                           position: relative;
+                                           font-size: 16px;
+                                           color: #68647d;
+                                           font-weight: 500;
+                                           margin-bottom: 15px;
+                                           padding-right: 19px;
+                                           -webkit-transition: all 0.2s;
+                                           -o-transition: all 0.2s;
+                                           transition: all 0.2s;
+                                           background-image: url(../img/icons/double-arrow.png);
+                                           background-repeat: no-repeat;
+                                           background-position: right -120% center;
+                                           background-size: 11px;" href="ReadGameHomeMember?userId=<%= request.getSession().getAttribute("adminId")%>">All Genre</a>
+                                        <c:forEach var="genre" items="${genres}">
+                                            <li>
+                                                <a href="ReadGameHomeMember?genre=${genre.genre}&userId=<%= request.getSession().getAttribute("adminId")%>">
+                                                    ${genre.genre != null ? genre.genre : 'No genre
+                                                      available'}
+                                                </a>
+                                            </li>
+                                        </c:forEach>
+                                    </ul>
+                                </form>
                             </div>
+                        </div>
+                        <div class="site-pagination">
+                            <c:if test="${currentPage > 1}">
+                                <a href="?genre=${selectedGenre}&page=${currentPage - 1}"
+                                   class="prev">Previous</a>
+                            </c:if>
+
+                            <c:forEach var="i" begin="1" end="${totalPages}">
+                                <a href="?genre=${selectedGenre}&page=${i}"
+                                   class="${i == currentPage ? 'active' : ''}">${i}</a>
+                            </c:forEach>
+
+                            <c:if test="${currentPage < totalPages}">
+                                <a href="?genre=${selectedGenre}&page=${currentPage + 1}"
+                                   class="next">Next</a>
+                            </c:if>
                         </div>
                         <div class="widget-item">
                             <a href="#" class="add">
@@ -640,22 +669,6 @@
             box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
             border: 10px solid #501755;
             border-radius: 15px;
-        }
-        .user {
-            position: relative;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            overflow: hidden;
-            cursor: pointer;
-        }
-        .user img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
         }
     </style>
 </body>

@@ -341,10 +341,12 @@
                             <div class="error-message" id="passwordError"></div>
                         </div>
                         <div class="policy-text">
-                            <input type="checkbox" id="policy" name="policy">
-                            <label for="policy">I agree to the
-                                <a href="#" class="option">Terms & Conditions</a>
-                            </label>
+                            <div>
+                                <input type="checkbox" id="policy" name="policy">
+                                <label for="policy">I agree to the
+                                    <a href="#" class="option">Terms & Conditions</a>
+                                </label>
+                            </div>
                             <div class="error-message" id="policyError"></div>
                         </div>
                         <button type="submit">Sign Up</button>
@@ -546,7 +548,7 @@
                 function validatePolicy() {
                     const policyError = document.getElementById('policyError');
                     if (!policyCheckbox.checked) {
-                        policyError.textContent = 'You must agree to the terms and conditions.';
+                        policyError.textContent = 'You must agree to the terms & conditions.';
                         document.getElementById("formWarning").style.display = "block";
                     } else {
                         policyError.textContent = '';

@@ -63,12 +63,12 @@
                                 </div>
 
                                 <!-- Keyword input for the search bar -->
-                                <div class="col-6" style="padding-top: 15px;">
+                                <div class="col-6" style="padding-top: 15px; margin-bottom: 14px;">
                                     <input type="text" name="keyword" class="form-control" placeholder="Search by keyword..." aria-label="Search" style="height: 52px;">
                                 </div>
 
                                 <!-- Genre dropdown next to search input -->
-                                <div class="col-4" style="padding-top: 15px;">
+                                <div class="col-4" style="padding-top: 15px; margin-bottom: 14px;">
                                     <select id="genre" name="genre" class="form-select" style="height: 52px; border: 2px solid #ccc; font-style: italic; padding: 5px; border-radius: 5px; font-family: 'Arial', sans-serif;">
                                         <option value="">All Genres</option>
                                         <!-- Dynamically populate genres from MongoDB -->
@@ -103,16 +103,13 @@
                         <div class="user-panel d-flex">
 
                             <div class="account-container">                                 
-                                <%
+                               <%
                                     UserDAO userDAO = new UserDAO();
                                     UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
                                     request.setAttribute("user", user);
                                 %>
                                 <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" 
-                                         alt="Profile Picture" 
-                                         style="width: 50px; height: 50px; border-radius: 50%;"  
-                                         onerror="this.onerror=null;this.src='img/t-rex.png';" />
+                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" onerror="this.onerror=null;this.src='img/t-rex.png';"  />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
@@ -160,12 +157,12 @@
         <!-- Games section -->
         <section class="games-section">
             <div class="container">
-                <div class="row justify-content-center align-items-center">
+                <div class="row justify-content-center">
                     <div class="col-xl-9 col-lg-8 col-md-7">
                         <div class="row">
                             <c:forEach var="post" items="${posts}">
                                 <div class="col-lg-4 col-md-6">
-                                    <div class="game-item">
+                                    <div class="game-item" style="margin-bottom: 15px; height: 80%;">
                                         <img src="data:image/png;base64,${post.fileData}" class="same-size" alt="Game Image" />
                                         <h5>${post.title != null ? post.title : 'Untitled'}</h5>
                                         <a href="game-single-after-login-member.jsp?id=${post.postID}" class="read-more">Read More  <img src="img/icons/double-arrow.png" alt="#"/></a>
@@ -349,23 +346,6 @@
                 height: 200px; /* set the height to 200px */
                 object-fit: cover; /* make sure the image is scaled to cover the entire area */
             }
-            .user {
-                position: relative;
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                overflow: hidden;
-                cursor: pointer;
-            }
-            .user img {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-
         </style>
         <!--====== Javascripts & Jquery ======-->
         <script src="js/jquery-3.2.1.min.js"></script>

@@ -157,7 +157,8 @@
                                      flex-wrap: wrap;
                                      flex-direction: column;">
                                     <!-- Display the release date and genre -->
-                                    <div class="top-meta">${post.dateRelease != null ? post.dateRelease : 'Unknown Date'} / <a href="#">${post.genre != null ? post.genre : 'Unknown Genre'}</a></div>
+                                    <div class="top-meta">${post.dateRelease != null ? post.dateRelease : 'Unknown Date'} /  <a href="">${post.genre != null ? post.genre : 'Unknown
+                                                            Genre'}</a></a></div>
                                     <h3>${post.title != null ? post.title : 'Untitled'}</h3>
                                     <!-- Display the description -->
                                     <c:choose>
@@ -221,6 +222,20 @@
                             <h4 class="widget-title">Genre</h4>
                             <form action="ReadGameHome" method="get">   
                                 <ul>
+                                    <a style="display: inline-block;
+                                       position: relative;
+                                       font-size: 16px;
+                                       color: #68647d;
+                                       font-weight: 500;
+                                       margin-bottom: 15px;
+                                       padding-right: 19px;
+                                       -webkit-transition: all 0.2s;
+                                       -o-transition: all 0.2s;
+                                       transition: all 0.2s;
+                                       background-image: url(../img/icons/double-arrow.png);
+                                       background-repeat: no-repeat;
+                                       background-position: right -120% center;
+                                       background-size: 11px;" href="ReadGameHome">All Genre</a>
                                     <c:forEach var="genre" items="${genres}">
                                         <li>
                                             <a href="ReadGameHome?genre=${genre.genre}">
@@ -250,7 +265,11 @@
                             <img src="./img/gif_pi.gif" alt="">
                         </a>
                     </div>
-
+                    <div class="widget-item">
+                        <a href="#" class="add">
+                            <img src="./img/img_pi.jpg" alt="">
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -436,10 +455,12 @@
                         <div class="error-message" id="passwordError"></div>
                     </div>
                     <div class="policy-text">
-                        <input type="checkbox" id="policy" name="policy">
-                        <label for="policy">I agree to the
-                            <a href="#" class="option">Terms & Conditions</a>
-                        </label>
+                        <div>
+                            <input type="checkbox" id="policy" name="policy">
+                            <label for="policy">I agree to the
+                                <a href="#" class="option">Terms & Conditions</a>
+                            </label>
+                        </div>
                         <div class="error-message" id="policyError"></div>
                     </div>
                     <button type="submit">Sign Up</button>
@@ -630,7 +651,7 @@
             function validatePolicy() {
                 const policyError = document.getElementById('policyError');
                 if (!policyCheckbox.checked) {
-                    policyError.textContent = 'You must agree to the terms and conditions.';
+                    policyError.textContent = 'You must agree to the terms & conditions.';
                     document.getElementById("formWarning").style.display = "block";
                     return false;
                 } else {

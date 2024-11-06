@@ -124,16 +124,13 @@
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">                          
                             <div class="account-container">
-                                <%
+                                 <%
                                     UserDAO userDAO = new UserDAO();
                                     UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
                                     request.setAttribute("user", user);
                                 %>
                                 <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" 
-                                         alt="Profile Picture" 
-                                         style="width: 50px; height: 50px; border-radius: 50%;" 
-                                         onerror="this.onerror=null;this.src='img/t-rex.png';" />
+                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" onerror="this.onerror=null;this.src='img/t-rex.png';"  />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
@@ -387,22 +384,6 @@
             }
             img.img_bottom_1,img.img_bottom_2  {
                 width: 50%;
-            }
-            .user {
-                position: relative;
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                overflow: hidden;
-                cursor: pointer;
-            }
-            .user img {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
             }
             .buy-button{
                 color: #fff;

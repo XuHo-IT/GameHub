@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import DAO.UserDAO;
 import Model.GoogleAccount;
 import Model.GoogleLoginHandler;
 import Model.Iconstant;
@@ -33,6 +34,7 @@ import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
 import org.bson.Document;
 import org.bson.types.ObjectId;
+
 /**
  *
  * @author Admin
@@ -52,19 +54,19 @@ public class GoogleLogin extends HttpServlet {
             throws ServletException, IOException {
         String code = request.getParameter("code");
         String accessToken = getToken(code);
-        GoogleAccount acc = getUserInfo(accessToken);  
-        MongoConectUser mgcn = new MongoConectUser();
-        String id = "HanHacAm";
+        GoogleAccount acc = getUserInfo(accessToken);
+        UserDAO mgcn = new UserDAO();
+        String id = "";
         List<UserModel> userList = mgcn.getAllUsers();
         boolean emailExist = false;
         String sign = "no";
-        
+
         for (UserModel u : userList) {
-            if (acc.getEmail().equals(u.getEmail())){
+            if (acc.getEmail().equals(u.getEmail())) {
                 emailExist = true;
                 sign = "yes";
                 id = u.getId();
-                
+
             }
         }
 
@@ -72,23 +74,30 @@ public class GoogleLogin extends HttpServlet {
             UserModel user = mgcn.getUserById(id);
             String location = user.getRole().equals("0") ? "ReadGameHomeMember" : "ReadGameHomeAdmin";
             response.sendRedirect(location + "?id=" + id);
-        }else {
+
+        } else {
             String name = acc.getName();
             String email = acc.getEmail();
             String phoneNumber = "";
             String dateOfBirth = "";
             String address = "";
-            String password = "Abc123";
-            String photoUrl = "img/logo1.png";
+            String password = "";
+            String photoUrl = "";
             ObjectId userId = createAccount(name, email, phoneNumber, dateOfBirth, address, password, photoUrl);
 
-        // Check if the account was created successfully
+            // Check if the account was created successfully
             if (userId != null) {
                 UserModel user = mgcn.getUserById(userId.toString());
                 String location = user.getRole().equals("0") ? "ReadGameHomeMember" : "ReadGameHomeAdmin";
+                HttpSession session = request.getSession();
+                session.setAttribute("currentUser", user);
+                session.setAttribute("adminId", user.getId());
+                session.setAttribute("adminName", user.getName());
+                session.setAttribute("adminEmail", user.getEmail());
+                session.setAttribute("photoUrl", user.getPhotoUrl());
                 response.sendRedirect(location + "?id=" + user.getId());
             } else {
-                response.sendRedirect("index.jsp");
+                response.sendRedirect("ReadGameHome");
             }
 
         }
@@ -135,31 +144,20 @@ public class GoogleLogin extends HttpServlet {
     private static final String CONNECTION_STRING = "mongodb://localhost:27017";
     private static final String DATABASE_NAME = "GameHub";
     private static final String COLLECTION_NAME = "superadmin";
+
     public static String getToken(String code) throws ClientProtocolException, IOException {
 
         String response = Request.Post(Iconstant.GOOGLE_LINK_GET_TOKEN)
-
                 .bodyForm(
-
                         Form.form()
-
-       .add("client_id", Iconstant.GOOGLE_CLIENT_ID)
-
-                        .add("client_secret", Iconstant.GOOGLE_CLIENT_SECRET)
-
-                        .add("redirect_uri", Iconstant.GOOGLE_REDIRECT_URI)
-
-                        .add("code", code)
-
-                        .add("grant_type", Iconstant.GOOGLE_GRANT_TYPE)
-
-                        .build()
-
+                                .add("client_id", Iconstant.GOOGLE_CLIENT_ID)
+                                .add("client_secret", Iconstant.GOOGLE_CLIENT_SECRET)
+                                .add("redirect_uri", Iconstant.GOOGLE_REDIRECT_URI)
+                                .add("code", code)
+                                .add("grant_type", Iconstant.GOOGLE_GRANT_TYPE)
+                                .build()
                 )
-
                 .execute().returnContent().asString();
-
-
 
         JsonObject jobj = new Gson().fromJson(response, JsonObject.class);
 
@@ -181,31 +179,31 @@ public class GoogleLogin extends HttpServlet {
         return googlePojo;
 
     }
-    public static ObjectId createAccount(String name, String email, String phoneNumber, String dateOfBirth,
-                             String address, String password, String photoUrl) {
-    try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
-        MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
-        MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
-        ObjectId userId = new ObjectId();
-        // Create a new Document for the user with an ObjectId
-        Document newUser = new Document("_id", userId)  // Generate a new ObjectId
-                .append("Name", name)
-                .append("Email", email)
-                .append("PhoneNumber", phoneNumber)
-                .append("DateOfBirth", dateOfBirth)
-                .append("Address", address)
-                .append("Password", password)
-                .append("PhotoUrl", photoUrl)
-                .append("Role", "0")  // Set role to "0" (default role)
-                .append("Status", "Active");  // Set status to "active"
-                
 
-        // Insert the document into the collection
-        collection.insertOne(newUser);
-        return userId; // Return true if the user was created successfully
-    } catch (Exception e) {
-        e.printStackTrace();
-        return null; // Return false if an error occurred
+    public static ObjectId createAccount(String name, String email, String phoneNumber, String dateOfBirth,
+            String address, String password, String photoUrl) {
+        try (MongoClient mongoClient = MongoClients.create(CONNECTION_STRING)) {
+            MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
+            MongoCollection<Document> collection = database.getCollection(COLLECTION_NAME);
+            ObjectId userId = new ObjectId();
+            // Create a new Document for the user with an ObjectId
+            Document newUser = new Document("_id", userId) // Generate a new ObjectId
+                    .append("Name", name)
+                    .append("Email", email)
+                    .append("PhoneNumber", phoneNumber)
+                    .append("DateOfBirth", dateOfBirth)
+                    .append("Address", address)
+                    .append("Password", password)
+                    .append("PhotoUrl", photoUrl)
+                    .append("Role", "0") // Set role to "0" (default role)
+                    .append("Status", "Active");  // Set status to "active"
+
+            // Insert the document into the collection
+            collection.insertOne(newUser);
+            return userId; // Return true if the user was created successfully
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null; // Return false if an error occurred
+        }
     }
-}
 }

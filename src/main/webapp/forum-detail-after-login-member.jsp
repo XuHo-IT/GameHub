@@ -93,10 +93,7 @@
                                     request.setAttribute("user", user);
                                 %>
                                 <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" 
-                                         alt="Profile Picture" 
-                                         style="width: 50px; height: 50px; border-radius: 50%;" 
-                                         onerror="this.onerror=null;this.src='img/t-rex.png';" />
+                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" onerror="this.onerror=null;this.src='img/t-rex.png';"  />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
@@ -507,22 +504,6 @@
                 float: right;
                 font-size: 24px;
                 cursor: pointer;
-            }
-            .user {
-                position: relative;
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                overflow: hidden;
-                cursor: pointer;
-            }
-            .user img {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
             }
             .tooltip {
                 position: absolute;

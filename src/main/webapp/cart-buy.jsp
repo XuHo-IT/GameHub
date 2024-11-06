@@ -38,25 +38,37 @@
         <script src="Login/script.js" defer></script>
     </head>
     <body>
-        <section class="h-custom" style="background-color: #6f2b95;">
+        <section class="h-custom" style="background: url('img/bg-order.jpg');
+                 background-size: 100%;
+                 background-repeat: no-repeat;
+                 background-position: top;">
             <div class="container py-5 h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
-                    <div class="col-12">
+                    <div class="col-14">
                         <div class="card card-registration card-registration-2" style="border-radius: 15px; background-color: black; width: 80%; height: auto; margin: 0 auto;">
                             <div class="card-body p-0">
-                                <div class="row g-0">
-                                    <div class="col-lg-8">
-                                        <div class="p-5">
+                                <div class="row g-0" style="text-align: center;">
+                                    <div class="col-lg-8" style="padding-right: 0px;">
+                                        <div class="p-5" style="display: flex;
+                                             flex-wrap: wrap;
+                                             justify-content: center;
+                                             padding: 1rem !important;">
                                             <div class="d-flex justify-content-between align-items-center mb-5">
                                                 <h1 class="fw-bold mb-0" style="color:antiquewhite">Your Order</h1>
                                             </div>
                                             <%
                                                 MongoClient mongoClient = MongoDBConnectionManager.getLocalMongoClient();
                                                 try {
-                                                    
+
                                                     MongoCollection<Document> collection = mongoClient.getDatabase("GameHub").getCollection("postGame");
+                                                    MongoCollection<Document> userCollection = mongoClient.getDatabase("GameHub").getCollection("superadmin");
+
                                                     String postId = request.getParameter("id");
                                                     String userId = request.getParameter("adminId");
+
+                                                    Document user = userCollection.find(Filters.eq("_id", new ObjectId(userId))).first();
+                                                    String photoUrl = user.getString("PhotoUrl");
+
                                                     if (postId == null || postId.isEmpty() || postId.length() != 24) {
                                                         out.println("<p style='color:red;'>Invalid post ID provided.</p>");
                                                         return;
@@ -75,8 +87,13 @@
                                             <div class="wishlist-item row" style="display:flex">
                                                 <div class="col-6">
                                                     <img src="data:image/jpeg;base64,<%= fileData%>" alt="Game Image" style="width: 100%; height: auto;" />
-                                                    <form action="game-single.jsp?id=<%= postId%>" method="GET">
-                                                        <button type="submit">Cancel</button>
+                                                    <form>
+                                                        <!-- Updated Cancel Button to Include postId and adminId -->
+                                                        <button 
+                                                            onclick="window.location.href = 'game-single-after-login-member.jsp?id=<%= postId%>&adminId=<%= userId%>'" 
+                                                            type="button">
+                                                            Cancel
+                                                        </button>
                                                     </form>
                                                 </div>        
                                                 <div class="col-6">
@@ -96,8 +113,8 @@
                                             </div>  
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
-                                        <img src="img/Card.jpg" alt="Game Image" style="width: 100%; height: auto; padding:10px 7px" />
+                                    <div class="col-lg-4" style="padding-left: 0;">
+                                        <img src="data:image/jpeg;base64,<%= photoUrl%>" alt="Game Image" style="width: 100%; height: auto; padding:10px 7px; border-radius: 50%;" />
                                         <form id="wishlistForm" action="GameReleaseNotificationMemberController" method="post">
                                             <input type="hidden" name="postId" value="<%= postId%>" />
                                             <input type="hidden" name="title" value="<%= title%>" />
@@ -142,7 +159,7 @@
                                             <input type="hidden" name="vnp_OrderType" value="game">
                                             <input type="hidden" name="vnp_ReturnUrl" value="https://yourdomain.com/VnPayReturn">
                                             <input type="hidden" name="vnp_ExpireDate" value="<%= new SimpleDateFormat("yyyyMMddHHmmss").format(new Date(System.currentTimeMillis() + 300000))%>">
-                                            
+
                                             <!-- Hidden input for the original link value -->
                                             <input type="hidden" id="vnp_Link" name="vnp_Link" value="<%= link%>"> <!-- Original link value -->
 
@@ -171,8 +188,8 @@
                                             } catch (Exception e) {
                                                 e.printStackTrace();
                                                 out.println("<p style='color:red;'>An error occurred while processing your request.</p>");
-                                            } 
-                                            
+                                            }
+
                                         %>
                                     </div>
                                 </div>

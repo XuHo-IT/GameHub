@@ -1,3 +1,5 @@
+<%@page import="DAO.GamePostDAO"%>
+<%@page import="Model.Genre"%>
 <%@page import="Model.UserModel"%>
 <%@page import="DAO.UserDAO"%>
 <%@page import="utils.MongoDBConnectionManager"%>
@@ -9,6 +11,7 @@
 <%@page import="com.mongodb.client.MongoClients"%>
 <%@page import="com.mongodb.client.MongoCollection"%>
 <%@page import="com.mongodb.client.MongoClient"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="zxx">
     <head>
@@ -37,6 +40,7 @@
         <!-- Main Stylesheets -->
         <link rel="stylesheet" href="css/style.css"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
+        <link href="https://fonts.googleapis.com/css2?family=Sixtyfour+Convergence&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="Login/style.css">
         <script src="Login/script.js" defer></script>
 
@@ -133,12 +137,12 @@
                                     UserDAO userDAO = new UserDAO();
                                     UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
                                     request.setAttribute("user", user);
+                                    GamePostDAO postDao = new GamePostDAO();
+                                    List<Genre> genres = postDao.getGenres();
+                                    request.setAttribute("genres", genres);
                                 %>
                                 <div class="user">                                   
-                                    <img src="data:image/jpeg;base64,<%= request.getSession().getAttribute("photoUrl")%>" 
-                                         alt="Profile Picture" 
-                                         style="width: 50px; height: 50px; border-radius: 50%;" 
-                                         onerror="this.onerror=null;this.src='img/t-rex.png';" />
+                                    <img src="data:image/jpeg;base64,<%= user != null ? user.getPhotoUrl() : ""%>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;" onerror="this.onerror=null;this.src='img/t-rex.png';"  />
                                 </div>
                                 <div class="account-dropdown">
                                     <ul>
@@ -206,7 +210,14 @@
                         </div>
                         <div class="gs-gameplay">
                             <h3 style="color: white">Genre</h3>
-                            <textarea name="gamePlay" style="font-size: 20px; height: 50px" class="form-control"><%= genre != null ? genre : "No genre available"%></textarea>
+                            <select name="genre" style="font-size: 20px; height: 50px" class="form-control">
+                                <option value="">Select Genre</option>
+                                <c:forEach var="genre" items="${genres}">
+                                    <option value="${genre.genre}" ${selectedGenreId != null && selectedGenreId == genre.genre ? 'selected' : ''}>
+                                        ${genre.genre != null ? genre.genre : "No genre available"}
+                                    </option>
+                                </c:forEach>
+                            </select>
                         </div>
                         <div class="gs-auhtor-genre">
                             <div class="left-author">
@@ -279,9 +290,6 @@
         </section>
         <!-- Games end-->
 
-
-
-
         <!-- Newsletter section -->
 
         <!-- Newsletter section end -->
@@ -297,7 +305,8 @@
                     <img class="img_bottom_2" src="./img//bottom_pic_2.png" alt="">
                 </div>
                 <a href="ReadGameHomeAdminController?adminId=<%= request.getSession().getAttribute("adminId")%>" class="footer-logo">
-                    <img src="./img/logo.png" alt="">
+                    <img src="./img/logo1.png" alt="">
+                    <img src="./img/logo2.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
                     <li><a href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
@@ -372,22 +381,6 @@
                 font-size: 35px;
                 font-family: 'Sixtyfour Convergence';
                 padding: 0 0px 30px 0;
-            }
-            .user {
-                position: relative;
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                overflow: hidden;
-                cursor: pointer;
-            }
-            .user img {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
             }
             img.game_single_img {
                 width: 1000px;

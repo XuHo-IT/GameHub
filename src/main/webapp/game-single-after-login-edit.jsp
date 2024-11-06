@@ -283,11 +283,7 @@
 
 
         <!-- Newsletter section -->
-        <section class="newsletter-section" style="">
-            <div class="container">
-                <h3 class="bottom-title">Thanks for using our website!</h3>
-            </div>
-        </section>
+
         <!-- Newsletter section end -->
 
 

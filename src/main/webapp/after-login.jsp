@@ -1,3 +1,4 @@
+
 <%@page import="Model.UserModel"%>
 <%@page import="DAO.UserDAO"%>
 <%@page import="java.util.ArrayList"%>
@@ -421,13 +422,7 @@
     <!-- Featured section end-->
 
     <!-- Newsletter section -->
-    <section class="newsletter-section" style="color: white;
-             font-size: 35px;
-             padding: 30px 0 30px 0;">
-        <div class="container">
-            <h3 class="bottom-title" style="font-family: 'Sixtyfour Convergence';">Thanks for using our website!</h3>
-        </div>
-    </section>
+
     <!-- Newsletter section end -->
 
     <!-- Footer section -->

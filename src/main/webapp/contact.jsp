@@ -283,13 +283,21 @@
         </div>
 
         <!-- Newsletter section -->
-        <section class="newsletter-section" style="color: white;
-                 font-size: 35px;
-                 padding: 30px 0 30px 0;">
-            <div class="container">
-                <h3 class="bottom-title" style="font-family: 'Sixtyfour Convergence';">Thanks for using our website!</h3>
-            </div>
-        </section>
+       <section class="newsletter-section" style="background-image: url('img/Gif2.gif'); background-size: cover; background-position: center; height: 80vh; position: relative; color: white; display: flex; align-items: center; justify-content: center;">
+            <div class="container" style="position: relative; z-index: 1; text-align: center;">
+                <h3 class="bottom-title">Thanks for using our website!</h3>
+    </div>
+</section>
+                <style>
+            .bottom-title {
+                font-family: 'Sixtyfour Convergence', sans-serif;
+                font-size: 45px;
+            }
+            .newsletter-section {
+                /* Optional: Add any other styles you want */
+            }
+        </style>
+
         <!-- Newsletter section end -->
 
 

@@ -345,10 +345,6 @@
         <url-pattern>/AddToWishlistController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>GameReleaseNotificationMemberController</servlet-name>
-        <url-pattern>/GameReleaseNotificationMemberController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AddReplyController</servlet-name>
         <url-pattern>/AddReplyController</url-pattern>
     </servlet-mapping>

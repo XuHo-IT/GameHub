@@ -545,7 +545,7 @@
                     </div>
                     <div class="policy-text">
                         <input type="checkbox" id="policy">
-                        <label for="policy">I agree to the
+                        <label for="policy" style="margin-bottom: 0;">I agree to the
                             <a href="#" class="option">Terms & Conditions</a>
                         </label>
                     </div>

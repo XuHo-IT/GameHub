@@ -217,14 +217,6 @@
         <servlet-class>Controller.Search</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SearchAdmin</servlet-name>
-        <servlet-class>Controller.SearchAdmin</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>SearchMember</servlet-name>
-        <servlet-class>Controller.SearchMember</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ReadGameUploadByMember</servlet-name>
         <servlet-class>Controller.ReadGameUploadByMember</servlet-class>
     </servlet>
@@ -283,6 +275,14 @@
     <servlet>
         <servlet-name>ConfirmPostGame</servlet-name>
         <servlet-class>Controller.ConfirmPostGame</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchTopic</servlet-name>
+        <servlet-class>Controller.SearchTopic</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchTopicServlet</servlet-name>
+        <servlet-class>Controller.SearchTopicServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -497,14 +497,6 @@
         <url-pattern>/Search</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SearchAdmin</servlet-name>
-        <url-pattern>/SearchAdmin</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SearchMember</servlet-name>
-        <url-pattern>/SearchMember</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ReadGameUploadByMember</servlet-name>
         <url-pattern>/ReadGameUploadByMember</url-pattern>
     </servlet-mapping>
@@ -563,6 +555,10 @@
     <servlet-mapping>
         <servlet-name>ConfirmPostGame</servlet-name>
         <url-pattern>/ConfirmPostGame</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchTopicServlet</servlet-name>
+        <url-pattern>/SearchTopicServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>ReadGameHome</welcome-file>

@@ -65,7 +65,7 @@
 
         <header class="header-section">
             <div class="header-warp">
-                 <div class="row align-items-center">
+                <div class="row align-items-center">
                     <div class="col-8">
                         <form action="SearchTopicServlet" method="GET">
                             <!-- Search Bar Row -->
@@ -227,7 +227,13 @@
         </section>
 
         <!-- Newsletter section -->
-
+        <section class="newsletter-section" style="color: white;
+                 font-size: 35px;
+                 padding: 30px 0 30px 0;">
+            <div class="container">
+                <h3 class="bottom-title" style="font-family: 'Sixtyfour Convergence';">Thanks for using our website!</h3>
+            </div>
+        </section>
         <!-- Newsletter section end -->
 
         <!-- Footer section -->
@@ -415,6 +421,22 @@
             .create-overlay, .update-overlay {
                 display: none;
                 opacity:1;
+            }
+            .user {
+                position: relative;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                overflow: hidden;
+                cursor: pointer;
+            }
+            .user img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
             }
             .btn-danger{
                 margin: 0;

@@ -57,7 +57,7 @@
                 <div class="row align-items-center">
                     <!-- Left side: Search Form (col-7) -->
                     <div class="col-8">
-                        <form action="SearchAdmin" method="GET">
+                        <form action="Search" method="GET">
                             <!-- Search Bar Row -->
                             <div class="row" style="align-items: center;">
                                 <!-- Search button on the left side -->
@@ -255,15 +255,7 @@
         </section>
         <!-- Featured section end-->
 
-        <!-- Newsletter section -->
-        <section class="newsletter-section" style="color: white;
-                 font-size: 35px;
-                 padding: 30px 0 30px 0;">
-            <div class="container">
-                <h3 class="bottom-title" style="font-family: 'Sixtyfour Convergence';">Thanks for using our website!</h3>
-            </div>
-        </section>
-        <!-- Newsletter section end -->
+
 
         <!-- Footer section -->
         <footer class="footer-section">

@@ -1,3 +1,4 @@
+
 <%@page import="Model.UserModel"%>
 <%@page import="DAO.UserDAO"%>
 <%@page import="java.util.ArrayList"%>
@@ -236,7 +237,7 @@
                         </div>
                         <!-- Blog item -->
                         <%
-                            String adminId = request.getParameter("id");  // Get AdminId from session
+                            String adminId = request.getParameter("userId");  // Get AdminId from session
                         %>                        
                         <div class="blog-container">
                             <c:forEach var="post" items="${posts}">
@@ -275,7 +276,7 @@
                                         </c:choose>
 
                                         <!-- Read more link -->
-                                        <a href="game-single-after-login-member.jsp?id=${post.postID}&adminId=<%= adminId%>" class="read-more">
+                                        <a href="game-single-after-login-member.jsp?id=${post.postID}&userId=<%= adminId%>" class="read-more">
                                             Read More <img src="img/icons/double-arrow.png" alt="#" />
                                         </a>
                                     </div>
@@ -450,13 +451,7 @@
     <!-- Featured section end-->
 
     <!-- Newsletter section -->
-    <section class="newsletter-section" style="color: white;
-             font-size: 35px;
-             padding: 30px 0 30px 0;">
-        <div class="container">
-            <h3 class="bottom-title" style="font-family: 'Sixtyfour Convergence';">Thanks for using our website!</h3>
-        </div>
-    </section>
+
     <!-- Newsletter section end -->
 
     <!-- Footer section -->

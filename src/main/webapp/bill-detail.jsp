@@ -39,6 +39,7 @@
                 String transactionID = request.getParameter("vnp_TransactionNo");
                 String responseCode = request.getParameter("vnp_ResponseCode");
                 String postId = request.getParameter("vnp_TxnRef");
+                String userId = request.getParameter("adminId");
 
                 // Get the game link from the request
                 String linkGame = request.getParameter("link"); // Correct parameter name
@@ -61,7 +62,8 @@
             <p><strong>Response Code:</strong> <%= displayResponseCode%></p>
             <p><strong>Link of the Game:</strong> <a href="<%= linkGame%>" target="_blank">Download Game</a></p>
 
-            <a href="http://localhost:8080/Web_Trading_Game/ReadGameHomeMember" class="btn btn-primary btn-back">Return to Home</a>
+           <a href="http://localhost:8080/Web_Trading_Game/ReadGameHome" class="btn btn-primary btn-back">Return to Home</a>
+
         </div>
     </body>
 </html>

@@ -64,7 +64,7 @@
                                                     MongoCollection<Document> userCollection = mongoClient.getDatabase("GameHub").getCollection("superadmin");
 
                                                     String postId = request.getParameter("id");
-                                                    String userId = request.getParameter("adminId");
+                                                    String userId = request.getParameter("userId");
 
                                                     Document user = userCollection.find(Filters.eq("_id", new ObjectId(userId))).first();
                                                     String photoUrl = user.getString("PhotoUrl");

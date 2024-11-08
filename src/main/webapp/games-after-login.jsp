@@ -57,7 +57,7 @@
                 <div class="row align-items-center">
                     <!-- Left side: Search Form (col-7) -->
                     <div class="col-8">
-                        <form action="SearchAdmin" method="GET">
+                        <form action="Search" method="GET">
                             <!-- Search Bar Row -->
                             <div class="row" style="align-items: center;">
                                 <!-- Search button on the left side -->

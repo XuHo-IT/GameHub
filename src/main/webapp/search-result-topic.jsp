@@ -66,7 +66,7 @@
 
         <header class="header-section">
             <div class="header-warp">
-                <div class="row align-items-center">
+                 <div class="row align-items-center">
                     <div class="col-8">
                         <form action="SearchTopicServlet" method="GET">
                             <!-- Search Bar Row -->
@@ -192,7 +192,13 @@
         </section>
 
         <!-- Newsletter section -->
-
+        <section class="newsletter-section" style="color: white;
+                 font-size: 35px;
+                 padding: 30px 0 30px 0;">
+            <div class="container">
+                <h3 class="bottom-title" style="font-family: 'Sixtyfour Convergence';">Thanks for using our website!</h3>
+            </div>
+        </section>
         <!-- Newsletter section end -->
 
         <!-- Footer section -->
@@ -309,12 +315,10 @@
                             <div class="error-message" id="passwordError"></div>
                         </div>
                         <div class="policy-text">
-                            <div>
-                                <input type="checkbox" id="policy" name="policy">
-                                <label for="policy">I agree to the
-                                    <a href="#" class="option">Terms & Conditions</a>
-                                </label>
-                            </div>
+                            <input type="checkbox" id="policy" name="policy">
+                            <label for="policy">I agree to the
+                                <a href="#" class="option">Terms & Conditions</a>
+                            </label>
                             <div class="error-message" id="policyError"></div>
                         </div>
                         <button type="submit">Sign Up</button>
@@ -509,7 +513,7 @@
                 function validatePolicy() {
                     const policyError = document.getElementById('policyError');
                     if (!policyCheckbox.checked) {
-                        policyError.textContent = 'You must agree to the terms & conditions.';
+                        policyError.textContent = 'You must agree to the terms and conditions.';
                         document.getElementById("formWarning").style.display = "block";
                         return false;
                     } else {

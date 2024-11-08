@@ -124,7 +124,7 @@
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">                          
                             <div class="account-container">
-                                 <%
+                                <%
                                     UserDAO userDAO = new UserDAO();
                                     UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
                                     request.setAttribute("user", user);
@@ -197,11 +197,11 @@
                         <%= title != null ? title : "Untitled"%>
                     </h2>
                     <!-- Add to Wishlist button -->
-               
+                    <% if (releaseDate != null && releaseDate.after(today)) {%>
                     <div class="wishlist-btns">
-                        <form id="wishlistForm" action="shopping-cart.jsp?id=<%= postId%>&userId=<%= adminId%>" method="POST">
+                        <form id="wishlistForm" action="shopping-cart.jsp?id=<%= postId%>&adminId=<%= adminId%>" method="POST">
                             <input type="hidden" name="postId" value="<%= postId%>" />
-                            <input type="hidden" name="userId" value="<%= adminId%>" />
+                            <input type="hidden" name="adminId" value="<%= adminId%>" />
                             <input type="hidden" name="title" value="<%= title%>" />
                             <input type="hidden" name="fileData" value="<%= fileData%>" />
                             <input type="hidden" name="dateRelease" value="<%= dateRelease%>" />
@@ -219,7 +219,8 @@
                             </script>
                         </form>
                     </div>
-                  
+                    <% }%>
+
 
                     <% if (releaseDate != null && releaseDate.before(today)) {%>
                     <div class="buy-btn">

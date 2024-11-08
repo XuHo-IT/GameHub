@@ -197,7 +197,7 @@
                         <%= title != null ? title : "Untitled"%>
                     </h2>
                     <!-- Add to Wishlist button -->
-               
+                 <% if (releaseDate != null && releaseDate.after(today)) {%>
                     <div class="wishlist-btns">
                         <form id="wishlistForm" action="shopping-cart.jsp?id=<%= postId%>&userId=<%= adminId%>" method="POST">
                             <input type="hidden" name="postId" value="<%= postId%>" />
@@ -219,7 +219,8 @@
                             </script>
                         </form>
                     </div>
-                  
+                    <% }%>
+                </div>
 
                     <% if (releaseDate != null && releaseDate.before(today)) {%>
                     <div class="buy-btn">

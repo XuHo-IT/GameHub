@@ -1,6 +1,5 @@
 <%@page import="Model.UserModel"%>
 <%@page import="DAO.UserDAO"%>
-<%@page import="com.mongodb.client.MongoDatabase"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="Model.Topic"%>
@@ -11,7 +10,6 @@
 <%@page import="com.mongodb.client.MongoClient"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
-<%@ page import="Model.Topic" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -67,7 +65,7 @@
 
         <header class="header-section">
             <div class="header-warp">
-                 <div class="row align-items-center">
+                <div class="row align-items-center">
                     <div class="col-8">
                         <form action="SearchTopicServlet" method="GET">
                             <!-- Search Bar Row -->
@@ -95,7 +93,7 @@
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
                     <div class="logo-fix">
-                        <a href="ReadGameHomeMember?userId=<%= request.getSession().getAttribute("adminId")%>"class="site-logo">
+                        <a href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>" class="site-logo">
                             <img src="./img/logo1.png" alt="" class="logo1">
                             <img src="./img/logo2.png" alt="" class="logo2">
                         </a>
@@ -103,7 +101,7 @@
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">
                             <div class="account-container">
-                                 <%
+                               <%
                                     UserDAO userDAO = new UserDAO();
                                     UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
                                     request.setAttribute("user", user);
@@ -123,10 +121,10 @@
                         </div>
                         <!-- Menu -->
                         <ul class="main-menu primary-menu">
-                            <li><a href="ReadGameHomeMember?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                            <li><a href="ReadGameListMember?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
-                            <li><a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
-                            <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+                            <li><a href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                            <li><a href="ReadGameListAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
+                            <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
+                            <li><a href="ReadGameHomeAdmin?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -139,12 +137,11 @@
             <div class="page-info">
                 <h2>Forum</h2>
                 <div class="site-breadcrumb">
-                    <a href="ReadGameHomeMember?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a>  /
+                    <a href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a>  /
                     <span>Forum</span>
                 </div>
             </div>
         </section>
-
         <!-- Page top end-->
 
         <section class="blog-section spad" style="padding-bottom: 0;"> 
@@ -157,8 +154,13 @@
                  max-width: 1500px;
                  background: linear-gradient(to right, #2d1854 0%, #101D3D 100%);">
                 <!-- button -->
-                <div class="button-top-forum" >                   
-                    <button class="create-btn">Create New Topic</button>
+                <div class="button-top-forum" >
+                    <div class="left-button-forum">
+
+                    </div>
+                    <div class="right-button-forum">
+                        <button class="create-btn">Create New Topic</button>
+                    </div>
                 </div>
 
                 <div class="subforum">
@@ -166,10 +168,11 @@
                         <div class="subforum-row">
                             <div class="subforum-icon subforum-column center">
                                 <img src="data:image/jpeg;base64,${topic.photoUrl}" alt="User Photo" style="width: 140px; height: 140px; border-radius: 50%;" />
+
                             </div>
                             <div class="subforum-description subforum-column">
                                 <h4>
-                                    <a href="forum-detail-after-login-member.jsp?topicId=${topic.topicId}&userId=${sessionScope.adminId}">
+                                    <a href="forum-detail-after-login.jsp?topicId=${topic.topicId}&adminId=${sessionScope.adminId}">
                                         <c:choose>
                                             <c:when test="${fn:length(topic.title) >= 64}">
                                                 ${fn:substring(topic.title, 0, 64)}...
@@ -182,7 +185,7 @@
                                 </h4>
                                 <c:choose>
                                     <c:when test="${fn:length(topic.description) >= 360}">
-                                        <p style="word-wrap: break-word;">${fn:substring(topic.description, 0, 390)}...</p>
+                                        <p style="word-wrap: break-word;">${fn:substring(topic.description, 0, 385)}...</p>
                                     </c:when>
                                     <c:otherwise>
                                         <p style="word-wrap: break-word;">
@@ -191,7 +194,6 @@
                                     </c:otherwise>
                                 </c:choose>
                             </div>
-
                             <div class="subforum-stats subforum-column center">
                                 <span style="font-size: 20px">${topic.commentCount} <img src="./img/icons/chat-icon.png" alt=""></span>
                             </div>
@@ -201,18 +203,16 @@
                                 <b>On</b> <a style="font-family: 'Courier', 'Courier New', monospace;">
                                     <fmt:formatDate value="${topic.date}" pattern="hh:mm a dd-MM-yyyy"/>
                                 </a>
-                                <c:if test="${sessionScope.adminId == topic.userId}">
-                                    <div style="display: flex; align-items: center; gap: 10px;">
-                                        <button  class="btn-edit"
-                                                 onclick="openUpdatePopup('${topic.topicId}',
-                                                                 '${fn:escapeXml(topic.title)}',
-                                                                 '${fn:escapeXml(topic.description)}')">Edit</button>
-                                        <form action="TopicDelete" method="post">
-                                            <input type="hidden" name="topicId" value="${topic.topicId}">
-                                            <button type="submit" name="action" value="delete" class="btn-danger">Delete</button>
-                                        </form>
-                                    </div>
-                                </c:if>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <c:if test="${not empty sessionScope.adminId && not empty topic.userId && sessionScope.adminId == topic.userId}">
+                                        <button class="btn-edit"
+                                                onclick="openUpdatePopup('${topic.topicId}', '${fn:escapeXml(topic.title)}', '${fn:escapeXml(topic.description)}')">Edit</button>
+                                    </c:if>
+                                    <form action="TopicDeleteAdmin" method="post">
+                                        <input type="hidden" name="topicId" value="${topic.topicId}">
+                                        <button type="submit" name="action" value="delete" class="btn-danger">Delete</button>
+                                    </form>
+                                </div>   
                             </div>
                         </div>
                         <hr class="subforum-devider">
@@ -245,15 +245,16 @@
                 <div class="footer-right-pic">
                     <img class="img_bottom_2" src="./img//bottom_pic_2.png" alt="">
                 </div>
-                <a href="ReadGameHomeMember?userId=<%= request.getSession().getAttribute("adminId")%>" class="footer-logo">
+                <a href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>" class="footer-logo">
                     <img src="./img/logo1.png" alt="">
                     <img src="./img/logo2.png" alt="">
                 </a>
                 <ul class="main-menu footer-menu">
-                    <li><a href="ReadGameHomeMember?userId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
-                    <li><a href="ReadGameListMember?userId=<%= request.getSession().getAttribute("adminId")%>">Games</a>
-                    <li><a href="ReadTopicMember?userId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>
-                    <li><a href="contact-after-login-member.jsp?userId=<%= request.getSession().getAttribute("adminId")%>">Contact</a></li>
+                    <li><a href="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Home</a></li>
+                    <li><a href="ReadGameListAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Games</a></li>
+                    <li><a href="ReadTopicAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>">Forum</a></li>                                               
+                    <li><a href="ReadGameHomeAdmin?view=chart&adminId=<%= request.getSession().getAttribute("adminId")%>">Manage</a></li>   
+
                 </ul>
                 <div class="footer-social d-flex justify-content-center">
                     <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
@@ -273,10 +274,10 @@
             <div class="form-box create-topic">
                 <div class="form-details">
                     <h2>Create Topic</h2>
-                    <p>Please enter topic details below to share with the community</p>
+                    <p>Please enter topic details below to share with the forum</p>
                 </div>
                 <div class="form-content">
-                    <form action="TopicCreate" method="post" enctype="multipart/form-data">
+                    <form action="TopicCreateAdmin" method="post" enctype="multipart/form-data">
                         <div class="input-field">
                             <label>Topic Title</label>
                             <input type="text" name="topicTitle" required>
@@ -304,7 +305,7 @@
                     <h2>Update Topic</h2>
                 </div>
                 <div class="form-content">
-                    <form action="TopicUpdate" method="post" enctype="multipart/form-data">
+                    <form action="TopicUpdateAdmin" method="post" enctype="multipart/form-data">
                         <input type="hidden" id="updateTopicId" name="topicId">
                         <div class="input-field">
                             <label for="updateTopicTitle">Topic Title</label>
@@ -370,17 +371,17 @@
                 document.body.classList.remove("show-popup");
             }
 
-// Hide Create Popup when clicking outside
+            // Hide Create Popup when clicking outside
             document.querySelector('.create-overlay').addEventListener('click', function () {
                 closeUpdatePopup();
             });
 
-// Hide Update Popup when clicking outside
+            // Hide Update Popup when clicking outside
             document.querySelector('.update-overlay').addEventListener('click', function () {
                 closeUpdatePopup();
             });
 
-// Close button handler for both forms
+            // Close button handler for both forms
             document.querySelectorAll('.close-btn').forEach(btn => {
                 btn.addEventListener('click', function () {
                     closeUpdatePopup();

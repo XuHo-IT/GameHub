@@ -1,61 +1,60 @@
-<%@page import="utils.MongoDBConnectionManager"%>
-<%@page import="java.time.format.DateTimeFormatter"%>
-<%@page import="Model.CommentTemp"%>
-<%@page import="java.time.Period"%>
-<%@page import="java.time.Duration"%>
-<%@page import="java.time.ZoneId"%>
-<%@page import="java.time.LocalDateTime"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
-<%@page import="java.util.Collections"%>
-<%@page import="java.util.Collection"%>
-<%@page import="Model.Comment"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.List"%>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="Model.Topic"%>
+<%@page import="com.mongodb.client.MongoDatabase"%>
 <%@page import="com.mongodb.client.model.Filters"%>
 <%@page import="org.bson.types.ObjectId"%>
-<%@page import="org.bson.Document"%>
 <%@page import="com.mongodb.client.MongoClients"%>
 <%@page import="com.mongodb.client.MongoCollection"%>
 <%@page import="com.mongodb.client.MongoClient"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page import="org.bson.Document" %>
 <!DOCTYPE html>
 <html lang="zxx">
-
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <head>
-        <title>EndGame - Gaming Magazine Template</title>
+        <title>EndGam - Gaming Magazine Template</title>
         <meta charset="UTF-8">
         <meta name="description" content="EndGam Gaming Magazine Template">
         <meta name="keywords" content="endGam,gGaming, magazine, html">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Favicon -->
-        <link href="img/favicon.ico" rel="shortcut icon" />
+        <link href="img/favicon.ico" rel="shortcut icon"/>
+
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <link href="https://fonts.googleapis.com/css2?family=Sixtyfour+Convergence&display=swap" rel="stylesheet">
 
         <!-- Stylesheets -->
-        <link rel="stylesheet" href="css/bootstrap.min.css" />
-        <link rel="stylesheet" href="css/font-awesome.min.css" />
-        <link rel="stylesheet" href="css/slicknav.min.css" />
-        <link rel="stylesheet" href="css/owl.carousel.min.css" />
-        <link rel="stylesheet" href="css/magnific-popup.css" />
-        <link rel="stylesheet" href="css/animate.css" />
-        <link rel="stylesheet" href="css/searchbar.css" />
-        <link rel="stylesheet" href="css/forum.css" />
-        <link rel="stylesheet" href="css/header.css" />
+        <link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="css/slicknav.min.css"/>
+        <link rel="stylesheet" href="css/owl.carousel.min.css"/>
+        <link rel="stylesheet" href="css/magnific-popup.css"/>
+        <link rel="stylesheet" href="css/animate.css"/>
+        <link rel="stylesheet" href="css/searchbar.css"/>
 
         <!-- Main Stylesheets -->
-        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/style.css"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0">
         <link rel="stylesheet" href="Login/style.css">
-        <script src="Login/script.js" defer></script>
         <link rel="stylesheet" href="Forum/style.css">
+        <script src="Login/script.js" defer></script>
 
         <!--[if lt IE 9]>
                   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
     </head>
 
@@ -116,175 +115,79 @@
                     </nav>
                 </div>
             </div>
-        </header>
+        </header>	
+        <!-- Header section end -->
 
-        <!-- Forum section -->
-        <%
-            String userId = null;
-            String userNameTopic = null;
-            String title = null;
-            String description = null;
-            String imageData = null;
-            String photoUrlUser = null;
-            List<CommentTemp> comments = new ArrayList<>();
+        <!-- Page top section -->
+        <section class="page-top-section set-bg" data-setbg="img/page-top-bg/4.jpg">
+            <div class="page-info">
+                <h2>Forum</h2>
+                <div class="site-breadcrumb">
+                    <a href="ReadGameHome">Home</a>  /
+                    <span>Forum</span>
+                </div>
+            </div>
+        </section>
+        <!-- Page top end-->
 
-            // Get the post ID from the URL query parameter
-            String topicId = request.getParameter("topicId");
 
-            // Connect to MongoDB
-            MongoClient mongoClient = MongoDBConnectionManager.getLocalMongoClient();
-            MongoCollection<Document> topicsCollection = mongoClient.getDatabase("GameHub").getCollection("topic");
-
-            // Find the topic by its ObjectId
-            Document topic = topicsCollection.find(Filters.eq("_id", new ObjectId(topicId))).first();
-
-            // Check if the post exists
-            if (topic != null) {
-                title = topic.getString("Title");
-                description = topic.getString("Description");
-                imageData = topic.getString("ImageData");
-                userId = topic.getString("UserId");
-
-                MongoCollection<Document> usersCollection = mongoClient.getDatabase("GameHub").getCollection("superadmin");
-                // Find the user by its ObjectId
-                Document userTopic = usersCollection.find(Filters.eq("_id", new ObjectId(userId))).first();
-
-                userNameTopic = userTopic.getString("Name");
-                photoUrlUser = userTopic.getString("PhotoUrl");
-
-                MongoCollection<Document> commentsCollection = mongoClient.getDatabase("GameHub").getCollection("comment");
-                // Find the comment by its ObjectId
-                List<Document> commentDocuments = commentsCollection.find(Filters.eq("TopicId", topicId)).into(new ArrayList<>());
-
-                for (Document doc : commentDocuments) {
-                    Document user = usersCollection.find(Filters.eq("_id", new ObjectId(doc.getString("UserId")))).first();
-                    String photoUrl = (user != null) ? user.getString("PhotoUrl") : "./img/t-rex.png";
-                    String userName = (user != null) ? user.getString("Name") : "Unknown";
-
-                    CommentTemp comment = new CommentTemp();
-                    comment.setCommentId(doc.getObjectId("_id").toString());
-                    comment.setTopicId(doc.getString("TopicId").toString());
-                    comment.setUserId(doc.getString("UserId").toString());
-                    comment.setUserName(userName);
-                    comment.setPhotoUrl(photoUrl);
-                    comment.setContent(doc.getString("Content"));
-
-                    if ("unedited".equals(doc.getString("Status"))) {
-                        comment.setStatus("");
-                    } else {
-                        comment.setStatus("(edited)");
-                    }
-                    comment.setDate(doc.getDate("Date"));
-
-                    comments.add(comment);
-                }
-                Collections.reverse(comments);
-            }
-        %>
-
-        <section class="blog-section spad" style="padding-bottom: 0;">
+        <section class="blog-section spad" style="padding-bottom: 0;"> 
             <div class="container" style="
-                 margin: 0 auto;
-                 margin-top: -30px;
-                 padding: 20px;">
-                <div class="topic-container">
-                    <!--Original thread-->
-                    <div class="head">
-                        <div class="authors">Author</div>
-                        <div class="content"><%=title%></div>
-                    </div>
-
-                    <div class="body">
-                        <div class="authors">                          
-                            <img src="<%= (photoUrlUser == null || photoUrlUser.isEmpty()) ? "./img/t-rex.png" : "data:image/jpeg;base64," + photoUrlUser%>" alt="Photo User">
-                            <div class="username"><a href="#"><%=userNameTopic%></a></div>
-                        </div>
-                        <div class="content">
-                            <p style="color: lightblue; word-break: break-word; overflow-wrap: anywhere;">
-                                <%= description%>
-                            </p>
-
-                            <div class="topic-img">
-                                <img src="data:image/jpeg;base64,<%= imageData != null ? imageData : ""%>"  alt="">
-                            </div>                    
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Another Comment With replies -->
-                <div class="comments-container">
-                    <% if (comments != null && !comments.isEmpty()) {
-                            int commentIndex = 0;
-                            for (CommentTemp comment : comments) {%>
-                    <div class="comments" id="comment-<%= comment.getCommentId()%>" data-comment-index="<%= commentIndex++%>">
-                        <div class="body">
-                            <div class="authors">
-                                <img src="<%= (comment.getPhotoUrl() == null || comment.getPhotoUrl().isEmpty()) ? "./img/t-rex.png" : "data:image/jpeg;base64," + comment.getPhotoUrl()%>" alt="Photo User">
-                                <div class="username"><a href=""><%= comment.getUserName()%></a></div>
-                                <div class="date-comment">
-                                    <%
-                                        Date pastDate = comment.getDate();
-                                        LocalDateTime pastDateTime = pastDate.toInstant().atZone(ZoneId.of("UTC")).toLocalDateTime();
-                                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-                                        String originalTime = pastDateTime.format(formatter);
-
-                                        LocalDateTime now = LocalDateTime.now();
-
-                                        Duration duration = Duration.between(pastDateTime, now);
-                                        Period period = Period.between(pastDateTime.toLocalDate(), now.toLocalDate());
-
-                                        if (duration.toMinutes() < 60) {
-                                    %>
-                                    <b>
-                                        <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= duration.toMinutes()%>m ago <%= comment.getStatus()%>
-                                    </b>
-                                    <%
-                                    } else if (duration.toHours() < 24) {
-                                    %>
-                                    <b>
-                                        <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= duration.toHours()%>H ago <%= comment.getStatus()%>
-                                    </b>
-                                    <%
-                                    } else if (duration.toDays() < 7) {
-                                    %>
-                                    <b>
-                                        <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= duration.toDays()%>D ago <%= comment.getStatus()%>
-                                    </b>
-                                    <%
-                                    } else if (duration.toDays() < 28) {
-                                    %>
-                                    <b>
-                                        <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= duration.toDays() / 7%>W ago <%= comment.getStatus()%>
-                                    </b>
-                                    <%
-                                    } else if (period.toTotalMonths() < 12) {
-                                    %>
-                                    <b>
-                                        <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= period.toTotalMonths()%>M ago <%= comment.getStatus()%>
-                                    </b>
-                                    <%
-                                    } else {
-                                    %>
-                                    <b>
-                                        <i class="fas fa-clock" title="<%= originalTime%>"></i> <%= period.getYears()%>Y ago <%= comment.getStatus()%>
-                                    </b>
-                                    <%
-                                        }
-                                    %>
-                                </div>
+                 margin: 20px;
+                 margin-top: -100px;
+                 margin-left: auto;
+                 margin-right: auto;
+                 padding: 20px;
+                 max-width: 1500px;
+                 background: linear-gradient(to right, #2d1854 0%, #101D3D 100%);">
+                <div class="subforum">
+                    <c:forEach var="topic" items="${topics}">
+                        <div class="subforum-row">
+                            <div class="subforum-icon subforum-column center">
+                                <img src="data:image/jpeg;base64,${topic.photoUrl}" alt="User Photo" style="width: 140px; height: 140px; border-radius: 50%;" />
                             </div>
-                            <div class="content">
-                                <p style="color: lightblue;  word-break: break-word; overflow-wrap: anywhere;">
-                                    <%= comment.getContent()%>
-                                </p>
+                            <div class="subforum-description subforum-column">
+                                <h4>
+                                    <a href="forum-detail.jsp?topicId=${topic.topicId}">
+                                        <c:choose>
+                                            <c:when test="${fn:length(topic.title) >= 64}">
+                                                ${fn:substring(topic.title, 0, 65)}...
+                                            </c:when>
+                                            <c:otherwise>
+                                                ${topic.title}
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </a>
+                                </h4>
+                                <c:choose>
+                                    <c:when test="${fn:length(topic.description) >= 360}">
+                                        <p style="word-wrap: break-word;">${fn:substring(topic.description, 0, 390)}...</p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p style="word-wrap: break-word;">
+                                            <c:out value="${topic.description}"/>
+                                        </p>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                            <div class="subforum-stats subforum-column center">
+                                <span style="font-size: 20px">${topic.commentCount} <img src="./img/icons/chat-icon.png" alt=""></span>
+                            </div>
+                            <div class="subforum-info subforum-column">
+                                <b>Post by</b> <a href="#" style="font-size: 15px">${topic.userName}</a><br>
+                                <b>On</b> <a style="font-family: 'Courier', 'Courier New', monospace;">
+                                    <fmt:formatDate value="${topic.date}" pattern="hh:mm a dd-MM-yyyy"/>
+                                </a>
                             </div>
                         </div>
-                    </div>
-                    <% }
-                    } else { %>
-                    <p>No comments yet. <a href="#" id="show-login-from-comment">Be the first to comment!</a></p>
-                    <% }%>
+                        <hr class="subforum-devider">
+                    </c:forEach>
                 </div>
+            </div>
+            <div class="site-pagination" style="margin-top: 10px; justify-content: center;">
+                <c:forEach var="i" begin="1" end="${totalPages}">
+                    <a href="?page=${i}" class="${i == currentPage ? 'active' : ''}">${i < 10 ? '0' + i : i}</a>
+                </c:forEach>
             </div>
         </section>
 
@@ -327,7 +230,6 @@
             </div>
         </footer>
         <!-- Footer section end -->
-
 
         <!-- Popup Container -->
         <div class="blur-bg-overlay"></div>
@@ -376,6 +278,7 @@
                 <div class="form-details">
                     <h2>Create Account</h2>
                     <p>To become a part of our community, please sign up using your personal information.</p>
+                    <p id="formWarning" style="display: none;">This form will be larger if you do not enter the required value correctly.</p>
                     <p id="formWarning" style="display: none;">This form will be larger if you do not enter the required value correctly.</p>
                 </div>
                 <div class="form-content">
@@ -448,7 +351,6 @@
             </div>
         </div>
         <script>
-
             document.addEventListener("DOMContentLoaded", function () {
                 // Check if session attribute for emailRegistered is set
                 const emailRegistered = '<%= session.getAttribute("emailRegistered")%>';
@@ -638,6 +540,14 @@
 
             );
         </script>
+        <style>
+            img.img_bottom_1,img.img_bottom_2  {
+                width: 50%;
+            }
+            img.img_bottom_1,img.img_bottom_2  {
+                width: 50%;
+            }
+        </style>
 
         <!--====== Javascripts & Jquery ======-->
         <script src="js/jquery-3.2.1.min.js"></script>
@@ -647,18 +557,7 @@
         <script src="js/jquery.sticky-sidebar.min.js"></script>
         <script src="js/jquery.magnific-popup.min.js"></script>
         <script src="js/main.js"></script>
-        <style>
-            img.img_bottom_1,img.img_bottom_2  {
-                width: 50%;
-            }
-        </style>
-        <script>
-            const showLoginFromComment = document.getElementById("show-login-from-comment");
-            // Show login popup when click letter "Be the first to comment!"
-            showLoginFromComment.addEventListener("click", (e) => {
-                document.body.classList.toggle("show-popup");
-            });
-        </script>
+        <script src="Forum/main.js"></script>
     </body>
 
 </html>

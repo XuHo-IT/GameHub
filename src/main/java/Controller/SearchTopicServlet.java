@@ -1,47 +1,45 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
 package Controller;
 
 import DAO.GamePostDAO;
+import DAO.TopicDAO;
 import DAO.UserDAO;
-import Model.GamePost;
 import Model.GamePostTemp;
 import Model.Genre;
-import Model.SuperAdmin;
+import Model.TopicTemp;
 import Model.UserModel;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoDatabase;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.annotation.WebServlet;
-import utils.MongoDBConnectionManager;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.http.HttpSession;
 
-public class Search extends HttpServlet {
+/**
+ *
+ * @author Admin
+ */
+public class SearchTopicServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-        
-            GamePostDAO gamePostDAO = new GamePostDAO();
+            TopicDAO topicDAO = new TopicDAO();
             UserDAO userDAO = new UserDAO();
 
-            // Fetch genres from MongoDB
-            List<Genre> genres = gamePostDAO.getGenres();
-            
-            request.setAttribute("genres", genres);  // Store genres in request attributes
-
+ 
             // Retrieve search parameters
             String keyword = request.getParameter("keyword");
             String genre = request.getParameter("genre");
             
             // Search for posts
-            List<GamePostTemp> postList = gamePostDAO.searchPosts(keyword, genre);
+            List<TopicTemp> topicList = topicDAO.searchTopic(keyword);
 
             // Pagination logic
             int itemsPerPage = 9;
@@ -50,20 +48,20 @@ public class Search extends HttpServlet {
             if (pageParam != null) {
                 currentPage = Integer.parseInt(pageParam);
             }
-            int totalItems = postList.size();
+            int totalItems = topicList.size();
             int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
             int startIndex = (currentPage - 1) * itemsPerPage;
             int endIndex = Math.min(startIndex + itemsPerPage, totalItems);
             // Sublist for current page
-            List<GamePostTemp> postsForCurrentPage = postList.subList(startIndex, endIndex);
+            List<TopicTemp> topicsForCurrentPage = topicList.subList(startIndex, endIndex);
 
             // Set attributes for JSP
-            request.setAttribute("posts", postsForCurrentPage);
+            request.setAttribute("topics", topicsForCurrentPage);
             request.setAttribute("totalPages", totalPages);
             request.setAttribute("currentPage", currentPage);
             request.setAttribute("keyword", keyword);
             request.setAttribute("genre", genre);
-            request.setAttribute("postList", postList);
+            request.setAttribute("topicList", topicList);
             
             HttpSession session = request.getSession();
              if (session.getAttribute("currentUser") != null) {
@@ -71,12 +69,12 @@ public class Search extends HttpServlet {
                 UserModel user = userDAO.getUserById(userID);
                 String userRole = user.getRole();
                 if(userRole.equals("1")){
-                    request.getRequestDispatcher("search-result-admin.jsp").forward(request, response);
+                    request.getRequestDispatcher("search-result-topic-admin.jsp").forward(request, response);
                 } else if(userRole.equals("0")){
-                    request.getRequestDispatcher("search-result-member.jsp").forward(request, response);
+                    request.getRequestDispatcher("search-result-topic-member.jsp").forward(request, response);
                 }
             } else if(session.getAttribute("currentUser") == null){
-                request.getRequestDispatcher("search-results.jsp").forward(request, response);
+                request.getRequestDispatcher("search-result-topic.jsp").forward(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();

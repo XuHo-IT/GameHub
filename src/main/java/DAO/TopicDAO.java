@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
+import org.bson.conversions.Bson;
 import utils.MongoDBConnectionManager;
 
 public class TopicDAO {
@@ -87,7 +88,6 @@ public class TopicDAO {
             );
             topicList.add(topic);
         }
-
         return topicList;
     }
 
@@ -95,8 +95,7 @@ public class TopicDAO {
         Document topicDocument = new Document("Title", title)
                 .append("Description", description)
                 .append("ImageData", imageData)
-                .append("UserId", userId)
-                .append("CreatedAt", new Date());
+                .append("UserId", userId);
 
         topicCollection.insertOne(topicDocument);
     }
@@ -113,4 +112,78 @@ public class TopicDAO {
         }
         topicCollection.updateOne(Filters.eq("_id", new ObjectId(topicId)), updateFields);
     }
+    
+    public List<TopicTemp> searchTopic(String keyword){
+        List<Bson> filters = new ArrayList<>();
+
+        // Check if the keyword is provided and create the keyword filter
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            filters.add(Filters.or(Filters.regex("Title", ".*" + keyword + ".*", "i")));
+        }
+
+
+        // Create the final filter query
+        FindIterable<Document> topics;
+        if (filters.isEmpty()) {
+            topics = topicCollection.find(); // Retrieve all posts if no filters
+        } else {
+            topics = topicCollection.find(Filters.and(filters)); // Apply all filters
+        }
+
+        // Map each document to GamePost object
+        List<TopicTemp> topicList = new ArrayList<>();
+        for (Document topicDoc : topics) {
+            
+            String userIdStr = topicDoc.getString("UserId");
+            Document user = null;
+
+            // Fetch user information from the "superadmin" collection
+            if (userIdStr != null && ObjectId.isValid(userIdStr)) {
+                user = usersCollection.find(Filters.eq("_id", new ObjectId(userIdStr))).first();
+            }
+
+            // Handle missing or null user
+            String photoUrl = (user != null) ? user.getString("PhotoUrl") : "./img/t-rex.png";
+            String userName = (user != null) ? user.getString("Name") : "Unknown User";
+
+            // Handle image data, convert to Base64 if Binary type
+            Object imageData = topicDoc.get("ImageData");
+            String imageDataBase64 = "";
+
+            if (imageData instanceof Binary) {
+                Binary imageDataBinary = (Binary) imageData;
+                imageDataBase64 = Base64.getEncoder().encodeToString(imageDataBinary.getData());
+            } else if (imageData instanceof String) {
+                imageDataBase64 = (String) imageData;  // Use if already a string
+            } else {
+                imageDataBase64 = ""; // Default or placeholder image
+            }
+            Object fileData = topicDoc.get("FileData");
+            String fileDataBase64 = null;
+
+            if (fileData instanceof Binary) {
+                Binary fileDataBinary = (Binary) fileData;
+                fileDataBase64 = Base64.getEncoder().encodeToString(fileDataBinary.getData());
+            } else if (fileData instanceof String) {
+                fileDataBase64 = (String) fileData;
+            }
+            ObjectId topicId = topicDoc.getObjectId("_id");
+            long commentCount = commentCollection.countDocuments(Filters.eq("TopicId", topicId.toString()));
+
+           TopicTemp topic = new TopicTemp(
+                    topicId.toString(),
+                    topicDoc.getString("UserId"),
+                    topicDoc.getString("Title"),
+                    topicDoc.getString("Description"),
+                    imageDataBase64, // Only use Base64 encoded image data
+                    photoUrl,
+                    userName, // User's name, or "Unknown User" if not found
+                    topicDoc.getDate("CreatedAt"),
+                    commentCount // Pass the comment count
+            );
+            topicList.add(topic);
+        }
+        return topicList;
+    }
+    
 }

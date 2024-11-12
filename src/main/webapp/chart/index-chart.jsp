@@ -13,6 +13,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Responsive Admin Dashboard | Redesign</title>
         <link rel="stylesheet" href="chart/css/style.css" />
+        <link href="img/favicon.ico" rel="shortcut icon"/>
     </head>
     <body>
         <div class="container">

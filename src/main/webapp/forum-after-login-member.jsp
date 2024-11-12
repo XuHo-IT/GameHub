@@ -209,7 +209,7 @@
                                                                  '${fn:escapeXml(topic.description)}')">Edit</button>
                                         <form action="TopicDelete" method="post">
                                             <input type="hidden" name="topicId" value="${topic.topicId}">
-                                            <button type="submit" name="action" value="delete" class="btn-danger">Delete</button>
+                                            <button type="submit" name="action" value="delete" class="btn-danger" onclick="return confirm('Are you sure you want to delete this topic?');">Delete</button>
                                         </form>
                                     </div>
                                 </c:if>

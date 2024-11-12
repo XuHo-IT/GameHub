@@ -199,7 +199,7 @@
                     <!-- Add to Wishlist button -->
                     <% if (releaseDate != null && releaseDate.after(today)) {%>
                     <div class="wishlist-btns">
-                        <form id="wishlistForm" action="shopping-cart.jsp?id=<%= postId%>&adminId=<%= adminId%>" method="POST">
+                        <form id="wishlistForm" action="shopping-cart.jsp?id=<%= postId%>&userId=<%= adminId%>" method="POST">
                             <input type="hidden" name="postId" value="<%= postId%>" />
                             <input type="hidden" name="adminId" value="<%= adminId%>" />
                             <input type="hidden" name="title" value="<%= title%>" />
@@ -253,6 +253,12 @@
                         <p style="font-size: 20px"><%= genre != null ? genre : "No genre available"%></p>
                     </div>
                 </div>
+                <% if (releaseDate != null && releaseDate.before(today)) {%>
+                <div class="gs-price">
+                    <h3 style="color: white">Price</h3>
+                    <p style="font-size: 20px"><%= price != null ? price : "No price available"%> VND</p>
+                </div>              
+                <% }%>
 
                 <div id="actionImagesCarousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
@@ -366,6 +372,9 @@
                 font-size: 20px;
                 color: #585858;
             }
+              .gs-price {
+                padding: 30px 0;
+            }           
             h2.gs-title {
                 font-size: 60px;
                 color: white;

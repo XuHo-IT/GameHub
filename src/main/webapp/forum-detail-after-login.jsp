@@ -338,7 +338,7 @@
                                                 <input type="hidden" name="commentid" value="<%=comment.getCommentId()%>">
                                                 <input type="hidden" name="topicid" value="<%=request.getParameter("topicId")%>">
                                                 <input type="hidden" name="adminid" value="<%=request.getSession().getAttribute("adminId")%>">
-                                                <button type="submit">Delete</button>
+                                                <button type="submit" onclick="return confirm('Are you sure you want to delete this comment?');">Delete</button>
                                             </form>
                                         </div> 
                                     </div>

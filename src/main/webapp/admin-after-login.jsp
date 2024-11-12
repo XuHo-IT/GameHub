@@ -219,14 +219,15 @@
                                                  align-items: center;
                                                  justify-content: flex-end;
                                                  gap: 10px;">
-                                                <a href="game-single-after-login-edit.jsp?id=${post.postID}&postId=${post.postID}"
-                                                   class="btn btn-edit">Edit</a>
+                                               <a href="game-single-after-login-edit.jsp?id=${post.postID}&adminId=<%= request.getSession().getAttribute("adminId") %>"
+                                           class="btn btn-edit">Edit</a>
 
                                                 <form action="EditPostController" method="post">
                                                     <input type="hidden" name="postId"
                                                            value="${post.postID}">
                                                     <button type="submit" name="action" value="delete"
-                                                            class="btn btn-danger">Delete</button>
+                                                            class="btn btn-danger"
+                                                            onclick="return confirm('Are you sure you want to delete this post?');">Delete</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -390,7 +391,7 @@
                             <div class="top-meta">${post.dateRelease} / in <a href=ReadGameHomeAdmin?genre=${genre.genre}&adminId=<%= request.getSession().getAttribute("adminId")%>">${post.genre != null ? post.genre : 'Unknown Genre'}</a>
                             </div>
 
-                            <h3>Newest game release is coming up!</h3>
+                            <h3>The best game is right here!!</h3>
 
                             <!-- Post title -->
                             <p style="font-size: 40px">${post.title}</p>

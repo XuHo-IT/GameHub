@@ -180,10 +180,25 @@
                                 <h4 class="widget-title">Genre</h4>
                                 <form action="ReadGameListMember" method="get">   
                                     <ul>
+                                        <a style=" display: inline-block;
+                                           position: relative;
+                                           font-size: 16px;
+                                           color: #68647d;
+                                           font-weight: 500;
+                                           margin-bottom: 15px;
+                                           padding-right: 19px;
+                                           -webkit-transition: all 0.2s;
+                                           -o-transition: all 0.2s;
+                                           transition: all 0.2s;
+                                           background-image: url(../img/icons/double-arrow.png);
+                                           background-repeat: no-repeat;
+                                           background-position: right -120% center;
+                                           background-size: 11px;" href="ReadGameListMember?userId=<%= request.getSession().getAttribute("adminId")%>">All Genre</a>
                                         <c:forEach var="genre" items="${genres}">
                                             <li>
-                                                <a href="ReadGameListMember?genre=${genre.genre}">
-                                                    ${genre.genre != null ? genre.genre : 'No genre available'}
+                                                <a href="ReadGameListMember?genre=${genre.genre}&userId=<%= request.getSession().getAttribute("adminId")%>">
+                                                    ${genre.genre != null ? genre.genre : 'No genre
+                                                      available'}
                                                 </a>
                                             </li>
                                         </c:forEach>
@@ -221,7 +236,7 @@
                             <!-- Display post date and category dynamically -->
                             <div class="top-meta">${post.dateRelease} / in <a href="ReadGameListMember?genre=${post.genre}&userId=<%= request.getSession().getAttribute("adminId")%>">${post.genre != null ? post.genre : 'Unknown Genre'}</a></div>
 
-                            <h3>Newest game release is coming up!</h3>
+                            <h3>The best game is right here!!</h3>
 
                             <!-- Post title -->
                             <p style="font-size: 40px">${post.title}</p>

@@ -29,7 +29,7 @@
         <meta name="keywords" content="endGam,gGaming, magazine, html">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Favicon -->
-        <link href="img/favicon.ico" rel="shortcut icon" />
+        <link href="img/favicon.ico" rel="shortcut icon"/>
 
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
@@ -226,16 +226,7 @@
             </div>
         </section>
 
-        <!-- Newsletter section -->
-        <section class="newsletter-section" style="color: white;
-                 font-size: 35px;
-                 padding: 30px 0 30px 0;">
-            <div class="container">
-                <h3 class="bottom-title" style="font-family: 'Sixtyfour Convergence';">Thanks for using our website!</h3>
-            </div>
-        </section>
-        <!-- Newsletter section end -->
-
+        
         <!-- Footer section -->
         <footer class="footer-section" style="margin-top: 0 ; padding: 10px 125px">
             <div class="container">

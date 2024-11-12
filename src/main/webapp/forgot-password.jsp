@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Forgot Password</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <link href="img/favicon.ico" rel="shortcut icon"/>
 </head>
 <body>
     <div class="forgot-password-container">

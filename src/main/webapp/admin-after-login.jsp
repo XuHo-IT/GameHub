@@ -190,7 +190,7 @@
                                          flex-wrap: wrap;
                                          flex-direction: column;">
                                         <!-- Display the release date and genre -->
-                                        <div class="top-meta">${post.dateRelease != null ? post.dateRelease : 'Unknown Date'} /  <a href=ReadGameHomeAdmin?genre=${post.genre}&adminId=<%= request.getSession().getAttribute("adminId")%>">${post.genre != null ? post.genre : 'Unknown Genre'}</a></div>
+                                        <div class="top-meta">${post.dateRelease != null ? post.dateRelease : 'Unknown Date'} /  <a href="ReadGameHomeAdmin?genre=${post.genre}&adminId=<%= request.getSession().getAttribute("adminId")%>">${post.genre != null ? post.genre : 'Unknown Genre'}</a></div>
 
                                         <h3>${post.title != null ? post.title : 'Untitled'}</h3>
                                         <!-- Display the description -->

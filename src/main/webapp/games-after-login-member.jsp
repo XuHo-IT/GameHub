@@ -219,7 +219,7 @@
                     <div class="featured-box col-6" >
                         <div class="text-box" >
                             <!-- Display post date and category dynamically -->
-                            <div class="top-meta">${post.dateRelease} / in <a href="#">${post.genre}</a></div>
+                            <div class="top-meta">${post.dateRelease} / in <a href="ReadGameListMember?genre=${post.genre}&userId=<%= request.getSession().getAttribute("adminId")%>">${post.genre != null ? post.genre : 'Unknown Genre'}</a></div>
 
                             <h3>Newest game release is coming up!</h3>
 

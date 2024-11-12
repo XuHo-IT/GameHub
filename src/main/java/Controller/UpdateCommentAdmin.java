@@ -31,7 +31,7 @@ public class UpdateCommentAdmin extends HttpServlet {
         // Add the comment
         commentDAO.updateComment(commentId, newContent);
 
-        response.sendRedirect("forum-detail-after-login-member.jsp?topicId=" + topicId + "&userId=" + userId);
+        response.sendRedirect("forum-detail-after-login-admin.jsp?topicId=" + topicId + "&adminId=" + userId);
     }
 
 }

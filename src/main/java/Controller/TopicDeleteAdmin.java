@@ -46,6 +46,6 @@ public class TopicDeleteAdmin extends HttpServlet {
         commentDAO.deleteManyComment(topicId);
 
         // Redirect to the appropriate page after deletion
-        response.sendRedirect("ReadTopicAdmin?userId=" + userId);
+        response.sendRedirect("ReadTopicAdmin?adminId=" + userId);
     }
 }

@@ -15,7 +15,7 @@
         <meta name="keywords" content="endGam,gGaming, magazine, html">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Favicon -->
-        <link href="./img/favicon.png" rel="icon" />
+        <link href="img/favicon.ico" rel="shortcut icon"/>
 
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -237,7 +237,7 @@
                         </div>
                         <!-- Blog item -->
                         <%
-                            String adminId = request.getParameter("id");  // Get AdminId from session
+                            String adminId = request.getParameter("userId");  // Get AdminId from session
                         %>                        
                         <div class="blog-container">
                             <c:forEach var="post" items="${posts}">
@@ -257,8 +257,7 @@
                                          flex-wrap: wrap;
                                          flex-direction: column;">
                                         <!-- Display the release date and genre -->
-                                        <div class="top-meta">${post.dateRelease != null ? post.dateRelease : 'Unknown Date'} /  <a href="#">${post.genre != null ? post.genre : 'Unknown
-                                                                Genre'}</a></div>
+                                        <div class="top-meta">${post.dateRelease != null ? post.dateRelease : 'Unknown Date'} /  <a href="ReadGameHomeMember?genre=${post.genre}&userId=<%= request.getSession().getAttribute("adminId")%>">${post.genre != null ? post.genre : 'Unknown Genre'}</a></div>
                                         <h3>${post.title != null ? post.title : 'Untitled'}</h3>
 
                                         <!-- Display the description -->
@@ -276,7 +275,7 @@
                                         </c:choose>
 
                                         <!-- Read more link -->
-                                        <a href="game-single-after-login-member.jsp?id=${post.postID}&adminId=<%= adminId%>" class="read-more">
+                                        <a href="game-single-after-login-member.jsp?id=${post.postID}&userId=<%= adminId%>" class="read-more">
                                             Read More <img src="img/icons/double-arrow.png" alt="#" />
                                         </a>
                                     </div>
@@ -322,7 +321,7 @@
                             <div class="categories-widget">
                                 <h4 class="widget-title">Genre</h4>                               
                                 <form
-                                    action="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>" method="get">
+                                    action="ReadGameHomeMember?userId=<%= request.getSession().getAttribute("adminId")%>" method="get">
                                     <ul>
                                         <a style=" display: inline-block;
                                            position: relative;
@@ -417,12 +416,12 @@
                 <div class="featured-box col-6" >
                     <div class="text-box" >
                         <!-- Display post date and category dynamically -->
-                        <div class="top-meta">${post.dateRelease} / in <a href="#">${post.genre}</a></div>
+                        <div class="top-meta">${post.dateRelease} / in <a href="ReadGameHomeMember?genre=${post.genre}&userId=<%= request.getSession().getAttribute("adminId")%>">${post.genre != null ? post.genre : 'Unknown Genre'}</a></div>
 
-                        <h3>Newest game release is coming up!</h3>
+                        <h3>The best game is right here!!</h3>
 
                         <!-- Post title -->
-                        <h3>${post.title != null ? post.title : 'Untitled'}</h3>
+                       <p style="font-size: 40px">${post.title}</p>
 
                         <!-- Post content (short summary) -->
                         <!-- Display the description -->
@@ -545,7 +544,7 @@
                     </div>
                     <div class="policy-text">
                         <input type="checkbox" id="policy">
-                        <label for="policy">I agree to the
+                        <label for="policy" style="margin-bottom: 0;">I agree to the
                             <a href="#" class="option">Terms & Conditions</a>
                         </label>
                     </div>

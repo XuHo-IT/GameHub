@@ -1,3 +1,5 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="DAO.GamePostDAO"%>
 <%@page import="Model.Genre"%>
 <%@page import="Model.UserModel"%>
@@ -135,7 +137,7 @@
 
                                 <%
                                     UserDAO userDAO = new UserDAO();
-                                    UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
+                                    UserModel user = userDAO.getUserById((String) request.getParameter("adminId"));
                                     request.setAttribute("user", user);
                                     GamePostDAO postDao = new GamePostDAO();
                                     List<Genre> genres = postDao.getGenres();
@@ -225,6 +227,17 @@
                                 <input type="text" name="author" style="font-size: 20px; height: 50px" value="<%= author != null ? author : "No Author available"%>" class="form-control">
                             </div>
                         </div>
+                             <%
+                        // Parse the release date if it's not null
+                        Date today = new Date();
+                        Date releaseDate = null;
+
+                        if (dateRelease != null) {
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Ensure format matches dateRelease
+                            releaseDate = sdf.parse(dateRelease);
+                        }
+                    %>
+                              <% if (releaseDate != null && releaseDate.before(today)) {%>
                         <div class="gs-gameplay">
                             <h3 style="color: white">Link of the game</h3>
                             <textarea name="Link" style="font-size: 20px; height: 50px" class="form-control"><%= linkGame != null ? linkGame : "No linkGame available"%></textarea>
@@ -232,30 +245,16 @@
                             <h3 style="color: white">Price</h3>
                             <textarea name="Price" style="font-size: 20px; height: 50px" class="form-control"><%= price != null ? price : "No price available"%></textarea>
                         </div>
-                        <div class="gs-gameplay" style="display:none">
-                            <h3 style="color: white">AdminId</h3>
-                            <textarea name="adminId" style="font-size: 20px; height: 50px" class="form-control"><%= price != null ? price : "No price available"%></textarea>
-                        </div> <div class="gs-gameplay"  style="display:none">
-                            <h3 style="color: white">FileName</h3>
-                            <textarea name="fileName" style="font-size: 20px; height: 50px" class="form-control"><%= price != null ? price : "No price available"%></textarea>
-                        </div>
-                        <div class="gs-gameplay">
-                            <h3 style="color: white">Upload New Logo</h3>
-
-                            <!-- Display the uploaded image if it exists -->
-                            <% if (fileData != null && !fileData.isEmpty()) {%>
-                            <img src="data:image/png;base64,<%= fileData%>" alt="Current Logo" class="img-thumbnail" style="max-width: 200px; max-height: 200px; margin-bottom: 10px;">
-                            <% }%>
-
-                            <!-- File input for uploading a new logo -->
-                            <input type="file" name="fileData" accept="image/*" class="form-control" ><%= fileData != null ? fileData : ""%>
-                        </div>
+                        <% }%>
+                        <input type="hidden" name="adminId" value="<%= adminId%>">
 
                         <input type="hidden" name="postId" value="<%= postId%>">
                         <button class="edit-btn" type="submit" name="action" value="edit" style="background-color:#4CAF50;">Edit</button>
                         <button type="submit" name="action" value="delete"
-                                class="btn-danger " style="margin-top: 5px;
-                                width: 100%;">Delete</button>
+                                class="btn-danger" style="margin-top: 5px; width: 100%;"
+                                onclick="return confirm('Are you sure you want to delete this post?');">
+                            Delete
+                        </button>
                     </form>
                     <!-- Action Images Carousel -->
                     <div id="actionImagesCarousel" class="carousel slide" data-ride="carousel">

@@ -49,7 +49,7 @@ public class LoginController extends HttpServlet {
                 } else {
                     switch (role) {
                         case "0": // Regular user
-                            response.sendRedirect("ReadGameHomeMember?id=" + superAdmin.getAdminId());
+                            response.sendRedirect("ReadGameHomeMember?userId=" + superAdmin.getAdminId());
                             break;
                         case "1": // Admin
                             response.sendRedirect("ReadGameHomeAdmin?adminid=" + superAdmin.getAdminId());

@@ -28,7 +28,7 @@
         <meta name="keywords" content="endGam,gGaming, magazine, html">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Favicon -->
-        <link href="img/favicon.ico" rel="shortcut icon" />
+        <link href="img/favicon.ico" rel="shortcut icon"/>
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -66,13 +66,31 @@
         </div>
 
         <header class="header-section">
-            <div class="header-warp">             
-                <div class="header-social d-flex justify-content-end">
-                    <p>Follow us:</p>
-                    <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
-                    <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
-                    <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
-                    <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
+            <div class="header-warp">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <form action="SearchTopicServlet" method="GET">
+                            <!-- Search Bar Row -->
+                            <div class="row" style="align-items: center;">
+                                <!-- Search button on the left side -->
+                                <div class="col-2 d-flex align-items-end">
+                                    <button type="submit" class="w-100" style="height: 52px;">Search</button>
+                                </div>
+
+                                <!-- Keyword input for the search bar -->
+                                <div class="col-6" style="padding-top: 15px;">
+                                    <input type="text" name="keyword" class="form-control" placeholder="Search by keyword..." aria-label="Search" style="height: 52px;">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="header-social d-flex justify-content-end">
+                        <p>Follow us:</p>
+                        <a href="https://www.facebook.com/fptcorp"><i class="fa fa-facebook"></i></a>
+                        <a href="https://fpt.com/vi"><i class="fa fa-address-card-o"></i></a>
+                        <a href="https://www.linkedin.com/company/fpt-corporation"><i class="fa fa-linkedin-square"></i></a>
+                        <a href="https://www.youtube.com/c/FPTCorporation"><i class="fa fa-youtube-play"></i></a>
+                    </div>
                 </div>
                 <div class="header-bar-warp d-flex">
                     <!-- site logo -->
@@ -167,7 +185,7 @@
         <section class="blog-section spad" style="padding-bottom: 0;">
             <div class="container" style="
                  margin: 0 auto;
-                 margin-top: -30px;
+                 margin-top: 35px;
                  padding: 20px;">
                 <div class="topic-container">
                     <!--Original thread-->
@@ -628,6 +646,11 @@
         <style>
             img.img_bottom_1,img.img_bottom_2  {
                 width: 50%;
+            }
+            .container .topic-container {
+                margin-top: 120px;
+                padding-top: 20px;
+                color: white;
             }
         </style>
         <script>

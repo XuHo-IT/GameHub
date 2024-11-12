@@ -1,5 +1,6 @@
 package DAO;
 
+import Model.GamePostEdit;
 import Model.GamePostMember;
 import Model.GamePostTemp;
 import Model.Genre;
@@ -262,7 +263,7 @@ public class GamePostDAO {
         return postList;
     }
 
-    public void editPost(String postId, GamePostTemp updatedPost) {
+    public void editPost(String postId, GamePostEdit updatedPost) {
         MongoCollection<Document> collection = database.getCollection("postGame");
 
         // Create the update document
@@ -273,8 +274,7 @@ public class GamePostDAO {
                 .append("Author", updatedPost.getAuthor())
                 .append("Genre", updatedPost.getGenre())
                 .append("LinkGame", updatedPost.getLinkGame())
-                .append("Price", updatedPost.getPrice())
-                .append("FileData", updatedPost.getFileDataBase64())); // Update the file data
+                .append("Price", updatedPost.getPrice()));
 
         // Update the post document in MongoDB
         collection.updateOne(new Document("_id", new ObjectId(postId)), update);

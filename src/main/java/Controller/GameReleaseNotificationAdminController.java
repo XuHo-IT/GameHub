@@ -56,9 +56,8 @@ public class GameReleaseNotificationAdminController extends TimerTask {
     }
 
     private void sendEmailNotification(String gameTitle, String postId, String adminEmail, String adminId) {
-        session.setAttribute("adminId", adminId);
         String subject = "Game Release Notification";
-        String gameLink = "http://localhost:8080/Web_Trading_Game/game-single-after-login.jsp?id=" + postId + "&adminId=" + adminId;
+        String gameLink = "http://localhost:8080/Web_Trading_Game/game-single-after-login-edit.jsp?id=" + postId + "&adminId=" + adminId;
         String body
                 = "The game '" + gameTitle + "' is releasing today!"
                 + "Link to the game to upload link: " + gameLink;

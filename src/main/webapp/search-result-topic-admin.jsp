@@ -27,7 +27,7 @@
         <meta name="keywords" content="endGam,gGaming, magazine, html">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Favicon -->
-        <link href="img/favicon.ico" rel="shortcut icon" />
+        <link href="img/favicon.ico" rel="shortcut icon"/>
 
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
@@ -65,7 +65,7 @@
 
         <header class="header-section">
             <div class="header-warp">
-                 <div class="row align-items-center">
+                <div class="row align-items-center">
                     <div class="col-8">
                         <form action="SearchTopicServlet" method="GET">
                             <!-- Search Bar Row -->
@@ -210,7 +210,7 @@
                                     </c:if>
                                     <form action="TopicDeleteAdmin" method="post">
                                         <input type="hidden" name="topicId" value="${topic.topicId}">
-                                        <button type="submit" name="action" value="delete" class="btn-danger" onclick="return confirm('Are you sure you want to delete this topic?');">Delete</button>
+                                        <button type="submit" name="action" value="delete" class="btn-danger">Delete</button>
                                     </form>
                                 </div>   
                             </div>
@@ -226,9 +226,7 @@
             </div>
         </section>
 
-        <!-- Newsletter section -->
-
-        <!-- Newsletter section end -->
+        
 
         <!-- Footer section -->
         <footer class="footer-section" style="margin-top: 0 ; padding: 10px 125px">
@@ -415,6 +413,22 @@
             .create-overlay, .update-overlay {
                 display: none;
                 opacity:1;
+            }
+            .user {
+                position: relative;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                overflow: hidden;
+                cursor: pointer;
+            }
+            .user img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
             }
             .btn-danger{
                 margin: 0;

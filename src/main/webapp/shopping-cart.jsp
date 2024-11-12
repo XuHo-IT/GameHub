@@ -14,7 +14,7 @@
         <meta name="keywords" content="endGam,gGaming, magazine, html">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Favicon -->
-        <link href="img/favicon.ico" rel="shortcut icon" />
+        <link href="img/favicon.ico" rel="shortcut icon"/>
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
         <!-- Stylesheets -->
@@ -53,7 +53,7 @@
                                             </div>
                                             <%
                                                 String postId = request.getParameter("id");
-                                                String adminId = request.getParameter("adminId");
+                                                String adminId = request.getParameter("userId");
                                                 String title = request.getParameter("title");
                                                 String fileData = request.getParameter("fileData");
                                                 String dateRelease = request.getParameter("dateRelease");
@@ -78,7 +78,7 @@
                                                     <form>
                                                         <!-- Updated Cancel Button to Include postId and adminId -->
                                                         <button 
-                                                            onclick="window.location.href = 'game-single-after-login-member.jsp?id=<%= postId%>&adminId=<%= adminId%>'" 
+                                                            onclick="window.location.href = 'game-single-after-login-member.jsp?id=<%= postId%>&userId=<%= adminId%>'" 
                                                             type="button">
                                                             Cancel
                                                         </button>
@@ -112,7 +112,7 @@
                                         <img src="img/cart.jpg" alt="Game Image" style="width: 100%; height: auto; padding:10px 7px" />                                      
                                         <form id="wishlistForm" action="GameReleaseNotificationMember" method="post">
                                             <input type="hidden" name="postId" value="<%= postId%>" />
-                                            <input type="hidden" name="adminId" value="<%= adminId%>" />
+                                            <input type="hidden" name="userId" value="<%= adminId%>" />
                                             <input type="hidden" name="title" value="<%= title%>" />
                                             <input type="hidden" name="fileData" value="<%= fileData%>" />
                                             <input type="hidden" name="dateRelease" value="<%= dateRelease%>" />

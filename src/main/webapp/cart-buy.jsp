@@ -20,7 +20,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>EndGam - Gaming Magazine Template</title>
         <!-- Favicon -->
-        <link href="img/favicon.ico" rel="shortcut icon" />
+        <link href="img/favicon.ico" rel="shortcut icon"/>
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Sixtyfour+Convergence&display=swap" rel="stylesheet">
@@ -64,7 +64,7 @@
                                                     MongoCollection<Document> userCollection = mongoClient.getDatabase("GameHub").getCollection("superadmin");
 
                                                     String postId = request.getParameter("id");
-                                                    String userId = request.getParameter("adminId");
+                                                    String userId = request.getParameter("userId");
 
                                                     Document user = userCollection.find(Filters.eq("_id", new ObjectId(userId))).first();
                                                     String photoUrl = user.getString("PhotoUrl");

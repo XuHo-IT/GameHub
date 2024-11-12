@@ -16,7 +16,7 @@
         <meta name="keywords" content="endGam,gGaming, magazine, html">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Favicon -->
-        <link href="./img/favicon.png" rel="icon" />
+        <link href="img/favicon.ico" rel="shortcut icon"/>
 
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -190,8 +190,7 @@
                                          flex-wrap: wrap;
                                          flex-direction: column;">
                                         <!-- Display the release date and genre -->
-                                        <div class="top-meta">${post.dateRelease != null ? post.dateRelease : 'Unknown Date'} /  <a href="#">${post.genre != null ? post.genre : 'Unknown
-                                                                Genre'}</a></div>
+                                        <div class="top-meta">${post.dateRelease != null ? post.dateRelease : 'Unknown Date'} /  <a href="ReadGameHomeAdmin?genre=${post.genre}&adminId=<%= request.getSession().getAttribute("adminId")%>">${post.genre != null ? post.genre : 'Unknown Genre'}</a></div>
 
                                         <h3>${post.title != null ? post.title : 'Untitled'}</h3>
                                         <!-- Display the description -->
@@ -220,14 +219,15 @@
                                                  align-items: center;
                                                  justify-content: flex-end;
                                                  gap: 10px;">
-                                                <a href="game-single-after-login-edit.jsp?id=${post.postID}&postId=${post.postID}"
-                                                   class="btn btn-edit">Edit</a>
+                                               <a href="game-single-after-login-edit.jsp?id=${post.postID}&adminId=<%= request.getSession().getAttribute("adminId") %>"
+                                           class="btn btn-edit">Edit</a>
 
                                                 <form action="EditPostController" method="post">
                                                     <input type="hidden" name="postId"
                                                            value="${post.postID}">
                                                     <button type="submit" name="action" value="delete"
-                                                            class="btn btn-danger">Delete</button>
+                                                            class="btn btn-danger"
+                                                            onclick="return confirm('Are you sure you want to delete this post?');">Delete</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -388,10 +388,10 @@
                     <div class="featured-box col-6">
                         <div class="text-box">
                             <!-- Display post date and category dynamically -->
-                            <div class="top-meta">${post.dateRelease} / in <a href="#">${post.genre}</a>
+                            <div class="top-meta">${post.dateRelease} / in <a href=ReadGameHomeAdmin?genre=${genre.genre}&adminId=<%= request.getSession().getAttribute("adminId")%>">${post.genre != null ? post.genre : 'Unknown Genre'}</a>
                             </div>
 
-                            <h3>Newest game release is coming up!</h3>
+                            <h3>The best game is right here!!</h3>
 
                             <!-- Post title -->
                             <p style="font-size: 40px">${post.title}</p>
@@ -512,7 +512,7 @@
 
                             <div class="policy-text">
                                 <input type="checkbox" id="policy">
-                                <label for="policy">I agree to the
+                                <label for="policy" style="margin-bottom: 0;">I agree to the
                                     <a href="#" class="option">Terms & Conditions</a>
                                 </label>
                             </div>

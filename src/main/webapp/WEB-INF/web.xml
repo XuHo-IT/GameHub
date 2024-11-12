@@ -5,10 +5,6 @@
         <servlet-class>Controller.LoginController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SignUpController</servlet-name>
-        <servlet-class>Controller.SignUpController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AddGameController</servlet-name>
         <servlet-class>Controller.AddGameController</servlet-class>
     </servlet>
@@ -19,10 +15,6 @@
     <servlet>
         <servlet-name>ShowAllGameController</servlet-name>
         <servlet-class>Controller.ShowAllGameController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ChangePasswordController</servlet-name>
-        <servlet-class>Controller.ChangePasswordController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UploadPhotoController</servlet-name>
@@ -39,10 +31,6 @@
     <servlet>
         <servlet-name>AssignAdminController</servlet-name>
         <servlet-class>Controller.AssignAdminController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>LogOutController</servlet-name>
-        <servlet-class>Controller.LogOutController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EditPostController</servlet-name>
@@ -217,14 +205,6 @@
         <servlet-class>Controller.Search</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SearchAdmin</servlet-name>
-        <servlet-class>Controller.SearchAdmin</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>SearchMember</servlet-name>
-        <servlet-class>Controller.SearchMember</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ReadGameUploadByMember</servlet-name>
         <servlet-class>Controller.ReadGameUploadByMember</servlet-class>
     </servlet>
@@ -284,13 +264,17 @@
         <servlet-name>ConfirmPostGame</servlet-name>
         <servlet-class>Controller.ConfirmPostGame</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchTopic</servlet-name>
+        <servlet-class>Controller.SearchTopic</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchTopicServlet</servlet-name>
+        <servlet-class>Controller.SearchTopicServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SignUpController</servlet-name>
-        <url-pattern>/SignUpController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddGameController</servlet-name>
@@ -303,10 +287,6 @@
     <servlet-mapping>
         <servlet-name>ShowAllGameController</servlet-name>
         <url-pattern>/ShowAllGameController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ChangePasswordController</servlet-name>
-        <url-pattern>/ChangePasswordController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UploadPhotoController</servlet-name>
@@ -325,10 +305,6 @@
         <url-pattern>/AssignAdminController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>LogOutController</servlet-name>
-        <url-pattern>/LogOutController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>EditPostController</servlet-name>
         <url-pattern>/EditPostController</url-pattern>
     </servlet-mapping>
@@ -343,10 +319,6 @@
     <servlet-mapping>
         <servlet-name>AddToWishlistController</servlet-name>
         <url-pattern>/AddToWishlistController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GameReleaseNotificationMemberController</servlet-name>
-        <url-pattern>/GameReleaseNotificationMemberController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddReplyController</servlet-name>
@@ -501,14 +473,6 @@
         <url-pattern>/Search</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SearchAdmin</servlet-name>
-        <url-pattern>/SearchAdmin</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SearchMember</servlet-name>
-        <url-pattern>/SearchMember</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ReadGameUploadByMember</servlet-name>
         <url-pattern>/ReadGameUploadByMember</url-pattern>
     </servlet-mapping>
@@ -567,6 +531,10 @@
     <servlet-mapping>
         <servlet-name>ConfirmPostGame</servlet-name>
         <url-pattern>/ConfirmPostGame</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchTopicServlet</servlet-name>
+        <url-pattern>/SearchTopicServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>ReadGameHome</welcome-file>

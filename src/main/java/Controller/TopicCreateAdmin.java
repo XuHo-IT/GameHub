@@ -55,6 +55,6 @@ public class TopicCreateAdmin extends HttpServlet {
         topicDAO.createTopic(topicTitle, topicContent, fileDataBase64, userId);
 
         // Redirect to the forum page after successful insertion
-        response.sendRedirect("ReadTopicAdmin?userId=" + userId);
+        response.sendRedirect("ReadTopicAdmin?adminId=" + userId);
     }
 }

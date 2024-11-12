@@ -21,7 +21,7 @@
         <meta name="keywords" content="endGam,gGaming, magazine, html">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Favicon -->
-        <link href="img/favicon.ico" rel="shortcut icon" />
+        <link href="img/favicon.ico" rel="shortcut icon"/>
 
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
@@ -124,7 +124,7 @@
                     <nav class="top-nav-area w-100">
                         <div class="user-panel d-flex">                          
                             <div class="account-container">
-                                 <%
+                                <%
                                     UserDAO userDAO = new UserDAO();
                                     UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
                                     request.setAttribute("user", user);
@@ -199,7 +199,7 @@
                     <!-- Add to Wishlist button -->
                     <% if (releaseDate != null && releaseDate.after(today)) {%>
                     <div class="wishlist-btns">
-                        <form id="wishlistForm" action="shopping-cart.jsp?id=<%= postId%>&adminId=<%= adminId%>" method="POST">
+                        <form id="wishlistForm" action="shopping-cart.jsp?id=<%= postId%>&userId=<%= adminId%>" method="POST">
                             <input type="hidden" name="postId" value="<%= postId%>" />
                             <input type="hidden" name="adminId" value="<%= adminId%>" />
                             <input type="hidden" name="title" value="<%= title%>" />
@@ -221,10 +221,11 @@
                     </div>
                     <% }%>
 
+
                     <% if (releaseDate != null && releaseDate.before(today)) {%>
                     <div class="buy-btn">
                         <button class="buy-button" type="submit" style="float: inline-end;"
-                                onclick="window.location.href = 'http://localhost:8080/Web_Trading_Game/cart-buy.jsp?id=<%= postId%>&adminId=<%= adminId%>'">
+                                onclick="window.location.href = 'http://localhost:8080/Web_Trading_Game/cart-buy.jsp?id=<%= postId%>&userId=<%= adminId%>'">
                             Buy Game
                         </button>
                     </div>
@@ -252,6 +253,12 @@
                         <p style="font-size: 20px"><%= genre != null ? genre : "No genre available"%></p>
                     </div>
                 </div>
+                <% if (releaseDate != null && releaseDate.before(today)) {%>
+                <div class="gs-price">
+                    <h3 style="color: white">Price</h3>
+                    <p style="font-size: 20px"><%= price != null ? price : "No price available"%> VND</p>
+                </div>              
+                <% }%>
 
                 <div id="actionImagesCarousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
@@ -365,6 +372,9 @@
                 font-size: 20px;
                 color: #585858;
             }
+              .gs-price {
+                padding: 30px 0;
+            }           
             h2.gs-title {
                 font-size: 60px;
                 color: white;

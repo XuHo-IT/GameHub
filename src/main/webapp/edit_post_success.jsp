@@ -1,3 +1,5 @@
+<%@page import="Model.UserModel"%>
+<%@page import="DAO.UserDAO"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html style="background: url(img/R&M.gif);
@@ -5,12 +7,12 @@
       background-repeat: no-repeat;
       background-position: top;">
     <head>
-        <link href="img/favicon.ico" rel="shortcut icon"/>
+         <link href="img/favicon.ico" rel="shortcut icon"/>
         <link rel="stylesheet" href="css/style.css" />
-        <title>Game Added Successfully</title>
+        <title>Edit Post Successfully</title>
         <style>
             <%
-                String id = request.getParameter("memberId");
+                String id = request.getParameter("adminId");
             %>
             .message {
                 font-size: 50px;
@@ -40,10 +42,10 @@
           flex-direction: column;
           align-items: center;">
         <div class="message" style="font-family: FungkybrowdemoRegular; width: 80%">
-            Thanks for your game information, we will check and response the game post you upload soon
+            Your post have been updated
         </div>
         <div style="text-align: center; margin-top: 20px;">
-            <button onclick="window.location.href = 'ReadGameHomeMember?userId=<%= id%>'" style="
+            <button onclick="window.location.href = 'ReadGameHomeAdmin?adminId=<%= id%>'" style="
                     font-family: FungkybrowdemoRegular;
                     padding: 10px 20px;
                     font-size: 30px;

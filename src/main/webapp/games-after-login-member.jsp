@@ -13,7 +13,7 @@
         <meta name="keywords" content="endGam,gGaming, magazine, html">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Favicon -->
-        <link href="img/favicon.ico" rel="shortcut icon" />
+        <link href="img/favicon.ico" rel="shortcut icon"/>
 
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
@@ -54,7 +54,7 @@
                 <div class="row align-items-center">
                     <!-- Left side: Search Form (col-7) -->
                     <div class="col-8">
-                        <form action="SearchMember" method="GET">
+                        <form action="Search" method="GET">
                             <!-- Search Bar Row -->
                             <div class="row" style="align-items: center;">
                                 <!-- Search button on the left side -->
@@ -180,10 +180,25 @@
                                 <h4 class="widget-title">Genre</h4>
                                 <form action="ReadGameListMember" method="get">   
                                     <ul>
+                                        <a style=" display: inline-block;
+                                           position: relative;
+                                           font-size: 16px;
+                                           color: #68647d;
+                                           font-weight: 500;
+                                           margin-bottom: 15px;
+                                           padding-right: 19px;
+                                           -webkit-transition: all 0.2s;
+                                           -o-transition: all 0.2s;
+                                           transition: all 0.2s;
+                                           background-image: url(../img/icons/double-arrow.png);
+                                           background-repeat: no-repeat;
+                                           background-position: right -120% center;
+                                           background-size: 11px;" href="ReadGameListMember?userId=<%= request.getSession().getAttribute("adminId")%>">All Genre</a>
                                         <c:forEach var="genre" items="${genres}">
                                             <li>
-                                                <a href="ReadGameListMember?genre=${genre.genre}">
-                                                    ${genre.genre != null ? genre.genre : 'No genre available'}
+                                                <a href="ReadGameListMember?genre=${genre.genre}&userId=<%= request.getSession().getAttribute("adminId")%>">
+                                                    ${genre.genre != null ? genre.genre : 'No genre
+                                                      available'}
                                                 </a>
                                             </li>
                                         </c:forEach>
@@ -219,9 +234,9 @@
                     <div class="featured-box col-6" >
                         <div class="text-box" >
                             <!-- Display post date and category dynamically -->
-                            <div class="top-meta">${post.dateRelease} / in <a href="#">${post.genre}</a></div>
+                            <div class="top-meta">${post.dateRelease} / in <a href="ReadGameListMember?genre=${post.genre}&userId=<%= request.getSession().getAttribute("adminId")%>">${post.genre != null ? post.genre : 'Unknown Genre'}</a></div>
 
-                            <h3>Newest game release is coming up!</h3>
+                            <h3>The best game is right here!!</h3>
 
                             <!-- Post title -->
                             <p style="font-size: 40px">${post.title}</p>

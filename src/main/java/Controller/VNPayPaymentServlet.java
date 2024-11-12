@@ -102,13 +102,13 @@ public class VNPayPaymentServlet extends HttpServlet {
         String paymentUrl = Config.vnp_PayUrl + "?" + query.toString() + "&vnp_SecureHash=" + vnp_SecureHash;
 
         // Store transaction in MongoDB
+        long originalAmount = Long.parseLong(amount);
+        double dividedAmount = originalAmount / 100.0;
         Document transactionDoc = new Document("orderId", orderId)
-                .append("amount", amount)
-                .append("bankCode", bankCode)
+                .append("amount", dividedAmount)
                 .append("orderType", orderType)
                 .append("createDate", Config.getCurrentDate())
-                .append("userId", userId)
-                .append("userName", userName);
+                .append("userId", userId);
         collection.insertOne(transactionDoc); // Insert into MongoDB collection
 
         // Redirect the user to VNPay payment URL

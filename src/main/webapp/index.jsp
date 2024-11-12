@@ -157,8 +157,7 @@
                                      flex-wrap: wrap;
                                      flex-direction: column;">
                                     <!-- Display the release date and genre -->
-                                    <div class="top-meta">${post.dateRelease != null ? post.dateRelease : 'Unknown Date'} /  <a href="">${post.genre != null ? post.genre : 'Unknown
-                                                            Genre'}</a></a></div>
+                                    <div class="top-meta">${post.dateRelease != null ? post.dateRelease : 'Unknown Date'} /  <a href="ReadGameHome?genre=${post.genre}">${post.genre != null ? post.genre : 'Unknown Genre'}</a></a></div>
                                     <h3>${post.title != null ? post.title : 'Untitled'}</h3>
                                     <!-- Display the description -->
                                     <c:choose>
@@ -310,9 +309,9 @@
                 <div class="featured-box col-6" >
                     <div class="text-box" >
                         <!-- Display post date and category dynamically -->
-                        <div class="top-meta">${post.dateRelease} / in <a href="#">${post.genre}</a></div>
+                        <div class="top-meta">${post.dateRelease} / in <a href=ReadGameHome?genre=${post.genre}">${post.genre}</a></div>
 
-                        <h3>Newest game release is coming up!</h3>
+                        <h3>The best game is right here!!</h3>
 
                         <!-- Post title -->
                         <p style="font-size: 40px">${post.title}</p>

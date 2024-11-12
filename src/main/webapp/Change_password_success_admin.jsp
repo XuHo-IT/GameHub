@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link href="img/favicon.ico" rel="shortcut icon"/>
     <title>Password Changed Successfully</title>
     <style>
          <%

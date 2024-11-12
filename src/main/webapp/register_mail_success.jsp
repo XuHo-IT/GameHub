@@ -7,11 +7,12 @@
       background-repeat: no-repeat;
       background-position: top;">
     <head>
+        <link href="img/favicon.ico" rel="shortcut icon"/>
         <link rel="stylesheet" href="css/style.css" />
         <title>Mail Register Successfully</title>
         <style>
             <%
-                String id = request.getParameter("memberId");
+                String id = request.getParameter("userId");
             %>
             .message {
                 font-size: 50px;
@@ -44,7 +45,7 @@
             Thanks for your register, we will notify you by your email when game release
         </div>
         <div style="text-align: center; margin-top: 20px;">
-            <button onclick="window.location.href = 'ReadGameHomeMember?id=<%= id%>'" style="
+            <button onclick="window.location.href = 'ReadGameHomeMember?userId=<%= id%>'" style="
                     font-family: FungkybrowdemoRegular;
                     padding: 10px 20px;
                     font-size: 30px;

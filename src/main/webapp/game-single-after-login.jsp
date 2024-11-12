@@ -131,7 +131,7 @@
                         <div class="user-panel d-flex">
                             <div class="account-container">
 
-                               <%
+                                <%
                                     UserDAO userDAO = new UserDAO();
                                     UserModel user = userDAO.getUserById((String) request.getSession().getAttribute("adminId"));
                                     request.setAttribute("user", user);
@@ -221,6 +221,16 @@
                         <p style="font-size: 20px"><%= genre != null ? genre : "No genre available"%></p>
                     </div>
                 </div>
+                <% if (releaseDate != null && releaseDate.before(today)) {%>
+                <div class="gs-price">
+                    <h3 style="color: white">Price</h3>
+                    <p style="font-size: 20px"><%= price != null ? price : "No price available"%> VND</p>
+                </div>
+                <div class="gs-link">
+                    <h3 style="color: white">Link Game</h3>
+                    <p style="font-size: 20px"><%= linkGame != null ? linkGame : "No linkGame available"%></p>
+                </div>
+                <% }%>
 
                 <div id="actionImagesCarousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
@@ -320,6 +330,12 @@
             }
             .gs-gameplay {
                 padding: 50px 0;
+            }
+            .gs-price {
+                padding: 30px 0;
+            }
+            .gs-link {
+                padding: 30px 0;
             }
             .gs-author-genre{
                 padding: 50px 0;

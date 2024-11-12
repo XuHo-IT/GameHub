@@ -150,26 +150,39 @@
                     </div>
 
                     <div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">
+                        
                         <div id="stickySidebar">
                             <div class="widget-item">
                                 <div class="categories-widget">
                                     <h4 class="widget-title">Genre</h4>
                                     <form action="ReadGameListController" method="get">   
                                         <ul>
-                                            <c:forEach var="genre" items="${genres}">
-                                                <li>
-                                                    <a href="ReadGameListController?genre=${genre.genre}">
-                                                        ${genre.genre != null ? genre.genre : 'No genre available'}
-                                                    </a>
-                                                </li>
-                                            </c:forEach>
-                                        </ul>
+                                    <a style="display: inline-block;
+                                       position: relative;
+                                       font-size: 16px;
+                                       color: #68647d;
+                                       font-weight: 500;
+                                       margin-bottom: 15px;
+                                       padding-right: 19px;
+                                       -webkit-transition: all 0.2s;
+                                       -o-transition: all 0.2s;
+                                       transition: all 0.2s;
+                                       background-image: url(../img/icons/double-arrow.png);
+                                       background-repeat: no-repeat;
+                                       background-position: right -120% center;
+                                       background-size: 11px;" href="ReadGameList">All Genre</a>
+                                    <c:forEach var="genre" items="${genres}">
+                                        <li>
+                                            <a href="ReadGameList?genre=${genre.genre}">
+                                                ${genre.genre != null ? genre.genre : 'No genre available'}
+                                            </a>
+                                        </li>
+                                    </c:forEach>     
+                                </ul>
                                     </form>
                                 </div>
                             </div>
-                            <div class="widget-item">
-                                <img src="img/game-console.jpg" alt="#">
-                            </div>
+    
                         </div>
                     </div>
                     <div class="site-pagination">
@@ -192,31 +205,40 @@
         <!-- Games end-->
 
         <!-- Featured section -->
-        <section class="featured-section">
-            <div class="featured-bg set-bg" data-setbg="img/featured-bg.jpg"></div>
-            <div class="featured-box">
-                <div class="text-box">
-                    <div class="top-meta">11.11.18  /  in <a href="">Games</a></div>
-                    <h3>The game you?ve been waiting  for is out now</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquamet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vestibulum posuere porttitor justo id pellentesque. Proin id lacus feugiat, posuere erat sit amet, commodo ipsum. Donec pellentesque vestibulum metus...</p>
-                    <a href="#" class="read-more">Read More <img src="img/icons/double-arrow.png" alt="#"/></a>
-                </div>
-            </div>
+         <section class="featured-section">
+            <c:forEach var="post" items="${posts}" varStatus="status">
+                <c:if test="${status.index == 0}">
+                    <!-- Featured background image -->
+                    <div class="featured-bg set-bg col-6 d-flex justify-content-center align-items-center" style="width: calc(50% - 40px); height: 100%; ">
+                        <img class="img_newest" src="data:image/png;base64,${post.fileData}" alt="Game Image" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+                    </div>
+
+                    <!-- Featured content box -->
+                    <div class="featured-box col-6" >
+                        <div class="text-box" >
+                            <!-- Display post date and category dynamically -->
+                            <div class="top-meta">${post.dateRelease} / in <a href="#">${post.genre}</a></div>
+
+                            <h3>The best game is right here!!</h3>
+
+                            <!-- Post title -->
+                            <p style="font-size: 40px">${post.title}</p>
+
+                            <!-- Post content (short summary) -->
+                            <p>${post.description}</p>
+
+                            <!-- Read more link -->
+                            <a href="game-single.jsp?id=${post.postID}" class="read-more">Read More  
+                                <img src="img/icons/double-arrow.png" alt="#"/>
+                            </a>
+                        </div>
+                    </div>
+                </c:if>
+            </c:forEach>
         </section>
         <!-- Featured section end-->
 
 
-        <!-- Newsletter section -->
-        <section class="newsletter-section">
-            <div class="container">
-                <h2>Subscribe to our newsletter</h2>
-                <form class="newsletter-form">
-                    <input type="text" placeholder="ENTER YOUR E-MAIL">
-                    <button class="site-btn">subscribe  <img src="img/icons/double-arrow.png" alt="#"/></button>
-                </form>
-            </div>
-        </section>
-        <!-- Newsletter section end -->
 
         <!-- Footer section -->
         <footer class="footer-section">
@@ -558,6 +580,17 @@
         </script>
         <style>
             img.img_bottom_1,img.img_bottom_2  {
+                width: 50%;
+            }
+            .same-size {
+                width: 300px; /* set the width to 200px */
+                height: 200px; /* set the height to 200px */
+                object-fit: cover; /* make sure the image is scaled to cover the entire area */
+            }
+                        img.img_newest {
+                height: 100%;
+            }
+            img.gif_bot {
                 width: 50%;
             }
             .same-size {

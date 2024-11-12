@@ -322,7 +322,7 @@
                             <div class="categories-widget">
                                 <h4 class="widget-title">Genre</h4>                               
                                 <form
-                                    action="ReadGameHomeAdmin?adminId=<%= request.getSession().getAttribute("adminId")%>" method="get">
+                                    action="ReadGameHomeMember?userId=<%= request.getSession().getAttribute("adminId")%>" method="get">
                                     <ul>
                                         <a style=" display: inline-block;
                                            position: relative;
@@ -419,10 +419,10 @@
                         <!-- Display post date and category dynamically -->
                         <div class="top-meta">${post.dateRelease} / in <a href="#">${post.genre}</a></div>
 
-                        <h3>Newest game release is coming up!</h3>
+                        <h3>The best game is right here!!</h3>
 
                         <!-- Post title -->
-                        <h3>${post.title != null ? post.title : 'Untitled'}</h3>
+                       <p style="font-size: 40px">${post.title}</p>
 
                         <!-- Post content (short summary) -->
                         <!-- Display the description -->

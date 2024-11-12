@@ -70,7 +70,7 @@ public class TopicUpdateAdmin extends HttpServlet {
         topicDAO.updateTopic(topicId, topicTitle, topicContent, fileDataBase64);
 
         // Redirect to the topic reading page
-        response.sendRedirect("ReadTopicAdmin?userId=" + userId);
+        response.sendRedirect("ReadTopicAdmin?adminId=" + userId);
     }
 
     private boolean isValidObjectId(String id) {

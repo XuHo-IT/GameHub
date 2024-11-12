@@ -31,6 +31,6 @@ public class AddGenre extends HttpServlet {
         genreDAO.addGenre(genreMain);
 
         // Redirect to the admin page after successful insertion
-        response.sendRedirect("ReadGameHomeAdmin");
+         response.sendRedirect("ReadGameHomeAdmin?adminid=" + adminId);
     }
 }

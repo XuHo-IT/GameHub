@@ -39,7 +39,7 @@
             String errorMessage = (String) request.getAttribute("errorMessage");
             if ("Invalid email".equals(errorMessage)) {
         %>
-            This email has not been registered, please sign up.
+            This email has been registered, please sign up again.
         <% 
             } else if ("Wrong password".equals(errorMessage)) {
         %>

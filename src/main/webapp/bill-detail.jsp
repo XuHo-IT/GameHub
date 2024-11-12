@@ -6,6 +6,7 @@
         <title>Payment Details</title>
         <link rel="stylesheet" href="css/bootstrap.min.css" />
         <link href="https://fonts.googleapis.com/css2?family=Sixtyfour+Convergence&display=swap" rel="stylesheet">
+        <link href="img/favicon.ico" rel="shortcut icon"/>
         <style>
             body {
                 background-color: #f8f9fa;

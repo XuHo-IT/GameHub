@@ -7,6 +7,7 @@
       background-repeat: no-repeat;
       background-position: top;">
     <head>
+        <link href="img/favicon.ico" rel="shortcut icon"/>
         <link rel="stylesheet" href="css/style.css" />
         <title>Mail Register Successfully</title>
         <style>

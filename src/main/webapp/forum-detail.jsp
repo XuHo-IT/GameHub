@@ -67,7 +67,7 @@
 
         <header class="header-section">
             <div class="header-warp">
-                 <div class="row align-items-center">
+                <div class="row align-items-center">
                     <div class="col-8">
                         <form action="SearchTopicServlet" method="GET">
                             <!-- Search Bar Row -->
@@ -646,6 +646,11 @@
         <style>
             img.img_bottom_1,img.img_bottom_2  {
                 width: 50%;
+            }
+            .container .topic-container {
+                margin-top: 120px;
+                padding-top: 20px;
+                color: white;
             }
         </style>
         <script>

@@ -39,7 +39,7 @@ public class ReadGameList extends HttpServlet {
             }
 
             // Pagination logic
-            int itemsPerPage = 9;
+            int itemsPerPage = 12;
             int currentPage = 1;
             String pageParam = request.getParameter("page");
 

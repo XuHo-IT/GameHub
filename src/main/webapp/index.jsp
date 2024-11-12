@@ -311,7 +311,7 @@
                         <!-- Display post date and category dynamically -->
                         <div class="top-meta">${post.dateRelease} / in <a href=ReadGameHome?genre=${post.genre}">${post.genre}</a></div>
 
-                        <h3>Newest game release is coming up!</h3>
+                        <h3>The best game is right here!!</h3>
 
                         <!-- Post title -->
                         <p style="font-size: 40px">${post.title}</p>

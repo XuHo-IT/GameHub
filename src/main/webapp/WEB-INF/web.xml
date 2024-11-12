@@ -5,10 +5,6 @@
         <servlet-class>Controller.LoginController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SignUpController</servlet-name>
-        <servlet-class>Controller.SignUpController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AddGameController</servlet-name>
         <servlet-class>Controller.AddGameController</servlet-class>
     </servlet>
@@ -19,10 +15,6 @@
     <servlet>
         <servlet-name>ShowAllGameController</servlet-name>
         <servlet-class>Controller.ShowAllGameController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ChangePasswordController</servlet-name>
-        <servlet-class>Controller.ChangePasswordController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UploadPhotoController</servlet-name>
@@ -39,10 +31,6 @@
     <servlet>
         <servlet-name>AssignAdminController</servlet-name>
         <servlet-class>Controller.AssignAdminController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>LogOutController</servlet-name>
-        <servlet-class>Controller.LogOutController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EditPostController</servlet-name>
@@ -289,10 +277,6 @@
         <url-pattern>/LoginController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SignUpController</servlet-name>
-        <url-pattern>/SignUpController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AddGameController</servlet-name>
         <url-pattern>/AddGameController</url-pattern>
     </servlet-mapping>
@@ -303,10 +287,6 @@
     <servlet-mapping>
         <servlet-name>ShowAllGameController</servlet-name>
         <url-pattern>/ShowAllGameController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ChangePasswordController</servlet-name>
-        <url-pattern>/ChangePasswordController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UploadPhotoController</servlet-name>
@@ -323,10 +303,6 @@
     <servlet-mapping>
         <servlet-name>AssignAdminController</servlet-name>
         <url-pattern>/AssignAdminController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>LogOutController</servlet-name>
-        <url-pattern>/LogOutController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditPostController</servlet-name>

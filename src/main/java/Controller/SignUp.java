@@ -42,7 +42,6 @@ public class SignUp extends HttpServlet {
         }
 
         // Hash the password
-        String hashedPassword = hashPassword(password);
 
         // Create a SuperAdmin object
         SuperAdmin superAdmin = new SuperAdmin(
@@ -52,7 +51,7 @@ public class SignUp extends HttpServlet {
                 email,
                 phoneNumber,
                 address,
-                hashedPassword,
+                password ,
                 photoUrl,
                 "0",
                 "Active"
@@ -62,8 +61,8 @@ public class SignUp extends HttpServlet {
 
         if (superAdminDAO.isEmailRegistered(email)) {
             HttpSession session = request.getSession();
-            session.setAttribute("emailRegistered", true);
-            response.sendRedirect("ReadGameHome");
+            request.setAttribute("errorMessage", "Invalid email");
+            request.getRequestDispatcher("wrong_password.jsp").forward(request, response);
         } else {
             // Register user
             ObjectId adminId = superAdminDAO.registerSuperAdmin(superAdmin);
@@ -81,7 +80,7 @@ public class SignUp extends HttpServlet {
                 session.setAttribute("adminName", superAdmin.getName());
                 session.setAttribute("adminEmail", superAdmin.getEmail());
                 session.setAttribute("photoUrl", superAdmin.getPhotoUrl());
-                response.sendRedirect("ReadGameHomeMember?id=" + adminId.toString());
+                response.sendRedirect("ReadGameHomeMember?userid=" + adminId.toString());
             } else {
                 request.setAttribute("errorMessage", "Failed to send verification email.");
                 request.getRequestDispatcher("error-page.jsp").forward(request, response);

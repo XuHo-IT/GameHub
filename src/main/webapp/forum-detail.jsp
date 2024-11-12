@@ -185,7 +185,7 @@
         <section class="blog-section spad" style="padding-bottom: 0;">
             <div class="container" style="
                  margin: 0 auto;
-                 margin-top: 0px;
+                 margin-top: 35px;
                  padding: 20px;">
                 <div class="topic-container">
                     <!--Original thread-->

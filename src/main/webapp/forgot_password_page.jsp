@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link href="img/favicon.ico" rel="shortcut icon"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Recover Password</title>
     <style>

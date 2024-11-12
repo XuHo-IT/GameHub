@@ -13,7 +13,7 @@
         <meta name="keywords" content="endGam,gGaming, magazine, html">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Favicon -->
-        <link href="img/favicon.ico" rel="shortcut icon" />
+        <link href="img/favicon.ico" rel="shortcut icon"/>
 
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
@@ -234,7 +234,7 @@
                     <div class="featured-box col-6" >
                         <div class="text-box" >
                             <!-- Display post date and category dynamically -->
-                            <div class="top-meta">${post.dateRelease} / in <a href="#">${post.genre}</a></div>
+                            <div class="top-meta">${post.dateRelease} / in <a href="ReadGameListMember?genre=${post.genre}&userId=<%= request.getSession().getAttribute("adminId")%>">${post.genre != null ? post.genre : 'Unknown Genre'}</a></div>
 
                             <h3>The best game is right here!!</h3>
 

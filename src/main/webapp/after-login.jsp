@@ -15,7 +15,7 @@
         <meta name="keywords" content="endGam,gGaming, magazine, html">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Favicon -->
-        <link href="./img/favicon.png" rel="icon" />
+        <link href="img/favicon.ico" rel="shortcut icon"/>
 
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -257,8 +257,7 @@
                                          flex-wrap: wrap;
                                          flex-direction: column;">
                                         <!-- Display the release date and genre -->
-                                        <div class="top-meta">${post.dateRelease != null ? post.dateRelease : 'Unknown Date'} /  <a href="#">${post.genre != null ? post.genre : 'Unknown
-                                                                Genre'}</a></div>
+                                        <div class="top-meta">${post.dateRelease != null ? post.dateRelease : 'Unknown Date'} /  <a href="ReadGameHomeMember?genre=${post.genre}&userId=<%= request.getSession().getAttribute("adminId")%>">${post.genre != null ? post.genre : 'Unknown Genre'}</a></div>
                                         <h3>${post.title != null ? post.title : 'Untitled'}</h3>
 
                                         <!-- Display the description -->
@@ -417,7 +416,7 @@
                 <div class="featured-box col-6" >
                     <div class="text-box" >
                         <!-- Display post date and category dynamically -->
-                        <div class="top-meta">${post.dateRelease} / in <a href="#">${post.genre}</a></div>
+                        <div class="top-meta">${post.dateRelease} / in <a href="ReadGameHomeMember?genre=${post.genre}&userId=<%= request.getSession().getAttribute("adminId")%>">${post.genre != null ? post.genre : 'Unknown Genre'}</a></div>
 
                         <h3>The best game is right here!!</h3>
 

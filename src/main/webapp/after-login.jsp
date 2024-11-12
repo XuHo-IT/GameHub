@@ -257,8 +257,7 @@
                                          flex-wrap: wrap;
                                          flex-direction: column;">
                                         <!-- Display the release date and genre -->
-                                        <div class="top-meta">${post.dateRelease != null ? post.dateRelease : 'Unknown Date'} /  <a href="#">${post.genre != null ? post.genre : 'Unknown
-                                                                Genre'}</a></div>
+                                        <div class="top-meta">${post.dateRelease != null ? post.dateRelease : 'Unknown Date'} /  <a href="ReadGameHomeMember?genre=${post.genre}&userId=<%= request.getSession().getAttribute("adminId")%>">${post.genre != null ? post.genre : 'Unknown Genre'}</a></div>
                                         <h3>${post.title != null ? post.title : 'Untitled'}</h3>
 
                                         <!-- Display the description -->
@@ -417,7 +416,7 @@
                 <div class="featured-box col-6" >
                     <div class="text-box" >
                         <!-- Display post date and category dynamically -->
-                        <div class="top-meta">${post.dateRelease} / in <a href="#">${post.genre}</a></div>
+                        <div class="top-meta">${post.dateRelease} / in <a href="ReadGameHomeMember?genre=${post.genre}&userId=<%= request.getSession().getAttribute("adminId")%>">${post.genre != null ? post.genre : 'Unknown Genre'}</a></div>
 
                         <h3>Newest game release is coming up!</h3>
 

@@ -10,6 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Favicon -->
         <link href="./img/favicon.png" rel="icon" />
+
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -199,16 +200,16 @@
                     <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="team-item">
                             <div class="overflow-hidden">
-                                <img class="img-fluid" src="img/team-1.jpg" alt="" />
+                                <img class="img-fluid" src="img/NTTung.jpg" alt="" />
                             </div>
                             <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
                                 <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
+                                <a class="btn btn-square mx-1" href="https://github.com/NTT24" target="_blank" rel="noopener">
                                     <i class="fab fa-github"></i></a>
                             </div>
                             <div class="text-center p-4">
                                 <h5 class="mb-0">Nguyen Thanh Tung</h5>
-                                <small>FE DEVELOPER</small>
+                                <small>BE DEVELOPER</small>
                             </div>
                         </div>
                     </div>
@@ -216,11 +217,11 @@
                     <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="team-item">
                             <div class="overflow-hidden">
-                                <img class="img-fluid" src="img/team-2.jpg" alt="" />
+                                <img class="img-fluid" src="img/NTXH.jpg" alt="" />
                             </div>
                             <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
                                 <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
+                                <a class="btn btn-square mx-1" href="https://github.com/XuHo-IT" target="_blank" rel="noopener">
                                     <i class="fab fa-github"></i></a>
                             </div>
                             <div class="text-center p-4">
@@ -233,11 +234,11 @@
                     <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="team-item">
                             <div class="overflow-hidden">
-                                <img class="img-fluid" src="img/Card.jpg" alt="" />
+                                <img class="img-fluid" src="img/NLDT.jpg" alt="" />
                             </div>
                             <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
                                 <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
+                                <a class="btn btn-square mx-1" href="https://github.com/thanhnld0912" target="_blank" rel="noopener">
                                     <i class="fab fa-github"></i></a>
                             </div>
                             <div class="text-center p-4">
@@ -250,48 +251,48 @@
                     <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
                         <div class="team-item">
                             <div class="overflow-hidden">
-                                <img class="img-fluid" src="img/team-4.jpg" alt="" />
+                                <img class="img-fluid" src="img/TNHan.jpg" alt="" />
                             </div>
                             <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
                                 <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
+                                <a class="btn btn-square mx-1" href="https://github.com/HanTNnguyen2612" target="_blank" rel="noopener">
                                     <i class="fab fa-github"></i></a>
                             </div>
                             <div class="text-center p-4">
                                 <h5 class="mb-0">Tran Nguyen Han</h5>
-                                <small>Designation</small>
+                                <small>BE DEVELOPER</small>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
                         <div class="team-item">
                             <div class="overflow-hidden">
-                                <img class="img-fluid" src="img/team-4.jpg" alt="" />
+                                <img class="img-fluid" src="img/NTTuan.png" alt="" />
                             </div>
                             <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
                                 <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
+                                <a class="btn btn-square mx-1" href="https://github.com/tuns86" target="_blank" rel="noopener">
                                     <i class="fab fa-github"></i></a>
                             </div>
                             <div class="text-center p-4">
                                 <h5 class="mb-0">Nguyen Thanh Tuan</h5>
-                                <small>Designation</small>
+                                <small>FE DEVELOPER</small>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
                         <div class="team-item">
                             <div class="overflow-hidden">
-                                <img class="img-fluid" src="img/team-4.jpg" alt="" />
+                                <img class="img-fluid" src="img/NHD.PNG" alt="" />
                             </div>
                             <div class="position-relative d-flex justify-content-center" style="margin-top: -19px">
                                 <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square mx-1" href="https://github.com/huylongdev" target="_blank" rel="noopener">
+                                <a class="btn btn-square mx-1" href="https://github.com/LmaoLmao123456" target="_blank" rel="noopener">
                                     <i class="fab fa-github"></i></a>
                             </div>
                             <div class="text-center p-4">
                                 <h5 class="mb-0">Nguyen Hoang Duong</h5>
-                                <small>Designation</small>
+                                <small>BE DEVELOPER</small>
                             </div>
                         </div>
                     </div>

@@ -362,7 +362,7 @@ booking
 
 /*** Team ***/
 .team-item {
-  box-shadow: 0 0 45px rgba(0, 0, 0, 0.08);
+  box-shadow: 5px 5px 45px rgba(253, 253, 253, 0.35);
 }
 
 .team-item img {

@@ -41,10 +41,6 @@
         <servlet-class>Controller.GameReleaseNotificationAdminController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>WishListServlet</servlet-name>
-        <servlet-class>Controller.WishListServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AddToWishlistController</servlet-name>
         <servlet-class>Controller.AddToWishlistController</servlet-class>
     </servlet>
@@ -301,20 +297,12 @@
         <url-pattern>/AddGenreController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AssignAdminController</servlet-name>
-        <url-pattern>/AssignAdminController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>EditPostController</servlet-name>
         <url-pattern>/EditPostController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GameReleaseNotificationAdminController</servlet-name>
         <url-pattern>/GameReleaseNotificationAdminController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>WishListServlet</servlet-name>
-        <url-pattern>/WishListServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddToWishlistController</servlet-name>

@@ -9,6 +9,8 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Properties;
 import java.util.Timer;
@@ -42,7 +44,9 @@ public class GameReleaseNotificationAdminController extends TimerTask {
         // Get the current date as a string
         String today = dateFormat.format(new Date());
 
-        // Query for games that are released today
+//        DateTimeFormatter dateFormat1 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//        String yesterday = LocalDate.now().minusDays(1).format(dateFormat1);
+      
         Document query = new Document("DateRelease", today);
         try (MongoCursor<Document> cursor = collection.find(query).iterator()) {
             while (cursor.hasNext()) {

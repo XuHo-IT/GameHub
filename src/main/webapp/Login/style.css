@@ -204,6 +204,8 @@ form .input-field {
     font-size: 0.85rem; /* Slightly smaller font for label */
     pointer-events: none;
     transition: 0.2s ease;
+    font-family: DragonHunter;
+    margin-top: 6px;
 }
 
 
@@ -220,6 +222,7 @@ input[type="checkbox"] {
     width: 100%;
     color: #6f2b95;
     text-decoration: none;
+    font-family: DragonHunter;
 }
 
 .form-box a:hover {
@@ -253,6 +256,9 @@ form button:hover {
 
 .form-content .bottom-link {
     text-align: center;
+    font-family: DragonHunter;
+    margin-top: 15px;
+
 }
 
 .form-popup .signup,
@@ -361,4 +367,11 @@ button.create-btn:hover{
 #createTopicPopup.show, #updateTopicPopup.show {
     opacity: 1;
     display: block;
+}
+.form-content h2{
+    font-family: DragonHunter;
+}
+.policy-text label{
+    font-family: DragonHunter;
+    font-size: 13px;
 }

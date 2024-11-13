@@ -140,9 +140,8 @@
                                             params.put("vnp_OrderType", "game");
                                             params.put("vnp_ReturnUrl", "https://yourdomain.com/VnPayReturn");
                                             params.put("vnp_ExpireDate", new SimpleDateFormat("yyyyMMddHHmmss").format(new Date(System.currentTimeMillis() + 300000)));
-
                                             // Generate secure hash
-                                            String secretKey = "9T97RKKUE11F70PAIYAVYU1M5MPAKXRH"; // Replace with your secret key
+                                            String secretKey = "9T97RKKUE11F70PAIYAVYU1M5MPAKXRH"; 
                                             String secureHash = Config.getSecureHash(params, secretKey);
                                         %>
 

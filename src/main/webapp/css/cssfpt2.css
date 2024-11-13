@@ -1833,7 +1833,6 @@ progress {
   border: 0px solid #052798;
   appearance: none;
   border-radius: 5px;
-  box-shadow: 0.8px 0.5px 4px 1.2px #081bca;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
@@ -1864,9 +1863,8 @@ progress {
 }
 .form-control:disabled,
 .form-control:read-only {
-  background-color: #e9ecef;
-  opacity: 1;
 }
+
 .form-control::file-selector-button {
   padding: 0.375rem 0.75rem;
   margin: -0.375rem -0.75rem;

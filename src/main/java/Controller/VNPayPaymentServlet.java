@@ -41,7 +41,6 @@ public class VNPayPaymentServlet extends HttpServlet {
         String bankCode = request.getParameter("bankCode");
         String linkValue = request.getParameter("vnp_Link"); // Get the link value
         String userId = request.getParameter("user_Id");
-        String userName = request.getParameter("user_Name");
 
         // Set transaction details
         Map<String, String> vnp_Params = new HashMap<>();

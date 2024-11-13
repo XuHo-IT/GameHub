@@ -370,7 +370,7 @@
             }
             .gs-meta {
                 font-size: 20px;
-                color: #585858;
+                color: lightblue;
             }
               .gs-price {
                 padding: 30px 0;

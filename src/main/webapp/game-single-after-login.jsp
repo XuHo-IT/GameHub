@@ -342,7 +342,7 @@
             }
             .gs-meta {
                 font-size: 20px;
-                color: #585858;
+                color: lightblue;
             }
             h2.gs-title {
                 font-size: 60px;

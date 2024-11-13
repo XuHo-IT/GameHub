@@ -219,8 +219,8 @@
                                                  align-items: center;
                                                  justify-content: flex-end;
                                                  gap: 10px;">
-                                               <a href="game-single-after-login-edit.jsp?id=${post.postID}&adminId=<%= request.getSession().getAttribute("adminId") %>"
-                                           class="btn btn-edit">Edit</a>
+                                                <a href="game-single-after-login-edit.jsp?id=${post.postID}&adminId=<%= request.getSession().getAttribute("adminId")%>"
+                                                   class="btn btn-edit">Edit</a>
 
                                                 <form action="EditPostController" method="post">
                                                     <input type="hidden" name="postId"
@@ -294,7 +294,7 @@
                                         <a style="display: inline-block;
                                            position: relative;
                                            font-size: 16px;
-                                           color: #68647d;
+                                           color: lightblue;
                                            font-weight: 500;
                                            margin-bottom: 15px;
                                            padding-right: 19px;
@@ -559,36 +559,36 @@
         <script src="js/main.js"></script>
 
         <script>
-            const formPopup = document.querySelector(".form-popup");
-            const showPopupBtn = document.querySelector(".create-btn");
-            const closeBtn = document.querySelectorAll(".close-btn");
-            const uploadPhotoLink = document.getElementById("upload-photo-link");
-            const createPostLink = document.getElementById("create-post-link");
+                                                                const formPopup = document.querySelector(".form-popup");
+                                                                const showPopupBtn = document.querySelector(".create-btn");
+                                                                const closeBtn = document.querySelectorAll(".close-btn");
+                                                                const uploadPhotoLink = document.getElementById("upload-photo-link");
+                                                                const createPostLink = document.getElementById("create-post-link");
 
-            // Show popup
-            showPopupBtn?.addEventListener("click", () => {
-                document.body.classList.add("show-popup");
-            });
+                                                                // Show popup
+                                                                showPopupBtn?.addEventListener("click", () => {
+                                                                    document.body.classList.add("show-popup");
+                                                                });
 
-            // Close popup
-            closeBtn.forEach(btn => {
-                btn.addEventListener("click", () => {
-                    document.body.classList.remove("show-popup");
-                    formPopup.classList.remove("show-upload-photo");
-                });
-            });
+                                                                // Close popup
+                                                                closeBtn.forEach(btn => {
+                                                                    btn.addEventListener("click", () => {
+                                                                        document.body.classList.remove("show-popup");
+                                                                        formPopup.classList.remove("show-upload-photo");
+                                                                    });
+                                                                });
 
-            // Switch to "Upload Genre" form
-            uploadPhotoLink.addEventListener("click", (e) => {
-                e.preventDefault();
-                formPopup.classList.add("show-upload-photo");
-            });
+                                                                // Switch to "Upload Genre" form
+                                                                uploadPhotoLink.addEventListener("click", (e) => {
+                                                                    e.preventDefault();
+                                                                    formPopup.classList.add("show-upload-photo");
+                                                                });
 
-            // Switch back to "Create Post" form
-            createPostLink.addEventListener("click", (e) => {
-                e.preventDefault();
-                formPopup.classList.remove("show-upload-photo");
-            });
+                                                                // Switch back to "Create Post" form
+                                                                createPostLink.addEventListener("click", (e) => {
+                                                                    e.preventDefault();
+                                                                    formPopup.classList.remove("show-upload-photo");
+                                                                });
         </script>
         <script>
             $(document).ready(function () {
@@ -668,7 +668,7 @@
                 box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
                 border: 10px solid #501755;
                 border-radius: 15px;
-            }
+            }         
         </style>
     </body>
 </html>

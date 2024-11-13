@@ -224,7 +224,7 @@
                                     <a style="display: inline-block;
                                        position: relative;
                                        font-size: 16px;
-                                       color: #68647d;
+                                       color: lightblue;
                                        font-weight: 500;
                                        margin-bottom: 15px;
                                        padding-right: 19px;

@@ -63,7 +63,7 @@ h6 {
 
 p {
     font-size: 15px;
-    color: #585858;
+    color: lightblue;
     line-height: 1.6;
     font-weight: 500;
 }
@@ -934,6 +934,7 @@ img.logo1 {
 
 .blog-item .text-box p {
     margin-bottom: 42px;
+    color: lightblue;
 }
 
 .widget-item {
@@ -1013,6 +1014,7 @@ img.logo1 {
     background-repeat: no-repeat;
     background-position: right -120% center;
     background-size: 11px;
+    color: lightblue;
 }
 
 .categories-widget ul li a:hover {

@@ -238,7 +238,7 @@
                         <!-- Blog item -->
                         <%
                             String adminId = request.getParameter("userId");  // Get AdminId from session
-                        %>                        
+%>                        
                         <div class="blog-container">
                             <c:forEach var="post" items="${posts}">
                                 <div class="blog-item" style="
@@ -326,7 +326,7 @@
                                         <a style=" display: inline-block;
                                            position: relative;
                                            font-size: 16px;
-                                           color: #68647d;
+                                           color: lightblue;
                                            font-weight: 500;
                                            margin-bottom: 15px;
                                            padding-right: 19px;
@@ -421,7 +421,7 @@
                         <h3>The best game is right here!!</h3>
 
                         <!-- Post title -->
-                       <p style="font-size: 40px">${post.title}</p>
+                        <p style="font-size: 40px">${post.title}</p>
 
                         <!-- Post content (short summary) -->
                         <!-- Display the description -->

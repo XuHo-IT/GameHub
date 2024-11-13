@@ -113,7 +113,7 @@
 
                                                 // New role management logic
                                                 String roleDropdown = "<form action='../UpdateUserRole' method='post' style='display:inline;'>"
-                                                        + "<input type='hidden' name='userId' value='" + user.getId() + "'/>"
+                                                        + "<input type='hidden' name='userId' value='" + userItem.getId() + "'/>"
                                                         + "<input type='hidden' name='adminId' value='" + adminId + "'/>" // Hidden input for adminId
                                                         + "<select name='role' onchange='this.form.submit()'>"
                                                         + "<option value='0'" + ("0".equals(userItem.getRole()) ? " selected" : "") + ">Member</option>"
